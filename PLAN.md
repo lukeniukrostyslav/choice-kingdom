@@ -1,12 +1,10 @@
 # PLAN — Choice Kingdom
 
-## Non-negotiable development order
+## Governing rule
 
-**Story/content first → content QA → data contracts → engine → full game/UI → verification/polish → Android QA → APK last → production release.**
+**Build the full game design first. Build the engine last among the major development layers, and build the APK only after the game, systems and QA are actually ready.**
 
-The project must not jump ahead to engine, UI or APK work to compensate for unfinished game design. The engine is an implementation of the finished gameplay design, not the place where the game is invented.
-
----
+This project must not become a short card demo. The full-release target is approximately 250–350+ meaningful authored events/story nodes, substantial branching and delayed consequences, 8–12 recognizable endings, and multi-hour first playthroughs with materially different replay paths. Quality and causal depth outrank a mechanical event-count target.
 
 ## Phase 0 — Foundation
 
@@ -15,11 +13,10 @@ The project must not jump ahead to engine, UI or APK work to compensate for unfi
 - [x] Establish engineering rules
 - [x] Establish continuation handoff
 - [x] Establish complete project state file
+- [x] Establish full-release scale and content-first rule
 - [ ] Finalize decision log
-- [x] Lock full-release scale and duration targets
-- [x] Lock content-first / engine-late / APK-last rule
 
-## Phase 1 — Full narrative and content design
+## Phase 1 — Full narrative/content design (CURRENT PRIORITY)
 
 - [x] Define original setting and creative promise
 - [x] Define main cast and relationship arcs
@@ -28,148 +25,107 @@ The project must not jump ahead to engine, UI or APK work to compensate for unfi
 - [x] Define immediate/near-term/delayed/legacy consequence philosophy
 - [x] Define replay differentiation rules
 - [x] Define ending philosophy
-- [ ] Expand campaign to approximately 250–350+ meaningful authored events/content nodes
-- [ ] Expand to 8–12 meaningful endings
-- [ ] Complete all major character positive/negative arcs
-- [ ] Complete faction arcs and mutually conflicting legitimate positions
-- [ ] Complete investigation routes and information asymmetry
-- [ ] Complete delayed consequences and callbacks
-- [ ] Complete crisis chains and final constitutional/endgame branches
-- [ ] Ensure multiple independent routes into important endings
-- [ ] Ensure replay reveals materially different information/routes
-- [ ] Review event network for branch dead-ends
-- [ ] Review pacing for first run and later runs
-- [ ] Balance resource pressure and consequence density
+- [ ] Finish the complete campaign spine and final act
+- [ ] Expand to approximately 250–350+ meaningful authored events/story nodes
+- [ ] Ensure every major event has downstream consequences
+- [ ] Ensure delayed consequences and callbacks are distributed across the campaign
+- [ ] Ensure mutually exclusive branches are intentional and recoverable
+- [ ] Ensure each major character has positive and negative arcs
+- [ ] Ensure every major faction gets credible positions and wins/losses
+- [ ] Ensure investigation routes reveal different useful information
+- [ ] Ensure late crises remember earlier preparation
+- [ ] Ensure 8–12 endings have recognizable causal paths
+- [ ] Complete pacing/replayability review
 
-## Phase 2 — Content QA / campaign gate
+## Phase 2 — Content QA and production specification
 
-- [ ] Every production event has a purpose and downstream effect
-- [ ] No filler events added only to increase count
-- [ ] No critical branch depends on one character relationship alone
-- [ ] At least 10 delayed consequences of 3+ turns
-- [ ] At least 6 mutually exclusive future branch locks
-- [ ] At least 6 callback events
-- [ ] At least 4 investigation decisions that change interpretation/routes
-- [ ] At least 4 earlier costly choices become useful later
-- [ ] Every major character has both positive and negative arc outcomes
-- [ ] Every major faction has at least one situation where its reasonable position is correct
-- [ ] Each act recontextualizes at least one earlier decision
-- [ ] Ending prerequisites have recognizable, non-single-character paths
-- [ ] First-run pacing target ~3–5 hours
-- [ ] Multiple-run target ~10–20+ hours
-- [ ] Deep exploration target ~20–30+ hours
-- [ ] Full campaign content review completed
+- [ ] Create complete content QA matrix covering every event/node
+- [ ] Audit branch dead-ends
+- [ ] Audit contradictions and impossible states
+- [ ] Audit repetitive choices and filler content
+- [ ] Audit consequence horizons and delayed triggers
+- [ ] Audit resource pressure and pacing
+- [ ] Audit replay divergence
+- [ ] Audit ending reachability and independence of critical prerequisites
+- [ ] Freeze the narrative/content specification only after review
 
-**Gate:** Do not begin engine implementation until the content gate is substantially satisfied and the remaining gaps are explicitly documented.
+## Phase 3 — Architecture from real authored content
 
-## Phase 3 — Architecture derived from authored content
-
-- [x] Define canonical state model
-- [x] Define event schema
-- [x] Define choice schema
-- [x] Define condition operators
-- [x] Define effect operators
+- [x] Define preliminary state model
+- [x] Define preliminary event schema
+- [x] Define preliminary choice schema
+- [x] Define preliminary condition operators
+- [x] Define preliminary effect operators
 - [x] Define history/flag model
 - [x] Define delayed-consequence model
 - [x] Define deterministic RNG/replay contract
 - [x] Define save schema/versioning
 - [x] Define localization contract
-- [ ] Map every final authored event to machine-readable contracts
-- [ ] Define content validation rules from the final catalog
-- [ ] Freeze gameplay contracts before implementation
+- [ ] Reconcile all contracts against the complete production catalog
+- [ ] Define content validation rules
 
-## Phase 4 — Decision engine implementation
+## Phase 4 — Decision engine (DELIBERATELY AFTER CONTENT)
 
-- [ ] Create Godot project
+- [ ] Create/finish Godot project foundation
 - [ ] Implement state engine
 - [ ] Implement event resolver
-- [ ] Implement conditions/consequences
-- [ ] Implement history and flags
+- [ ] Implement conditions and consequences
+- [ ] Implement history and branch state
 - [ ] Implement delayed consequences
-- [ ] Implement persistence/versioning
-- [ ] Implement deterministic replay
-- [ ] Implement ending resolver
-- [ ] Validate engine against the real authored catalog
+- [ ] Implement deterministic replay seed handling
+- [ ] Implement persistence/save versioning
+- [ ] Implement ending resolution
+- [ ] Implement content loading/validation
 
-**Gate:** No “engine complete” claim until real authored content, not placeholder cards, runs through it successfully.
+## Phase 5 — Real playable game / UI
 
-## Phase 5 — Full game/UI implementation
+- [ ] Build real event presentation UI
+- [ ] Build choice interaction
+- [ ] Build state/history presentation where appropriate
+- [ ] Build character/relationship presentation
+- [ ] Build menus/settings/save flow
+- [ ] Build actual campaign flow using authored production content
+- [ ] No placeholder/demo path presented as the finished game
 
-- [ ] Implement real event presentation
-- [ ] Implement choice interaction and availability
-- [ ] Implement resource/state presentation
-- [ ] Implement character/relationship presentation
-- [ ] Implement history/information presentation where designed
-- [ ] Implement ending presentation
-- [ ] Implement save/load UI
-- [ ] Implement offline-first behavior
-- [ ] Implement accessibility and touch UX
-- [ ] Implement audio/haptics where appropriate
+## Phase 6 — Localization, verification and balance
 
-## Phase 6 — Localization
-
-- [ ] Implement 20+ release locales
-- [ ] Localize all authored content
+- [ ] Implement 20+ locales
+- [ ] Device locale detection and persisted language
 - [ ] Missing-key validation
-- [ ] Fallback validation
-- [ ] Device-locale detection
-- [ ] Persisted language selection
-- [ ] RTL validation for Arabic/Hebrew
-- [ ] Long-string/overflow UI tests
-- [ ] Locale smoke tests across real gameplay
-
-## Phase 7 — Verification, balance and polish
-
+- [ ] RTL validation
+- [ ] Long-string/overflow validation
 - [ ] Unit tests for state transitions
 - [ ] Event contract tests
 - [ ] Deterministic replay tests
 - [ ] Save/load round-trip tests
 - [ ] Delayed consequence tests
 - [ ] Invalid-data rejection tests
-- [ ] Headless gameplay smoke test
+- [ ] Headless gameplay smoke tests
 - [ ] Full-catalog content validation
-- [ ] Campaign pacing/balance pass
-- [ ] Resource economy balance
-- [ ] Branch reachability analysis
-- [ ] Ending reachability analysis
-- [ ] Regression pass after content changes
+- [ ] Balance resources and consequence pacing
+- [ ] Accessibility/polish
+- [ ] Audio/haptics
 
-## Phase 8 — Android integration and device QA
+## Phase 7 — Android QA and APK (LAST TECHNICAL GATE)
 
-- [ ] Android project/build configuration
-- [ ] Debug Android build
+- [ ] Android debug build
 - [ ] Install/run on physical device
 - [ ] Touch/UI verification
 - [ ] Save/reload verification
-- [ ] Offline verification
-- [ ] Performance/memory sanity check
-- [ ] Localization/device-locale verification
-- [ ] Long-session stability check
+- [ ] Performance sanity check
+- [ ] Localization verification on device
+- [ ] Final APK smoke/regression pass
 
-## Phase 9 — APK LAST
-
-**The APK is intentionally the final technical build step.**
-
-- [ ] Final content freeze
-- [ ] Final engine/UI verification
-- [ ] Final automated test pass
-- [ ] Final physical-device QA
-- [ ] Final release configuration
-- [ ] Build release APK for final acceptance/testing
-- [ ] Verify the APK on a physical Android device
-
-An APK must never be treated as proof that the game is complete. The game must already be complete and verified before this phase.
-
-## Phase 10 — Production release
+## Phase 8 — Production release
 
 - [ ] Production AAB
-- [ ] Production signing
+- [ ] Production signing boundary
 - [ ] Store assets
 - [ ] Store listing
 - [ ] Privacy/data-safety review
-- [ ] Final QA
+- [ ] Final release QA
 - [ ] Owner publication actions
 
 ## Gate rule
 
-No phase is considered complete because files exist. The implementation must pass the verification appropriate to that phase. Progress reports must be based on actual repository state and test evidence.
+No phase is considered complete because files exist. The implementation must pass the verification appropriate to that phase. Percentages must reflect actual work and verification, not documentation volume.
