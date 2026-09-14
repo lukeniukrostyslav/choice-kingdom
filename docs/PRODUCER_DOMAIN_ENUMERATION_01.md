@@ -3,7 +3,7 @@
 Status: SOURCE-LEVEL QA — CANDIDATE ENUMERATION, NOT SCHEMA
 Date: 2026-09-15
 
-This pass enumerates exact authored candidates for the six remaining frozen combination domains. It intentionally distinguishes evidence from qualification producers.
+This pass enumerates exact authored candidates for the remaining frozen combination domains. It intentionally distinguishes evidence from qualification producers.
 
 ## 1. Strong guild influence — candidate domains
 
@@ -15,9 +15,9 @@ Frozen predicate requires at least two distinct institutional domains.
 | Commercial institutional seat | E203-B | `guild_binding_seat` |
 | Market/credit leverage | E39-A, E165 choices | existing commercial markers; exact canonical marker still needs freeze |
 | Guild tribunal | E168-A/B | `guild_tribunal_independent` / `guild_tribunal_controlled` |
-| Logistics cooperation | E194-A | `history.guild_logistics_cooperation` + `guild_neutral_inspectors` |
+| Logistics cooperation | E136-B → E194-A qualification chain | `history.guild_logistics_cooperation` → `guild_neutral_inspectors` → qualified predicate |
 
-Safest schema candidates are representation + binding seat, or representation + logistics cooperation. A relationship value must never qualify the predicate by itself.
+Safest schema candidates are representation + binding seat, or representation + the now-separated logistics cooperation chain. A relationship value must never qualify the predicate by itself.
 
 ## 2. Systemic explanation verified — evidence domains
 
@@ -37,7 +37,7 @@ E148-A creates the package but does not prove cooperation.
 Candidate faction-domain evidence:
 - Commons: E122-A / civic legitimacy markers;
 - Houses: E161-A / `history.house_assembly`;
-- Guilds: E194-A or E203-B;
+- Guilds: E136-B logistics cooperation followed by E194-A neutral-inspector qualification, or E203-B;
 - Border/military: E199-A / `army_constitution_oath` or E204-A / `military_constitutional_refusal`;
 - Lantern/civic: E205-A;
 - Information: E206-A.
@@ -87,6 +87,16 @@ E209 remains a pure consumer.
 ## 6. Transport disruption
 
 E136 closes the repair/stable side. The active-disruption producer is still missing. Do not classify E251 or E192 as producers merely because they consume low transport or food logistics pressure.
+
+## 7. Newly closed cycle-risk finding
+
+The previous E194 self-dependency is now explicitly specified for correction in `docs/CANONICAL_SOURCE_CORRECTIONS_02.md`:
+- E136-B is the earlier logistics-cooperation source;
+- E194 consumes that history marker rather than the final predicate;
+- E194-A supplies the neutral-inspector qualification needed for the final predicate;
+- E194-B supplies an explicit immunity-risk blocker and does not qualify cooperation.
+
+This is a source correction specification only; the authoritative event catalogs have not yet been rewritten to avoid replacing reconstructed files.
 
 ## Decision
 
