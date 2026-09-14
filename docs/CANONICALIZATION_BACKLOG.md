@@ -1,12 +1,12 @@
 # Choice Kingdom — Canonicalization Execution Backlog
 
 Status: **ACTIVE**
-Scope: E01–E270
+Scope: **E01–E272**
 
 ## Phase A — inventory
 
-- [x] Identify five authored source ranges.
-- [x] Establish stable event ID range E01–E270.
+- [x] Identify authored source ranges.
+- [x] Establish stable event ID range E01–E272.
 - [x] Identify duplicate display titles.
 - [x] Establish canonical namespaces for state/history/thread/delay/ending/meta.
 - [ ] Extract every authored trigger token into a machine-readable inventory.
@@ -15,6 +15,7 @@ Scope: E01–E270
 - [ ] Extract every delayed consequence.
 - [ ] Resolve E35–E40 source-ID conflict between `EVENT_CATALOG.md` and `EVENT_CATALOG_ACT_V_EXPANSION.md`.
 - [ ] Create explicit legacy-to-canonical ID mapping for any retained superseded nodes.
+- [x] Freeze semantic collision resolution policy in `docs/SEMANTIC_COLLISION_RESOLUTION_01.md`.
 
 ## Phase B — consistency
 
@@ -27,6 +28,8 @@ Scope: E01–E270
 - [ ] Branch rejoin audit.
 - [ ] Mutually exclusive branch audit.
 - [ ] Reconcile `EVENT_GRAPH.md` against the frozen canonical ID mapping.
+- [ ] Apply the E55/E269 and E36/E226 semantic resolutions to the authoritative catalog.
+- [ ] Exact-source compare E73/E156 and E99/E173.
 
 ## Phase C — delayed/replay
 
@@ -61,4 +64,4 @@ The canonical production catalog may be declared ready only after the above audi
 
 ## Current rule
 
-Do not expand E270+ merely to increase the card count. Expand only when this backlog identifies a genuine missing narrative route or when QA demonstrates that a required ending/arc/pacing objective cannot otherwise be satisfied.
+Do not expand beyond E272 merely to increase the card count. Expand only when this backlog identifies a genuine missing narrative route or when QA demonstrates that a required ending/arc/pacing objective cannot otherwise be satisfied.
