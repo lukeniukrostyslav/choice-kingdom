@@ -52,28 +52,29 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 - `docs/CANONICAL_STATE_VOCABULARY.md` defines the state namespaces.
 - `docs/CANONICAL_DELAY_CONTRACT.md` defines the delayed-consequence contract.
 - `docs/CANONICALIZATION_BACKLOG.md` is the active execution backlog.
-- `docs/PRODUCER_GAP_CLOSURE_PASS_01.md` through `docs/PRODUCER_GAP_CLOSURE_PASS_03.md` record the prior P0 closure passes.
-- `docs/PRODUCER_GAP_CLOSURE_PASS_04.md` records the latest source-level producer-gap contract.
+- `docs/PRODUCER_GAP_CLOSURE_PASS_01.md` through `docs/PRODUCER_GAP_CLOSURE_PASS_06.md` record prior P0 closure passes.
+- `docs/PRODUCER_GAP_CLOSURE_PASS_07.md` is the latest deterministic P0 producer/consumer closure matrix refresh for E111–E270.
 - `docs/CANONICAL_SOURCE_CORRECTIONS_01.md` freezes the explicit authored correction semantics for E192, E136, E144, E148, E194, E195, E200, E207, E209 and E210.
 - `docs/AUTHORED_BRIDGE_CONTRACT_01.md`, `docs/AUTHORED_SOURCE_PATCHSET_01.md` and `docs/AUTHORED_CATALOG_PATCH_APPLICATION_01.md` document the bridge semantics and application checklist used during the latest source-edit pass.
 
 ## Current QA checkpoint
-The E151–E210 authoritative catalog has now received a direct authored-source correction pass. E192 uses canonical food-logistics markers instead of a sixth numeric resource; E194 records durable guild logistics cooperation; E197/E200/E201 consume canonical qualification predicates; E207 records its distinct-evidence convergence requirement; E209 requires upstream final charter prerequisites; and E210 is explicitly convergence-only. This is **source-level progress, not runtime validation**.
+The E111–E210 authoritative catalogs have received direct authored-source correction passes. E192 uses canonical food-logistics markers instead of a sixth numeric resource; E194 records durable guild logistics cooperation; E197/E200/E201 consume canonical qualification predicates; E207 records its distinct-evidence convergence requirement; E209 requires upstream final charter prerequisites; and E210 is explicitly convergence-only. E136/E144/E148 were also directly normalized for transport repair, guild representation and cross-faction package semantics. This is **source-level progress, not runtime validation**.
 
-P0 producer closure is still OPEN. Remaining work includes proving canonical producers for transport disruption, guild representation, coalition cooperation, border crisis, systemic evidence convergence, strong guild influence, strong constitutional preparation and final charter prerequisites across the complete E01–E270 source set. E111–E150 still contains legacy source semantics such as E136 road outcomes and E144 guild representation that must be reconciled into the canonical vocabulary before the catalog can be considered closed. E211–E270 also requires a full producer/consumer and semantic audit; authored nodes there are not runtime-verified.
+Pass 07 confirms that the remaining P0 gaps are still genuine and must not be papered over: canonical border-crisis declaration/resolution, full guild-logistics qualification, strong guild-influence combination, systemic-evidence convergence, coalition cooperation qualification, strong constitutional preparation, final charter prerequisite enumeration, complete E211–E270 normalization, and E35–E40 legacy collision verification. E195 and E253 are confirmed as border-crisis consumers, not producers. E139 remains warning infrastructure rather than a crisis producer.
 
 Reachability remains static/pre-audit only until a real validator and production data representation exist. No engine/APK readiness claim is permitted at this stage.
 
 ## Next highest-value work
-1. Apply and verify the remaining authored-source canonical corrections, beginning with E136/E144/E148 and the border-crisis producer chain.
-2. Complete producer/consumer extraction and graph/catalog reconciliation for E01–E270, including E211–E270.
-3. Freeze the exact combination rules for `pred.guild_influence_strong`, `pred.coalition_cooperation`, `pred.constitutional_prepared_strong`, `pred.systemic_explanation_verified` and `pred.final_charter_prerequisites` against authored source.
-4. Audit undefined outputs, legacy prose triggers, duplicate semantics, missing delayed producers/consumers and mutually conflicting states.
-5. Build a real static catalog validator for IDs, duplicate IDs, legacy ending collisions, graph references and missing ranges only after the canonical data contract is frozen against the authored catalog.
-6. Lock deterministic derived predicates only after producer and threshold validation.
-7. Normalize delayed consequences and replay metadata.
-8. Perform runtime reachability, dead-end, contradiction, pacing and ending simulations once the production catalog exists.
-9. Freeze production data contracts only after the above gates pass.
+1. Identify or author the semantically correct durable border-crisis declaration/resolution source; do not misclassify E139, E195 or E253.
+2. Complete exact producer/consumer extraction and graph/catalog reconciliation for E01–E270, including E211–E270.
+3. Freeze the exact combination rules for `pred.guild_logistics_cooperation`, `pred.guild_influence_strong`, `pred.coalition_cooperation`, `pred.constitutional_prepared_strong`, `pred.systemic_explanation_verified` and `pred.final_charter_prerequisites` against authored source.
+4. Audit E35–E40 legacy aliases and duplicate semantic pairs E73/E156 and E99/E173.
+5. Audit undefined outputs, legacy prose triggers, duplicate semantics, missing delayed producers/consumers and mutually conflicting states.
+6. Build a real static catalog validator for IDs, duplicate IDs, legacy ending collisions, graph references and missing ranges only after the canonical data contract is frozen against the authored catalog.
+7. Lock deterministic derived predicates only after producer and threshold validation.
+8. Normalize delayed consequences and replay metadata.
+9. Perform runtime reachability, dead-end, contradiction, pacing and ending simulations once the production catalog exists.
+10. Freeze production data contracts only after the above gates pass.
 
 ## Honest progress rule
 Percentages represent actual state of the corresponding work. Documentation alone does not make implementation complete. Source edits count only when the authoritative catalog is actually changed and re-read. No block may be called ready until its appropriate verification has passed.
