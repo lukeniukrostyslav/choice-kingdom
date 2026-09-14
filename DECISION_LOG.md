@@ -24,9 +24,9 @@ The core differentiator is a real state/history system in which decisions can ca
 
 Events, choices, conditions, effects, characters, and endings should be represented as data/contracts so the content catalog can scale without rewriting the engine.
 
-## D007 — Vertical slice first
+## D007 — Early vertical-slice proof
 
-Before attempting hundreds of events, prove one complete playable loop with persistence and delayed consequences.
+A real vertical slice remains a required engineering proof, including persistence and delayed consequences. It must not be mistaken for the full-game content gate.
 
 ## D008 — Reusable engine
 
@@ -35,3 +35,9 @@ Architecture should allow the decision engine to support future original themes 
 ## D009 — Evidence-based readiness
 
 Completion percentages must reflect verified implementation, not intentions. Physical Android QA, production signing, and store publication remain owner-controlled gates.
+
+## D010 — Content before engine, APK last
+
+The project is now governed by a stricter development order: fully author and QA the campaign first, reconcile E01–E270 into a canonical production catalog, then freeze machine-readable contracts, then implement the decision engine and UI. Localization/tests follow the real content model. Android integration and APK are late gates, with production AAB/release last.
+
+This decision supersedes the earlier workflow implication that architecture/vertical-slice implementation should precede substantial content expansion. The vertical slice is still required, but it must validate the real production contracts after the campaign is sufficiently stable; it is not a reason to build a shallow demo first.
