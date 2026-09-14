@@ -3,130 +3,96 @@
 This is the causal map used to keep the campaign coherent. IDs describe narrative dependencies, not UI order.
 
 ## Core spine
-
 `E01 -> E02 -> E03 -> E04`
 
-From there the campaign branches into three major preparation systems:
+Preparation systems:
+- Institutional: E02 -> E09 -> E24 -> E27 -> E28 -> E43 -> E53.
+- Commercial: E03 -> E08 -> E18 -> E19 -> E45/E49 -> E55.
+- Security/diplomacy: E05 -> E10 -> E16 -> E17 -> E31 -> E52/E58.
+- Civic relief: E12 -> E40 -> E50 -> E56/E106.
+- Information: E13 -> E21 -> E25 -> E41/E42 -> E43/E57.
 
-- **Institutional:** E02 investigation -> E09 audit -> E24 auditor -> E27 dossier -> E28 seal.
-- **Commercial:** E03 imports -> E08 charter/license -> E18 bridge -> E19 fixing -> winter supply consequences.
-- **Security/diplomacy:** E05 guard -> E10 command -> E16 border -> E17 steel -> E31 border night.
+## Expansion layer E71–E110
 
-Character routes run alongside these systems and feed back into them.
+These nodes expand the spaces between the spine and endgame rather than forming a second linear campaign.
 
-## Act I causal links
+### Civilian/economic observation
+`E71 -> E78 -> E102`
+`E72 -> E81/E93`
+`E73 -> E94/E105`
+`E74 -> E79/E104`
+`E76 -> E92/E101`
 
-### E01 First Petition
-- Open Hall -> E07 and Toma route becomes easier.
-- Court First -> E06 and stronger Seris route.
+### Investigation reinforcement
+`E75 -> E86`
+`E81 -> E88 -> E89 -> E90`
+`E82 -> E86 -> E89`
+`E83 -> E89 -> E90`
+`E84 -> E41 -> E42`
+`E85 -> E103 -> E54`
 
-### E02 Empty Chair
-- Investigate -> E09 and ledger route.
-- Sign -> faster emergency actions but weaker institutional legitimacy later.
+E90 is an intentional fork: accept systemic corruption or pursue a single-mastermind theory. The latter carries evidence and coalition costs.
 
-### E03 Bread at Dawn
-- Grain reserves -> stronger immediate trust, weaker winter buffer.
-- Imports -> Ivo route and later market risk.
+### Winter network
+`E91 -> E97`
+`E92 -> E96`
+`E93 -> E100`
+`E94 -> E105`
+`E95 -> E103`
+`E96 -> E104`
+`E97 -> E101`
+`E98 -> E99 -> E105`
+`E100 -> E58`
 
-### E04 Funeral Debt
-- Publish -> public scrutiny; evidence arrives more openly.
-- Quiet settlement -> political convenience; discovery creates sharper trust loss.
+### Constitutional network
+`E101/E102 -> E50/E106/E107`
+`E103 -> E54`
+`E104 -> E49/E55`
+`E105 -> E37/E46/E52`
+`E106 -> E56`
+`E107 -> E57`
+`E108 -> E51`
+`E109 -> E51/E59`
+`E110 -> E53/E60`
 
-### E05 Captain's Warning
-- Audit -> exposes procurement route and supports institutional branch.
-- Emergency authority -> supports military branch but raises final Iron Crown pressure.
+## Investigation routes
 
-### E06 Noble Pressure
-- Refusal -> reform route and Seris conflict.
-- Exemption -> Seris trust and later privilege bargaining.
+1. Mara: accounting structure and institutional records.
+2. Toma: physical movement of documents and people.
+3. Seris: elite/family records and political participation.
+4. Direct comparison: decrees, dates, seals and invoices.
 
-### E07 Market Whispers
-- Raid -> immediate public confidence but creates false-positive risk.
-- Investigate -> slower but stronger evidence route.
+The correct conclusion is systemic: emergency offices created incentives for distributed corruption. A single-mastermind theory is intentionally possible but less reliable.
 
-### E08 Merchant Charter
-- Exclusive charter -> short-term treasury solution and monopoly risk.
-- Public license -> slower money but resilient market route.
+## Delayed consequence families
 
-## Act II causal links
-
-E15–E22 should not be a linear checklist. At least three events should be selected by current state/history.
-
-### Border chain
-`E10 -> E16 -> E17 -> E31`
-
-Central command improves response speed but increases noble resistance. Local command preserves local legitimacy but creates coordination costs.
-
-### Market chain
-`E08 -> E18 -> E19`
-
-The monopoly path is not automatically bad. If the player creates oversight, the same commercial power can become a controlled prosperity engine rather than price fixing.
-
-### Information chain
-`E13 -> E21 -> E23 -> E25 -> E27`
-
-Toma provides access, not truth. The player must decide how much evidence is enough before acting.
-
-## Act III mystery chain
-
-`E23 -> E24/E25 -> E26 -> E27 -> E28`
-
-There are deliberately multiple routes to the same underlying truth:
-
-1. **Mara route:** audit records.
-2. **Toma route:** physical movement of documents and crates.
-3. **Seris route:** elite knowledge and family records.
-4. **Direct investigation:** comparison of decrees and accounts.
-
-No single route is mandatory for discovering the systemic problem. However, different routes reveal different motives and therefore alter the final choices.
-
-## Act IV crisis graph
-
-`E29 + E30 + E31 -> E32 -> E33+`
-
-The winter crisis should use accumulated state rather than a fixed script.
-
-Examples:
-
-- Strong civilian institutions reduce hunger damage.
-- Strong market oversight reduces price shock.
-- Strong security reduces mutiny/border escalation.
-- Strong diplomacy reduces war escalation.
-- Strong relationships allow delegation.
-- Excessive emergency powers make E33 easier immediately but increase the probability of an authoritarian ending.
+- grain spending -> winter reserve pressure;
+- free imports -> market resilience or price manipulation;
+- temporary noble exemptions -> renewal demand;
+- cheap steel -> later security loss;
+- festival security -> assassination risk;
+- quiet evidence handling -> weaker legitimacy when exposed;
+- emergency authority -> normalized emergency governance;
+- guild credit -> later political leverage;
+- public infrastructure decisions -> later ownership dispute;
+- constitutional secrecy -> later legitimacy dispute.
 
 ## Endgame convergence
 
-The final act must converge on a constitutional question, not merely a boss fight or resource check.
+The final act answers: **Who should be allowed to wield power after I am gone?**
 
-The player is effectively answering:
-
-> "Who should be allowed to wield power after I am gone?"
-
-The answer is calculated from the pattern of decisions:
-
-- **Steward:** durable institutions + restrained emergency power + sufficient stability.
-- **Iron Crown:** military dependency + emergency authority + weak civic trust.
-- **Golden Compact:** commercial dependency + strong treasury + guild leverage.
-- **People's Charter:** public trust + civic institutions + distributed political power.
-- **Broken Diadem:** multiple unresolved crises + collapsed relationships/institutions.
-- **Quiet Throne:** personal survival with withdrawal from active constitutional leadership.
-- **Second Founder:** verified ledger truth + cross-faction cooperation + institutional redesign + refusal to permanently normalize emergency powers.
+- Steward: durable institutions + restrained emergency power + stability.
+- Iron Crown: military dependency + emergency authority + weak civic trust.
+- Golden Compact: commercial dependency + strong treasury + guild leverage.
+- People's Charter: public trust + civic institutions + distributed political power.
+- Broken Diadem: unresolved crises + collapsed relationships/institutions.
+- Quiet Throne: personal survival with withdrawal from active constitutional leadership.
+- Second Founder: verified ledger truth + cross-faction cooperation + institutional redesign + refusal to permanently normalize emergency powers.
 
 ## Branch protection
 
-Critical endings must have at least two independent ways to satisfy their major prerequisites. A single missed event or disliked character must not silently make the campaign unwinnable.
+Critical endings must have at least two independent ways to satisfy major prerequisites. A single missed event or disliked character must not silently make the campaign unwinnable.
 
-## Delayed-consequence inventory target
+## Content status
 
-The final authored campaign must contain at least:
-
-- 10 consequences delayed 3+ turns;
-- 6 mutually exclusive branch locks;
-- 6 callback events that explicitly reference earlier history;
-- 4 cases where investigation changes the meaning of an earlier event;
-- 4 cases where an earlier costly choice becomes strategically useful later.
-
-## Narrative integrity check
-
-When implementing the engine, every link in this document must be represented by data conditions/history/effects rather than hardcoded UI branches.
+E01–E70 are the initial authored spine/endgame. E71–E110 are the second authored expansion layer. Neither set is engine-integrated until stable IDs, conditions, consequences, reachability and contradiction checks are implemented and verified.
