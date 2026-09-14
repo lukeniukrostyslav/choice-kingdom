@@ -31,7 +31,7 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 11. Treat the production AAB/signing/Play release as the final stage after APK and QA gates pass.
 
 ## Current phase
-**Narrative/content architecture first.** The current priority is to make the complete campaign genuinely interesting and internally coherent before substantial engine implementation. The engine is deliberately postponed until the authored design is sufficiently complete.
+**Narrative/content architecture first.** E01–E70 now form a stronger authored spine including the Act V constitutional crisis, seven ending nodes, and replay epilogues. This is a substantial narrative milestone but is **not** the final release volume. The next content passes must expand the spaces between these anchors toward the 250–350+ target and then run the content QA matrix.
 
 ## Content quality rules
 - Do not inflate length with repeated or cosmetic cards.
@@ -42,6 +42,11 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 - Every major character needs meaningful positive and negative arcs.
 - Factions must sometimes be substantively correct rather than cartoonishly right/wrong.
 - A first playthrough should be a complete game experience, not a teaser or vertical-slice-only product.
+
+## Narrative QA artifacts
+- `docs/EVENT_CATALOG.md` contains the original E01–E34 campaign spine.
+- `docs/EVENT_CATALOG_ACT_V_EXPANSION.md` extends the authored spine through E70 and the seven current ending nodes.
+- `docs/CONTENT_QA_MATRIX.md` defines the production content gates, causal-depth checks, character/faction checks, investigation checks, replay checks, and ending reachability review.
 
 ## Honest progress rule
 Percentages represent actual state of the corresponding work. Documentation alone does not make implementation complete. No block may be called ready until its appropriate verification has passed.
