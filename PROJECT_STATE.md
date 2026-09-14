@@ -65,14 +65,17 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 - `docs/GRAPH_CATALOG_RECONCILIATION_02.md` records the source-verified E111–E150 graph-vs-catalog audit.
 - `docs/UNIFIED_PRODUCER_CONSUMER_REGISTRY_01.md` consolidates high-impact canonical producer/consumer closure across E01–E270.
 - `docs/REACHABILITY_PREAUDIT_03.md` defines the seven ending reachability scenarios and the current static gate.
+- `docs/PRODUCER_GAP_CLOSURE_PASS_01.md` records the first evidence-backed P0 closure queue.
+- `docs/GRAPH_CATALOG_RECONCILIATION_05.md` records the source-level E151–E270 reconciliation checkpoint.
+- `docs/PRODUCER_GAP_CLOSURE_PASS_02.md` closes the exact `hist.guild_representation` producer at E144-A and formalizes the remaining nine P0 closure requirements without inventing engine state.
 
 ## Current QA checkpoint
-The authored campaign has enough causal material for full-game scope, but source reconciliation is still active. A direct collision exists because the original catalog and expanded Act V both assign E35–E40. Legacy content is preserved rather than silently deleted, and reconciliation audits now map the six conflicts. Graph/catalog reconciliation is source-verified through E150, while the unified registry now consolidates high-impact E01–E270 producer/consumer dependencies. The latest pre-audit explicitly keeps the ten P0 producer gaps open: guild representation, food stability, transport disruption, border crisis, guild logistics cooperation, guild influence, systemic evidence convergence, coalition cooperation, constitutional preparation and final charter prerequisites. These must not be invented or inferred circularly. Reachability remains static/pre-audit only until a runtime validator exists.
+The authored campaign has enough causal material for full-game scope, but source reconciliation is still active. A direct collision exists because the original catalog and expanded Act V both assign E35–E40. Legacy content is preserved rather than silently deleted, and reconciliation audits map the six conflicts. Graph/catalog reconciliation is source-verified through E270 at the design level, but runtime reachability is not verified. The P0 producer set is now explicitly tracked: `hist.guild_representation` is source-closed by E144-A; food stability, transport disruption, border crisis, guild logistics cooperation, guild influence, systemic evidence convergence, coalition cooperation, constitutional preparation and final charter prerequisites remain open by design until exact authored semantics are frozen. These must not be invented or inferred circularly. Reachability remains static/pre-audit only until a runtime validator exists.
 
 ## Next highest-value work
-1. Resolve each P0 producer gap from exact authored source or add a deliberate narrative insertion point.
-2. Complete producer/consumer extraction and graph/catalog reconciliation for E151–E270 and close remaining E01–E110 gaps.
-3. Build a real static catalog validator for IDs, duplicate IDs, legacy ending collisions, graph references and missing ranges.
+1. Freeze exact deterministic definitions/producers for the nine remaining P0 gaps and add deliberate authored bridge choices where existing choices cannot carry the semantics safely.
+2. Complete producer/consumer extraction and graph/catalog reconciliation for all remaining source gaps, including E01–E110 and E151–E270 closure verification.
+3. Build a real static catalog validator for IDs, duplicate IDs, legacy ending collisions, graph references and missing ranges **only after the canonical data contract is frozen against the authored catalog**.
 4. Lock deterministic derived predicates only after producer and threshold validation.
 5. Normalize delayed consequences and replay metadata.
 6. Perform runtime reachability, dead-end, contradiction, pacing and ending simulations once the production catalog exists.
