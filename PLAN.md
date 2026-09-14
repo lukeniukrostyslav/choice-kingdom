@@ -37,6 +37,15 @@ This project must not become a short card demo. The full-release target is appro
 - [ ] Ensure 8–12 endings have recognizable causal paths
 - [ ] Complete pacing/replayability review
 
+### Current authored-content checkpoints
+
+- [x] E01–E70 authored spine/endgame
+- [x] E71–E110 authored expansion
+- [x] E111–E150 authored expansion
+- [x] E151–E210 authored expansion
+- [ ] Reconcile E71–E210 into one canonical production catalog
+- [ ] Reach approximately 250–350+ authored nodes after reconciliation
+
 ## Phase 2 — Content QA and production specification
 
 - [ ] Create complete content QA matrix covering every event/node
