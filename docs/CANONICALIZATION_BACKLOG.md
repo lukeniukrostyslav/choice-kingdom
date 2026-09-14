@@ -29,7 +29,7 @@ Scope: **E01–E272**
 - [ ] Mutually exclusive branch audit.
 - [ ] Reconcile `EVENT_GRAPH.md` against the frozen canonical ID mapping.
 - [ ] Apply the E55/E269 and E36/E226 semantic resolutions to the authoritative catalog.
-- [ ] Exact-source compare E73/E156 and E99/E173.
+- [x] Exact-source compare E73/E156 and E99/E173; both pairs are confirmed distinct source-level nodes.
 
 ## Phase C — delayed/replay
 
@@ -55,7 +55,7 @@ Scope: **E01–E272**
 - [ ] Simulate People's Charter route.
 - [ ] Simulate Broken Diadem routes.
 - [ ] Simulate Quiet Throne routes.
-- [ ] Simulate Second Founder routes.
+- [ ] Simulate Second Founder route.
 - [ ] Verify ending independence from one character relationship.
 
 ## Phase F — production catalog gate
