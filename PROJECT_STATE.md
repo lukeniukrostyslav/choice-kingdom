@@ -31,7 +31,7 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 11. Treat the production AAB/signing/Play release as the final stage after APK and QA gates pass.
 
 ## Current phase
-**Narrative/content architecture first.** E01–E70 now form a stronger authored spine including the Act V constitutional crisis, seven ending nodes, and replay epilogues. This is a substantial narrative milestone but is **not** the final release volume. The next content passes must expand the spaces between these anchors toward the 250–350+ target and then run the content QA matrix.
+**Narrative/content architecture first.** E01–E70 form the current authored spine including the Act V constitutional crisis, seven ending nodes, and replay epilogues. E71–E110 have now been authored as an expansion layer adding character, faction, ordinary-life, economic, security, investigation, callback and replay hooks. This is a substantial content milestone but is **not** the final release volume and is not yet fully wired into the canonical event graph.
 
 ## Content quality rules
 - Do not inflate length with repeated or cosmetic cards.
@@ -46,6 +46,7 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 ## Narrative QA artifacts
 - `docs/EVENT_CATALOG.md` contains the original E01–E34 campaign spine.
 - `docs/EVENT_CATALOG_ACT_V_EXPANSION.md` extends the authored spine through E70 and the seven current ending nodes.
+- `docs/EVENT_EXPANSION_071_110.md` contains the newly authored E71–E110 expansion layer pending canonical graph/catalog integration.
 - `docs/CONTENT_QA_MATRIX.md` defines the production content gates, causal-depth checks, character/faction checks, investigation checks, replay checks, and ending reachability review.
 
 ## Honest progress rule
