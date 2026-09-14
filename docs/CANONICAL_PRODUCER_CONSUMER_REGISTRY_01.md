@@ -35,9 +35,9 @@ The repository defines separate namespaces for numeric resources, relationships,
 | `flag.warehouse_arson` | flag | earlier warehouse crisis choice(s) | E186/E191 | VERIFIED FAMILY | exact producer audit still required |
 | `flag.emergency_powers_expire` | flag | E197-A | constitutional endgame | VERIFIED | explicit authored output |
 | `flag.emergency_powers_inherit` | flag | E197-B | constitutional endgame | VERIFIED | explicit authored output |
-| `history.cross_faction_package` | history | E148-A | E149/E201/E261+ | VERIFIED PRODUCER | canonical immutable marker still needs compilation contract |
+| `history.cross_faction_package` | history | E148-A | E149/E201/E261+ | VERIFIED PRODUCER | immutable marker now explicit; coalition qualification remains separate |
 | `history.house_assembly` | history | E161-A | E162/E202/E261+ | VERIFIED PRODUCER | exact authored output |
-| `history.guild_representation` | history | no exact producer found | E203+ | OPEN | do not infer from guild relationship |
+| `history.guild_representation` | history | E144-A/E144-B | E203+ | VERIFIED PRODUCER | both E144 choices establish same immutable representation fact |
 | `history.six_signatures_public` | history | E146-A | coalition/endgame | VERIFIED | authored marker |
 | `history.six_signatures_private` | history | E146-B | coalition/endgame | VERIFIED | authored marker |
 | `history.redaction_reconstructed` | history | E132-A | investigation chain | VERIFIED | evidence marker |
@@ -55,8 +55,8 @@ The repository defines separate namespaces for numeric resources, relationships,
 | `thread.ledger_investigation` | thread | E132–E135 plus E232–E236 | E207/E261+ | STRONG CANDIDATE | needs explicit chain activation and evidence set |
 | `thread.archive` | thread | E131/E134/E153 | archive callbacks | PARTIAL | archive access != archive reform |
 | `thread.winter_crisis` | thread | E101–E103 and winter callbacks | E136/E160/E192/E225/E251+ | PARTIAL | severity formula/history producer unresolved |
-| `thread.border_crisis` | thread | E139/E170–E172 candidates | E195/E240/E251+ | PARTIAL | border escalation must be explicit |
-| `thread.coalition` | thread | E146/E148 | E149/E201/E261+ | PARTIAL | coalition membership semantics not frozen |
+| `thread.border_crisis` | thread | E139/E170–E172 candidates | E195/E240/E251+ | PARTIAL | E139 is explicitly not a crisis producer; authored declaration/resolution source still OPEN |
+| `thread.coalition` | thread | E146/E148 | E149/E201/E261+ | PARTIAL | package marker now verified; coalition membership semantics not frozen |
 | `thread.military_constitutional` | thread | E199-A | E204/E227/E256+ | STRONG CANDIDATE | direct constitutional oath producer |
 | `thread.constitutional_late` | thread | E146/E148/E150 candidates | E196/E208 | OPEN | timing/activation contract unresolved |
 | `thread.final_constitutional_phase` | thread | E150/E196–E210 candidates | E208/E209/E210 | OPEN | no single durable producer frozen |
@@ -64,25 +64,24 @@ The repository defines separate namespaces for numeric resources, relationships,
 | `pred.gold_low` | predicate | `resource.gold` threshold candidate | E193+ | PROVISIONAL | threshold must be balance-verified |
 | `pred.security_high` | predicate | `resource.security` threshold candidate | E193+ | OPEN | threshold not frozen |
 | `pred.food_stable` | predicate/marker | E138/E167/E192 candidates | E192/E216/E225 | OPEN | exact deterministic definition required |
-| `pred.transport_disruption` | predicate | E136/E192 candidates | road/food/medicine events | OPEN | persistence/clear rule required |
-| `pred.border_crisis` | predicate | E139/E170–E172 candidates | E195/E240+ | OPEN | escalation producer required |
-| `pred.guild_logistics_cooperation` | predicate | E124/E140/E148/E194 candidates | E194 | OPEN | exact cooperation combination required |
+| `pred.transport_disruption` | predicate | E136 repair producer + canonical disruption producer still required | road/food/medicine events | PARTIAL | E136 now explicitly clears active disruption and establishes stable transport; disruption source remains open |
+| `pred.border_crisis` | predicate | E139/E170–E172 candidates | E195/E240+ | OPEN | explicit declaration/resolution producer required; no invented source |
+| `pred.guild_logistics_cooperation` | predicate | E194-A explicit `history.guild_logistics_cooperation` | E194 | VERIFIED SOURCE MARKER / PREDICATE RULE OPEN | combination semantics still required for durable cooperation |
 | `pred.guild_influence_strong` | predicate | E165/E168/E169/E194 candidates | E200 | OPEN | cannot derive from rel.ivo alone |
 | `pred.systemic_explanation_verified` | predicate | E132–E135 + E232–E236 evidence chain | E207/endgame | OPEN | explicit convergence rule required |
-| `pred.coalition_cooperation` | predicate | E146/E148 candidates | E207/E261+ | OPEN | cooperation != merely four routes |
+| `pred.coalition_cooperation` | predicate | E148-A package + distinct faction evidence candidates | E207/E261+ | PARTIAL | package producer verified; three-faction cooperation and collapse blocker rule remain open |
 | `pred.constitutional_prepared_strong` | predicate | E142/E145/E146/E148/E150 candidates | E197 | OPEN | minimum authored combination required |
 | `pred.budget_reform` | predicate | E142/E154/E198 candidates | E198 | OPEN | audit reform vs budget reform must remain distinct |
 | `pred.final_charter_prerequisites` | predicate | E197/E198/E199/E202–E209 candidates | E209/E210 | OPEN | exact prerequisite set not frozen |
 | `pred.faction_routes_4` | predicate | distinct faction route activations | coalition/endgame | OPEN | distinct route identities required |
 | `ending.*` | ending | E265–E270 qualification layer | final result | DESIGN CONTRACT | deterministic multi-input qualification required |
 
-## Verified producer principles
+## Verified producer changes in this pass
 
-1. E148-A is the authored producer for `cross_faction_package`.
-2. E161-A is the authored producer for `house_assembly`.
-3. E199-A is the strongest direct producer for the military constitutional route.
-4. E132–E135 and E232–E236 form an authored multi-stage investigation/evidence chain.
-5. E210 is a convergence node and not an ending resolver.
+1. **E136** now explicitly establishes `transport_network_stable` and clears `transport_disruption_active` on both repair choices. The legacy `roads_public_labor` output is retained only as a historical alias and is not treated as the canonical predicate producer.
+2. **E144** now establishes `history.guild_representation` on both choices. The old prose trigger `guild_political_representation` is explicitly marked as a normalization alias rather than an independent runtime state.
+3. **E148-A** now establishes `history.cross_faction_package` and records the six named participating character/faction identities. This source marker is intentionally distinct from the stronger `pred.coalition_cooperation` qualification.
+4. **E139** was deliberately *not* misclassified as a border-crisis declaration. Its outcomes describe warning infrastructure, not a crisis declaration or resolution.
 
 ## Static QA rules for next pass
 
@@ -98,14 +97,14 @@ A registry row fails closure when:
 
 ## Next closure pass
 
-1. Expand this registry to every concrete durable flag/history marker used by E01–E270.
-2. Add exact consumer event IDs for all rows currently summarized by ranges.
-3. Resolve `history.guild_representation`, food stability, border escalation and guild cooperation.
-4. Freeze constitutional prerequisite composition.
+1. Locate and canonicalize the authored producer/resolution pair for `pred.border_crisis` without semantic invention.
+2. Freeze `pred.guild_logistics_cooperation` combination semantics beyond the E194 source marker.
+3. Freeze guild influence, systemic evidence, coalition cooperation and constitutional prerequisite combinations.
+4. Expand this registry to every concrete durable flag/history marker used by E01–E270 and add exact consumer event IDs.
 5. Run contradiction and reachability checks from the registry.
 6. Audit duplicate semantic events E73/E156 and E99/E173.
 7. Reconcile legacy E35–E40 aliases before schema freeze.
 
 ## Gate
 
-**Production schema: BLOCKED.** This registry is the first unified source-of-truth QA layer; it is not runtime data and does not imply reachability has been proven.
+**Production schema: BLOCKED.** This registry is the source-of-truth QA layer; it is not runtime data and does not imply reachability has been proven.
