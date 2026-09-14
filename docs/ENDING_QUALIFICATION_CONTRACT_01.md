@@ -33,7 +33,7 @@ Negative blockers:
 Core identity: security is maintained through concentrated executive/military power.
 
 Required families:
-- `thread.border` or military route
+- `thread.border_crisis` or an explicitly authored military route
 - strong security / military dependency history
 - emergency authority retained or constitutional limits weakened
 
@@ -49,7 +49,7 @@ Negative blockers:
 Core identity: prosperity is preserved through commercial power and negotiated guild influence.
 
 Required families:
-- `thread.guild`
+- `thread.ivo_market`
 - commercial/economic route
 - durable evidence of guild leverage or trade-risk cooperation
 - treasury/economic stability sufficient for the ending
@@ -68,7 +68,7 @@ Core identity: legitimacy is distributed through civic institutions and public p
 
 Required families:
 - high public trust / civic legitimacy
-- `thread.institutional_reform` or civic-governance route
+- `thread.institutional_reform` or an explicitly authored civic-governance route
 - durable public/commons participation
 - no terminal authoritarian or collapse state
 
@@ -104,8 +104,8 @@ Core identity: the ruler discovers the systemic truth and redesigns the emergenc
 
 Required families:
 - `thread.archive` / investigation evidence
-- `systemic_explanation_verified`
-- cross-faction cooperation or coalition
+- `pred.systemic_explanation_verified`
+- `pred.coalition_cooperation`
 - constitutional redesign
 - emergency powers constrained/expired
 
@@ -114,9 +114,20 @@ Strong supporting evidence:
 - payment/calendar evidence;
 - archive/map comparison;
 - replay-exclusive alternative evidence where explicitly transferred by the replay contract;
-- `four_way_bargain` or equivalent coalition marker.
+- `history.cross_faction_package` or another explicitly authored coalition marker.
 
 The systemic explanation must be an evidence conclusion, not a relationship or faction label.
+
+## Canonicalization rules applied in this contract
+
+The following stale/noncanonical identifiers are prohibited as runtime state names:
+
+- `thread.border` → use `thread.border_crisis`.
+- `thread.guild` → use `thread.ivo_market` for the canonical commercial route; guild cooperation/influence must use its explicit `pred.*` predicates rather than a generic guild thread.
+- `four_way_bargain` → do not use as an implicit alias. Coalition qualification uses `pred.coalition_cooperation`, with `history.cross_faction_package` as one verified authored input where applicable.
+- `systemic_explanation_verified` → canonical predicate form is `pred.systemic_explanation_verified`.
+
+No alias is considered a producer merely because it appears in older prose. Canonical names must have an explicit producer contract in the producer/consumer registry before engine implementation.
 
 ## E265–E270 qualification mapping
 
