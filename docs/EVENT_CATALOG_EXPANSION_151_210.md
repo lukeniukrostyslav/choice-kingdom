@@ -83,7 +83,7 @@ A public map reveals several noble properties acquired during emergencies.
 ### E163 — The Family Seal
 **Trigger:** Seris evidence route.
 A family seal appears on a document thought to be forged.
-- **A — Ask Seris to testify:** +3 power, relationship stress.
+- **A — Ask Seris to testify:** +3 power, relationship stress; `family_seal_testimony`.
 - **B — Protect the family from immediate exposure:** +3 Seris, -3 trust; `family_seal_protected`.
 
 ### E164 — The Noble Guard
@@ -129,13 +129,13 @@ Apprentices stop work over unsafe conditions.
 ### E170 — The Veteran's Wall
 **Trigger:** veteran patronage or border pressure.
 Veterans offer to build fortifications in exchange for permanent land grants.
-- **A — Pay wages, no land grants:** -5 gold, +4 security, +3 trust.
+- **A — Pay wages, no land grants:** -5 gold, +4 security, +3 trust; `veteran_fortification_wages`.
 - **B — Grant land:** +5 security, +3 Rowan, -4 trust; `veteran_land_grants`.
 
 ### E171 — The Border Trial
 **Trigger:** `frontier_military_watch` or military route.
 A civilian is accused of helping foreign scouts.
-- **A — Public trial:** +4 trust, -1 security.
+- **A — Public trial:** +4 trust, -1 security; `border_public_trial`.
 - **B — Military tribunal:** +4 security, -4 trust; `military_border_trial`.
 
 ### E172 — The Signal Fires
@@ -147,7 +147,7 @@ Villages want authority to light warning fires without waiting for soldiers.
 ### E173 — The Empty Barracks
 **Trigger:** low army readiness.
 A barracks stands empty because its budget was redirected years ago.
-- **A — Rebuild:** -6 gold, +6 security.
+- **A — Rebuild:** -6 gold, +6 security; `barracks_rebuilt`.
 - **B — Convert it to a civilian shelter:** -3 gold, +5 trust; `barracks_shelter`.
 
 ## Amara and civic conscience
@@ -201,13 +201,13 @@ An informant's family fears retaliation.
 ### E181 — The Second Toll Increase
 **Trigger:** 5+ turns after a toll concession.
 The same concessionaire asks for a second increase.
-- **A — Enforce original terms:** +5 trust, -2 Ivo.
+- **A — Enforce original terms:** +5 trust, -2 Ivo; `toll_terms_enforced`.
 - **B — Sell the right to increase tolls:** +7 gold, -5 trust; `toll_escalation_sold`.
 
 ### E182 — The Veteran's Promise
 **Trigger:** `veteran_patronage`, 4+ turns later.
 Veterans demand the promised administrative positions.
-- **A — Hold examinations:** +3 trust, -3 Rowan.
+- **A — Hold examinations:** +3 trust, -3 Rowan; `veteran_positions_examined`.
 - **B — Honor the promise:** +4 Rowan, +3 security, -4 trust; `veteran_positions_granted`.
 
 ### E183 — The Noble Exception Returns
@@ -226,7 +226,7 @@ A witness asks why the Crown never published the evidence it promised to preserv
 **Trigger:** `cheap_weapons` plus later military crisis.
 A veteran recognizes the same flawed steel in a critical shipment.
 - **A — Halt deployment:** -4 security now, prevents later disaster; `steel_failure_prevented`.
-- **B — Deploy anyway:** +5 security now, schedules severe delayed loss.
+- **B — Deploy anyway:** +5 security now, schedules severe delayed loss; `steel_failure_delayed`.
 
 ## Replay-exclusive information
 
@@ -240,54 +240,54 @@ The warehouse seen during one investigation contains a different ledger box unde
 **Trigger:** multiple evidence fragments.
 A name absent from one list appears on a payment schedule.
 - **A — Cross-reference dates:** +5 power; `payment_date_crosscheck`.
-- **B — Assume omission was clerical:** +2 power, -1 trust.
+- **B — Assume omission was clerical:** +2 power, -1 trust; `payment_omission_assumed`.
 
 ### E188 — The Repeated Phrase
 **Trigger:** `emergency_language_compared`.
 The phrase “temporary necessity” appears in three generations of decrees.
 - **A — Investigate institutional continuity:** +4 power; `necessity_phrase_history`.
-- **B — Treat it as coincidence:** +2 power.
+- **B — Treat it as coincidence:** +2 power; `necessity_phrase_dismissed`.
 
 ### E189 — The Witness Who Was Right Twice
 **Trigger:** conflicting testimony recorded.
 A previously doubted witness correctly predicts a new document's location.
 - **A — Reopen their earlier testimony:** +4 trust, +3 power; `witness_reopened`.
-- **B — Use only the new lead:** +2 power, -1 trust.
+- **B — Use only the new lead:** +2 power, -1 trust; `witness_new_lead_only`.
 
 ### E190 — The Map Beneath the Map
 **Trigger:** office network mapped.
 A second organizational layer shows who benefited indirectly rather than who signed documents.
-- **A — Follow beneficiaries:** +5 power, -2 security.
-- **B — Stop at formal responsibility:** +3 reputation, +2 security.
+- **A — Follow beneficiaries:** +5 power, -2 security; `beneficiary_network_followed`.
+- **B — Stop at formal responsibility:** +3 reputation, +2 security; `formal_responsibility_only`.
 
 ## Crisis escalation
 
 ### E191 — The Third Fire
 **Trigger:** unresolved warehouse/market crisis.
 A third fire threatens food distribution.
-- **A — Protect people before evidence:** +5 trust, -2 power.
-- **B — Protect the evidence first:** +4 power, -3 trust.
+- **A — Protect people before evidence:** +5 trust, -2 power; `warehouse_crisis_people_first`.
+- **B — Protect the evidence first:** +4 power, -3 trust; `warehouse_crisis_evidence_first`.
 
 ### E192 — The Broken Cart
-**Trigger:** road pressure.
+**Trigger:** `pred.transport_disruption`.
 A single broken cart delays medicine and grain simultaneously.
-- **A — Prioritize medicine:** +4 trust, food pressure worsens.
-- **B — Prioritize grain:** +4 food stability, Amara relationship worsens.
+- **A — Prioritize medicine:** +4 trust; `food_logistics_unstable`, worsening food pressure and Amara's route.
+- **B — Prioritize grain:** +4 trust; `food_logistics_stabilized`, while Amara's relationship worsens.
 
 ### E193 — The Soldiers' Bread
 **Trigger:** low gold + high security.
 The army asks for civilian bread reserves.
-- **A — Share equally:** -3 security, +5 trust.
-- **B — Protect military reserves:** +4 security, -5 trust.
+- **A — Share equally:** -3 security, +5 trust; `civilian_bread_shared`.
+- **B — Protect military reserves:** +4 security, -5 trust; `military_bread_reserved`.
 
 ### E194 — The Guild Convoy
-**Trigger:** guild cooperation.
+**Trigger:** `pred.guild_logistics_cooperation`.
 Merchants offer a convoy but request immunity from certain inspections.
-- **A — Accept with neutral inspectors:** +4 trust, +2 Ivo.
-- **B — Grant immunity:** +5 gold, -5 trust; `guild_convoy_immunity`.
+- **A — Accept with neutral inspectors:** +4 trust, +2 Ivo; `history.guild_logistics_cooperation`, `guild_neutral_inspectors`.
+- **B — Grant immunity:** +5 gold, -5 trust; `guild_convoy_immunity`, `guild_logistics_immunity_risk`.
 
 ### E195 — The Border Refugees
-**Trigger:** border escalation.
+**Trigger:** `pred.border_crisis`.
 Families flee toward Avelune.
 - **A — Admit and shelter:** -7 gold, +7 trust; `refugee_shelter`.
 - **B — Close the border:** +4 security, -7 trust; `border_closed`.
@@ -301,7 +301,7 @@ The council asks five questions about taxation, force, evidence, local power and
 - **B — Answer privately:** +4 power, -3 trust; `five_questions_private`.
 
 ### E197 — The Succession Test
-**Trigger:** strong constitutional preparation.
+**Trigger:** `pred.constitutional_prepared_strong`.
 The ruler must decide whether the next ruler inherits emergency powers automatically.
 - **A — Powers expire:** +6 trust, -3 power; `emergency_powers_expire`.
 - **B — Powers transfer:** +5 power, -5 trust; `emergency_powers_inherit`.
@@ -310,7 +310,7 @@ The ruler must decide whether the next ruler inherits emergency powers automatic
 **Trigger:** audit reform.
 The legislature asks for authority to block spending outside the published budget.
 - **A — Grant budget lock:** +5 trust, -3 power; `legislative_budget_lock`.
-- **B — Retain executive override:** +4 power, -4 trust.
+- **B — Retain executive override:** +4 power, -4 trust; `executive_budget_override_retained`.
 
 ### E199 — The Army Oath Rewritten
 **Trigger:** military constitutional route.
@@ -319,70 +319,74 @@ The army must choose whether its oath is to the ruler or the constitution.
 - **B — Crown:** +5 security, +3 Rowan, -6 trust; `army_crown_oath`.
 
 ### E200 — The Merchant Oath
-**Trigger:** strong guild influence.
+**Trigger:** `pred.guild_influence_strong`.
 Major merchants are asked to swear that contracts cannot buy political office.
 - **A — Accept the restriction:** +5 trust, -3 Ivo; `merchant_political_separation`.
-- **B — Permit influence with disclosure:** +4 Ivo, +3 gold, -4 trust.
+- **B — Permit influence with disclosure:** +4 Ivo, +3 gold, -4 trust; `merchant_influence_disclosed`.
 
 ## Final coalition and endings
 
 ### E201 — The Coalition's Weakest Promise
-**Trigger:** `cross_faction_package`.
+**Trigger:** `pred.coalition_cooperation`.
 One coalition promise is impossible to fund.
 - **A — Admit it and renegotiate:** -3 power, +5 trust; `coalition_renegotiated`.
 - **B — Hide the shortfall:** +4 power, -6 trust; `coalition_shortfall_hidden`.
 
 ### E202 — The Last Noble Vote
-**Trigger:** house assembly.
+**Trigger:** `history.house_assembly`.
 Seris must decide whether nobles can veto the final charter.
-- **A — No veto:** +5 trust, -3 Seris.
+- **A — No veto:** +5 trust, -3 Seris; `noble_veto_rejected`.
 - **B — Limited veto:** +3 Seris, +3 power, -4 trust; `noble_limited_veto`.
 
 ### E203 — The Last Guild Vote
-**Trigger:** guild representation.
+**Trigger:** `history.guild_representation`.
 Ivo asks for a permanent commercial seat.
-- **A — Advisory only:** +4 trust, -2 Ivo.
+- **A — Advisory only:** +4 trust, -2 Ivo; `guild_advisory_seat`.
 - **B — Binding commercial seat:** +4 Ivo, +3 gold, -5 trust; `guild_binding_seat`.
 
 ### E204 — The Last Soldiers' Vote
-**Trigger:** military route.
+**Trigger:** `thread.military_constitutional`.
 Rowan asks whether the army may reject unlawful orders.
-- **A — Constitutional refusal:** +6 trust, -3 Rowan.
-- **B — Obey the Crown:** +5 security, +3 Rowan, -6 trust.
+- **A — Constitutional refusal:** +6 trust, -3 Rowan; `military_constitutional_refusal`.
+- **B — Obey the Crown:** +5 security, +3 Rowan, -6 trust; `military_crown_obedience`.
 
 ### E205 — The Last Lantern Vote
-**Trigger:** Amara civic route.
+**Trigger:** `thread.amara_civic`.
 Amara asks for permanent protection of emergency medical neutrality.
-- **A — Protect neutrality:** +5 trust, +3 Amara, -2 power.
-- **B — Permit military override:** +4 security, -5 trust.
+- **A — Protect neutrality:** +5 trust, +3 Amara, -2 power; `medical_neutrality_protected`.
+- **B — Permit military override:** +4 security, -5 trust; `medical_neutrality_overridden`.
 
 ### E206 — The Last Courier Vote
-**Trigger:** Toma information route.
+**Trigger:** `thread.toma_information`.
 Toma asks whether lawful journalists may publish evidence against the Crown.
 - **A — Protect publication:** +6 trust, -3 power; `press_protection`.
 - **B — Permit emergency censorship:** +5 power, -6 trust; `emergency_censorship`.
 
 ### E207 — The Founder Question
-**Trigger:** verified systemic evidence + cross-faction cooperation.
+**Trigger:** `pred.systemic_explanation_verified` and `pred.coalition_cooperation`.
 The player is offered a chance to become the indispensable founder of the new order.
+**Qualification requirement:** the source must contain distinct warehouse/financial evidence, document/language evidence, witness/organizational evidence, and an explicit convergence decision before this node becomes eligible.
 - **A — Refuse permanent personal authority:** +7 trust, -4 power; `founder_authority_refused`.
 - **B — Accept founder authority:** +6 power, -6 trust; `founder_authority_accepted`.
 
 ### E208 — The Empty Chair Again
-**Trigger:** final constitutional phase.
+**Trigger:** `thread.final_constitutional_phase`.
 The original empty chair is brought into the chamber as a reminder of how the crisis began.
 - **A — Leave it empty as a warning:** +5 trust; `empty_chair_memorial`.
 - **B — Fill it with a permanent emergency office:** +6 power, -7 trust; `permanent_emergency_chair`.
 
 ### E209 — The Dawn Charter
-**Trigger:** final charter prerequisites.
+**Trigger:** `pred.final_charter_prerequisites`.
 The completed constitutional text is read before dawn.
+**Qualification requirement:** before E209, civic/commons legitimacy, institutional/audit legitimacy, faction/house/guild representation, required military/security constitutional route, information/evidence legitimacy, coalition cooperation, and absence of unresolved mandatory crisis blockers must all be established by upstream authored state.
 - **A — Ratify publicly:** +7 trust, -3 power; `charter_publicly_ratified`.
 - **B — Ratify through council:** +5 power, -5 trust; `charter_council_ratified`.
 
 ### E210 — The Last Decision Is Not a Choice
-**Trigger:** final constitutional convergence.
+**Trigger:** `thread.endgame_convergence`.
 The kingdom's future reflects the pattern of the reign rather than one final button. The engine later resolves the ending from verified history, institutional state, relationships, unresolved crises, evidence, emergency-power use and coalition structure.
+
+**Rule:** E210 is convergence-only. It must not create missing prerequisites, manufacture evidence, create coalition cooperation, or directly invent a route qualification that was absent upstream.
 
 Possible resolution families:
 - Steward;
@@ -392,7 +396,7 @@ Possible resolution families:
 - Broken Diadem;
 - Quiet Throne;
 - Second Founder;
-- additional ending variants to be authored if QA finds a meaningful distinct constitutional outcome.
+- additional ending variants to be authored only if QA finds a meaningful distinct constitutional outcome.
 
 ## Expansion QA notes
 
