@@ -26,7 +26,8 @@ This project must not become a short card demo. The full-release target is appro
 - [x] Define replay differentiation rules
 - [x] Define ending philosophy
 - [ ] Finish the complete campaign spine and final act
-- [ ] Expand to approximately 250–350+ meaningful authored events/story nodes
+- [x] Reach authored checkpoint E01–E270
+- [ ] Reconcile E71–E270 into one canonical production catalog
 - [ ] Ensure every major event has downstream consequences
 - [ ] Ensure delayed consequences and callbacks are distributed across the campaign
 - [ ] Ensure mutually exclusive branches are intentional and recoverable
@@ -43,12 +44,14 @@ This project must not become a short card demo. The full-release target is appro
 - [x] E71–E110 authored expansion
 - [x] E111–E150 authored expansion
 - [x] E151–E210 authored expansion
-- [ ] Reconcile E71–E210 into one canonical production catalog
-- [ ] Reach approximately 250–350+ authored nodes after reconciliation
+- [x] E211–E270 authored expansion
+- [ ] Reconcile E71–E270 into one canonical production catalog
+- [ ] Decide final authored count after QA (target remains approximately 250–350+ meaningful nodes)
 
 ## Phase 2 — Content QA and production specification
 
-- [ ] Create complete content QA matrix covering every event/node
+- [x] Establish QA matrix and production gates
+- [ ] Map every E01–E270 node to canonical prerequisites/consequences
 - [ ] Audit branch dead-ends
 - [ ] Audit contradictions and impossible states
 - [ ] Audit repetitive choices and filler content
