@@ -166,9 +166,11 @@ A second witness contradicts part of the first testimony but confirms the moveme
 
 ### E136 — The Frozen Road
 **Trigger:** winter severity.
-A blocked road isolates three villages.
-- **A — Open a public labor effort:** -4 gold, +5 trust; `roads_public_labor`.
-- **B — Contract guild transport:** -2 gold, +2 Ivo, +3 security; `roads_guild_contract`.
+A blocked road isolates three villages and establishes a durable transport state.
+- **A — Open a public labor effort:** -4 gold, +5 trust; `transport_network_stable`; clears `transport_disruption_active`.
+- **B — Contract guild transport:** -2 gold, +2 Ivo, +3 security; `transport_network_stable`; clears `transport_disruption_active`; `roads_guild_contract`.
+
+A later canonical disruption event may set `transport_disruption_active`; this choice is the explicit repair producer. `roads_public_labor` is retained only as a historical outcome alias and is not the predicate producer.
 
 ### E137 — The Night Watch Fund
 **Trigger:** low security.
@@ -187,6 +189,8 @@ A new measuring standard reveals some warehouses have been overstating their res
 Lantern houses on the frontier become informal warning stations.
 - **A — Recognize them as civic infrastructure:** +4 trust, +2 Amara; `frontier_lantern_network`.
 - **B — Replace them with soldiers:** +5 security, -3 Amara; `frontier_military_watch`.
+
+E139 establishes frontier-warning infrastructure only; it does **not** by itself declare or resolve `pred.border_crisis`.
 
 ### E140 — The Quiet Market
 **Trigger:** strong market oversight.
@@ -217,8 +221,10 @@ The army asks for a permanent emergency reserve.
 ### E144 — The Guild Seat
 **Trigger:** `guild_political_representation`.
 The guild's first representative asks whether a merchant can hold a judicial office.
-- **A — Separate commerce from judges:** +4 trust, -2 Ivo.
-- **B — Permit it under disclosure rules:** +3 Ivo, +2 power, -3 trust.
+- **A — Separate commerce from judges:** +4 trust, -2 Ivo; `history.guild_representation`; `guild_representation_separated_from_judiciary`.
+- **B — Permit it under disclosure rules:** +3 Ivo, +2 power, -3 trust; `history.guild_representation`; `guild_representation_with_disclosure`.
+
+Both choices are producers of the same immutable canonical marker `history.guild_representation`. The legacy trigger `guild_political_representation` is retained as a source-language alias until trigger normalization; it is not a separate runtime fact.
 
 ### E145 — The Commons' Court
 **Trigger:** `people_charter_endorsed`.
@@ -243,11 +249,13 @@ The court wants one person named as architect of the reforms.
 ### E148 — The Last Coalition Meeting
 **Trigger:** E146 or strong cross-faction cooperation.
 Mara, Rowan, Seris, Ivo, Amara and Toma each demand one guarantee.
-- **A — Build a package with mutual concessions:** -3 power, +7 trust; `cross_faction_package`.
-- **B — Choose only the strongest allies:** +4 power, +2 security, -5 trust; `selective_coalition`.
+- **A — Build a package with mutual concessions:** -3 power, +7 trust; `history.cross_faction_package`; `coalition_candidate_package`; records participation from Mara, Rowan, Seris, Ivo, Amara and Toma.
+- **B — Choose only the strongest allies:** +4 power, +2 security, -5 trust; `history.selective_coalition`; `selective_coalition`.
+
+`history.cross_faction_package` is the immutable source marker for the coalition package. It does not by itself satisfy `pred.coalition_cooperation`; that predicate additionally requires cooperation evidence from at least three distinct faction identities and no unresolved coalition-collapse marker.
 
 ### E149 — The Cost of Agreement
-**Trigger:** `cross_faction_package`.
+**Trigger:** `history.cross_faction_package`.
 The coalition's concessions are expensive and politically embarrassing.
 - **A — Accept the cost openly:** -8 gold, +6 trust; `coalition_cost_public`.
 - **B — Hide the cost in future budgets:** +6 gold, -5 trust; `coalition_cost_hidden`.
@@ -260,4 +268,4 @@ Before the final decision, the player is asked whether the kingdom should be des
 
 ## Expansion QA notes
 
-E111–E150 deliberately create delayed consequences, replay information, faction legitimacy, and cross-character convergence. They must later be assigned exact turns/conditions and linked into the canonical graph before being counted as fully integrated content.
+E111–E150 deliberately create delayed consequences, replay information, faction legitimacy, and cross-character convergence. E136/E144/E148 now contain explicit canonical source markers, while legacy trigger aliases remain pending normalization. Border-crisis declaration/resolution is intentionally left open until an authored event with appropriate crisis semantics is selected; E139 is not misclassified as a crisis producer. All nodes remain subject to later reachability, contradiction, and pacing QA.
