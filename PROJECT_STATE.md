@@ -31,7 +31,7 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 11. Treat the production AAB/signing/Play release as the final stage after APK and QA gates pass.
 
 ## Current phase
-**Narrative/content canonicalization and QA.** The authored checkpoint is E01–E270. The immediate task is reconciling authored sources and the causal graph into a canonical production representation and proving that the content is internally consistent and reachable.
+**Narrative/content canonicalization and QA.** The authored checkpoint is now E01–E271. The immediate task is reconciling authored sources and the causal graph into a canonical production representation and proving that the content is internally consistent and reachable.
 
 ## Authored content checkpoints
 - E01–E70: authored spine/endgame
@@ -39,7 +39,8 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 - E111–E150: authored expansion
 - E151–E210: authored expansion
 - E211–E270: authored expansion
-- Total authored node identifiers currently planned: **E01–E270** (270 authored nodes; not all are yet canonically integrated or QA-verified).
+- E271: authored border-crisis producer bridge added during canonical QA
+- Total authored node identifiers currently present: **E01–E271** (271 authored nodes; not all are yet canonically integrated or QA-verified).
 
 ## Narrative QA artifacts
 - `docs/EVENT_CATALOG.md` contains the original E01–E34 campaign spine.
@@ -47,27 +48,26 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 - `docs/EVENT_EXPANSION_071_110.md` contains E71–E110 expansion layer pending canonical graph/catalog integration.
 - `docs/EVENT_CATALOG_EXPANSION_111_150.md` contains E111–E150 expansion layer pending canonical graph/catalog integration.
 - `docs/EVENT_CATALOG_EXPANSION_151_210.md` contains E151–E210 expansion layer pending canonical graph/catalog integration.
-- `docs/EVENT_CATALOG_EXPANSION_211_270.md` contains E211–E270 expansion layer pending canonical graph/catalog integration.
+- `docs/EVENT_CATALOG_EXPANSION_211_270.md` contains E211–E270 expansion layer plus E271 canonical bridge pending full graph/catalog integration.
 - `docs/CONTENT_QA_MATRIX.md` defines the production content gates.
 - `docs/CANONICAL_STATE_VOCABULARY.md` defines the state namespaces.
 - `docs/CANONICAL_DELAY_CONTRACT.md` defines the delayed-consequence contract.
 - `docs/CANONICALIZATION_BACKLOG.md` is the active execution backlog.
-- `docs/PRODUCER_GAP_CLOSURE_PASS_01.md` through `docs/PRODUCER_GAP_CLOSURE_PASS_06.md` record prior P0 closure passes.
-- `docs/PRODUCER_GAP_CLOSURE_PASS_07.md` is the latest deterministic P0 producer/consumer closure matrix refresh for E111–E270.
+- `docs/PRODUCER_GAP_CLOSURE_PASS_01.md` through `docs/PRODUCER_GAP_CLOSURE_PASS_07.md` record prior P0 closure passes.
 - `docs/CANONICAL_SOURCE_CORRECTIONS_01.md` freezes the explicit authored correction semantics for E192, E136, E144, E148, E194, E195, E200, E207, E209 and E210.
 - `docs/AUTHORED_BRIDGE_CONTRACT_01.md`, `docs/AUTHORED_SOURCE_PATCHSET_01.md` and `docs/AUTHORED_CATALOG_PATCH_APPLICATION_01.md` document the bridge semantics and application checklist used during the latest source-edit pass.
 
 ## Current QA checkpoint
-The E111–E210 authoritative catalogs have received direct authored-source correction passes. E192 uses canonical food-logistics markers instead of a sixth numeric resource; E194 records durable guild logistics cooperation; E197/E200/E201 consume canonical qualification predicates; E207 records its distinct-evidence convergence requirement; E209 requires upstream final charter prerequisites; and E210 is explicitly convergence-only. E136/E144/E148 were also directly normalized for transport repair, guild representation and cross-faction package semantics. This is **source-level progress, not runtime validation**.
+The E111–E210 authoritative catalogs have received direct authored-source correction passes. E192 uses canonical food-logistics markers instead of a sixth numeric resource; E194 records durable guild logistics cooperation; E197/E200/E201 consume canonical qualification predicates; E207 records its distinct-evidence convergence requirement; E209 requires upstream final charter prerequisites; and E210 is explicitly convergence-only. E136/E144/E148 were also directly normalized for transport repair, guild representation and cross-faction package semantics. E271 now provides an explicit authored source for border-crisis declaration while preserving E195/E253 as consumers and E139 as warning infrastructure. This is **source-level progress, not runtime validation**.
 
-Pass 07 confirms that the remaining P0 gaps are still genuine and must not be papered over: canonical border-crisis declaration/resolution, full guild-logistics qualification, strong guild-influence combination, systemic-evidence convergence, coalition cooperation qualification, strong constitutional preparation, final charter prerequisite enumeration, complete E211–E270 normalization, and E35–E40 legacy collision verification. E195 and E253 are confirmed as border-crisis consumers, not producers. E139 remains warning infrastructure rather than a crisis producer.
+The previous border-producer P0 is therefore closed at the authored-source level, but the active-crisis lifecycle is not complete until a canonical resolution producer is identified/implemented and the runtime predicate is tested. Remaining P0 gaps are full guild-logistics qualification, strong guild-influence combination, systemic-evidence convergence, coalition cooperation qualification, strong constitutional preparation, final charter prerequisite enumeration, complete E211–E271 normalization, and E35–E40 legacy collision verification.
 
 Reachability remains static/pre-audit only until a real validator and production data representation exist. No engine/APK readiness claim is permitted at this stage.
 
 ## Next highest-value work
-1. Identify or author the semantically correct durable border-crisis declaration/resolution source; do not misclassify E139, E195 or E253.
-2. Complete exact producer/consumer extraction and graph/catalog reconciliation for E01–E270, including E211–E270.
-3. Freeze the exact combination rules for `pred.guild_logistics_cooperation`, `pred.guild_influence_strong`, `pred.coalition_cooperation`, `pred.constitutional_prepared_strong`, `pred.systemic_explanation_verified` and `pred.final_charter_prerequisites` against authored source.
+1. Identify or author the semantically correct durable border-crisis resolution source for an active crisis; do not allow E195/E253 to manufacture it.
+2. Complete exact producer/consumer extraction and graph/catalog reconciliation for E01–E271, including E211–E271.
+3. Freeze exact combination rules for `pred.guild_logistics_cooperation`, `pred.guild_influence_strong`, `pred.coalition_cooperation`, `pred.constitutional_prepared_strong`, `pred.systemic_explanation_verified` and `pred.final_charter_prerequisites` against authored source.
 4. Audit E35–E40 legacy aliases and duplicate semantic pairs E73/E156 and E99/E173.
 5. Audit undefined outputs, legacy prose triggers, duplicate semantics, missing delayed producers/consumers and mutually conflicting states.
 6. Build a real static catalog validator for IDs, duplicate IDs, legacy ending collisions, graph references and missing ranges only after the canonical data contract is frozen against the authored catalog.
