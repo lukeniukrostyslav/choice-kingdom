@@ -97,6 +97,21 @@ This document is the narrative production gate. Content progress is measured by 
 14. Verify every ending has a recognizable causal route and at least two independent prerequisite configurations where the design calls for it.
 15. Remove or rewrite filler nodes discovered during the audit.
 
+## Canonical audit pass 01 — completed findings
+
+A first manual reconciliation pass has now been performed across the campaign spine and expansion layers. Concrete findings are recorded in `docs/CANONICAL_EVENT_AUDIT_01.md`.
+
+Confirmed integration risks include:
+
+- duplicate display titles (E71/E112 and E82/E121), requiring ID-based identity and optional contextual subtitles;
+- trigger vocabulary that needs canonical producers/derived-condition definitions, including `local_relief_councils`, `full_ledger_published`, `ledger_network_public`, `people_charter_endorsed`, `hereditary_seats_limited`, `temporary_noble_exemption`, `infrastructure_concession`, and replay-specific metadata such as `all_voices_heard`;
+- replay events that require a distinct cross-run meta-state rather than leaking ordinary run state;
+- delayed consequences written in mixed prose and symbolic forms, requiring exact machine-readable timing and exactly-once identity;
+- contextual variables such as food pressure, border tension and information trust that need explicit derived-state definitions before simulation;
+- the event graph remains a design-level causal map until it is reconciled with the canonical registry.
+
+These findings are **not counted as resolved** merely because they are documented. They are now explicit QA work items.
+
 ## Content expansion gate
 
 The authored catalog now reaches **E270**. This is sufficient to enter the serious canonical-integration phase; more events may be added later only when QA identifies a genuine missing causal route, character arc, pacing gap or ending prerequisite.
