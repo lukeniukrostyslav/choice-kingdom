@@ -58,6 +58,7 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 - `docs/CANONICAL_PRODUCER_CONSUMER_REGISTRY_01.md` is the consolidated producer/consumer source-level QA registry.
 - `docs/LEGACY_SEMANTIC_AUDIT_01.md` records the E35–E40 and duplicate-semantic audit findings.
 - `docs/SEMANTIC_COLLISION_RESOLUTION_01.md` freezes the resolution policy for confirmed/likely semantic collisions before schema freeze.
+- `docs/LEGACY_SOURCE_COMPARISON_02.md` closes E73/E156 and E99/E173 as distinct source-level nodes.
 
 ## Current QA checkpoint
 The E111–E210 authoritative catalogs have received direct authored-source correction passes. E192 uses canonical food-logistics markers instead of a sixth numeric resource; E194 records durable guild logistics cooperation; E197/E200/E201 consume canonical qualification predicates; E207 records its distinct-evidence convergence requirement; E209 requires upstream final charter prerequisites; and E210 is explicitly convergence-only. E136/E144/E148 were also directly normalized for transport repair, guild representation and cross-faction package semantics.
@@ -66,11 +67,12 @@ E271 now provides an explicit authored source for border-crisis declaration, whi
 
 The border-crisis lifecycle is therefore closed at the authored-source level, but not at runtime. Remaining P0 work is exact producer enumeration for frozen combination domains, full marker/consumer inventory, trigger normalization, graph/catalog reconciliation, reachability, duplicate semantic cleanup, delayed/replay normalization and production schema freeze.
 
-A legacy semantic audit confirmed a P0 collision between E55 and E269 (same title but different authored choice sets) and a high-priority overlap between E36 and E226 (both Mara resignation). E73/E156 and E99/E173 remain open pending exact source comparison. A follow-up semantic-resolution policy now freezes the intended roles: E55 remains the early ledger-disclosure node; E269 must be renamed/reframed as a late consequence node; E36 remains the foundational resignation node while E226 can remain only as a materially distinct late stress-test; E37/E227, E39/E229 and E40/E241 likewise require distinct downstream roles. These policies do not themselves resolve the authoritative catalog until the source edits are applied and re-read.
+The legacy semantic audit confirmed a P0 collision between E55 and E269 (same title but different authored choice sets) and a high-priority overlap between E36 and E226 (both Mara resignation). Source comparison now confirms E73/E156 and E99/E173 are **distinct nodes**, so no renumbering/reframe is required for those pairs. The semantic-resolution policy remains active for E55/E269 and E36/E226, while E37/E227, E39/E229 and E40/E241 still require downstream-role verification.
 
 Reachability remains static/pre-audit only until a real validator and production data representation exist. No engine/APK readiness claim is permitted at this stage.
 
 ## Latest source-level commits
+- `d6124c4d4f9e4901e107aad3dc12cc61e70cbde2` — closed E73/E156 and E99/E173 source comparison as distinct.
 - `f8147d881d54a28d27c72161b2acbb327063bdc4` — froze semantic collision resolution policy before schema.
 - `b30eeb6c1874c1c666e366e9555b42d3d4145ea2` — updated canonicalization backlog through E272.
 - `f573dbe45661a9cd7a8b836dcf2efdb8e94a7fd0` — added E272 border-crisis resolution bridge.
@@ -79,14 +81,13 @@ Reachability remains static/pre-audit only until a real validator and production
 
 ## Next highest-value work
 1. Apply the frozen E55/E269 and E36/E226 semantic resolutions to the authoritative catalogs without silent renumbering.
-2. Exact-source compare E73/E156 and E99/E173.
-3. Enumerate exact durable producers for every domain used by the frozen combination rules.
-4. Expand the registry to every concrete durable flag/history marker in E01–E272 with exact consumers.
-5. Normalize remaining prose triggers and aliases.
-6. Reconcile graph/catalog references and reachability.
-7. Verify delayed/replay source identities and exactly-once semantics.
-8. Build a real static catalog validator only after the canonical data contract is frozen against the authored catalog.
-9. Freeze production data contracts, then implement the engine.
+2. Enumerate exact durable producers for every domain used by the frozen combination rules.
+3. Expand the registry to every concrete durable flag/history marker in E01–E272 with exact consumers.
+4. Normalize remaining prose triggers and aliases.
+5. Reconcile graph/catalog references and reachability.
+6. Verify delayed/replay source identities and exactly-once semantics.
+7. Build a real static catalog validator only after the canonical data contract is frozen against the authored catalog.
+8. Freeze production data contracts, then implement the engine.
 
 ## Honest progress rule
 Percentages represent actual state of the corresponding work. Documentation alone does not make implementation complete. Source edits count only when the authoritative catalog is actually changed and re-read. No block may be called ready until its appropriate verification has passed.
