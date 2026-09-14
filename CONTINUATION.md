@@ -2,81 +2,79 @@
 
 ## Purpose
 
-This file is the fast handoff for any future ChatGPT session or developer. Read this file first, then `AGENTS.md`, `PROJECT_STATE.md` (when present), `PLAN.md`, and `DECISION_LOG.md`.
+Fast handoff for any future ChatGPT session or developer. Read this file first, then `AGENTS.md`, `PROJECT_STATE.md`, `PLAN.md`, `DECISION_LOG.md`, and `README.md`.
 
 ## Repository
 
 - GitHub: `lukeniukrostyslav/choice-kingdom`
 - Project: **Choice Kingdom**
-- Status: specification/initialization stage
-- This project is separate from `rulebreak8`.
+- Current status: **authored full-game checkpoint + canonicalization/QA phase**
+- Separate from `rulebreak8`.
 
 ## What we are building
 
-An original premium Android-first decision-and-consequence game set in an original kingdom. The player repeatedly receives short situations with two meaningful opposing choices. Choices change resources, relationships, flags, and future event availability. Some consequences appear much later and may depend on several earlier decisions.
+An original premium Android-first decision-and-consequence game set in Avelune. The player receives meaningful situations, makes opposing choices, changes resources/relationships/history, encounters delayed consequences, and reaches different endings through causal routes. Replay reveals different information and possibilities.
 
-The game should feel systemic rather than like a fixed linear novel.
+This is a **real full game**, not a short card demo. Authored content currently reaches E01–E270, with a release target of approximately 250–350+ meaningful nodes and approximately 8–12 recognizable endings.
 
 ## Reference boundary
 
-The high-level genre/formula may be inspired by decision-driven games such as Reigns, but **do not copy** its world, characters, text, artwork, UI, event wording, distinctive presentation, or protected creative expression. The project must have its own identity and mechanics.
+The broad decision-game formula may be inspired by Reigns, but **do not copy** its world, characters, text, artwork, UI, event wording, distinctive presentation, or protected creative expression. The project must have its own identity.
 
 ## Product target
 
 - Android first
-- Premium one-time purchase
-- Target price approximately €2.99–€4.99
+- Premium one-time purchase ~€2.99–€4.99
 - Offline core gameplay
 - No ads
 - No subscription
 - No mandatory backend
-- Short sessions and high replayability
+- 20+ release locales including RTL languages
+- Multi-hour first campaign with materially different replays
 
-## Core state candidates
+## Canonical current state
 
-- Gold / economy
-- Public trust
-- Security / military
-- Political power
-- Reputation
-- Character relationships
-- Decision history / flags
-- Pending delayed consequences
+Authored sources:
 
-These are candidates, not final balance values.
+- E01–E70: core spine/endgame
+- E71–E110: expansion
+- E111–E150: expansion
+- E151–E210: expansion
+- E211–E270: expansion
 
-## Required first playable slice
+Canonical QA artifacts now include:
 
-Do not jump straight to a huge catalog. First prove this real loop:
+- `docs/CANONICAL_EVENT_AUDIT_01.md`
+- `docs/CANONICAL_EVENT_AUDIT_02.md`
+- `docs/CANONICAL_TRIGGER_AUDIT_01.md`
+- `docs/CANONICAL_STATE_VOCABULARY.md`
+- `docs/CANONICAL_DELAY_CONTRACT.md`
+- `docs/CANONICALIZATION_BACKLOG.md`
+- `docs/CONTENT_QA_MATRIX.md`
+- `docs/EVENT_GRAPH.md`
 
-`event → two choices → immediate state change → decision recorded → delayed consequence scheduled → later event triggers it → save/load preserves state`
+The campaign is **not yet production-integrated**. Trigger producer/consumer extraction, derived-condition definitions, delayed normalization, replay meta-state, reachability, contradiction, pacing and ending simulations remain open.
 
-The vertical slice should also include at least one character relationship, one resource threshold, one history-dependent event, one delayed consequence, and one ending condition.
+## Non-negotiable development order
 
-## Development order
+**Content → canonical QA → machine-readable contracts → engine → UI → localization/tests → Android QA → APK → production release.**
 
-1. Product contract
-2. Architecture and data contracts
-3. Decision/state engine
-4. Event schema and loader
-5. Persistence
-6. Minimal presentation/UI
-7. Vertical slice content
-8. Automated contract + deterministic replay tests
-9. Android build
-10. Physical Android QA
-11. Content expansion
-12. Release/store preparation
+Do not reverse this order for convenience.
 
-## Important rule
+## Core loop that must become real
 
-Never report a percentage based merely on planned work. A percentage increase requires implementation and appropriate verification. Owner-only gates such as production signing and physical device testing must remain explicitly separate.
+`event → two choices → canonical state transition → history → delayed consequence → future trigger → persistence → ending/replay`
 
-## Current known commits
+## Working rule
 
-- Product direction: `7b6a527a1f0c901724560f76af01411f0046dce0`
-- Engineering rules: `774d3d7175c4efa2e9a42ad8a95a2a88e849fa9c`
+Operate autonomously when the user says to continue. Work in large coherent blocks, verify actual results, update persistent documentation, and continue to the next highest-value safe block. Do not stop after one trivial task.
 
-## Current next action
+Never report a percentage from planned work alone. Distinguish implementation, tests, integration, runtime verification and owner-required gates.
 
-Create the architecture/data-contract plan and then implement the minimal real decision engine. Do not modify `rulebreak8` from this repository.
+## Next highest-value work
+
+1. Continue producer/consumer and derived-trigger extraction across E01–E270.
+2. Reconcile catalog and graph into one canonical registry.
+3. Audit delayed consequences and replay metadata.
+4. Run reachability/dead-end/ending analysis.
+5. Only after content is stable, freeze production data contracts and begin engine implementation.
