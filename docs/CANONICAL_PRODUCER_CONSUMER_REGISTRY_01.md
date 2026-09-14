@@ -2,7 +2,7 @@
 
 Date: 2026-09-15
 Status: **SOURCE-LEVEL QA — WORKING REGISTRY, NOT ENGINE INPUT**
-Scope: canonical state families identified across E01–E271.
+Scope: canonical state families identified across E01–E272.
 
 ## Purpose
 
@@ -12,7 +12,7 @@ The registry deliberately records OPEN rows instead of inventing producers.
 
 ## Current canonical status
 
-The E211–E270 expansion has received a dedicated producer/consumer audit. A new authored bridge node, E271, now explicitly separates border-crisis declaration from prior warning infrastructure and downstream crisis consumers. E271-A is the verified declaration producer; E271-B is an explicit non-crisis/de-escalation branch. Runtime validation is still absent.
+The E211–E270 expansion received a dedicated producer/consumer audit. E271 explicitly separates border-crisis declaration from prior warning infrastructure, and E272 now provides the missing authored resolution producer for an active declared crisis. Runtime validation is still absent.
 
 ## Registry
 
@@ -33,15 +33,17 @@ The E211–E270 expansion has received a dedicated producer/consumer audit. A ne
 | `history.house_assembly` | history | E161-A | E162/E202/E261+ | VERIFIED PRODUCER | durable house representation |
 | `history.guild_representation` | history | E144-A/E144-B | E203+ | VERIFIED PRODUCER | both E144 choices establish same representation fact |
 | `history.guild_logistics_cooperation` | history | E194-A | E194+ | VERIFIED SOURCE MARKER | predicate combination rule frozen; runtime producer still pending |
-| `thread.border_crisis` | thread | E271-A declaration; E271-B explicit non-crisis branch | E195/E240/E251/E253+ | VERIFIED SOURCE PRODUCER / RUNTIME OPEN | E271-A establishes declaration; later resolution producer still required |
+| `thread.border_crisis` | thread | E271-A declaration; E272-A/B resolution | E195/E240/E251/E253+ | VERIFIED SOURCE LIFECYCLE / RUNTIME OPEN | declaration and resolution are distinct authored stages |
+| `history.border_crisis_resolved_diplomatically` | history | E272-A | later callbacks/ending QA | VERIFIED PRODUCER | preserves historical declaration while recording diplomatic resolution |
+| `history.border_crisis_resolved_by_guarantee` | history | E272-B | later callbacks/ending QA | VERIFIED PRODUCER | preserves historical declaration while recording security resolution |
 | `thread.coalition` | thread | E146/E148 | E149/E201/E261+ | PARTIAL | package exists; cooperation qualification is separate |
 | `thread.military_constitutional` | thread | E199-A | E204/E227/E256+ | STRONG CANDIDATE | direct constitutional oath producer |
 | `thread.endgame_convergence` | thread | E210 candidate convergence node | E265–E270 | OPEN / CONVERGENCE ONLY | never independently resolves missing prerequisites |
 | `pred.gold_low` | predicate | `resource.gold` threshold candidate | E193+ | PROVISIONAL | threshold must be balance-verified |
 | `pred.security_high` | predicate | `resource.security` threshold candidate | E193+ | OPEN | threshold not frozen |
 | `pred.food_stable` | predicate/marker | E138/E167/E192 candidates | E192/E216/E225 | OPEN | deterministic definition required |
-| `pred.transport_disruption` | predicate | E136 repair producer + disruption source required | E192/E251+ | PARTIAL | E136 now clears active disruption and establishes stable transport; disruption source remains open |
-| `pred.border_crisis` | predicate | E271-A `border_crisis_declared` | E195/E253/E255+ | VERIFIED SOURCE PRODUCER / RUNTIME OPEN | true after E271-A until canonical resolution marker invalidates it |
+| `pred.transport_disruption` | predicate | E136 repair producer + disruption source required | E192/E251+ | PARTIAL | E136 clears active disruption and establishes stable transport; disruption source remains open |
+| `pred.border_crisis` | predicate | E271-A declaration; E272-A/B resolution | E195/E253/E255+ | VERIFIED SOURCE LIFECYCLE / RUNTIME OPEN | active only after declaration and before resolution |
 | `pred.guild_logistics_cooperation` | predicate | E194-A `history.guild_logistics_cooperation` | E194+ | CONTRACT FROZEN / SOURCE GAP | requires neutral-inspector safeguard and no unresolved immunity-risk blocker |
 | `pred.guild_influence_strong` | predicate | E144/E165/E168/E194 candidate domains | E200 | CONTRACT FROZEN / PRODUCERS OPEN | at least two distinct institutional guild domains; `rel.ivo` alone forbidden |
 | `pred.systemic_explanation_verified` | predicate | E132–E135/E232–E236 evidence candidates | E207/endgame | CONTRACT FROZEN / PRODUCER OPEN | three evidence domains plus explicit convergence decision |
@@ -52,9 +54,9 @@ The E211–E270 expansion has received a dedicated producer/consumer audit. A ne
 | `pred.faction_routes_4` | predicate | distinct faction route activations | E261+ | OPEN | distinct route identities required |
 | `ending.*` | ending | E265–E270 qualification layer | final result | DESIGN CONTRACT | deterministic multi-input qualification required |
 
-## E211–E271 audit result
+## E211–E272 audit result
 
-E211–E270 contain useful authored markers but still require normalization of prose triggers, explicit producer enumeration, delayed/replay metadata, and graph/reachability reconciliation. E251–E255 remain crisis consumers; E253 does not produce `pred.border_crisis`. E271 now closes the previously missing source-level declaration gap without reclassifying downstream consumers. E256–E260 are constitutional stress tests and cannot retroactively create prerequisites. E261–E265 keep coalition cooperation distinct from route count and durability. E266–E270 are endgame character/evidence nodes, not automatic prerequisite producers.
+E211–E270 contain useful authored markers but still require normalization of prose triggers, explicit producer enumeration, delayed/replay metadata, and graph/reachability reconciliation. E251–E255 remain crisis consumers. E271 closes the declaration source gap and E272 closes the authored active-crisis resolution gap. E256–E260 are constitutional stress tests and cannot retroactively create prerequisites. E261–E265 keep coalition cooperation distinct from route count and durability. E266–E270 are endgame character/evidence nodes, not automatic prerequisite producers.
 
 ## Frozen combination rules
 
@@ -77,17 +79,17 @@ Requires three independent upstream domains: civic/commons legitimacy, audit/ins
 Before E209, as applicable: civic/commons legitimacy, institutional/audit legitimacy, faction/house/guild representation, military/security constitutional route where required, information/evidence legitimacy, coalition cooperation, and no unresolved mandatory crisis blocker. E209 consumes this qualification; E210 only converges.
 
 ### Border crisis
-E271-A is the explicit authored declaration producer. It requires an already active border thread, border tension, and corroborated frontier-warning infrastructure. E271-B explicitly resolves/de-escalates without satisfying the crisis predicate. E195/E253/E255 are consumers and must not manufacture the crisis through reachability alone. A later canonical resolution event remains required for the active-crisis lifecycle.
+E271-A is the explicit authored declaration producer. It requires an already active border thread, border tension, and corroborated frontier-warning infrastructure. E271-B explicitly resolves/de-escalates without satisfying the crisis predicate. E195/E253/E255 are consumers and must not manufacture the crisis through reachability alone. E272-A/B are the canonical active-crisis resolution producers. Resolution preserves `border_crisis_declared` as history while clearing the active `pred.border_crisis` through `border_crisis_resolved`.
 
 ## Remaining P0 work
 
-1. Add/verify a canonical authored resolution producer for an active border crisis.
-2. Enumerate exact durable producers for every domain used by the frozen combination rules.
-3. Expand this registry to every concrete durable flag/history marker in E01–E271 with exact consumers.
-4. Normalize remaining prose triggers and aliases.
-5. Reconcile graph/catalog references and reachability.
-6. Audit duplicate semantic events E73/E156 and E99/E173.
-7. Reconcile E35–E40 legacy aliases before schema freeze.
+1. Enumerate exact durable producers for every domain used by the frozen combination rules.
+2. Expand this registry to every concrete durable flag/history marker in E01–E272 with exact consumers.
+3. Normalize remaining prose triggers and aliases.
+4. Reconcile graph/catalog references and reachability.
+5. Audit duplicate semantic events E73/E156 and E99/E173.
+6. Reconcile E35–E40 legacy aliases before schema freeze.
+7. Verify delayed/replay source identities and exactly-once semantics across the full catalog.
 
 ## Gate
 
