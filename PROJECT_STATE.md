@@ -31,7 +31,7 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 11. Treat the production AAB/signing/Play release as the final stage after APK and QA gates pass.
 
 ## Current phase
-**Narrative/content architecture first.** E01–E70 form the current authored spine including the Act V constitutional crisis, seven ending nodes, and replay epilogues. E71–E110 have now been authored as an expansion layer adding character, faction, ordinary-life, economic, security, investigation, callback and replay hooks. This is a substantial content milestone but is **not** the final release volume and is not yet fully wired into the canonical event graph.
+**Narrative/content architecture first.** E01–E70 form the current authored spine including the Act V constitutional crisis, seven ending nodes, and replay epilogues. E71–E110 form an expansion layer adding character, faction, ordinary-life, economic, security, investigation, callback and replay hooks. E111–E150 now add another 40 authored causal nodes focused on civic life, delayed consequences, faction pressure, investigation/replay information, crisis preparation and cross-character constitutional convergence. These expansion layers are substantial content milestones but are **not** the final release volume and are not yet fully engine-integrated or reachability-verified.
 
 ## Content quality rules
 - Do not inflate length with repeated or cosmetic cards.
@@ -46,7 +46,8 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 ## Narrative QA artifacts
 - `docs/EVENT_CATALOG.md` contains the original E01–E34 campaign spine.
 - `docs/EVENT_CATALOG_ACT_V_EXPANSION.md` extends the authored spine through E70 and the seven current ending nodes.
-- `docs/EVENT_EXPANSION_071_110.md` contains the newly authored E71–E110 expansion layer pending canonical graph/catalog integration.
+- `docs/EVENT_EXPANSION_071_110.md` contains E71–E110 expansion layer pending canonical graph/catalog integration.
+- `docs/EVENT_CATALOG_EXPANSION_111_150.md` contains E111–E150 expansion layer pending canonical graph/catalog integration.
 - `docs/CONTENT_QA_MATRIX.md` defines the production content gates, causal-depth checks, character/faction checks, investigation checks, replay checks, and ending reachability review.
 
 ## Honest progress rule
