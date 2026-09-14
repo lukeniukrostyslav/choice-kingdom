@@ -31,7 +31,7 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 11. Treat the production AAB/signing/Play release as the final stage after APK and QA gates pass.
 
 ## Current phase
-**Narrative/content canonicalization and QA.** The authored checkpoint is E01–E270. The immediate task is no longer increasing card count; it is reconciling the authored sources and causal graph into a canonical production representation and proving that the content is internally consistent and reachable.
+**Narrative/content canonicalization and QA.** The authored checkpoint is E01–E270. The immediate task is reconciling authored sources and the causal graph into a canonical production representation and proving that the content is internally consistent and reachable.
 
 ## Authored content checkpoints
 - E01–E70: authored spine/endgame
@@ -41,16 +41,6 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 - E211–E270: authored expansion
 - Total authored node identifiers currently planned: **E01–E270** (270 authored nodes; not all are yet canonically integrated or QA-verified).
 
-## Content quality rules
-- Do not inflate length with repeated or cosmetic cards.
-- Important choices must alter future state, information, relationships, access, risks or endings.
-- Delayed consequences must actually arrive and remember earlier decisions.
-- Replayability must come from different information and causal paths, not merely shuffled text.
-- Critical endings should have multiple independent ways to qualify where appropriate.
-- Every major character needs meaningful positive and negative arcs.
-- Factions must sometimes be substantively correct rather than cartoonishly right/wrong.
-- A first playthrough should be a complete game experience, not a teaser or vertical-slice-only product.
-
 ## Narrative QA artifacts
 - `docs/EVENT_CATALOG.md` contains the original E01–E34 campaign spine.
 - `docs/EVENT_CATALOG_ACT_V_EXPANSION.md` extends the authored spine through E70 and the seven current ending nodes.
@@ -59,23 +49,28 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 - `docs/EVENT_CATALOG_EXPANSION_151_210.md` contains E151–E210 expansion layer pending canonical graph/catalog integration.
 - `docs/EVENT_CATALOG_EXPANSION_211_270.md` contains E211–E270 expansion layer pending canonical graph/catalog integration.
 - `docs/CONTENT_QA_MATRIX.md` defines the production content gates.
-- `docs/CANONICAL_EVENT_AUDIT_01.md` records the first reconciliation findings.
-- `docs/CANONICAL_EVENT_AUDIT_02.md` records additional repeated-event and derived-condition findings.
+- `docs/CANONICAL_EVENT_AUDIT_01.md` and `docs/CANONICAL_EVENT_AUDIT_02.md` record reconciliation findings.
 - `docs/CANONICAL_TRIGGER_AUDIT_01.md` records the initial producer/consumer and derived-trigger inventory.
 - `docs/CANONICAL_STATE_VOCABULARY.md` defines the state namespaces.
 - `docs/CANONICAL_DELAY_CONTRACT.md` defines the delayed-consequence contract.
 - `docs/CANONICALIZATION_BACKLOG.md` is the active execution backlog.
+- `docs/SOURCE_CONFLICT_AUDIT_01.md` records the verified E35–E40 source-level ID collision.
+- `docs/TRIGGER_NORMALIZATION_AUDIT_02.md` records verified trigger families and prose-condition defects in E71–E270.
+- `docs/EVENT_ID_RECONCILIATION_01.md` and `docs/EVENT_ID_RECONCILIATION_02.md` track explicit preservation and disposition of legacy E35–E40 content.
+- `docs/PRODUCER_CONSUMER_INVENTORY_01.md` covers verified later-range producer/consumer relationships.
+- `docs/PRODUCER_CONSUMER_INVENTORY_02.md` adds verified E01–E70 producer/consumer coverage.
 
 ## Current QA checkpoint
-Audit work has now confirmed additional repeated character-scene titles/near-titles (including Mara/Rowan callbacks) and a wider class of free-form derived trigger phrases. These are tracked as canonicalization work, not treated as resolved. E01–E270 remain authored rather than production-verified content.
+The authored campaign has enough causal material for full-game scope, but source reconciliation is still active. A direct collision exists because the original catalog and expanded Act V both assign E35–E40. Legacy content is preserved rather than silently deleted, and reconciliation audits now map the six conflicts. E01–E270 remain authored rather than production-verified content.
 
 ## Next highest-value work
-1. Complete producer/consumer extraction for the full E01–E270 catalog.
-2. Define deterministic derived predicates for contextual triggers.
-3. Reconcile graph edges against actual catalog triggers/effects.
-4. Normalize delayed consequences and replay metadata.
-5. Perform reachability, dead-end, contradiction, pacing and ending simulations.
-6. Freeze production data contracts only after the above gates pass.
+1. Complete disposition of each legacy E35–E40 node after downstream comparison.
+2. Complete producer/consumer extraction for the full E01–E270 catalog.
+3. Define deterministic derived predicates for contextual triggers.
+4. Reconcile graph edges against actual catalog triggers/effects.
+5. Normalize delayed consequences and replay metadata.
+6. Perform reachability, dead-end, contradiction, pacing and ending simulations.
+7. Freeze production data contracts only after the above gates pass.
 
 ## Honest progress rule
 Percentages represent actual state of the corresponding work. Documentation alone does not make implementation complete. No block may be called ready until its appropriate verification has passed.
