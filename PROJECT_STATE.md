@@ -63,17 +63,19 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 - `docs/DERIVED_PREDICATE_MATRIX_02.md` defines the current canonical predicate normalization working specification.
 - `docs/GRAPH_CATALOG_RECONCILIATION_01.md` records the first source-verified graph-vs-catalog audit for E71–E110.
 - `docs/GRAPH_CATALOG_RECONCILIATION_02.md` records the source-verified E111–E150 graph-vs-catalog audit.
+- `docs/UNIFIED_PRODUCER_CONSUMER_REGISTRY_01.md` consolidates high-impact canonical producer/consumer closure across E01–E270.
+- `docs/REACHABILITY_PREAUDIT_03.md` defines the seven ending reachability scenarios and the current static gate.
 
 ## Current QA checkpoint
-The authored campaign has enough causal material for full-game scope, but source reconciliation is still active. A direct collision exists because the original catalog and expanded Act V both assign E35–E40. Legacy content is preserved rather than silently deleted, and reconciliation audits now map the six conflicts. Graph/catalog reconciliation is now source-verified through E150, but later ranges remain open. The E111–E150 pass confirms real durable producer/consumer relationships while identifying unresolved compound predicates such as food pressure, winter severity, border crisis, market pressure, information pressure and institutional reform. These must not be compiled as raw prose conditions. E01–E270 remain authored rather than production-verified content. Derived predicate normalization has a working matrix, but producer completeness and reachability remain open.
+The authored campaign has enough causal material for full-game scope, but source reconciliation is still active. A direct collision exists because the original catalog and expanded Act V both assign E35–E40. Legacy content is preserved rather than silently deleted, and reconciliation audits now map the six conflicts. Graph/catalog reconciliation is source-verified through E150, while the unified registry now consolidates high-impact E01–E270 producer/consumer dependencies. The latest pre-audit explicitly keeps the ten P0 producer gaps open: guild representation, food stability, transport disruption, border crisis, guild logistics cooperation, guild influence, systemic evidence convergence, coalition cooperation, constitutional preparation and final charter prerequisites. These must not be invented or inferred circularly. Reachability remains static/pre-audit only until a runtime validator exists.
 
 ## Next highest-value work
-1. Complete disposition of each legacy E35–E40 node after downstream comparison.
-2. Complete producer/consumer extraction for E151–E270 and close remaining E01–E110 gaps.
-3. Lock deterministic derived predicates only after producer and threshold validation.
-4. Reconcile graph edges against actual catalog triggers/effects across E151–E270.
+1. Resolve each P0 producer gap from exact authored source or add a deliberate narrative insertion point.
+2. Complete producer/consumer extraction and graph/catalog reconciliation for E151–E270 and close remaining E01–E110 gaps.
+3. Build a real static catalog validator for IDs, duplicate IDs, legacy ending collisions, graph references and missing ranges.
+4. Lock deterministic derived predicates only after producer and threshold validation.
 5. Normalize delayed consequences and replay metadata.
-6. Perform reachability, dead-end, contradiction, pacing and ending simulations.
+6. Perform runtime reachability, dead-end, contradiction, pacing and ending simulations once the production catalog exists.
 7. Freeze production data contracts only after the above gates pass.
 
 ## Honest progress rule
