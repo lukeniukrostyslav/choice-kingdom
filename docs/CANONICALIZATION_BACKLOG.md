@@ -13,6 +13,8 @@ Scope: E01–E270
 - [ ] Extract every authored flag producer into a machine-readable inventory.
 - [ ] Extract every relationship mutation/gate.
 - [ ] Extract every delayed consequence.
+- [ ] Resolve E35–E40 source-ID conflict between `EVENT_CATALOG.md` and `EVENT_CATALOG_ACT_V_EXPANSION.md`.
+- [ ] Create explicit legacy-to-canonical ID mapping for any retained superseded nodes.
 
 ## Phase B — consistency
 
@@ -24,6 +26,7 @@ Scope: E01–E270
 - [ ] Event outgoing-consequence audit.
 - [ ] Branch rejoin audit.
 - [ ] Mutually exclusive branch audit.
+- [ ] Reconcile `EVENT_GRAPH.md` against the frozen canonical ID mapping.
 
 ## Phase C — delayed/replay
 
