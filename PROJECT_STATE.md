@@ -60,15 +60,16 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 - `docs/PRODUCER_CONSUMER_INVENTORY_01.md` covers verified later-range producer/consumer relationships.
 - `docs/PRODUCER_CONSUMER_INVENTORY_02.md` adds verified E01–E70 producer/consumer coverage.
 - `docs/DERIVED_PREDICATE_MATRIX_02.md` defines the current canonical predicate normalization working specification.
+- `docs/GRAPH_CATALOG_RECONCILIATION_01.md` records the first source-verified graph-vs-catalog audit for E71–E110.
 
 ## Current QA checkpoint
-The authored campaign has enough causal material for full-game scope, but source reconciliation is still active. A direct collision exists because the original catalog and expanded Act V both assign E35–E40. Legacy content is preserved rather than silently deleted, and reconciliation audits now map the six conflicts. E01–E270 remain authored rather than production-verified content. Derived predicate normalization now has a working matrix, but producer completeness and reachability remain open.
+The authored campaign has enough causal material for full-game scope, but source reconciliation is still active. A direct collision exists because the original catalog and expanded Act V both assign E35–E40. Legacy content is preserved rather than silently deleted, and reconciliation audits now map the six conflicts. The first graph-vs-catalog reconciliation pass also found several design-level edges that are not yet proven runtime dependencies; these must not be compiled into the engine until their producer/consumer contracts are explicit. E01–E270 remain authored rather than production-verified content. Derived predicate normalization now has a working matrix, but producer completeness and reachability remain open.
 
 ## Next highest-value work
 1. Complete disposition of each legacy E35–E40 node after downstream comparison.
 2. Complete producer/consumer extraction for the full E01–E270 catalog.
 3. Lock deterministic derived predicates only after producer and threshold validation.
-4. Reconcile graph edges against actual catalog triggers/effects.
+4. Reconcile graph edges against actual catalog triggers/effects across all expansion ranges.
 5. Normalize delayed consequences and replay metadata.
 6. Perform reachability, dead-end, contradiction, pacing and ending simulations.
 7. Freeze production data contracts only after the above gates pass.
