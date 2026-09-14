@@ -32,6 +32,22 @@ This document is the narrative production gate. Content progress is measured by 
 - [ ] No critical ending requires liking one particular character.
 - [ ] E211–E270 do not become a disconnected second campaign; each selected node must connect back to an existing thread or create a verified new thread with later payoff.
 
+### Canonical vocabulary gate
+- [ ] Every durable flag has exactly one semantic definition.
+- [ ] Every trigger token has a known producer or an explicit derived-condition definition.
+- [ ] Relationship gates use canonical character IDs and intentional thresholds.
+- [ ] Contextual resources such as food pressure/border tension are normalized to derived conditions or canonical state markers.
+- [ ] Replay-only information uses a separate versioned `meta.*` namespace.
+- [ ] Duplicate titles are allowed only when stable IDs and context disambiguate them.
+
+### Delayed consequence gate
+- [ ] Every delayed consequence has a stable identity.
+- [ ] Every delay has an exact timing/resolution rule.
+- [ ] Every delay is exactly-once.
+- [ ] Save/load persistence is defined.
+- [ ] Cancellation/supersession is defined where applicable.
+- [ ] Same-turn delayed effects have deterministic ordering.
+
 ### Character integrity
 - [ ] Mara: positive institutional route and resignation/negative route.
 - [ ] Rowan: lawful-defense route and militarist/patronage route.
@@ -96,6 +112,8 @@ This document is the narrative production gate. Content progress is measured by 
 13. Detect resource combinations that make a meaningful choice mathematically impossible too often.
 14. Verify every ending has a recognizable causal route and at least two independent prerequisite configurations where the design calls for it.
 15. Remove or rewrite filler nodes discovered during the audit.
+16. Normalize all flags, triggers, relationships, threads and replay metadata against `docs/CANONICAL_STATE_VOCABULARY.md`.
+17. Normalize all delayed consequences against `docs/CANONICAL_DELAY_CONTRACT.md`.
 
 ## Canonical audit pass 01 — completed findings
 
@@ -124,6 +142,8 @@ Next gate is not “write more cards”. Next gate is to reconcile E01–E270 in
 - Canonical production catalog E01–E270: **not yet**.
 - Causal graph E01–E270: **partially mapped; not verified**.
 - Stable machine-readable IDs: **not yet implemented**.
+- Canonical state vocabulary: **defined as design contract; extraction not yet complete**.
+- Delayed-consequence contract: **defined as design contract; catalog extraction not yet complete**.
 - Automated reachability: **not yet implemented**.
 - Contradiction scan: **not yet implemented**.
 - Duplicate flag/trigger scan: **not yet implemented**.
