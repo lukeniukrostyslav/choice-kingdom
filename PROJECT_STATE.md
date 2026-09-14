@@ -31,7 +31,7 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 11. Treat the production AAB/signing/Play release as the final stage after APK and QA gates pass.
 
 ## Current phase
-**Narrative/content architecture first.** E01–E70 form the current authored spine including the Act V constitutional crisis, seven ending nodes, and replay epilogues. E71–E110, E111–E150, and E151–E210 are expansion layers. E211–E270 now add another 60 authored causal nodes focused on public institutions, economic/social consequences, character pressure, investigation, faction credibility, delayed callbacks, replay divergence, winter crises and constitutional endgame stress tests. These expansion layers are substantial content milestones but are **not** the final release volume and are not yet fully engine-integrated or reachability-verified.
+**Narrative/content architecture first.** E01–E70 form the current authored spine including the Act V constitutional crisis, seven ending nodes, and replay epilogues. E71–E110, E111–E150, and E151–E210 are expansion layers. E211–E270 now add another 60 authored causal nodes focused on public institutions, economic/social consequences, character pressure, investigation, faction credibility, delayed callbacks, replay divergence, winter crises and constitutional endgame stress tests. These expansion layers are substantial content milestones but are **not the final release volume** and are not yet fully engine-integrated or reachability-verified.
 
 ## Authored content checkpoints
 - E01–E70: authored spine/endgame
@@ -59,6 +59,10 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 - `docs/EVENT_CATALOG_EXPANSION_151_210.md` contains E151–E210 expansion layer pending canonical graph/catalog integration.
 - `docs/EVENT_CATALOG_EXPANSION_211_270.md` contains E211–E270 expansion layer pending canonical graph/catalog integration.
 - `docs/CONTENT_QA_MATRIX.md` defines the production content gates, causal-depth checks, character/faction checks, investigation checks, replay checks, and ending reachability review.
+- `docs/CANONICAL_EVENT_AUDIT_01.md` records the first concrete reconciliation findings and unresolved integration blockers.
+
+## Current QA checkpoint
+The first canonical audit pass has started. It identified concrete normalization work (trigger producers, replay meta-state, delayed timing, contextual variables, duplicate titles, and graph/catalog reconciliation). These findings are tracked but **not yet resolved**. Therefore E01–E270 remain authored rather than production-verified content.
 
 ## Honest progress rule
 Percentages represent actual state of the corresponding work. Documentation alone does not make implementation complete. No block may be called ready until its appropriate verification has passed.
