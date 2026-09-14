@@ -67,11 +67,13 @@ E271 now provides an explicit authored source for border-crisis declaration, whi
 
 The border-crisis lifecycle is therefore closed at the authored-source level, but not at runtime. Remaining P0 work is exact producer enumeration for frozen combination domains, full marker/consumer inventory, trigger normalization, graph/catalog reconciliation, reachability, duplicate semantic cleanup, delayed/replay normalization and production schema freeze.
 
-The legacy semantic audit confirmed a P0 collision between E55 and E269 (same title but different authored choice sets) and a high-priority overlap between E36 and E226 (both Mara resignation). Source comparison now confirms E73/E156 and E99/E173 are **distinct nodes**, so no renumbering/reframe is required for those pairs. The semantic-resolution policy remains active for E55/E269 and E36/E226, while E37/E227, E39/E229 and E40/E241 still require downstream-role verification.
+The legacy semantic audit confirmed a P0 collision between E55 and E269 (same title but different authored choice sets) and a high-priority overlap between E36 and E226 (both Mara resignation). Source comparison confirms E73/E156 and E99/E173 are **distinct nodes**, so no renumbering/reframe is required for those pairs. The semantic-resolution policy remains active for E55/E269 and E36/E226, while E37/E227, E39/E229 and E40/E241 still require downstream-role verification.
 
 Reachability remains static/pre-audit only until a real validator and production data representation exist. No engine/APK readiness claim is permitted at this stage.
 
 ## Latest source-level commits
+- `2700f3ffb92c47ae992887efcd8e06c42eb65d0f` — synchronized canonicalization backlog after confirming E73/E156 and E99/E173 are distinct.
+- `c860391ab31f6e1fdf5a1b8354552c4b013d8ec1` — synchronized README with the actual E01–E272 authored checkpoint.
 - `d6124c4d4f9e4901e107aad3dc12cc61e70cbde2` — closed E73/E156 and E99/E173 source comparison as distinct.
 - `f8147d881d54a28d27c72161b2acbb327063bdc4` — froze semantic collision resolution policy before schema.
 - `b30eeb6c1874c1c666e366e9555b42d3d4145ea2` — updated canonicalization backlog through E272.
