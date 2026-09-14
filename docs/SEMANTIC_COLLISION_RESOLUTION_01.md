@@ -1,0 +1,84 @@
+# Choice Kingdom — Semantic Collision Resolution 01
+
+Date: 2026-09-15
+Status: **SOURCE-LEVEL QA — RESOLUTION POLICY FROZEN; AUTHORITATIVE CATALOG EDITS STILL REQUIRED**
+Scope: confirmed and suspected duplicate/overlapping event identities before production schema freeze.
+
+## Purpose
+
+Prevent ambiguous runtime identities without silently renumbering authored IDs. An event ID remains stable; semantic identity is resolved by explicit narrative role, trigger context, and downstream consequence.
+
+## Frozen resolutions
+
+### E55 / E269 — confirmed title collision
+
+- E55 remains the canonical **early/primary ledger-disclosure node**: Ivo exposes guild books and chooses protected submission versus private sealing.
+- E269 remains the authored **late endgame consequence node**, but it must be renamed/reframed before production schema freeze so its title and presentation cannot imply that it is the same event as E55.
+- Do not merge IDs and do not renumber either node.
+- The reframe must preserve E269's late-game choice semantics and make its downstream ending/evidence role explicit.
+- Required dependent updates after the authored rename/reframe: event graph, producer/consumer registry, delayed consequence source IDs if any, replay metadata if any, QA matrix and ending simulations.
+
+### E36 / E226 — same narrative premise, different potential role
+
+- E36 remains the canonical early constitutional/resignation node.
+- E226 may remain only as a **late consequence/test** of accumulated executive overrides and institutional strain.
+- E226 must not repeat E36's presentation or function as a second generic resignation choice.
+- Its downstream role must consume earlier institutional history and create materially different late-game consequences.
+- If that distinction cannot be demonstrated in graph/reachability QA, E226 should be removed from the playable catalog rather than duplicated at runtime.
+
+### E37 / E227 — constitutional military overlap
+
+- E37 is the foundational military-law oath.
+- E227 is retained as a later constitutional stress test only if its trigger depends on the earlier route and its effects test or extend that commitment.
+- No second copy of the oath semantics is permitted.
+
+### E40 / E241 — civic/medical overlap
+
+- Both may coexist because E40 establishes an early local-relief direction while E241 is a later validation/early-warning consequence.
+- E241 must consume meaningful Amara/civic history and must not become a duplicate reward event.
+
+### E39 / E229 — fiscal leverage overlap
+
+- Both may coexist because E39 is an early emergency-credit bargain and E229 is a late shortcut/loophole decision.
+- Their player information, risk, and downstream consequences must remain materially distinct.
+
+### E38 / later house representation
+
+- E38 is an early constitutional bargain with hereditary houses.
+- Later representation nodes must consume or transform that history rather than restating the same bargain.
+
+## Still-open exact-source comparisons
+
+### E73 / E156
+
+No merge/reframe decision is made yet. Exact source text, trigger, effects and downstream consumers must be compared before schema freeze.
+
+### E99 / E173
+
+No merge/reframe decision is made yet. Exact source text, trigger, effects and downstream consumers must be compared before schema freeze.
+
+## Schema-freeze rule
+
+A collision is resolved only when all of the following are true:
+
+1. stable authored ID is preserved;
+2. semantic role is unique or explicit recurrence is declared;
+3. trigger is canonical and distinguishable;
+4. choice effects are materially distinct;
+5. downstream consumers are distinguishable;
+6. delayed/replay references use the correct source identity;
+7. graph and catalog agree;
+8. reachability/endings QA confirms the node is not dead or redundant.
+
+Documentation alone does not mark a collision resolved. The authoritative authored catalog must be edited and re-read, then the resulting graph/QA surfaces must be updated.
+
+## Current gate impact
+
+- E55/E269: **resolution policy frozen; catalog rename/reframe pending**.
+- E36/E226: **late-consequence policy frozen; catalog distinction pending graph verification**.
+- E37/E227: **later-stress-test policy frozen; downstream verification pending**.
+- E39/E229: **distinct-role policy frozen; downstream verification pending**.
+- E40/E241: **distinct-role policy frozen; downstream verification pending**.
+- E73/E156: **OPEN**.
+- E99/E173: **OPEN**.
+- Production schema: **BLOCKED** until authoritative edits and full reconciliation pass.
