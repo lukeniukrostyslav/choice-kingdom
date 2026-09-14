@@ -59,14 +59,15 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 - `docs/EVENT_ID_RECONCILIATION_01.md` and `docs/EVENT_ID_RECONCILIATION_02.md` track explicit preservation and disposition of legacy E35–E40 content.
 - `docs/PRODUCER_CONSUMER_INVENTORY_01.md` covers verified later-range producer/consumer relationships.
 - `docs/PRODUCER_CONSUMER_INVENTORY_02.md` adds verified E01–E70 producer/consumer coverage.
+- `docs/DERIVED_PREDICATE_MATRIX_02.md` defines the current canonical predicate normalization working specification.
 
 ## Current QA checkpoint
-The authored campaign has enough causal material for full-game scope, but source reconciliation is still active. A direct collision exists because the original catalog and expanded Act V both assign E35–E40. Legacy content is preserved rather than silently deleted, and reconciliation audits now map the six conflicts. E01–E270 remain authored rather than production-verified content.
+The authored campaign has enough causal material for full-game scope, but source reconciliation is still active. A direct collision exists because the original catalog and expanded Act V both assign E35–E40. Legacy content is preserved rather than silently deleted, and reconciliation audits now map the six conflicts. E01–E270 remain authored rather than production-verified content. Derived predicate normalization now has a working matrix, but producer completeness and reachability remain open.
 
 ## Next highest-value work
 1. Complete disposition of each legacy E35–E40 node after downstream comparison.
 2. Complete producer/consumer extraction for the full E01–E270 catalog.
-3. Define deterministic derived predicates for contextual triggers.
+3. Lock deterministic derived predicates only after producer and threshold validation.
 4. Reconcile graph edges against actual catalog triggers/effects.
 5. Normalize delayed consequences and replay metadata.
 6. Perform reachability, dead-end, contradiction, pacing and ending simulations.
