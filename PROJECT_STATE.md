@@ -49,31 +49,18 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 - `docs/EVENT_CATALOG_EXPANSION_151_210.md` contains E151–E210 expansion layer pending canonical graph/catalog integration.
 - `docs/EVENT_CATALOG_EXPANSION_211_270.md` contains E211–E270 expansion layer pending canonical graph/catalog integration.
 - `docs/CONTENT_QA_MATRIX.md` defines the production content gates.
-- `docs/CANONICAL_EVENT_AUDIT_01.md` and `docs/CANONICAL_EVENT_AUDIT_02.md` record reconciliation findings.
-- `docs/CANONICAL_TRIGGER_AUDIT_01.md` records the initial producer/consumer and derived-trigger inventory.
 - `docs/CANONICAL_STATE_VOCABULARY.md` defines the state namespaces.
 - `docs/CANONICAL_DELAY_CONTRACT.md` defines the delayed-consequence contract.
 - `docs/CANONICALIZATION_BACKLOG.md` is the active execution backlog.
-- `docs/SOURCE_CONFLICT_AUDIT_01.md` records the verified E35–E40 source-level ID collision.
-- `docs/TRIGGER_NORMALIZATION_AUDIT_02.md` records verified trigger families and prose-condition defects in E71–E270.
-- `docs/EVENT_ID_RECONCILIATION_01.md` and `docs/EVENT_ID_RECONCILIATION_02.md` track explicit preservation and disposition of legacy E35–E40 content.
-- `docs/PRODUCER_CONSUMER_INVENTORY_01.md` covers verified later-range producer/consumer relationships.
-- `docs/PRODUCER_CONSUMER_INVENTORY_02.md` adds verified E01–E70 producer/consumer coverage.
-- `docs/PRODUCER_CONSUMER_INVENTORY_03.md` consolidates source-verified E111–E150 producer/consumer relationships.
-- `docs/DERIVED_PREDICATE_MATRIX_02.md` defines the current canonical predicate normalization working specification.
-- `docs/GRAPH_CATALOG_RECONCILIATION_01.md` records the first source-verified graph-vs-catalog audit for E71–E110.
-- `docs/GRAPH_CATALOG_RECONCILIATION_02.md` records the source-verified E111–E150 graph-vs-catalog audit.
-- `docs/UNIFIED_PRODUCER_CONSUMER_REGISTRY_01.md` consolidates high-impact canonical producer/consumer closure across E01–E270.
-- `docs/REACHABILITY_PREAUDIT_03.md` defines the seven ending reachability scenarios and the current static gate.
-- `docs/PRODUCER_GAP_CLOSURE_PASS_01.md` records the first evidence-backed P0 closure queue.
-- `docs/GRAPH_CATALOG_RECONCILIATION_05.md` records the source-level E151–E270 reconciliation checkpoint.
-- `docs/PRODUCER_GAP_CLOSURE_PASS_02.md` closes the exact `hist.guild_representation` producer at E144-A and formalizes the remaining nine P0 closure requirements without inventing engine state.
+- `docs/PRODUCER_GAP_CLOSURE_PASS_01.md` through `docs/PRODUCER_GAP_CLOSURE_PASS_03.md` record the prior P0 closure passes.
+- `docs/PRODUCER_GAP_CLOSURE_PASS_04.md` records the latest source-level producer-gap contract.
+- `docs/CANONICAL_SOURCE_CORRECTIONS_01.md` freezes the explicit authored correction semantics for E192, E136, E144, E148, E194, E195, E200, E207, E209 and E210.
 
 ## Current QA checkpoint
-The authored campaign has enough causal material for full-game scope, but source reconciliation is still active. A direct collision exists because the original catalog and expanded Act V both assign E35–E40. Legacy content is preserved rather than silently deleted, and reconciliation audits map the six conflicts. Graph/catalog reconciliation is source-verified through E270 at the design level, but runtime reachability is not verified. The P0 producer set is now explicitly tracked: `hist.guild_representation` is source-closed by E144-A; food stability, transport disruption, border crisis, guild logistics cooperation, guild influence, systemic evidence convergence, coalition cooperation, constitutional preparation and final charter prerequisites remain open by design until exact authored semantics are frozen. These must not be invented or inferred circularly. Reachability remains static/pre-audit only until a runtime validator exists.
+The authored campaign has enough causal material for full-game scope, but source reconciliation is still active. The P0 producer set is explicitly tracked. `hist.guild_representation` is source-closed by E144-A. The remaining producer contracts are now frozen as explicit correction specifications, but the expansion catalog is not yet marked runtime-valid until those exact semantics are reconciled into the authored sources and the complete E01–E270 producer/consumer inventory is rerun. In particular, E192 must not introduce a sixth numeric resource; food stability must use canonical marker/derived semantics. Reachability remains static/pre-audit only until a runtime validator exists.
 
 ## Next highest-value work
-1. Freeze exact deterministic definitions/producers for the nine remaining P0 gaps and add deliberate authored bridge choices where existing choices cannot carry the semantics safely.
+1. Apply the canonical source corrections to the authored event catalogs without inventing new resources or circular predicates.
 2. Complete producer/consumer extraction and graph/catalog reconciliation for all remaining source gaps, including E01–E110 and E151–E270 closure verification.
 3. Build a real static catalog validator for IDs, duplicate IDs, legacy ending collisions, graph references and missing ranges **only after the canonical data contract is frozen against the authored catalog**.
 4. Lock deterministic derived predicates only after producer and threshold validation.
