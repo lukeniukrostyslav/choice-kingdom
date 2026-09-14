@@ -389,3 +389,28 @@ A healer and a courier arrive with two different accounts of the final crisis; n
 ## QA note
 
 E211–E270 are authored nodes, not verified runtime content. They must be reconciled with E01–E210, assigned canonical triggers/turn windows, checked for state conflicts and dead ends, and simulated before any event-count percentage is treated as production completion.
+
+## Canonical bridge — E271 (producer node, post-catalog extension)
+
+### E271 — The Border Council Alarm
+**Trigger:** `thread.border` active + `pred.border_tension` + frontier warning infrastructure (`frontier_military_watch` or `civilian_signal_authority`).
+
+The council receives corroborated reports that the frontier threat has crossed from tension into an active crisis. This node is deliberately separate from E139, E171, E195 and E253: those events provide warning, legal/military responses, or crisis consumption, but none of them silently creates the crisis predicate.
+
+- **A — Declare a formal border crisis**
+  - Immediate: `border_crisis_declared = true`.
+  - Clears: `border_crisis_resolved = false`.
+  - Durable state: `thread.border_crisis = active`.
+  - Consumer unlock: `pred.border_crisis` becomes eligible for E195/E253/E255 and later crisis logic.
+
+- **B — Verify and de-escalate before declaring**
+  - Immediate: `border_crisis_resolved = true`.
+  - Durable state: `thread.border_crisis = resolved_without_declaration`.
+  - This choice must not satisfy `pred.border_crisis`.
+
+### E271 QA contract
+E271 is an authored producer bridge, not a generic graph edge. `pred.border_crisis` is true only after E271-A and while no later canonical resolution marker invalidates it. E271-B is an explicit non-crisis branch. A later authored event may resolve an active crisis, but neither E195 nor E253 may create one merely by being reached.
+
+## QA note
+
+E211–E271 are authored nodes, not verified runtime content. They must be reconciled with E01–E210, assigned canonical triggers/turn windows, checked for state conflicts and dead ends, and simulated before any event-count percentage is treated as production completion.
