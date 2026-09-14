@@ -31,7 +31,7 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 11. Treat the production AAB/signing/Play release as the final stage after APK and QA gates pass.
 
 ## Current phase
-**Narrative/content architecture first.** E01–E70 form the current authored spine including the Act V constitutional crisis, seven ending nodes, and replay epilogues. E71–E110, E111–E150, and E151–E210 are expansion layers. E211–E270 now add another 60 authored causal nodes focused on public institutions, economic/social consequences, character pressure, investigation, faction credibility, delayed callbacks, replay divergence, winter crises and constitutional endgame stress tests. These expansion layers are substantial content milestones but are **not the final release volume** and are not yet fully engine-integrated or reachability-verified.
+**Narrative/content canonicalization and QA.** The authored checkpoint is E01–E270. The immediate task is no longer increasing card count; it is reconciling the authored sources and causal graph into a canonical production representation and proving that the content is internally consistent and reachable.
 
 ## Authored content checkpoints
 - E01–E70: authored spine/endgame
@@ -58,11 +58,24 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 - `docs/EVENT_CATALOG_EXPANSION_111_150.md` contains E111–E150 expansion layer pending canonical graph/catalog integration.
 - `docs/EVENT_CATALOG_EXPANSION_151_210.md` contains E151–E210 expansion layer pending canonical graph/catalog integration.
 - `docs/EVENT_CATALOG_EXPANSION_211_270.md` contains E211–E270 expansion layer pending canonical graph/catalog integration.
-- `docs/CONTENT_QA_MATRIX.md` defines the production content gates, causal-depth checks, character/faction checks, investigation checks, replay checks, and ending reachability review.
-- `docs/CANONICAL_EVENT_AUDIT_01.md` records the first concrete reconciliation findings and unresolved integration blockers.
+- `docs/CONTENT_QA_MATRIX.md` defines the production content gates.
+- `docs/CANONICAL_EVENT_AUDIT_01.md` records the first reconciliation findings.
+- `docs/CANONICAL_EVENT_AUDIT_02.md` records additional repeated-event and derived-condition findings.
+- `docs/CANONICAL_TRIGGER_AUDIT_01.md` records the initial producer/consumer and derived-trigger inventory.
+- `docs/CANONICAL_STATE_VOCABULARY.md` defines the state namespaces.
+- `docs/CANONICAL_DELAY_CONTRACT.md` defines the delayed-consequence contract.
+- `docs/CANONICALIZATION_BACKLOG.md` is the active execution backlog.
 
 ## Current QA checkpoint
-The first canonical audit pass has started. It identified concrete normalization work (trigger producers, replay meta-state, delayed timing, contextual variables, duplicate titles, and graph/catalog reconciliation). These findings are tracked but **not yet resolved**. Therefore E01–E270 remain authored rather than production-verified content.
+Audit work has now confirmed additional repeated character-scene titles/near-titles (including Mara/Rowan callbacks) and a wider class of free-form derived trigger phrases. These are tracked as canonicalization work, not treated as resolved. E01–E270 remain authored rather than production-verified content.
+
+## Next highest-value work
+1. Complete producer/consumer extraction for the full E01–E270 catalog.
+2. Define deterministic derived predicates for contextual triggers.
+3. Reconcile graph edges against actual catalog triggers/effects.
+4. Normalize delayed consequences and replay metadata.
+5. Perform reachability, dead-end, contradiction, pacing and ending simulations.
+6. Freeze production data contracts only after the above gates pass.
 
 ## Honest progress rule
 Percentages represent actual state of the corresponding work. Documentation alone does not make implementation complete. No block may be called ready until its appropriate verification has passed.
