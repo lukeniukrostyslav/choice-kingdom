@@ -12,7 +12,7 @@ This project is **not a clone**. Worldbuilding, characters, writing, events, art
 
 This is a **real full game**, not a short card demo or 20–40 card vertical slice.
 
-Current authored checkpoint: **E01–E270 (270 meaningful candidate events)**. The release target remains approximately **250–350+ meaningful authored events/story nodes**, with approximately **8–12 recognizable endings**, interconnected branches, delayed consequences, investigation routes, replay divergence and a multi-hour first campaign. The final count may change after QA; causal quality matters more than hitting a number mechanically.
+Current authored checkpoint: **E01–E272 (272 authored nodes currently present)**. The release target remains approximately **250–350+ meaningful authored events/story nodes**, with approximately **8–12 recognizable endings**, interconnected branches, delayed consequences, investigation routes, replay divergence and a multi-hour first campaign. The final count may change after QA; causal quality matters more than hitting a number mechanically.
 
 ## Target product
 
@@ -41,14 +41,14 @@ Current authored checkpoint: **E01–E270 (270 meaningful candidate events)**. T
 
 The campaign is authored around Avelune's ruler and the five pressure centers of Crown, Commons, Houses, Guilds and Border. Core state uses gold, trust, security, power and reputation, plus character relationships, history, flags, threads, delayed consequences and replay metadata.
 
-The narrative is currently in **canonicalization and QA**. E01–E270 are authored but are not yet engine-integrated or reachability-verified.
+The narrative is currently in **canonicalization and QA**. E01–E272 are authored, but they are not yet engine-integrated or reachability-verified.
 
 ## Development order — non-negotiable
 
 **Content comes before engine, and APK comes last.**
 
 1. Finish/QA the full campaign and causal network.
-2. Reconcile E01–E270 into one canonical production catalog.
+2. Reconcile E01–E272 into one canonical production catalog.
 3. Close dead ends, contradictions, duplicate semantics, pacing and ending-reachability defects.
 4. Freeze machine-readable contracts against the real authored catalog.
 5. Implement the reusable decision engine.
