@@ -1,0 +1,41 @@
+name: Choice Kingdom Scenario Source Inventory
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/MACHINE_CANONICAL_GRAPH_01.json'
+      - 'docs/EVENT_CATALOG*.md'
+      - 'tools/compile_scenario_source_inventory.py'
+      - '.github/workflows/scenario-source-inventory.yml'
+  workflow_dispatch:
+
+jobs:
+  source-inventory:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile canonical producer consumer inventory
+        run: python3 tools/compile_scenario_source_inventory.py
+      - name: Validate generated inventory shape
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('scenario-source-inventory.json')
+          data = json.loads(p.read_text(encoding='utf-8'))
+          assert data['schema'] == 'choice-kingdom-scenario-source-inventory-1'
+          assert data['event_count'] == 272, data['event_count']
+          assert len(data['events']) == 272
+          assert data['events'][0]['event_id'] == 'E01'
+          assert data['events'][-1]['event_id'] == 'E272'
+          assert 'pred.transport_disruption' in data['consumers']
+          assert 'history.guild_representation' in data['producers']
+          assert 'history.cross_faction_package' in data['producers']
+          print('inventory_shape=PASS')
+          PY
+      - name: Upload source inventory artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: scenario-source-inventory
+          path: scenario-source-inventory.json
