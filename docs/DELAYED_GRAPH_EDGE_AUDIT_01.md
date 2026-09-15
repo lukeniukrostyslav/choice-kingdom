@@ -1,34 +1,28 @@
 # Choice Kingdom — Delayed Graph Edge Audit 01
 
-Status: **SOURCE-LEVEL QA — OPEN / CONTRADICTION CANDIDATES**  
+Status: **SOURCE-LEVEL QA — CORRECTED / E243 SOURCE-CLOSED, E245 OPEN**  
 Scope: E243 and E245 delayed callbacks; compare design-level EVENT_GRAPH edges against exact authored producer semantics.
 
 ## Purpose
 
-The event graph is a design-level causal candidate map. It must not be treated as proof that an upstream node produces the exact trigger consumed by a delayed callback. This audit checks the graph edges against the authored source vocabulary and deliberately preserves unresolved edges as OPEN.
+The event graph is a design-level causal candidate map. It must not be treated as proof that an upstream node produces the exact trigger consumed by a delayed callback. This audit checks graph edges against authored source vocabulary and distinguishes exact producers from merely related nodes.
 
 ## E243 — Old Bridge
 
 **Callback trigger:** `public bridge investment`, 5+ turns later.
 
-The current graph contains these candidate incoming edges:
+The graph contains candidate incoming edges:
 
-- `E126 -> E243` — E126 produces `river_compact` or `royal_toll_office`; neither is an explicit `public bridge investment` fact.
-- `E129 -> E243` — E129 produces `festival_reported` or `festival_secret`; neither is a bridge-investment fact.
-- `E181 -> E243` — E181 is itself a delayed toll callback and does not establish a public bridge-investment fact.
-- `E224 -> E243` — E224 concerns bridge safety barriers and produces `river_safety_barriers`; this is semantically related to a bridge but is not automatically a public-investment marker.
+- `E126 -> E243` — E126 produces `river_compact` or `royal_toll_office`; neither is the canonical public-bridge producer.
+- `E129 -> E243` — E129 produces `festival_reported` or `festival_secret`; neither is the canonical public-bridge producer.
+- `E181 -> E243` — E181 is itself a delayed toll callback and does not establish the public-bridge fact.
+- `E224 -> E243` — E224 produces `river_safety_barriers`; this is bridge-related but is not the public-bridge investment fact.
 
-Known bridge/infrastructure facts include:
+**Source-closed producer:** E18-B explicitly establishes `public_bridge`.
 
-- E18-B: `public_bridge`.
-- E45-A: `public_infrastructure_trust`.
-- E45-B: `infrastructure_concession`.
-- E126-A: `river_compact`.
-- E224-A: `river_safety_barriers`.
+**Canonical normalization:** E243's `public bridge investment` trigger may use `public_bridge` as its exact machine vocabulary. This is an explicit source-equivalent normalization, not a generic infrastructure/bridge alias.
 
-None is silently promoted to `public bridge investment` in this audit.
-
-**Gate:** producer identity remains **OPEN**. The graph edges above are candidate relationships, not source-closed producers.
+**Gate:** producer identity is **SOURCE-CLOSED**. The graph edges above remain candidate causal relationships and must not be promoted to additional producers.
 
 ## E245 — Soldier's Son Returns
 
@@ -37,25 +31,25 @@ None is silently promoted to `public bridge investment` in this audit.
 The graph contains:
 
 - `E117 -> E245` — E117-B produces `veteran_patronage`, not compensation.
-- `E156 -> E245` — E156-A produces `requisition_compensation`, which is an explicit compensation fact but concerns requisitioned winter animals.
+- `E156 -> E245` — E156-A produces `requisition_compensation`, an explicit compensation fact in a specific requisition context.
 - `E222 -> E245` — E222 is a veteran-family social-pressure event and does not itself produce a compensation marker.
 
-Other authored compensation facts exist, including:
+Other authored compensation facts include:
 
 - E20-A: `soldier_compensation`.
 - E125-A: `border_compensation`.
 - E156-A: `requisition_compensation`.
 
-These must not be collapsed into a generic `compensation_route` without an explicit authored normalization decision.
+These must not be silently collapsed into a generic `compensation_route`.
 
-**Gate:** producer identity remains **OPEN**. E156-A is a semantic candidate, not a confirmed exact producer.
+**Gate:** producer identity remains **OPEN**. E156-A is a semantic candidate, not a confirmed exact producer for the generic callback.
 
 ## Consequence for production graph
 
-1. Do not delete the existing design-level edges solely because they are not source-closed.
-2. Do not promote them into machine-readable prerequisites until exact source facts are identified.
-3. The production graph must distinguish causal proximity from exact trigger satisfaction.
-4. E243/E245 remain blocked from runtime delay registration until producer identity and callback lifecycle are closed.
+1. Keep existing design-level edges as causal candidates unless contradicted by source.
+2. Promote only exact source producers or explicitly contracted exact-equivalent normalizations into machine-readable prerequisites.
+3. Preserve semantic distinctions between compensation contexts.
+4. E243 may proceed to vocabulary-contract integration; E245 remains blocked from runtime delay registration until its producer semantics are closed.
 
 ## Verification rule
 
@@ -63,7 +57,9 @@ A delayed callback is source-closed only when an exact event ID + exact choice I
 
 ## Gate result
 
-- E243 producer: **OPEN**
-- E245 producer: **OPEN**
-- EVENT_GRAPH edges reviewed: **candidate only**
-- Runtime implementation: **NOT STARTED**
+- E243 producer: **SOURCE-CLOSED via E18-B → `public_bridge`**.
+- E245 producer: **OPEN**.
+- EVENT_GRAPH edges: **candidate relationships only**.
+- Runtime implementation: **NOT STARTED**.
+
+See `docs/DELAYED_GRAPH_EDGE_CORRECTION_01.md` for the correction record and `docs/DELAYED_PRODUCER_DECISION_MATRIX_01.md` for the source-level decision basis.
