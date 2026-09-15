@@ -30,7 +30,9 @@ EXPECTED = {
 
 
 def normalize(status: str) -> str:
-    status = status.upper().strip()
+    """Normalize machine/Markdown status decoration without weakening semantics."""
+    status = re.sub(r"[*`_]", "", status).upper().strip()
+    status = re.sub(r"\s*/\s*", " / ", status)
     if status.startswith("SOURCE-CLOSED"):
         return "SOURCE-CLOSED"
     if status.startswith("OPEN / BLOCKED"):
