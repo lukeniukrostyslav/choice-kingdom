@@ -30,18 +30,18 @@ Exact arithmetic mean: **83.4167%**.
 
 ## Verified autonomous work — latest blocks
 
-### S30 — explicit replay/meta-state contract closure
-- Added `docs/MACHINE_REPLAY_CONTRACT_01.json` for E186, E247 and E248.
-- Frozen replay producer boundary as `completed_prior_run_meta_export`.
-- Frozen three canonical `meta.replay.*` keys with exactly-once import and run-reset rules.
-- Added `tools/validate_replay_meta_contract.py` and dedicated workflow `.github/workflows/scenario-replay-meta-contract.yml`.
-- Dedicated workflow run **#1 / 35029340115: PASS**.
+### S32 — delayed runtime reference QA correction and green proof
+- Corrected `tools/validate_delay_runtime_reference.py` so each delayed row's pre-due assertion runs in an isolated reference runtime; unrelated earlier delays can no longer cause false positives.
+- Commit: `b1cc94dd0b2884643c9d6244827ab7692a4094ea`.
+- `Choice Kingdom Delayed Runtime Reference Gate` run **#2 / 35033973250: PASS**.
+- The same commit also passed the `Choice Kingdom Canonical Graph`, `Scope Boundary`, `Contract Readiness`, `Predicate Contract Parity`, and `Delayed Lifecycle` push gates; delayed lifecycle run **#333 / 35033973149: PASS**.
+- This closes a QA-harness defect and strengthens evidence for the frozen source contract; it does **not** claim production Decision Engine execution or justify a percentage increase.
 
 ### S31 — E192 food-stability source closure
 - E192-B now explicitly establishes `food_logistics_stabilized` and `pred.food_stable` for the current cycle.
 - E192-A explicitly clears the active stability marker and establishes the unstable-cycle marker while retaining historical evidence.
 - `docs/MACHINE_CANONICAL_GRAPH_01.json`, `docs/CANONICAL_PRODUCER_INVENTORY_01.md`, and `docs/CANONICAL_DERIVED_PREDICATE_CONTRACT_01.md` are aligned.
-- Predicate parity validator was updated to expect `SOURCE-CLOSED`; the change is committed and is subject to the current main-branch workflow gates.
+- Predicate parity validator was updated to expect `SOURCE-CLOSED`; the change is committed and subject to the current main-branch workflow gates.
 
 ## Remaining gates to 100%
 
