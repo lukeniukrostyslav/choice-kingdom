@@ -42,15 +42,12 @@ This is the fixed reporting metric for the E01–E272 authored campaign. It meas
 The 65% figure does not mean the engine, runtime, Android build, UI, localization or APK are complete. It also does not mean reachability has been proven.
 
 ## Latest QA work
-- S09.3 reconciled `docs/CANONICAL_DERIVED_PREDICATE_CONTRACT_01.md` in commit `5cb193cfa5d97a340bbab202c842737342538262`: production scope is now explicitly E01–E272; E273–E277 predicate producers are quarantined as expansion-only; `pred.food_stable` remains OPEN/BLOCKED with no in-scope producer verified.
-- S09.2 added `docs/SCENARIO_QA_S09_2_SCOPE_CONTRADICTION_AUDIT_01.md` in commit `c4d58020e4202c5a5aea7fb454d3ee012d2e715a`, identifying and preserving the contradiction between the older E01–E277 derived-predicate contract and the frozen E01–E272 production registry.
+- S09.5 added `docs/SCENARIO_QA_S09_5_NORMALIZED_DEPENDENCY_EDGE_INVENTORY_01.md` in commit `c505b79ef9dc1675be144a7db69f5a290db18e55`: first normalized source-backed producer→fact/lifecycle→consumer edge surface; hard exclusions for self-satisfaction, recovery-to-active leakage, aliases and E273–E277 contamination.
+- S09.4 added `docs/SCENARIO_QA_S09_4_PREDICATE_CYCLE_SELF_SATISFACTION_AUDIT_01.md` in commit `f64a47baaeadd1c2a65006e4386c0b016d9eeeeb`: isolated the unsafe inclusive `E197/E198/E199/E202–E209 candidates` wording and required E209 to be consumer-only for `pred.final_charter_prerequisites`.
+- S09.3 reconciled `docs/CANONICAL_DERIVED_PREDICATE_CONTRACT_01.md` in commit `5cb193cfa5d97a340bbab202c842737342538262`: production scope is explicitly E01–E272; E273–E277 predicate producers are quarantined as expansion-only; `pred.food_stable` remains OPEN/BLOCKED with no in-scope producer verified.
+- S09.2 added `docs/SCENARIO_QA_S09_2_SCOPE_CONTRADICTION_AUDIT_01.md` in commit `c4d58020e4202c5a5aea7fb454d3ee012d2e715a`.
 - S09.1 predicate dependency pre-audit added as `docs/SCENARIO_QA_S09_1_PREDICATE_DEPENDENCY_PREAUDIT_01.md`, commit `3a9c2aaa9599671df3ef8410bbb4428b6798e17e`.
 - S08.10 producer chronology pre-audit added as `docs/SCENARIO_QA_S08_10_PRODUCER_CHRONOLOGY_PREAUDIT_01.md`, commit `a8beccf42802a5664b7b990ff72c02ea540a0982`.
-- S08.9 source reconciliation added as `docs/SCENARIO_QA_S08_9_SOURCE_RECONCILIATION_01.md`, commit `beb8c93e8e4e95c2fb62ab90e4cf36f0e46f7e4b`.
-- S08.8 source closure audit added as `docs/SCENARIO_QA_S08_8_SOURCE_CLOSURE_AUDIT_01.md`, commit `1378318513cca1f88b8ee2c310b7228b5e145a2b`.
-- S08.7 domain qualification audit added as `docs/SCENARIO_QA_S08_7_DOMAIN_QUALIFICATION_AUDIT_01.md`, commit `90694d5529d3df89556d79d54fca386c5d67c99b`.
-- S08.6 closure matrix added the current closed/open producer-family matrix.
-- S08.5 corrected the canonical producer registry to reject E273-A/E277 and keep `pred.food_stable` open.
 - S10.3 E185 crisis-resolution/ordering contract remains source-level and blocked on exact military-crisis producer/payload lifecycle.
 
 ## Current QA checkpoint
@@ -58,13 +55,15 @@ The producer inventory is paired with `docs/MACHINE_INVENTORY_PASS_01.md`, which
 
 The authored producer bridge corrections for E136/E144/E148 and the later E151–E210 trigger/semantic corrections have been applied to the authoritative catalogs and re-read. E136-B supplies `history.guild_logistics_cooperation`; E194 consumes that upstream marker rather than self-consuming the qualified predicate. E29-A/B establish `pred.winter_severe`; E32 establishes `pred.transport_disruption` and E136-A/B are the primary recovery/clear sources. Runtime lifecycle, persistence and ordering remain OPEN.
 
+S09.5 now has an explicit normalized source-backed edge surface. The known closed edges are documented, while composite predicate producers remain partial where exact source IDs, thresholds, lifecycle or chronology are not yet fully compiled. `pred.final_charter_prerequisites` remains BLOCKED until its complete upstream producer set is exhaustively enumerated; E209 is explicitly consumer-only.
+
 E243 is source-closed through explicit normalization: E18-B establishes `public_bridge`, and the delayed callback may use that exact machine vocabulary. E245 remains deliberately unresolved across distinct compensation facts; E184 has no source-closed producer; E246 remains specific to `winter_rent_ceiling` pending explicit generic-alias policy.
 
-The canonical trigger audit has been extended through E272. It records additional source-closed facts and carries the current hard-negative rules into the machine inventory pass. Exhaustive extraction, duplicate-semantic detection, contradictory-writer detection, predicate-cycle detection and reachability simulation remain unfinished.
+The canonical trigger audit has been extended through E272. Exhaustive extraction, duplicate-semantic detection, contradictory-writer detection, transitive predicate-cycle detection and reachability simulation remain unfinished.
 
 P0 reconciliation freezes the guild-influence domain boundary, constitutional-preparation domain boundary, systemic-evidence qualification shape, coalition positive-outcome requirements, and budget-reform institutional layers. These remain source-level contracts, not runtime implementation.
 
-E273–E277 remain outside the frozen catalog. Their producer-expansion semantics are not silently promoted into E01–E272. S09.3 now also quarantines their predicate producers inside the derived-predicate contract itself.
+E273–E277 remain outside the frozen catalog. Their producer-expansion semantics are not silently promoted into E01–E272.
 
 Replay mutable-state isolation is contract-closed at the design level: a new run starts with empty pending callbacks, active-cycle predicates, unresolved crises and run-local state; only explicitly authored `meta.*` transfer data may cross the replay boundary. E247, E248 and E270 remain consumer intents without source-closed meta producers/keys.
 
@@ -95,8 +94,8 @@ Overall project progress remains approximately **53%**. The separate scenario QA
 
 ## Next highest-value work
 1. Continue exhaustive E01–E272 producer/output/trigger extraction with a hard E273–E277 exclusion filter.
-2. Complete producer-before-consumer chronology and resolve undefined producers/consumers, duplicate semantic writers and contradictory writers without inventing semantics.
-3. Run predicate dependency cycle/self-satisfaction checks and reconcile delayed source/target identity against the same chronology table.
+2. Complete the normalized dependency edge list and resolve ambiguous composite predicate producer sets without inventing semantics.
+3. Run transitive predicate cycle/self-satisfaction checks and reconcile delayed source/target identity against the same chronology table.
 4. Finish derived predicate contracts and exact canonical vocabulary, including food stability, transport lifecycle, guild influence, constitutional preparation and coalition cooperation.
 5. Close delayed E184/E245/E246 and replay/ending contracts.
 6. Run fresh-run reachability and graph-vs-catalog reconciliation.
