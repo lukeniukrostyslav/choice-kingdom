@@ -6,13 +6,23 @@ Purpose: durable handoff ledger so completed QA work is not repeated.
 
 ## Latest continuation update — 2026-09-15
 
+### S16 — frozen scenario contract closure gate
+- Added `tools/validate_scenario_contract_closure.py` and `.github/workflows/scenario-contract-closure.yml`.
+- The new gate validates the frozen E01–E272 denominator, explicit E273–E277 exclusion, authored event blocks, source-closed producer event/choice boundaries, delayed-candidate scope, hard-negative rules and predicate-cycle absence.
+- The first CI run intentionally failed because the validator assumed every source-level producer was backtick-tokenized. The failure exposed a real distinction between prose-level canonical facts and machine tokens.
+- Corrected the validator to validate producer declarations at the authored event/choice boundary instead of inventing tokenization requirements.
+- Normalized compact expansion choice syntax (`- **A — ...` / `- **B — ...`) and allowed the graph-declared catalog duplicate set.
+- GitHub Actions `Choice Kingdom Scenario Contract Closure` run #3 completed **SUCCESS** on commit `cf5938649cea372180d914d45e7c94046c39bf4c`.
+- `Choice Kingdom Contract Readiness` and `Choice Kingdom Delayed Lifecycle Gate` also completed **SUCCESS** on the same commit.
+- The gate explicitly reports runtime reachability, replay reachability, ending execution and Android as NOT_CLAIMED; no downstream work was counted as scenario closure.
+
 ### S15 — E270 authoritative systemic-convergence closure
 - Re-read the authoritative `docs/EVENT_CATALOG_EXPANSION_211_270.md` source directly from its Git blob rather than relying on the graph artifact.
 - Verified that E270-A explicitly records `systemic_explanation_convergence` and is the convergence step for `pred.systemic_explanation_verified`.
 - Verified the prerequisite boundary: warehouse/financial, document/language and witness/organizational evidence families must already exist before E270-A; the `Amara and Toma both active` trigger is not evidence.
 - Reconciled the producer registry and bounded closure audit so E270-A is now consistently marked SOURCE-CLOSED at source level.
 - Preserved runtime evidence aggregation, persistence, contradiction handling, fresh-run reachability and replay `meta.*` promotion as OPEN. E270 ordinary convergence is not replay metadata.
-- The previous canonical-graph CI failure was traced to stale source-closure assertions, not to a failure of the E270 authored source. A corrective commit was made; GitHub Actions is re-running the scope gate.
+- Corrective graph/source-closure assertions were made and the resulting CI gates were re-run.
 
 ### S14 — machine predicate dependency validation
 - Extended `tools/compile_scenario_source_inventory.py` to build a predicate-only dependency graph from authored trigger/output tokens.
@@ -20,7 +30,6 @@ Purpose: durable handoff ledger so completed QA work is not repeated.
 - Added explicit reporting of predicate consumers that have no extracted producer, without inventing missing producers.
 - Preserved the distinction between unresolved source vocabulary and runtime reachability; no undefined predicate is silently promoted to a producer.
 - Commit: `b8ca0599cbfc314353b98e504960c317e4e16be0`.
-- CI verification remains a gate before percentage promotion.
 
 ### S13 — composite source closure / replay provenance correction
 - Re-verified the authoritative derived-predicate contract for `pred.guild_influence_strong`, `pred.systemic_explanation_verified`, `pred.coalition_cooperation`, `pred.constitutional_prepared_strong` and `pred.budget_reform`.
