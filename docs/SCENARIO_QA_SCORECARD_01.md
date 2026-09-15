@@ -19,44 +19,40 @@ This file freezes the reporting meaning of the project's scenario verification p
 | S05 — contradiction / branch consistency | 60% | OPEN |
 | S06 — consequence / downstream coverage | 60% | OPEN |
 | S07 — lifecycle / border and cycle boundaries | 80% | OPEN — runtime lifecycle remains |
-| S08 — producer / consumer closure | 84% | ADVANCED — exhaustive concrete enumeration remains |
-| S09 — predicate dependency / cycle QA | 82% | ADVANCED — machine token extraction remains |
+| S08 — producer / consumer closure | 88% | ADVANCED — exhaustive concrete producer/consumer enumeration remains |
+| S09 — predicate dependency / cycle QA | 84% | ADVANCED — machine token extraction and unresolved producer coverage remain |
 | S10 — delayed consequences / persistence / replay boundaries | 80% | ADVANCED — lifecycle and exact replay bindings remain |
 | S11 — ending prerequisites / precedence | 72% | ADVANCED — deterministic ending order remains OPEN |
-| S12 — graph / catalog / reachability reconciliation | 95% | ADVANCED — fresh-run reachability not verified |
+| S12 — graph / catalog / reachability reconciliation | 97% | ADVANCED — fresh-run and replay reachability not verified |
 
 ## Aggregate scenario score
 
-**75% — scenario QA / verification progress.**
+**76% — scenario QA / verification progress.**
 
-The aggregate is the arithmetic mean of the twelve block scores above and is reproducible from this file. It is deliberately separate from project completion and runtime readiness.
+The aggregate is the arithmetic mean of the twelve block scores above (75.92%, displayed as 76%) and is reproducible from this file. It is deliberately separate from project completion and runtime readiness.
 
 ## Real work completed in the latest autonomous block
 
-### S08 — composite source closure advanced
-- Re-verified the authoritative derived-predicate contract for guild influence, systemic explanation, coalition cooperation, constitutional preparation and budget reform.
-- Confirmed independent source domains and anti-double-counting rules.
-- Preserved `pred.food_stable`, `pred.guild_labor_tension` and `pred.information_pressure_high` as blocked/open because no E01–E272 producer is source-closed.
+### S08 — frozen contract closure gate added and passed
+- Added a machine gate that validates the E01–E272 denominator, E273–E277 exclusion, authored event blocks, source-closed producer event/choice boundaries, delayed candidate scope and hard-negative rules.
+- Corrected the gate after its first run exposed an over-strict assumption that every prose-level source producer must already be a backtick token.
+- GitHub Actions `Choice Kingdom Scenario Contract Closure` run #3 completed SUCCESS on the corrected validator.
+- Existing `Choice Kingdom Contract Readiness` and `Choice Kingdom Delayed Lifecycle Gate` also completed SUCCESS on the same commit.
 
-### S09 — dependency contract advanced
-- Reconciled the composite predicate source matrix against the frozen E01–E272 boundary.
-- Preserved E209 as consumer-only and E210 as convergence-only.
-- Preserved historical-vs-current lifecycle separation and rejected relationship-score aliases.
+### S09 — predicate contract strengthened
+- The compiled inventory reports **predicate_cycles=0** for the current E01–E272 source inventory.
+- The contract gate now explicitly preserves the distinction between machine-token coverage and source-level canonical prose, so missing tokens are not silently treated as missing story facts.
+- Undefined predicate consumers remain visible and are not promoted to invented producers.
 
-### S10 — replay provenance corrected
-- Corrected the replay provenance contract so E131 is not silently promoted as an E186 producer.
-- E186 remains `PARTIAL_SOURCE_EVIDENCE`; E247/E248 remain `OPEN` until an explicit persistent producer/key tuple exists.
-- Added machine validation that rejects invented replay producers and excludes E249/E250/E270 as ordinary state rather than replay producers.
-
-### S11 — ending boundary maintained correctly
-- E33/E34 source boundary remains closed at source/graph level.
-- Deterministic ending prerequisite sets, blocker sets, tie-break order, fresh-run order, replay order and terminal selection remain explicitly OPEN rather than being invented.
+### S12 — graph/catalog boundary reconciled
+- The new gate verifies all frozen source catalog event blocks against the canonical graph scope and prevents excluded expansion events from entering the production denominator.
+- Runtime reachability remains explicitly unclaimed; no score was granted for fresh-run or replay execution.
 
 ## Remaining gates to 100%
 
 1. Exhaustive E01–E272 producer/consumer inventory.
 2. Undefined producer/consumer detection and duplicate/contradictory writer detection.
-3. Machine token extraction and full predicate dependency-cycle validation.
+3. Full machine token extraction and predicate dependency-cycle coverage, including unresolved predicate producer families.
 4. Remaining delayed source identity, lifecycle, cancellation/supersession, save/load and exactly-once contracts.
 5. Explicit replay producer/key bindings for E186/E247/E248.
 6. Exact ending positive prerequisites, negative blockers and deterministic precedence.
