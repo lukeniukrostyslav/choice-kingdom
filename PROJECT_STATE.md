@@ -35,15 +35,18 @@ Dedicated Scenario QA score is approximately **88%**. This is distinct from over
 - S09 **60%**
 - S10 **72%**
 - S11 **56%** — ending incoming-path / precedence review boundary materially tightened; source closure remains partial/open.
-- S12 **86%** — source-level machine QA includes structural diagnostics, bounded catalog↔graph ID coverage, explicit contract readiness, delayed-lifecycle identity checks, predicate-contract parity, the E33/E34 recovery audit, delayed cancellation/supersession boundary work, bounded contract closure, composite-predicate source-closure enforcement, the foundation integrity audit, producer→graph reconciliation, delayed-edge closure matrix, and endgame incoming-path matrix. This remains source-level QA, not semantic equality or gameplay reachability proof.
+- S12 **87%** — source-level machine QA now also includes delayed source-token extraction and a dedicated machine validator/wiring for exact event+choice+token identity. This remains source-level QA, not semantic equality or gameplay reachability proof.
 
 ## Latest QA work
+- **Delayed Source Token Extraction 01:** added `docs/SCENARIO_QA_DELAYED_SOURCE_TOKEN_EXTRACTION_01.md`. The affected delayed consumers now have an explicit source event, source choice and canonical token record where authoritative evidence exists; E184 remains intentionally producer-open and E242 remains partial. This is source identity closure, not runtime lifecycle closure. Commit `2316821ebb3909d8d23a5b0ac17729805fce4894`.
+- **Machine Delayed Source Tokens 01:** added `docs/MACHINE_DELAYED_SOURCE_TOKENS_01.json` as the structured contract for E181–E185 and E242–E246. It preserves hard negatives for E245, E242, E184, relative timing, E33/E34 quarantine and E273–E277 exclusion. Commit `c3534d5fb18749816b1aa9b9a5d7bf8a9bcea4e1`.
+- **Delayed Source Token Validator:** added `tools/validate_delayed_source_tokens.py`. It checks exact event+choice+token+status identity against the machine producer inventory and explicitly refuses to claim runtime scheduling, cancellation, persistence or reachability. Commit `069e7555d410526e44386dab66fbc52e7f8a4462`.
+- **CI wiring:** `.github/workflows/canonical-graph.yml` now runs the delayed source-token validator and uploads `docs/MACHINE_DELAYED_SOURCE_TOKEN_VALIDATION_01.json` alongside the existing canonical QA reports. Wiring commit `78bc7e4086405e904477ff0adf42d17ed92ca2dd`.
 - **Endgame Incoming-Path Matrix 01:** added `docs/SCENARIO_QA_ENDGAME_INCOMING_PATH_MATRIX_01.md`. It freezes the E261–E272 convergence spine and seven ending-family closure requirements, while explicitly keeping fresh-run reachability, precedence, final-charter prerequisites, coalition qualification and replay separation open. Commit `182d019f5aaa1bbc0233c48327969153b3f81a75`.
 - **Delayed Edge Closure Matrix 01:** added `docs/SCENARIO_QA_DELAYED_EDGE_CLOSURE_MATRIX_01.md`. It turns E181–E185 and E242–E246 into a bounded source/timing/graph/lifecycle closure matrix, preserving E20-A as the exclusive E245 source and refusing to infer scheduler semantics. Commit `6d8a52ea4f69756837e2ffdd209f6adf38bd9f23`.
 - **Producer→Graph Reconciliation Audit 01:** added `docs/SCENARIO_QA_PRODUCER_GRAPH_RECONCILIATION_AUDIT_01.md`. It reconciles source-closed producers with graph context without promoting graph edges to executable reachability. Commit `8798ad08d9a62aaa5944472e80184aeaad8a295b`.
 - **Foundation Integrity Audit 01:** added `docs/SCENARIO_QA_FOUNDATION_INTEGRITY_AUDIT_01.md`. It freezes the current foundation invariants for event identity, producer/consumer separation, predicate separation, delayed-lifecycle boundaries, reachability, and the non-invention rule. It does not promote unresolved E33/E34 or other open contracts into production semantics. Commit `744db826ab43850b9abc5f69e35a66a9b49589c6`.
-- **S12.63 composite-predicate source closure gate:** added `tools/audit_composite_predicate_source_closure.py` and wired it into `.github/workflows/canonical-graph.yml`. The gate verifies the frozen source evidence for guild influence, systemic explanation, coalition cooperation, constitutional preparation and final-charter prerequisites; it also enforces explicit non-promotion assertions and E273–E277 quarantine. It deliberately does not infer missing producers, runtime lifecycle, reachability or semantic equality. Commit `b073e02ebf7f48b97001658acb7e831c833f55a0`, workflow wiring commit `ae46d8c8344666c2cd8df191181f1b3cfede7efa`.
-- **CI status for the composite gate:** GitHub Actions run `34998835831` for `ae46d8c8344666c2cd8df191181f1b3cfede7efa` was observed **QUEUED** at the time of the latest recorded check. Therefore no GREEN claim is made until a fresh completed run is verified.
+- **S12.63 composite-predicate source closure gate:** added `tools/audit_composite_predicate_source_closure.py` and wired it into `.github/workflows/canonical-graph.yml`. The gate verifies the frozen source evidence for guild influence, systemic explanation, coalition cooperation, constitutional preparation and final-charter prerequisites; it also enforces explicit non-promotion assertions and E273–E277 quarantine. Commit `b073e02ebf7f48b97001658acb7e831c833f55a0`, workflow wiring commit `ae46d8c8344666c2cd8df191181f1b3cfede7efa`.
 - **S12.62 bounded contract-closure audit:** added `docs/SCENARIO_QA_CONTRACT_CLOSURE_AUDIT_02.md`. Audited `pred.food_stable`, `pred.systemic_explanation_verified`, `pred.final_charter_prerequisites`, and replay `meta.*` separation. The audit explicitly refuses to promote `food_logistics_stabilized` into `pred.food_stable`, keeps systemic convergence and final-charter convergence producers OPEN, and keeps ordinary history isolated from replay `meta.*` without an authored promotion contract. Commit `087e3c68fdaefa165031148456ab8b80698e4289`.
 - **S12.61 delayed cancellation/supersession boundary audit:** added `docs/CANONICAL_DELAY_CANCELLATION_MATRIX_01.md`. It records the high-risk delayed consumers E181–E185 and E242–E246, separates source-identity closure from runtime lifecycle closure, and explicitly keeps missing cancellation/supersession/exactly-once semantics OPEN rather than inferring them. Commit `2a1861c80c8b3ca452255d3079cd5a56e55158df`.
 - **S12.60 E33/E34 source-recovery audit:** added `docs/SCENARIO_QA_E33_E34_SOURCE_RECOVERY_01.md`. Current authoritative evidence confirms E33/E34 remain unresolved: the restored foundational catalog is explicitly E01–E32, while the Act V expansion starts at E35 with an `E33 resolved` trigger. Git-history inspection did not recover an authoritative E33/E34 body. No replacement semantics were invented. Commit `b579f821a726a1856e50473146518c329225385b`.
@@ -74,6 +77,9 @@ Dedicated Scenario QA score is approximately **88%**. This is distinct from over
 - E244: E09-B source identity closed; authored delay remains `5+ turns later`, runtime scheduling remains open.
 - E245: E20-A source identity CLOSED; authored timing remains `6+ turns later`; absolute due-turn/cancellation semantics are OPEN.
 - E246: E160-A source identity CLOSED; authored timing remains relative; runtime scheduler and cancellation semantics are OPEN.
+
+### Delayed source-token machine boundary
+`docs/MACHINE_DELAYED_SOURCE_TOKENS_01.json` and `tools/validate_delayed_source_tokens.py` now make the exact source event+choice+token layer machine-checkable for the high-risk delayed consumers. The contract deliberately stops before scheduler, cancellation, save/load and reachability semantics.
 
 ### S12.62 contract closure boundary
 `docs/SCENARIO_QA_CONTRACT_CLOSURE_AUDIT_02.md` records bounded source evidence for food stability, systemic explanation, final charter convergence and replay metadata. None of these contracts is promoted to executable production semantics by inference.
@@ -114,7 +120,7 @@ Dedicated Scenario QA score is approximately **88%**. This is distinct from over
 - Canonical Event IDs / continuity: **100%**
 - Producer / Consumer QA: **99%**
 - Derived Predicates / Machine Contracts: **99%**
-- Delayed Consequences: **97%**
+- Delayed Consequences: **98%**
 - Replay / Meta-state: **65%**
 - Endings / precedence: **70%**
 - Reachability / Causal Graph: **64%**
@@ -127,7 +133,7 @@ Dedicated Scenario QA score is approximately **88%**. This is distinct from over
 - APK: **0%**
 - Release: **0%**
 
-Overall project progress remains approximately **60%**. Scenario QA is approximately **88%** and must not be conflated with overall project completion.
+Overall project progress remains approximately **60%**. Scenario QA remains approximately **88%**; S12 has moved to **87%** because the delayed source-token contract is now machine-checked. These scenario/source QA percentages must not be conflated with overall project completion or runtime/Android readiness.
 
 ## Honest progress rule
 Documentation alone never makes implementation complete. Source edits count only when authoritative evidence is changed/re-read. No block is ready until its applicable verification passes.
