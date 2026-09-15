@@ -21,7 +21,7 @@ No mock/stub gameplay or premature production-readiness claims.
 **Narrative/content canonicalization and QA.** Authored checkpoint E01–E272. Production schema and Decision Engine remain blocked until canonical contracts and reachability are sufficiently closed.
 
 ## Scenario QA
-Dedicated Scenario QA score is now approximately **81%**. This is distinct from overall project completion and is not runtime/Android readiness.
+Dedicated Scenario QA score is now approximately **82%**. This is distinct from overall project completion and is not runtime/Android readiness.
 
 ### S01–S12 working indicators
 - S01 **80%**
@@ -35,16 +35,14 @@ Dedicated Scenario QA score is now approximately **81%**. This is distinct from 
 - S09 **60%**
 - S10 **72%**
 - S11 **55%**
-- S12 **69%** — S12.26 froze source-backed systemic evidence candidates for E207 while preserving the required explicit convergence gate as OPEN.
+- S12 **70%** — S12.27 created an explicit delayed-lifecycle gate matrix separating closed source identities from still-open timing/cancellation/replay semantics.
 
 ## Latest QA work
+- **S12.27** added `docs/SCENARIO_QA_S12_27_DELAYED_LIFECYCLE_GATE_MATRIX_01.md`, commit `1bc4298a647dd51b56df6f0e2ce4a33e671367ac`.
 - **S12.26** added `docs/SCENARIO_QA_S12_26_SYSTEMIC_EVIDENCE_IDENTITY_FREEZE_01.md`, commit `1a1dbd679a16570e4cbc766b0f711fe4a42fca67`.
 - **S12.25** added `docs/SCENARIO_QA_S12_25_BUDGET_REFORM_AUTHORITATIVE_RECONCILIATION_01.md`, commit `3b56b6d4ce28d18c9352a1db403d7b04534109ec`.
 - **S12.24** added `docs/SCENARIO_QA_S12_24_E245_COMPENSATION_SOURCE_RECONCILIATION_01.md`, commit `e1e90ac6422064bf6fc137a6a06c012728fa4429`.
 - **S12.23** added `docs/SCENARIO_QA_S12_23_E246_PRODUCER_CLOSURE_01.md`, commit `63c911bfe91cfd1d520bc97913ceb7e5f146cf5e`.
-- **S12.22** added `docs/SCENARIO_QA_S12_22_DELAYED_SOURCE_CLOSURE_01.md`, commit `02ff2ecb08a67506407350714e238126d01ef440`.
-- **S12.21** added `docs/SCENARIO_QA_S12_21_LONG_DELAY_SOURCE_MATRIX_01.md`, commit `1e9ad37a6984d78ba61ef5e23e53551d7a40f232`.
-- **S12.20** added `docs/SCENARIO_QA_S12_20_E272_EXACT_SOURCE_RECOVERY_01.md`, commit `92c3c3460c9621fe306c26f97079713a180eadee`.
 
 ## Authoritative P0 source status
 Confirmed in authored catalog text:
@@ -73,7 +71,7 @@ Source-level closed chains include:
 - E32 → active `pred.transport_disruption`; E136-A/B clear it
 - E142-A/E154-A/E198-A → budget-reform source domains
 
-### S12.22–S12.26 delayed/composite source closure
+### S12.22–S12.27 delayed/composite source closure
 - E181 → toll concession: source-language trigger closed; exact producer choice and executable cancellation remain open.
 - E182 → `veteran_patronage`: source identity closed; authored relative timing remains 4+ turns.
 - E183 → `estate_exception`: source identity closed; authored relative timing remains 5+ turns.
@@ -86,6 +84,9 @@ Source-level closed chains include:
 - E246 → **E160-A `winter_rent_ceiling` exact producer closed**; executable 5+ turn lifecycle remains open.
 - **`pred.budget_reform` → source set closed:** E142-A + E154-A + E198-A. Runtime lifecycle, negative-state invalidation and reachability remain open.
 - **`pred.systemic_explanation_verified` → evidence families materially frozen:** warehouse/financial candidates E232-A/E234-A/B; document/forensic candidate E233-A; witness/organizational candidate E236; explicit convergence producer remains OPEN.
+
+## Delayed lifecycle gate
+S12.27 explicitly separates source closure from executable lifecycle. Known relative timings are retained as constraints (`4+`, `5+`, `6+`, or `later`) and are not converted into guessed absolute turns. Every callback still requires sourceEventId, sourceChoiceId, consequenceId, earliestTurn, resolutionTarget, exactlyOnceKey, and cancellation/supersession semantics. Save/load persistence and replay isolation remain mandatory.
 
 Important unresolved/open areas:
 - `pred.food_stable` and its relationship to `food_logistics_stabilized`
@@ -106,8 +107,6 @@ E247 is explicitly a second-run information route and E248 an explicit replay ca
 
 ## Canonical vocabulary rules
 State namespaces are `resource.*`, `rel.*`, `flag.*`, `history.*`, `thread.*`, `delay.*`, `ending.*`, and explicit `meta.*` for intentionally persistent cross-run knowledge. Contextual concepts such as food pressure or winter severity must be deterministic predicates or durable markers, never silently become a sixth resource.
-
-Delayed consequences require source choice/event, earliest turn, latest turn or resolution condition, target, exactly-once key, cancellation/supersession rule and save/load persistence. Vague prose such as “later” is not executable timing.
 
 ## Hard negative rules
 - A consumer cannot manufacture its own prerequisite.
@@ -131,7 +130,7 @@ Delayed consequences require source choice/event, earliest turn, latest turn or 
 - Canonical Event IDs / continuity: **100%**
 - Producer / Consumer QA: **99%**
 - Derived Predicates / Machine Contracts: **97%**
-- Delayed Consequences: **94%**
+- Delayed Consequences: **95%**
 - Replay / Meta-state: **65%**
 - Endings / precedence: **69%**
 - Reachability / Causal Graph: **58%**
@@ -144,7 +143,7 @@ Delayed consequences require source choice/event, earliest turn, latest turn or 
 - APK: **0%**
 - Release: **0%**
 
-Overall project progress remains approximately **60%**. Scenario QA is approximately **81%** and must not be conflated with overall project completion.
+Overall project progress remains approximately **60%**. Scenario QA is approximately **82%** and must not be conflated with overall project completion.
 
 ## Next autonomous work
 1. Re-read authoritative source for E20-A/E125-A/E156-A and close E245 only if an exact source or explicitly authored composite is proven.
@@ -152,7 +151,7 @@ Overall project progress remains approximately **60%**. Scenario QA is approxima
 3. Extract exact immutable evidence IDs and executable formulas for guild influence, coalition cooperation and constitutional preparation; preserve consumer-only boundaries.
 4. Reconcile stale audit records against authoritative E151–E210 source text.
 5. Reconcile remaining E01–E180 delayed families and canonical producer/consumer edges.
-6. Build complete delayed identity/timing/cancellation matrix and verify save/load/replay isolation.
+6. Extend the delayed lifecycle matrix to the remaining delayed families and define cancellation/supersession only from authored evidence.
 7. Reconcile S11 ending incoming paths and deterministic precedence against the expanded graph.
 8. Build fresh-run graph from canonical initial state and representative replay graph with strict `meta.*` isolation.
 9. Compare machine graph against authoritative catalog for equality; reject orphan/phantom edges.
