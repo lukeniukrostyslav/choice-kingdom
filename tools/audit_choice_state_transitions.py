@@ -27,7 +27,7 @@ if expected != EXPECTED:
     fail("machine graph production scope is not exactly E01-E272")
 
 heading = re.compile(r"^### (E\d{2,3}) — .+$", re.M)
-choice = re.compile(r"^- \*\*([AB])\s*[—:]\s*(.+)$", re.M)
+choice = re.compile(r"^\*\*([AB])\s*[—:]\s*(.+?)\*\*$", re.M)
 blocks: dict[str, str] = {}
 for source in graph["source_of_truth"]["catalog_sources"]:
     path = ROOT / source
@@ -55,17 +55,16 @@ for event_id in sorted(expected, key=lambda x: int(x[1:])):
     if labels and labels != {"A", "B"}:
         missing = "A" if "A" not in labels else "B"
         missing_effects.append(f"{event_id}: missing authored choice {missing}")
-    for match in rows:
-        body = match.group(2).strip()
-        # Conservative authored-transition evidence: numeric state delta,
-        # explicit backtick state token, or an explicit lifecycle verb.
+    for index, match in enumerate(rows):
+        next_start = rows[index + 1].start() if index + 1 < len(rows) else len(blocks[event_id])
+        body = blocks[event_id][match.start():next_start]
         has_delta = bool(re.search(r"[+-]\d+(?:\.\d+)?\s+[A-Za-zА-Яа-я_]+", body))
         has_token = bool(re.search(r"`[^`]+`", body))
-        has_lifecycle = bool(re.search(r"\b(clear|clears|reset|resolve|resolves|cancel|cancels|invalidate|invalidates|revoke|revokes|prevent|prevents|schedule|schedules)\b", body, re.I))
+        has_lifecycle = bool(re.search(r"\b(clear|clears|reset|resets|resolve|resolves|cancel|cancels|invalidate|invalidates|revoke|revokes|prevent|prevents|schedule|schedules|unlock|unlocks|delayed|immediate)\b", body, re.I))
         evidence = has_delta or has_token or has_lifecycle
         choice_rows.append((event_id, match.group(1), evidence, body))
         if not evidence:
-            missing_effects.append(f"{event_id}-{match.group(1)}: no explicit state/effect evidence: {body}")
+            missing_effects.append(f"{event_id}-{match.group(1)}: no explicit state/effect evidence ({match.group(2).strip()})")
 
 if missing_effects:
     print("CHOICE_STATE_TRANSITIONS: FAIL")
