@@ -33,18 +33,21 @@ Content and canonical QA come before production contracts, engine, UI, localizat
 - Total frozen authored node identifiers: **E01–E272**.
 
 ## Scenario QA reporting metric
-The dedicated scenario verification metric is now frozen in `docs/SCENARIO_QA_SCORECARD_01.md`.
+The dedicated scenario verification metric is frozen in `docs/SCENARIO_QA_SCORECARD_01.md`.
 
 **Scenario QA / verification progress: 65%.**
 
-This is the fixed reporting metric for the E01–E272 authored campaign. It measures closure of scenario QA gates (canonical continuity, producer/consumer closure, derived predicates, delayed consequences, replay boundaries, endings/precedence, causal reachability and exhaustive machine checks). It is intentionally distinct from the overall project percentage and must not be replaced by a different aggregation formula without an explicit metric change.
+This is the fixed reporting metric for the E01–E272 authored campaign. It measures closure of scenario QA gates (canonical continuity, producer/consumer closure, derived predicates, delayed consequences, replay boundaries, endings/precedence, causal reachability and exhaustive machine checks). It is intentionally distinct from the overall project percentage.
 
-The 65% figure does not mean the engine, runtime, Android build, UI, localization or APK are complete. It also does not mean reachability has been proven; causal/reachability verification remains a major unfinished gate.
+The 65% figure does not mean the engine, runtime, Android build, UI, localization or APK are complete. It also does not mean reachability has been proven.
+
+## Latest scenario QA pass
+`docs/SCENARIO_QA_PASS_02_STATIC_CLOSURE.md` records the current static-closure reconciliation. It keeps the frozen denominator at E01–E272, reconciles the transport-disruption producer wording, freezes replay isolation as a contract invariant, and preserves the conservative delayed-consumer and ending gates. It does **not** inflate the scenario percentage because exhaustive inventory and reachability gates are still open.
 
 ## Current QA checkpoint
 The producer inventory is paired with `docs/MACHINE_INVENTORY_PASS_01.md`, which freezes the current source-closed fact set and explicitly separates runtime-safe normalization from unresolved producer ambiguity. This remains source-level QA, not runtime data.
 
-The authored producer bridge corrections for E136/E144/E148 and the later E151–E210 trigger/semantic corrections have been applied to the authoritative catalogs and re-read. E136-B supplies `history.guild_logistics_cooperation`; E194 consumes that upstream marker rather than self-consuming the qualified predicate. E29-A/B establish `pred.winter_severe`; E32 establishes `pred.transport_disruption` and E136-A/B are the primary recovery/clear sources. E271-A declares `pred.border_crisis`; E272-A/B resolve it. Runtime lifecycle, persistence and ordering remain OPEN.
+The authored producer bridge corrections for E136/E144/E148 and the later E151–E210 trigger/semantic corrections have been applied to the authoritative catalogs and re-read. E136-B supplies `history.guild_logistics_cooperation`; E194 consumes that upstream marker rather than self-consuming the qualified predicate. E29-A/B establish `pred.winter_severe`; E32 establishes `pred.transport_disruption` and E136-A/B are the primary recovery/clear sources. Runtime lifecycle, persistence and ordering remain OPEN.
 
 E243 is source-closed through explicit normalization: E18-B establishes `public_bridge`, and the delayed callback may use that exact machine vocabulary. Existing EVENT_GRAPH edges remain causal candidates, not additional producers. E245 remains deliberately unresolved across distinct compensation facts; E184 has no source-closed producer; E246 remains specific to `winter_rent_ceiling` pending explicit generic-alias policy.
 
@@ -61,6 +64,9 @@ The ending qualification design contract is established: endings must be determi
 No validator has been introduced prematurely. Production schema and runtime implementation remain blocked until canonical contracts are frozen and complete catalog reconciliation passes.
 
 ## Latest source-level commits
+- `3d1bb4d53ee09a8f47602fda9c5b22099f0593ec` — corrected scenario QA static-closure source path after pass 02.
+- `a9f515981ce38e15f3ae27b5a1917cccc65a6d00` — scenario QA static closure pass 02 added.
+- `b9283504badb18c02c5d0311dbf80ce15e0b7f6c` — reconciled transport-disruption producer lifecycle in canonical producer inventory.
 - `bddaaeb66ab78f673178945cac1675d3a4eccc4f` — scenario QA reporting scorecard frozen at 65%.
 - `e623d9d9c0f43175906c281f6e01e5faddca4b73` — trigger audit extended through E272.
 - `add6f42fdc52c2a4ebbcff4fde213657e1b0b21f` — machine inventory pass 01.
@@ -88,7 +94,7 @@ No validator has been introduced prematurely. Production schema and runtime impl
 - APK: **0%**
 - Release: **0%**
 
-Overall project progress remains approximately **53%**. The producer/consumer increase reflects actual source-level closure of E243 and expansion of the trigger inventory; it does not imply runtime readiness. The separate scenario QA metric is **65%** and must not be conflated with this overall project figure.
+Overall project progress remains approximately **53%**. The separate scenario QA metric is **65%** and must not be conflated with this overall project figure.
 
 ## Next highest-value work
 1. Compile the full E01–E272 concrete output/trigger inventory from authoritative sources.
