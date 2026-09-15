@@ -35,9 +35,10 @@ Dedicated Scenario QA score is approximately **88%**. This is distinct from over
 - S09 **60%**
 - S10 **72%**
 - S11 **56%** — ending incoming-path / precedence review boundary materially tightened; source closure remains partial/open.
-- S12 **85%** — source-level machine QA now includes structural diagnostics, bounded catalog↔graph ID parity, and an explicit machine contract-readiness ledger in CI. This remains source-level QA, not semantic equality or gameplay reachability proof.
+- S12 **86%** — source-level machine QA now includes structural diagnostics, bounded catalog↔graph ID parity, explicit contract readiness, and a dedicated delayed-lifecycle identity gate. This remains source-level QA, not semantic equality or gameplay reachability proof.
 
 ## Latest QA work
+- **S12.54 delayed lifecycle gate:** added `tools/validate_delayed_lifecycle_gate.py`. It validates the high-risk delayed identity boundary for E181/E182/E183/E184/E185/E245/E246, preserves source-identity vs runtime-lifecycle separation, and refuses invented absolute turns. Dedicated CI is `.github/workflows/delayed-lifecycle-gate.yml`; QA record: `docs/SCENARIO_QA_S12_54_DELAYED_LIFECYCLE_GATE_01.md`. Commits: implementation `17c86fe61c38a28d9a81e8dcb130005b6070246c`, workflow `c104d2a96654cca2ccf416a0f48a21a03580fb92`, QA record `7c68349275156ef61d678fefc437c6ca510306c0`.
 - **S12.53 machine contract readiness:** added `tools/validate_canonical_contract_readiness.py`. It validates frozen scope, required composite predicate inventory, explicit delayed lifecycle statuses and hard-negative presence, and emits `docs/MACHINE_CONTRACT_READINESS_01.json`. OPEN/PARTIAL contracts remain visible and never promote automatically.
 - **S12.53 dedicated CI:** added `.github/workflows/canonical-contract-readiness.yml`, running the readiness validator on push/PR and uploading the readiness ledger. Commit: `739c2a5cf0eb9d991b225da137cbfdc6c3c26bf9`.
 - **S12.52 bounded catalog↔graph parity gate:** added `tools/validate_catalog_graph_parity.py` and `docs/MACHINE_CATALOG_GRAPH_PARITY_01.json` generation. The gate checks frozen E01–E272 catalog IDs against graph-chain IDs, rejects non-frozen/non-excluded graph IDs, unexpected catalog IDs and unexpected duplicate headings, while explicitly refusing to claim semantic equality from ID parity alone. Commit: `fd603b0415bb61582d2344f8f43930a3e6909e62`.
@@ -116,7 +117,7 @@ Exact authored headings/effects/delayed semantics remain **QUARANTINED / UNRECOV
 - Canonical Event IDs / continuity: **100%**
 - Producer / Consumer QA: **99%**
 - Derived Predicates / Machine Contracts: **99%**
-- Delayed Consequences: **96%**
+- Delayed Consequences: **97%**
 - Replay / Meta-state: **65%**
 - Endings / precedence: **70%**
 - Reachability / Causal Graph: **64%**
@@ -132,7 +133,7 @@ Exact authored headings/effects/delayed semantics remain **QUARANTINED / UNRECOV
 Overall project progress remains approximately **60%**. Scenario QA is approximately **88%** and must not be conflated with overall project completion.
 
 ## Next autonomous work
-1. Verify S12.53 contract-readiness CI and inspect the generated ledger; do not claim GREEN until the run is visible and passes.
+1. Verify S12.53 and S12.54 GitHub Actions runs and inspect generated readiness artifacts; do not claim GREEN until each run is visible and passes.
 2. Audit the 69 no-outbound and 54 unreferenced candidates against authoritative source text using the semantic-boundary queues.
 3. Separate ROOT/SOURCE, ordinary producer, consumer-only, terminal/ending, qualification, delayed callback, replay-only and true orphan semantics.
 4. Complete delayed cancellation/supersession matrix, especially E181/E184/E185/E245.
