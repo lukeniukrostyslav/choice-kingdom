@@ -10,18 +10,20 @@ This pass freezes only what the authored text explicitly proves for the delayed 
 
 | Event | Authored trigger / timing | Explicit source choices | Producer/source closure |
 |---|---|---|---|
-| E127 — Renewal Petition | `hereditary_seats_limited` **or** `temporary_noble_exemption`; **4+ turns** | A refuse; B renew once | `temporary_noble_exemption` is explicitly produced by E06-B. `hereditary_seats_limited` has no verified producer in the currently read canonical source set. Therefore E127 has one verified upstream route and one OPEN route. |
+| E127 — Renewal Petition | `hereditary_seats_limited` **or** `temporary_noble_exemption`; **4+ turns** | A refuse; B renew once | `temporary_noble_exemption` is explicitly produced by E06-B. The current authoritative Act V catalog also contains `hereditary_seats_limited` at E38-A; the earlier unresolved classification was stale. E127 therefore has two verified authored producer routes: E06-B and E38-A. |
 | E128 — Cheap Steel Bill | `cheap_weapons`; **3+ turns** | A replace; B repair locally | `cheap_weapons` is produced by E17-A in the foundational catalog. Exact source choice identity can therefore be frozen as E17-A for this route. |
 | E129 — Festival Memory | festival was held; **3+ turns** | A publish report; B keep secret | E22-A explicitly holds the festival. This closes the primary source route as E22-A. |
-| E130 — Bridge Toll Returns | `infrastructure_concession`; **4+ turns** | A enforce ceiling; B renegotiate | The trigger producer is not yet verified in the currently read source slice. Keep source event/choice OPEN rather than guessing. |
-| E141 — Emergency Clause Returns | `emergency_renewal_possible`; **5+ turns** | A public vote; B council renewal | Producer of `emergency_renewal_possible` is not yet verified in the currently read source slice. Keep OPEN. |
+| E130 — Bridge Toll Returns | `infrastructure_concession`; **4+ turns** | A enforce ceiling; B renegotiate | E45-B explicitly writes `infrastructure_concession`. Exact delay identity and lifecycle semantics remain open. |
+| E141 — Emergency Clause Returns | `emergency_renewal_possible`; **5+ turns** | A public vote; B council renewal | E48-B explicitly writes `emergency_renewal_possible`; E48-A writes the opposing `permanent_emergency_blocked` outcome. The runtime must model this as an explicit negative/supersession fact rather than an eternally active trigger. |
 
 ### Source-level conclusions
 
-1. **E127 is multi-source.** E06-B is a confirmed producer of `temporary_noble_exemption`; the alternate `hereditary_seats_limited` route remains unresolved.
-2. **E128 is source-closed for the known route:** E17-A → `cheap_weapons` → E128 after 3+ turns.
-3. **E129 is source-closed for the known route:** E22-A → festival held → E129 after 3+ turns.
-4. E130 and E141 remain intentionally open until their producer choices are verified.
+1. **E127 is now source-closed with two verified producers:** E06-B → `temporary_noble_exemption` and E38-A → `hereditary_seats_limited`.
+2. **E128 is source-closed:** E17-A → `cheap_weapons` → E128 after 3+ turns.
+3. **E129 is source-closed:** E22-A → festival held → E129 after 3+ turns.
+4. **E130 is source-closed:** E45-B → `infrastructure_concession` → E130 after 4+ turns.
+5. **E141 is source-closed:** E48-B → `emergency_renewal_possible` → E141 after 5+ turns.
+6. Source closure does **not** mean runtime closure. Exact delay identity, cancellation/supersession, persistence, replay isolation and deterministic same-turn ordering remain required.
 
 ## E181–E185
 
@@ -54,6 +56,7 @@ A pending delay belongs to one run and must not leak into replay without explici
 ## Gate
 
 **Delayed consequence authored coverage:** substantial  
-**Timing reconciliation:** improved; E128 and E129 now have verified upstream producers, E127 has one verified route and one open route.  
+**Producer identity coverage:** materially improved; E127, E128, E129, E130 and E141 now have verified authored producers.  
+**Timing reconciliation:** improved.  
 **Machine-contract closure:** NOT VERIFIED.  
 **Runtime implementation:** NOT STARTED.
