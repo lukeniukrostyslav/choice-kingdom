@@ -1,70 +1,94 @@
 # Choice Kingdom — Project State
 
 ## Product
-Original premium offline-first decision-and-consequence mobile game. Working theme: ruling the kingdom of Avelune. The core appeal is meaningful choices, recurring characters, delayed consequences, hidden information, systemic event chains, multiple endings, and replayable paths.
+Original premium offline-first decision-and-consequence mobile game set in Avelune. Meaningful choices, recurring characters, delayed consequences, hidden information, systemic event chains, multiple endings and replayable paths.
 
-## Full-release content target
-This is a real full game, not a short card demo. The release target is approximately 250–350+ meaningful authored events/story nodes, with interconnected branches rather than filler repetition, plus approximately 8–12 recognizable endings and substantial replay variation.
+## Release target
+- Android-first premium one-time purchase, approximately €2.99–€4.99.
+- No ads, no subscription, no mandatory backend for core gameplay.
+- 20+ locales including RTL and long-string validation.
+- Full authored campaign target: approximately 250–350+ meaningful nodes and 8–12 recognizable endings.
 
-## Commercial target
-Android-first premium product, approximately €2.99–€4.99. No ads. No subscriptions. No mandatory backend or online service for core gameplay.
+## Frozen authored scope
+Production catalog is **E01–E272**. E273–E277 are expansion candidates and are excluded from production semantics, producer/consumer edges and reachability.
 
-## Language requirement
-Release must ship with localization from day one. Target is 20+ locales, including RTL and long-string validation.
+## Development order
+**Content → canonical QA → machine-readable contracts → Decision Engine → UI → localization/tests → Android QA → APK → release.**
 
-## Engineering rule
-No mock gameplay, fake completion, placeholder business logic presented as finished, or premature readiness claims. Every major block must progress through implementation, automated verification, runtime verification where applicable, and Android QA.
-
-## Non-negotiable development order
-Content and canonical QA come before production contracts, engine, UI, localization, automated/runtime verification and Android release.
+No mock/stub gameplay or premature production-readiness claims.
 
 ## Current phase
-**Narrative/content canonicalization and QA.** Authored checkpoint: E01–E272. Immediate goal: reconcile authored sources and causal graph into canonical production representation and prove internal consistency/reachability.
+**Narrative/content canonicalization and QA.** Authored checkpoint E01–E272. Production schema and Decision Engine remain blocked until canonical contracts and reachability are sufficiently closed.
 
-## Authored content checkpoints
-- E01–E70: authored spine/endgame
-- E71–E110: authored expansion
-- E111–E150: authored expansion
-- E151–E210: authored expansion
-- E211–E270: authored expansion
-- E271: border-crisis declaration producer bridge
-- E272: border-crisis active-resolution producer bridge
-- E273–E277: authored producer-expansion candidates, **not yet admitted to the frozen E01–E272 production catalog**
-- Total frozen authored node identifiers: **E01–E272**.
+## Scenario QA
+Dedicated Scenario QA score remains **65%**. This is distinct from overall project completion and is not runtime/Android readiness.
 
-## Scenario QA reporting metric
-The dedicated scenario verification metric is frozen in `docs/SCENARIO_QA_SCORECARD_01.md`.
-
-**Scenario QA / verification progress: 65%.**
-
-This is the fixed reporting metric for the E01–E272 authored campaign. It measures closure of scenario QA gates (canonical continuity, producer/consumer closure, derived predicates, delayed consequences, replay boundaries, endings/precedence, causal reachability and exhaustive machine checks). It is intentionally distinct from the overall project percentage.
-
-The 65% figure does not mean the engine, runtime, Android build, UI, localization or APK are complete. It also does not mean reachability has been proven.
+### S01–S12 working indicators
+- S01 **80%**
+- S02 **70%**
+- S03 **70%**
+- S04 **70%**
+- S05 **60%**
+- S06 **55%**
+- S07 **80%**
+- S08 **78%**
+- S09 **60%**
+- S10 **72%**
+- S11 **55%**
+- S12 **25%** — improved by S12.2 source-closure delta, but exhaustive reachability is still open.
 
 ## Latest QA work
-- **S12.1** added `docs/SCENARIO_QA_S12_1_REACHABILITY_ANCHOR_INVENTORY_01.md` in commit `a61ac9de61f4c448c511e123be38cea12b3b0f5b`; converted verified source-backed producer chains into a machine-oriented reachability anchor inventory while explicitly keeping exhaustive E01–E272 reachability open.
-- **Canonical budget reform source closure** added `docs/CANONICAL_BUDGET_REFORM_SOURCE_CLOSURE_01.md`; E142-A `auditor_independence`, E154-A `crown_audited` and E198-A `legislative_budget_lock` are now an explicit three-domain source candidate set. Source identification is closed, while full predicate validation remains partial pending ordering, reachability, contradiction/cycle and replay checks.
-- **Canonical closure audit** `docs/CANONICAL_CLOSURE_AUDIT_01.md` records exact producer closure for guild representation, border crisis and guild logistics, and keeps food stability, transport active production, guild influence, systemic explanation, coalition cooperation, constitutional preparation and final-charter prerequisites appropriately open/partial.
-- **S12** added `docs/SCENARIO_QA_S12_FRESH_RUN_REPLAY_REACHABILITY_AUDIT_01.md` in commit `4c867ff7884b1bce464d41a6bef7980a400bba41`; translated fresh-run/replay isolation into explicit reachability invariants, enumerated currently source-backed path anchors, classified blocked/open paths, and defined machine-check requirements for E01–E272.
-- **S11** added `docs/SCENARIO_QA_S11_ENDING_INCOMING_PRECEDENCE_AUDIT_01.md` in commit `8919e0acc3e0d93d35e647346cbe5a8da08fa07f`; audited ending qualification as a causal consumer graph, rejected consumer-as-producer and generic-score aliases, and left complete incoming-path/precedence closure open for final-charter, coalition-positive, Broken Diadem and Quiet Throne routes.
-- **S10.5** added `docs/SCENARIO_QA_S10_5_DELAYED_LIFECYCLE_PERSISTENCE_AUDIT_01.md` in commit `acb51e3fd916c6acd433ccfd636730adadaad128`; closed the semantic QA boundary for transport lifecycle, food-pressure handling, late-crisis lifecycle, save/load persistence and replay isolation while keeping executable delayed contracts open pending exact source extraction.
-- **S10.4** added `docs/SCENARIO_QA_S10_4_DELAYED_SOURCE_TARGET_RECONCILIATION_01.md` in commit `cefee161d039d6ec6a71914c29806847381a0847`; reconciles delayed source identities for E181–E185 and E242–E246 against producer chronology while keeping unresolved timing/exactly-once/cancellation semantics open.
-- **S09.8** added `docs/SCENARIO_QA_S09_8_NORMALIZED_DEPENDENCY_GRAPH_AUDIT_01.md` in commit `28e62d38ff7846d654e9a4053872d79a274b548c`; normalized the closed producer→fact/lifecycle→consumer graph and hard-rejected self-satisfaction, alias leakage and E273–E277 contamination.
+- **S12.2** added `docs/SCENARIO_QA_S12_2_SOURCE_CLOSURE_DELTA_AUDIT_01.md`, commit `6c8e82e825e7bcbeeb9d6f105ed7f4f9fd744559`. This reconciles the latest producer inventory against stale wording and closes the source-level ambiguity for active `pred.transport_disruption`: E32 is the explicit active producer; E136-A/B are recovery/clear producers. Runtime cycle identity, ordering, persistence, expiry/supersession and delayed-effect interaction remain open.
+- **S12.1** added the machine-oriented reachability anchor inventory in commit `a61ac9de61f4c448c511e123be38cea12b3b0f5b8`.
+- Canonical budget reform source closure identifies E142-A `auditor_independence`, E154-A `crown_audited` and E198-A `legislative_budget_lock` as the three-domain source candidate set. Predicate validation remains partial.
+- Canonical closure audit confirms source-level closure for guild representation, border crisis and guild logistics while keeping food stability, composite guild influence, systemic explanation, coalition cooperation, constitutional preparation and final-charter prerequisites appropriately open/partial.
+- S12 fresh-run/replay audit defined canonical initial-state isolation and machine-check requirements.
+- S11 ending audit established consumer-only ending qualification and rejected generic-score/consumer-as-producer shortcuts.
+- S10.5 closed the semantic QA boundary for delayed lifecycle, persistence and replay isolation while executable callback contracts remain open pending exact source extraction.
+- S10.4 reconciled delayed source identities for E181–E185 and E242–E246.
+- S09.8 normalized the closed dependency graph and rejected self-satisfaction, alias leakage and E273–E277 contamination.
 
-## Current QA checkpoint
-The producer inventory is paired with `docs/MACHINE_INVENTORY_PASS_01.md`, which freezes the current source-closed fact set and separates runtime-safe normalization from unresolved producer ambiguity. This remains source-level QA, not runtime data.
+## Canonical producer/consumer status
+Source-level closed chains include:
+- E18-B → `public_bridge` → E243
+- E09-B → `flexible_accounts` → E244
+- E117-B → `veteran_patronage` → E182
+- E118-B → `estate_exception` → E183/E242
+- E17-A → `cheap_weapons` → E185
+- E136-B → `history.guild_logistics_cooperation` → E194
+- E144-A/B → `history.guild_representation`
+- E271-A → active `pred.border_crisis`; E272-A/B resolve it
+- E32 → active `pred.transport_disruption`; E136-A/B clear it
+- E142-A/E154-A/E198-A → budget-reform source domains
 
-The authored producer bridge corrections for E136/E144/E148 and later E151–E210 trigger/semantic corrections have been applied to authoritative catalogs and re-read. E136-B supplies `history.guild_logistics_cooperation`; E194 consumes that upstream marker rather than self-consuming the qualified predicate. E29-A/B establish `pred.winter_severe`; E32/E136 transport lifecycle remains under active source reconciliation. Runtime lifecycle, persistence and ordering remain OPEN.
+Important unresolved/open areas:
+- `pred.food_stable`
+- exact machine formula for `pred.guild_influence_strong`
+- `pred.systemic_explanation_verified`
+- `pred.coalition_cooperation`
+- `pred.constitutional_prepared_strong`
+- `pred.final_charter_prerequisites`
+- replay `meta.*` producers/keys for E247/E248/E270
+- exact delayed identities/timing/cancellation for remaining open families
+- complete incoming paths and deterministic precedence for endings
+- exhaustive E01–E272 producer/consumer graph and fresh-run reachability
 
-The S12.1 anchor inventory now provides explicit machine-oriented rows for source-closed chains including E18-B→E243, E09-B→E244, E117-B→E182, E118-B→E183/E242, E17-A→E185, E136-B→E194, E142-A/E154-A/E198-A budget-reform candidates, E144-A/B→guild representation and E271/E272 border lifecycle. These are causal anchors, not exhaustive runtime reachability proof.
+## Canonical vocabulary rules
+State namespaces are `resource.*`, `rel.*`, `flag.*`, `history.*`, `thread.*`, `delay.*`, `ending.*`, and explicit `meta.*` for intentionally persistent cross-run knowledge. Contextual concepts such as food pressure or winter severity must be deterministic predicates or durable markers, never silently become a sixth resource.
 
-`pred.food_stable` remains open because the authored E192-B food-stability result has not yet been normalized into a deterministic durable marker/source contract. `pred.transport_disruption` has recovery/clear evidence from E136-A/B, but its active producer remains incomplete in the latest closure audit. Composite guild influence, constitutional preparation, systemic explanation and coalition cooperation remain partial/open. Budget reform now has a three-domain source candidate set but remains a partial canonical predicate until ordering, reachability, contradiction/cycle and replay checks pass.
+Delayed consequences require source choice/event, earliest turn, latest turn or resolution condition, target, exactly-once key, cancellation/supersession rule and save/load persistence. Vague prose such as “later” is not executable timing.
 
-S11 established the ending causal boundary. Endings are consumers of independently qualified state; E209 remains consumer-only, E210 convergence-only, E261 does not automatically qualify coalition cooperation, generic relationship/resource/route counts cannot substitute for explicit prerequisites, and E273–E277 remain excluded. Complete incoming-path and deterministic precedence closure remains open, especially for final-charter, coalition-positive, Broken Diadem and Quiet Throne routes.
-
-Replay mutable-state isolation is contract-closed at the design level: a new run starts with empty pending callbacks, active-cycle predicates, unresolved crises and run-local state; only explicitly authored `meta.*` transfer data may cross the replay boundary. E247, E248 and E270 remain consumer intents without source-closed meta producers/keys.
-
-No validator has been introduced prematurely. Production schema and runtime implementation remain blocked until canonical contracts are frozen and complete catalog reconciliation passes.
+## Hard negative rules
+- A consumer cannot manufacture its own prerequisite.
+- `rel.ivo` cannot equal strong guild influence.
+- E197 cannot manufacture constitutional preparedness.
+- E209 cannot manufacture final-charter prerequisites.
+- E210 is convergence-only.
+- `four_way_bargain` does not alone prove coalition cooperation.
+- security alone does not prove border crisis.
+- E136 recovery cannot reactivate transport disruption.
+- ordinary run state cannot automatically become `meta.*`.
+- E273–E277 cannot contribute production edges.
 
 ## Current honest progress
 - Foundation / rules: **95%**
@@ -85,18 +109,20 @@ No validator has been introduced prematurely. Production schema and runtime impl
 - APK: **0%**
 - Release: **0%**
 
-Overall project progress remains approximately **53%**. The separate scenario QA metric is **65%** and must not be conflated with this overall project figure.
+Overall project progress remains approximately **53%**. Scenario QA remains **65%** and must not be conflated with overall project completion.
 
-## Next highest-value work
-1. Continue exact source extraction for E218/E225 and E251–E272 delayed/lifecycle rows.
-2. Expand S12.1 into an exhaustive machine-readable E01–E272 output/consumer inventory.
-3. Reconcile S11 ending incoming paths and deterministic precedence against the expanded graph.
-4. Complete derived predicate contracts and exact canonical vocabulary, including food stability, active transport disruption, guild influence, constitutional preparation, systemic explanation and coalition cooperation.
-5. Freeze production contracts only after machine checks pass on the canonical graph.
-6. Build the Decision Engine against frozen contracts, then UI, localization, automated/runtime verification and Android release gates.
+## Next autonomous work
+1. Continue exhaustive E01–E272 producer/consumer inventory from authoritative catalogs.
+2. Normalize every output/trigger into canonical vocabulary.
+3. Detect zero-producer, duplicate, contradictory and cyclic semantic tokens.
+4. Continue exact source extraction for E218/E225 and E251–E272 delayed/lifecycle rows.
+5. Reconcile S11 ending incoming paths and precedence against the expanded graph.
+6. Run fresh-run and representative replay reachability from canonical initial state.
+7. Freeze production contracts only after machine checks are clean enough.
+8. Then build Decision Engine → UI → localization → automated/runtime verification → Android → APK → release.
 
 ## Honest progress rule
-Percentages represent actual state. Documentation alone does not make implementation complete. Source edits count only when the authoritative catalog is changed and re-read. No block may be called ready until its appropriate verification has passed.
+Documentation alone never makes implementation complete. Source edits count only when authoritative evidence is changed/re-read. No block is ready until its applicable verification passes. Owner-controlled release gates must never be falsely marked complete.
 
 ## Project separation
-`rulebreak8` is unrelated to this project and must not be modified or used as a readiness source for Choice Kingdom.
+`rulebreak8` is unrelated and must not be used as a readiness source for Choice Kingdom.
