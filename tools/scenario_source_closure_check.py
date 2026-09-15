@@ -97,9 +97,11 @@ contract_fragments = [
     '"E261 four_way_bargain is support evidence only"',
     '"E194 cannot self-produce this predicate"',
     '"pred.guild_influence_strong"',
-    '"domain": "representation", "producer": "E49", "key": "guild_political_representation"',
+    '"domain": "representation", "producers": ["E49", "E144"]',
+    '"keys": ["guild_political_representation", "history.guild_representation"]',
+    '"E49 and E144 cannot be counted as two independent domains"',
     '"domain": "tribunal", "producer": "E168-A", "key": "guild_tribunal_independent"',
-    '"domain": "market_credit", "producer": "E165", "key": "official_credit_disclosure"',
+    '"domain": "market_credit", "producer": "E165-A", "key": "official_credit_disclosure"',
     '"domain": "logistics", "producer": "E136-B", "key": "history.guild_logistics_cooperation"',
     '"pred.constitutional_prepared_strong"',
     '"domain": "civic_commons", "producer": "E50-A", "key": "people_charter_endorsed"',
@@ -136,6 +138,7 @@ print("SCENARIO_SOURCE_CLOSURE: PASS")
 print(f"authored_events={len(all_events)}")
 print("event_id_uniqueness=PASS")
 print("p0_source_contracts=PASS")
+print("guild_representation_normalization=PASS")
 print("guild_and_constitutional_source_domains=PASS")
 print("coalition_machine_contract=PASS")
 print("e33_e34_canonical_source=PASS")
