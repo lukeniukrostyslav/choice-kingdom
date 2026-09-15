@@ -45,9 +45,9 @@ This registry deliberately records OPEN rows instead of inventing producers or a
 | `pred.border_crisis` | predicate | E271-A declaration; E272-A/B resolution | E195/E253/E255+ | VERIFIED SOURCE LIFECYCLE / RUNTIME OPEN | active only between declaration and resolution |
 | `pred.guild_logistics_cooperation` | predicate | E136-B upstream marker + E194-A neutral inspection | downstream guild/ending consumers | VERIFIED SOURCE CHAIN / RUNTIME OPEN | requires prior cooperation + inspection + no unresolved immunity-risk blocker |
 | `pred.guild_influence_strong` | predicate | representation=`guild_political_representation`/`history.guild_representation`; tribunal=`guild_tribunal_independent`; market/credit=`official_credit_disclosure`/`audited_monopoly` as one domain; logistics=qualified cooperation | E200 | PARTIAL / SOURCES FROZEN | at least two distinct institutional domains; `rel.ivo` alone forbidden |
-| `pred.systemic_explanation_verified` | predicate | E232/E233/E234/E235/E236 evidence candidates; explicit convergence producer still open | E207/endgame | PARTIAL / PRODUCERS OPEN | three independent evidence classes + explicit convergence decision |
+| `pred.systemic_explanation_verified` | predicate | E232–E236 evidence families + E270-A explicit convergence (`systemic_explanation_convergence`) | E207/endgame | SOURCE-CLOSED / RUNTIME OPEN | E270-A requires the three evidence families to already exist; it cannot manufacture missing evidence |
 | `pred.coalition_cooperation` | predicate | E148-A + E261-A cooperation-package candidates | E201/E207/E261+ | PARTIAL / SOURCES FROZEN | positive cooperation, participant identity and blocker lifecycle required |
-| `pred.constitutional_prepared_strong` | predicate | civic=`people_charter_endorsed`; institutional=`crown_audited`/`full_crown_audit_published`; factional=`house_assembly`; military=`military_red_line` | E197 | PARTIAL / SOURCES FROZEN | any 3 independent preparation domains; anti-double-counting and reachability remain open |
+| `pred.constitutional_prepared_strong` | predicate | civic=`people_charter_endorsed`; institutional=`crown_audited`/`full_crown_audit_published`; factional=`house_assembly`; military=`army_constitution_oath` | E197 | PARTIAL / SOURCES FROZEN | any 3 independent preparation domains; anti-double-counting and reachability remain open |
 | `pred.budget_reform` | predicate | E142-A `auditor_independence` + E154-A `crown_audited` + E198-A `legislative_budget_lock` | E258+ | SOURCE CLOSED / EXECUTABLE QUALIFICATION PARTIAL | E142-B/E154-B/E198-B are explicit blockers; E155-A same audit domain; E258 consumer-only |
 | `pred.final_charter_prerequisites` | predicate | E197/E198/E199/E202–E209 candidates | E209/E210 | CONTRACT FROZEN / PRODUCERS OPEN | E209 consumes only |
 | `pred.faction_routes_4` | predicate | distinct faction route activations | E261+ | OPEN | distinct route identities required |
@@ -61,8 +61,6 @@ The following references are explicitly rejected from the frozen production regi
 - `E277` as a transport-recovery producer.
 - Any E273–E277 producer, consumer, delayed source, predicate source or reachability edge introduced by future QA work.
 
-These IDs may be documented as expansion candidates, but they must not be normalized into production semantics.
-
 ## Remaining P0 closure work
 
 1. Exhaustively enumerate concrete durable producers for E01–E272.
@@ -70,8 +68,8 @@ These IDs may be documented as expansion candidates, but they must not be normal
 3. Detect duplicate semantic writers and contradictory writers.
 4. Normalize prose-derived predicates into deterministic formulas or explicit source-backed markers.
 5. Reconcile `EVENT_GRAPH.md` against actual authored trigger/effect relationships.
-6. Close E184/E245/E246 delayed source identities and exact lifecycle contracts.
-7. Close replay `meta.*` producers/keys for E247/E248/E270.
+6. Close E184/E185/E242–E246 delayed lifecycle contracts.
+7. Close replay `meta.*` producers/keys for E186/E247/E248; E270 ordinary convergence is not replay promotion.
 8. Verify downstream distinctions for E55/E269, E36/E226, E37/E227, E39/E229 and E40/E241.
 9. Run fresh-run reachability only after the source contract inventory is sufficiently closed.
 
