@@ -60,3 +60,5 @@ After the border alarm has been formally declared, Rowan and the border council 
 - The node does not retroactively create constitutional, guild, coalition, or evidence prerequisites.
 - Resolution is deterministic and save/load-safe once represented by the future engine schema.
 - The historical declaration remains queryable for later callbacks and ending qualification.
+
+<!-- S23 trigger marker: canonical border trigger normalization must be included in the next exhaustive source inventory. -->
