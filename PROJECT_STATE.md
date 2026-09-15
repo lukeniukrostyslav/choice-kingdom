@@ -35,13 +35,16 @@ Dedicated Scenario QA score is approximately **87%**. This is distinct from over
 - S09 **60%**
 - S10 **72%**
 - S11 **55%**
-- S12 **80%** — source-level machine QA through S12.42 is green for graph validation, classification, producer/consumer compilation, conservative triage, qualification/lifecycle gates, ending/replay reconciliation, E245 source synchronization, semantic candidate-boundary auditing, and frozen production-scope boundary enforcement. Semantic orphan/reachability closure remains open.
+- S12 **80%** — source-level machine QA through S12.45 covers graph validation, classification, producer/consumer compilation, conservative triage, qualification/lifecycle gates, ending/replay reconciliation, E245 source synchronization, semantic candidate-boundary auditing, frozen production-scope enforcement, composite producer matrix compilation, replay-meta closure gating and E33/E34 source quarantine. Semantic orphan/reachability closure remains open.
 
 ## Latest QA work
-- **S12.42** added `tools/validate_scope_boundaries.py` plus `.github/workflows/scope-boundary.yml` and a QA report. The gate enforces E01–E272 production scope, excludes E273–E277, and pins ending/replay candidate queues to E265–E270 and E247–E250. It explicitly does not claim reachability or semantic orphan closure. The latest canonical graph workflow run #43 after the S12.42 commit was GREEN.
+- **S12.45** re-searched repository content and commit history for E33/E34 and formally quarantined the unrecovered exact authored prose/effects. No replacement content or guessed semantics were introduced.
+- **S12.44** formalized replay-meta closure for E186/E247/E248/E270. Replay isolation is design-closed; exact `meta.*` producer/key inventory remains OPEN.
+- **S12.43** compiled source-backed producer domains and hard negatives for `pred.guild_influence_strong`, `pred.coalition_cooperation` and `pred.constitutional_prepared_strong`. This is source-level qualification QA, not runtime formula closure.
+- **S12.42** added `tools/validate_scope_boundaries.py` plus `.github/workflows/scope-boundary.yml` and a QA report. The gate enforces E01–E272 production scope, excludes E273–E277, and pins ending/replay candidate queues to E265–E270 and E247–E250. It explicitly does not claim reachability or semantic orphan closure. Canonical graph workflow run #43 after the S12.42 commit was GREEN.
 - **S12.41** added `tools/audit_candidate_semantic_boundary.py` and wired it into canonical graph CI. It deterministically separates source-missing, replay-only, delayed-callback, ending/terminal, root/source, consumer-only and isolated review queues without declaring semantic orphans.
-- **S12.40** synchronized machine canonical graph with the already source-closed E245 producer identity: E20-A `soldier_compensation` only. E125-A and E156-A remain independent compensation outcomes. GitHub Actions canonical graph run #36 passed all four previous QA stages.
-- **S12.39** reconciled ending producer gaps with replay meta closure. Ending resolver and replay transfer remain blocked by source-level gaps; no ordinary flag or degree heuristic was promoted to ending prerequisite or `meta.*` producer.
+- **S12.40** synchronized machine canonical graph with the already source-closed E245 producer identity: E20-A `soldier_compensation` only. E125-A and E156-A remain independent compensation outcomes.
+- **S12.39** reconciled ending producer gaps with replay meta closure. Ending resolver and replay transfer remain blocked by source-level gaps.
 - **S12.38** normalized delayed lifecycle identity/timing/cancellation/supersession/save-load boundaries for E181–E185 and E242–E246 without inventing absolute turns from vague authored timing.
 - **S12.37** freezes three independent evidence families for `pred.systemic_explanation_verified` and leaves the fourth immutable convergence producer/key explicitly OPEN; E207 remains consumer-only.
 - **S12.36** added machine candidate triage and ending/replay reconciliation without declaring graph-degree candidates to be semantic orphans.
@@ -70,6 +73,9 @@ Dedicated Scenario QA score is approximately **87%**. This is distinct from over
 - E198-A → `legislative_budget_lock`
 - E271-A → active `pred.border_crisis`; E272-A/B clear it
 - E32 → active `pred.transport_disruption`; E136-A/B clear it
+- Guild influence: representation, tribunal, market/credit and qualified logistics domains are source-backed; at least two distinct domains required.
+- Coalition cooperation: positive cooperation + participant identity + no unresolved collapse blocker; four-way bargain alone is rejected.
+- Constitutional preparation: civic + institutional + factional + military source domains; at least three distinct domains required.
 
 ### E245
 **Producer identity CLOSED:** E20-A `soldier_compensation`. Authored timing remains `6+ turns later`; absolute due-turn/cancellation semantics are OPEN.
@@ -77,13 +83,16 @@ Dedicated Scenario QA score is approximately **87%**. This is distinct from over
 ### Systemic explanation
 Three evidence families are frozen as distinct machine domains: warehouse/financial, document/language, and witness/organizational. The exact immutable convergence producer/key remains OPEN. E207 is consumer-only.
 
-### Budget reform
-Source identity is CLOSED: E142-A + E154-A + E198-A. Negative blockers E142-B/E154-B/E198-B are explicit. Runtime lifecycle/invalidation and reachability remain OPEN.
+### Replay meta
+E186/E247/E248/E270 remain OPEN for exact producer/key identity. Ordinary history/flags cannot cross the completed-run boundary without explicit authored promotion.
+
+### E33/E34
+Exact authored headings/effects/delayed semantics remain **QUARANTINED / UNRECOVERED** after renewed content and commit-history search. No invented replacement was admitted.
 
 ## Major unresolved gates
-- authoritative source recovery for E33/E34 exact authored headings/effects;
+- authoritative source recovery or explicit authored correction for E33/E34 exact headings/effects;
 - `pred.food_stable` vs `food_logistics_stabilized`;
-- exact machine producer compilation for `pred.guild_influence_strong`;
+- exact executable producer compilation for `pred.guild_influence_strong`;
 - explicit convergence producer/key for `pred.systemic_explanation_verified`;
 - runtime qualification/invalidation for `pred.coalition_cooperation`;
 - executable ordering for `pred.constitutional_prepared_strong`;
@@ -132,15 +141,14 @@ Source identity is CLOSED: E142-A + E154-A + E198-A. Negative blockers E142-B/E1
 Overall project progress remains approximately **60%**. Scenario QA is approximately **87%** and must not be conflated with overall project completion.
 
 ## Next autonomous work
-1. Search repository history and remaining catalog/checkpoint sources for exact E33/E34 authored material; otherwise formally quarantine them as unrecovered.
-2. Use the compiled producer/consumer matrix plus semantic-boundary queues to audit the 69 no-outbound candidates and 54 unreferenced candidates against authoritative source text.
-3. Separate ROOT/SOURCE, ordinary producer, consumer-only, terminal/ending, qualification, delayed callback, replay-only and true orphan semantics.
-4. Compile guild influence, coalition cooperation and constitutional preparation into exact producer/consumer matrices.
-5. Complete delayed cancellation/supersession matrix, including E245/E185/E184.
-6. Reconcile S11 endings and deterministic precedence.
-7. Build fresh-run and representative replay reachability models with strict `meta.*` isolation.
-8. Freeze production contracts only after machine validation and semantic catalog↔graph equality pass.
-9. Then Decision Engine → UI → localization → runtime/Android QA → APK → release.
+1. Audit the 69 no-outbound and 54 unreferenced candidates against authoritative source text using the semantic-boundary queues.
+2. Separate ROOT/SOURCE, ordinary producer, consumer-only, terminal/ending, qualification, delayed callback, replay-only and true orphan semantics.
+3. Complete delayed cancellation/supersession matrix, especially E184/E185/E245.
+4. Reconcile S11 endings and deterministic precedence with exact incoming paths.
+5. Build fresh-run and representative replay reachability models with strict `meta.*` isolation.
+6. Prove catalog↔machine graph semantic equality or produce a bounded, explicit delta.
+7. Freeze production contracts only after machine validation and reachability gates pass.
+8. Then Decision Engine → UI → localization → runtime/Android QA → APK → release.
 
 ## Honest progress rule
 Documentation alone never makes implementation complete. Source edits count only when authoritative evidence is changed/re-read. No block is ready until its applicable verification passes.
