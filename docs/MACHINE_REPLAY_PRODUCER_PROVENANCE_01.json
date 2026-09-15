@@ -1,18 +1,18 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "contract": "choice_kingdom.replay_producer_provenance",
   "source": "docs/SCENARIO_QA_REPLAY_PRODUCER_PROVENANCE_01.md",
   "scope": ["E186", "E247", "E248"],
-  "status": "PARTIAL",
+  "status": "OPEN",
   "runtime_verified": false,
   "records": [
     {
       "consumer": "E186",
-      "producer_event": "E131",
+      "producer_event": null,
       "producer_choice": null,
       "candidate_key": "all_voices_heard",
-      "binding_status": "PARTIAL_SOURCE_EVIDENCE",
-      "reason": "E131 explicitly names a previous-run replay trigger and all_voices_heard, but E186 does not explicitly bind to that key"
+      "binding_status": "OPEN",
+      "reason": "E131 is a replay consumer of all_voices_heard, not a proven producer; E186 does not explicitly bind to an exact persistent key"
     },
     {
       "consumer": "E247",
@@ -37,8 +37,8 @@
     "clue counts are not replay metadata",
     "ordinary character state is not replay metadata",
     "graph proximity is not a producer",
+    "E131 is a replay consumer, not a producer",
     "E249/E250/E270 are ordinary authored state",
-    "E33/E34 are quarantined",
     "E273-E277 are excluded"
   ]
 }
