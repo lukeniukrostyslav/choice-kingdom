@@ -58,6 +58,7 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 - `docs/CANONICAL_PRODUCER_CONSUMER_REGISTRY_01.md` is the consolidated producer/consumer source-level QA registry.
 - `docs/CANONICAL_CLOSURE_AUDIT_01.md` is the latest focused source-level closure audit.
 - `docs/CANONICAL_TRIGGER_NORMALIZATION_03.md` records the latest safe prose-trigger normalization pass and its explicit non-normalization boundaries.
+- `docs/PRODUCER_AUDIT_E111_E180_01.md` records an exact producer audit for the visible authored outputs in E111–E180 and explicitly leaves uncertain E143–E150 outputs open.
 - `docs/LEGACY_SEMANTIC_AUDIT_01.md` records the E35–E40 and duplicate-semantic audit findings.
 - `docs/SEMANTIC_COLLISION_RESOLUTION_01.md` records the frozen and applied semantic-resolution policy.
 - `docs/LEGACY_SOURCE_COMPARISON_02.md` closes E73/E156 and E99/E173 as distinct source-level nodes.
@@ -76,6 +77,8 @@ The latest closure audit was reconciled with these authoritative sources: `histo
 
 The latest trigger-normalization pass records only safe mappings already covered by the canonical predicate matrix (resource pressure, winter/border/security/readiness families, evidence/faction cardinality families, and institutional/investigation families). Ambiguous concepts such as civic relief, guild leverage, information route, winter illness, and final-charter preparation remain explicitly open rather than being collapsed into arbitrary aliases.
 
+The E111–E180 producer audit now has a dedicated verified-subset inventory. It confirms the exact authored durable outputs for E111–E142 and E151–E180, reconfirms E136 transport recovery and guild-logistics history semantics, and deliberately leaves E143–E150 endgame outputs open where the source text still requires a direct focused pass. This audit is coverage work only and does not convert candidate predicates into production contracts.
+
 The semantic-collision backlog is now synchronized: E55/E269 and E36/E226 are marked as applied/verified at the authoritative-catalog level. Their downstream graph/reachability verification remains open, as do E37/E227, E39/E229 and E40/E241.
 
 The canonical state vocabulary scope has now been reconciled from E01–E270 to **E01–E272** so the authoritative normalization document covers the complete authored checkpoint.
@@ -83,6 +86,7 @@ The canonical state vocabulary scope has now been reconciled from E01–E270 to 
 Reachability remains static/pre-audit only until a real validator and production data representation exist. No engine/APK readiness claim is permitted at this stage.
 
 ## Latest source-level commits
+- `9556b6be8e6641e0067ea183a3171ec0ccdbc8c9` — exact producer audit for E111–E180 verified subset.
 - `b0c9410aa2bd30fcc0e49793f8ab0dffde8ac5ee` — recorded safe canonical trigger normalization pass 03.
 - `86a5f2558638d252a4e3f9b36d7a8d1b4e10398b` — state sync after E01–E272 vocabulary reconciliation.
 - `3c04cf8de671dbb2ead7ab91700881737d0263fd` — reconciled canonical state vocabulary scope with the complete E01–E272 authored checkpoint.
@@ -97,9 +101,9 @@ Reachability remains static/pre-audit only until a real validator and production
 - `5d652e994a1a2d0521737d6bf5d39b2a8cab5933` — synchronized producer/consumer registry after source corrections.
 
 ## Next highest-value work
-1. Enumerate exact durable producers for every remaining domain used by the frozen combination rules.
-2. Expand the registry to every concrete durable flag/history marker in E01–E272 with exact consumers.
-3. Reconcile the normalized trigger families against the complete catalog and graph, resolving safe aliases while preserving ambiguous distinctions.
+1. Complete the direct E143–E150 producer pass and freeze only outputs explicitly supported by the authored sources.
+2. Continue exact durable producer/consumer extraction across E01–E272.
+3. Reconcile normalized trigger families against the complete catalog and graph, resolving safe aliases while preserving ambiguous distinctions.
 4. Reconcile graph/catalog references and reachability.
 5. Verify delayed/replay source identities and exactly-once semantics.
 6. Verify E55/E269, E36/E226, E37/E227, E39/E229 and E40/E241 downstream roles in graph/reachability QA.
