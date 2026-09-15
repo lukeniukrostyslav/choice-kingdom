@@ -19,10 +19,10 @@ Freeze the semantic rule for contextual conditions before production schema work
 | `pred.market_pressure` | E19-B `market_pressure_declared` establishes the current market-pressure cycle; E19-A explicitly clears an active cycle; E274-A is a later additional pressure-cycle producer | CLOSED — source producer verified; later-cycle clear semantics still need authored reconciliation |
 | `pred.guild_labor_tension` | E275-B `guild_labor_tension_declared`; E275-A can clear active tension; exact persistence semantics to be validated | CLOSED — source producer verified |
 | `pred.information_pressure_high` | E276-B `information_pressure_declared`; E276-A can clear active pressure; not `rel.toma` alone | CLOSED — source producer verified |
-| `pred.guild_influence_strong` | At least two distinct institutional domains from canonical guild-influence domain set | PARTIAL |
+| `pred.guild_influence_strong` | At least two distinct institutional domains from canonical guild-influence domain set: representation=`guild_political_representation`; tribunal=`guild_tribunal_independent`; market/credit=`official_credit_disclosure`/`audited_monopoly` as one commercial domain; logistics=`history.guild_logistics_cooperation` with qualified E194-A semantics | PARTIAL — source identities frozen; full producer-before-consumer and anti-double-counting reconciliation remains OPEN |
 | `pred.systemic_explanation_verified` | Distinct warehouse/financial evidence + document/language evidence + witness/organizational evidence + explicit convergence decision | PARTIAL |
 | `pred.coalition_cooperation` | Explicit cooperation package with identified participants and positive cooperation outcome; not route-count based | PARTIAL |
-| `pred.constitutional_prepared_strong` | Three independent preparation domains: civic/commons, audit/institutional, factional/constitutional or military | OPEN |
+| `pred.constitutional_prepared_strong` | Three independent preparation domains: civic/commons=`people_charter_endorsed`; institutional/audit=`crown_audited`/`full_crown_audit_published`; factional/house=`house_assembly`; military/law=`military_red_line` | PARTIAL — exact source identities frozen; full E01–E272 anti-double-counting and producer-before-consumer reconciliation remains OPEN |
 | `pred.budget_reform` | Independent audit legitimacy + crown-audit legitimacy + legislative budget lock; exact source set still to freeze | OPEN |
 | `pred.final_charter_prerequisites` | Convergence of already-established civic, institutional, faction/house/guild, military/security, information/evidence, coalition and crisis-resolution facts, with mandatory blockers cleared | OPEN |
 
@@ -41,10 +41,20 @@ Freeze the semantic rule for contextual conditions before production schema work
 ## Current source-level producer closures
 
 - `pred.food_stable`: E273-A is an explicit producer. The active state is intentionally not considered fully lifecycle-closed until a canonical later disruption/expiry source is reconciled.
-- `pred.market_pressure`: E19-B is now an explicit early producer for the market-pressure cycle. E19-A explicitly clears the active cycle. E274-A remains a later additional producer candidate for a subsequent cycle; it cannot retroactively satisfy earlier consumers.
+- `pred.market_pressure`: E19-B is an explicit early producer for the market-pressure cycle. E19-A explicitly clears the active cycle. E274-A remains a later additional producer candidate for a subsequent cycle; it cannot retroactively satisfy earlier consumers.
 - `pred.guild_labor_tension`: E275-B is an explicit producer and E275-A is an explicit clear outcome.
 - `pred.information_pressure_high`: E276-B is an explicit producer and E276-A is an explicit clear outcome.
 - `pred.transport_disruption`: E32 is now the explicit active producer for the first canonical compound-crisis cycle. E136/E277 remain recovery/clear semantics and cannot be treated as producers. Lifecycle expiry/clear and persistence semantics remain open.
+
+## Frozen composite source identities
+
+### Guild influence
+
+E49 is now confirmed by the authoritative E01–E70 producer inventory as `guild_political_representation`. The opposing E49-B outcome is `guild_political_exclusion`. E144 later normalizes the continuing representation history into `history.guild_representation`. These are related representation facts, not separate institutional domains.
+
+### Constitutional preparation
+
+E50 is confirmed by the authoritative E01–E70 producer inventory as `people_charter_endorsed`. It is the frozen civic/commons preparation source. Later civic consequences derived from the same charter must not be counted as independent domains.
 
 ## Producer expansion gate
 
