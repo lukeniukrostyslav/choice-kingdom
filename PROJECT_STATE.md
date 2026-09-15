@@ -45,7 +45,7 @@ The border-crisis lifecycle is source-closed: E271-A declares the active crisis 
 
 Delayed-consequence source extraction covers E127–E130/E141 plus E181–E185 and E242–E246. Producer identity is now source-closed for E127, E128, E129, E130 and E141: E127 is produced through E06-B (`temporary_noble_exemption`) and E38-A (`hereditary_seats_limited`); E128 through E17-A; E129 through E22-A; E130 through E45-B; E141 through E48-B. Remaining delayed work is executable delay identity/timing/cancellation/persistence rather than producer invention. See `docs/DELAYED_CONSEQUENCE_EXTRACTION_02.md` and `docs/DELAYED_PRODUCER_CLOSURE_01.md`.
 
-Replay mutable-state isolation is contract-closed at the design level: a new run starts with empty pending callbacks, active-cycle predicates, unresolved crises and run-local state; only explicitly authored `meta.*` transfer data may cross the replay boundary. The exact authored `meta.*` transfer inventory remains OPEN. See `docs/REPLAY_META_STATE_CONTRACT_01.md` and `docs/CANONICAL_DELAY_REPLAY_ENDING_AUDIT_01.md`.
+Replay mutable-state isolation is contract-closed at the design level: a new run starts with empty pending callbacks, active-cycle predicates, unresolved crises and run-local state; only explicitly authored `meta.*` transfer data may cross the replay boundary. A dedicated source-level inventory now confirms replay-oriented consumers/intents (including E186, E247, E248 and the E270 ending layer) but does **not** yet prove explicit `meta.*` producers/keys. GitHub indexed searches returned no direct `meta.*` producer matches; this is recorded as a verification lead rather than proof of absence. See `docs/REPLAY_META_INVENTORY_01.md` and `docs/REPLAY_META_STATE_CONTRACT_01.md`.
 
 The ending qualification design contract is established: endings must be deterministic, predicate-based and causal; relationship scores, route counts and the last event cannot manufacture prerequisites. The seven current ending families and E265–E270 qualification roles are defined. A new source-level audit confirms E265–E270 are supporting endgame nodes rather than proof of ending reachability; complete producer/path coverage and final precedence tests remain OPEN. See `docs/ENDING_QUALIFICATION_CONTRACT_01.md` and `docs/ENDING_PATH_COVERAGE_AUDIT_01.md`.
 
@@ -54,7 +54,8 @@ Canonical scope wording has been reconciled: E35–E40 are canonical authored no
 No validator has been introduced prematurely. Production schema and runtime implementation remain blocked until canonical contracts are frozen and the complete catalog reconciliation passes.
 
 ## Latest source-level commits
-- `89812501201e49adbef23d3e619900ef5a4d46e` — ending path coverage audit E265–E270.
+- `c5a22d69069ecb975809b2468bf1e3ec9713e980` — replay meta-state producer/consumer inventory audit.
+- `89812501201e49e23d3e619900ef5a4d46e` — ending path coverage audit E265–E270.
 - `6ea98c0f34f069c59b26a113b6a52fefd45865ed` — canonicalization backlog scope clarification.
 - `b04271583ac2ba29456e5619e644195e3a10d8c9` — canonical scope reconciliation E35–E40.
 - `e597736d8ca48d357e5fb78dc4ea7c9712c84d61` — corrected delayed producer closure and project progress.
@@ -89,7 +90,7 @@ Overall project progress remains approximately **50%**. Recent work closes docum
 ## Next highest-value work
 1. Normalize remaining executable delay fields for E127–E130/E141 and E181–E185/E242–E246.
 2. Complete E273–E276 consumer/alias graph checks and decide admission without changing frozen semantics.
-3. Inventory all authored `meta.*` replay transfer producers and consumers.
+3. Resolve the exact authored `meta.*` replay transfer producers/keys/consumers; do not infer them from ordinary flags.
 4. Complete ending producer/path coverage and deterministic precedence tests for E265–E270 and the seven ending families.
 5. Re-run complete E01–E272 contradiction/cycle/reachability reconciliation.
 6. Freeze production data contracts and only then build the static validator.
