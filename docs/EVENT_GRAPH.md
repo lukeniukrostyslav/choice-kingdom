@@ -20,6 +20,7 @@ The following edges are explicitly source-backed and reconcile delayed-consumer 
 `E17-A -> E185`
 `E18-B -> E243`
 `E20-A -> E245`
+`E25-B -> E184`
 `E45-B -> E181`
 
 Already represented in the broader graph and retained as canonical producer chains:
@@ -28,7 +29,7 @@ Already represented in the broader graph and retained as canonical producer chai
 `E160-A -> E246`
 `E136-B -> E194`
 
-Hard boundary: E184 has no safe canonical producer alias and remains OPEN. E242 remains only partially closed because its authored consumer wording refers to a broader noble-exception family than can safely be aliased universally.
+E184 is now source-closed to its authored `E25-B` secret-evidence route. E242 is now source-closed to its authored `E118-B` estate-exception route. Their runtime scheduling/cancellation/reachability semantics remain downstream lifecycle gates.
 
 ## Expansion layer E71–E110
 
