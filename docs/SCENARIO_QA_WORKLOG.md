@@ -6,6 +6,13 @@ Purpose: durable handoff ledger so completed QA work is not repeated.
 
 ## Latest continuation update — 2026-09-15
 
+### S09.1 — predicate dependency pre-audit
+- Added `docs/SCENARIO_QA_S09_1_PREDICATE_DEPENDENCY_PREAUDIT_01.md` in commit `3a9c2aaa9599671df3ef8410bbb4428b6798e17e`.
+- Started the predicate dependency gate using only source-closed facts; no design-level event-graph edge was promoted into runtime truth.
+- Explicitly rejected self-satisfaction patterns for `pred.final_charter_prerequisites`, `pred.guild_influence_strong`, `pred.constitutional_prepared_strong`, `pred.systemic_explanation_verified` and `pred.coalition_cooperation` without an independently proven upstream seed.
+- Preserved hard negatives for relationship aliases, coalition thread, security-vs-border-crisis, food stability and excluded E273–E277 sources.
+- S09.1 is a PARTIAL PASS; exhaustive token-level dependency extraction and machine cycle detection remain open.
+
 ### S08.10 — producer chronology pre-audit
 - Added `docs/SCENARIO_QA_S08_10_PRODUCER_CHRONOLOGY_PREAUDIT_01.md` in commit `a8beccf42802a5664b7b990ff72c02ea540a0982`.
 - Converted source-closed producer families into explicit producer-before-consumer chronology gates.
@@ -79,10 +86,10 @@ Purpose: durable handoff ledger so completed QA work is not repeated.
 
 Scenario QA remains **65%** until active global gates are actually closed.
 
-Working batch indicators: **S01 80%, S02 70%, S03 70%, S04 70%, S05 60%, S06 55%, S07 80%, S08 78%, S09 59%, S10 72%, S11 55%, S12 20%**.
+Working batch indicators: **S01 80%, S02 70%, S03 70%, S04 70%, S05 60%, S06 55%, S07 80%, S08 78%, S09 60%, S10 72%, S11 55%, S12 20%**.
 
 These batch percentages are working indicators and are not the global Scenario QA percentage.
 
 ## Next substantive action
 
-Continue exhaustive E01–E272 producer/output/trigger extraction with the mandatory E273–E277 exclusion filter. Next priority is completing producer chronology, duplicate/contradictory writer detection, predicate-cycle detection, delayed source/target reconciliation, and then S11/S12 ending/replay/reachability closure. Do not start runtime implementation until canonical production contracts are sufficiently closed and verified.
+Continue exhaustive E01–E272 producer/output/trigger extraction with the mandatory E273–E277 exclusion filter. Next priority is completing token-level predicate dependency extraction, cycle/self-satisfaction detection, duplicate semantic alias detection, delayed source/target reconciliation, and then S11/S12 ending/replay/reachability closure. Do not start runtime implementation until canonical production contracts are sufficiently closed and verified.
