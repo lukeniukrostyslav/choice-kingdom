@@ -6,6 +6,15 @@ Purpose: durable handoff ledger so completed QA work is not repeated.
 
 ## Latest continuation update — 2026-09-15
 
+### S08.5 — canonical producer registry scope hardening
+- Corrected `docs/CANONICAL_PRODUCER_CONSUMER_REGISTRY_01.md` in commit `5eb8f961deee382802bfd915c38cbb0b74181ebf`.
+- Replaced the stale E273 food-stability producer reference with an explicit **NO IN-SCOPE PRODUCER VERIFIED** state for `pred.food_stable`.
+- Added a hard production admission rule: producer/consumer/predicate/delay/reachability references must be `E01..E272` only.
+- Explicitly rejected E273-A and E277 as frozen-production sources.
+- Preserved OPEN status for unresolved semantics rather than inventing aliases or formulas.
+- Re-read the updated registry from `main` and verified the scope filter is present.
+- S08 remains **IN PROGRESS**; this is a source-contract hardening pass, not exhaustive closure.
+
 ### S08.4 — frozen-scope integrity correction
 - Added `docs/SCENARIO_QA_S08_SCOPE_INTEGRITY_01.md` in commit `2a2787b9f2206da6e4e5c4bda85175289520c1cb`.
 - Detected a stale producer reference in the working producer/consumer registry: `pred.food_stable` was attributed to `E273-A`, which is outside the frozen E01–E272 production catalog.
