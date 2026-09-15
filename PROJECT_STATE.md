@@ -21,7 +21,7 @@ No mock/stub gameplay or premature production-readiness claims.
 **Narrative/content canonicalization and QA.** Authored checkpoint E01–E272. Production schema and Decision Engine remain blocked until canonical contracts and reachability are sufficiently closed.
 
 ## Scenario QA
-Dedicated Scenario QA score is now approximately **79%**. This is distinct from overall project completion and is not runtime/Android readiness.
+Dedicated Scenario QA score is now approximately **80%**. This is distinct from overall project completion and is not runtime/Android readiness.
 
 ### S01–S12 working indicators
 - S01 **80%**
@@ -35,9 +35,10 @@ Dedicated Scenario QA score is now approximately **79%**. This is distinct from 
 - S09 **60%**
 - S10 **72%**
 - S11 **55%**
-- S12 **67%** — S12.24 reconciled the E245 compensation candidate set and surfaced a source-audit discrepancy: E20-A `soldier_compensation` is present in the earlier delayed-graph audit, while the later canonical inventory listed E125-A/E156-A. E245 remains intentionally OPEN pending authoritative single-source/composite qualification; no generic compensation union is admitted.
+- S12 **68%** — S12.24 reconciled E245 compensation candidates without inventing a generic union; S12.25 re-read E151–E210 and closed the authoritative three-domain budget-reform source set through E142-A/E154-A/E198-A while retaining runtime lifecycle and reachability as open.
 
 ## Latest QA work
+- **S12.25** added `docs/SCENARIO_QA_S12_25_BUDGET_REFORM_AUTHORITATIVE_RECONCILIATION_01.md`, commit `3b56b6d4ce28d18c9352a1db403d7b04534109ec`.
 - **S12.24** added `docs/SCENARIO_QA_S12_24_E245_COMPENSATION_SOURCE_RECONCILIATION_01.md`, commit `e1e90ac6422064bf6fc137a6a06c012728fa4429`.
 - **S12.23** added `docs/SCENARIO_QA_S12_23_E246_PRODUCER_CLOSURE_01.md`, commit `63c911bfe91cfd1d520bc97913ceb7e5f146cf5e`.
 - **S12.22** added `docs/SCENARIO_QA_S12_22_DELAYED_SOURCE_CLOSURE_01.md`, commit `02ff2ecb08a67506407350714e238126d01ef440`.
@@ -54,6 +55,7 @@ Confirmed in authored catalog text:
 - E271-A → formal border-crisis declaration; E271-B → non-crisis resolution.
 - **E272-A/B exact source recovered:** E272-A ratifies the joint border settlement and records `history.border_crisis_resolved_diplomatically`; E272-B ends the crisis under a military security guarantee and records `history.border_crisis_resolved_by_guarantee`. Both preserve `border_crisis_declared=true`, set `border_crisis_resolved=true`, clear active `pred.border_crisis`, and require E271-A's active crisis plus an authored resolution route.
 - E197/E200/E207/E209/E210 → canonical contracts preserve consumer-only/convergence-only boundaries; exact formulas/evidence IDs remain open.
+- **Budget reform source set:** E142-A `auditor_independence` + E154-A `crown_audited` + E198-A `legislative_budget_lock`; negative branches E142-B/E154-B/E198-B are blockers.
 
 ## Canonical producer/consumer status
 Source-level closed chains include:
@@ -69,7 +71,7 @@ Source-level closed chains include:
 - E32 → active `pred.transport_disruption`; E136-A/B clear it
 - E142-A/E154-A/E198-A → budget-reform source domains
 
-### S12.22–S12.24 delayed source closure
+### S12.22–S12.25 delayed/composite source closure
 - E181 → toll concession: source-language trigger closed; exact producer choice and executable cancellation remain open.
 - E182 → `veteran_patronage`: source identity closed; authored relative timing remains 4+ turns.
 - E183 → `estate_exception`: source identity closed; authored relative timing remains 5+ turns.
@@ -80,6 +82,7 @@ Source-level closed chains include:
 - E244 → E09-B `flexible_accounts`: source identity closed; executable lifecycle open.
 - **E245 → compensation route:** E125-A `border_compensation` and E156-A `requisition_compensation` are confirmed compensation facts; the earlier delayed-graph audit also records E20-A `soldier_compensation`. These must be reconciled against authoritative catalog wording before any producer is selected or unioned. Generic compensation alias remains forbidden.
 - E246 → **E160-A `winter_rent_ceiling` exact producer closed**; executable 5+ turn lifecycle remains open.
+- **`pred.budget_reform` → source set closed:** E142-A + E154-A + E198-A. Runtime lifecycle, negative-state invalidation and reachability remain open.
 
 Important unresolved/open areas:
 - `pred.food_stable` and its relationship to `food_logistics_stabilized`
@@ -116,13 +119,14 @@ Delayed consequences require source choice/event, earliest turn, latest turn or 
 - E273–E277 cannot contribute production edges.
 - `food_logistics_stabilized` must not silently alias `pred.food_stable` until its complete authored predicate/lifecycle contract is explicitly closed.
 - generic `compensation route` must not silently union distinct compensation contexts.
+- E155-A `full_crown_audit_published` cannot count as a second independent budget-reform domain.
 
 ## Current honest progress
 - Foundation / rules: **95%**
 - Authored content: **90%**
 - Canonical Event IDs / continuity: **100%**
 - Producer / Consumer QA: **99%**
-- Derived Predicates / Machine Contracts: **95%**
+- Derived Predicates / Machine Contracts: **96%**
 - Delayed Consequences: **94%**
 - Replay / Meta-state: **65%**
 - Endings / precedence: **69%**
@@ -136,18 +140,19 @@ Delayed consequences require source choice/event, earliest turn, latest turn or 
 - APK: **0%**
 - Release: **0%**
 
-Overall project progress remains approximately **60%**. Scenario QA is approximately **79%** and must not be conflated with overall project completion.
+Overall project progress remains approximately **60%**. Scenario QA is approximately **80%** and must not be conflated with overall project completion.
 
 ## Next autonomous work
 1. Re-read authoritative source for E20-A/E125-A/E156-A and close E245 only if an exact source or explicitly authored composite is proven.
-2. Extract exact immutable evidence IDs and executable formulas for systemic explanation, guild influence, coalition cooperation, constitutional preparation, budget reform and final-charter prerequisites.
-3. Reconcile remaining E01–E180 delayed families and canonical producer/consumer edges.
-4. Build complete delayed identity/timing/cancellation matrix and verify save/load/replay isolation.
-5. Reconcile S11 ending incoming paths and deterministic precedence against the expanded graph.
-6. Build fresh-run graph from canonical initial state and representative replay graph with strict `meta.*` isolation.
-7. Compare machine graph against authoritative catalog for equality; reject orphan/phantom edges.
-8. Freeze production contracts only after machine checks are clean enough.
-9. Then build Decision Engine → UI → localization → automated/runtime verification → Android → APK → release.
+2. Extract exact immutable evidence IDs and executable formulas for systemic explanation, guild influence, coalition cooperation and constitutional preparation; preserve consumer-only boundaries.
+3. Reconcile stale audit records against authoritative E151–E210 source text, especially budget reform.
+4. Reconcile remaining E01–E180 delayed families and canonical producer/consumer edges.
+5. Build complete delayed identity/timing/cancellation matrix and verify save/load/replay isolation.
+6. Reconcile S11 ending incoming paths and deterministic precedence against the expanded graph.
+7. Build fresh-run graph from canonical initial state and representative replay graph with strict `meta.*` isolation.
+8. Compare machine graph against authoritative catalog for equality; reject orphan/phantom edges.
+9. Freeze production contracts only after machine checks are clean enough.
+10. Then build Decision Engine → UI → localization → automated/runtime verification → Android → APK → release.
 
 ## Honest progress rule
 Documentation alone never makes implementation complete. Source edits count only when authoritative evidence is changed/re-read. No block is ready until its applicable verification passes. Owner-controlled release gates must never be falsely marked complete.
