@@ -1,8 +1,8 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "contract": "choice_kingdom.delayed_source_tokens",
   "scope": "E01-E272",
-  "source": "docs/SCENARIO_QA_DELAYED_SOURCE_TOKEN_EXTRACTION_01.md",
+  "source": "docs/SCENARIO_QA_DELAYED_SOURCE_EVIDENCE_CLOSURE_02.md",
   "records": [
     {"consumer":"E181","source_event":"E45","source_choice":"B","token":"infrastructure_concession","status":"CLOSED"},
     {"consumer":"E182","source_event":"E117","source_choice":"B","token":"veteran_patronage","status":"CLOSED"},
@@ -15,14 +15,10 @@
     {"consumer":"E245","source_event":"E20","source_choice":"A","token":"soldier_compensation","status":"CLOSED"},
     {"consumer":"E246","source_event":"E160","source_choice":"A","token":"winter_rent_ceiling","status":"CLOSED"}
   ],
-  "hard_negatives": [
-    "E245 cannot merge E20-A with E125-A or E156-A",
-    "E242 E118-B is not a universal alias for any prior noble exception",
-    "E184 has no invented producer",
-    "relative delay is not converted to an absolute due turn",
-    "E33/E34 are quarantined",
-    "E273-E277 are excluded"
-  ],
+  "source_evidence_closed": ["E181","E182","E183","E185","E243","E244","E245","E246"],
+  "source_evidence_partial": ["E242"],
+  "source_producer_open": ["E184"],
+  "hard_negatives": ["E245 cannot merge E20-A with E125-A or E156-A", "E242 E118-B is not a universal alias for any prior noble exception", "E184 has no invented producer", "relative delay is not converted to an absolute due turn", "E185 later military crisis remains a separate lifecycle condition", "E33/E34 are quarantined", "E273-E277 are excluded"],
   "runtime_closed": false,
   "reachability_verified": false
 }
