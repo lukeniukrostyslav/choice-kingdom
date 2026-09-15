@@ -21,7 +21,7 @@ No mock/stub gameplay or premature production-readiness claims.
 **Narrative/content canonicalization and QA.** Authored checkpoint E01–E272. Production schema and Decision Engine remain blocked until canonical contracts and reachability are sufficiently closed.
 
 ## Scenario QA
-Dedicated Scenario QA score is approximately **91%**. This is distinct from overall project completion and is not runtime/Android readiness.
+Dedicated Scenario QA score is approximately **91.5%**. This is distinct from overall project completion and is not runtime/Android readiness.
 
 ### S01–S12 working indicators
 - S01 **80%**
@@ -33,11 +33,12 @@ Dedicated Scenario QA score is approximately **91%**. This is distinct from over
 - S07 **80%**
 - S08 **78%**
 - S09 **62%** — replay meta producer boundary audited; exact meta producer/key inventory remains open.
-- S10 **76%** — delayed source-choice identities plus structural graph reconciliation verified; executable scheduler/runtime lifecycle remains open.
+- S10 **77%** — delayed source-choice identities plus structural graph reconciliation verified; executable scheduler/runtime lifecycle remains open.
 - S11 **60%** — ending prerequisite satisfiability screen plus conservative ending-precedence boundary contract; exact deterministic tie-break/terminal order remains open.
-- S12 **93%** — canonical graph CI now passes delayed source identity, ending boundary, predicate dependency, machine scenario gate and structural reachability checks; all E01–E272 are structurally reachable in the frozen design graph. Gameplay/runtime reachability remains unverified.
+- S12 **94%** — canonical graph CI passes delayed source identity, ending boundary, predicate dependency, machine scenario gate and structural reachability checks; all E01–E272 are structurally reachable in the frozen design graph. Gameplay/runtime reachability remains unverified.
 
 ## Latest QA work
+- **Structural Reachability Closure 01:** added `docs/SCENARIO_QA_STRUCTURAL_REACHABILITY_CLOSURE_01.md`, freezing the verified result of 272/272 structurally reachable and 0 structurally unreachable while explicitly separating this from gameplay/fresh-run reachability. Commit `bc4d412dfb039391e80810e1695b96005ae4a7da`.
 - **Canonical delayed producer graph reconciliation:** added explicit source-backed producer edges for E09-B→E244, E17-A→E185, E18-B→E243, E20-A→E245 and E45-B→E181, while retaining already-established E117/E118/E136/E160 chains. Commit `07456d4f1d73f866fb00e6901899f54f13b3d112`.
 - **Machine producer inventory reconciliation:** added the previously missing source-closed producer records for `cheap_weapons` (E17-A) and `infrastructure_concession` (E45-B). Commit `2e9bf785c3b9303377a3eb6bddf2f414512ae559`.
 - **Canonical Graph CI run #158:** SUCCESS. All 18 canonical QA stages passed, including delayed source-token validation, producer/consumer collision screen, ending prerequisite satisfiability, ending precedence boundary, predicate dependency audit, scenario-QA gate matrix and structural reachability. The machine structural reachability audit reports **272/272 structurally reachable and 0 structurally unreachable**; this is not gameplay/runtime proof.
@@ -111,7 +112,7 @@ Replay-sensitive nodes E186/E247/E248/E249/E250/E270 remain explicitly audited. 
 - Delayed Consequences: **98%**
 - Replay / Meta-state: **67%**
 - Endings / precedence: **74%**
-- Reachability / Causal Graph: **70%**
+- Reachability / Causal Graph: **73%**
 - Production Data Schema: **36%**
 - Decision Engine: **0%**
 - UI / UX: **0%**
@@ -121,7 +122,7 @@ Replay-sensitive nodes E186/E247/E248/E249/E250/E270 remain explicitly audited. 
 - APK: **0%**
 - Release: **0%**
 
-Overall project progress remains approximately **60%**. Scenario QA is now approximately **91%**; the rise is earned by source-backed delayed producer reconciliation and a successful machine audit proving structural reachability of all frozen E01–E272 nodes. These source-QA percentages must not be conflated with gameplay/runtime or Android readiness.
+Overall project progress remains approximately **60%**. Scenario QA is now approximately **91.5%**; the rise is earned by source-backed delayed producer reconciliation, successful machine audit proving structural reachability of all frozen E01–E272 nodes, and a frozen closure record for that result. These source-QA percentages must not be conflated with gameplay/runtime or Android readiness.
 
 ## Honest progress rule
 Documentation alone never makes implementation complete. Source edits count only when authoritative evidence is changed/re-read. No block is ready until its applicable verification passes.
