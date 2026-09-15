@@ -60,22 +60,9 @@ Every substantive scenario-QA batch must leave a durable GitHub commit and updat
 - Reconfirmed hard-negative rules for E194, E197, E201/E207, E209 and E210.
 - S05: **60% / IN PROGRESS**.
 
-### Batch S06.1 — E211–E270 direct source inventory
-- Added `docs/SCENARIO_QA_S06_E211_E270_INVENTORY.md` in commit `4cc1435c2580aae2ed38eb73c2088567079d099f`.
-- Directly inventoried E211–E270 from authoritative `docs/EVENT_CATALOG_EXPANSION_211_270.md` blob SHA `7feccad310906c4cdc2d0aae628e67a069b446b7`.
-- Recorded E211–E225 institutions/economy/social pressure, E226–E241 character/investigation/faction credibility, delayed E242–E246, replay E247–E250, crisis/constitutional E251–E260, cross-faction E261–E265 and final-act E266–E270.
-- Preserved explicit E226-vs-E36 and E269-vs-E55 duplicate boundaries.
-- Reconfirmed E253 cannot create `pred.border_crisis`; E271-A remains the producer.
-- Reconfirmed E261 `four_way_bargain` is not equivalent to `pred.coalition_cooperation` and E270 cannot manufacture final qualification.
-- S06: **55% / IN PROGRESS**.
-
-### Batch S06.2 — semantic closure checkpoint
-- Added `docs/SCENARIO_QA_S06_SEMANTIC_CLOSURE_01.md` in commit `3c5d9d621943b08ec23fb5579792b5294ef03ccd`.
-- Closed the border-crisis consumer/producer boundary: E253 is a consumer; E271-A is the producer.
-- Closed the coalition hard-negative: E261/E262/E263 cannot self-satisfy `pred.coalition_cooperation`; E264 is a failure-pressure node; E265 is a positive candidate requiring deterministic qualification.
-- Kept E256–E260 separate from `pred.constitutional_prepared_strong` qualification.
-- Kept E269/E270 inside the explicit evidence boundary; neither manufactures systemic explanation or final charter prerequisites.
-- Preserved E226 as a late institutional-stress node distinct from E36 and E247/E248 as replay-aware without inventing `meta.*` keys.
+### Batch S06.1/.2 — E211–E270 inventory + semantic closure
+- Added the S06 source inventory and semantic closure artifacts.
+- Preserved E226/E36 and E269/E55 boundaries, E253 consumer/E271 producer boundary, coalition hard negatives, constitutional qualification boundaries and replay isolation.
 - S06: **55% / IN PROGRESS**.
 
 ### Batch S07.1 — E271–E272 border-crisis lifecycle + graph reconciliation
@@ -95,6 +82,14 @@ Every substantive scenario-QA batch must leave a durable GitHub commit and updat
 - Reconfirmed E271/E272 border lifecycle and E194 guild-logistics qualification boundaries.
 - S08: **70% / IN PROGRESS**; global Scenario QA remains 65%.
 
+### Batch S09.1 — predicate dependency graph checkpoint
+- Added `docs/SCENARIO_QA_S09_PREDICATE_DEPENDENCY_GRAPH_01.md` in commit `d8b24f097d67d50466b277c940c83bc459526a3d`.
+- Compiled the first static dependency graph from already source-verified producer/consumer edges.
+- Closed static hard-negative/self-satisfaction rules for E194, E197, E201/E207 and E209 without claiming runtime cycle closure.
+- Explicitly preserved independent-domain qualification for coalition, constitutional preparedness, systemic explanation and final-charter predicates.
+- Carried forward unresolved nodes such as `shared_crisis_command`, `full_ledger_published`, replay/meta keys, E184/E245/E246 route vocabulary and food-pressure derived predicate semantics.
+- S09: **50% / IN PROGRESS**; global Scenario QA remains 65%.
+
 ## Active gates
 
 - S01–S06: event inventory + semantic/producer closure.
@@ -106,15 +101,15 @@ Every substantive scenario-QA batch must leave a durable GitHub commit and updat
 - S12: fresh-run/replay reachability, graph-vs-catalog reconciliation and final sweep.
 
 ## Current continuation checkpoint — 2026-09-15
+- Latest S09 predicate graph checkpoint: `d8b24f097d67d50466b277c940c83bc459526a3d`.
 - Latest S08 correction checkpoint: `b2f562705553ad4927e8987f37e1782a5abaf193`.
-- Latest S08 global closure checkpoint: `5ec98790a037a7f0bb3fa8a8519ddff3a326dced`.
 - Latest S07 artifact: `ad08b00cd5465c03aca0aeb2aac8e4b8a74b8dd7`.
 - Latest event-graph reconciliation: `67539450464ae167552534dca8375a25daa8f138`.
-- Next substantive action: exhaustive E01–E272 output/trigger extraction, then duplicate/contradiction/undefined producer analysis and S09 predicate dependency compilation.
+- Next substantive action: continue S09 cycle/self-satisfaction analysis from the compiled dependency graph, while completing S08 exhaustive producer/consumer inventory rather than treating the graph checkpoint as global closure.
 
 ## Current status
 Scenario QA remains **65%** until active global gates are actually closed.
 
-Working batch indicators: **S01 80%, S02 70%, S03 70%, S04 70%, S05 60%, S06 55%, S07 80%, S08 70%, S09 45%, S10 60%, S11 55%, S12 20%**.
+Working batch indicators: **S01 80%, S02 70%, S03 70%, S04 70%, S05 60%, S06 55%, S07 80%, S08 70%, S09 50%, S10 60%, S11 55%, S12 20%**.
 
 These batch percentages are working indicators and are not the global Scenario QA percentage.
