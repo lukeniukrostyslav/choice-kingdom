@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.3",
+  "schema_version": "1.4",
   "scope": "E01-E272",
   "status": "SOURCE_LEVEL_CONTRACT_CLOSED_RUNTIME_OPEN",
   "purpose": "Machine-readable conservative qualification boundaries for composite predicates; no runtime promotion is authorized by this document alone.",
@@ -36,6 +36,21 @@
       "minimum_distinct_faction_identities": 3,
       "qualification_rule": "E148-A package exists AND at least 3 distinct recorded participant identities qualify as cooperating factions AND no unresolved coalition-collapse marker is active",
       "non_alias_rules": ["E261 four_way_bargain is support evidence only", "E194 cannot self-produce this predicate", "relationship strength alone is not factional cooperation", "history.cross_faction_package is the canonical source marker"],
+      "runtime_verified": false
+    },
+    "pred.systemic_explanation_verified": {
+      "status": "SOURCE_LEVEL_PRODUCER_CLOSED_RUNTIME_OPEN",
+      "producer": "E270-A",
+      "key": "systemic_explanation_convergence",
+      "consumer": "E207",
+      "required_evidence_families": [
+        "warehouse_financial",
+        "document_language",
+        "witness_organizational"
+      ],
+      "convergence_decision": "E270-A",
+      "qualification_rule": "warehouse_financial evidence exists AND document_language evidence exists AND witness_organizational evidence exists AND E270-A explicitly combines the evidence before acting",
+      "non_circularity": ["E270 trigger Amara/Toma activity is not evidence", "E270-A cannot manufacture missing evidence families", "E207 cannot create systemic explanation", "E210 cannot backfill systemic explanation"],
       "runtime_verified": false
     },
     "pred.final_charter_prerequisites": {
