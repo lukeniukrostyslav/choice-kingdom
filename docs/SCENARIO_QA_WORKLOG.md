@@ -116,6 +116,14 @@ Every substantive scenario-QA batch must leave a durable GitHub commit and updat
 - Closed the static save/load and replay-boundary rules for delayed callbacks.
 - S10: **72% / IN PROGRESS**; global Scenario QA remains 65%.
 
+### Batch S10.3 — E185 crisis-resolution / exact ordering contract
+- Added `docs/SCENARIO_QA_S10_DELAYED_CONSEQUENCES_03.md` in commit `d9c5853ec0fa92c9b9d0b96da0c246904516de81`.
+- Preserved E17-A as the exact authored source identity and explicitly prevented E185 from being implemented as a simple timer.
+- Defined two-stage eligibility: minimum delay plus independently produced military-crisis state.
+- Defined run-local provenance, deterministic same-turn ordering requirements and exactly-once lifecycle rules.
+- Explicitly separated crisis declaration/clear from delayed callback resolution and preserved the unresolved authored payload/producer instead of inventing them.
+- S10 remains **IN PROGRESS**; global Scenario QA remains 65%.
+
 ## Active gates
 
 - S01–S06: event inventory + semantic/producer closure.
@@ -127,13 +135,13 @@ Every substantive scenario-QA batch must leave a durable GitHub commit and updat
 - S12: fresh-run/replay reachability, graph-vs-catalog reconciliation and final sweep.
 
 ## Current continuation checkpoint — 2026-09-15
-- Latest S10 delayed-consequence checkpoint: `107c2c40f0c1e454e92bf86904287b691694f4ef`.
-- Previous S10 checkpoint: `aaba320ba196da1f9e5d3eb0cd4537a6f29a8a53`.
+- Latest S10 delayed-consequence checkpoint: `d9c5853ec0fa92c9b9d0b96da0c246904516de81`.
+- Previous S10 identity checkpoint: `107c2c40f0c1e454e92bf86904287b691694f4ef`.
 - Latest S09 predicate graph checkpoint: `ca4c5b848a08dc577a5ec61430ea533bda5496ac`.
 - Latest S08 correction checkpoint: `b2f562705553ad4927e8987f37e1782a5abaf193`.
 - Latest S07 artifact: `ad08b00cd5465c03aca0aeb2aac8e4b8a74b8dd7`.
 - Latest event-graph reconciliation: `67539450464ae167552534dca8375a25daa8f138`.
-- Next substantive action: continue S10 with E185 crisis-resolution/exact ordering contract, then return to S08 exhaustive producer/consumer closure; S11/S12 remain blocked on upstream contracts.
+- Next substantive action: return to S08 exhaustive producer/consumer closure after the E185 contract, then proceed to S11/S12 only when upstream contracts permit.
 
 ## Current status
 Scenario QA remains **65%** until active global gates are actually closed.
