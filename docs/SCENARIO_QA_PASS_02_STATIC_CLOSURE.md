@@ -19,7 +19,7 @@ Authoritative narrative sources currently cover:
 - E71–E110 — `docs/EVENT_EXPANSION_071_110.md`
 - E111–E150 — `docs/EVENT_CATALOG_EXPANSION_111_150.md`
 - E151–E210 — `docs/EVENT_CATALOG_EXPANSION_151_210.md`
-- E211–E270 — `docs/EVENT_CATALOG_EXPANSION_211_210.md`
+- E211–E270 — `docs/EVENT_CATALOG_EXPANSION_211_270.md`
 - E271–E272 — `docs/EVENT_CATALOG_EXPANSION_271_280.md`
 
 `EVENT_GRAPH.md` is a causal consistency target, not an independent producer source.
