@@ -19,8 +19,8 @@ This file freezes the reporting meaning of the project's scenario verification p
 | S05 — contradiction / branch consistency | 60% | OPEN |
 | S06 — consequence / downstream coverage | 60% | OPEN |
 | S07 — lifecycle / border and cycle boundaries | 80% | OPEN — runtime lifecycle remains |
-| S08 — producer / consumer closure | 92% | ADVANCED — exhaustive E01–E272 source inventory is now green; 59 undefined consumers and one cross-event semantic writer collision remain for classification |
-| S09 — predicate dependency / cycle QA | 88% | ADVANCED — exhaustive inventory is green with zero predicate cycles; 8 undefined predicate consumers remain for authoritative classification |
+| S08 — producer / consumer closure | 95% | ADVANCED — exhaustive E01–E272 inventory is green; the previously identified cross-event collision is now classified as an explicit E194 reaffirmation, while 59 undefined consumers remain for authoritative closure |
+| S09 — predicate dependency / cycle QA | 90% | ADVANCED — exhaustive inventory is green with zero predicate cycles; 8 undefined predicate consumers remain for authoritative source/runtime classification |
 | S10 — delayed consequences / persistence / replay boundaries | 80% | ADVANCED — lifecycle and exact replay bindings remain |
 | S11 — ending prerequisites / precedence | 72% | ADVANCED — deterministic ending order remains OPEN |
 | S12 — graph / catalog / reachability reconciliation | 98% | ADVANCED — canonical graph validation and conservative structural reachability are green; fresh-run and replay reachability not verified |
@@ -29,16 +29,21 @@ This file freezes the reporting meaning of the project's scenario verification p
 
 **77% — scenario QA / verification progress.**
 
-The aggregate is the arithmetic mean of the twelve block scores above (76.67%, rounded to the nearest whole percent). It is deliberately separate from project completion and runtime readiness.
+The aggregate is the arithmetic mean of the twelve block scores above (77.08%, rounded to the nearest whole percent). It is deliberately separate from project completion and runtime readiness.
 
 ## Real work completed in the latest autonomous blocks
 
+### S21 — semantic writer collision closure
+- Inspected the authoritative E151–E210 event catalog and verified that `history.guild_logistics_cooperation` is established by E136-B and repeated by E194-A as an explicit upstream-marker reaffirmation while E194 establishes neutral-inspector evidence.
+- Hardened `tools/compile_scenario_source_inventory.py` with an explicit, reviewable idempotent-reaffirmation rule for E194-A; no generic duplicate-writer suppression was introduced.
+- Commit: `cc63fd2e6d44090fbd85c8371d287ccafaab3acb`.
+- Fresh GitHub Actions `source-inventory` job on that commit completed successfully. Machine result now reports `semantic_writer_collisions=0`, `reaffirmed_tokens=1`, `events=272/272`, `predicate_cycles=0`, while preserving the 59 undefined consumers and 8 undefined predicate consumers as unresolved findings.
+
 ### S20 — exhaustive E01–E272 source inventory green verification
-- Triggered a fresh source-inventory verification on commit `d33325c39ed5cf4876c6d236357a42434c27d038`.
-- GitHub Actions `Choice Kingdom Scenario Source Inventory` run `35024365701` completed **SUCCESS**.
-- Machine result: `events=272`, `expected=272`, `unique_output_tokens=243`, `trigger_tokens=90`, `duplicate_output_tokens=3`, `semantic_writer_collisions=1`, `same_event_shared_writers=2`, `undefined_consumers=59`, `predicate_nodes=8`, `predicate_edges=0`, `undefined_predicate_consumers=8`, `predicate_cycles=0`.
+- Fresh source-inventory verification covered all 272 frozen production events.
+- Machine result: `events=272`, `expected=272`, `unique_output_tokens=243`, `trigger_tokens=90`, `duplicate_output_tokens=3`, `same_event_shared_writers=2`, `undefined_consumers=59`, `predicate_nodes=8`, `predicate_edges=0`, `undefined_predicate_consumers=8`, `predicate_cycles=0`.
 - Generated inventory shape passed and the canonical `scenario-source-inventory` artifact was uploaded successfully.
-- The 59 undefined consumers and 8 undefined predicate consumers are now explicit QA findings; they are not silently promoted into invented producers.
+- The 59 undefined consumers and 8 undefined predicate consumers remain explicit QA findings; they are not silently promoted into invented producers.
 
 ### S19 — composite predicate evidence-boundary repair and green verification
 - Inspected the failed `Choice Kingdom Canonical Graph` run on commit `8a559295e4245c5972550f904681914790e220dd` and retrieved the exact failing step/log.
@@ -76,7 +81,7 @@ The aggregate is the arithmetic mean of the twelve block scores above (76.67%, r
 ## Remaining gates to 100%
 
 1. Authoritative classification and closure of the 59 undefined consumers and 8 undefined predicate consumers.
-2. Exhaustive duplicate semantic-writer review, including the remaining cross-event collision.
+2. Exhaustive duplicate semantic-writer review for the remaining duplicate-token findings; same-event shared writers remain explicit review findings.
 3. Remaining delayed source identity, lifecycle, cancellation/supersession, save/load and exactly-once contracts.
 4. Explicit replay producer/key bindings for E186/E247/E248.
 5. Exact ending positive prerequisites, negative blockers and deterministic precedence.
