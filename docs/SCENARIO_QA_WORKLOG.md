@@ -6,6 +6,13 @@ Purpose: durable handoff ledger so completed QA work is not repeated.
 
 ## Latest continuation update — 2026-09-15
 
+### S21 — semantic writer collision closure
+- Inspected the authoritative E151–E210 catalog and verified the duplicate `history.guild_logistics_cooperation` occurrence: E136-B establishes the durable cooperation marker and E194-A repeats it as an explicit reaffirmation while establishing neutral-inspector evidence.
+- Added a narrow, explicit idempotent-reaffirmation classification to `tools/compile_scenario_source_inventory.py`; no generic duplicate suppression was introduced.
+- Commit: `cc63fd2e6d44090fbd85c8371d287ccafaab3acb`.
+- Fresh `source-inventory` verification on that commit completed successfully with `events=272/272`, `semantic_writer_collisions=0`, `reaffirmed_tokens=1`, `same_event_shared_writers=2`, `undefined_consumers=59`, `undefined_predicate_consumers=8`, and `predicate_cycles=0`.
+- Inventory shape validation and artifact upload also passed.
+
 ### S20 — exhaustive E01–E272 source inventory green verification
 - Triggered a fresh `Choice Kingdom Scenario Source Inventory` run on commit `d33325c39ed5cf4876c6d236357a42434c27d038` after the semantic inventory correction.
 - GitHub Actions run `35024365701` completed **SUCCESS**.
