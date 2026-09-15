@@ -14,7 +14,7 @@ Freeze the semantic rule for contextual conditions before production schema work
 | `pred.border_crisis` | `border_crisis_declared = true` AND `border_crisis_resolved != true`; lifecycle declaration E271-A, resolution E272-A/B | CLOSED |
 | `pred.guild_logistics_cooperation` | `history.guild_logistics_cooperation` AND E194-A neutral-inspection outcome AND no unresolved immunity-risk blocker | CLOSED |
 | `pred.food_stable` | E273-A `food_stability_standard`; explicit later food-disruption invalidation required | CLOSED — source producer verified; invalidation still needs authored source |
-| `pred.transport_disruption` | Explicit disruption producer + not subsequently cleared by transport recovery | OPEN — active disruption producer still missing; E136/E277 are recovery/clear sources |
+| `pred.transport_disruption` | E32 explicit active disruption producer; later transport recovery must clear the active cycle without erasing history | SOURCE PRODUCER CLOSED — lifecycle clear/expiry still OPEN |
 | `pred.winter_severe` | E29-A/B explicitly establish severe winter for current winter cycle; history retained; explicit cycle expiry/recovery required | CLOSED — source producer verified |
 | `pred.market_pressure` | E19-B `market_pressure_declared` establishes the current market-pressure cycle; E19-A explicitly clears an active cycle; E274-A is a later additional pressure-cycle producer | CLOSED — source producer verified; later-cycle clear semantics still need authored reconciliation |
 | `pred.guild_labor_tension` | E275-B `guild_labor_tension_declared`; E275-A can clear active tension; exact persistence semantics to be validated | CLOSED — source producer verified |
@@ -44,7 +44,7 @@ Freeze the semantic rule for contextual conditions before production schema work
 - `pred.market_pressure`: E19-B is now an explicit early producer for the market-pressure cycle. E19-A explicitly clears the active cycle. E274-A remains a later additional producer candidate for a subsequent cycle; it cannot retroactively satisfy earlier consumers.
 - `pred.guild_labor_tension`: E275-B is an explicit producer and E275-A is an explicit clear outcome.
 - `pred.information_pressure_high`: E276-B is an explicit producer and E276-A is an explicit clear outcome.
-- `pred.transport_disruption`: no active producer has been accepted yet; E277-A/B only define recovery/clear semantics and therefore cannot close this gap.
+- `pred.transport_disruption`: E32 is now the explicit active producer for the first canonical compound-crisis cycle. E136/E277 remain recovery/clear semantics and cannot be treated as producers. Lifecycle expiry/clear and persistence semantics remain open.
 
 ## Producer expansion gate
 
