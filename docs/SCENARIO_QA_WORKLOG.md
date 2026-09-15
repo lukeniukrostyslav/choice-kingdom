@@ -6,6 +6,16 @@ Purpose: durable handoff ledger so completed QA work is not repeated.
 
 ## Latest continuation update — 2026-09-15
 
+### S09.6 — composite predicate producer enumeration
+- Added `docs/SCENARIO_QA_S09_6_COMPOSITE_PREDICATE_PRODUCER_ENUMERATION_01.md` in commit `2668004a3a52b6c6d80ef7e45345b0d3fd6a41e1`.
+- Enumerated the currently source-supported producer domains for `pred.guild_influence_strong`, `pred.constitutional_prepared_strong`, `pred.systemic_explanation_verified`, `pred.coalition_cooperation`, `pred.budget_reform`, `pred.final_charter_prerequisites`, `pred.food_stable` and `pred.transport_disruption`.
+- Explicitly preserved E209 as consumer-only, E210 as convergence-only, and rejected consumer-as-producer/self-satisfaction patterns.
+- Preserved the E01–E272 production boundary and zero production contribution from E273–E277.
+- Confirmed `pred.food_stable` remains BLOCKED because no E01–E272 producer is source-closed; E192 food logistics stabilization is not silently aliased into kingdom-wide food stability.
+- Confirmed E32 as the active `pred.transport_disruption` producer and E136-A/B as recovery/clear sources; reactivation/lifecycle semantics remain open.
+- Composite predicates remain PARTIAL/OPEN until exact authored source tokens, thresholds, chronology and invalidation semantics are exhaustively compiled.
+- No percentage increase: S09 remains **60%** and global Scenario QA remains **65%**.
+
 ### S09.5 — normalized dependency edge inventory
 - Added `docs/SCENARIO_QA_S09_5_NORMALIZED_DEPENDENCY_EDGE_INVENTORY_01.md` in commit `c505b79ef9dc1675be144a7db69f5a290db18e55`.
 - Compiled the first normalized source-backed producer → fact/lifecycle → consumer edge surface using only already-admitted E01–E272 facts.
@@ -32,7 +42,7 @@ Purpose: durable handoff ledger so completed QA work is not repeated.
 - No percentage was increased merely for documenting the contradiction. S09 remains **60%** and global Scenario QA remains **65%**.
 
 ### S09.1 — predicate dependency pre-audit
-- Added `docs/SCENARIO_QA_S09_1_PREDICATE_DEPENDENCY_PREAUDIT_01.md` in commit `3a9c2aaa9599671df3ef8410bbb4428b6798e17e`.
+- Added `docs/SCENARIO_QA_S09_1_PREDICATE_DEPENDENCY_PREAUDIT_01.md`, commit `3a9c2aaa9599671df3ef8410bbb4428b6798e17e`.
 - Started the predicate dependency gate using only source-closed facts; no design-level event-graph edge was promoted into runtime truth.
 - Explicitly rejected self-satisfaction patterns for `pred.final_charter_prerequisites`, `pred.guild_influence_strong`, `pred.constitutional_prepared_strong`, `pred.systemic_explanation_verified` and `pred.coalition_cooperation` without an independently proven upstream seed.
 - Preserved hard negatives for relationship aliases, coalition thread, security-vs-border-crisis, food stability and excluded E273–E277 sources.
@@ -78,33 +88,3 @@ Purpose: durable handoff ledger so completed QA work is not repeated.
 ### S08.5 — canonical producer registry scope hardening
 - Corrected `docs/CANONICAL_PRODUCER_CONSUMER_REGISTRY_01.md` in commit `5eb8f961deee382802bfd915c38cbb0b74181ebf`.
 - Replaced the stale E273 food-stability producer reference with explicit **NO IN-SCOPE PRODUCER VERIFIED**.
-- Added hard production admission rule: producer/consumer/predicate/delay/reachability references must be `E01..E272` only.
-- Explicitly rejected E273-A and E277 as frozen-production sources.
-
-### Batch S10.3 — E185 crisis-resolution / exact ordering contract
-- Added `docs/SCENARIO_QA_S10_DELAYED_CONSEQUENCES_03.md` in commit `d9c5853ec0fa92c9b9d0b96da0c246904516de81`.
-- Preserved E17-A as exact authored source identity and prevented E185 from being implemented as a simple timer.
-- Defined two-stage eligibility, run-local provenance, deterministic same-turn ordering and exactly-once lifecycle rules.
-- Preserved unresolved authored payload/producer rather than inventing semantics.
-
-## Active gates
-
-- S01–S06: event inventory + semantic/producer closure.
-- S07: E271–E272 + cross-catalog reconciliation and border-crisis lifecycle.
-- S08: global producer/consumer closure, undefined/duplicate/contradictory writers and hard negatives.
-- S09: predicate dependency graph, cycles, self-satisfaction and independent-domain qualification.
-- S10: delayed callback identity, timing, exactly-once and cancellation/supersession.
-- S11: seven ending paths, deterministic precedence, Broken Diadem/Quiet Throne, exact replay `meta.*` keys and isolation.
-- S12: fresh-run/replay reachability, graph-vs-catalog reconciliation and final sweep.
-
-## Current status
-
-Scenario QA remains **65%** until active global gates are actually closed.
-
-Working batch indicators: **S01 80%, S02 70%, S03 70%, S04 70%, S05 60%, S06 55%, S07 80%, S08 78%, S09 60%, S10 72%, S11 55%, S12 20%**.
-
-These batch percentages are working indicators and are not the global Scenario QA percentage.
-
-## Next substantive action
-
-Continue exhaustive E01–E272 producer/output/trigger extraction with the mandatory E273–E277 exclusion filter. Highest priority is compiling the complete normalized dependency edge list, resolving ambiguous composite predicate producer sets, then reconciling delayed source/target identities against the same chronology table. Do not start runtime implementation until canonical production contracts are sufficiently closed and verified.
