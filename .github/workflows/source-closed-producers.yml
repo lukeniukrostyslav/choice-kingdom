@@ -1,0 +1,19 @@
+name: Choice Kingdom Source-Closed Producer Verification
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/MACHINE_CANONICAL_GRAPH_01.json'
+      - 'docs/EVENT_CATALOG*.md'
+      - 'tools/validate_source_closed_producers.py'
+      - '.github/workflows/source-closed-producers.yml'
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify manifest producers against authored choices
+        run: python3 tools/validate_source_closed_producers.py
