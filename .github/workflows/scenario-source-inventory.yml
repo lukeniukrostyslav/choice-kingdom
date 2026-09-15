@@ -43,15 +43,15 @@ jobs:
           assert not data['predicate_cycles']
           print('inventory_shape=PASS')
           print(f"events={data['event_count']}")
-          print(f"unique_output_tokens={data['unique_output_tokens']}")
-          print(f"trigger_tokens={data['trigger_tokens']}")
+          print(f"unique_output_tokens={len(data['producers'])}")
+          print(f"trigger_tokens={len(data['consumers'])}")
           print(f"semantic_writer_collisions={len(data['semantic_writer_collisions'])}")
-          print(f"reaffirmed_tokens={len(data.get('reaffirmed_tokens', []))}")
+          print(f"reaffirmed_tokens={len(data.get('reaffirmed_tokens', {}))}")
           print(f"same_event_shared_writers={len(data['same_event_shared_writers'])}")
           print(f"undefined_consumers={len(data['undefined_consumers'])}")
           print(f"undefined_predicate_consumers={len(data['undefined_predicate_consumers'])}")
-          print(f"predicate_nodes={len(data['predicate_nodes'])}")
-          print(f"predicate_edges={len(data['predicate_edges'])}")
+          print(f"predicate_nodes={len(data['predicate_dependency_graph'])}")
+          print(f"predicate_edges={sum(len(v) for v in data['predicate_dependency_graph'].values())}")
           print(f"predicate_cycles={len(data['predicate_cycles'])}")
           PY
       - name: Upload source inventory artifact
@@ -64,3 +64,4 @@ jobs:
 # canonical scenario gate and does not alter authored scenario semantics.
 # S23 verification trigger: expose deterministic inventory closure metrics in CI logs.
 # S24 verification trigger: exhaustive inventory is executable on PRs as well as main pushes.
+# S26 verification trigger: emitted-schema assertions are aligned with the inventory JSON.
