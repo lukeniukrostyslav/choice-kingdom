@@ -39,9 +39,11 @@ The canonical contract requires three independent preparation domains. Candidate
 | civic/commons | E50 People's Charter | `people_charter_endorsed` | explicit civic/commons constitutional legitimacy | raw trust or `people_heard` alone does not count as the full preparation domain |
 | institutional/audit | E154/E155 crown-audit lineage | `crown_audited`, `full_crown_audit_published` | establishes accountable institutional preparation | E258 is a consumer of budget reform, not its producer |
 | factional/house | E161 house assembly | `house_assembly` | establishes factional constitutional preparation | Seris relationship alone does not count |
-| military/law | E227 Rowan's Line | `military_red_line` | establishes military constitutional constraint | security score alone does not count |
+| military/law | E199-A army constitutional oath | `army_constitution_oath` / military constitutional evidence | establishes military constitutional constraint | security score alone does not count; E227 remains a downstream reconciliation target |
 
 E50 is the authoritative early civic/commons source identified in the E01–E70 producer inventory. It is a preparation-domain fact, not a raw trust threshold.
+
+E199-A is the authoritative military/law producer currently frozen by the canonical producer inventory and producer/consumer registry. A separate E227 `military_red_line` formulation is not promoted until its own authored producer identity is independently reconciled.
 
 ### Provisional qualification rule
 
@@ -49,7 +51,7 @@ At least three independent preparation domains must be represented by explicit a
 
 ### Current status
 
-**PARTIAL — exact civic, institutional, house and military source keys are now identified; full E01–E272 anti-double-counting and producer-before-consumer reconciliation remains open.**
+**PARTIAL — source identities materially reconciled; full E01–E272 anti-double-counting, producer-before-consumer ordering and reachability remain open.**
 
 ## Non-circularity rules
 
@@ -63,7 +65,8 @@ At least three independent preparation domains must be represented by explicit a
 ## Next required pass
 
 - reconcile E49/E144 representation keys against all guild producers/consumers and trigger normalization;
-- reconcile E50 civic/commons key against all constitutional-preparation consumers;
+- reconcile E50 civic/commons and E199 military/law keys against all constitutional-preparation consumers;
+- resolve E227's authored role without unsafe aliasing;
 - update the derived-predicate contract and producer/consumer registry together;
 - then run contradiction/cycle/reachability checks;
 - only after those checks begin production schema design.
