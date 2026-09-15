@@ -34,9 +34,11 @@ This backlog tracks canonical production readiness. Documentation completion alo
 - [ ] Branch rejoin audit.
 - [ ] Mutually-exclusive branch audit.
 - [ ] Full graph ↔ catalog reconciliation.
-- [ ] Apply and verify E55/E269 resolution in canonical catalog.
-- [ ] Apply and verify E36/E226 resolution in canonical catalog.
+- [x] Apply and verify E55/E269 resolution in canonical catalog.
+- [x] Apply and verify E36/E226 resolution in canonical catalog.
 - [ ] Verify downstream distinctions E37/E227, E39/E229, E40/E241.
+
+The E55/E269 and E36/E226 boxes are now checked because the authoritative catalog edits were applied and subsequently recorded by commit `2fa9be1c586117126c4778598ab509ebe5107389`. This does **not** close their downstream graph/reachability QA.
 
 ## Delayed consequences / replay
 
