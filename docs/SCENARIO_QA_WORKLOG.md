@@ -6,6 +6,14 @@ Purpose: durable handoff ledger so completed QA work is not repeated.
 
 ## Latest continuation update — 2026-09-15
 
+### S19 — composite predicate evidence-boundary repair
+- Inspected the failed `Choice Kingdom Canonical Graph` attempt on commit `8a559295e4245c5972550f904681914790e220dd` and retrieved the exact failing step/log rather than inferring the cause.
+- The composite source-closure validator had over-specific coalition evidence needles (`Explicit cooperation package`, `identified participants`, `positive cooperation outcome`) that did not match the authoritative wording.
+- Reconciled the validator to the frozen source vocabulary: `cross-faction package`, `named participants`, and `positive mutual-concession outcome`.
+- This is a validator correctness repair only; it does not promote runtime semantics, reachability, replay, or ending behavior.
+- Commit: `91d68e8ce221598e7ad0d2f53d021f18d45d783f`.
+- Percentages remain frozen until fresh CI executes against the repaired commit.
+
 ### S18 — exhaustive-source inventory semantic correction
 - Corrected `tools/compile_scenario_source_inventory.py` so the same canonical token emitted by both mutually-exclusive A/B choices is recorded as `same_event_shared_writers` instead of being treated as a contradiction by default.
 - This directly removes the false-positive failure class observed in the prior exhaustive inventory run (including the E136/E144 cases already identified during diagnosis).
