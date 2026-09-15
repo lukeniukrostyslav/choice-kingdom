@@ -1,34 +1,35 @@
 {
-  "schema_version": "1.1",
+  "schema_version": "1.2",
   "contract": "choice_kingdom.replay_producer_provenance",
-  "source": "docs/SCENARIO_QA_REPLAY_PRODUCER_PROVENANCE_01.md",
+  "source": "docs/MACHINE_REPLAY_CONTRACT_01.json",
   "scope": ["E186", "E247", "E248"],
-  "status": "OPEN",
+  "status": "SOURCE_BOUNDARY_CLOSED",
   "runtime_verified": false,
   "records": [
     {
       "consumer": "E186",
       "producer_event": null,
       "producer_choice": null,
-      "candidate_key": "all_voices_heard",
-      "binding_status": "OPEN",
-      "reason": "E131 is a replay consumer of all_voices_heard, not a proven producer; E186 does not explicitly bind to an exact persistent key"
+      "candidate_key": "meta.replay.warehouse_investigation_unlock",
+      "binding_status": "CLOSED_AT_REPLAY_BOUNDARY",
+      "same_run_key": "warehouse_arson",
+      "reason": "Replay metadata is the explicit producer boundary; the authored same-run trigger is retained separately. No authored event is invented as a producer."
     },
     {
       "consumer": "E247",
       "producer_event": null,
       "producer_choice": null,
-      "candidate_key": null,
-      "binding_status": "OPEN",
-      "reason": "second-run route has no explicit producer/key tuple in inspected authored sources"
+      "candidate_key": "meta.replay.second_run_information_route",
+      "binding_status": "CLOSED_AT_REPLAY_BOUNDARY",
+      "reason": "Machine replay contract explicitly binds the replay route to this meta key produced only by completed_prior_run_meta_export."
     },
     {
       "consumer": "E248",
       "producer_event": null,
       "producer_choice": null,
-      "candidate_key": null,
-      "binding_status": "OPEN",
-      "reason": "replay callback has no explicit producer/key tuple in inspected authored sources"
+      "candidate_key": "meta.replay.callback_forgotten_favor",
+      "binding_status": "CLOSED_AT_REPLAY_BOUNDARY",
+      "reason": "Machine replay contract explicitly binds the replay route to this meta key produced only by completed_prior_run_meta_export."
     }
   ],
   "hard_negatives": [
@@ -37,8 +38,16 @@
     "clue counts are not replay metadata",
     "ordinary character state is not replay metadata",
     "graph proximity is not a producer",
-    "E131 is a replay consumer, not a producer",
+    "E131 is not promoted to a replay producer by implication",
     "E249/E250/E270 are ordinary authored state",
-    "E273-E277 are excluded"
+    "E273-E277 are excluded",
+    "completed_prior_run_meta_export is a replay producer boundary, not an authored event"
+  ],
+  "remaining_runtime_gates": [
+    "prove exactly-once export/import execution",
+    "prove run reset does not leak run-specific flags",
+    "prove terminal state is not copied as active state",
+    "prove fresh-run, mid-run and completed-run replay reachability",
+    "prove meta keys cannot be imported from any run other than the immediately completed prior run"
   ]
 }
