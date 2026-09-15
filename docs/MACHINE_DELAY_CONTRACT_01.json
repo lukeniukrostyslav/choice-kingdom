@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "contract": "choice_kingdom.machine_delay_contract",
+  "scope": "E01-E272",
+  "status": "SOURCE_LEVEL_CANONICAL_EXTRACTION",
+  "delays": [
+    {
+      "id": "delay.E25B.E184.quiet_evidence",
+      "sourceEventId": "E25",
+      "sourceChoiceId": "B",
+      "sourceState": "secret_evidence_route",
+      "earliestTurn": {"relativeToSource": 4},
+      "latestTurn": null,
+      "resolutionTarget": "E184",
+      "exactlyOnceKey": "delay.E25B.E184.quiet_evidence",
+      "priority": 0,
+      "cancellationRule": "none_authored; secret_evidence_route remains valid until E184 resolves",
+      "supersedes": null,
+      "saveLoadPolicy": "persistent",
+      "replayPolicy": "run_scoped_pending_delay",
+      "auditLabel": "E184 quiet evidence from E25-B secret evidence route"
+    },
+    {
+      "id": "delay.E118B.E242.renewed_exception",
+      "sourceEventId": "E118",
+      "sourceChoiceId": "B",
+      "sourceState": "estate_exception",
+      "earliestTurn": {"relativeToSource": 6},
+      "latestTurn": null,
+      "resolutionTarget": "E242",
+      "exactlyOnceKey": "delay.E118B.E242.renewed_exception",
+      "priority": 0,
+      "cancellationRule": "none_authored; estate_exception remains valid until E242 resolves",
+      "supersedes": null,
+      "saveLoadPolicy": "persistent",
+      "replayPolicy": "run_scoped_pending_delay",
+      "auditLabel": "E242 renewed exception from E118-B prior noble exception"
+    }
+  ],
+  "hard_rules": [
+    "E273-E277 cannot appear as source or resolution input",
+    "each exactlyOnceKey is globally unique",
+    "earliestTurn is relative to the source event and never inferred from calendar turns",
+    "none_authored cancellation is explicit and is not equivalent to silent deletion",
+    "pending delay state is run-scoped and must not leak across fresh runs"
+  ]
+}
