@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.2",
+  "schema_version": "1.3",
   "contract": "choice_kingdom.machine_canonical_graph",
   "scope": {"first_event": 1,"last_event": 272,"excluded_events": ["E273","E274","E275","E276","E277"]},
   "source_of_truth": {
@@ -19,6 +19,11 @@
     "derived_predicates": "docs/CANONICAL_DERIVED_PREDICATE_CONTRACT_01.md"
   },
   "allowed_catalog_duplicate_event_ids": ["E271"],
+  "catalog_heading_quarantine": {
+    "ids": ["E33", "E34"],
+    "reason": "Authoritative E33/E34 source headings remain unresolved; references to these IDs may remain visible in extraction inventories but cannot be promoted to canonical event semantics.",
+    "fail_if_used_as_canonical_semantics": true
+  },
   "source_closed_producers": [
     {"fact":"public_bridge","event":"E18","choice":"B"},{"fact":"flexible_accounts","event":"E09","choice":"B"},{"fact":"veteran_patronage","event":"E117","choice":"B"},{"fact":"estate_exception","event":"E118","choice":"B"},{"fact":"border_compensation","event":"E125","choice":"A"},{"fact":"requisition_compensation","event":"E156","choice":"A"},{"fact":"winter_rent_ceiling","event":"E160","choice":"A"},{"fact":"history.guild_logistics_cooperation","event":"E136","choice":"B"},{"fact":"history.guild_representation","event":"E144","choice":"A/B"},{"fact":"history.cross_faction_package","event":"E148","choice":"A"},{"fact":"pred.market_pressure","event":"E19","choice":"B"},{"fact":"clear.pred.market_pressure","event":"E19","choice":"A"},{"fact":"pred.winter_severe","event":"E29","choice":"A/B"},{"fact":"pred.transport_disruption","event":"E32","choice":"explicit crisis outcome"},{"fact":"clear.pred.transport_disruption","event":"E136","choice":"A/B"},{"fact":"pred.border_crisis","event":"E271","choice":"A"},{"fact":"clear.pred.border_crisis","event":"E272","choice":"A/B"},{"fact":"military_constitutional_evidence","event":"E199","choice":"A"},{"fact":"auditor_independence","event":"E142","choice":"A"},{"fact":"crown_audited","event":"E154","choice":"A"},{"fact":"legislative_budget_lock","event":"E198","choice":"A"},{"fact":"soldier_compensation","event":"E20","choice":"A"}
   ],
