@@ -6,6 +6,14 @@ Purpose: durable handoff ledger so completed QA work is not repeated.
 
 ## Latest continuation update — 2026-09-15
 
+### S08.8 — source closure audit: food, transport and route activation
+- Added `docs/SCENARIO_QA_S08_8_SOURCE_CLOSURE_AUDIT_01.md` in commit `1378318513cca1f88b8ee2c310b7228b5e145a2b`.
+- Kept `pred.food_stable` OPEN: E192-B contains a food-stability effect, but no reusable canonical durable marker is source-closed; E273-A remains excluded.
+- Confirmed `pred.transport_disruption` recovery/clear through E136-A/B while keeping the later active producer OPEN.
+- Reconciled endgame route activation families: military constitutional evidence is strong via E199-A; Amara/Toma/final constitutional activation remain partial/open pending exact authored route markers.
+- Preserved hard negatives and the E01–E272 scope filter.
+- S08 remains IN PROGRESS; production schema remains BLOCKED.
+
 ### S08.7 — domain qualification audit
 - Added `docs/SCENARIO_QA_S08_7_DOMAIN_QUALIFICATION_AUDIT_01.md` in commit `90694d5529d3df89556d79d54fca386c5d67c99b`.
 - Closed the qualification-domain boundaries for guild influence, constitutional preparation, systemic explanation, coalition cooperation, final charter prerequisites and four-faction route counting without inventing unresolved producers.
@@ -43,7 +51,7 @@ Purpose: durable handoff ledger so completed QA work is not repeated.
 - Defined two-stage eligibility: minimum delay plus independently produced military-crisis state.
 - Defined run-local provenance, deterministic same-turn ordering requirements and exactly-once lifecycle rules.
 - Preserved unresolved authored payload/producer rather than inventing semantics.
-- S10 remains **IN PROGRESS**.
+- S10 remains IN PROGRESS.
 
 ### Batch S08.3 — open-class reconciliation after S10
 - Added `docs/SCENARIO_QA_S08_GLOBAL_CLOSURE_CHECKPOINT_03.md` in commit `8ff8d3731463c0a890cc0f80ffcf4674f97d2af6`.
@@ -51,7 +59,7 @@ Purpose: durable handoff ledger so completed QA work is not repeated.
 - Dispositioned known unresolved classes including `shared_crisis_command`, `full_ledger_published`, `temporary_noble_exemption`, replay `meta.*`, `mastermind_hunt`, `warehouse_arson`, E184, E245 and E246.
 - Preserved semantic collision boundaries for E36/E95/E226, E37/E96/E227 and other downstream distinctions.
 - Defined the evidence required before S08 can be called exhaustive; no runtime schema or invented alias was introduced.
-- S08 remains **IN PROGRESS**.
+- S08 remains IN PROGRESS.
 
 ## Active gates
 
@@ -67,10 +75,10 @@ Purpose: durable handoff ledger so completed QA work is not repeated.
 
 Scenario QA remains **65%** until active global gates are actually closed.
 
-Working batch indicators: **S01 80%, S02 70%, S03 70%, S04 70%, S05 60%, S06 55%, S07 80%, S08 72%, S09 55%, S10 72%, S11 55%, S12 20%**.
+Working batch indicators: **S01 80%, S02 70%, S03 70%, S04 70%, S05 60%, S06 55%, S07 80%, S08 75%, S09 57%, S10 72%, S11 55%, S12 20%**.
 
 These batch percentages are working indicators and are not the global Scenario QA percentage.
 
 ## Next substantive action
 
-Continue exhaustive S08 producer/consumer extraction across the frozen E01–E272 catalog, with a mandatory scope-integrity filter rejecting E273–E277 references. Then close remaining S09/S10 dependencies before S11/S12. Do not start runtime implementation until the canonical production contracts are sufficiently closed and verified.
+Continue exhaustive S08 producer/consumer extraction across the frozen E01–E272 catalog, with a mandatory scope-integrity filter rejecting E273–E277 references. Next priority is exact source inspection for E138/E167 food stability, the later transport-disruption producer, and Amara/Toma/final constitutional route activation. Then close remaining S09/S10 dependencies before S11/S12. Do not start runtime implementation until the canonical production contracts are sufficiently closed and verified.
