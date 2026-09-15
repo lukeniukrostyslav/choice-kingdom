@@ -90,6 +90,14 @@ Every substantive scenario-QA batch must leave a durable GitHub commit and updat
 - Carried forward unresolved nodes such as `shared_crisis_command`, `full_ledger_published`, replay/meta keys, E184/E245/E246 route vocabulary and food-pressure derived predicate semantics.
 - S09: **50% / IN PROGRESS**; global Scenario QA remains 65%.
 
+### Batch S09.2 — static cycle/self-satisfaction checkpoint
+- Added `docs/SCENARIO_QA_S09_PREDICATE_DEPENDENCY_GRAPH_02.md` in commit `ca4c5b848a08dc577a5ec61430ea533bda5496ac`.
+- Classified lifecycle establish/clear pairs separately from true dependency cycles.
+- Closed the enumerated static self-satisfaction hard negatives for E194, E197, E201, E207, E209 and E210.
+- Preserved independent-domain requirements for coalition, constitutional preparedness, systemic explanation and final-charter qualification.
+- Kept delayed callback cycles and derived-predicate cycles open until S10 contracts normalize timing, identity, persistence and resolution semantics.
+- S09: **55% / IN PROGRESS**; global Scenario QA remains 65%.
+
 ## Active gates
 
 - S01–S06: event inventory + semantic/producer closure.
@@ -101,15 +109,16 @@ Every substantive scenario-QA batch must leave a durable GitHub commit and updat
 - S12: fresh-run/replay reachability, graph-vs-catalog reconciliation and final sweep.
 
 ## Current continuation checkpoint — 2026-09-15
-- Latest S09 predicate graph checkpoint: `d8b24f097d67d50466b277c940c83bc459526a3d`.
+- Latest S09 predicate graph checkpoint: `ca4c5b848a08dc577a5ec61430ea533bda5496ac`.
+- Previous S09 graph checkpoint: `d8b24f097d67d50466b277c940c83bc459526a3d`.
 - Latest S08 correction checkpoint: `b2f562705553ad4927e8987f37e1782a5abaf193`.
 - Latest S07 artifact: `ad08b00cd5465c03aca0aeb2aac8e4b8a74b8dd7`.
 - Latest event-graph reconciliation: `67539450464ae167552534dca8375a25daa8f138`.
-- Next substantive action: continue S09 cycle/self-satisfaction analysis from the compiled dependency graph, while completing S08 exhaustive producer/consumer inventory rather than treating the graph checkpoint as global closure.
+- Next substantive action: continue S09 full graph/cycle normalization and then execute S10 delayed-consequence contract extraction; S08 exhaustive producer/consumer closure remains open and must not be treated as globally closed.
 
 ## Current status
 Scenario QA remains **65%** until active global gates are actually closed.
 
-Working batch indicators: **S01 80%, S02 70%, S03 70%, S04 70%, S05 60%, S06 55%, S07 80%, S08 70%, S09 50%, S10 60%, S11 55%, S12 20%**.
+Working batch indicators: **S01 80%, S02 70%, S03 70%, S04 70%, S05 60%, S06 55%, S07 80%, S08 70%, S09 55%, S10 60%, S11 55%, S12 20%**.
 
 These batch percentages are working indicators and are not the global Scenario QA percentage.
