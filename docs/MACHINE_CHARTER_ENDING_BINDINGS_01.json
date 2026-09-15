@@ -1,0 +1,28 @@
+{
+  "schema_version":"1.0",
+  "scope":"E50-E67",
+  "status":"authored_components_closed_predicate_binding_open",
+  "closed_edges":[
+    {"producer":"E34-A","key":"people_heard","consumer":"E50","status":"CLOSED"},
+    {"producer":"E40-A","key":"local_relief_councils","consumer":"E50","status":"CLOSED"},
+    {"producer":"E33-B","key":"constitutional_limit","consumer":"E67","status":"CLOSED_AS_AUTHORED_COMPONENT"},
+    {"producer":"E50-A","key":"people_charter_endorsed","consumer":"E64","status":"CLOSED_AS_AUTHORED_COMPONENT"}
+  ],
+  "open_components":[
+    "high_trust executable binding",
+    "verified ledger truth producer convergence",
+    "cross_faction_cooperation producer contract",
+    "institutional_redesign producer contract",
+    "no permanent emergency powers ordering",
+    "E209 final charter prerequisite producer if required",
+    "deterministic ending precedence"
+  ],
+  "forbidden_aliases":[
+    "people_heard -> final ending predicate",
+    "people_heard -> final charter prerequisites",
+    "constitutional_limit -> constitutional_prepared_strong",
+    "four_way_bargain -> cross_faction_cooperation",
+    "ledger_public -> verified_ledger_truth"
+  ],
+  "engine_gate":"BLOCKED_UNTIL_EXECUTABLE_PRODUCER_CONTRACTS_EXIST"
+}
