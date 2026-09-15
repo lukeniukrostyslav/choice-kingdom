@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "contract": "choice_kingdom.replay_semantic_classification",
+  "scope": ["E186", "E247", "E248", "E249", "E250", "E270"],
+  "source": "docs/SCENARIO_QA_REPLAY_SEMANTIC_CLASSIFICATION_01.md",
+  "classification_status": "CLOSED",
+  "runtime_verified": false,
+  "records": [
+    {"event":"E186","classification":"REPLAY_DEPENDENT","meta_producer_required":true,"reason":"previous-run informational branch explicitly requires replay metadata"},
+    {"event":"E247","classification":"REPLAY_DEPENDENT","meta_producer_required":true,"reason":"second-run route"},
+    {"event":"E248","classification":"REPLAY_DEPENDENT","meta_producer_required":true,"reason":"replay callback"},
+    {"event":"E249","classification":"ORDINARY_STATE","meta_producer_required":false,"reason":"archive route has no explicit previous-run requirement"},
+    {"event":"E250","classification":"ORDINARY_STATE","meta_producer_required":false,"reason":"related-clue threshold has no explicit previous-run requirement"},
+    {"event":"E270","classification":"ORDINARY_STATE","meta_producer_required":false,"reason":"simultaneous Amara/Toma state is ordinary authored state"}
+  ],
+  "hard_negatives": [
+    "ordinary history is not replay metadata",
+    "archive state is not replay metadata",
+    "clue count is not replay metadata",
+    "character state is not replay metadata",
+    "E33/E34 remain quarantined",
+    "E273-E277 remain excluded"
+  ]
+}
