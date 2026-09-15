@@ -21,7 +21,7 @@ No mock/stub gameplay or premature production-readiness claims.
 **Narrative/content canonicalization and QA.** Authored checkpoint E01–E272. Production schema and Decision Engine remain blocked until canonical contracts and reachability are sufficiently closed.
 
 ## Scenario QA
-Dedicated Scenario QA score is now approximately **87%**. This is distinct from overall project completion and is not runtime/Android readiness.
+Dedicated Scenario QA score is approximately **87%**. This is distinct from overall project completion and is not runtime/Android readiness.
 
 ### S01–S12 working indicators
 - S01 **80%**
@@ -35,17 +35,20 @@ Dedicated Scenario QA score is now approximately **87%**. This is distinct from 
 - S09 **60%**
 - S10 **72%**
 - S11 **55%**
-- S12 **80%** — S12.30 machine graph gate, S12.31 E33/E34 source reconciliation, S12.32 degree classification, S12.33 E245 producer closure, S12.34 node classification, S12.35 producer/consumer compilation, S12.36 ending/replay reconciliation and S12.37 systemic-convergence machine gate are verified at source-QA level. Semantic orphan/reachability closure remains open.
+- S12 **80%** — source-level machine QA through S12.40 is green for the current canonical graph validators, classifications, producer/consumer compilation, candidate triage, systemic-convergence qualification, delayed lifecycle matrix, ending/replay gate, and E245 machine-source synchronization. Semantic orphan/reachability closure remains open.
 
 ## Latest QA work
-- **S12.37** added `docs/SCENARIO_QA_S12_37_SYSTEMIC_CONVERGENCE_MACHINE_GATE_01.md`. It freezes three independent evidence families for `pred.systemic_explanation_verified`, makes the fourth convergence decision an explicit unresolved machine term, preserves E207 as consumer-only, and defines anti-double-counting rules.
-- **S12.36** reconciled ending producer gaps with replay/meta closure and confirmed that ending/replay boundaries remain source-open; no degree heuristic or ordinary flag is promoted into an ending prerequisite or `meta.*` producer.
-- **S12.35** added `tools/compile_producer_consumer_matrix.py` and wired it into canonical graph CI. It converts the working producer/consumer registry into deterministic derived QA data, rejects out-of-scope references, and preserves OPEN/PARTIAL rows without invented aliases.
-- **S12.34** added `tools/classify_graph_nodes.py` and its QA report. It deterministically separates source-missing, replay, delayed-consumer, terminal/endgame, isolated, root, terminal/consumer and ordinary graph-node candidates without promoting degree heuristics to semantic truth.
-- **S12.33** closed E245's producer identity to **E20-A `soldier_compensation`**. E125-A and E156-A remain independent compensation outcomes. Delayed timing/cancellation lifecycle remains open.
-- **S12.32** verified 270/272 catalog headings, 296 unique graph edges, 69 catalog events without outbound edges, 15 inbound-only candidates and 54 unreferenced catalog candidates. These are classification candidates, not orphan/reachability verdicts.
-- **S12.31** verified the E33/E34 authoritative-source gap; exact authored prose/effects/delayed semantics remain unrecovered and no content is invented.
-- **S12.30** added the machine graph manifest, validator, CI workflow and QA report; the source-level validation gate passed after parser correction.
+- **S12.40** synchronized machine canonical graph with the already source-closed E245 producer identity: E20-A `soldier_compensation` only. E125-A and E156-A remain independent compensation outcomes. GitHub Actions canonical graph run #36 passed all four QA stages.
+- **S12.39** reconciled ending producer gaps with replay meta closure. Ending resolver and replay transfer remain blocked by source-level gaps; no ordinary flag or degree heuristic was promoted to ending prerequisite or `meta.*` producer.
+- **S12.38** normalized delayed lifecycle identity/timing/cancellation/supersession/save-load boundaries for E181–E185 and E242–E246 without inventing absolute turns from vague authored timing.
+- **S12.37** freezes three independent evidence families for `pred.systemic_explanation_verified` and leaves the fourth immutable convergence producer/key explicitly OPEN; E207 remains consumer-only.
+- **S12.36** added machine candidate triage and ending/replay reconciliation without declaring graph-degree candidates to be semantic orphans.
+- **S12.35** added deterministic producer/consumer matrix compilation and CI enforcement.
+- **S12.34** added deterministic machine graph node classification.
+- **S12.33** closed E245 producer identity to E20-A `soldier_compensation`.
+- **S12.32** verified the degree baseline: 270/272 discoverable catalog headings, 296 unique design edges, 69 no-outbound candidates, 15 inbound-only candidates and 54 unreferenced candidates. These are not reachability verdicts.
+- **S12.31** verified the E33/E34 authoritative-source gap; no content was invented.
+- **S12.30** added machine graph manifest, validator, CI workflow and QA report.
 
 ## Current canonical source status
 
@@ -67,10 +70,10 @@ Dedicated Scenario QA score is now approximately **87%**. This is distinct from 
 - E32 → active `pred.transport_disruption`; E136-A/B clear it
 
 ### E245
-**Producer identity CLOSED:** E20-A `soldier_compensation`. The authored source uses `6+ turns later` and does not yet provide an absolute due turn/cancellation contract.
+**Producer identity CLOSED:** E20-A `soldier_compensation`. Authored timing remains `6+ turns later`; absolute due-turn/cancellation semantics are OPEN.
 
 ### Systemic explanation
-Three evidence families are now frozen as distinct machine domains: warehouse/financial, document/language, and witness/organizational. The exact immutable convergence producer/key remains OPEN. E207 is consumer-only and cannot manufacture convergence. S12.37 defines the executable qualification boundary without inventing the missing producer.
+Three evidence families are frozen as distinct machine domains: warehouse/financial, document/language, and witness/organizational. The exact immutable convergence producer/key remains OPEN. E207 is consumer-only.
 
 ### Budget reform
 Source identity is CLOSED: E142-A + E154-A + E198-A. Negative blockers E142-B/E154-B/E198-B are explicit. Runtime lifecycle/invalidation and reachability remain OPEN.
@@ -85,7 +88,7 @@ Source identity is CLOSED: E142-A + E154-A + E198-A. Negative blockers E142-B/E1
 - `pred.final_charter_prerequisites`;
 - replay `meta.*` producer/key inventory;
 - remaining delayed cancellation/supersession rules;
-- E184 producer closure, E185 crisis resolution;
+- E184 producer closure and E185 crisis resolution;
 - ending incoming paths and deterministic precedence;
 - exhaustive E01–E272 graph and fresh-run reachability;
 - machine graph ↔ authoritative catalog semantic equality.
