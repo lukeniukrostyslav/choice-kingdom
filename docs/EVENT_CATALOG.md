@@ -422,10 +422,14 @@ A brutal winter begins early.
 **A — Open royal granaries**
 - Immediate: -10 gold, +7 trust.
 - If grain was previously wasted, supplies are insufficient.
+- Producer: establishes `pred.winter_severe` for the current winter cycle; history records `winter_severity_declared`.
 
 **B — Ration by market price**
 - Immediate: +5 gold, -7 trust.
 - If market reform exists, loss is reduced.
+- Producer: establishes `pred.winter_severe` for the current winter cycle; history records `winter_severity_declared`.
+
+The winter-severity predicate is an authored environmental state, not a consumer-side inference from E160/E175/E251. A future recovery rule may explicitly clear or expire the active winter cycle, while historical declaration remains queryable.
 
 ### E30 — Fire at the Warehouse
 **Trigger:** winter + market tension.
