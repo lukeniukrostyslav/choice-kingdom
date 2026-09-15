@@ -27,7 +27,10 @@ if expected != EXPECTED:
     fail("machine graph production scope is not exactly E01-E272")
 
 heading = re.compile(r"^### (E\d{2,3}) — .+$", re.M)
-choice = re.compile(r"^\*\*([AB])\s*[—:]\s*(.+?)\*\*$", re.M)
+choice_patterns = [
+    re.compile(r"^\*\*([AB])\s*[—:]\s*(.+?)\*\*$", re.M),
+    re.compile(r"^-\s*([AB])\s*[—:]\s*(.+)$", re.M),
+]
 blocks: dict[str, str] = {}
 for source in graph["source_of_truth"]["catalog_sources"]:
     path = ROOT / source
@@ -50,7 +53,10 @@ if missing_events:
 choice_rows = []
 missing_effects = []
 for event_id in sorted(expected, key=lambda x: int(x[1:])):
-    rows = list(choice.finditer(blocks[event_id]))
+    rows = []
+    for pattern in choice_patterns:
+        rows.extend(pattern.finditer(blocks[event_id]))
+    rows.sort(key=lambda m: m.start())
     labels = {m.group(1) for m in rows}
     if labels and labels != {"A", "B"}:
         missing = "A" if "A" not in labels else "B"
