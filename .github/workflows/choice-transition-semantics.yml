@@ -1,0 +1,24 @@
+name: Choice Kingdom Choice Transition Semantics
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/EVENT_CATALOG_*.md'
+      - 'tools/validate_choice_transition_semantics.py'
+      - 'docs/MACHINE_CANONICAL_GRAPH_01.json'
+      - '.github/workflows/choice-transition-semantics.yml'
+  pull_request:
+    paths:
+      - 'docs/EVENT_CATALOG_*.md'
+      - 'tools/validate_choice_transition_semantics.py'
+      - 'docs/MACHINE_CANONICAL_GRAPH_01.json'
+      - '.github/workflows/choice-transition-semantics.yml'
+
+jobs:
+  transition-semantics:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate authored transition semantics
+        run: python tools/validate_choice_transition_semantics.py
