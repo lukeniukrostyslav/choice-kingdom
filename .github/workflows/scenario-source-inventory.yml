@@ -24,7 +24,7 @@ jobs:
           from pathlib import Path
           p = Path('scenario-source-inventory.json')
           data = json.loads(p.read_text(encoding='utf-8'))
-          assert data['schema'] == 'choice-kingdom-scenario-source-inventory-2'
+          assert data['schema'] == 'choice-kingdom-scenario-source-inventory-2', data['schema']
           assert data['event_count'] == 272, data['event_count']
           assert len(data['events']) == 272
           assert data['events'][0]['event_id'] == 'E01'
@@ -36,6 +36,18 @@ jobs:
           assert 'contradictory_same_event_writers' not in data
           assert not data['predicate_cycles']
           print('inventory_shape=PASS')
+          print(f"events={data['event_count']}")
+          print(f"unique_output_tokens={data['unique_output_tokens']}")
+          print(f"trigger_tokens={data['trigger_tokens']}")
+          print(f"duplicate_output_tokens={data['duplicate_output_tokens']}")
+          print(f"semantic_writer_collisions={len(data['semantic_writer_collisions'])}")
+          print(f"reaffirmed_tokens={len(data.get('reaffirmed_tokens', []))}")
+          print(f"same_event_shared_writers={len(data['same_event_shared_writers'])}")
+          print(f"undefined_consumers={len(data['undefined_consumers'])}")
+          print(f"undefined_predicate_consumers={len(data['undefined_predicate_consumers'])}")
+          print(f"predicate_nodes={len(data['predicate_nodes'])}")
+          print(f"predicate_edges={len(data['predicate_edges'])}")
+          print(f"predicate_cycles={len(data['predicate_cycles'])}")
           PY
       - name: Upload source inventory artifact
         uses: actions/upload-artifact@v4
@@ -45,3 +57,4 @@ jobs:
 
 # S20 verification trigger: inventory schema/predicate-cycle assertion is part of the
 # canonical scenario gate and does not alter authored scenario semantics.
+# S23 verification trigger: expose deterministic inventory closure metrics in CI logs.
