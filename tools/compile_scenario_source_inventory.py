@@ -37,6 +37,7 @@ errors: list[str] = []
 events: dict[str, dict] = {}
 producers: dict[str, list[dict]] = defaultdict(list)
 consumers: dict[str, list[dict]] = defaultdict(list)
+predicate_edges: dict[str, set[str]] = defaultdict(set)
 
 for source in sources:
     path = ROOT / source
@@ -63,6 +64,16 @@ for source in sources:
                 producers[token].append({"event": event_id, "source": source, "choice": choice[:120]})
         for token in trigger_tokens:
             consumers[token].append({"event": event_id, "source": source, "trigger": trigger_text})
+        predicate_inputs = [token for token in trigger_tokens if token.startswith("pred.")]
+        predicate_outputs = sorted({
+            token
+            for choice in choices
+            for token in choice["outputs"]
+            if token.startswith("pred.")
+        })
+        for source_predicate in predicate_inputs:
+            for target_predicate in predicate_outputs:
+                predicate_edges[source_predicate].add(target_predicate)
         events[event_id] = {
             "event_id": event_id,
             "title": title,
@@ -86,6 +97,48 @@ duplicates = {
     token: writers for token, writers in sorted(producers.items()) if len(writers) > 1
 }
 
+# Build a predicate-only dependency graph from authored trigger/output tokens.
+# Missing predicate producers are reported as unresolved source vocabulary; they
+# are not invented or treated as runtime failures here.
+predicate_nodes = sorted(set(predicate_edges) | {
+    token for token in producers if token.startswith("pred.")
+} | {
+    token for token in consumers if token.startswith("pred.")
+})
+predicate_graph = {node: sorted(predicate_edges.get(node, set())) for node in predicate_nodes}
+
+predicate_cycles: list[list[str]] = []
+state: dict[str, int] = {}
+stack: list[str] = []
+
+def visit(node: str) -> None:
+    state[node] = 1
+    stack.append(node)
+    for target in predicate_graph.get(node, []):
+        if state.get(target, 0) == 0:
+            visit(target)
+        elif state.get(target) == 1 and target in stack:
+            start = stack.index(target)
+            cycle = stack[start:] + [target]
+            if cycle not in predicate_cycles:
+                predicate_cycles.append(cycle)
+    stack.pop()
+    state[node] = 2
+
+for node in predicate_nodes:
+    if state.get(node, 0) == 0:
+        visit(node)
+
+undefined_predicate_consumers = sorted({
+    token for token in consumers
+    if token.startswith("pred.") and token not in producers
+})
+if predicate_cycles:
+    errors.append(
+        "predicate dependency cycle(s): "
+        + "; ".join(" -> ".join(cycle) for cycle in predicate_cycles)
+    )
+
 inventory = {
     "schema": "choice-kingdom-scenario-source-inventory-1",
     "scope": {"first_event": first, "last_event": last, "excluded_events": sorted(excluded)},
@@ -94,10 +147,14 @@ inventory = {
     "producers": dict(sorted(producers.items())),
     "consumers": dict(sorted(consumers.items())),
     "duplicate_output_tokens": duplicates,
+    "predicate_dependency_graph": predicate_graph,
+    "undefined_predicate_consumers": undefined_predicate_consumers,
+    "predicate_cycles": predicate_cycles,
     "notes": [
         "Source-level inventory only; no gameplay/fresh-run reachability claim.",
         "A trigger token without an extracted producer is unresolved, not invented.",
         "Multiple writers are reported for semantic contradiction review.",
+        "Predicate dependency cycles are machine-failing; undefined predicate producers remain source-QA findings until explicitly classified.",
     ],
 }
 
@@ -108,8 +165,14 @@ print(f"events={len(events)} expected={len(expected)}")
 print(f"unique_output_tokens={len(producers)}")
 print(f"trigger_tokens={len(consumers)}")
 print(f"duplicate_output_tokens={len(duplicates)}")
+print(f"predicate_nodes={len(predicate_nodes)}")
+print(f"predicate_edges={sum(len(targets) for targets in predicate_graph.values())}")
+print(f"undefined_predicate_consumers={len(undefined_predicate_consumers)}")
+print(f"predicate_cycles={len(predicate_cycles)}")
 if duplicates:
     print("duplicate_output_token_names=" + ",".join(sorted(duplicates)))
+if undefined_predicate_consumers:
+    print("undefined_predicate_consumer_names=" + ",".join(undefined_predicate_consumers))
 
 if errors:
     sys.exit(1)
