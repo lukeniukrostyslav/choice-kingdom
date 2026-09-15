@@ -1,0 +1,24 @@
+name: Choice Kingdom Frozen Predicate Blocker Gate
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/MACHINE_CANONICAL_GRAPH_01.json'
+      - 'docs/CANONICAL_PRODUCER_INVENTORY_01.md'
+      - 'tools/validate_frozen_predicate_blockers.py'
+      - '.github/workflows/frozen-predicate-blocker-gate.yml'
+  pull_request:
+    paths:
+      - 'docs/MACHINE_CANONICAL_GRAPH_01.json'
+      - 'docs/CANONICAL_PRODUCER_INVENTORY_01.md'
+      - 'tools/validate_frozen_predicate_blockers.py'
+      - '.github/workflows/frozen-predicate-blocker-gate.yml'
+
+jobs:
+  frozen-predicate-blockers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate frozen predicate blocker boundary
+        run: python tools/validate_frozen_predicate_blockers.py
