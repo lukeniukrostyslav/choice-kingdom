@@ -45,7 +45,7 @@ The campaign is **not yet production-integrated**. Exhaustive producer/consumer 
 
 ## Non-negotiable development order
 
-**Content → canonical QA → machine-readable contracts → engine → UI → localization/tests → Android QA → APK → production release.**
+**Content → canonical QA → machine-readable contracts → engine → UI → localization/tests → Android QA → production release.**
 
 Do not reverse this order for convenience.
 
@@ -61,6 +61,7 @@ Never report a percentage from planned work alone. Distinguish implementation, t
 
 ## Latest durable QA checkpoint
 
+- S14 machine predicate dependency validation: `b8ca0599cbfc314353b98e504960c317e4e16be0` adds a source-level predicate dependency graph, deterministic cycle detection and explicit undefined predicate-consumer reporting to the scenario inventory compiler. CI result is still pending; no percentage increase is claimed yet.
 - S13 composite source closures: current derived-predicate contract confirms guild influence, systemic explanation, coalition cooperation, constitutional preparation and budget reform source boundaries.
 - Replay provenance correction: `989e78afbe8829e631911637cb0861074b428f2a` updated the reproducible scenario scorecard after correcting E131/E186 provenance handling.
 - S10.4 delayed source-boundary verification: `5d798fb547eb7b0d7a4f8325a39c1709441e9e63`
@@ -91,9 +92,9 @@ The aggregate is the arithmetic mean of the twelve block scores. It is not runti
 
 ## Next highest-value work
 
-1. Exhaustive producer/consumer inventory over the frozen E01–E272 catalog.
-2. Undefined producer/consumer, duplicate semantic writer and contradictory writer detection.
-3. Machine token extraction and dependency-cycle validation.
+1. Verify the new machine predicate dependency gate and classify its undefined predicate-consumer findings.
+2. Exhaustive producer/consumer inventory over the frozen E01–E272 catalog.
+3. Undefined producer/consumer, duplicate semantic writer and contradictory writer detection.
 4. Close remaining delayed lifecycle/save-load/exactly-once and replay producer/key contracts.
 5. Resolve exact ending prerequisite/blocker sets and deterministic precedence.
 6. Run fresh-run and replay causal reachability and graph/catalog parity.
