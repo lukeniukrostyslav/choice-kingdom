@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1",
+  "schema_version": "1.2",
   "scope": "E01-E272",
   "status": "SOURCE_LEVEL_CONTRACT_CLOSED_RUNTIME_OPEN",
   "purpose": "Machine-readable conservative qualification boundaries for composite predicates; no runtime promotion is authorized by this document alone.",
@@ -19,12 +19,12 @@
     "pred.guild_influence_strong": {
       "minimum_independent_domains": 2,
       "domains": [
-        {"domain": "representation", "producer": "E49", "key": "guild_political_representation"},
+        {"domain": "representation", "producers": ["E49", "E144"], "keys": ["guild_political_representation", "history.guild_representation"], "normalization": "E49 legacy flag and E144 canonical history marker are alternative authored representations of the guild-representation domain; they count as one domain, never two."},
         {"domain": "tribunal", "producer": "E168-A", "key": "guild_tribunal_independent"},
-        {"domain": "market_credit", "producer": "E165", "key": "official_credit_disclosure"},
+        {"domain": "market_credit", "producer": "E165-A", "key": "official_credit_disclosure"},
         {"domain": "logistics", "producer": "E136-B", "key": "history.guild_logistics_cooperation"}
       ],
-      "non_alias_rules": ["E165 and E166 are the same market domain", "E194 cannot self-produce history.guild_logistics_cooperation", "relationship.ivo is not an institutional domain"],
+      "non_alias_rules": ["E165 and E166 are the same market domain", "E194 cannot self-produce history.guild_logistics_cooperation", "relationship.ivo is not an institutional domain", "E49 and E144 cannot be counted as two independent domains"],
       "rule": "any_2_distinct_domains",
       "runtime_verified": false
     },
