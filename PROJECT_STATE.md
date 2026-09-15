@@ -35,36 +35,36 @@ Content and canonical QA come before production contracts, engine, UI, localizat
 ## Current QA checkpoint
 Producer inventories and static reachability pre-audits cover the authored scope E01–E272. The consolidated reachability matrix remains **OPEN** and is not a proof of runtime reachability.
 
-The authored producer bridge corrections for E136/E144/E148 and the later E151–E210 trigger/semantic corrections have been applied to the authoritative catalogs and re-read. E136-B supplies the upstream `history.guild_logistics_cooperation` marker and E194 consumes that upstream marker rather than self-consuming the qualified predicate. E29-A/B explicitly establish `pred.winter_severe` for the current severe-winter cycle while retaining `history.winter_severity_declared`. E32 explicitly establishes `pred.transport_disruption` for the compound-crisis cycle with `history.transport_disruption_declared`; E136-A/B are the primary recovery/clear sources and E192 is a consumer. The transport lifecycle is now source-reconciled; cycle identity, expiry, persistence, same-turn ordering and runtime evaluation remain OPEN. See `docs/TRANSPORT_DISRUPTION_RECONCILIATION_01.md`.
+The authored producer bridge corrections for E136/E144/E148 and the later E151–E210 trigger/semantic corrections have been applied to the authoritative catalogs and re-read. E136-B supplies the upstream `history.guild_logistics_cooperation` marker and E194 consumes that upstream marker rather than self-consuming the qualified predicate. E29-A/B explicitly establish `pred.winter_severe` for the current severe-winter cycle while retaining `history.winter_severity_declared`. E32 explicitly establishes `pred.transport_disruption` for the compound-crisis cycle with `history.transport_disruption_declared`; E136-A/B are the primary recovery/clear sources and E192 is a consumer. The transport lifecycle is source-reconciled; cycle identity, expiry, persistence, same-turn ordering and runtime evaluation remain OPEN. See `docs/TRANSPORT_DISRUPTION_RECONCILIATION_01.md`.
 
 P0 reconciliation 06 freezes the guild-influence domain boundary, constitutional-preparation domain boundary, systemic-evidence qualification shape, coalition positive-outcome requirements, and budget-reform institutional layers. These remain source-level contracts, not runtime implementation. Guild influence cannot be manufactured from relationship score or duplicate representation events; constitutional preparation cannot count its consumer as its own prerequisite; coalition cooperation is distinct from package creation; and budget reform cannot collapse three institutional layers into one flag.
 
-E273–E277 are now covered by a dedicated admission reconciliation. They remain **blocked from the frozen catalog** pending trigger normalization, producer/consumer closure, duplicate-producer analysis and full reachability/cycle verification. E277 is specifically blocked from becoming a competing generic transport-recovery producer while E136 remains the canonical frozen-cycle recovery bridge. See `docs/E273_E277_ADMISSION_RECONCILIATION_01.md`.
+E273–E277 have now received a second admission audit. They remain outside the frozen catalog. E273–E276 have explicit authored producer semantics but still require complete consumer/lifecycle/alias checks; E277 overlaps the already canonical E136 transport-recovery route and cannot be admitted as a competing kingdom-wide recovery writer without an explicit lifecycle decision. See `docs/E273_E277_ADMISSION_AUDIT_02.md`.
 
 The border-crisis lifecycle is source-closed: E271-A declares the active crisis and E272-A/B resolve it while preserving historical declaration state. `thread.border` remains a legacy trigger context and must not be silently aliased to `thread.border_crisis`.
 
-Delayed-consequence source extraction covers E127–E130/E141 plus E181–E185 and E242–E246 at the QA level. E128 has a verified upstream producer E17-A (`cheap_weapons`); E129 has a verified upstream producer E22-A (festival held); E127 has one verified upstream producer E06-B (`temporary_noble_exemption`) plus one unresolved alternate trigger route. E130 producer identity is now verified as E45-B (`infrastructure_concession`), and E141 producer identity is verified as E48-B (`emergency_renewal_possible`). Their delayed callback contracts still require immutable callback identity, exact timing semantics, cancellation/supersession, save/load persistence, replay isolation and deterministic ordering. E185 remains high-risk because its resolution depends on a later military crisis rather than a fixed turn count. See `docs/DELAYED_CONSEQUENCE_EXTRACTION_03.md`.
+Delayed-consequence source extraction covers E127–E130/E141 plus E181–E185 and E242–E246. E128 has verified upstream E17-A (`cheap_weapons`); E129 has verified upstream festival-held route; E130 is now closed to E45-B (`infrastructure_concession`); E141 is now closed to E48-B (`emergency_renewal_possible`). E127 still has one verified producer plus one unresolved alternate route. E181–E185 and E242–E246 have source/timing extraction but still require exact delay identity, cancellation/supersession, persistence and deterministic resolution contracts. See `docs/DELAYED_PRODUCER_CLOSURE_01.md`.
 
-No validator has been introduced prematurely. Production schema and runtime implementation remain blocked until the canonical contracts are frozen and the complete catalog reconciliation passes.
+No validator has been introduced prematurely. Production schema and runtime implementation remain blocked until canonical contracts are frozen and the complete catalog reconciliation passes.
 
 ## Latest source-level commits
-- `e97d55aa7345048356b13da95a47f3bcdc5314fd` — E273–E277 admission/rejection reconciliation; all five candidates remain blocked pending graph/lifecycle gates.
-- `9348e4530eb193d6e8fcf7d063e08aebe58370c6` — delayed consequence producer identity closure for E130/E141.
-- `0237626eef0d67066f64f2f90697cf728765a0f2` — transport disruption lifecycle reconciliation E32/E136/E192 and E277 boundary.
-- `0f89f64c3d07bd01e7fb803f4a0198ef5de79c46` — delayed callback producer refinement for E127–E130/E141.
-- `c441a81a31261435748ef2679683e0fe2e6ac2aa` — delayed callback extraction 02; E181–E185 and E242–E246.
-- `0b1d05edd18212355db1c475e7d5bbc3a7cb09b0` — canonical P0 reconciliation 06; guild/constitutional/evidence/coalition/budget boundaries and delayed-data gate.
+- `f2907e4e53ac4753c48b68801cc327c6c85671da` — closed source producer identities for E130/E141.
+- `9c11d84d1de42da409521f3b45f693e9aa203d4a` — E273–E277 admission audit 02; candidates remain outside frozen production catalog.
+- `d39970d64f019bf809ea83e9502afe6bcaa896fc` — previous project-state update.
+- `0237626eef0d67066f64f2f90697cf728765a0f2` — transport disruption lifecycle reconciliation.
+- `0f89f64c3d07bd01e7fb803f4a0198ef5de79c46` — delayed callback producer refinement.
+- `0b1d05edd18212355db1c475e7d5bbc3a7cb09b0` — canonical P0 reconciliation 06.
 
 ## Current honest progress
 - Foundation / rules: **95%**
 - Authored content: **90%**
 - Canonical Event IDs / continuity: **100%**
-- Producer / Consumer QA: **83%**
+- Producer / Consumer QA: **85%**
 - Derived predicates / machine contracts: **80%**
-- Delayed Consequences: **70%**
+- Delayed Consequences: **73%**
 - Replay / Meta-state: **42%**
 - Endings / precedence: **52%**
-- Reachability / causal graph: **36%**
+- Reachability / causal graph: **38%**
 - Production data schema: **35%**
 - Decision Engine: **0%**
 - UI / UX: **0%**
@@ -74,13 +74,13 @@ No validator has been introduced prematurely. Production schema and runtime impl
 - APK: **0%**
 - Release: **0%**
 
-Overall project progress is approximately **46%**. This is not a simple average: prerequisite QA has advanced, but engine/UI/Android implementation has deliberately not started before the canonical contracts are safe to freeze.
+Overall project progress is approximately **47%**. This is still prerequisite-heavy work; no engine/UI/Android implementation is being counted as complete before the canonical contracts are genuinely verified.
 
 ## Next highest-value work
-1. Finish delayed callback source extraction for the remaining unresolved producer/timing/cancellation cases, especially E127 alternate route and E185 conditional resolution.
-2. Complete E273–E277 downstream consumer and cycle/reachability checks; admit only events that pass the gate.
+1. Complete E127 alternate producer reconciliation and remaining delayed lifecycle fields.
+2. Finish E273–E276 consumer/alias graph checks and decide whether any candidate can be admitted without changing frozen semantics.
 3. Freeze replay meta-state transfer/isolation rules and ending qualification/precedence.
-4. Re-run complete E01–E272 contradiction/cycle/reachability reconciliation and close dead-end/duplicate-trigger findings.
+4. Re-run complete E01–E272 contradiction/cycle/reachability reconciliation.
 5. Freeze production data contracts.
 6. Build the real static validator against the frozen schema.
 7. Implement the actual Decision Engine and runtime.
