@@ -14,86 +14,79 @@ This scorecard measures only verified scenario QA closure. Percentages are not i
 |---|---:|---|
 | S01 — Canonical Event Coverage | 84% | ADVANCED — E01–E272 exhaustive authored-event scope is structurally validated; semantic/reachability closure remains |
 | S02 — Choice / State Transitions | 70% | OPEN — complete authored transition/effect closure remains |
-| S03 — Producer / Consumer Closure | 70% | OPEN — undefined consumer set remains; source-closed manifest producers now have a dedicated green verification gate |
-| S04 — Predicate Contracts | 73% | ADVANCED — predicate parity, source closure and zero-cycle checks are green; undefined predicate lifecycle/runtime closure remains |
+| S03 — Producer / Consumer Closure | 78% | ADVANCED — fresh inventory reduced unresolved consumers from 59 to 16; 4 predicate consumers remain separately tracked |
+| S04 — Predicate Contracts | 78% | ADVANCED — source-closed composite predicate producers and parity gates are green; 4 predicate consumers remain open |
 | S05 — Delayed Consequences | 60% | OPEN — complete consequence and cancellation closure remains |
 | S06 — Replay / Meta State | 60% | OPEN — explicit replay producer/key and reset semantics remain |
 | S07 — Event Graph / Causality | 83% | ADVANCED — canonical graph gate is green; full causal reachability remains |
-| S08 — Source / Producer QA | 97% | ADVANCED — 29 declared source-closed producers pass authored-event/choice verification; stale/prose border rejection gate is green |
-| S09 — Canonical Graph | 92% | ADVANCED — canonical graph, predicate parity and contract-readiness gates are green |
+| S08 — Source / Producer QA | 98% | ADVANCED — frozen source-closed producer contracts pass authored-source verification; semantic writer collisions remain at zero |
+| S09 — Canonical Graph | 93% | ADVANCED — canonical graph, predicate parity and contract-readiness gates are green |
 | S10 — Delayed Lifecycle | 83% | ADVANCED — delayed lifecycle gate is green; exact cancellation/supersession/save-load semantics remain |
 | S11 — Replay / Ending QA | 72% | OPEN — deterministic ending precedence and replay reachability remain |
 | S12 — Scope / Integrity Gates | 99% | ADVANCED — E01–E272 scope, scope boundary, contract readiness and integrity gates are green |
 
 ## Aggregate scenario score
 
-**79% — scenario QA / verification progress.**
+**80% — scenario QA / verification progress.**
 
-The exact arithmetic mean is **78.58%**, rounded to the nearest whole percent. This remains separate from runtime readiness and project completion.
+The exact arithmetic mean is **79.83%**, rounded to the nearest whole percent. This remains separate from runtime readiness and project completion.
 
-## Verified autonomous work — latest block
+## Verified autonomous work — latest blocks
 
-### S24 — source-closed producer verification
-- Added `tools/validate_source_closed_producers.py`.
-- Added `Choice Kingdom Source-Closed Producer Verification` CI gate.
-- Hardened authored A/B choice detection to match the canonical catalog's actual heading format.
-- Final PR CI result: **PASS**.
-- Verified: **272 events in scope, 29 declared source-closed producers, 0 errors**.
+### S27 — exhaustive unresolved-consumer source inspection
+- Added `tools/inspect_undefined_consumer_sources.py`.
+- CI now emits an authoritative occurrence map for every remaining undefined consumer.
+- Latest exhaustive inventory: **272/272 events**, **286 source producer contracts**, **20 undefined consumers**, **4 undefined predicate consumers**, **0 predicate cycles**, **0 semantic writer collisions**.
+
+### S26 — frozen source-closed producer integration
+- Seeded the machine inventory from `MACHINE_CANONICAL_GRAPH_01.json` source-closed producer contracts rather than relying only on markdown choice-line extraction.
+- Added explicit seeding for source-closed composite predicates only where the canonical graph names an actual E01–E272 producer choice.
+- Added verified non-token producer contracts from the canonical registry: `history.house_assembly`, `people_charter_endorsed`, `guild_political_representation`.
+- CI inventory moved from 59 → 43 → 20 undefined consumers through verified closures; no invented producers were used.
 
 ### S25 — noncanonical border rejection gate repair
-- Repaired the rejection gate so stale/prose forms are preserved as audit evidence in the classification document rather than required to remain in canonical authored triggers.
-- Corrected the canonical assertion to require `pred.border_crisis` as the executable trigger form.
+- Repaired the rejection gate so stale/prose forms are preserved as audit evidence rather than required to remain in canonical authored triggers.
+- Canonical executable border form remains `pred.border_crisis`.
+- Final PR CI result: **PASS**.
+
+### S24 — source-closed producer verification
+- Added `tools/validate_source_closed_producers.py` and its CI gate.
+- Hardened authored A/B choice detection to match the actual catalog heading format.
 - Final PR CI result: **PASS**.
 
 ### S23 — canonical border trigger normalization
 - E271 canonical trigger: `pred.border_tension` + corroborated frontier-warning infrastructure.
 - E272 canonical trigger: `pred.border_crisis` + `border_crisis_declared = true` + resolution route.
-- Legacy/prose forms remain audit evidence, not executable canonical triggers.
-
-### S22 — stale/prose border trigger classification
-- `thread.border` frozen as stale alias.
-- `thread.border_crisis = active` frozen as prose predicate expression.
-- Canonical lifecycle remains `pred.border_crisis`.
 
 ### S21 — semantic writer collision closure
-- E194-A reaffirmation of `history.guild_logistics_cooperation` was explicitly classified as idempotent reaffirmation of E136-B rather than an independent semantic writer.
-- Fresh inventory previously verified `semantic_writer_collisions=0`.
-
-### S20 — exhaustive E01–E272 source inventory
-- 272/272 events verified.
-- 243 unique output tokens.
-- 90 trigger tokens.
-- 3 duplicate output tokens.
-- 2 same-event shared-writer findings.
-- 59 undefined consumers.
-- 8 undefined predicate consumers.
-- 0 predicate cycles.
+- E194-A is frozen as idempotent reaffirmation of E136-B for `history.guild_logistics_cooperation`.
+- Fresh inventories continue to report `semantic_writer_collisions=0`.
 
 ## Latest verified CI set
 
-On the latest scenario QA PR head, the following gates completed **SUCCESS**:
+The latest scenario QA PR head completed these gates successfully:
 
-- Choice Kingdom Source-Closed Producer Verification — run #9
-- Choice Kingdom Noncanonical Consumer Rejection Gate — run #9
-- Choice Kingdom Scenario Source Closure — run #32
-- Choice Kingdom Canonical Graph — run #320
-- Choice Kingdom Predicate Contract Parity — run #228
-- Choice Kingdom Contract Readiness — run #251
-- Choice Kingdom Delayed Lifecycle Gate — run #247
-- Choice Kingdom Scope Boundary — run #278
+- Choice Kingdom Scenario Source Inventory — run #31
+- Choice Kingdom Source-Closed Producer Verification — run #19
+- Choice Kingdom Noncanonical Consumer Rejection Gate — run #20
+- Scenario Source Closure — run #46
+- Choice Kingdom Canonical Graph — run #342
+- Choice Kingdom Predicate Contract Parity — run #250
+- Choice Kingdom Contract Readiness — run #273
+- Choice Kingdom Delayed Lifecycle Gate — run #269
+- Choice Kingdom Scope Boundary — run #300
 
 These are source/structural gates. They do not claim runtime gameplay, fresh-run reachability, replay reachability or APK readiness.
 
 ## Remaining gates to 100%
 
-1. Authoritative closure of the remaining undefined consumers.
-2. Full choice/state transition closure across E01–E272.
-3. Remaining predicate producer/lifecycle/clear/resolve contracts.
-4. Delayed source identity, cancellation/supersession, persistence and exactly-once semantics.
-5. Explicit replay producer/key bindings for E186/E247/E248.
-6. Exact ending positive prerequisites, negative blockers and deterministic precedence.
-7. Fresh-run and replay causal reachability verification.
-8. Final graph/catalog semantic equality and production-contract freeze.
+1. Close the remaining 16 concrete/noncanonical consumer forms without inventing aliases.
+2. Close the 4 remaining predicate producer/lifecycle contracts: `pred.border_tension`, `pred.constitutional_prepared_strong`, `pred.final_charter_prerequisites`, `pred.guild_influence_strong`.
+3. Close remaining delayed source identity, cancellation/supersession, persistence and exactly-once semantics.
+4. Explicit replay producer/key bindings for E186/E247/E248.
+5. Exact ending positive prerequisites, negative blockers and deterministic precedence.
+6. Fresh-run and replay causal reachability verification.
+7. Final graph/catalog semantic equality and production-contract freeze.
 
 ## Explicit exclusions
 
