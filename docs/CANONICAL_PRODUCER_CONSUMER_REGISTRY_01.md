@@ -12,9 +12,7 @@ The registry deliberately records OPEN rows instead of inventing producers.
 
 ## Current canonical status
 
-E271/E272 close the authored border-crisis declaration/resolution lifecycle. The latest QA pass identified and corrected a circular guild-logistics dependency: E136-B is the earlier cooperation source, E194 consumes its history marker, and E194-A supplies the later neutral-inspector qualification. The authoritative catalogs now contain that source correction and have been re-read. Semantic collision distinctions for E55/E269 and E36/E226 have also been applied directly to the authoritative E211–E270 catalog without renumbering IDs.
-
-The latest closure reconciliation also corrected two stale registry/audit interpretations: `history.guild_representation` is explicitly produced by E144-A and E144-B, and `pred.border_crisis` has an authored declaration/resolution lifecycle through E271/E272. E29-A/B now explicitly establish the severe-winter state for the current winter cycle, closing the winter-severity producer gap at source level. These are source-level closures only; runtime evaluation and reachability remain unimplemented.
+E271/E272 close the authored border-crisis declaration/resolution lifecycle. The latest QA pass corrected the guild-logistics dependency: E136-B is the earlier cooperation source, E194 consumes its history marker, and E194-A supplies the later neutral-inspector qualification. E144 explicitly establishes the immutable guild-representation history marker. E49's exact representation output is confirmed as `guild_political_representation`, and E50's exact civic/commons output is confirmed as `people_charter_endorsed` from the authoritative E01–E70 producer inventory. These are source-level closures only; runtime evaluation and reachability remain unimplemented.
 
 ## Registry
 
@@ -34,6 +32,8 @@ The latest closure reconciliation also corrected two stale registry/audit interp
 | `history.cross_faction_package` | history | E148-A | E149/E201/E261+ | VERIFIED PRODUCER | package != cooperation qualification |
 | `history.house_assembly` | history | E161-A | E162/E202/E261+ | VERIFIED PRODUCER | durable house representation |
 | `history.guild_representation` | history | E144-A/E144-B | E203+ | VERIFIED PRODUCER | both E144 choices establish same representation fact; legacy trigger is alias only |
+| `guild_political_representation` | state/history source | E49-A | later guild-influence consumers | VERIFIED SOURCE | E49-B `guild_political_exclusion` is the opposing outcome; this is the exact early representation source, not a second domain beyond representation history |
+| `people_charter_endorsed` | state/history source | E50-A | E114/E122/E145/E197/E209+ | VERIFIED SOURCE | frozen civic/commons preparation source; later charter consequences are not independent domains |
 | `history.guild_logistics_cooperation` | history | E136-B | E194+ | VERIFIED PRODUCER | immutable upstream cooperation marker; E194 consumes it and later supplies neutral inspection |
 | `history.winter_severity_declared` | history | E29-A/E29-B | E136/E160/E251+ | VERIFIED PRODUCER | immutable declaration for severe current winter cycle; active severity requires deterministic cycle validity/expiry |
 | `thread.border_crisis` | thread | E271-A declaration; E272-A/B resolution | E195/E240/E251/E253+ | VERIFIED SOURCE LIFECYCLE / RUNTIME OPEN | declaration and resolution are distinct authored stages |
@@ -44,14 +44,14 @@ The latest closure reconciliation also corrected two stale registry/audit interp
 | `thread.endgame_convergence` | thread | E210 candidate convergence node | E265–E270 | OPEN / CONVERGENCE ONLY | never independently resolves missing prerequisites |
 | `pred.gold_low` | predicate | `resource.gold` threshold candidate | E193+ | PROVISIONAL | threshold must be balance-verified |
 | `pred.security_high` | predicate | `resource.security` threshold candidate | E193+ | OPEN | threshold not frozen |
-| `pred.food_stable` | predicate/marker | E138/E167/E192 candidates | E192/E216/E225 | OPEN | deterministic definition required |
-| `pred.transport_disruption` | predicate | E136-A/B recovery/clear producer; active disruption source still unidentified | E192/E251+ | PARTIAL | clear/recovery verified; a separate authored active-disruption producer remains open |
+| `pred.food_stable` | predicate/marker | E273-A explicit source candidate | E192/E216/E225 | PARTIAL | source producer identified; later invalidation/expiry still required |
+| `pred.transport_disruption` | predicate | E32 explicit active producer; E136/E277 recovery/clear | E192/E251+ | PARTIAL | active producer now closed at source level; lifecycle/persistence still open |
 | `pred.border_crisis` | predicate | E271-A declaration; E272-A/B resolution | E195/E253/E255+ | VERIFIED SOURCE LIFECYCLE / RUNTIME OPEN | active only after declaration and before resolution |
 | `pred.guild_logistics_cooperation` | predicate | E136-B upstream marker + E194-A neutral-inspector qualification | downstream guild/ending consumers | VERIFIED SOURCE CHAIN / RUNTIME OPEN | qualification requires prior cooperation marker, neutral inspection, and no unresolved immunity-risk blocker; E194 no longer self-produces its prerequisite |
-| `pred.guild_influence_strong` | predicate | E144/E165/E168/E169 + logistics chain candidates | E200 | CONTRACT FROZEN / PRODUCERS OPEN | at least two distinct institutional guild domains; `rel.ivo` alone forbidden |
+| `pred.guild_influence_strong` | predicate | representation=`guild_political_representation`/`history.guild_representation`; tribunal=`guild_tribunal_independent`; market/credit=`official_credit_disclosure`/`audited_monopoly` as one domain; logistics=qualified cooperation | E200 | PARTIAL / SOURCES FROZEN | at least two distinct institutional domains; `rel.ivo` alone forbidden; full producer-before-consumer reconciliation remains open |
 | `pred.systemic_explanation_verified` | predicate | E132–E135/E232–E236 evidence candidates | E207/endgame | CONTRACT FROZEN / PRODUCERS OPEN | three evidence domains plus explicit convergence decision |
-| `pred.coalition_cooperation` | predicate | E148-A + distinct faction evidence candidates | E201/E207/E261+ | CONTRACT FROZEN / PRODUCERS OPEN | package + 3 distinct faction identities + no collapse blocker |
-| `pred.constitutional_prepared_strong` | predicate | E142/E145/E146/E148/E150 candidates | E197 | CONTRACT FROZEN / PRODUCERS OPEN | three independent upstream institutional domains |
+| `pred.coalition_cooperation` | predicate | E148-A + distinct faction evidence candidates | E201/E207/E261+ | CONTRACT FROZEN / PRODUCERS OPEN | package + explicit participant identities + positive cooperation outcome + no collapse blocker |
+| `pred.constitutional_prepared_strong` | predicate | civic=`people_charter_endorsed`; institutional=`crown_audited`/`full_crown_audit_published`; factional=`house_assembly`; military=`military_red_line` | E197 | PARTIAL / SOURCES FROZEN | any 3 independent preparation domains; full anti-double-counting and ordering reconciliation remains open |
 | `pred.budget_reform` | predicate | E142/E154/E198 candidates | E198 | OPEN | audit-office independence, crown audit and legislative budget lock are separate semantics; no exact qualifying combination frozen yet |
 | `pred.final_charter_prerequisites` | predicate | E197/E198/E199/E202–E209 candidates | E209/E210 | CONTRACT FROZEN / PRODUCERS OPEN | deterministic upstream set; E209 consumes only |
 | `pred.faction_routes_4` | predicate | distinct faction route activations | E261+ | OPEN | distinct route identities required |
@@ -60,7 +60,10 @@ The latest closure reconciliation also corrected two stale registry/audit interp
 ## Verified source closures in latest pass
 
 ### Guild representation
-E144-A and E144-B explicitly establish the immutable `history.guild_representation` marker consumed by E203. The source trigger `guild_political_representation` is legacy/source-language vocabulary and must be normalized as an alias rather than treated as a second runtime fact.
+E49-A is confirmed as `guild_political_representation`; E49-B is `guild_political_exclusion`. E144-A/E144-B later establish immutable `history.guild_representation`. E49 and E144 are therefore the same institutional representation domain across campaign time, not two independent guild domains.
+
+### Civic / commons preparation
+E50-A is confirmed as `people_charter_endorsed`. This is the frozen civic/commons preparation source for `pred.constitutional_prepared_strong`. Later civic consequences from the same charter decision cannot be double-counted as independent preparation domains.
 
 ### Border crisis
 E271-A explicitly establishes `border_crisis_declared = true`, `border_crisis_resolved = false`, and `thread.border_crisis = active`. E271-B explicitly de-escalates without satisfying the active crisis predicate. E272-A/B resolve the active crisis while preserving the historical declaration. E195/E253/E255 remain consumers only.
@@ -79,7 +82,7 @@ E29-A and E29-B are the explicit authored producer for `pred.winter_severe` duri
 4. Reconcile graph/catalog references and reachability.
 5. Verify delayed/replay source identities and exactly-once semantics across the full catalog.
 6. Apply downstream verification for the E55/E269, E36/E226, E37/E227, E39/E229 and E40/E241 distinctions.
-7. Resolve remaining OPEN contracts: food stability, active transport disruption, strong guild influence, systemic evidence convergence, coalition cooperation, constitutional preparation, budget reform and final charter prerequisites.
+7. Resolve remaining OPEN contracts: food stability, active transport lifecycle, strong guild influence, systemic evidence convergence, coalition cooperation, constitutional preparation, budget reform and final charter prerequisites.
 
 ## Gate
 
