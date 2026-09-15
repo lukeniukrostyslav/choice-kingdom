@@ -83,6 +83,25 @@ Every substantive scenario-QA batch must leave a durable GitHub commit and updat
 - Identified E131 as a replay/meta-state contract item rather than ordinary run-local state.
 - S04 advances to **70% / IN PROGRESS**; global duplicate/contradiction and predicate closure remain open.
 
+### Batch S04.2 — semantic/producer closure checkpoint
+- Added `docs/SCENARIO_QA_S04_SEMANTIC_CLOSURE_02.md` in commit `4b440414ba884469edfc35426ea960d63c70d7b9`.
+- Kept E130/E143 numeric-state mutations separate from named fact production; no hidden predicate inference is allowed.
+- Kept E131 explicitly inside the replay/meta-state contract; exact `meta.*` producer/key remains an S11 gate.
+- Repository search for `emergency_renewal` / `emergency_renewal_possible` returned no authored occurrence; no producer was invented and the vocabulary remains an undefined-producer candidate if referenced by later contracts.
+- Closed E144 as a valid convergence marker for `history.guild_representation` at source level.
+- Closed the E148 hard-negative: `history.cross_faction_package` / selective coalition support cannot self-satisfy `pred.coalition_cooperation`.
+- Reconfirmed E139 is infrastructure-only and not a border-crisis producer.
+- S04 remains **70% / IN PROGRESS**; no global Scenario QA increase claimed.
+
+### Batch S05.1 — E151–E210 direct source inventory
+- Added `docs/SCENARIO_QA_S05_E151_E210_INVENTORY.md` in commit `3c47790828fb5cef203d3117b553e4e88938ca18`.
+- Directly inventoried E151–E210 from authoritative `docs/EVENT_CATALOG_EXPANSION_151_210.md` blob SHA `69013de34f2d2436f8d3483b014821afa05fa75e`.
+- Recorded all E151–E210 triggers and authored outputs, including delayed callbacks E181–E185, replay/information nodes E186–E190, crisis escalation E191–E195 and constitutional/endgame E196–E210.
+- Reconfirmed hard-negative rules for E194, E197, E201/E207, E209 and E210.
+- Identified E192 as a state-convergence contract requiring explicit distinction between direct state mutation and predicate production.
+- Recorded the explicit multi-domain qualification contracts for E207 and E209.
+- S05 advances to **60% / IN PROGRESS**; delayed lifecycle, replay keys, ending precedence and reachability remain open.
+
 ## Active gates — mapped to execution batches
 
 ### S01 — E01–E34 event inventory
@@ -157,6 +176,8 @@ Before starting a QA batch:
 7. verify the saved file from GitHub before moving to the next batch.
 
 ## Current continuation checkpoint — 2026-09-15
+- Latest S05 inventory commit: `3c47790828fb5cef203d3117b553e4e88938ca18`.
+- Latest S04 semantic-closure commit: `4b440414ba884469edfc35426ea960d63c70d7b9`.
 - Latest S04 inventory commit: `1250530cfceddd25aa6f9d06e6168f1fcd0ea094`.
 - Latest S03 semantic-closure commit: `fee868c6a4b5ce4bd7aba424081cf75f965c4573`.
 - Latest S03 source-inventory commit: `061cda2efe353c68fda3c5cb97175d615362b712`.
@@ -164,8 +185,8 @@ Before starting a QA batch:
 - Latest S01 duplicate audit commit: `ae39aebc8097d3f46e6f61cac47ddb6bfbcd1b96`.
 - Latest S01 inventory commit: `ce3e8e9ec5a9b94209d30907a33d29b9c9475fdd`.
 - Authoritative narrative source remains `docs/EVENT_CATALOG.md` blob SHA `afd8155b3359a562e5336ff54b0a0245aec46a4d`.
-- Next substantive action: continue S04 semantic/producer closure without redoing its verified source inventory, then proceed to S05 E151–E210.
+- Next substantive action: continue S05 semantic/producer closure, then proceed to S06 E211–E270.
 
 ## Current status
 
-Scenario QA remains **65%** until the active global gates are actually closed. Working batch indicators: **S01 80%, S02 70%, S03 70%, S04 70%**. These batch percentages are not the global Scenario QA percentage.
+Scenario QA remains **65%** until the active global gates are actually closed. Working batch indicators: **S01 80%, S02 70%, S03 70%, S04 70%, S05 60%**. These batch percentages are not the global Scenario QA percentage.
