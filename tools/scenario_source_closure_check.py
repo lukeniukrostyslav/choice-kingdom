@@ -55,6 +55,12 @@ required_fragments = {
         "### E32 — Three Fires",
         "E32 explicitly establishes `pred.transport_disruption`",
     ],
+    "EVENT_CATALOG_ACT_V_EXPANSION.md": [
+        "### E49 — The Guild's Vote",
+        "`guild_political_representation`",
+        "### E50 — The People's Charter",
+        "`people_charter_endorsed`",
+    ],
     "EVENT_CATALOG_EXPANSION_111_150.md": [
         "### E136 — The Frozen Road",
         "`history.guild_logistics_cooperation`",
@@ -69,6 +75,8 @@ required_fragments = {
         "`crown_audited`",
         "### E161 — The House Assembly",
         "`house_assembly`",
+        "### E165 — The Credit Book",
+        "`official_credit_disclosure`",
         "### E168 — The Guild Tribunal",
         "`guild_tribunal_independent`",
         "### E192 — The Broken Cart",
@@ -77,12 +85,17 @@ required_fragments = {
         "`history.guild_logistics_cooperation`",
         "must not self-produce that qualified predicate",
         "### E197 — The Succession Test",
+        "### E198 — The Budget Lock",
+        "### E199 — The Army Oath Rewritten",
+        "`army_constitution_oath`",
         "### E200 — The Merchant Oath",
         "### E207 — The Founder Question",
         "### E209 — The Dawn Charter",
         "### E210 — The Last Decision Is Not a Choice",
     ],
     "EVENT_CATALOG_EXPANSION_211_270.md": [
+        "### E227 — Rowan's Line",
+        "`military_red_line`",
         "### E261 — The Four-Way Bargain",
         "### E267 — Rowan's Last Order",
         "### E268 — Seris's Last Bargain",
@@ -123,18 +136,36 @@ else:
         if fragment not in contract:
             errors.append(f"coalition contract: missing exact fragment: {fragment}")
 
-# Regression guard: E192 must never reintroduce the undefined numeric resource.
+# Source-level composite-domain guards. These verify authored producers, not
+# executable aggregation/reachability.
+source_contract_fragments = [
+    '"pred.guild_influence_strong"',
+    '"representation": ["E49", "E144"]',
+    '"tribunal": ["E168-A"]',
+    '"market_credit": ["E165-A"]',
+    '"logistics": ["E136-B"]',
+    '"pred.constitutional_prepared_strong"',
+    '"civic_commons": ["E50-A"]',
+    '"institutional_audit": ["E154-A", "E155-A"]',
+    '"factional_house": ["E161-A"]',
+    '"military_law": ["E199-A"]',
+]
+for fragment in source_contract_fragments:
+    if fragment not in contract:
+        errors.append(f"composite source contract: missing exact fragment: {fragment}")
+
+# E192 must never reintroduce the undefined numeric resource.
 e192 = texts.get("EVENT_CATALOG_EXPANSION_151_210.md", "")
 if "+4 food stability" in e192 or ("+4 food" in e192 and "food_logistics_stabilized" not in e192):
     errors.append("E192: undefined numeric food-stability effect detected")
 
-# Regression guard: E139 is warning infrastructure, not a border-crisis producer.
+# E139 is warning infrastructure, not a border-crisis producer.
 e111_150 = texts.get("EVENT_CATALOG_EXPANSION_111_150.md", "")
 e139 = re.search(r"### E139 —.*?(?=\n### E140 —)", e111_150, re.S)
 if e139 and "does **not** by itself declare or resolve `pred.border_crisis`" not in e139.group(0):
     errors.append("E139: border-crisis producer boundary missing")
 
-# Regression guard: E194 cannot manufacture its own qualified cooperation predicate.
+# E194 cannot manufacture its own qualified cooperation predicate.
 e194 = re.search(r"### E194 —.*?(?=\n### E195 —)", e192, re.S)
 if e194 and "must not self-produce that qualified predicate" not in e194.group(0):
     errors.append("E194: qualified predicate anti-circularity guard missing")
@@ -149,6 +180,7 @@ print("SCENARIO_SOURCE_CLOSURE: PASS")
 print(f"authored_events={len(all_events)}")
 print("event_id_uniqueness=PASS")
 print("p0_source_contracts=PASS")
+print("guild_and_constitutional_source_domains=PASS")
 print("coalition_machine_contract=PASS")
 print("e33_e34_canonical_source=PASS")
 print("anti_circularity_guards=PASS")
