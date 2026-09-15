@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.4",
+  "schema_version": "1.5",
   "scope": "E01-E272",
   "status": "SOURCE_LEVEL_CONTRACT_CLOSED_RUNTIME_OPEN",
   "purpose": "Machine-readable conservative qualification boundaries for composite predicates; no runtime promotion is authorized by this document alone.",
@@ -43,32 +43,28 @@
       "producer": "E270-A",
       "key": "systemic_explanation_convergence",
       "consumer": "E207",
-      "required_evidence_families": [
-        "warehouse_financial",
-        "document_language",
-        "witness_organizational"
-      ],
+      "required_evidence_families": ["warehouse_financial", "document_language", "witness_organizational"],
       "convergence_decision": "E270-A",
       "qualification_rule": "warehouse_financial evidence exists AND document_language evidence exists AND witness_organizational evidence exists AND E270-A explicitly combines the evidence before acting",
       "non_circularity": ["E270 trigger Amara/Toma activity is not evidence", "E270-A cannot manufacture missing evidence families", "E207 cannot create systemic explanation", "E210 cannot backfill systemic explanation"],
       "runtime_verified": false
     },
     "pred.final_charter_prerequisites": {
-      "status": "SOURCE_LEVEL_QUALIFICATION_SPECIFIED_PRODUCER_NOT_YET_AUTHORED",
+      "status": "SOURCE_LEVEL_PRODUCER_CLOSED_RUNTIME_OPEN",
+      "producer": "FINAL_CHARTER_GATE_EVALUATOR",
+      "key": "pred.final_charter_prerequisites",
       "consumer": "E209",
-      "source": "E209 qualification requirement",
-      "required_upstream_categories": [
-        "civic_commons_legitimacy",
-        "institutional_audit_legitimacy",
-        "faction_house_guild_representation",
-        "military_security_constitutional_route",
-        "information_evidence_legitimacy",
-        "coalition_cooperation",
-        "mandatory_crisis_blockers_clear"
-      ],
+      "qualification_basis": {
+        "civic_commons_legitimacy": {"producer": "E50-A", "key": "people_charter_endorsed"},
+        "institutional_audit_legitimacy": {"producer": "E154-A", "key": "crown_audited"},
+        "faction_house_guild_representation": {"producers": ["E161-A", "E144-A"], "keys": ["house_assembly", "history.guild_representation"], "rule": "required representation state must be established; the two authored sources are separate required representation facts, not interchangeable evidence domains"},
+        "military_security_constitutional_route": {"producer": "E199-A", "key": "army_constitution_oath"},
+        "information_evidence_legitimacy": {"producer": "E206-A", "key": "press_protection"},
+        "coalition_cooperation": {"producer": "E148-A", "key": "history.cross_faction_package", "qualification": "use pred.coalition_cooperation contract; do not treat the raw marker alone as sufficient"},
+        "mandatory_crisis_blockers_clear": {"producer": "SCENARIO_STATE_BLOCKER_EVALUATOR", "rule": "all mandatory crisis blockers defined by the canonical scenario state contract must be clear before E209; this evaluator may not invent or infer blockers from narrative implication"}
+      },
       "rule": "all_required_upstream_categories_established_before_E209 AND coalition_cooperation_qualified AND mandatory_crisis_blockers_clear",
-      "non_circularity": ["E209 cannot create pred.final_charter_prerequisites", "E209 ratification outputs cannot satisfy its own trigger", "E210 convergence cannot backfill missing prerequisites"],
-      "authoring_gap": "The catalog specifies the qualification categories but does not yet assign one authoritative producer/key for the composite predicate. Do not infer a producer from E209 itself.",
+      "non_circularity": ["E209 cannot create pred.final_charter_prerequisites", "E209 ratification outputs cannot satisfy its own trigger", "E210 convergence cannot backfill missing prerequisites", "the evaluator is a derived gate and is not itself an authored narrative event"],
       "runtime_verified": false
     }
   },
@@ -77,7 +73,8 @@
     "trigger text is not evidence by itself",
     "relationship values are not institutional domains",
     "downstream consequences cannot become upstream prerequisites by narrative implication",
-    "one authored source cannot count as multiple independent domains without explicit canonical proof"
+    "one authored source cannot count as multiple independent domains without explicit canonical proof",
+    "derived composite evaluators cannot invent missing source state"
   ],
   "promotion": {
     "decision_engine_authorized": false,
@@ -85,6 +82,6 @@
     "requires_fresh_run_reachability": true,
     "requires_contradiction_cycle_checks": true,
     "coalition_runtime_requirements": ["persist participant identity set", "evaluate collapse blocker independently", "prove fresh-run reachability", "prove save/load preservation", "prove deterministic qualification"],
-    "final_charter_requirements": ["assign authoritative producer/key without circularity", "compile category producers", "verify contradiction and blocker semantics", "prove deterministic qualification", "prove fresh-run reachability"]
+    "final_charter_requirements": ["implement FINAL_CHARTER_GATE_EVALUATOR", "define mandatory crisis blocker state contract without narrative inference", "compile category producers", "verify contradiction and blocker semantics", "prove deterministic qualification", "prove fresh-run reachability"]
   }
 }
