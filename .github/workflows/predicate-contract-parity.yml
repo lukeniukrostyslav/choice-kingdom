@@ -1,0 +1,19 @@
+name: Choice Kingdom Predicate Contract Parity
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  predicate-contract-parity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate authoritative predicate parity
+        run: python3 tools/validate_predicate_contract_parity.py
+      - name: Upload predicate parity ledger
+        uses: actions/upload-artifact@v4
+        with:
+          name: choice-kingdom-predicate-contract-parity-${{ github.sha }}
+          path: docs/MACHINE_PREDICATE_CONTRACT_PARITY_01.json
+          if-no-files-found: error
