@@ -21,7 +21,7 @@ No mock/stub gameplay or premature production-readiness claims.
 **Narrative/content canonicalization and QA.** Authored checkpoint E01–E272. Production schema and Decision Engine remain blocked until canonical contracts and reachability are sufficiently closed.
 
 ## Scenario QA
-Dedicated Scenario QA score is now approximately **77%**. This is distinct from overall project completion and is not runtime/Android readiness.
+Dedicated Scenario QA score is now approximately **78%**. This is distinct from overall project completion and is not runtime/Android readiness.
 
 ### S01–S12 working indicators
 - S01 **80%**
@@ -35,13 +35,13 @@ Dedicated Scenario QA score is now approximately **77%**. This is distinct from 
 - S09 **60%**
 - S10 **72%**
 - S11 **55%**
-- S12 **64%** — S12.22 reconciled the authored source identities for delayed callbacks E181–E185 and E242–E246. It closes source-language identity where evidence exists while keeping E184 producer, E185 resolution timing, E245 route disambiguation and E246 producer open. No relative timing phrase was falsely promoted to executable scheduling.
+- S12 **66%** — S12.23 closed the exact authored producer identity for E246: E160-A `winter_rent_ceiling` → E246. The delayed 5+ turn scheduling/lifecycle remains open, but producer ambiguity is removed.
 
 ## Latest QA work
+- **S12.23** added `docs/SCENARIO_QA_S12_23_E246_PRODUCER_CLOSURE_01.md`, commit `63c911bfe91cfd1d520bc97913ceb7e5f146cf5e`.
 - **S12.22** added `docs/SCENARIO_QA_S12_22_DELAYED_SOURCE_CLOSURE_01.md`, commit `02ff2ecb08a67506407350714e238126d01ef440`.
 - **S12.21** added `docs/SCENARIO_QA_S12_21_LONG_DELAY_SOURCE_MATRIX_01.md`, commit `1e9ad37a6984d78ba61ef5e23e53551d7a40f232`.
 - **S12.20** added `docs/SCENARIO_QA_S12_20_E272_EXACT_SOURCE_RECOVERY_01.md`, commit `92c3c3460c9621fe306c26f97079713a180eadee`.
-- **S12.19** added `docs/SCENARIO_QA_S12_19_REPLAY_META_BOUNDARY_AUDIT_01.md`, commit `cc6936e6c6ffd9074e57f9ba65d62ff7ea4c2075`.
 
 ## Authoritative P0 source status
 Confirmed in authored catalog text:
@@ -61,13 +61,14 @@ Source-level closed chains include:
 - E117-B → `veteran_patronage` → E182
 - E118-B → `estate_exception` → E183/E242
 - E17-A → `cheap_weapons` → E185
+- E160-A → `winter_rent_ceiling` → E246
 - E136-B → `history.guild_logistics_cooperation` → E194
 - E144-A/B → `history.guild_representation`
 - E271-A → active `pred.border_crisis`; E272-A/B resolve it with exact source tokens now recovered
 - E32 → active `pred.transport_disruption`; E136-A/B clear it
 - E142-A/E154-A/E198-A → budget-reform source domains
 
-### S12.22 delayed source closure
+### S12.22/S12.23 delayed source closure
 - E181 → toll concession: source-language trigger closed; exact producer choice and executable cancellation remain open.
 - E182 → `veteran_patronage`: source identity closed; authored relative timing remains 4+ turns.
 - E183 → `estate_exception`: source identity closed; authored relative timing remains 5+ turns.
@@ -77,7 +78,7 @@ Source-level closed chains include:
 - E243 → E18-B `public_bridge`: source identity closed; executable lifecycle open.
 - E244 → E09-B `flexible_accounts`: source identity closed; executable lifecycle open.
 - E245 → E125-A `border_compensation` / E156-A `requisition_compensation`: distinct candidates retained; no false merge.
-- E246 → price-ceiling consumer wording closed; exact producer remains OPEN.
+- E246 → **E160-A `winter_rent_ceiling` exact producer closed**; executable 5+ turn lifecycle remains open.
 
 Important unresolved/open areas:
 - `pred.food_stable` and its relationship to `food_logistics_stabilized`
@@ -88,7 +89,7 @@ Important unresolved/open areas:
 - `pred.final_charter_prerequisites`
 - replay `meta.*` producers/keys for E247/E248/E270
 - exact delayed identities/timing/cancellation for remaining open families
-- E184 producer closure, E185 resolution semantics, E245 route disambiguation and E246 exact price-ceiling producer
+- E184 producer closure, E185 resolution semantics, E245 route disambiguation
 - complete incoming paths and deterministic precedence for endings
 - exhaustive E01–E272 producer/consumer graph and fresh-run reachability
 - machine graph ↔ authoritative catalog equality
@@ -120,7 +121,7 @@ Delayed consequences require source choice/event, earliest turn, latest turn or 
 - Canonical Event IDs / continuity: **100%**
 - Producer / Consumer QA: **99%**
 - Derived Predicates / Machine Contracts: **95%**
-- Delayed Consequences: **93%**
+- Delayed Consequences: **94%**
 - Replay / Meta-state: **65%**
 - Endings / precedence: **69%**
 - Reachability / Causal Graph: **58%**
@@ -133,14 +134,14 @@ Delayed consequences require source choice/event, earliest turn, latest turn or 
 - APK: **0%**
 - Release: **0%**
 
-Overall project progress remains approximately **60%**. Scenario QA is approximately **77%** and must not be conflated with overall project completion.
+Overall project progress remains approximately **60%**. Scenario QA is approximately **78%** and must not be conflated with overall project completion.
 
 ## Next autonomous work
-1. Recover E246 exact price-ceiling producer and resolve E245 compensation-route semantics without merging distinct sources.
+1. Resolve E245 compensation-route semantics without merging E125-A and E156-A; distinguish authored generic trigger from canonical producer candidates.
 2. Extract exact immutable evidence IDs and executable formulas for systemic explanation, guild influence, coalition cooperation, constitutional preparation, budget reform and final-charter prerequisites.
 3. Reconcile remaining E01–E180 delayed families and canonical producer/consumer edges.
 4. Build complete delayed identity/timing/cancellation matrix and verify save/load/replay isolation.
-5. Reconcile S11 ending incoming paths and deterministic precedence against expanded graph.
+5. Reconcile S11 ending incoming paths and deterministic precedence against the expanded graph.
 6. Build fresh-run graph from canonical initial state and representative replay graph with strict `meta.*` isolation.
 7. Compare machine graph against authoritative catalog for equality; reject orphan/phantom edges.
 8. Freeze production contracts only after machine checks are clean enough.
