@@ -281,10 +281,12 @@ The army asks for civilian bread reserves.
 - **B — Protect military reserves:** +4 security, -5 trust; `military_bread_reserved`.
 
 ### E194 — The Guild Convoy
-**Trigger:** `pred.guild_logistics_cooperation`.
+**Trigger:** `history.guild_logistics_cooperation`.
 Merchants offer a convoy but request immunity from certain inspections.
 - **A — Accept with neutral inspectors:** +4 trust, +2 Ivo; `history.guild_logistics_cooperation`, `guild_neutral_inspectors`.
 - **B — Grant immunity:** +5 gold, -5 trust; `guild_convoy_immunity`, `guild_logistics_immunity_risk`.
+
+The qualified downstream predicate `pred.guild_logistics_cooperation` is derived only when the prior cooperation marker from an upstream source (such as E136-B) exists, `guild_neutral_inspectors` has been established, and no unresolved `guild_logistics_immunity_risk` remains. E194 must not self-produce that qualified predicate from its own trigger.
 
 ### E195 — The Border Refugees
 **Trigger:** `pred.border_crisis`.
