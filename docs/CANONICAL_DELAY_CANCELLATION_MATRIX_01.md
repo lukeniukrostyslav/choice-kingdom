@@ -1,6 +1,6 @@
 # Choice Kingdom — Canonical Delay Cancellation / Supersession Matrix 01
 
-Status: **QA EXTRACTION — BOUNDARY AUDIT**
+Status: **QA EXTRACTION — BOUNDARY AUDIT**  
 Scope: high-risk delayed consumers E181–E185 and E242–E246.
 
 A delayed consequence is not production-ready until its canonical row can resolve:
@@ -11,9 +11,9 @@ A delayed consequence is not production-ready until its canonical row can resolv
 | E181 | E45-B | 5+ turns after toll concession | Not extracted | Not extracted | PARTIAL — lifecycle open |
 | E182 | E117-B / veteran_patronage | 4+ turns later | Not extracted | Not extracted | PARTIAL — lifecycle open |
 | E183 | E118-B / estate_exception | 5+ turns later | Not extracted | Not extracted | PARTIAL — lifecycle open |
-| E184 | No safe canonical producer alias | 4+ turns later / secret evidence route | Producer unresolved | Not extracted | OPEN |
+| E184 | **E25-B / secret_evidence_route** | 4+ turns later | Source identity closed; runtime cancellation/supersession not extracted | Machine exactly-once identity frozen; runtime execution not extracted | SOURCE-CLOSED / runtime open |
 | E185 | E17-A / cheap_weapons + later military crisis | Delayed branch authored; executable timing not normalized | A prevents later failure; B schedules severe delayed loss; supersession unresolved | Not extracted | PARTIAL / OPEN |
-| E242 | E118-B candidate | Long-delay callback; scheduler open | Selection/lifecycle unresolved | Not extracted | PARTIAL / OPEN |
+| E242 | **E118-B / estate_exception** | 6+ turns later | Source identity closed; runtime cancellation/supersession not extracted | Machine exactly-once identity frozen; runtime execution not extracted | SOURCE-CLOSED / runtime open |
 | E243 | E18-B / public_bridge | 5+ turns later | Not extracted | Not extracted | PARTIAL — lifecycle open |
 | E244 | E09-B / flexible_accounts | 5+ turns later | Not extracted | Not extracted | PARTIAL — lifecycle open |
 | E245 | E20-A / soldier_compensation | 6+ turns later | Absolute cancellation/supersession unresolved | Not extracted | PARTIAL — lifecycle open |
@@ -28,10 +28,10 @@ A delayed consequence is not production-ready until its canonical row can resolv
 5. Replay/meta-state is not cancellation without an explicit promotion contract.
 6. E273–E277 are excluded from production semantics.
 
-## S10.4 verification addendum — 2026-09-15
+## S31 source-identity correction — 2026-09-15
 
-Verified against the current canonical producer/consumer registry and bounded contract audit. E181/E182/E183/E243/E244/E245/E246 have source identities but remain lifecycle-open; E184 has no safe canonical producer alias; E185 retains the explicit A/B distinction; E242 remains a candidate-source case; no E273–E277 source was promoted.
+The earlier S10.4 artifact incorrectly described E184 and E242 as source-unresolved/candidate-only. The authoritative canonical graph now freezes **E25-B → E184** and **E118-B → E242** as source identities. The machine delayed contract records authored relative delay, exactly-once identity, persistent save/load policy and run-scoped replay policy for these two rows. Runtime scheduler, cancellation/supersession and execution semantics remain open.
 
-**Result: S10.4 source-boundary verification PASS; runtime lifecycle gate remains OPEN.**
+**Result: source identity boundary corrected; runtime lifecycle remains open.**
 
 This is a QA boundary artifact, not an executable production contract.
