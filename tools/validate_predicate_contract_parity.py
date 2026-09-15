@@ -8,7 +8,7 @@ GRAPH=ROOT/"docs/MACHINE_CANONICAL_GRAPH_01.json"; CONTRACT=ROOT/"docs/CANONICAL
 EXPECTED={"pred.guild_influence_strong":"SOURCE-CLOSED","pred.systemic_explanation_verified":"SOURCE-CLOSED","pred.coalition_cooperation":"SOURCE-CLOSED","pred.constitutional_prepared_strong":"SOURCE-CLOSED","pred.budget_reform":"SOURCE-CLOSED","pred.final_charter_prerequisites":"SOURCE-CLOSED","pred.food_stable":"SOURCE-CLOSED"}
 def normalize(status:str)->str:
     status=re.sub(r"[*`_]","",status).upper().strip(); status=re.sub(r"\s*/\s*"," / ",status)
-    if status.startswith("SOURCE-CLOSED") or status.startswith("SOURCE CONTRACT CLOSED"): return "SOURCE-CLOSED"
+    if status.startswith("SOURCE-CLOSED") or status.startswith("SOURCE CONTRACT CLOSED") or status.startswith("CLOSED AT SOURCE LEVEL"): return "SOURCE-CLOSED"
     if status.startswith("OPEN / BLOCKED") or status.startswith("OPEN / BLOCKED —"): return "OPEN / BLOCKED"
     if status.startswith("OPEN"): return "OPEN"
     if status.startswith("PARTIAL"): return "PARTIAL"
