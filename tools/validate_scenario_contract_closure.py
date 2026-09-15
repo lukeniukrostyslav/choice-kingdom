@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the frozen scenario contract boundary without inventing runtime facts.
-
-Source-closed producers are validated against their authored event/choice
-boundary. Machine token extraction is a separate QA gate; prose-level canonical
-facts are not rejected merely because they are not backtick-tokenized yet.
-"""
+"""Validate the frozen scenario contract boundary without inventing runtime facts."""
 from __future__ import annotations
 
 import json
@@ -53,6 +48,7 @@ if inventory:
 # Index authored event blocks from every catalog named by the machine graph.
 catalog_blocks: dict[str, str] = {}
 heading_re = re.compile(r"^### (E\d{2,3}) — (.+)$", re.M)
+allowed_duplicates = set(graph.get("allowed_catalog_duplicate_event_ids", []))
 for source in graph.get("source_of_truth", {}).get("catalog_sources", []):
     path = ROOT / source
     if not path.exists():
@@ -63,14 +59,14 @@ for source in graph.get("source_of_truth", {}).get("catalog_sources", []):
     for i, match in enumerate(matches):
         event_id = match.group(1)
         end = matches[i + 1].start() if i + 1 < len(matches) else len(text)
-        if event_id in catalog_blocks:
+        if event_id in catalog_blocks and event_id not in allowed_duplicates:
             errors.append(f"duplicate canonical event block: {event_id}")
         else:
-            catalog_blocks[event_id] = text[match.start():end]
+            catalog_blocks[event_id] = catalog_blocks.get(event_id, "") + text[match.start():end]
 
-# A source-closed producer declaration is source-level evidence. Validate that
-# its event and choice boundary exist in authored text; do not require the fact
-# itself to be machine-tokenized because some canonical facts are explicit prose.
+# Source-closed producer declarations are source-level evidence. Validate that
+# their authored event and A/B choice boundary exists; the fact itself may be
+# explicit prose rather than a machine backtick token.
 for record in graph.get("source_closed_producers", []):
     event = record.get("event", "")
     choice = str(record.get("choice", ""))
@@ -82,7 +78,7 @@ for record in graph.get("source_closed_producers", []):
         errors.append(f"source-closed producer event missing from catalogs: {event}")
         continue
     if choice in {"A", "B", "A/B"}:
-        labels = set(re.findall(r"^\*\*([AB])\s+—", block, re.M))
+        labels = set(re.findall(r"(?:^-|^\s*)\s*\*\*([AB])\s*[—:]", block, re.M))
         if not set(choice.split("/")).issubset(labels):
             errors.append(f"producer choice boundary not authored: {event} {choice}")
 
