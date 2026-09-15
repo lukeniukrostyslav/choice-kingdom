@@ -22,6 +22,10 @@ trigger_re = re.compile(r"^\*\*Trigger:\*\* (.*)$", re.M)
 backtick_re = re.compile(r"`([^`]+)`")
 choice_re = re.compile(r"^- \*\*[AB]\b.*$", re.M)
 clear_prefix_re = re.compile(r"(?:^|\s)(?:clear|clears|cleared|reset|resets|resetting|remove|removes|removed|erase|erases|erased|invalidate|invalidates|invalidated|revoke|revokes|revoked|cancel|cancels|cancelled|canceled)\s+(?:the\s+)?$", re.I)
+STALE_TRIGGER_FORMS = {
+    "thread.border": "stale alias; canonical border lifecycle is pred.border_crisis",
+    "thread.border_crisis = active": "prose predicate expression; canonical predicate is pred.border_crisis",
+}
 errors: list[str] = []
 events: dict[str, dict] = {}
 producers: dict[str, list[dict]] = defaultdict(list)
@@ -45,6 +49,9 @@ for source in sources:
         trigger_match = trigger_re.search(block)
         trigger_text = trigger_match.group(1).strip() if trigger_match else ""
         trigger_tokens = sorted(set(backtick_re.findall(trigger_text)))
+        for stale_token, reason in STALE_TRIGGER_FORMS.items():
+            if stale_token in trigger_tokens:
+                errors.append(f"stale/noncanonical trigger form in {event_id}: {stale_token} ({reason})")
         choices = []
         for choice in choice_re.findall(block):
             output_tokens: list[str] = []
@@ -84,9 +91,6 @@ if extra:
 
 duplicates = {token: writers for token, writers in sorted(producers.items()) if len(writers) > 1}
 
-# A token written by both mutually-exclusive choices is not inherently contradictory:
-# both choices may legitimately establish the same canonical state. Keep it as an
-# explicit review finding rather than failing the entire source inventory.
 same_event_shared_writers: dict[str, list[dict]] = {}
 for event_id, event in events.items():
     by_token: dict[str, set[str]] = defaultdict(set)
@@ -100,10 +104,6 @@ for event_id, event in events.items():
         if {"A", "B"}.issubset(labels):
             same_event_shared_writers.setdefault(token, []).append({"event": event_id, "choices": sorted(labels)})
 
-# Explicitly documented idempotent reaffirmation: E194-A consumes the durable
-# cooperation marker established upstream by E136-B and repeats that same marker
-# while establishing the new neutral-inspector evidence. This is not a second
-# independent producer and must not create a semantic writer collision.
 IDEMPOTENT_REAFFIRMATIONS = {
     ("history.guild_logistics_cooperation", "E194"),
 }
@@ -165,6 +165,7 @@ inventory = {
     "predicate_dependency_graph": predicate_graph,
     "undefined_predicate_consumers": undefined_predicate_consumers,
     "predicate_cycles": predicate_cycles,
+    "stale_trigger_forms": STALE_TRIGGER_FORMS,
     "notes": [
         "Source-level inventory only; no gameplay/fresh-run reachability claim.",
         "A trigger token without an extracted producer is unresolved, not invented.",
@@ -174,6 +175,7 @@ inventory = {
         "Explicit clear/reset/invalidate/revoke/cancel actions are recorded as choice clears and are not treated as positive producers.",
         "Undefined consumers are reported separately from undefined predicate producers.",
         "Predicate dependency cycles are machine-failing; undefined predicate producers remain source-QA findings until explicitly classified.",
+        "Legacy/prose border trigger forms are machine-failing so canonical predicate lifecycle cannot regress silently.",
     ],
 }
 
@@ -192,6 +194,7 @@ print(f"predicate_nodes={len(predicate_nodes)}")
 print(f"predicate_edges={sum(len(x) for x in predicate_graph.values())}")
 print(f"undefined_predicate_consumers={len(undefined_predicate_consumers)}")
 print(f"predicate_cycles={len(predicate_cycles)}")
+print(f"stale_trigger_forms={len(STALE_TRIGGER_FORMS)}")
 if duplicates:
     print("duplicate_output_token_names=" + ",".join(sorted(duplicates)))
 if reaffirmed_tokens:
