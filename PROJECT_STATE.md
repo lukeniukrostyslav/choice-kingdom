@@ -38,6 +38,8 @@ Dedicated Scenario QA score is approximately **88%**. This is distinct from over
 - S12 **86%** — source-level machine QA includes structural diagnostics, bounded catalog↔graph ID coverage, explicit contract readiness, delayed-lifecycle identity checks, and predicate-contract parity. This remains source-level QA, not semantic equality or gameplay reachability proof.
 
 ## Latest QA work
+- **S12.59 delayed lifecycle identity expansion:** extended `tools/validate_delayed_lifecycle_gate.py` through E242–E246. The gate now checks the source-backed candidate identities for the renewed exception, bridge callback, flexible-account callback, soldier compensation callback and rent-ceiling callback while preserving the distinction between identity closure and runtime scheduling/cancellation. Commit `312786982fae8b1b0a0f19b0b5a116cc2d04c3ac`.
+- **S12.58 predicate contract parity correction:** corrected `tools/validate_predicate_contract_parity.py` so it validates exactly the seven predicates represented by the machine graph `composite_predicates` section. Source-closed producer predicates are no longer incorrectly treated as composite predicates. The corrected gate passed the dedicated `Choice Kingdom Contract Readiness` workflow on commit `c55eab2f400749c65a379b2b232728ff0cd2752b`. This is source-level parity, not gameplay semantic equality.
 - **S12.57 predicate contract parity gate:** added `tools/validate_predicate_contract_parity.py` and `.github/workflows/predicate-contract-parity.yml`. The gate cross-checks frozen predicate statuses between `docs/CANONICAL_DERIVED_PREDICATE_CONTRACT_01.md` and `docs/MACHINE_CANONICAL_GRAPH_01.json` without promoting OPEN/PARTIAL items or claiming gameplay equality. Commit `3c317988a9682767e22ad55e09bef9ba4f9305b8`; workflow commit `b5ca167da222a6d028edf93c693d73033c83394c`.
 - **S12.56 catalog↔graph parity correction:** the design graph is intentionally a partial causal map and does not enumerate every catalog event. The parity gate now treats catalog-only IDs as an explicit coverage delta rather than an integrity failure, while still failing on out-of-scope graph/catalog IDs and unexpected duplicate headings. It continues to refuse semantic-equality claims. Commit `24eb3e28b91c238b967d3eaeebf16fae74d8d7c1`.
 - **S12.55 frozen event graph integrity gate:** added `tools/validate_event_graph_integrity.py` and wired it into `.github/workflows/canonical-graph.yml`. The first CI execution exposed that the design graph intentionally does not enumerate every catalog event: 235 graph nodes versus the frozen E01–E272 catalog, with 37 catalog IDs not represented as graph nodes in the validator's event-ID set. The gate was corrected to validate every graph-represented ID and every causal edge against the frozen scope, while reporting graph coverage rather than incorrectly treating non-node catalog events as integrity failures. Fix commit `cf0582b6b6fc514b8b40390cbab5f5e84d251e3e`.
@@ -76,6 +78,9 @@ Dedicated Scenario QA score is approximately **88%**. This is distinct from over
 - E184: `secret evidence route`, `4+ turns later`; no safe canonical producer alias, therefore OPEN.
 - E185: E17-A `cheap_weapons` plus separate later military crisis; A prevents later failure, B schedules severe delayed loss; cancellation/supersession identity remains OPEN.
 - E192-B `food_logistics_stabilized` is explicitly not `pred.food_stable`.
+- E242: machine source candidate remains E118-B, but the authored trigger says any prior noble exception; identity is only PARTIAL and runtime selection/lifecycle remains open.
+- E243: E18-B source identity closed; authored delay remains `5+ turns later`, so runtime scheduling remains open.
+- E244: E09-B source identity closed; authored delay remains `5+ turns later`, so runtime scheduling remains open.
 
 ### E245
 **Producer identity CLOSED:** E20-A `soldier_compensation`. Authored timing remains `6+ turns later`; absolute due-turn/cancellation semantics are OPEN.
@@ -126,7 +131,7 @@ Exact authored headings/effects/delayed semantics remain **QUARANTINED / UNRECOV
 Overall project progress remains approximately **60%**. Scenario QA is approximately **88%** and must not be conflated with overall project completion.
 
 ## Next autonomous work
-1. Verify fresh GitHub Actions after S12.57; do not claim GREEN until the relevant new runs and jobs pass.
+1. Verify fresh GitHub Actions after S12.58/S12.59; do not claim GREEN until relevant new runs and jobs pass.
 2. Audit delayed cancellation/supersession matrix, especially E181/E184/E185/E245.
 3. Close source-backed producer matrices for guild influence, coalition cooperation and constitutional preparation where evidence permits.
 4. Reconcile `pred.food_stable` vs `food_logistics_stabilized` without admitting expansion-only E273.
