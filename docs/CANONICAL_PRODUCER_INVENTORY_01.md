@@ -1,6 +1,6 @@
 # Choice Kingdom — Canonical Producer Inventory 01
 
-Date: 2026-09-15  
+Date: 2026-09-16  
 Status: **SOURCE-LEVEL QA — MACHINE-CHECKABLE INVENTORY WORKING RECORD**  
 Frozen production scope: **E01–E272**  
 Expansion candidates E273–E277 are tracked separately and are not admitted to the frozen catalog.
@@ -32,6 +32,8 @@ A trigger phrase is not a producer. A consumer cannot manufacture its own prereq
 | clear `pred.transport_disruption` | E136 | A/B | Clears active disruption and establishes stable network | CLOSED at source level |
 | `pred.border_crisis` | E271 | A | Declares active border crisis | CLOSED at source level |
 | clear `pred.border_crisis` | E272 | A/B | Resolves declared active crisis | CLOSED at source level |
+| `pred.food_stable` | E192 | B | Establishes `food_logistics_stabilized` for the current food-logistics cycle | CLOSED at source level |
+| clear `pred.food_stable` | E192 | A | Clears `food_logistics_stabilized` and establishes the unstable-cycle marker while retaining history | CLOSED at source level |
 | `army_constitution_oath` / military constitutional evidence | E199 | A | Explicit army constitutional oath route | CLOSED at source level |
 | `auditor_independence` | E142 | A | Explicit independent auditor route | CLOSED at source level |
 | `crown_audited` | E154 | A | Explicit Crown audit route | CLOSED at source level |
@@ -39,6 +41,7 @@ A trigger phrase is not a producer. A consumer cannot manufacture its own prereq
 | `soldier_compensation` | E20 | A | Publicly compensates the soldier's family; exact subject identity matches E245 | CLOSED |
 | `cheap_weapons` | E17 | A | Explicitly buys cheaper weapons; E185 later consumes this identity | CLOSED_IDENTITY |
 | `infrastructure_concession` | E45 | B | Grants long-term bridge/infrastructure concession; E181 later consumes this identity | CLOSED_IDENTITY |
+| `secret_evidence_route` | E25 | B | Explicit secret-evidence route; E184 later consumes this identity | CLOSED_IDENTITY |
 
 ### Guild representation normalization
 
@@ -57,7 +60,7 @@ The unresolved portion is runtime lifecycle semantics only: save/load persistenc
 | E181 | infrastructure/toll concession | E45-B | exact source identity retained; lifecycle still open |
 | E182 | `veteran_patronage` | E117-B | source-closed |
 | E183 | `estate_exception` | E118-B | source-closed |
-| E184 | `secret evidence route` | none | OPEN; no safe alias |
+| E184 | `secret evidence route` | E25-B → `secret_evidence_route` | SOURCE-CLOSED; vocabulary normalized |
 | E185 | `cheap_weapons` + later military crisis | E17-A | source-closed producer; crisis lifecycle open |
 | E242 | prior noble exception | E118-B explicit, possibly broader set | PARTIAL; no generic alias |
 | E243 | `public bridge investment` | E18-B → `public_bridge` | SOURCE-EQUIVALENT; normalize vocabulary |
@@ -125,18 +128,17 @@ Negative blockers are E142-B, E154-B and E198-B. E155-A `full_crown_audit_publis
 
 ## 4. Replay meta-state
 
-No ordinary flag/history marker is promoted automatically to `meta.*`.
+Replay producer provenance is now aligned with the machine replay contract:
 
-Current unresolved consumers:
+| Consumer | Canonical meta key | Producer boundary | Import rule |
+|---|---|---|---|
+| E186 | `meta.replay.warehouse_investigation_unlock` | `completed_prior_run_meta_export` | exactly once from immediately completed prior run; run-specific state resets |
+| E247 | `meta.replay.second_run_information_route` | `completed_prior_run_meta_export` | exactly once from immediately completed prior run; run-specific state resets |
+| E248 | `meta.replay.callback_forgotten_favor` | `completed_prior_run_meta_export` | exactly once from immediately completed prior run; run-specific state resets |
 
-- E186 — ordinary `warehouse_arson` vs previous-run informational unlock;
-- E247 — second-run information route;
-- E248 — replay callback;
-- E249 — replay-sensitive divergence support;
-- E250 — systemic-information/Second Founder support;
-- E270 — replay-transfer qualification reference.
+The replay metadata boundary is not an authored event producer. E186 retains its same-run `warehouse_arson` route; E247/E248 use the explicit meta keys above. E249/E250/E270 are not promoted into this frozen replay-producer set without an explicit source contract.
 
-**Status: OPEN.** Design isolation is closed; exact producer/key inventory is not.
+**Status: SOURCE-BOUNDARY CLOSED — runtime replay execution, reset verification and causal reachability remain open.**
 
 ## 5. Hard negative rules
 
