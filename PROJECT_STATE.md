@@ -35,10 +35,11 @@ Dedicated Scenario QA score is approximately **87%**. This is distinct from over
 - S09 **60%**
 - S10 **72%**
 - S11 **55%**
-- S12 **80%** — source-level machine QA through S12.40 is green for the current canonical graph validators, classifications, producer/consumer compilation, candidate triage, systemic-convergence qualification, delayed lifecycle matrix, ending/replay gate, and E245 machine-source synchronization. Semantic orphan/reachability closure remains open.
+- S12 **80%** — source-level machine QA through S12.41 is green for graph validation, classification, producer/consumer compilation, conservative triage, qualification/lifecycle gates, ending/replay reconciliation, E245 source synchronization, and semantic candidate-boundary auditing. Semantic orphan/reachability closure remains open.
 
 ## Latest QA work
-- **S12.40** synchronized machine canonical graph with the already source-closed E245 producer identity: E20-A `soldier_compensation` only. E125-A and E156-A remain independent compensation outcomes. GitHub Actions canonical graph run #36 passed all four QA stages.
+- **S12.41** added `tools/audit_candidate_semantic_boundary.py` and wired it into canonical graph CI. It deterministically separates source-missing, replay-only, delayed-callback, ending/terminal, root/source, consumer-only and isolated review queues without declaring semantic orphans.
+- **S12.40** synchronized machine canonical graph with the already source-closed E245 producer identity: E20-A `soldier_compensation` only. E125-A and E156-A remain independent compensation outcomes. GitHub Actions canonical graph run #36 passed all four previous QA stages.
 - **S12.39** reconciled ending producer gaps with replay meta closure. Ending resolver and replay transfer remain blocked by source-level gaps; no ordinary flag or degree heuristic was promoted to ending prerequisite or `meta.*` producer.
 - **S12.38** normalized delayed lifecycle identity/timing/cancellation/supersession/save-load boundaries for E181–E185 and E242–E246 without inventing absolute turns from vague authored timing.
 - **S12.37** freezes three independent evidence families for `pred.systemic_explanation_verified` and leaves the fourth immutable convergence producer/key explicitly OPEN; E207 remains consumer-only.
@@ -131,7 +132,7 @@ Overall project progress remains approximately **60%**. Scenario QA is approxima
 
 ## Next autonomous work
 1. Search repository history and remaining catalog/checkpoint sources for exact E33/E34 authored material; otherwise formally quarantine them as unrecovered.
-2. Use the compiled producer/consumer matrix to audit the 69 no-outbound candidates and 54 unreferenced candidates against authoritative source text.
+2. Use the compiled producer/consumer matrix plus the new semantic-boundary queues to audit the 69 no-outbound candidates and 54 unreferenced candidates against authoritative source text.
 3. Separate ROOT/SOURCE, ordinary producer, consumer-only, terminal/ending, qualification, delayed callback, replay-only and true orphan semantics.
 4. Compile guild influence, coalition cooperation and constitutional preparation into exact producer/consumer matrices.
 5. Complete delayed cancellation/supersession matrix, including E245/E185/E184.
