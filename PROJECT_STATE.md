@@ -31,7 +31,7 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 11. Treat the production AAB/signing/Play release as the final stage after APK and QA gates pass.
 
 ## Current phase
-**Narrative/content canonicalization and QA.** The authored checkpoint is now E01–E272. The immediate task is reconciling authored sources and the causal graph into a canonical production representation and proving that the content is internally consistent and reachable.
+**Narrative/content canonicalization and QA.** The authored checkpoint is E01–E272. The immediate task is reconciling authored sources and the causal graph into a canonical production representation and proving that the content is internally consistent and reachable.
 
 ## Authored content checkpoints
 - E01–E70: authored spine/endgame
@@ -60,6 +60,8 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 - `docs/CANONICAL_TRIGGER_NORMALIZATION_03.md` records the latest safe prose-trigger normalization pass and its explicit non-normalization boundaries.
 - `docs/PRODUCER_AUDIT_E111_E180_01.md` records the exact producer audit for the visible authored outputs in E111–E180.
 - `docs/PRODUCER_AUDIT_E143_E150_01.md` records the dedicated E143–E150 source-level producer closure pass.
+- `docs/PRODUCER_AUDIT_E181_E210_01.md` records the exact producer audit for E181–E210 source-level outputs/consumers.
+- `docs/PRODUCER_AUDIT_E195_E210_02.md` records the late-campaign consumer/qualification closure pass for E195–E210.
 - `docs/LEGACY_SEMANTIC_AUDIT_01.md` records the E35–E40 and duplicate-semantic audit findings.
 - `docs/SEMANTIC_COLLISION_RESOLUTION_01.md` records the frozen and applied semantic-resolution policy.
 - `docs/LEGACY_SOURCE_COMPARISON_02.md` closes E73/E156 and E99/E173 as distinct source-level nodes.
@@ -68,17 +70,17 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 ## Current QA checkpoint
 The E111–E210 authoritative catalogs have received direct authored-source correction passes. E136-B now establishes the immutable upstream `history.guild_logistics_cooperation` marker, and E194 now consumes that history marker rather than the qualified predicate. E194's neutral-inspector choice remains the later qualification input; immunity risk explicitly blocks qualification. This removes the identified E194 self-dependency at the authored-source level.
 
-E143–E150 have now received a dedicated direct source-level producer pass. E143 is intentionally resource-only; no durable reserve marker was invented. E144-A/B explicitly produce `history.guild_representation`; E145–E147, E148, E149 and E150 have their exact authored durable outcomes recorded. E148's `history.cross_faction_package` remains a source marker only and does not by itself satisfy `pred.coalition_cooperation`; E150's constitutional outputs are outcomes, not proof of final-charter prerequisites.
+E143–E150 have received a dedicated direct source-level producer pass. E143 is intentionally resource-only; no durable reserve marker was invented. E144-A/B explicitly produce `history.guild_representation`; E145–E147, E148, E149 and E150 have their exact authored durable outcomes recorded. E148's `history.cross_faction_package` remains a source marker only and does not by itself satisfy `pred.coalition_cooperation`; E150's constitutional outputs are outcomes, not proof of final-charter prerequisites.
 
 E192 uses canonical food-logistics markers instead of a sixth numeric resource; E197/E200/E201 consume canonical qualification predicates; E207 records its distinct-evidence convergence requirement; E209 requires upstream final charter prerequisites; and E210 is explicitly convergence-only. E144/E148 are normalized for guild representation and cross-faction package semantics.
 
-The authoritative E211–E270 catalog now distinguishes the previously overlapping Mara and Ivo nodes without renumbering: E226 is **Mara's Final Resignation Test**, explicitly a late institutional-stress consequence; E269 is **Ivo's Late Account**, explicitly a late evidence/consequence node distinct from E55. The semantic-resolution and producer/consumer registry have been synchronized with those catalog edits.
+The authoritative E211–E270 catalog distinguishes the previously overlapping Mara and Ivo nodes without renumbering: E226 is **Mara's Final Resignation Test**, explicitly a late institutional-stress consequence; E269 is **Ivo's Late Account**, explicitly a late evidence/consequence node distinct from E55. The semantic-resolution and producer/consumer registry are synchronized with those catalog edits.
 
 E271 now provides an explicit authored source for border-crisis declaration, while E272 provides the corresponding authored active-crisis resolution paths. The historical declaration remains queryable after resolution; only the active crisis predicate is cleared. E195/E253/E255 remain consumers and cannot manufacture the crisis by reachability.
 
-The latest closure audit was reconciled with these authoritative sources: `history.guild_representation` and the border-crisis lifecycle are source-verified; transport disruption remains partial because E136 verifies recovery/clear but a distinct later active-disruption producer is still not identified. Production schema remains blocked.
+The latest closure audits are reconciled with the authoritative sources: `history.guild_representation` and the border-crisis lifecycle are source-verified; transport disruption remains partial because E136 verifies recovery/clear but a distinct later active-disruption producer is still not identified. The E195–E210 consumer pass confirms that late predicates/threads remain upstream qualifications and are not self-produced by their consumers. Production schema remains blocked.
 
-The latest trigger-normalization pass records only safe mappings already covered by the canonical predicate matrix (resource pressure, winter/border/security/readiness families, evidence/faction cardinality families, and institutional/investigation families). Ambiguous concepts such as civic relief, guild leverage, information route, winter illness, and final-charter preparation remain explicitly open rather than being collapsed into arbitrary aliases.
+The latest trigger-normalization pass records only safe mappings already covered by the canonical predicate matrix. Ambiguous concepts such as civic relief, guild leverage, information route, winter illness, and final-charter preparation remain explicitly open rather than being collapsed into arbitrary aliases.
 
 The semantic-collision backlog is synchronized: E55/E269 and E36/E226 are marked as applied/verified at the authoritative-catalog level. Their downstream graph/reachability verification remains open, as do E37/E227, E39/E229 and E40/E241.
 
@@ -96,11 +98,13 @@ Reachability remains static/pre-audit only until a real validator and production
 - `d529ff3d0a44bcb4c7cce54d70103e0b78883686` — applied E136-B upstream guild-logistics history marker.
 - `c08379167f311c3ce674ace63475f3be839855a8` — changed E194 to consume the upstream guild-logistics history marker and documented qualified predicate derivation.
 - `249e01981cb97603aac669dc5686dab46731615d` — applied authoritative E226/E269 semantic distinctions.
+- `d01c2cbf0cbdf3b63c357ad5aebb45cdf21e9309` — producer/consumer audit E181–E210.
+- `54d185b2c2f898689ffcc8ef930f5e400298c6ca` — late-campaign E195–E210 consumer/qualification closure audit.
 
 ## Next highest-value work
-1. Continue exact durable producer/consumer extraction across E01–E272, with E181–E210 next.
+1. Enumerate every concrete output token across E01–E272 and map each consumer to its exact authored producer choices.
 2. Reconcile normalized trigger families against the complete catalog and graph, resolving safe aliases while preserving ambiguous distinctions.
-3. Reconcile graph/catalog references and reachability.
+3. Reconcile graph/catalog references and build the event reachability matrix.
 4. Verify delayed/replay source identities and exactly-once semantics.
 5. Verify E55/E269, E36/E226, E37/E227, E39/E229 and E40/E241 downstream roles in graph/reachability QA.
 6. Resolve remaining OPEN contracts: food stability, active transport disruption, strong guild influence, systemic evidence convergence, coalition cooperation, constitutional preparation, budget reform and final charter prerequisites.
