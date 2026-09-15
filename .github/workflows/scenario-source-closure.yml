@@ -4,19 +4,29 @@ on:
   push:
     paths:
       - 'docs/EVENT_CATALOG.md'
-      - 'docs/EVENT_EXPANSION_071_110.md'
+      - 'docs/EVENT_CATALOG_E33_E34_CANONICAL.md'
+      - 'docs/EVENT_CATALOG_ACT_V_EXPANSION.md'
+      - 'docs/EVENT_CATALOG_EXPANSION_02.md'
       - 'docs/EVENT_CATALOG_EXPANSION_111_150.md'
       - 'docs/EVENT_CATALOG_EXPANSION_151_210.md'
       - 'docs/EVENT_CATALOG_EXPANSION_211_270.md'
+      - 'docs/EVENT_CATALOG_EXPANSION_271_280.md'
+      - 'docs/MACHINE_CANONICAL_GRAPH_01.json'
+      - 'docs/MACHINE_PREDICATE_COMPOSITE_CONTRACT_01.json'
       - 'tools/scenario_source_closure_check.py'
       - '.github/workflows/scenario-source-closure.yml'
   pull_request:
     paths:
       - 'docs/EVENT_CATALOG.md'
-      - 'docs/EVENT_EXPANSION_071_110.md'
+      - 'docs/EVENT_CATALOG_E33_E34_CANONICAL.md'
+      - 'docs/EVENT_CATALOG_ACT_V_EXPANSION.md'
+      - 'docs/EVENT_CATALOG_EXPANSION_02.md'
       - 'docs/EVENT_CATALOG_EXPANSION_111_150.md'
       - 'docs/EVENT_CATALOG_EXPANSION_151_210.md'
       - 'docs/EVENT_CATALOG_EXPANSION_211_270.md'
+      - 'docs/EVENT_CATALOG_EXPANSION_271_280.md'
+      - 'docs/MACHINE_CANONICAL_GRAPH_01.json'
+      - 'docs/MACHINE_PREDICATE_COMPOSITE_CONTRACT_01.json'
       - 'tools/scenario_source_closure_check.py'
       - '.github/workflows/scenario-source-closure.yml'
 
