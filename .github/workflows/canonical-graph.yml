@@ -13,3 +13,5 @@ jobs:
         run: python3 tools/validate_canonical_graph.py
       - name: Compile graph node classification inventory
         run: python3 tools/classify_graph_nodes.py
+      - name: Compile producer consumer matrix
+        run: python3 tools/compile_producer_consumer_matrix.py
