@@ -6,12 +6,18 @@ Purpose: durable handoff ledger so completed QA work is not repeated.
 
 ## Latest continuation update — 2026-09-15
 
+### S08.7 — domain qualification audit
+- Added `docs/SCENARIO_QA_S08_7_DOMAIN_QUALIFICATION_AUDIT_01.md` in commit `90694d5529d3df89556d79d54fca386c5d67c99b`.
+- Closed the qualification-domain boundaries for guild influence, constitutional preparation, systemic explanation, coalition cooperation, final charter prerequisites and four-faction route counting without inventing unresolved producers.
+- Preserved hard negatives: `rel.ivo` alone cannot qualify guild influence; `thread.coalition`/`four_way_bargain` alone cannot qualify coalition cooperation; consumers cannot manufacture prerequisites; aliases cannot double-count one institutional domain.
+- Confirmed `pred.budget_reform` source set from the preceding S08.7 closure pass: E142-A `auditor_independence`, E154-A `crown_audited`, E198-A `legislative_budget_lock`; chronology/reachability/negative-branch/replay verification remains open.
+- S08 remains IN PROGRESS; production schema remains BLOCKED.
+
 ### S08.6 — closure matrix for remaining producer/consumer surface
 - Added `docs/SCENARIO_QA_S08_CLOSURE_MATRIX_01.md` in commit `dc7de03cf29a20e6359d0feb3c63fa5c51b9c847`.
 - Converted the current registry into an explicit closed/open matrix for the remaining canonical producer/consumer families.
 - Confirmed source-closed families including guild representation, guild logistics cooperation, house assembly, cross-faction package, people charter endorsement, winter severity and the E271/E272 border-crisis lifecycle.
-- Isolated the remaining open families: `pred.food_stable`, transport-disruption active producer, guild-influence qualification, systemic explanation, coalition cooperation, constitutional preparation, budget reform, final charter prerequisites, faction route activation and replay `meta.*` producers.
-- Added mandatory machine-check gates for producer completeness, consumer completeness, frozen-scope integrity, duplicate semantic outputs, contradictory writers, legacy-vocabulary normalization, predicate cycles and delayed-source lifecycle completeness.
+- Isolated remaining open families and added mandatory machine-check gates for producer completeness, consumer completeness, frozen-scope integrity, duplicate semantic outputs, contradictory writers, legacy-vocabulary normalization, predicate cycles and delayed-source lifecycle completeness.
 - Preserved hard negatives and explicitly kept S08 IN PROGRESS; no production schema or invented runtime alias was introduced.
 
 ### S08.5 — canonical producer registry scope hardening
