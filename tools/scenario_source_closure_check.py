@@ -6,6 +6,7 @@ runtime reachability. It prevents known P0 regressions while the campaign is
 being canonicalized.
 """
 from pathlib import Path
+import json
 import re
 import sys
 
@@ -88,6 +89,30 @@ for filename, fragments in required_fragments.items():
         if fragment not in text:
             errors.append(f"{filename}: missing required source contract: {fragment}")
 
+# Machine contract regression guard: coalition qualification must have one
+# explicit producer/key and an independently checked participant threshold.
+contract_path = DOCS / "MACHINE_PREDICATE_COMPOSITE_CONTRACT_01.json"
+if not contract_path.exists():
+    errors.append("missing machine predicate composite contract")
+else:
+    try:
+        contract = json.loads(contract_path.read_text(encoding="utf-8"))
+        coalition = contract["predicates"]["pred.coalition_cooperation"]
+        if coalition.get("producer") != "E148-A":
+            errors.append("coalition contract: producer must remain E148-A")
+        if coalition.get("key") != "history.cross_faction_package":
+            errors.append("coalition contract: canonical key mismatch")
+        if coalition.get("minimum_distinct_faction_identities") != 3:
+            errors.append("coalition contract: minimum distinct faction threshold must be 3")
+        participants = coalition.get("participant_identities", [])
+        expected = {"Mara", "Rowan", "Seris", "Ivo", "Amara", "Toma"}
+        if set(participants) != expected:
+            errors.append("coalition contract: participant identity set mismatch")
+        if "E261 four_way_bargain is support evidence only" not in coalition.get("non_alias_rules", []):
+            errors.append("coalition contract: E261 support-only boundary missing")
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        errors.append(f"coalition contract: invalid machine contract: {exc}")
+
 # Regression guard: E192 must never reintroduce the undefined numeric resource.
 e192 = texts.get("EVENT_CATALOG_EXPANSION_151_210.md", "")
 if "+4 food stability" in e192 or "+4 food" in e192 and "food_logistics_stabilized" not in e192:
@@ -114,6 +139,7 @@ print("SCENARIO_SOURCE_CLOSURE: PASS")
 print(f"authored_events={len(all_events)}")
 print("event_id_uniqueness=PASS")
 print("p0_source_contracts=PASS")
+print("coalition_machine_contract=PASS")
 print("anti_circularity_guards=PASS")
 print("numeric_resource_regression=PASS")
 print("NOTE: fresh-run reachability and runtime semantics remain separate gates")
