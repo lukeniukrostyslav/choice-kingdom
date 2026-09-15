@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.2",
+  "schema_version": "1.3",
   "scope": "E01-E272",
   "status": "SOURCE_LEVEL_CONTRACT_CLOSED_RUNTIME_OPEN",
   "purpose": "Machine-readable conservative qualification boundaries for composite predicates; no runtime promotion is authorized by this document alone.",
@@ -37,6 +37,24 @@
       "qualification_rule": "E148-A package exists AND at least 3 distinct recorded participant identities qualify as cooperating factions AND no unresolved coalition-collapse marker is active",
       "non_alias_rules": ["E261 four_way_bargain is support evidence only", "E194 cannot self-produce this predicate", "relationship strength alone is not factional cooperation", "history.cross_faction_package is the canonical source marker"],
       "runtime_verified": false
+    },
+    "pred.final_charter_prerequisites": {
+      "status": "SOURCE_LEVEL_QUALIFICATION_SPECIFIED_PRODUCER_NOT_YET_AUTHORED",
+      "consumer": "E209",
+      "source": "E209 qualification requirement",
+      "required_upstream_categories": [
+        "civic_commons_legitimacy",
+        "institutional_audit_legitimacy",
+        "faction_house_guild_representation",
+        "military_security_constitutional_route",
+        "information_evidence_legitimacy",
+        "coalition_cooperation",
+        "mandatory_crisis_blockers_clear"
+      ],
+      "rule": "all_required_upstream_categories_established_before_E209 AND coalition_cooperation_qualified AND mandatory_crisis_blockers_clear",
+      "non_circularity": ["E209 cannot create pred.final_charter_prerequisites", "E209 ratification outputs cannot satisfy its own trigger", "E210 convergence cannot backfill missing prerequisites"],
+      "authoring_gap": "The catalog specifies the qualification categories but does not yet assign one authoritative producer/key for the composite predicate. Do not infer a producer from E209 itself.",
+      "runtime_verified": false
     }
   },
   "global_non_circularity": [
@@ -51,6 +69,7 @@
     "requires_runtime_order_verification": true,
     "requires_fresh_run_reachability": true,
     "requires_contradiction_cycle_checks": true,
-    "coalition_runtime_requirements": ["persist participant identity set", "evaluate collapse blocker independently", "prove fresh-run reachability", "prove save/load preservation", "prove deterministic qualification"]
+    "coalition_runtime_requirements": ["persist participant identity set", "evaluate collapse blocker independently", "prove fresh-run reachability", "prove save/load preservation", "prove deterministic qualification"],
+    "final_charter_requirements": ["assign authoritative producer/key without circularity", "compile category producers", "verify contradiction and blocker semantics", "prove deterministic qualification", "prove fresh-run reachability"]
   }
 }
