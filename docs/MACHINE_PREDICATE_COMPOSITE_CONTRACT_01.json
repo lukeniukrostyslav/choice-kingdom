@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "scope": "E01-E272",
   "status": "SOURCE_LEVEL_CONTRACT_CLOSED_RUNTIME_OPEN",
   "purpose": "Machine-readable conservative qualification boundaries for composite predicates; no runtime promotion is authorized by this document alone.",
@@ -27,6 +27,16 @@
       "non_alias_rules": ["E165 and E166 are the same market domain", "E194 cannot self-produce history.guild_logistics_cooperation", "relationship.ivo is not an institutional domain"],
       "rule": "any_2_distinct_domains",
       "runtime_verified": false
+    },
+    "pred.coalition_cooperation": {
+      "producer": "E148-A",
+      "key": "history.cross_faction_package",
+      "source_semantics": "E148-A records the mutual-concession coalition package and explicitly records participation from Mara, Rowan, Seris, Ivo, Amara and Toma.",
+      "participant_identities": ["Mara", "Rowan", "Seris", "Ivo", "Amara", "Toma"],
+      "minimum_distinct_faction_identities": 3,
+      "qualification_rule": "E148-A package exists AND at least 3 distinct recorded participant identities qualify as cooperating factions AND no unresolved coalition-collapse marker is active",
+      "non_alias_rules": ["E261 four_way_bargain is support evidence only", "E194 cannot self-produce this predicate", "relationship strength alone is not factional cooperation", "history.cross_faction_package is the canonical source marker"],
+      "runtime_verified": false
     }
   },
   "global_non_circularity": [
@@ -40,6 +50,7 @@
     "decision_engine_authorized": false,
     "requires_runtime_order_verification": true,
     "requires_fresh_run_reachability": true,
-    "requires_contradiction_cycle_checks": true
+    "requires_contradiction_cycle_checks": true,
+    "coalition_runtime_requirements": ["persist participant identity set", "evaluate collapse blocker independently", "prove fresh-run reachability", "prove save/load preservation", "prove deterministic qualification"]
   }
 }
