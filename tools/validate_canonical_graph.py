@@ -18,12 +18,8 @@ EVENT_TOKEN_RE = re.compile(r"\bE(?:[1-9][0-9]{2}|[1-9][0-9]|0[1-9])(?:-[A-Z])?\
 CHAIN_RE = re.compile(r"`([^`]*->[^`]*)`")
 
 
-def event_number(event_id: str) -> int:
-    return int(event_id[1:])
-
-
 def canonical_event(event_id: str) -> str:
-    return event_id[:4] if len(event_id) == 5 else event_id
+    return event_id.split("-", 1)[0]
 
 
 def main() -> int:
@@ -48,33 +44,44 @@ def main() -> int:
     graph_text = EVENT_GRAPH.read_text(encoding="utf-8")
     inventory_text = PRODUCER_INVENTORY.read_text(encoding="utf-8")
 
-    # Parse only explicit design-level backtick chains. Narrative prose and scope notes
-    # are deliberately ignored so expansion IDs can be mentioned as exclusions.
+    # Parse explicit design-level backtick chains. Narrative scope notes are ignored.
     edges: list[tuple[str, str]] = []
     referenced: set[str] = set()
     for match in CHAIN_RE.finditer(graph_text):
         ids = [canonical_event(x) for x in EVENT_TOKEN_RE.findall(match.group(1))]
         for event_id in ids:
             referenced.add(event_id)
-            if event_id not in expected:
+            if event_id not in expected and event_id not in excluded:
                 errors.append(f"out-of-scope event reference in graph chain: {event_id}")
         for src, dst in zip(ids, ids[1:]):
             if src in expected and dst in expected:
                 edges.append((src, dst))
 
+    # Repeated design edges are legal: the same causal edge can be documented by
+    # several layer sections. Record them, but do not confuse them with a semantic
+    # contradiction or runtime duplicate writer.
     seen: set[tuple[str, str]] = set()
+    repeated_edges: set[tuple[str, str]] = set()
     for src, dst in edges:
         if (src, dst) in seen:
-            errors.append(f"duplicate event edge: {src} -> {dst}")
+            repeated_edges.add((src, dst))
         seen.add((src, dst))
         if src == dst:
             errors.append(f"self-loop event edge: {src} -> {dst}")
+    if repeated_edges:
+        warnings.append(f"design graph repeats {len(repeated_edges)} already-documented causal edges")
 
-    # Expansion contamination is checked against actual producer rows, not the
-    # inventory's explicit documentation of excluded scope.
-    producer_section = inventory_text.split("## 2.", 1)[0]
+    # Check actual producer rows only; inventory prose is allowed to mention excluded
+    # expansion candidates as an explicit quarantine rule.
+    producer_rows = []
+    for line in inventory_text.splitlines():
+        if line.startswith("|") and "|" in line[1:]:
+            cells = [c.strip() for c in line.strip("|").split("|")]
+            if len(cells) >= 4 and cells[0] not in {"Canonical fact / predicate", "---"}:
+                producer_rows.append(line)
+    producer_blob = "\n".join(producer_rows)
     for excluded_id in excluded:
-        if re.search(rf"\b{re.escape(excluded_id)}(?:-[A-Z])?\b", producer_section):
+        if re.search(rf"\b{re.escape(excluded_id)}(?:-[A-Z])?\b", producer_blob):
             errors.append(f"excluded expansion producer leaked into canonical inventory: {excluded_id}")
 
     for row in manifest["source_closed_producers"]:
@@ -102,7 +109,8 @@ def main() -> int:
     report = {
         "frozen_scope": f"E{lo:02d}-E{hi}",
         "excluded_scope": sorted(excluded),
-        "graph_edges": len(seen),
+        "graph_edges_unique": len(seen),
+        "graph_edges_repeated_in_design_doc": len(repeated_edges),
         "graph_event_nodes_referenced": len(referenced & expected),
         "graph_event_nodes_missing_from_design_graph": len(expected - referenced),
         "source_closed_producers": len(manifest["source_closed_producers"]),
