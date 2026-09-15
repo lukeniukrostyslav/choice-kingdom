@@ -17,3 +17,5 @@ jobs:
         run: python3 tools/compile_producer_consumer_matrix.py
       - name: Compile conservative candidate triage
         run: python3 tools/triage_graph_candidates.py
+      - name: Audit semantic candidate boundary
+        run: python3 tools/audit_candidate_semantic_boundary.py
