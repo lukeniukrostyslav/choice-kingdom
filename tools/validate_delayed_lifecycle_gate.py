@@ -14,7 +14,7 @@ GRAPH = ROOT / "docs" / "MACHINE_CANONICAL_GRAPH_01.json"
 OUT = ROOT / "docs" / "MACHINE_DELAYED_LIFECYCLE_GATE_01.json"
 
 EXPECTED = {
-    "E181": {"statuses": {"PARTIAL", "OPEN"}, "required_candidate": "E45-B"},
+    "E181": {"statuses": {"CLOSED"}, "required_candidate": "E45-B"},
     "E182": {"statuses": {"CLOSED"}, "required_candidate": "E117-B"},
     "E183": {"statuses": {"CLOSED"}, "required_candidate": "E118-B"},
     "E184": {"statuses": {"OPEN"}, "required_candidate": None},
@@ -60,7 +60,7 @@ def main() -> int:
             errors.append(f"delayed row contains prohibited invented timing language: {row.get('consumer')}")
 
     report = {
-        "schema_version": "1.0",
+        "schema_version": "1.1",
         "contract": "choice_kingdom.delayed_lifecycle_gate",
         "scope": "E01-E272",
         "readiness": "BLOCKED" if errors else ("PARTIAL" if warnings else "CLOSED"),
@@ -72,6 +72,7 @@ def main() -> int:
             "source identity and lifecycle closure are separate",
             "relative authored delays are preserved; absolute due turns are not invented",
             "OPEN/PARTIAL rows cannot be promoted by this validator",
+            "E181 source identity is closed at E45-B; exact runtime scheduler semantics remain separate",
             "E185 cheap_weapons identity is distinct from the later military-crisis condition",
         ],
     }
