@@ -469,8 +469,36 @@ The kingdom enters a compound crisis. Winter roads and military movement have di
 
 **Source-level producer:** E32 explicitly establishes `pred.transport_disruption` for the current compound-crisis cycle and records `history.transport_disruption_declared`. This is an authored crisis state, not an inference from gold, security, border pressure, or the E192 consumer trigger. A later authored recovery event may clear the active predicate while retaining the historical declaration.
 
+### E33 — The Emergency Crown
+**Trigger:** `emergency_decree_used` or severe crisis.
+
+Council offers unlimited emergency authority for thirty days.
+
+**A — Accept**
+- Immediate: +8 power, +5 security.
+- Flag: `emergency_power`.
+- Delayed: unless voluntarily surrendered, unlocks Iron Crown path.
+
+**B — Refuse**
+- Immediate: -4 power, +6 trust.
+- Flag: `constitutional_limit`.
+- If cross-faction relationships are strong, unlocks Second Founder path.
+
+### E34 — The People's Queue
+**Trigger:** trust >= 65 or welfare branch.
+
+Thousands wait outside the palace with petitions during the winter crisis.
+
+**A — Meet them**
+- Immediate: +7 trust, -3 power.
+- Flag: `people_heard`.
+
+**B — Send written relief orders**
+- Immediate: +3 trust, +2 power.
+- If bureaucracy is weak, relief arrives late.
+
 ---
 
 ## Canonical content boundary
 
-E01–E32 in this file are the foundational first-campaign source. Later authored expansions live in their dedicated expansion catalogs and are subject to canonical integration, producer/consumer, reachability, delayed-consequence, replay and ending QA before becoming production data.
+E01–E34 in this file are the foundational first-campaign source. Later authored expansions live in their dedicated expansion catalogs and are subject to canonical integration, producer/consumer, reachability, delayed-consequence, replay and ending QA before becoming production data.
