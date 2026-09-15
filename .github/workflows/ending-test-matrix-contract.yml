@@ -1,0 +1,23 @@
+name: Choice Kingdom Ending Test Matrix Contract
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/ENDING_PRECEDENCE_TEST_MATRIX_01.md'
+      - 'tools/validate_ending_test_matrix_contract.py'
+  pull_request:
+    paths:
+      - 'docs/ENDING_PRECEDENCE_TEST_MATRIX_01.md'
+      - 'tools/validate_ending_test_matrix_contract.py'
+
+jobs:
+  ending-test-matrix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Validate authored ending QA matrix
+        run: python tools/validate_ending_test_matrix_contract.py
