@@ -35,14 +35,16 @@ Dedicated Scenario QA score is approximately **88%**. This is distinct from over
 - S09 **60%**
 - S10 **72%**
 - S11 **56%** — ending incoming-path / precedence review boundary materially tightened; source closure remains partial/open.
-- S12 **83%** — source-level machine QA now includes deeper structural graph diagnostics (roots, structural reachability, sink candidates and weakly connected graph islands) in addition to graph validation, classification, producer/consumer compilation, conservative triage, qualification/lifecycle gates, ending/replay reconciliation, E245 synchronization, semantic candidate-boundary auditing, frozen production-scope enforcement, CI hardening, ending/replay incoming-path matrix, budget-reform reconciliation and delayed-source evidence reconciliation.
+- S12 **84%** — source-level machine QA now includes structural diagnostics plus a bounded catalog↔graph event-ID parity gate wired into CI. This is necessary but not sufficient for semantic equality or gameplay reachability.
 
 ## Latest QA work
+- **S12.52 bounded catalog↔graph parity gate:** added `tools/validate_catalog_graph_parity.py` and `docs/MACHINE_CATALOG_GRAPH_PARITY_01.json` generation. The gate checks frozen E01–E272 catalog IDs against graph-chain IDs, rejects non-frozen/non-excluded graph IDs, unexpected catalog IDs and unexpected duplicate headings, while explicitly refusing to claim semantic equality from ID parity alone. Commit: `fd603b0415bb61582d2344f8f43930a3e6909e62`.
+- **S12.52 CI wiring:** canonical graph workflow now executes the parity validator before classification/matrix/triage/semantic-boundary/structural-reachability checks and uploads the parity report. Commit: `7bfb49b789dfe109e70efb984e60293e0d026f3c`.
 - **S12.51 structural graph audit hardening:** `tools/audit_structural_reachability.py` now emits sink-candidate and weakly-connected-component diagnostics alongside roots and structural reachability. These are explicitly source-review signals, not gameplay reachability or orphan proof. Commit: `8fb7b6dc48c225bc227b6209442ecf477f7df55f`.
 - **S12.50** re-read authoritative E151–E210 delayed sources and tightened E181–E185 lifecycle boundaries. E182/E183 source identities are closed while relative scheduler anchors remain open; E184 has no safe producer alias; E185 separates source-closed `cheap_weapons` from the later crisis/supersession condition; E192 `food_logistics_stabilized` is explicitly kept distinct from blocked `pred.food_stable`. Commit: `83064432b59a2728c06c62df65966313defcf862`.
 - **CI persistence hardening** updated canonical graph CI to upload all generated machine QA reports, including structural reachability, as a workflow artifact. Commit: `91461206694eecacf40a25492e130eb4ace0680d`.
 - **S12.49** reconciled `pred.budget_reform` between the derived-predicate contract and canonical producer inventory. E142-A + E154-A + E198-A are now consistently source-closed; E142-B/E154-B/E198-B are negative blockers; E155-A is same-domain downstream evidence and cannot count twice. Runtime invalidation/reachability remain open. Commits: contract `286e03b8c4a5aad08b602432152766c831d2e6df`; QA record `3b7a9659738c15a99e10c991bb2c0d6123828189`.
-- **S12.48** added structural graph reachability diagnostics and wired them into `.github/workflows/canonical-graph.yml`. Commit: `49a62e56ec3273ecad9911b1328568f2a6b032f8c`.
+- **S12.48** added structural graph reachability diagnostics and wired them into `.github/workflows/canonical-graph.yml`. Commit: `49a62e56ec3273ecad9911b132856f2a6b032f8c`.
 - **S12.47** added `docs/SCENARIO_QA_S12_47_ENDING_REPLAY_INCOMING_PRECEDENCE_MATRIX_01.md`, consolidating ending incoming-path, precedence and replay boundaries without inventing missing producers or `meta.*` keys. Commit: `7afbb8a2d3ba7097cfeac4e50416c45ec9bc174d`.
 - **S12.46 CI hardening** repaired the scope-boundary workflow so it executes the same source-level graph/classification/matrix/triage prerequisites before `validate_scope_boundaries.py`. Commit: `e28ba4ef2f6a7a04689f26cc6c3ccaccf75c19ac`.
 - Canonical Graph run **#51** (`34984719123`) was verified GREEN; all five source-level QA steps succeeded.
@@ -104,7 +106,7 @@ Exact authored headings/effects/delayed semantics remain **QUARANTINED / UNRECOV
 - E184 producer closure and E185 crisis resolution;
 - ending incoming paths and deterministic precedence;
 - exhaustive E01–E272 graph and fresh-run reachability;
-- machine graph ↔ authoritative catalog semantic equality.
+- machine graph ↔ authoritative catalog semantic equality beyond ID parity.
 
 ## Hard rules
 - Consumer cannot manufacture prerequisite.
@@ -121,6 +123,7 @@ Exact authored headings/effects/delayed semantics remain **QUARANTINED / UNRECOV
 - vague `later`/`N+ turns` cannot be converted into invented absolute turns.
 - QA summaries cannot substitute for missing authoritative authored prose.
 - `food_logistics_stabilized` ≠ `pred.food_stable`.
+- Catalog↔graph ID parity is not semantic equality.
 
 ## Current honest progress
 - Foundation / rules: **95%**
@@ -131,7 +134,7 @@ Exact authored headings/effects/delayed semantics remain **QUARANTINED / UNRECOV
 - Delayed Consequences: **96%**
 - Replay / Meta-state: **65%**
 - Endings / precedence: **70%**
-- Reachability / Causal Graph: **63%**
+- Reachability / Causal Graph: **64%**
 - Production Data Schema: **36%**
 - Decision Engine: **0%**
 - UI / UX: **0%**
@@ -144,13 +147,13 @@ Exact authored headings/effects/delayed semantics remain **QUARANTINED / UNRECOV
 Overall project progress remains approximately **60%**. Scenario QA is approximately **88%** and must not be conflated with overall project completion.
 
 ## Next autonomous work
-1. Audit the 69 no-outbound and 54 unreferenced candidates against authoritative source text using the semantic-boundary queues.
-2. Separate ROOT/SOURCE, ordinary producer, consumer-only, terminal/ending, qualification, delayed callback, replay-only and true orphan semantics.
-3. Verify the latest canonical CI and uploaded machine reports; use structural output to prioritize candidate source review.
+1. Verify the new catalog↔graph parity CI and generated report; do not promote ID parity to semantic equality.
+2. Audit the 69 no-outbound and 54 unreferenced candidates against authoritative source text using the semantic-boundary queues.
+3. Separate ROOT/SOURCE, ordinary producer, consumer-only, terminal/ending, qualification, delayed callback, replay-only and true orphan semantics.
 4. Complete delayed cancellation/supersession matrix, especially E181/E184/E185/E245.
 5. Close source-backed producer matrices for guild influence, coalition cooperation and constitutional preparation where evidence permits.
 6. Build fresh-run and representative replay reachability models with strict `meta.*` isolation.
-7. Prove catalog↔machine graph semantic equality or produce a bounded, explicit delta.
+7. Prove catalog↔machine graph semantic equality or produce a bounded, explicit delta beyond ID parity.
 8. Freeze production contracts only after machine validation and reachability gates pass.
 9. Then Decision Engine → UI → localization → runtime/Android QA → APK → release.
 
