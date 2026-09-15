@@ -1,7 +1,7 @@
 # Choice Kingdom — E211–E270 Canonical Audit 01
 
-Date: 2026-09-15
-Status: SOURCE-LEVEL QA / PRE-SCHEMA
+Date: 2026-09-15  
+Status: SOURCE-LEVEL QA / PRE-SCHEMA  
 Scope: E211–E270 producer/consumer semantics and canonicalization readiness.
 
 ## Purpose
@@ -48,7 +48,7 @@ The authored callbacks are valuable but require stable source/consequence identi
 
 E253 consumes `pred.border_crisis` but does not produce it. E251 consumes winter + transport disruption, and E254/E255 consume food/civic crisis combinations. These are consumers of canonical crisis predicates and must not be promoted to producers merely because their prose describes a crisis.
 
-**Border crisis producer status remains OPEN.** No existing E211–E270 node is accepted as a declaration producer without an explicit authored declaration semantics. E253 is explicitly a downstream consumer.
+**Border crisis producer status was previously OPEN for E211–E270, but the subsequent E271–E272 canonical source establishes the lifecycle outside this audit scope:** E271-A is the explicit declaration producer and E272-A/B are resolution outcomes. This closes the specific producer-discovery gap at source level; downstream graph integration remains required.
 
 ### 8. E256–E260 — constitutional stress tests
 
@@ -128,22 +128,27 @@ E209 consumes this qualification; E210 only converges into the ending layer.
 
 ## P0 gaps confirmed after E211–E270 audit
 
-1. No exact authored producer for `border_crisis_declared` / `border_crisis_resolved` is currently verified.
-2. Guild logistics source marker exists, but its durable qualification rule needs a canonical implementation point.
-3. Guild influence requires exact authored domain producers to be enumerated.
-4. Systemic evidence needs an explicit convergence-decision producer.
-5. Coalition cooperation needs three distinct faction cooperation evidence producers plus collapse invalidation.
-6. Strong constitutional preparation needs exact upstream producers for its three domains.
-7. Final charter prerequisites need deterministic upstream producer enumeration.
-8. E211–E270 still contains prose triggers that must be normalized before production schema freeze.
-9. E35–E40 legacy aliases and duplicate semantic pairs E73/E156 and E99/E173 remain separate audit work.
+1. Guild logistics source marker exists, but its durable qualification rule needs a canonical implementation point.
+2. Guild influence requires exact authored domain producers to be enumerated.
+3. Systemic evidence needs an explicit convergence-decision producer.
+4. Coalition cooperation needs three distinct faction cooperation evidence producers plus collapse invalidation.
+5. Strong constitutional preparation needs exact upstream producers for its three domains.
+6. Final charter prerequisites need deterministic upstream producer enumeration.
+7. E211–E270 still contains prose triggers that must be normalized before production schema freeze.
+8. E35–E40 legacy aliases and duplicate semantic pairs E73/E156 and E99/E173 remain separate audit work.
+
+## Cross-scope resolution recorded
+
+The former `border_crisis_declared` / `border_crisis_resolved` producer gap is now resolved at source level by the authored E271–E272 endgame extension. This does **not** mean the full E01–E272 graph is reconciled: the producer/consumer registry, reachability, delayed-consequence consumers, and ending simulations still have to consume these canonical markers correctly.
 
 ## Gate
 
 **E211–E270 authored content: 100% authored, not 100% canonicalized.**
 
+**Border-crisis producer discovery: CLOSED at source level; graph integration: OPEN.**
+
 **Production schema: BLOCKED.**
 
 **Runtime/reachability: NOT VERIFIED.**
 
-Next pass: enumerate exact durable producers for every P0 predicate, then reconcile the complete E01–E270 graph against this contract before writing runtime data schemas.
+Next pass: enumerate exact durable producers for every remaining P0 predicate, then reconcile the complete E01–E272 graph against these contracts before writing runtime data schemas.
