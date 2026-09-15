@@ -35,10 +35,11 @@ Dedicated Scenario QA score is approximately **88%**. This is distinct from over
 - S09 **60%**
 - S10 **72%**
 - S11 **56%** — ending incoming-path / precedence review boundary materially tightened; source closure remains partial/open.
-- S12 **86%** — source-level machine QA includes structural diagnostics, bounded catalog↔graph ID coverage, explicit contract readiness, delayed-lifecycle identity checks, and predicate-contract parity. This remains source-level QA, not semantic equality or gameplay reachability proof.
+- S12 **86%** — source-level machine QA includes structural diagnostics, bounded catalog↔graph ID coverage, explicit contract readiness, delayed-lifecycle identity checks, predicate-contract parity, and the E33/E34 recovery audit. This remains source-level QA, not semantic equality or gameplay reachability proof.
 
 ## Latest QA work
-- **S12.59 delayed lifecycle identity expansion:** extended `tools/validate_delayed_lifecycle_gate.py` through E242–E246. The gate now checks the source-backed candidate identities for the renewed exception, bridge callback, flexible-account callback, soldier compensation callback and rent-ceiling callback while preserving the distinction between identity closure and runtime scheduling/cancellation. Commit `312786982fae8b1b0a0f19b0b5a116cc2d04c3ac`.
+- **S12.60 E33/E34 source-recovery audit:** added `docs/SCENARIO_QA_E33_E34_SOURCE_RECOVERY_01.md`. Current authoritative evidence confirms E33/E34 remain unresolved: the restored foundational catalog is explicitly E01–E32, while the Act V expansion starts at E35 with an `E33 resolved` trigger. Git-history inspection did not recover an authoritative E33/E34 body. No replacement semantics were invented. Commit `b579f821a726a1856e50473146518c3292253852`.
+- **S12.59 delayed lifecycle identity expansion:** extended `tools/validate_delayed_lifecycle_gate.py` through E242–E246. The gate now checks the source-backed candidate identities for the renewed exception, bridge callback, flexible-account callback, soldier compensation callback and rent-ceiling callback while preserving the distinction between identity closure and runtime scheduling/cancellation. Commit `312786982fae8b1b0a0f19b0b5a116cc2d04c3ac`. The resulting dedicated CI run `34992811608` completed **SUCCESS**.
 - **S12.58 predicate contract parity correction:** corrected `tools/validate_predicate_contract_parity.py` so it validates exactly the seven predicates represented by the machine graph `composite_predicates` section. Source-closed producer predicates are no longer incorrectly treated as composite predicates. The corrected gate passed the dedicated `Choice Kingdom Contract Readiness` workflow on commit `c55eab2f400749c65a379b2b232728ff0cd2752b`. This is source-level parity, not gameplay semantic equality.
 - **S12.57 predicate contract parity gate:** added `tools/validate_predicate_contract_parity.py` and `.github/workflows/predicate-contract-parity.yml`. The gate cross-checks frozen predicate statuses between `docs/CANONICAL_DERIVED_PREDICATE_CONTRACT_01.md` and `docs/MACHINE_CANONICAL_GRAPH_01.json` without promoting OPEN/PARTIAL items or claiming gameplay equality. Commit `3c317988a9682767e22ad55e09bef9ba4f9305b8`; workflow commit `b5ca167da222a6d028edf93c693d73033c83394c`.
 - **S12.56 catalog↔graph parity correction:** the design graph is intentionally a partial causal map and does not enumerate every catalog event. The parity gate now treats catalog-only IDs as an explicit coverage delta rather than an integrity failure, while still failing on out-of-scope graph/catalog IDs and unexpected duplicate headings. It continues to refuse semantic-equality claims. Commit `24eb3e28b91c238b967d3eaeebf16fae74d8d7c1`.
@@ -92,7 +93,7 @@ Three evidence families are frozen as distinct machine domains: warehouse/financ
 E186/E247/E248/E270 remain OPEN for exact producer/key identity. Ordinary history/flags cannot cross the completed-run boundary without explicit authored promotion.
 
 ### E33/E34
-Exact authored headings/effects/delayed semantics remain **QUARANTINED / UNRECOVERED** after renewed content and commit-history search. No invented replacement was admitted.
+Exact authored headings/effects/delayed semantics remain **QUARANTINED / UNRECOVERED**. The new S12.60 audit records the concrete source-history evidence and confirms that E33/E34 must not be reconstructed from the E35 trigger or from non-authoritative inference.
 
 ## Major unresolved gates
 - authoritative source recovery or explicit authored correction for E33/E34 exact headings/effects;
@@ -131,14 +132,14 @@ Exact authored headings/effects/delayed semantics remain **QUARANTINED / UNRECOV
 Overall project progress remains approximately **60%**. Scenario QA is approximately **88%** and must not be conflated with overall project completion.
 
 ## Next autonomous work
-1. Verify fresh GitHub Actions after S12.58/S12.59; do not claim GREEN until relevant new runs and jobs pass.
+1. Verify fresh GitHub Actions after S12.60; do not claim GREEN until relevant new runs and jobs pass.
 2. Audit delayed cancellation/supersession matrix, especially E181/E184/E185/E245.
 3. Close source-backed producer matrices for guild influence, coalition cooperation and constitutional preparation where evidence permits.
 4. Reconcile `pred.food_stable` vs `food_logistics_stabilized` without admitting expansion-only E273.
 5. Complete systemic explanation convergence producer/key.
 6. Complete `pred.final_charter_prerequisites`.
 7. Inventory replay `meta.*` producer/key sources.
-8. Resolve E33/E34 exact canonical headings/effects/delayed semantics from authoritative evidence only.
+8. Continue E33/E34 exact canonical source recovery; if no authoritative source is recoverable, require explicit authored correction.
 9. Determine ending incoming paths and deterministic precedence.
 10. Build fresh-run and representative replay reachability models.
 11. Prove catalog↔machine graph semantic equality or produce a bounded explicit delta beyond ID coverage.
