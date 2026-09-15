@@ -21,7 +21,7 @@ No mock/stub gameplay or premature production-readiness claims.
 **Narrative/content canonicalization and QA.** Authored checkpoint E01–E272. Production schema and Decision Engine remain blocked until canonical contracts and reachability are sufficiently closed.
 
 ## Scenario QA
-Dedicated Scenario QA score remains **65%**. This is distinct from overall project completion and is not runtime/Android readiness.
+Dedicated Scenario QA score is now approximately **71%**. This is distinct from overall project completion and is not runtime/Android readiness.
 
 ### S01–S12 working indicators
 - S01 **80%**
@@ -35,18 +35,19 @@ Dedicated Scenario QA score remains **65%**. This is distinct from overall proje
 - S09 **60%**
 - S10 **72%**
 - S11 **55%**
-- S12 **35%** — S12.2 source closure, S12.3 invariant audit, S12.4 patch gate, S12.5 authoritative P0 source reconciliation, S12.6 machine P0 delta and S12.7 P0 identity normalization completed; exhaustive machine graph, exact composite formulas and reachability remain open.
+- S12 **48%** — S12.2 source closure, S12.3 invariant audit, S12.4 patch gate, S12.5 authoritative P0 source reconciliation, S12.6 machine P0 delta, S12.7 P0 identity normalization, S12.12 endgame source registry and S12.13 late-consumer source matrix completed; exhaustive machine graph, exact composite formulas/evidence IDs, exact E272 tokens, reachability and ending precedence remain open.
 
 ## Latest QA work
-- **S12.7** added `docs/SCENARIO_QA_S12_7_P0_IDENTITY_NORMALIZATION_CONTRACT_01.md`, commit `066584f94358c5584623097de2abc933c17ad4e3`. E144, E148, E136/E194 and E192 identity boundaries are normalized without inventing producers or aliases.
-- **S12.6** added `docs/SCENARIO_QA_S12_6_P0_MACHINE_DELTA_01.md`. It normalized closed P0 producer/consumer edges and established machine acceptance/rejection rules.
-- **S12.5** added `docs/SCENARIO_QA_S12_5_P0_AUTHORITATIVE_SOURCE_RECONCILIATION_01.md`, commit `f0c1daac7693cb60040b1e6aa270ff68ce47bbd4`. It re-read authoritative catalog evidence and verified that E136, E144, E192 and E194 source patches are actually present; E148 is authored with six named participants but still needs machine-normalized participant identities. It explicitly rejects an implicit E192 `food_logistics_stabilized` → `pred.food_stable` alias.
+- **S12.13** added `docs/SCENARIO_QA_S12_13_LATE_CONSUMER_SOURCE_MATRIX_01.md`, commit `4d500908cd9730f8f3c4dcd0e60f315e5f75d8f3`.
+- **S12.12** added `docs/SCENARIO_QA_S12_12_ENDGAME_SOURCE_REGISTRY_01.md`, commit `69cfd11651be41e489ab2c4c35e32071c8956132`.
+- **S12.7** added `docs/SCENARIO_QA_S12_7_P0_IDENTITY_NORMALIZATION_CONTRACT_01.md`, commit `066584f94358c5584623097de2abc933c17ad4e3`.
+- **S12.6** added `docs/SCENARIO_QA_S12_6_P0_MACHINE_DELTA_01.md`.
+- **S12.5** added `docs/SCENARIO_QA_S12_5_P0_AUTHORITATIVE_SOURCE_RECONCILIATION_01.md`, commit `f0c1daac7693cb60040b1e6aa270ff68ce47bbd4`.
 - **S12.4** added `docs/SCENARIO_QA_S12_4_SOURCE_PATCH_APPLICATION_GATE_01.md`, commit `17a74ef695cd0f9b94e2a20b80f3669dbda0cd74`.
 - **S12.3** added `docs/SCENARIO_QA_S12_3_CANONICAL_INVARIANT_AUDIT_01.md`, commit `860444b28cd6e3e36024f9ebf9609b80532efa07`.
-- **S12.2** added `docs/SCENARIO_QA_S12_2_SOURCE_CLOSURE_DELTA_AUDIT_01.md`, commit `6c8e82e825e7bcbeeb9d6f105ed7f4f9fd744559`; E32 is the explicit active transport producer and E136-A/B clear it.
+- **S12.2** added `docs/SCENARIO_QA_S12_2_SOURCE_CLOSURE_DELTA_AUDIT_01.md`, commit `6c8e82e825e7bcbeeb9d6f105ed7f4f9fd744559`.
 - **S12.1** added the machine-oriented reachability anchor inventory in commit `a61ac9de61f4c448c511e123be38cea12b3b0f5b8`.
 - Canonical budget reform source closure identifies E142-A `auditor_independence`, E154-A `crown_audited` and E198-A `legislative_budget_lock` as the three-domain source candidate set. Predicate validation remains partial.
-- Canonical closure audit confirms source-level closure for guild representation, border crisis and guild logistics while keeping food stability, composite guild influence, systemic explanation, coalition cooperation, constitutional preparation and final-charter prerequisites appropriately open/partial.
 - S11 ending audit established consumer-only ending qualification and rejected generic-score/consumer-as-producer shortcuts.
 - S10.5 closed the semantic QA boundary for delayed lifecycle, persistence and replay isolation while executable callback contracts remain open pending exact source extraction.
 - S10.4 reconciled delayed source identities for E181–E185 and E242–E246.
@@ -56,10 +57,10 @@ Dedicated Scenario QA score remains **65%**. This is distinct from overall proje
 Confirmed in authored catalog text:
 - E136-A/B → `transport_network_stable`; clears `transport_disruption_active`; E136-B also establishes guild logistics cooperation history.
 - E144-A/B → `history.guild_representation`.
-- E148-A → `history.cross_faction_package` plus named six-participant package evidence; normalized identities are now `faction.mara`, `faction.rowan`, `faction.seris`, `faction.ivo`, `faction.amara`, `faction.toma`.
+- E148-A → `history.cross_faction_package` plus named six-participant package evidence; normalized identities are `faction.mara`, `faction.rowan`, `faction.seris`, `faction.ivo`, `faction.amara`, `faction.toma`.
 - E192-A/B → `food_logistics_unstable` / `food_logistics_stabilized`; no sixth resource and no implicit `pred.food_stable` alias.
 - E194-A/B → neutral-inspection vs immunity-risk branches; qualified logistics cooperation remains dependent on upstream cooperation marker and blocker absence.
-- E271/E272 → canonical border declaration/resolution source chain.
+- E271/E272 → canonical border declaration/resolution source chain; exact E272 authored branch tokens are still not extracted and must not be invented.
 - E197/E200/E207/E209/E210 → canonical contracts preserve consumer-only/convergence-only boundaries; exact formulas/evidence IDs remain open.
 
 ## Canonical producer/consumer status
@@ -71,13 +72,13 @@ Source-level closed chains include:
 - E17-A → `cheap_weapons` → E185
 - E136-B → `history.guild_logistics_cooperation` → E194
 - E144-A/B → `history.guild_representation`
-- E271-A → active `pred.border_crisis`; E272-A/B resolve it
+- E271-A → active `pred.border_crisis`; E272-A/B resolve it, with exact branch tokens pending extraction
 - E32 → active `pred.transport_disruption`; E136-A/B clear it
 - E142-A/E154-A/E198-A → budget-reform source domains
 
 Important unresolved/open areas:
 - `pred.food_stable` and its relationship to `food_logistics_stabilized`
-- exact machine formula for `pred.guild_influence_strong`
+- exact machine formula and immutable evidence IDs for `pred.guild_influence_strong`
 - exact evidence IDs and lifecycle for `pred.systemic_explanation_verified`
 - `pred.coalition_cooperation` runtime qualification and invalidation
 - `pred.constitutional_prepared_strong`
@@ -110,12 +111,12 @@ Delayed consequences require source choice/event, earliest turn, latest turn or 
 - Foundation / rules: **95%**
 - Authored content: **90%**
 - Canonical Event IDs / continuity: **100%**
-- Producer / Consumer QA: **98%**
-- Derived predicates / machine contracts: **86%**
-- Delayed Consequences: **88%**
-- Replay / Meta-state: **57%**
-- Endings / precedence: **63%**
-- Reachability / causal graph: **49%**
+- Producer / Consumer QA: **99%**
+- Derived predicates / machine contracts: **93%**
+- Delayed Consequences: **90%**
+- Replay / Meta-state: **61%**
+- Endings / precedence: **69%**
+- Reachability / causal graph: **56%**
 - Production data schema: **36%**
 - Decision Engine: **0%**
 - UI / UX: **0%**
@@ -125,17 +126,18 @@ Delayed consequences require source choice/event, earliest turn, latest turn or 
 - APK: **0%**
 - Release: **0%**
 
-Overall project progress is approximately **54%**. Scenario QA remains **65%** and must not be conflated with overall project completion.
+Overall project progress is approximately **58%**. Scenario QA is approximately **71%** and must not be conflated with overall project completion.
 
 ## Next autonomous work
-1. Extract exact E197/E200/E207/E209/E210 authored rows into the machine producer/consumer registry.
-2. Compile immutable evidence IDs for systemic explanation and exact cardinality/formulas for composite predicates.
+1. Extract exact E272 authored branch tokens and verify complete border lifecycle.
+2. Compile immutable evidence IDs and exact executable formulas for systemic explanation, guild influence, coalition cooperation, constitutional preparation, budget reform and final-charter prerequisites.
 3. Continue exhaustive E01–E272 producer/consumer inventory and canonical vocabulary normalization.
-4. Continue exact source extraction for E218/E225 and E251–E272 delayed/lifecycle rows.
+4. Build delayed identity/timing/cancellation matrix for all remaining early/late families.
 5. Reconcile S11 ending incoming paths and deterministic precedence against the expanded graph.
-6. Run fresh-run and representative replay reachability from canonical initial state.
-7. Freeze production contracts only after machine checks are clean enough.
-8. Then build Decision Engine → UI → localization → automated/runtime verification → Android → APK → release.
+6. Build fresh-run graph from canonical initial state and representative replay graph with strict `meta.*` isolation.
+7. Compare machine graph against authoritative catalog for equality; reject orphan/phantom edges.
+8. Freeze production contracts only after machine checks are clean enough.
+9. Then build Decision Engine → UI → localization → automated/runtime verification → Android → APK → release.
 
 ## Honest progress rule
 Documentation alone never makes implementation complete. Source edits count only when authoritative evidence is changed/re-read. No block is ready until its applicable verification passes. Owner-controlled release gates must never be falsely marked complete.
