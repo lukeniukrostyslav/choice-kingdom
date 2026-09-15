@@ -34,10 +34,13 @@ Dedicated Scenario QA score is approximately **90%**. This is distinct from over
 - S08 **78%**
 - S09 **62%** — replay meta producer boundary audited; exact meta producer/key inventory remains open.
 - S10 **74%** — authoritative source-choice closure for delayed E181/E243 routes; scheduler/runtime lifecycle remains open.
-- S11 **58%** — ending prerequisite satisfiability screen closes false-positive routes; deterministic precedence remains open.
-- S12 **90%** — raised after adding the machine scenario-QA gate matrix validator and wiring it into canonical-graph CI; source-level machine QA now has an explicit consolidated gate matrix. Runtime reachability remains unverified.
+- S11 **60%** — ending prerequisite satisfiability screen plus conservative ending-precedence boundary contract; exact deterministic tie-break/terminal order remains open.
+- S12 **90%** — machine scenario-QA gate matrix and predicate dependency/cycle boundaries are wired into canonical-graph CI. Runtime reachability remains unverified.
 
 ## Latest QA work
+- **Ending Precedence Boundary 01:** added `docs/MACHINE_ENDING_PRECEDENCE_BOUNDARY_01.json`. It freezes conservative hard boundaries for all seven ending families, prevents support evidence from becoming final predicates, and explicitly leaves exact tie-break order, runtime evaluation order and terminal selection open. Commit `213289cf57dfbe6737043ea23c437f253c06dd87`.
+- **Ending Precedence Boundary Validator:** added `tools/validate_ending_precedence_boundary.py`; fixed its list-comparison contract before CI wiring. Commit `e28ac148428db62c920978cbb868a22c792f97da`.
+- **Canonical Graph CI:** `.github/workflows/canonical-graph.yml` now validates and uploads the ending-precedence boundary report. Commit `f0375fae6380fefc377eee82dbe6224af6e365e9`.
 - **Machine Scenario QA Gate Matrix 01:** added `tools/validate_scenario_qa_gate_matrix.py` and `docs/MACHINE_SCENARIO_QA_GATE_MATRIX_01.json`. The validator freezes S01–S12 source-QA baselines, asserts hard runtime/reachability/precedence blockers, and prevents accidental promotion of scenario QA into runtime readiness. Commit `3aa46ab6a633968426f6691639b929c991d13c68`.
 - **Canonical Graph CI Gate:** `.github/workflows/canonical-graph.yml` now executes the consolidated scenario-QA gate matrix and uploads its machine report together with predicate dependency validation. Commit `b665a7d80cd879165ef006315468e40c23013911`.
 - **Predicate Dependency / Cycle Audit 01:** added `docs/SCENARIO_QA_PREDICATE_DEPENDENCY_CYCLE_AUDIT_01.md`. Screened composite predicates, delayed eligibility dependencies, replay boundaries and known hard negatives without promoting narrative consumers into producers. Commit `ccf68c83f5f128055bf56561ee04de7a545b9669`.
@@ -96,19 +99,19 @@ Replay-sensitive nodes E186/E247/E248/E249/E250/E270 remain explicitly audited. 
 - replay `meta.*` producer/key inventory;
 - remaining delayed cancellation/supersession rules;
 - E184 producer closure and E185 crisis resolution;
-- ending incoming paths and deterministic precedence;
+- exact ending positive/negative prerequisite sets and deterministic tie-break/terminal order;
 - exhaustive E01–E272 graph and fresh-run reachability;
 - machine graph ↔ authoritative catalog semantic equality beyond ID parity.
 
 ## Current honest progress
 - Foundation / rules: **95%**
 - Authored content: **90%**
-- Canonical Event IDs / continuity: **100%**
+- Canonical Event IDs / Continuity: **100%**
 - Producer / Consumer QA: **99%**
 - Derived Predicates / Machine Contracts: **99%**
 - Delayed Consequences: **98%**
 - Replay / Meta-state: **67%**
-- Endings / precedence: **72%**
+- Endings / precedence: **74%**
 - Reachability / Causal Graph: **64%**
 - Production Data Schema: **36%**
 - Decision Engine: **0%**
@@ -119,7 +122,7 @@ Replay-sensitive nodes E186/E247/E248/E249/E250/E270 remain explicitly audited. 
 - APK: **0%**
 - Release: **0%**
 
-Overall project progress remains approximately **60%**. Scenario QA is now **≈90%**; S06 is **58%**, S09 is **62%**, S10 is **74%**, S11 is **58%**, and S12 is **90%**. These source-QA percentages must not be conflated with overall project completion or runtime/Android readiness.
+Overall project progress remains approximately **60%**. Scenario QA remains approximately **90%**; S06 is **58%**, S09 is **62%**, S10 is **74%**, S11 is now **60%**, and S12 is **90%**. These source-QA percentages must not be conflated with overall project completion or runtime/Android readiness.
 
 ## Honest progress rule
 Documentation alone never makes implementation complete. Source edits count only when authoritative evidence is changed/re-read. No block is ready until its applicable verification passes.
