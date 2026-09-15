@@ -21,7 +21,7 @@ No mock/stub gameplay or premature production-readiness claims.
 **Narrative/content canonicalization and QA.** Authored checkpoint E01–E272. Production schema and Decision Engine remain blocked until canonical contracts and reachability are sufficiently closed.
 
 ## Scenario QA
-Dedicated Scenario QA score is now approximately **74%**. This is distinct from overall project completion and is not runtime/Android readiness.
+Dedicated Scenario QA score is now approximately **76%**. This is distinct from overall project completion and is not runtime/Android readiness.
 
 ### S01–S12 working indicators
 - S01 **80%**
@@ -35,9 +35,10 @@ Dedicated Scenario QA score is now approximately **74%**. This is distinct from 
 - S09 **60%**
 - S10 **72%**
 - S11 **55%**
-- S12 **55%** — S12.16 E272 source availability, S12.17 composite predicate source closure, S12.18 producer ordering, and S12.19 replay/meta boundary audit completed. Exact authored E272 branch tokens, exact systemic convergence evidence, exhaustive graph closure, replay meta producers, fresh-run/replay reachability and ending precedence remain open.
+- S12 **60%** — S12.20 recovered and re-read the exact authored E272 source from repository history, closing the exact E272 branch-token blocker at source level. Remaining blockers are composite predicate executable closure, exact systemic evidence convergence, replay meta producers/keys, delayed identity/timing/cancellation, ending precedence, and fresh-run/replay executable reachability.
 
 ## Latest QA work
+- **S12.20** added `docs/SCENARIO_QA_S12_20_E272_EXACT_SOURCE_RECOVERY_01.md`, commit `92c3c3460c9621fe306c26f97079713a180eadee`.
 - **S12.19** added `docs/SCENARIO_QA_S12_19_REPLAY_META_BOUNDARY_AUDIT_01.md`, commit `cc6936e6c6ffd9074e57f9ba65d62ff7ea4c2075`.
 - **S12.18** added `docs/SCENARIO_QA_S12_18_COMPOSITE_PRODUCER_ORDER_AUDIT_01.md`, commit `33df93136f52883c4c897e414b0640fb6db89b56`.
 - **S12.17** added `docs/SCENARIO_QA_S12_17_PREDICATE_SOURCE_CLOSURE_MATRIX_01.md`, commit `862e6565ca83c1fc3d5bcb4ffac945c1bb14c885`.
@@ -50,7 +51,8 @@ Confirmed in authored catalog text:
 - E148-A → `history.cross_faction_package` plus named six-participant package evidence; normalized identities are `faction.mara`, `faction.rowan`, `faction.seris`, `faction.ivo`, `faction.amara`, `faction.toma`.
 - E192-A/B → `food_logistics_unstable` / `food_logistics_stabilized`; no sixth resource and no implicit `pred.food_stable` alias.
 - E194-A/B → neutral-inspection vs immunity-risk branches; qualified logistics cooperation remains dependent on upstream cooperation marker and blocker absence.
-- E271/E272 → canonical border declaration/resolution source chain; exact E272 authored branch tokens are still not extracted and must not be invented.
+- E271-A → formal border-crisis declaration; E271-B → non-crisis resolution.
+- **E272-A/B exact source recovered:** E272-A ratifies the joint border settlement and records `history.border_crisis_resolved_diplomatically`; E272-B ends the crisis under a military security guarantee and records `history.border_crisis_resolved_by_guarantee`. Both preserve `border_crisis_declared=true`, set `border_crisis_resolved=true`, clear active `pred.border_crisis`, and require E271-A's active crisis plus an authored resolution route.
 - E197/E200/E207/E209/E210 → canonical contracts preserve consumer-only/convergence-only boundaries; exact formulas/evidence IDs remain open.
 
 ## Canonical producer/consumer status
@@ -62,7 +64,7 @@ Source-level closed chains include:
 - E17-A → `cheap_weapons` → E185
 - E136-B → `history.guild_logistics_cooperation` → E194
 - E144-A/B → `history.guild_representation`
-- E271-A → active `pred.border_crisis`; E272-A/B resolve it, with exact branch tokens pending extraction
+- E271-A → active `pred.border_crisis`; E272-A/B resolve it with exact source tokens now recovered
 - E32 → active `pred.transport_disruption`; E136-A/B clear it
 - E142-A/E154-A/E198-A → budget-reform source domains
 
@@ -119,18 +121,17 @@ Delayed consequences require source choice/event, earliest turn, latest turn or 
 - APK: **0%**
 - Release: **0%**
 
-Overall project progress remains approximately **59%**. Scenario QA is approximately **74%** and must not be conflated with overall project completion.
+Overall project progress remains approximately **60%**. Scenario QA is approximately **76%** and must not be conflated with overall project completion.
 
 ## Next autonomous work
-1. Recover exact E272 authored source if present in repository history or alternate authoritative source material; never invent tokens.
-2. Compile immutable evidence IDs and exact executable formulas for systemic explanation, guild influence, coalition cooperation, constitutional preparation, budget reform and final-charter prerequisites.
-3. Continue exhaustive E01–E272 producer/consumer inventory and canonical vocabulary normalization.
-4. Build delayed identity/timing/cancellation matrix for all remaining early/late families.
-5. Reconcile S11 ending incoming paths and deterministic precedence against the expanded graph.
-6. Build fresh-run graph from canonical initial state and representative replay graph with strict `meta.*` isolation.
-7. Compare machine graph against authoritative catalog for equality; reject orphan/phantom edges.
-8. Freeze production contracts only after machine checks are clean enough.
-9. Then build Decision Engine → UI → localization → automated/runtime verification → Android → APK → release.
+1. Compile immutable evidence IDs and exact executable formulas for systemic explanation, guild influence, coalition cooperation, constitutional preparation, budget reform and final-charter prerequisites.
+2. Reconcile all remaining E01–E272 producer/consumer edges and canonical vocabulary.
+3. Build the complete delayed identity/timing/cancellation matrix and verify save/load/replay isolation.
+4. Reconcile S11 ending incoming paths and deterministic precedence against the expanded graph.
+5. Build fresh-run graph from canonical initial state and representative replay graph with strict `meta.*` isolation.
+6. Compare machine graph against authoritative catalog for equality; reject orphan/phantom edges.
+7. Freeze production contracts only after machine checks are clean enough.
+8. Then build Decision Engine → UI → localization → automated/runtime verification → Android → APK → release.
 
 ## Honest progress rule
 Documentation alone never makes implementation complete. Source edits count only when authoritative evidence is changed/re-read. No block is ready until its applicable verification passes. Owner-controlled release gates must never be falsely marked complete.
