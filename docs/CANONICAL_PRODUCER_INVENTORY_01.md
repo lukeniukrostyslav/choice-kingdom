@@ -1,0 +1,171 @@
+# Choice Kingdom — Canonical Producer Inventory 01
+
+Date: 2026-09-15  
+Status: **SOURCE-LEVEL QA — MACHINE-CHECKABLE INVENTORY WORKING RECORD**  
+Frozen production scope: **E01–E272**  
+Expansion candidates E273–E277 are tracked separately and are not admitted to the frozen catalog.
+
+## Purpose
+
+This inventory converts the latest source audits into explicit producer records without inventing runtime facts. It distinguishes:
+
+- source-closed producers;
+- source-closed lifecycle pairs;
+- candidate producer sets;
+- unresolved consumers;
+- legacy vocabulary that must be normalized before schema freeze.
+
+A trigger phrase is not a producer. A consumer cannot manufacture its own prerequisite.
+
+## 1. Source-closed producer records
+
+| Canonical fact / predicate | Producer | Choice | Source evidence | Status |
+|---|---|---|---|---|
+| `public_bridge` | E18 | B | Explicitly keeps the bridge public | CLOSED |
+| `flexible_accounts` | E09 | B | Explicitly keeps accounting system flexible | CLOSED |
+| `veteran_patronage` | E117 | B | Reserves posts for veterans | CLOSED |
+| `estate_exception` | E118 | B | Creates transitional estate exception | CLOSED |
+| `border_compensation` | E125 | A | Compensates border families | CLOSED |
+| `requisition_compensation` | E156 | A | Pays full requisition compensation | CLOSED |
+| `winter_rent_ceiling` | E160 | A | Temporary rent ceiling | CLOSED |
+| `history.guild_logistics_cooperation` | E136 | B | Guild transport cooperation marker | CLOSED |
+| `history.guild_representation` | E144 | A/B | Both choices establish same immutable representation marker | CLOSED |
+| `history.cross_faction_package` | E148 | A | Explicit cross-faction package with named participants | CLOSED |
+| `pred.market_pressure` | E19 | B | Establishes current market-pressure cycle | CLOSED at source level |
+| clear `pred.market_pressure` | E19 | A | Clears active market-pressure cycle while retaining history | CLOSED at source level |
+| `pred.winter_severe` | E29 | A/B | Explicit current winter-cycle producer | CLOSED at source level |
+| `pred.transport_disruption` | E32 | explicit crisis outcome | Explicit current compound-crisis producer | CLOSED at source level |
+| clear `pred.transport_disruption` | E136 | A/B | Clears active disruption and establishes stable network | CLOSED at source level |
+| `pred.border_crisis` | E271 | A | Declares active border crisis | CLOSED at source level |
+| clear `pred.border_crisis` | E272 | A/B | Resolves declared active crisis | CLOSED at source level |
+| `army_constitution_oath` / military constitutional evidence | E199 | A | Explicit army constitutional oath route | STRONG |
+
+## 2. Delayed-consumer producer closure
+
+| Consumer | Authored trigger | Producer closure | Canonical treatment |
+|---|---|---|---|
+| E181 | infrastructure/toll concession | E45-B | exact source identity retained; lifecycle still open |
+| E182 | `veteran_patronage` | E117-B | source-closed |
+| E183 | `estate_exception` | E118-B | source-closed |
+| E184 | `secret evidence route` | none | OPEN; no safe alias |
+| E185 | `cheap_weapons` + later military crisis | E17-A | source-closed producer; crisis lifecycle open |
+| E242 | prior noble exception | E118-B explicit, possibly broader set | PARTIAL; no generic alias |
+| E243 | `public bridge investment` | E18-B → `public_bridge` | SOURCE-EQUIVALENT; normalize vocabulary |
+| E244 | `flexible accounts` | E09-B | source-closed |
+| E245 | `compensation route` | E125-A + E156-A candidates | OPEN; explicit single-source or authored union required |
+| E246 | `price ceiling` | E160-A → `winter_rent_ceiling` | CONDITIONAL; explicit vocabulary normalization required |
+
+## 3. Derived predicates whose producer domains are frozen but not fully compiled
+
+### `pred.guild_influence_strong`
+
+Independent domains currently recognized by source QA:
+
+1. guild representation;
+2. guild tribunal;
+3. commercial/market evidence;
+4. qualified logistics cooperation.
+
+Anti-double-counting rule: E49/E144 representation evidence is one domain, not two. `rel.ivo` alone is never sufficient.
+
+**Status: PARTIAL — exact machine-readable producer compilation remains open.**
+
+### `pred.constitutional_prepared_strong`
+
+Frozen independent domains:
+
+- civic: `people_charter_endorsed`;
+- institutional: `crown_audited` / `full_crown_audit_published`;
+- factional: `house_assembly`;
+- military: `military_red_line`.
+
+At least three independent domains are required by the current source contract. The exact ordering and anti-double-counting implementation remains open.
+
+**Status: PARTIAL.**
+
+### `pred.systemic_explanation_verified`
+
+Required evidence families:
+
+- warehouse/financial;
+- document/language;
+- witness/organizational.
+
+A raw clue count is forbidden. An explicit convergence decision is required.
+
+**Status: PARTIAL — exact authored evidence IDs still to be compiled.**
+
+### `pred.coalition_cooperation`
+
+E148-A is the authoritative cooperation-package source. Qualification requires explicit participant identities, positive cooperation outcome and absence of an unresolved collapse blocker. `pred.faction_routes_4` is not an alias.
+
+**Status: PARTIAL.**
+
+### `pred.budget_reform`
+
+The following institutional layers remain distinct:
+
+- auditor independence;
+- Crown audit;
+- legislative/independent budget lock.
+
+No single flag may stand in for all three.
+
+**Status: OPEN.**
+
+## 4. Replay meta-state
+
+No ordinary flag/history marker is promoted automatically to `meta.*`.
+
+Current unresolved consumers:
+
+- E186 — ordinary `warehouse_arson` vs previous-run informational unlock;
+- E247 — second-run information route;
+- E248 — replay callback;
+- E270 — replay-transfer qualification reference.
+
+**Status: OPEN.** Design isolation is closed; exact producer/key inventory is not.
+
+## 5. Hard negative rules
+
+The following substitutions are explicitly forbidden:
+
+- `rel.ivo` → `pred.guild_influence_strong`;
+- E194 → `pred.guild_logistics_cooperation` from its own trigger;
+- `thread.border` → `thread.border_crisis`;
+- security alone → `pred.border_crisis`;
+- E197 → `pred.constitutional_prepared_strong`;
+- E209 → `pred.final_charter_prerequisites`;
+- `four_way_bargain` → `pred.coalition_cooperation` without qualification;
+- ordinary history/flag → `meta.*`;
+- `price ceiling` → every price-control event;
+- generic `compensation route` → union of compensation outcomes without authored decision.
+
+## 6. Next machine-checkable pass
+
+The next pass must compile, from the authoritative catalogs:
+
+1. every concrete output token;
+2. every trigger token;
+3. producer → consumer edges;
+4. duplicate semantic writers;
+5. contradictory writers;
+6. undefined consumers;
+7. undefined producers;
+8. predicate dependency cycles;
+9. delayed source/target identities;
+10. ending prerequisite incoming paths;
+11. fresh-run reachability;
+12. representative replay reachability.
+
+## Gate
+
+**Producer inventory: materially improved, not complete.**
+
+**Production schema: BLOCKED.**
+
+**Validator: NOT IMPLEMENTED.**
+
+**Decision Engine: NOT IMPLEMENTED.**
+
+**Runtime reachability: NOT VERIFIED.**
