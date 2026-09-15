@@ -58,7 +58,8 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 - `docs/CANONICAL_PRODUCER_CONSUMER_REGISTRY_01.md` is the consolidated producer/consumer source-level QA registry.
 - `docs/CANONICAL_CLOSURE_AUDIT_01.md` is the latest focused source-level closure audit.
 - `docs/CANONICAL_TRIGGER_NORMALIZATION_03.md` records the latest safe prose-trigger normalization pass and its explicit non-normalization boundaries.
-- `docs/PRODUCER_AUDIT_E111_E180_01.md` records an exact producer audit for the visible authored outputs in E111–E180 and explicitly leaves uncertain E143–E150 outputs open.
+- `docs/PRODUCER_AUDIT_E111_E180_01.md` records the exact producer audit for the visible authored outputs in E111–E180.
+- `docs/PRODUCER_AUDIT_E143_E150_01.md` records the dedicated E143–E150 source-level producer closure pass.
 - `docs/LEGACY_SEMANTIC_AUDIT_01.md` records the E35–E40 and duplicate-semantic audit findings.
 - `docs/SEMANTIC_COLLISION_RESOLUTION_01.md` records the frozen and applied semantic-resolution policy.
 - `docs/LEGACY_SOURCE_COMPARISON_02.md` closes E73/E156 and E99/E173 as distinct source-level nodes.
@@ -67,7 +68,9 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 ## Current QA checkpoint
 The E111–E210 authoritative catalogs have received direct authored-source correction passes. E136-B now establishes the immutable upstream `history.guild_logistics_cooperation` marker, and E194 now consumes that history marker rather than the qualified predicate. E194's neutral-inspector choice remains the later qualification input; immunity risk explicitly blocks qualification. This removes the identified E194 self-dependency at the authored-source level.
 
-E192 uses canonical food-logistics markers instead of a sixth numeric resource; E197/E200/E201 consume canonical qualification predicates; E207 records its distinct-evidence convergence requirement; E209 requires upstream final charter prerequisites; and E210 is explicitly convergence-only. E144/E148 are normalized for guild representation and cross-faction package semantics: E144-A/B are now verified producers of `history.guild_representation`.
+E143–E150 have now received a dedicated direct source-level producer pass. E143 is intentionally resource-only; no durable reserve marker was invented. E144-A/B explicitly produce `history.guild_representation`; E145–E147, E148, E149 and E150 have their exact authored durable outcomes recorded. E148's `history.cross_faction_package` remains a source marker only and does not by itself satisfy `pred.coalition_cooperation`; E150's constitutional outputs are outcomes, not proof of final-charter prerequisites.
+
+E192 uses canonical food-logistics markers instead of a sixth numeric resource; E197/E200/E201 consume canonical qualification predicates; E207 records its distinct-evidence convergence requirement; E209 requires upstream final charter prerequisites; and E210 is explicitly convergence-only. E144/E148 are normalized for guild representation and cross-faction package semantics.
 
 The authoritative E211–E270 catalog now distinguishes the previously overlapping Mara and Ivo nodes without renumbering: E226 is **Mara's Final Resignation Test**, explicitly a late institutional-stress consequence; E269 is **Ivo's Late Account**, explicitly a late evidence/consequence node distinct from E55. The semantic-resolution and producer/consumer registry have been synchronized with those catalog edits.
 
@@ -77,36 +80,30 @@ The latest closure audit was reconciled with these authoritative sources: `histo
 
 The latest trigger-normalization pass records only safe mappings already covered by the canonical predicate matrix (resource pressure, winter/border/security/readiness families, evidence/faction cardinality families, and institutional/investigation families). Ambiguous concepts such as civic relief, guild leverage, information route, winter illness, and final-charter preparation remain explicitly open rather than being collapsed into arbitrary aliases.
 
-The E111–E180 producer audit now has a dedicated verified-subset inventory. It confirms the exact authored durable outputs for E111–E142 and E151–E180, reconfirms E136 transport recovery and guild-logistics history semantics, and deliberately leaves E143–E150 endgame outputs open where the source text still requires a direct focused pass. This audit is coverage work only and does not convert candidate predicates into production contracts.
+The semantic-collision backlog is synchronized: E55/E269 and E36/E226 are marked as applied/verified at the authoritative-catalog level. Their downstream graph/reachability verification remains open, as do E37/E227, E39/E229 and E40/E241.
 
-The semantic-collision backlog is now synchronized: E55/E269 and E36/E226 are marked as applied/verified at the authoritative-catalog level. Their downstream graph/reachability verification remains open, as do E37/E227, E39/E229 and E40/E241.
-
-The canonical state vocabulary scope has now been reconciled from E01–E270 to **E01–E272** so the authoritative normalization document covers the complete authored checkpoint.
+The canonical state vocabulary scope has been reconciled to **E01–E272** so the authoritative normalization document covers the complete authored checkpoint.
 
 Reachability remains static/pre-audit only until a real validator and production data representation exist. No engine/APK readiness claim is permitted at this stage.
 
 ## Latest source-level commits
+- `935a7512ce6dfc66e191c456f1d95e72a6ba0efa` — dedicated producer audit E143–E150.
 - `9556b6be8e6641e0067ea183a3171ec0ccdbc8c9` — exact producer audit for E111–E180 verified subset.
 - `b0c9410aa2bd30fcc0e49793f8ab0dffde8ac5ee` — recorded safe canonical trigger normalization pass 03.
 - `86a5f2558638d252a4e3f9b36d7a8d1b4e10398b` — state sync after E01–E272 vocabulary reconciliation.
 - `3c04cf8de671dbb2ead7ab91700881737d0263fd` — reconciled canonical state vocabulary scope with the complete E01–E272 authored checkpoint.
-- `555e797026c7982927f34645ce60d8a3c1b45671` — synchronized canonicalization backlog after verifying the applied E55/E269 and E36/E226 catalog distinctions.
 - `ca6f12a50353ee6d6e002025d300bc70d40bc29b` — synchronized producer/consumer registry after latest source-level closure reconciliation.
-- `4fdcdbea31709462dd4b38e9b6c3f3189671d6ec` — reconciled closure audit with verified E144 and E271–E272 source producers.
 - `d529ff3d0a44bcb4c7cce54d70103e0b78883686` — applied E136-B upstream guild-logistics history marker.
 - `c08379167f311c3ce674ace63475f3be839855a8` — changed E194 to consume the upstream guild-logistics history marker and documented qualified predicate derivation.
-- `33d9cd1c9c7ffe2f88358994aa043a643d4a2a33` — synchronized correction record as applied and verified.
 - `249e01981cb97603aac669dc5686dab46731615d` — applied authoritative E226/E269 semantic distinctions.
-- `2fa9be1c586117126c4778598ab509ebe5107389` — synchronized semantic collision resolution after authoritative catalog edits.
-- `5d652e994a1a2d0521737d6bf5d39b2a8cab5933` — synchronized producer/consumer registry after source corrections.
 
 ## Next highest-value work
-1. Complete the direct E143–E150 producer pass and freeze only outputs explicitly supported by the authored sources.
-2. Continue exact durable producer/consumer extraction across E01–E272.
-3. Reconcile normalized trigger families against the complete catalog and graph, resolving safe aliases while preserving ambiguous distinctions.
-4. Reconcile graph/catalog references and reachability.
-5. Verify delayed/replay source identities and exactly-once semantics.
-6. Verify E55/E269, E36/E226, E37/E227, E39/E229 and E40/E241 downstream roles in graph/reachability QA.
+1. Continue exact durable producer/consumer extraction across E01–E272, with E181–E210 next.
+2. Reconcile normalized trigger families against the complete catalog and graph, resolving safe aliases while preserving ambiguous distinctions.
+3. Reconcile graph/catalog references and reachability.
+4. Verify delayed/replay source identities and exactly-once semantics.
+5. Verify E55/E269, E36/E226, E37/E227, E39/E229 and E40/E241 downstream roles in graph/reachability QA.
+6. Resolve remaining OPEN contracts: food stability, active transport disruption, strong guild influence, systemic evidence convergence, coalition cooperation, constitutional preparation, budget reform and final charter prerequisites.
 7. Build a real static catalog validator only after the canonical data contract is frozen against the authored catalog.
 8. Freeze production data contracts, then implement the engine.
 
