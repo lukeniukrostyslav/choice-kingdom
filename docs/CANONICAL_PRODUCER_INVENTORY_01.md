@@ -37,6 +37,8 @@ A trigger phrase is not a producer. A consumer cannot manufacture its own prereq
 | `crown_audited` | E154 | A | Explicit Crown audit route | CLOSED at source level |
 | `legislative_budget_lock` | E198 | A | Explicit legislative budget-lock route | CLOSED at source level |
 | `soldier_compensation` | E20 | A | Publicly compensates the soldier's family; exact subject identity matches E245 | CLOSED |
+| `cheap_weapons` | E17 | A | Explicitly buys cheaper weapons; E185 later consumes this identity | CLOSED_IDENTITY |
+| `infrastructure_concession` | E45 | B | Grants long-term bridge/infrastructure concession; E181 later consumes this identity | CLOSED_IDENTITY |
 
 ### Transport-disruption reconciliation
 
@@ -126,6 +128,8 @@ Current unresolved consumers:
 - E186 — ordinary `warehouse_arson` vs previous-run informational unlock;
 - E247 — second-run information route;
 - E248 — replay callback;
+- E249 — replay-sensitive divergence support;
+- E250 — systemic-information/Second Founder support;
 - E270 — replay-transfer qualification reference.
 
 **Status: OPEN.** Design isolation is closed; exact producer/key inventory is not.
@@ -158,18 +162,7 @@ The next pass must compile, from the authoritative catalogs:
 7. undefined producers;
 8. predicate dependency cycles;
 9. delayed source/target identities;
-10. ending prerequisite incoming paths;
-11. fresh-run reachability;
-12. representative replay reachability.
+10. ending prerequisite paths;
+11. fresh-run and replay reachability.
 
-## Gate
-
-**Producer inventory: reconciled against S12.24–S12.33 source findings, with E245 producer identity now source-closed.**
-
-**Production schema: BLOCKED.**
-
-**Validator: OPERATIONAL for source-level graph contract checks.**
-
-**Decision Engine: NOT IMPLEMENTED.**
-
-**Runtime reachability: NOT VERIFIED.**
+The present inventory intentionally does not promote runtime facts that are absent from the authoritative narrative source.
