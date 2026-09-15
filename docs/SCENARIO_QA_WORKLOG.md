@@ -31,17 +31,14 @@ Every substantive scenario-QA batch must leave a durable GitHub commit and updat
 
 ### Batch S01 — E01–E34 inventory checkpoint
 - Added `docs/SCENARIO_QA_S01_E01_E34_INVENTORY.md` in commit `8ec67ff2c9efcc7c49195354740722d6669bffb1`.
-- Current inventory blob SHA before this continuation: `6ecec7f7b8eb9c1502ba3175e162a5b3af4566d9`.
 - E01–E30, E32–E34 had source-level inventory entries recorded; E31 was explicitly OPEN pending direct source reread.
 - S01 was 70% / IN PROGRESS; duplicate/contradictory writer closure remained open.
-- No scenario percentage increase was claimed from this checkpoint.
 
 ### Batch S00.5 — S01–S12 gate reconciliation / anti-repeat checkpoint
 - Added `docs/SCENARIO_QA_GATE_RECONCILIATION_01.md` in commit `5ceb59f2cac0ef421194e6718f37218d0aa2642c`.
 - Mapped every S01–S12 gate against existing canonical/static/replay/ending work.
 - Marked previously proven work as covered/partial rather than scheduling it for rework.
 - Confirmed that S01–S12 are a verification checklist, not a new project phase.
-- No scenario percentage increase was claimed from this reconciliation.
 
 ### Batch S01.1 — E31 closure + direct duplicate/contradiction audit
 - Directly re-read the authoritative `docs/EVENT_CATALOG.md` E31 source.
@@ -50,8 +47,15 @@ Every substantive scenario-QA batch must leave a durable GitHub commit and updat
 - Identified `ledger_fragment_a` as a genuine multi-producer convergence (E07-B delayed route and E21-A immediate route). This is not yet a contradiction, but requires an explicit idempotent/provenance production contract.
 - Classified E29-A/B as mutually-exclusive branch convergence for `pred.winter_severe`, not a contradiction.
 - Classified E19-A/B as predicate lifecycle establish/clear, not duplicate production.
-- Updated `docs/SCENARIO_QA_S01_E01_E34_INVENTORY.md` in commit `ce3e8e9ec5a9b94209d30907a33d29b9c9475fdd` with E31 CLOSED and the new semantic-audit findings; new inventory blob SHA `61f396eed0c3f4a97ad16ac5fc7c51bc0d23b44d`.
-- S01 advances to **80% / IN PROGRESS**, but is not closed because the multi-producer contract and exhaustive global closure remain open.
+- Updated `docs/SCENARIO_QA_S01_E01_E34_INVENTORY.md` in commit `ce3e8e9ec5a9b94209d30907a33d29b9c9475fdd` with E31 CLOSED and the new semantic-audit findings; inventory blob SHA `61f396eed0c3f4a97ad16ac5fc7c51bc0d23b44d`.
+- S01 advances to **80% / IN PROGRESS**; it remains open because the multi-producer contract and exhaustive global closure remain open.
+
+### Batch S02.1 — E35–E70 direct source inventory
+- Added `docs/SCENARIO_QA_S02_E35_E70_INVENTORY.md` in commit `914236a2b770c899e39ac4d19fd6070310e6584e`.
+- Directly inventoried all E35–E70 triggers, outputs, ending nodes and replay/epilogue callbacks from the authoritative Act V/endgame source.
+- Confirmed cross-batch consumers such as E62→`emergency_power`, E67→`constitutional_limit`, E64→`people_heard`, E45→`public_bridge`, and E42→`seris_witness` are intentional consumers of earlier producers rather than undefined producers.
+- Identified prose-like trigger concepts that still require canonical machine predicates later; these are contract-closure targets, not yet declared defects.
+- S02 advances to **70% / IN PROGRESS**; duplicate/contradiction and machine-predicate closure remain open.
 
 ## Active gates — mapped to execution batches
 
@@ -127,14 +131,14 @@ Before starting a QA batch:
 7. verify the saved file from GitHub before moving to the next batch.
 
 ## Current continuation checkpoint — 2026-09-15
-- Latest S01 duplicate/contradiction audit commit: `ae39aebc8097d3f46e6f61cac47ddb6bfbcd1b96`.
-- Latest S01 inventory update commit: `ce3e8e9ec5a9b94209d30907a33d29b9c9475fdd`.
+- Latest S02 source-inventory commit: `914236a2b770c899e39ac4d19fd6070310e6584e`.
+- Latest S01 duplicate audit commit: `ae39aebc8097d3f46e6f61cac47ddb6bfbcd1b96`.
+- Latest S01 inventory commit: `ce3e8e9ec5a9b94209d30907a33d29b9c9475fdd`.
 - Latest S01 inventory blob SHA: `61f396eed0c3f4a97ad16ac5fc7c51bc0d23b44d`.
 - Authoritative narrative source remains `docs/EVENT_CATALOG.md` blob SHA `afd8155b3359a562e5336ff54b0a0245aec46a4d`.
-- `PROJECT_STATE.md` remains at blob SHA `ec85d9ff9eb1283b4bb9cfd395700ceb3657861b`.
-- Next substantive action is the first genuinely open S01 work: formalize the multi-producer contract for `ledger_fragment_a` and complete the remaining exhaustive S01 semantic scan. Do not restart already verified E01–E34 source work.
-- No work from earlier batches is to be repeated merely because S01–S12 are used as an execution checklist.
+- Next substantive action is to continue the first genuinely open S01 work (multi-producer contract / exhaustive S01 semantic closure) without re-reading already closed source, then continue S02 semantic closure.
+- Do not restart already verified event inventories merely because S01–S12 are used as an execution checklist.
 
 ## Current status
 
-Scenario QA remains **65%** until the active batches above are actually checked and closed. S01 is **80% working progress**. The execution plan, reconciliation, S01 inventory and duplicate audit are durable and prevent restarting the same broad scenario audit from zero.
+Scenario QA remains **65%** until the active gates are actually closed. Working batch indicators: **S01 80%, S02 70%**. These batch percentages are not the global Scenario QA percentage.
