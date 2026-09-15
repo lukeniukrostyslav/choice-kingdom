@@ -35,15 +35,16 @@ Dedicated Scenario QA score is approximately **88%**. This is distinct from over
 - S09 **60%**
 - S10 **72%**
 - S11 **56%** — ending incoming-path / precedence review boundary materially tightened; source closure remains partial/open.
-- S12 **86%** — source-level machine QA includes structural diagnostics, bounded catalog↔graph ID coverage, explicit contract readiness, and a dedicated delayed-lifecycle identity gate. This remains source-level QA, not semantic equality or gameplay reachability proof.
+- S12 **86%** — source-level machine QA includes structural diagnostics, bounded catalog↔graph ID coverage, explicit contract readiness, delayed-lifecycle identity checks, and predicate-contract parity. This remains source-level QA, not semantic equality or gameplay reachability proof.
 
 ## Latest QA work
+- **S12.57 predicate contract parity gate:** added `tools/validate_predicate_contract_parity.py` and `.github/workflows/predicate-contract-parity.yml`. The gate cross-checks frozen predicate statuses between `docs/CANONICAL_DERIVED_PREDICATE_CONTRACT_01.md` and `docs/MACHINE_CANONICAL_GRAPH_01.json` without promoting OPEN/PARTIAL items or claiming gameplay equality. Commit `3c317988a9682767e22ad55e09bef9ba4f9305b8`; workflow commit `b5ca167da222a6d028edf93c693d73033c83394c`.
 - **S12.56 catalog↔graph parity correction:** the design graph is intentionally a partial causal map and does not enumerate every catalog event. The parity gate now treats catalog-only IDs as an explicit coverage delta rather than an integrity failure, while still failing on out-of-scope graph/catalog IDs and unexpected duplicate headings. It continues to refuse semantic-equality claims. Commit `24eb3e28b91c238b967d3eaeebf16fae74d8d7c1`.
-- **S12.55 frozen event graph integrity gate:** added `tools/validate_event_graph_integrity.py` and wired it into `.github/workflows/canonical-graph.yml`. The first CI execution exposed that the design graph intentionally does not enumerate every catalog event: 235 graph nodes versus the frozen E01–E272 catalog, with 37 catalog IDs not represented as graph nodes in the validator's event-ID set. The gate was corrected to validate every graph-represented ID and every causal edge against the frozen scope, while reporting graph coverage rather than incorrectly treating non-node catalog events as integrity failures. Fix commit `cf0582b6b6fc514b8b40390cbab5f5e84d251e3e3e`.
-- **S12.54 delayed lifecycle gate:** added `tools/validate_delayed_lifecycle_gate.py`. It validates the high-risk delayed identity boundary for E181/E182/E183/E184/E185/E245/E246, preserves source-identity vs runtime-lifecycle separation, and refuses invented absolute turns. Dedicated CI is `.github/workflows/delayed-lifecycle-gate.yml`; QA record: `docs/SCENARIO_QA_S12_54_DELAYED_LIFECYCLE_GATE_01.md`. Commits: implementation `17c86fe61c38a28d9a81e8dcb130005b6070246c`, workflow `c104d2a96654cca2ccf416a0f48a21a03580fb92`, QA record `7c68349275156ef61d678fefc437c6ca510306c0`.
+- **S12.55 frozen event graph integrity gate:** added `tools/validate_event_graph_integrity.py` and wired it into `.github/workflows/canonical-graph.yml`. The first CI execution exposed that the design graph intentionally does not enumerate every catalog event: 235 graph nodes versus the frozen E01–E272 catalog, with 37 catalog IDs not represented as graph nodes in the validator's event-ID set. The gate was corrected to validate every graph-represented ID and every causal edge against the frozen scope, while reporting graph coverage rather than incorrectly treating non-node catalog events as integrity failures. Fix commit `cf0582b6b6fc514b8b40390cbab5f5e84d251e3e`.
+- **S12.54 delayed lifecycle gate:** added `tools/validate_delayed_lifecycle_gate.py`. It validates the high-risk delayed identity boundary for E181/E182/E183/E184/E185/E245/E246, preserves source-identity vs runtime-lifecycle separation, and refuses invented absolute turns. Dedicated CI is `.github/workflows/delayed-lifecycle-gate.yml`; QA record: `docs/SCENARIO_QA_S12_54_DELAYED_LIFECYCLE_GATE_01.md`.
 - **S12.53 machine contract readiness:** added `tools/validate_canonical_contract_readiness.py`. It validates frozen scope, required composite predicate inventory, explicit delayed lifecycle statuses and hard-negative presence, and emits `docs/MACHINE_CONTRACT_READINESS_01.json`. OPEN/PARTIAL contracts remain visible and never promote automatically.
-- **S12.53 dedicated CI:** added `.github/workflows/canonical-contract-readiness.yml`, running the readiness validator on push/PR and uploading the readiness ledger. Commit: `739c2a5cf0eb9d991b225da137cbfdc6c3c26bf9`.
-- **S12.52 bounded catalog↔graph parity gate:** added `tools/validate_catalog_graph_parity.py` and `docs/MACHINE_CATALOG_GRAPH_PARITY_01.json` generation. The gate checks frozen E01–E272 catalog IDs against graph-chain IDs, rejects non-frozen/non-excluded graph IDs, unexpected catalog IDs and unexpected duplicate headings, while explicitly refusing to claim semantic equality from ID parity alone. Commit: `fd603b0415bb61582d2344f8f43930a3e6909e62`.
+- **S12.53 dedicated CI:** added `.github/workflows/canonical-contract-readiness.yml`, running the readiness validator on push/PR and uploading the readiness ledger.
+- **S12.52 bounded catalog↔graph parity gate:** added `tools/validate_catalog_graph_parity.py` and `docs/MACHINE_CATALOG_GRAPH_PARITY_01.json` generation. The gate checks frozen E01–E272 catalog IDs against graph-chain IDs, rejects non-frozen/non-excluded graph IDs, unexpected catalog IDs and unexpected duplicate headings, while explicitly refusing to claim semantic equality from ID parity alone.
 
 ## Current canonical source status
 
@@ -69,7 +70,7 @@ Dedicated Scenario QA score is approximately **88%**. This is distinct from over
 - Constitutional preparation: civic + institutional + factional + military source domains; at least three distinct domains required.
 
 ### Delayed lifecycle status
-- E181: exact source says `5+ turns after a toll concession`; producer candidate E45-B remains open for canonical closure.
+- E181: exact source says `5+ turns after a toll concession`; producer **E45-B is source-identified/closed at identity level**, while runtime scheduler anchor remains open.
 - E182: E117-B `veteran_patronage`, `4+ turns later`; source identity closed, scheduler anchor open.
 - E183: E118-B `estate_exception`, `5+ turns later`; source identity closed, scheduler anchor open.
 - E184: `secret evidence route`, `4+ turns later`; no safe canonical producer alias, therefore OPEN.
@@ -125,15 +126,19 @@ Exact authored headings/effects/delayed semantics remain **QUARANTINED / UNRECOV
 Overall project progress remains approximately **60%**. Scenario QA is approximately **88%** and must not be conflated with overall project completion.
 
 ## Next autonomous work
-1. Verify fresh GitHub Actions after S12.55/S12.56; do not claim GREEN until the relevant new runs and jobs pass.
-2. Audit no-outbound and unreferenced candidate sets against authoritative source text using semantic-boundary queues.
-3. Separate ROOT/SOURCE, ordinary producer, consumer-only, terminal/ending, qualification, delayed callback, replay-only and true orphan semantics.
-4. Complete delayed cancellation/supersession matrix, especially E181/E184/E185/E245.
-5. Close source-backed producer matrices for guild influence, coalition cooperation and constitutional preparation where evidence permits.
-6. Build fresh-run and representative replay reachability models with strict `meta.*` isolation.
-7. Prove catalog↔machine graph semantic equality or produce a bounded, explicit delta beyond ID coverage.
-8. Freeze production contracts only after machine validation and reachability gates pass.
-9. Then Decision Engine → UI → localization → runtime/Android QA → APK → release.
+1. Verify fresh GitHub Actions after S12.57; do not claim GREEN until the relevant new runs and jobs pass.
+2. Audit delayed cancellation/supersession matrix, especially E181/E184/E185/E245.
+3. Close source-backed producer matrices for guild influence, coalition cooperation and constitutional preparation where evidence permits.
+4. Reconcile `pred.food_stable` vs `food_logistics_stabilized` without admitting expansion-only E273.
+5. Complete systemic explanation convergence producer/key.
+6. Complete `pred.final_charter_prerequisites`.
+7. Inventory replay `meta.*` producer/key sources.
+8. Resolve E33/E34 exact canonical headings/effects/delayed semantics from authoritative evidence only.
+9. Determine ending incoming paths and deterministic precedence.
+10. Build fresh-run and representative replay reachability models.
+11. Prove catalog↔machine graph semantic equality or produce a bounded explicit delta beyond ID coverage.
+12. Freeze production contracts only after machine validation and reachability gates pass.
+13. Then Decision Engine → UI → localization → runtime/Android QA → APK → release.
 
 ## Honest progress rule
 Documentation alone never makes implementation complete. Source edits count only when authoritative evidence is changed/re-read. No block is ready until its applicable verification passes.
