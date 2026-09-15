@@ -9,5 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Validate source-level canonical graph contract
+        run: python3 tools/validate_canonical_graph.py
+      - name: Compile graph node classification inventory
+        run: python3 tools/classify_graph_nodes.py
+      - name: Compile producer consumer matrix
+        run: python3 tools/compile_producer_consumer_matrix.py
+      - name: Compile conservative candidate triage
+        run: python3 tools/triage_graph_candidates.py
       - name: Validate frozen production scope boundaries
         run: python3 tools/validate_scope_boundaries.py
