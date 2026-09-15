@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1",
+  "schema_version": "1.2",
   "contract": "choice_kingdom.ending_precedence_boundary",
   "scope": "E01-E272",
   "status": "SOURCE_LEVEL_BOUNDARY_CLOSED_RUNTIME_ORDER_OPEN",
@@ -14,7 +14,8 @@
     "Quiet Throne requires its own authored withdrawal/stability evidence and is not a generic fallback.",
     "Support nodes E267-E270 do not become final ending predicates without an explicit contract.",
     "Replay/meta evidence cannot satisfy a fresh-run ending prerequisite without an explicit promotion rule.",
-    "E33 and E34 are canonical production events and are no longer quarantined; their downstream predicates remain contract-gated.",
+    "E33/E34 are canonical production events; E33 emergency_power and constitutional_limit, and E34 people_heard, remain evidence/flags until explicit ending-consumer contracts exist.",
+    "E33/E34 boundary validation must be case-sensitive against the canonical event IDs and must not depend on graph-node presence alone.",
     "E273-E277 remain excluded from the E01-E272 production freeze."
   ],
   "required_runtime_resolution": ["exact positive prerequisite set per family", "exact negative blocker set per family", "tie-break order when multiple families qualify", "fresh-run evaluation order", "replay evaluation order", "deterministic terminal selection"],
