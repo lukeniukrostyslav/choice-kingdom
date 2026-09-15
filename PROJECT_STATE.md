@@ -43,14 +43,20 @@ E273–E277 have now received a second admission audit. They remain outside the 
 
 The border-crisis lifecycle is source-closed: E271-A declares the active crisis and E272-A/B resolve it while preserving historical declaration state. `thread.border` remains a legacy trigger context and must not be silently aliased to `thread.border_crisis`.
 
-Delayed-consequence source extraction covers E127–E130/E141 plus E181–E185 and E242–E246. E128 has verified upstream E17-A (`cheap_weapons`); E129 has verified upstream festival-held route; E130 is now closed to E45-B (`infrastructure_concession`); E141 is now closed to E48-B (`emergency_renewal_possible`). E127 still has one verified producer plus one unresolved alternate route. E181–E185 and E242–E246 have source/timing extraction but still require exact delay identity, cancellation/supersession, persistence and deterministic resolution contracts. See `docs/DELAYED_PRODUCER_CLOSURE_01.md`.
+Delayed-consequence source extraction covers E127–E130/E141 plus E181–E185 and E242–E246. E128 has verified upstream E17-A (`cheap_weapons`); E129 has verified upstream festival-held route; E130 is closed to E45-B (`infrastructure_concession`); E141 is closed to E48-B (`emergency_renewal_possible`); E127 source identity is now closed to the verified temporary noble-exemption route and no second producer named `hereditary_seats_limited` is proven in the current source inventory. Remaining delayed work is runtime identity/timing/cancellation/persistence rather than inventing producers. See `docs/DELAYED_E127_RECONCILIATION_01.md` and `docs/DELAYED_PRODUCER_CLOSURE_01.md`.
+
+Replay mutable-state isolation is now contract-closed at the design level: a new run starts with empty pending callbacks, active-cycle predicates, unresolved crises and run-local state; only explicitly authored `meta.*` transfer data may cross the replay boundary. The exact authored `meta.*` transfer inventory remains OPEN. See `docs/REPLAY_META_STATE_CONTRACT_01.md` and `docs/CANONICAL_DELAY_REPLAY_ENDING_AUDIT_01.md`.
+
+The ending qualification design contract is also established: endings must be deterministic, predicate-based and causal; relationship scores, route counts and the last event cannot manufacture prerequisites. The seven current ending families and E265–E270 qualification roles are defined, but complete producer/path coverage and final precedence tests remain OPEN. See `docs/ENDING_QUALIFICATION_CONTRACT_01.md`.
 
 No validator has been introduced prematurely. Production schema and runtime implementation remain blocked until canonical contracts are frozen and the complete catalog reconciliation passes.
 
 ## Latest source-level commits
-- `f2907e4e53ac4753c48b68801cc327c6c85671da` — closed source producer identities for E130/E141.
-- `9c11d84d1de42da409521f3b45f693e9aa203d4a` — E273–E277 admission audit 02; candidates remain outside frozen production catalog.
-- `d39970d64f019bf809ea83e9502afe6bcaa896fc` — previous project-state update.
+- `b4a4b8fe714e215ebcece5cd3917350ab09ec949` — freeze replay meta-state isolation contract.
+- `1c4fd1466f45557780ac5d22437378ffd714f50b` — close E127 producer identity reconciliation.
+- `4e674404a82149ef6c162b6955531dd35fae31fd` — delay/replay/ending contract audit.
+- `f2907e4e53ac4753c48b68801cc327c6c85671da` — close source producer identities for E130/E141.
+- `9c11d84d1de42da409521f3b45f693e9aa203d4a` — E273–E277 admission audit 02.
 - `0237626eef0d67066f64f2f90697cf728765a0f2` — transport disruption lifecycle reconciliation.
 - `0f89f64c3d07bd01e7fb803f4a0198ef5de79c46` — delayed callback producer refinement.
 - `0b1d05edd18212355db1c475e7d5bbc3a7cb09b0` — canonical P0 reconciliation 06.
@@ -59,12 +65,12 @@ No validator has been introduced prematurely. Production schema and runtime impl
 - Foundation / rules: **95%**
 - Authored content: **90%**
 - Canonical Event IDs / continuity: **100%**
-- Producer / Consumer QA: **85%**
-- Derived predicates / machine contracts: **80%**
-- Delayed Consequences: **73%**
-- Replay / Meta-state: **42%**
-- Endings / precedence: **52%**
-- Reachability / causal graph: **38%**
+- Producer / Consumer QA: **88%**
+- Derived predicates / machine contracts: **82%**
+- Delayed Consequences: **77%**
+- Replay / Meta-state: **55%**
+- Endings / precedence: **58%**
+- Reachability / causal graph: **40%**
 - Production data schema: **35%**
 - Decision Engine: **0%**
 - UI / UX: **0%**
@@ -74,17 +80,17 @@ No validator has been introduced prematurely. Production schema and runtime impl
 - APK: **0%**
 - Release: **0%**
 
-Overall project progress is approximately **47%**. This is still prerequisite-heavy work; no engine/UI/Android implementation is being counted as complete before the canonical contracts are genuinely verified.
+Overall project progress is approximately **49%**. The increase reflects real source-level contract closure, not implementation being counted as complete. Engine/UI/Android remain at zero until their prerequisites are genuinely verified.
 
 ## Next highest-value work
-1. Complete E127 alternate producer reconciliation and remaining delayed lifecycle fields.
-2. Finish E273–E276 consumer/alias graph checks and decide whether any candidate can be admitted without changing frozen semantics.
-3. Freeze replay meta-state transfer/isolation rules and ending qualification/precedence.
-4. Re-run complete E01–E272 contradiction/cycle/reachability reconciliation.
-5. Freeze production data contracts.
-6. Build the real static validator against the frozen schema.
+1. Normalize remaining delayed callback fields for E127–E130/E141 and E181–E185/E242–E246.
+2. Complete E273–E276 consumer/alias graph checks and decide admission without changing frozen semantics.
+3. Inventory all authored `meta.*` replay transfer producers and consumers.
+4. Complete ending producer/path coverage and deterministic precedence tests for E265–E270 and the seven ending families.
+5. Re-run complete E01–E272 contradiction/cycle/reachability reconciliation.
+6. Freeze production data contracts and only then build the static validator.
 7. Implement the actual Decision Engine and runtime.
-8. Proceed to UI, localization, Android QA and APK only after the engine contracts are genuinely verified.
+8. Proceed to UI, localization, Android QA and APK only after engine contracts are genuinely verified.
 
 ## Honest progress rule
 Percentages represent actual state. Documentation alone does not make implementation complete. Source edits count only when the authoritative catalog is changed and re-read. No block may be called ready until its appropriate verification has passed.
