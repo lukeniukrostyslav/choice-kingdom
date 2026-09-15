@@ -6,6 +6,14 @@ Purpose: durable handoff ledger so completed QA work is not repeated.
 
 ## Latest continuation update — 2026-09-15
 
+### S08.6 — closure matrix for remaining producer/consumer surface
+- Added `docs/SCENARIO_QA_S08_CLOSURE_MATRIX_01.md` in commit `dc7de03cf29a20e6359d0feb3c63fa5c51b9c847`.
+- Converted the current registry into an explicit closed/open matrix for the remaining canonical producer/consumer families.
+- Confirmed source-closed families including guild representation, guild logistics cooperation, house assembly, cross-faction package, people charter endorsement, winter severity and the E271/E272 border-crisis lifecycle.
+- Isolated the remaining open families: `pred.food_stable`, transport-disruption active producer, guild-influence qualification, systemic explanation, coalition cooperation, constitutional preparation, budget reform, final charter prerequisites, faction route activation and replay `meta.*` producers.
+- Added mandatory machine-check gates for producer completeness, consumer completeness, frozen-scope integrity, duplicate semantic outputs, contradictory writers, legacy-vocabulary normalization, predicate cycles and delayed-source lifecycle completeness.
+- Preserved hard negatives and explicitly kept S08 IN PROGRESS; no production schema or invented runtime alias was introduced.
+
 ### S08.5 — canonical producer registry scope hardening
 - Corrected `docs/CANONICAL_PRODUCER_CONSUMER_REGISTRY_01.md` in commit `5eb8f961deee382802bfd915c38cbb0b74181ebf`.
 - Replaced the stale E273 food-stability producer reference with an explicit **NO IN-SCOPE PRODUCER VERIFIED** state for `pred.food_stable`.
