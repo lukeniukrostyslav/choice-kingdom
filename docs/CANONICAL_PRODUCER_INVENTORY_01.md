@@ -62,7 +62,7 @@ The unresolved portion is runtime lifecycle semantics only: save/load persistenc
 | E183 | `estate_exception` | E118-B | source-closed |
 | E184 | `secret evidence route` | E25-B → `secret_evidence_route` | SOURCE-CLOSED; vocabulary normalized |
 | E185 | `cheap_weapons` + later military crisis | E17-A | source-closed producer; crisis lifecycle open |
-| E242 | prior noble exception | E118-B explicit, possibly broader set | PARTIAL; no generic alias |
+| E242 | prior noble exception | **E118-B → `estate_exception`** | **SOURCE-CLOSED; E118-B is the frozen production producer identity. No broader generic alias is admitted. Runtime delay/precedence remains open.** |
 | E243 | `public bridge investment` | E18-B → `public_bridge` | SOURCE-EQUIVALENT; normalize vocabulary |
 | E244 | `flexible accounts` | E09-B | source-closed |
 | E245 | `compensation route` | E20-A → `soldier_compensation` | SOURCE-CLOSED; exact Soldier's Son / compensated-family identity match; E125/E156 remain distinct |
