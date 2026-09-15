@@ -1,0 +1,32 @@
+name: Choice Kingdom Noncanonical Consumer Rejection Gate
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/validate_noncanonical_consumer_rejections.py'
+      - 'docs/SCENARIO_QA_UNDEFINED_CONSUMER_CLASSIFICATION_01.md'
+      - 'docs/MACHINE_CANONICAL_GRAPH_01.json'
+      - 'docs/**'
+      - '*.md'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'tools/validate_noncanonical_consumer_rejections.py'
+      - 'docs/SCENARIO_QA_UNDEFINED_CONSUMER_CLASSIFICATION_01.md'
+      - 'docs/MACHINE_CANONICAL_GRAPH_01.json'
+      - 'docs/**'
+      - '*.md'
+
+permissions:
+  contents: read
+
+jobs:
+  rejection-gate:
+    name: Validate frozen noncanonical consumer rejections
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Run rejection gate
+        run: python3 tools/validate_noncanonical_consumer_rejections.py
