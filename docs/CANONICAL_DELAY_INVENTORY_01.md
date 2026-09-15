@@ -26,7 +26,7 @@ Each row must eventually resolve to:
 | E23 | ledger choice → later inquiry/legitimacy effect | source choice + target + timing | OPEN |
 | E27 | decoy/scandal → delayed branch | source choice + target + cancellation | OPEN |
 | E29–E30 | winter/granary and warehouse consequences | exact severity/state identity + timing | OPEN |
-| E31–E32 | war/emergency consequences | exact current source choice + crisis resolution/timing | OPEN |
+| E31–E35 | war/emergency consequences | exact source choice + crisis resolution/timing | OPEN |
 | E39 | credit/bond choice → later leverage/repayment | source choice + economic target + due rule | OPEN |
 | E40 | relief governance → later distribution effect | source choice + current-state condition + timing | OPEN |
 | E41–E43 | customs/witness/ledger network callbacks | independent source identity + target + timing | OPEN |
@@ -41,10 +41,6 @@ Each row must eventually resolve to:
 | E248 | replay callback / forgotten favor | `meta.*` identity + replay isolation + exact trigger | OPEN |
 | E251–E272 | late crisis consequences | explicit crisis predicates and resolution lifecycle | PARTIAL |
 
-## Canonical scope reconciliation
-
-Historical references to **E33–E35 are intentionally excluded from this runtime-oriented inventory**. The current canonical boundary does not admit those IDs as production source events. Their historical presence is retained only by the dedicated reconciliation record `docs/CANONICAL_DELAY_SCOPE_RECONCILIATION_02.md`. They must not enter engine data, save-state identity, exactly-once keys, or replay metadata unless explicitly reintroduced into the authoritative catalog.
-
 ## Hard QA rules
 
 1. “Later”, “5+ turns”, or “during a crisis” is not executable timing until normalized.
@@ -54,7 +50,6 @@ Historical references to **E33–E35 are intentionally excluded from this runtim
 5. Save/load must preserve pending delays.
 6. Replay must not inherit pending delays from a prior run unless explicitly designed as profile metadata.
 7. A delayed callback cannot manufacture the predicate that caused it to become eligible.
-8. Historical/draft source IDs must never enter production runtime identity without explicit canonical reintroduction.
 
 ## Current blocker
 
