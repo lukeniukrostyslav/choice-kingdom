@@ -100,11 +100,13 @@ A queue becomes a political demonstration.
 
 ## Character pressure
 
-### E226 — Mara's Resignation
+### E226 — Mara's Final Resignation Test
 **Trigger:** Mara <= -1 or repeated executive overrides.
-Mara offers to resign rather than legitimize the new system.
+Late in the constitutional struggle, Mara offers to resign rather than legitimize a system repeatedly altered by executive intervention. This is a consequence test of accumulated institutional strain, not a second generic resignation scene.
 - **A — Give her independent authority:** -2 power, +4 Mara, +4 trust; `mara_independent_mandate`.
 - **B — Accept resignation:** +3 power, -5 Mara; `mara_resigned`.
+
+**QA distinction:** E226 is retained only as a late institutional-stress consequence. Its presentation must reference accumulated executive overrides or comparable prior institutional strain; it must not replay E36's early constitutional introduction.
 
 ### E227 — Rowan's Line
 **Trigger:** Rowan route + constitutional reform.
@@ -374,11 +376,13 @@ Seris offers to persuade the Houses if the Crown protects legitimate property ri
 - **A — Protect rights equally:** +4 trust, +3 Seris.
 - **B — Grant house-specific protection:** +4 Seris, -5 trust.
 
-### E269 — Ivo's Last Account
+### E269 — Ivo's Late Account
 **Trigger:** Ivo active.
-Ivo hands over a private account showing where emergency profits went.
+Late in the endgame, Ivo hands over a private account showing where emergency profits went. Unlike E55's earlier ledger-disclosure decision, this is a consequence-stage evidence handoff that tests what the accumulated commercial route has produced.
 - **A — Preserve and publish it:** +6 trust, -2 Ivo.
 - **B — Use it as leverage:** +5 power, +2 Ivo, -5 trust.
+
+**QA distinction:** E269 is the late endgame consequence/evidence node. It must never be presented or referenced as a duplicate of E55, which remains the earlier guild-books disclosure node.
 
 ### E270 — Amara and Toma at Dawn
 **Trigger:** Amara and Toma both active.
