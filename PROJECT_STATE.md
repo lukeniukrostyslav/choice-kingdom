@@ -42,6 +42,9 @@ This is the fixed reporting metric for the E01–E272 authored campaign. It meas
 The 65% figure does not mean the engine, runtime, Android build, UI, localization or APK are complete. It also does not mean reachability has been proven.
 
 ## Latest QA work
+- S08.10 producer chronology pre-audit added as `docs/SCENARIO_QA_S08_10_PRODUCER_CHRONOLOGY_PREAUDIT_01.md`, commit `a8beccf42802a5664b7b990ff72c02ea540a0982`.
+- S08.10 established source-closed producer-before-consumer rows for transport, winter, guild logistics and border-crisis lifecycle, while keeping guild influence, constitutional preparation, coalition cooperation and final-charter chronology partial/open.
+- S08.10 explicitly preserved duplicate/contradictory-writer gates and hard E273–E277 exclusion; it is a partial pre-audit, not exhaustive closure.
 - S08.9 source reconciliation added as `docs/SCENARIO_QA_S08_9_SOURCE_RECONCILIATION_01.md`, commit `beb8c93e8e4e95c2fb62ab90e4cf36f0e46f7e4b`.
 - S08.9 reconciled food/transport lifecycle evidence against the authoritative late-predicate audit and prevented downstream consumers from being promoted into producers. `pred.food_stable` remains OPEN; E32 is the active transport-disruption producer and E136-A/B are recovery/clear sources, while later reactivation remains unresolved.
 - S08.8 source closure audit added as `docs/SCENARIO_QA_S08_8_SOURCE_CLOSURE_AUDIT_01.md`, commit `1378318513cca1f88b8ee2c310b7228b5e145a2b`.
@@ -93,12 +96,13 @@ Overall project progress remains approximately **53%**. The separate scenario QA
 
 ## Next highest-value work
 1. Continue exhaustive E01–E272 producer/output/trigger extraction with a hard E273–E277 exclusion filter.
-2. Build producer-before-consumer chronology and resolve undefined producers/consumers, duplicate semantic writers and contradictory writers without inventing semantics.
-3. Finish derived predicate contracts and exact canonical vocabulary, including food stability, transport lifecycle, guild influence, constitutional preparation and coalition cooperation.
-4. Close delayed E184/E245/E246 and replay/ending contracts.
-5. Run fresh-run reachability and graph-vs-catalog reconciliation.
-6. Freeze production contracts only after evidence is clean enough for machine validation.
-7. Build the Decision Engine against frozen contracts, then UI, localization, automated/runtime verification and Android release gates.
+2. Complete producer-before-consumer chronology and resolve undefined producers/consumers, duplicate semantic writers and contradictory writers without inventing semantics.
+3. Run predicate dependency cycle/self-satisfaction checks and reconcile delayed source/target identity against the same chronology table.
+4. Finish derived predicate contracts and exact canonical vocabulary, including food stability, transport lifecycle, guild influence, constitutional preparation and coalition cooperation.
+5. Close delayed E184/E245/E246 and replay/ending contracts.
+6. Run fresh-run reachability and graph-vs-catalog reconciliation.
+7. Freeze production contracts only after evidence is clean enough for machine validation.
+8. Build the Decision Engine against frozen contracts, then UI, localization, automated/runtime verification and Android release gates.
 
 ## Honest progress rule
 Percentages represent actual state. Documentation alone does not make implementation complete. Source edits count only when the authoritative catalog is changed and re-read. No block may be called ready until its appropriate verification has passed.
