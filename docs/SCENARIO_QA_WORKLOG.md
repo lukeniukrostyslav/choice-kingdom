@@ -6,6 +6,14 @@ Purpose: durable handoff ledger so completed QA work is not repeated.
 
 ## Latest continuation update — 2026-09-15
 
+### S08.4 — frozen-scope integrity correction
+- Added `docs/SCENARIO_QA_S08_SCOPE_INTEGRITY_01.md` in commit `2a2787b9f2206da6e4e5c4bda85175289520c1cb`.
+- Detected a stale producer reference in the working producer/consumer registry: `pred.food_stable` was attributed to `E273-A`, which is outside the frozen E01–E272 production catalog.
+- Dispositioned E273–E277 as strictly excluded from production producer/consumer, predicate, delayed-source and reachability contracts.
+- `pred.food_stable` is now treated as **OPEN / no in-scope producer verified** until an E01–E272 source is found.
+- The same scope-integrity rule applies to the previously cited E277 transport-recovery reference.
+- S08 remains **IN PROGRESS**; this is a QA correction, not an exhaustive-closure claim.
+
 ### Batch S10.3 — E185 crisis-resolution / exact ordering contract
 - Added `docs/SCENARIO_QA_S10_DELAYED_CONSEQUENCES_03.md` in commit `d9c5853ec0fa92c9b9d0b96da0c246904516de81`.
 - Preserved E17-A as the exact authored source identity and prevented E185 from being implemented as a simple timer.
@@ -36,10 +44,10 @@ Purpose: durable handoff ledger so completed QA work is not repeated.
 
 Scenario QA remains **65%** until active global gates are actually closed.
 
-Working batch indicators: **S01 80%, S02 70%, S03 70%, S04 70%, S05 60%, S06 55%, S07 80%, S08 70%, S09 55%, S10 72%, S11 55%, S12 20%**.
+Working batch indicators: **S01 80%, S02 70%, S03 70%, S04 70%, S05 60%, S06 55%, S07 80%, S08 72%, S09 55%, S10 72%, S11 55%, S12 20%**.
 
 These batch percentages are working indicators and are not the global Scenario QA percentage.
 
 ## Next substantive action
 
-Continue exhaustive S08 producer/consumer extraction across the frozen E01–E272 catalog, then close remaining S09/S10 dependencies before S11/S12. Do not start runtime implementation until the canonical production contracts are sufficiently closed and verified.
+Continue exhaustive S08 producer/consumer extraction across the frozen E01–E272 catalog, with a mandatory scope-integrity filter rejecting E273–E277 references. Then close remaining S09/S10 dependencies before S11/S12. Do not start runtime implementation until the canonical production contracts are sufficiently closed and verified.
