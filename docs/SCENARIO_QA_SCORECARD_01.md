@@ -30,6 +30,13 @@ Exact arithmetic mean: **83.4167%**.
 
 ## Verified autonomous work — latest blocks
 
+### S33 — ending test-matrix contract gate
+- Added `tools/validate_ending_test_matrix_contract.py` to validate the complete P01–P30 authored ending QA surface, deterministic semantic evaluation order, seven ending families, replay/save-load/alias negative controls, and E273–E277 exclusion language.
+- Added `.github/workflows/ending-test-matrix-contract.yml` so the matrix is checked automatically on push.
+- Commit: `9916050fa877fea3fb76fad2c0979beb3052ad3a`.
+- The same commit's `Choice Kingdom Contract Readiness` run **#340 / 35034440538: PASS**.
+- This closes a missing automated QA gate for the ending matrix but does **not** close runtime precedence, executable ending fixtures, replay reachability, or justify a percentage increase.
+
 ### S32 — delayed runtime reference QA correction and green proof
 - Corrected `tools/validate_delay_runtime_reference.py` so each delayed row's pre-due assertion runs in an isolated reference runtime; unrelated earlier delays can no longer cause false positives.
 - Commit: `b1cc94dd0b2884643c9d6244827ab7692a4094ea`.
