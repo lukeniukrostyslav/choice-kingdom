@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "scope": "E01-E272",
+  "status": "SOURCE_LEVEL_CONTRACT_CLOSED_RUNTIME_OPEN",
+  "purpose": "Machine-readable conservative qualification boundaries for composite predicates; no runtime promotion is authorized by this document alone.",
+  "predicates": {
+    "pred.constitutional_prepared_strong": {
+      "minimum_independent_domains": 3,
+      "domains": [
+        {"domain": "civic_commons", "producer": "E50-A", "key": "people_charter_endorsed"},
+        {"domain": "institutional_audit", "producer": "E154-A", "key": "crown_audited", "same_domain_evidence": ["E155-A:full_crown_audit_published"]},
+        {"domain": "factional_house", "producer": "E161-A", "key": "house_assembly"},
+        {"domain": "military_law", "producer": "E199-A", "key": "army_constitution_oath"}
+      ],
+      "negative_blockers": ["permanent_emergency_power_active", "unresolved constitutional contradiction"],
+      "rule": "any_3_distinct_domains_plus_blockers_clear",
+      "runtime_verified": false
+    },
+    "pred.guild_influence_strong": {
+      "minimum_independent_domains": 2,
+      "domains": [
+        {"domain": "representation", "producer": "E49", "key": "guild_political_representation"},
+        {"domain": "tribunal", "producer": "E168-A", "key": "guild_tribunal_independent"},
+        {"domain": "market_credit", "producer": "E165", "key": "official_credit_disclosure"},
+        {"domain": "logistics", "producer": "E136-B", "key": "history.guild_logistics_cooperation"}
+      ],
+      "non_alias_rules": ["E165 and E166 are the same market domain", "E194 cannot self-produce history.guild_logistics_cooperation", "relationship.ivo is not an institutional domain"],
+      "rule": "any_2_distinct_domains",
+      "runtime_verified": false
+    }
+  },
+  "global_non_circularity": [
+    "consumer cannot create the predicate it consumes",
+    "trigger text is not evidence by itself",
+    "relationship values are not institutional domains",
+    "downstream consequences cannot become upstream prerequisites by narrative implication",
+    "one authored source cannot count as multiple independent domains without explicit canonical proof"
+  ],
+  "promotion": {
+    "decision_engine_authorized": false,
+    "requires_runtime_order_verification": true,
+    "requires_fresh_run_reachability": true,
+    "requires_contradiction_cycle_checks": true
+  }
+}
