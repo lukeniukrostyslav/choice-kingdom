@@ -21,7 +21,7 @@ No mock/stub gameplay or premature production-readiness claims.
 **Narrative/content canonicalization and QA.** Authored checkpoint E01–E272. Production schema and Decision Engine remain blocked until canonical contracts and reachability are sufficiently closed.
 
 ## Scenario QA
-Dedicated Scenario QA score is now approximately **71%**. This is distinct from overall project completion and is not runtime/Android readiness.
+Dedicated Scenario QA score is now approximately **72%**. This is distinct from overall project completion and is not runtime/Android readiness.
 
 ### S01–S12 working indicators
 - S01 **80%**
@@ -35,9 +35,12 @@ Dedicated Scenario QA score is now approximately **71%**. This is distinct from 
 - S09 **60%**
 - S10 **72%**
 - S11 **55%**
-- S12 **48%** — S12.2 source closure, S12.3 invariant audit, S12.4 patch gate, S12.5 authoritative P0 source reconciliation, S12.6 machine P0 delta, S12.7 P0 identity normalization, S12.12 endgame source registry and S12.13 late-consumer source matrix completed; exhaustive machine graph, exact composite formulas/evidence IDs, exact E272 tokens, reachability and ending precedence remain open.
+- S12 **50%** — S12.14 delayed identity gate and S12.15 composite evidence identity/source reconciliation completed; exhaustive machine graph, exact systemic convergence evidence, exact E272 authored tokens, reachability and ending precedence remain open.
 
 ## Latest QA work
+- **S12.15** added `docs/SCENARIO_QA_S12_15_COMPOSITE_EVIDENCE_IDENTITY_REGISTRY_01.md`, commit `583b9ce826581a88dfbf7bf752f3eeb891b4c018`.
+- **S12.15** reconciled `docs/CANONICAL_PRODUCER_CONSUMER_REGISTRY_01.md` with composite evidence/budget findings, commit `5e8ca0f1348ee812b53a4de2160fb17000cd1b3e`.
+- **S12.14** added `docs/SCENARIO_QA_S12_14_DELAY_IDENTITY_GATE_01.md`, commit `69b4b5136cb1ababbc95889f8d3df4f9c528b8b7`.
 - **S12.13** added `docs/SCENARIO_QA_S12_13_LATE_CONSUMER_SOURCE_MATRIX_01.md`, commit `4d500908cd9730f8f3c4dcd0e60f315e5f75d8f3`.
 - **S12.12** added `docs/SCENARIO_QA_S12_12_ENDGAME_SOURCE_REGISTRY_01.md`, commit `69cfd11651be41e489ab2c4c35e32071c8956132`.
 - **S12.7** added `docs/SCENARIO_QA_S12_7_P0_IDENTITY_NORMALIZATION_CONTRACT_01.md`, commit `066584f94358c5584623097de2abc933c17ad4e3`.
@@ -47,7 +50,7 @@ Dedicated Scenario QA score is now approximately **71%**. This is distinct from 
 - **S12.3** added `docs/SCENARIO_QA_S12_3_CANONICAL_INVARIANT_AUDIT_01.md`, commit `860444b28cd6e3e36024f9ebf9609b80532efa07`.
 - **S12.2** added `docs/SCENARIO_QA_S12_2_SOURCE_CLOSURE_DELTA_AUDIT_01.md`, commit `6c8e82e825e7bcbeeb9d6f105ed7f4f9fd744559`.
 - **S12.1** added the machine-oriented reachability anchor inventory in commit `a61ac9de61f4c448c511e123be38cea12b3b0f5b8`.
-- Canonical budget reform source closure identifies E142-A `auditor_independence`, E154-A `crown_audited` and E198-A `legislative_budget_lock` as the three-domain source candidate set. Predicate validation remains partial.
+- Canonical budget reform source closure identifies E142-A `auditor_independence`, E154-A `crown_audited` and E198-A `legislative_budget_lock` as the three-domain source set. Executable qualification remains partial.
 - S11 ending audit established consumer-only ending qualification and rejected generic-score/consumer-as-producer shortcuts.
 - S10.5 closed the semantic QA boundary for delayed lifecycle, persistence and replay isolation while executable callback contracts remain open pending exact source extraction.
 - S10.4 reconciled delayed source identities for E181–E185 and E242–E246.
@@ -112,8 +115,8 @@ Delayed consequences require source choice/event, earliest turn, latest turn or 
 - Authored content: **90%**
 - Canonical Event IDs / continuity: **100%**
 - Producer / Consumer QA: **99%**
-- Derived predicates / machine contracts: **93%**
-- Delayed Consequences: **90%**
+- Derived predicates / machine contracts: **94%**
+- Delayed Consequences: **91%**
 - Replay / Meta-state: **61%**
 - Endings / precedence: **69%**
 - Reachability / causal graph: **56%**
@@ -126,7 +129,7 @@ Delayed consequences require source choice/event, earliest turn, latest turn or 
 - APK: **0%**
 - Release: **0%**
 
-Overall project progress is approximately **58%**. Scenario QA is approximately **71%** and must not be conflated with overall project completion.
+Overall project progress is approximately **59%**. Scenario QA is approximately **72%** and must not be conflated with overall project completion.
 
 ## Next autonomous work
 1. Extract exact E272 authored branch tokens and verify complete border lifecycle.
