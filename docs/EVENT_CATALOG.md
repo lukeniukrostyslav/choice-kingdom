@@ -38,51 +38,145 @@ A delegation asks whether the new ruler will hear ordinary petitioners before th
 **Design purpose:** establishes whether access to the ruler is a privilege or a public institution.
 
 ### E02 — The Empty Chair
+**Trigger:** after E01.
 
-### E03 — The Grain Reserve
-**Trigger:** early food pressure.
+Mara points out that the former chancellor left an unsigned emergency decree on the council table.
 
-The royal grain reserve is lower than expected.
+**A — Sign it provisionally**
+- Immediate: +3 power, -2 trust.
+- Flag: `emergency_decree_used`.
+- Delayed: if another emergency occurs, Crown may act faster but institutional trust suffers.
 
-### E04 — The Public Accounts
-**Trigger:** treasury pressure.
+**B — Archive it and investigate**
+- Immediate: +2 Mara, -2 power.
+- Flag: `decree_investigation`.
+- Unlocks part of the hidden-ledger chain.
 
-Mara asks whether the Crown will publish its accounts.
+### E03 — Bread at Dawn
+**Trigger:** food prices rise in the capital.
 
-### E05 — Missing Patrol Supplies
-**Trigger:** border/security pressure.
+**A — Release grain reserves**
+- Immediate: -8 gold, +6 trust.
+- Delayed: if grain reserve later reaches zero, winter shortages become harsher.
 
-Patrol units report missing supplies.
+**B — Let merchants import freely**
+- Immediate: -2 trust, +4 Ivo.
+- Flag: `free_grain_imports`.
+- Delayed: can create prosperity if market oversight is later established; otherwise price fixing risk.
+
+### E04 — The King's Funeral Debt
+**Trigger:** after E03.
+
+The previous ruler's funeral cost more than the treasury records suggest.
+
+**A — Publish the accounts**
+- Immediate: +3 trust, -2 reputation.
+- Unlock: `ledger_public_scrutiny`.
+
+**B — Quietly settle the discrepancy**
+- Immediate: +2 power, +2 Seris, -3 trust if discovered.
+- Flag: `quiet_accounts`.
+
+### E05 — A Captain's Warning
+**Trigger:** security < 55 or turn 4+.
+
+Rowan reports missing patrol supplies.
+
+**A — Audit the guard**
+- Immediate: +2 security after one turn, -1 Rowan.
+- Delayed: chance to expose procurement fraud.
+
+**B — Give Rowan emergency authority**
+- Immediate: +6 security, +2 Rowan, -2 power.
+- Flag: `emergency_guard_authority`.
+- Delayed: Rowan can later request expanded powers.
 
 ### E06 — Noble Pressure
-**Trigger:** `court_first` or delayed E01 consequence.
+**Trigger:** `court_first` or Seris relationship >= 1.
 
-The old houses ask for priority access to the Crown.
+Three houses ask for hereditary tax exemptions.
+
+**A — Refuse all exemptions**
+- Immediate: +4 trust, -2 Seris, +1 power.
+- Flag: `nobles_challenged`.
+
+**B — Grant a temporary exemption**
+- Immediate: +2 Seris, +3 gold.
+- Delayed: after 4 turns, nobles demand renewal unless tax reform occurs.
 
 ### E07 — Market Whispers
-**Trigger:** delayed E01 consequence.
+**Trigger:** `open_petition_hall`.
 
-Petitioners bring rumors about merchant practices.
+Dock workers claim a guild warehouse is hiding grain.
 
-### E08 — Merchant Charter
-**Trigger:** market route.
+**A — Raid it publicly**
+- Immediate: +3 trust, -2 Ivo, +2 security.
+- If innocent: later lose reputation.
 
-Ivo proposes a formal merchant charter.
+**B — Investigate quietly**
+- Immediate: +1 trust, +1 Ivo if handled discreetly.
+- Flag: `quiet_market_inquiry`.
+- Delayed: can reveal `ledger_fragment_a`.
 
-### E09 — Flexible Accounts
-**Trigger:** audit route.
+### E08 — The Merchant's Charter
+**Trigger:** early Act I milestone.
 
-Mara proposes flexible emergency accounts with audit safeguards.
+Ivo offers 18 gold for an exclusive river-trade charter.
 
-### E10 — Local Command
-**Trigger:** security pressure.
+**A — Grant the charter**
+- Immediate: +18 gold, -3 trust, +2 Ivo.
+- Flag: `merchant_charter`.
+- Delayed: if no oversight, unlock `E19_price_fixing`.
 
-Rowan asks whether border commanders should receive more local authority.
+**B — Refuse exclusivity but offer a public license**
+- Immediate: +4 trust, +1 power, +1 Ivo.
+- Delayed: slower treasury growth but unlocks `competitive_market`.
 
-### E11 — Civic Charter
-**Trigger:** civic route.
+---
 
-Commons representatives ask for a written charter.
+## Character / relationship network
+
+### E09 — Mara's Ledger Lesson
+**Trigger:** Mara >= 1 and `decree_investigation`.
+
+Mara teaches the ruler how emergency spending is hidden through temporary offices.
+
+**A — Create a permanent audit office**
+- Immediate: -4 gold, +2 power, +2 Mara.
+- Flag: `audit_office`.
+- Delayed: increases chance of exposing the hidden ledger.
+
+**B — Keep the system flexible**
+- Immediate: +2 power, -1 Mara.
+- Flag: `flexible_accounts`.
+- Delayed: emergency response is faster but corruption is harder to detect.
+
+### E10 — Rowan at the Bridge
+**Trigger:** Rowan >= 1.
+
+Rowan asks whether soldiers should answer to the Crown or to local lords.
+
+**A — Centralize command**
+- Immediate: +4 security, -1 Seris.
+- Flag: `central_command`.
+
+**B — Preserve local command**
+- Immediate: +2 Seris, +1 trust.
+- Flag: `local_command`.
+- Delayed: border defense is cheaper but slower to coordinate.
+
+### E11 — Seris's Dinner
+**Trigger:** Seris >= 1.
+
+Seris privately admits that several nobles fear losing relevance.
+
+**A — Offer them advisory seats**
+- Immediate: +2 Seris, +2 power, -1 trust.
+- Flag: `noble_advisory_council`.
+
+**B — Tell Seris the old order must adapt**
+- Immediate: +2 trust, -1 Seris.
+- If Seris later respects the ruler, unlocks reform alliance.
 
 ### E12 — Amara's Patients
 **Trigger:** trust < 60 or food shortage.
@@ -373,7 +467,9 @@ Veyran troops appear across the river after a patrol disappears.
 
 The kingdom enters a compound crisis. Winter roads and military movement have disrupted the transport network; medicine, grain, and official messages can no longer move reliably between districts.
 
-**Source-level producer:** E32 establishes `pred.transport_disruption` for the current compound-crisis cycle and records `history.transport_disruption_declared`. This is an explicit authored crisis state, not an inference from gold, security, border pressure, or the E192 consumer trigger. A later authored recovery event may clear the active predicate while retaining the historical declaration.
+**Source-level producer:** E32 explicitly establishes `pred.transport_disruption` for the current compound-crisis cycle and records `history.transport_disruption_declared`. This is an authored crisis state, not an inference from gold, security, border pressure, or the E192 consumer trigger. A later authored recovery event may clear the active predicate while retaining the historical declaration.
+
+---
 
 ## Canonical content boundary
 
