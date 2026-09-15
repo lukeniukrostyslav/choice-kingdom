@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "contract": "choice_kingdom.producer_consumer_collision_screen",
+  "scope": "E01-E272",
+  "source": "docs/SCENARIO_QA_PRODUCER_CONSUMER_COLLISION_AUDIT_01.md",
+  "records": [
+    {"consumer":"E181","producer":"E45-B","token":"infrastructure_concession","status":"NO_MERGE"},
+    {"consumer":"E182","producer":"E117-B","token":"veteran_patronage","status":"CLOSED_IDENTITY"},
+    {"consumer":"E183","producer":"E118-B","token":"estate_exception","status":"NO_MERGE"},
+    {"consumer":"E184","producer":null,"token":null,"status":"OPEN"},
+    {"consumer":"E185","producer":"E17-A","token":"cheap_weapons","status":"SEPARATE_LIFECYCLE"},
+    {"consumer":"E242","producer":"E118-B","token":"estate_exception","status":"PARTIAL_NO_ALIAS"},
+    {"consumer":"E243","producer":"E18-B","token":"public_bridge","status":"NO_MERGE"},
+    {"consumer":"E244","producer":"E09-B","token":"flexible_accounts","status":"CLOSED_IDENTITY"},
+    {"consumer":"E245","producer":"E20-A","token":"soldier_compensation","status":"HARD_NEGATIVE"},
+    {"consumer":"E246","producer":"E160-A","token":"winter_rent_ceiling","status":"NO_MERGE"}
+  ],
+  "forbidden_implicit_promotions": [
+    "food_logistics_stabilized -> pred.food_stable",
+    "four_way_bargain -> pred.coalition_cooperation",
+    "ordinary history -> meta.*",
+    "rel.ivo -> pred.guild_influence_strong",
+    "security -> pred.border_crisis",
+    "E209 -> pred.final_charter_prerequisites"
+  ],
+  "runtime_verified": false,
+  "reachability_verified": false
+}
