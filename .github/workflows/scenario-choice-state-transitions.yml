@@ -1,0 +1,24 @@
+name: Choice Kingdom Choice State Transitions
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/EVENT_CATALOG_*.md'
+      - 'docs/MACHINE_CANONICAL_GRAPH_01.json'
+      - 'tools/audit_choice_state_transitions.py'
+      - '.github/workflows/scenario-choice-state-transitions.yml'
+  pull_request:
+    paths:
+      - 'docs/EVENT_CATALOG_*.md'
+      - 'docs/MACHINE_CANONICAL_GRAPH_01.json'
+      - 'tools/audit_choice_state_transitions.py'
+      - '.github/workflows/scenario-choice-state-transitions.yml'
+
+jobs:
+  choice-state-transitions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Audit authored choice state transitions
+        run: python tools/audit_choice_state_transitions.py
