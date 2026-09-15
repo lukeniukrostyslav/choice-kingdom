@@ -21,7 +21,7 @@ No mock/stub gameplay or premature production-readiness claims.
 **Narrative/content canonicalization and QA.** Authored checkpoint E01–E272. Production schema and Decision Engine remain blocked until canonical contracts and reachability are sufficiently closed.
 
 ## Scenario QA
-Dedicated Scenario QA score is approximately **92.0%**. This is distinct from overall project completion and is not runtime/Android readiness.
+Dedicated Scenario QA score is approximately **92.2%**. This is distinct from overall project completion and is not runtime/Android readiness.
 
 ### S01–S12 working indicators
 - S01 **80%**
@@ -32,13 +32,16 @@ Dedicated Scenario QA score is approximately **92.0%**. This is distinct from ov
 - S06 **60%** — delayed E181–E185/E242–E246 source identities and hard semantic negatives are frozen in a dedicated lifecycle matrix; runtime scheduler/persistence/replay lifecycle remains open.
 - S07 **80%**
 - S08 **78%**
-- S09 **65%** — authored consumer-side replay trigger boundaries are now explicitly frozen for E186/E247/E248/E249/E250/E270; persistent meta producer/key inventory remains open.
+- S09 **70%** — authored consumer-side replay trigger boundaries are frozen and now machine-validated in CI for E186/E247/E248/E249/E250/E270; persistent meta producer/key inventory remains open.
 - S10 **78%** — delayed source-choice identities plus structural graph reconciliation and lifecycle-boundary matrix verified; executable scheduler/runtime lifecycle remains open.
 - S11 **60%** — ending prerequisite satisfiability screen plus conservative ending-precedence boundary contract; exact deterministic tie-break/terminal order remains open.
 - S12 **94%** — canonical graph CI passes delayed source identity, ending boundary, predicate dependency, machine scenario gate and structural reachability checks; all E01–E272 are structurally reachable in the frozen design graph. Gameplay/runtime reachability remains unverified.
 
 ## Latest QA work
 - **Replay Consumer Trigger Closure 01:** added `docs/SCENARIO_QA_REPLAY_CONSUMER_TRIGGER_CLOSURE_01.md`, freezing the authored consumer-side trigger boundary for E186/E247/E248/E249/E250/E270 without inventing persistent `meta.*` state. Commit `a3c1c198d54552ba43c00ba534aaf06c4571293f`.
+- **Machine Replay Consumer Contract 01:** added `docs/MACHINE_REPLAY_CONSUMER_TRIGGER_CLOSURE_01.json` and `tools/validate_replay_consumer_trigger_closure.py`; the contract is now part of canonical-graph CI. Commit `149eee6d7c0060cf2c3e4563ebd4847b0186cf74`.
+- **Canonical Graph CI wiring:** canonical graph workflow now validates and uploads the replay consumer trigger contract. Commit `d089315e6ecd58636261cb9fc38c18e6a95d1641`.
+- **Verification:** commit `d089315e6ecd58636261cb9fc38c18e6a95d1641` completed canonical-graph, delayed-lifecycle, scope-boundary, predicate-contract-parity and contract-readiness checks successfully. The new replay consumer boundary is therefore machine-validated, while runtime replay remains deliberately unverified.
 - **Delayed Lifecycle Matrix 01:** added `docs/SCENARIO_QA_DELAYED_LIFECYCLE_MATRIX_01.md`, freezing source identity, timing language, lifecycle blockers and hard negatives for E181–E185 and E242–E246. Commit `b9a2adcabea8c6705cbcb468dc04b3f7a9df529d`.
 - **Structural Reachability Closure 01:** added `docs/SCENARIO_QA_STRUCTURAL_REACHABILITY_CLOSURE_01.md`, freezing the verified result of 272/272 structurally reachable and 0 structurally unreachable while explicitly separating this from gameplay/fresh-run reachability. Commit `bc4d412dfb039391e80810e1695b96005ae4a7da`.
 - **Canonical delayed producer graph reconciliation:** added explicit source-backed producer edges for E09-B→E244, E17-A→E185, E18-B→E243, E20-A→E245 and E45-B→E181, while retaining already-established E117/E118/E136/E160 chains. Commit `07456d4f1d73f866fb00e6901899f54f13b3d112`.
@@ -70,7 +73,7 @@ Dedicated Scenario QA score is approximately **92.0%**. This is distinct from ov
 The source-level matrix now freezes E181–E185 and E242–E246 as separate lifecycle records. Source identity is closed for seven consumers, partial for E242, and open for E184. Runtime lifecycle is **0/10 closed**: exactly-once scheduling, due-turn semantics, cancellation/supersession, save/load persistence, replay isolation and fresh-run reachability remain intentionally unverified.
 
 ### Replay consumer boundary
-The authored trigger boundary is now frozen for E186/E247/E248/E249/E250/E270. This is consumer-side closure only. Persistent `meta.*` producers remain open, and ordinary history/graph proximity cannot manufacture replay state.
+The authored trigger boundary is frozen for E186/E247/E248/E249/E250/E270 and is now represented by a machine contract validated in canonical-graph CI. This is consumer-side closure only. Persistent `meta.*` producers remain open, and ordinary history/graph proximity cannot manufacture replay state.
 
 ### Predicate dependency status
 - `pred.guild_influence_strong`: OPEN; explicit multi-domain producer remains required.
@@ -92,7 +95,7 @@ The authored trigger boundary is now frozen for E186/E247/E248/E249/E250/E270. T
 - Second Founder: **OPEN/BLOCKED** by replay meta producer/key plus systemic convergence and fresh-run/replay separation.
 
 ### Replay meta status
-Replay-sensitive nodes E186/E247/E248/E249/E250/E270 remain explicitly audited. No complete five-field replay producer tuple is currently closed; replay reachability and save/load isolation remain unverified.
+Replay-sensitive nodes E186/E247/E248/E249/E250/E270 remain explicitly audited. The consumer trigger contract is closed and CI-validated, but no complete five-field replay producer tuple is currently closed; replay reachability and save/load isolation remain unverified.
 
 ## Major unresolved gates
 - authoritative source recovery or explicit authored correction for E33/E34 exact headings/effects;
@@ -116,7 +119,7 @@ Replay-sensitive nodes E186/E247/E248/E249/E250/E270 remain explicitly audited. 
 - Producer / Consumer QA: **99%**
 - Derived Predicates / Machine Contracts: **99%**
 - Delayed Consequences: **98%**
-- Replay / Meta-state: **69%**
+- Replay / Meta-state: **70%**
 - Endings / precedence: **74%**
 - Reachability / Causal Graph: **73%**
 - Production Data Schema: **36%**
@@ -128,7 +131,7 @@ Replay-sensitive nodes E186/E247/E248/E249/E250/E270 remain explicitly audited. 
 - APK: **0%**
 - Release: **0%**
 
-Overall project progress remains approximately **60%**. Scenario QA is now approximately **92.0%**; the increase is limited to source-level delayed lifecycle and replay consumer-boundary closure and does not claim runtime implementation.
+Overall project progress remains approximately **60%**. Scenario QA is now approximately **92.2%**; the increase is limited to source-level delayed lifecycle and replay consumer-boundary closure and does not claim runtime implementation.
 
 ## Honest progress rule
 Documentation alone never makes implementation complete. Source edits count only when authoritative evidence is changed/re-read. No block is ready until its applicable verification passes.
