@@ -14,7 +14,7 @@ Freeze deterministic semantic inputs for contextual conditions before production
 |---|---|---|
 | `pred.border_crisis` | `border_crisis_declared = true` AND `border_crisis_resolved != true`; lifecycle declaration E271-A, resolution E272-A/B | CLOSED at source level; runtime lifecycle open |
 | `pred.guild_logistics_cooperation` | upstream `history.guild_logistics_cooperation` AND E194-A `guild_neutral_inspectors` AND no unresolved `guild_logistics_immunity_risk` | CLOSED at source level; runtime qualification open |
-| `pred.food_stable` | No E01–E272 producer currently verified; E273-A is expansion-only | OPEN / BLOCKED |
+| `pred.food_stable` | E192-B `food_logistics_stabilized` establishes the current food-logistics stability cycle; E192-A clears `food_logistics_stabilized` and establishes `food_logistics_unstable`; later authored invalidation may clear the active cycle without deleting history | CLOSED at source level; runtime cycle lifecycle open |
 | `pred.transport_disruption` | E32 explicit active disruption producer; E136-A/B explicit recovery/clear | CLOSED at source level; runtime lifecycle open |
 | `pred.winter_severe` | E29-A/B explicitly establish severe winter for current winter cycle; history retained | CLOSED at source level; runtime cycle expiry open |
 | `pred.market_pressure` | E19-B establishes current market-pressure cycle; E19-A clears active cycle | CLOSED at source level; runtime cycle lifecycle open |
@@ -45,6 +45,7 @@ Freeze deterministic semantic inputs for contextual conditions before production
 - `pred.transport_disruption`: E32 producer, E136-A/B clear.
 - `pred.winter_severe`: E29-A/B producer.
 - `pred.border_crisis`: E271-A producer, E272-A/B clear.
+- `pred.food_stable`: E192-B producer for the current food-logistics cycle; E192-A explicitly clears the stability marker while preserving historical food-logistics evidence.
 - `pred.guild_logistics_cooperation`: upstream E136-B cooperation marker + E194-A neutral inspection + no immunity-risk blocker.
 - `pred.guild_influence_strong`: canonical domain set frozen; E49/E144 representation is one domain only.
 - `pred.systemic_explanation_verified`: E270-A is the explicit convergence producer; it cannot manufacture missing evidence families.
@@ -52,7 +53,6 @@ Freeze deterministic semantic inputs for contextual conditions before production
 - `pred.constitutional_prepared_strong`: any three independent domains from E50/E154/E161/E199; downstream consequences do not silently create a fourth independent domain.
 - `pred.budget_reform`: E142-A/E154-A/E198-A are the three independent institutional layers; negative blockers are explicit.
 - `pred.final_charter_prerequisites`: exact upstream conjunction is frozen; E209 consumes only and cannot satisfy any prerequisite.
-- `pred.food_stable`: no E01–E272 producer verified.
 - `pred.guild_labor_tension`: no E01–E272 producer verified.
 - `pred.information_pressure_high`: no E01–E272 producer verified.
 
