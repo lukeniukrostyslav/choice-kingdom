@@ -19,6 +19,8 @@ jobs:
         run: python3 tools/validate_delayed_inventory_scope.py
       - name: Validate delayed lifecycle identity gate
         run: python3 tools/validate_delayed_lifecycle_gate.py
+      - name: Validate delayed source token identity
+        run: python3 tools/validate_delayed_source_tokens.py
       - name: Compile graph node classification inventory
         run: python3 tools/classify_graph_nodes.py
       - name: Compile producer consumer matrix
@@ -44,5 +46,6 @@ jobs:
             docs/MACHINE_CATALOG_GRAPH_PARITY_01.json
             docs/MACHINE_DELAY_INVENTORY_SCOPE_01.json
             docs/MACHINE_DELAYED_LIFECYCLE_GATE_01.json
+            docs/MACHINE_DELAYED_SOURCE_TOKEN_VALIDATION_01.json
             docs/MACHINE_COMPOSITE_SOURCE_CLOSURE_01.json
           if-no-files-found: error
