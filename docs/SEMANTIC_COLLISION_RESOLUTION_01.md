@@ -1,7 +1,7 @@
 # Choice Kingdom — Semantic Collision Resolution 01
 
 Date: 2026-09-15
-Status: **SOURCE-LEVEL QA — RESOLUTION POLICY FROZEN; AUTHORITATIVE CATALOG EDITS STILL REQUIRED**
+Status: **SOURCE-LEVEL QA — RESOLUTION POLICY FROZEN; GRAPH/CATALOG INTEGRATION STILL REQUIRED**
 Scope: confirmed and suspected duplicate/overlapping event identities before production schema freeze.
 
 ## Purpose
@@ -47,19 +47,29 @@ Prevent ambiguous runtime identities without silently renumbering authored IDs. 
 - E38 is an early constitutional bargain with hereditary houses.
 - Later representation nodes must consume or transform that history rather than restating the same bargain.
 
-## Still-open exact-source comparisons
+## Closed source-level comparisons
 
 ### E73 / E156
 
-No merge/reframe decision is made yet. Exact source text, trigger, effects and downstream consumers must be compared before schema freeze.
+`docs/LEGACY_SOURCE_COMPARISON_02.md` confirms these are distinct source-level nodes.
+
+- **E73 — Three Stamps:** institutional accountability / named responsibility; trigger family `audit_office`; outputs include `named_authority` and `overlapping_authority`.
+- **E156 — The Widow's Petition:** compensation after military requisition; high-trust / civic-relief context; outputs include `requisition_compensation` and `requisition_tax_credit`.
+
+**Resolution:** retain both stable IDs; no merge and no renumbering. The duplicate concern is closed at source level. Graph/catalog integration remains pending.
 
 ### E99 / E173
 
-No merge/reframe decision is made yet. Exact source text, trigger, effects and downstream consumers must be compared before schema freeze.
+`docs/LEGACY_SOURCE_COMPARISON_02.md` confirms these are distinct source-level nodes.
+
+- **E99 — The Forgery's Shadow:** forgery evidence / coercion; trigger family includes `royal_forgery_proven` or `forgery_leverage`; outputs include `seal_comparison_public` and `seal_pressure`.
+- **E173 — The Empty Barracks:** army readiness / security infrastructure; trigger is low army readiness; outputs include `barracks_rebuilt` and `barracks_shelter`.
+
+**Resolution:** retain both stable IDs; no merge and no renumbering. The duplicate concern is closed at source level. Graph/catalog integration remains pending.
 
 ## Schema-freeze rule
 
-A collision is resolved only when all of the following are true:
+A collision is resolved for production only when all of the following are true:
 
 1. stable authored ID is preserved;
 2. semantic role is unique or explicit recurrence is declared;
@@ -70,7 +80,7 @@ A collision is resolved only when all of the following are true:
 7. graph and catalog agree;
 8. reachability/endings QA confirms the node is not dead or redundant.
 
-Documentation alone does not mark a collision resolved. The authoritative authored catalog must be edited and re-read, then the resulting graph/QA surfaces must be updated.
+Documentation alone does not mark a collision fully resolved. The authoritative authored catalog must be edited and re-read, then the resulting graph/QA surfaces must be updated.
 
 ## Current gate impact
 
@@ -79,6 +89,6 @@ Documentation alone does not mark a collision resolved. The authoritative author
 - E37/E227: **later-stress-test policy frozen; downstream verification pending**.
 - E39/E229: **distinct-role policy frozen; downstream verification pending**.
 - E40/E241: **distinct-role policy frozen; downstream verification pending**.
-- E73/E156: **OPEN**.
-- E99/E173: **OPEN**.
+- E73/E156: **SOURCE-LEVEL CLOSED; graph/catalog integration pending**.
+- E99/E173: **SOURCE-LEVEL CLOSED; graph/catalog integration pending**.
 - Production schema: **BLOCKED** until authoritative edits and full reconciliation pass.
