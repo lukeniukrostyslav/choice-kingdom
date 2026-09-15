@@ -66,6 +66,23 @@ Every substantive scenario-QA batch must leave a durable GitHub commit and updat
 - Identified E108 "investigation depth" as a state concept that still needs canonical machine normalization.
 - S03 is **65% / IN PROGRESS**; source inventory is verified but semantic and predicate closure remain open.
 
+### Batch S03.2 — semantic closure checkpoint
+- Added `docs/SCENARIO_QA_S03_SEMANTIC_CLOSURE_02.md` in commit `fee868c6a4b5ce4bd7aba424081cf75f965c4573`.
+- Confirmed `shared_crisis_command` has no authored producer in the current repository search and remains an undefined-producer defect candidate.
+- Formalized E36/E95 as a semantic collision requiring one canonical Mara-independence fact or an explicit documented distinction.
+- Formalized E37/E96 as a plausible institutional distinction requiring a machine contract rather than implicit inference.
+- Kept E108 investigation-depth normalization explicitly open.
+- No global Scenario QA increase claimed.
+
+### Batch S04.1 — E111–E150 direct source inventory
+- Added `docs/SCENARIO_QA_S04_E111_E150_INVENTORY.md` in commit `1250530cfceddd25aa6f9d06e6168f1fcd0ea094`.
+- Directly inventoried E111–E150 from `docs/EVENT_CATALOG_EXPANSION_111_150.md`.
+- Verified explicit canonical markers for E136, E144 and E148 and preserved their documented convergence semantics.
+- Confirmed E139 is infrastructure only and must not be treated as a `pred.border_crisis` producer.
+- Flagged E130/E143 as state-effect choices without named flags; these are acceptable as numeric state mutations only if no later predicate silently consumes an unnamed fact.
+- Identified E131 as a replay/meta-state contract item rather than ordinary run-local state.
+- S04 advances to **70% / IN PROGRESS**; global duplicate/contradiction and predicate closure remain open.
+
 ## Active gates — mapped to execution batches
 
 ### S01 — E01–E34 event inventory
@@ -140,14 +157,15 @@ Before starting a QA batch:
 7. verify the saved file from GitHub before moving to the next batch.
 
 ## Current continuation checkpoint — 2026-09-15
+- Latest S04 inventory commit: `1250530cfceddd25aa6f9d06e6168f1fcd0ea094`.
+- Latest S03 semantic-closure commit: `fee868c6a4b5ce4bd7aba424081cf75f965c4573`.
 - Latest S03 source-inventory commit: `061cda2efe353c68fda3c5cb97175d615362b712`.
 - Latest S02 source-inventory commit: `914236a2b770c899e39ac4d19fd6070310e6584e`.
 - Latest S01 duplicate audit commit: `ae39aebc8097d3f46e6f61cac47ddb6bfbcd1b96`.
 - Latest S01 inventory commit: `ce3e8e9ec5a9b94209d30907a33d29b9c9475fdd`.
-- Latest S01 inventory blob SHA: `61f396eed0c3f4a97ad16ac5fc7c51bc0d23b44d`.
 - Authoritative narrative source remains `docs/EVENT_CATALOG.md` blob SHA `afd8155b3359a562e5336ff54b0a0245aec46a4d`.
-- Next substantive action is to continue S03 semantic closure only where genuinely open (especially `shared_crisis_command` and the E95/E36 + E96/E37 normalization candidates), then continue S04. Do not restart already verified inventories.
+- Next substantive action: continue S04 semantic/producer closure without redoing its verified source inventory, then proceed to S05 E151–E210.
 
 ## Current status
 
-Scenario QA remains **65%** until the active gates are actually closed. Working batch indicators: **S01 80%, S02 70%, S03 65%**. These batch percentages are not the global Scenario QA percentage.
+Scenario QA remains **65%** until the active global gates are actually closed. Working batch indicators: **S01 80%, S02 70%, S03 70%, S04 70%**. These batch percentages are not the global Scenario QA percentage.
