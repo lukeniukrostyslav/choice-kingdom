@@ -21,7 +21,7 @@ No mock/stub gameplay or premature production-readiness claims.
 **Narrative/content canonicalization and QA.** Authored checkpoint E01–E272. Production schema and Decision Engine remain blocked until canonical contracts and reachability are sufficiently closed.
 
 ## Scenario QA
-Dedicated Scenario QA score is approximately **87%**. This is distinct from overall project completion and is not runtime/Android readiness.
+Dedicated Scenario QA score is approximately **88%**. This is distinct from overall project completion and is not runtime/Android readiness.
 
 ### S01–S12 working indicators
 - S01 **80%**
@@ -34,15 +34,17 @@ Dedicated Scenario QA score is approximately **87%**. This is distinct from over
 - S08 **78%**
 - S09 **60%**
 - S10 **72%**
-- S11 **55%**
-- S12 **80%** — source-level machine QA through S12.45 covers graph validation, classification, producer/consumer compilation, conservative triage, qualification/lifecycle gates, ending/replay reconciliation, E245 source synchronization, semantic candidate-boundary auditing, frozen production-scope enforcement, composite producer matrix compilation, replay-meta closure gating and E33/E34 source quarantine. Semantic orphan/reachability closure remains open.
+- S11 **56%** — ending incoming-path / precedence review boundary materially tightened; source closure remains partial/open.
+- S12 **81%** — source-level machine QA through S12.47 covers graph validation, classification, producer/consumer compilation, conservative triage, qualification/lifecycle gates, ending/replay reconciliation, E245 synchronization, semantic candidate-boundary auditing, frozen production-scope enforcement, CI hardening and the bounded ending/replay incoming-path matrix. Semantic orphan/reachability closure remains open.
 
 ## Latest QA work
+- **S12.47** added `docs/SCENARIO_QA_S12_47_ENDING_REPLAY_INCOMING_PRECEDENCE_MATRIX_01.md`, consolidating ending incoming-path, precedence and replay boundaries without inventing missing producers or `meta.*` keys. Commit: `7afbb8a2d3ba7097cfeac4e50416c45ec9bc174d`.
+- **S12.46 CI hardening** repaired the scope-boundary workflow so it executes the same source-level graph/classification/matrix/triage prerequisites before `validate_scope_boundaries.py`. Commit: `e28ba4ef2f6a7a04689f26cc6c3ccaccf75c19ac`.
+- Canonical Graph run **#51** (`34984719123`) is **GREEN** on PROJECT_STATE commit `24496f378e604d522bcb5376e15e53bcf9cc906d`; all five source-level QA steps succeeded.
 - **S12.45** re-searched repository content and commit history for E33/E34 and formally quarantined the unrecovered exact authored prose/effects. No replacement content or guessed semantics were introduced.
 - **S12.44** formalized replay-meta closure for E186/E247/E248/E270. Replay isolation is design-closed; exact `meta.*` producer/key inventory remains OPEN.
 - **S12.43** compiled source-backed producer domains and hard negatives for `pred.guild_influence_strong`, `pred.coalition_cooperation` and `pred.constitutional_prepared_strong`. This is source-level qualification QA, not runtime formula closure.
 - **S12.42** added `tools/validate_scope_boundaries.py` plus `.github/workflows/scope-boundary.yml` and a QA report. The gate enforces E01–E272 production scope, excludes E273–E277, and pins ending/replay candidate queues to E265–E270 and E247–E250. It explicitly does not claim reachability or semantic orphan closure.
-- **S12.46 CI hardening**: the scope-boundary workflow was repaired to execute the same source-level graph/classification/matrix/triage compilation prerequisites before running `validate_scope_boundaries.py`. This removes an undeclared dependency on generated `MACHINE_CANDIDATE_TRIAGE_01.json` and makes the dedicated boundary gate self-sufficient. Commit: `e28ba4ef2f6a7a04689f26cc6c3ccaccf75c19ac`. Canonical Graph run #50 is executing on this commit; the preceding canonical run #49 completed GREEN.
 - **S12.41** added `tools/audit_candidate_semantic_boundary.py` and wired it into canonical graph CI. It deterministically separates source-missing, replay-only, delayed-callback, ending/terminal, root/source, consumer-only and isolated review queues without declaring semantic orphans.
 - **S12.40** synchronized machine canonical graph with the already source-closed E245 producer identity: E20-A `soldier_compensation` only. E125-A and E156-A remain independent compensation outcomes.
 - **S12.39** reconciled ending producer gaps with replay meta closure. Ending resolver and replay transfer remain blocked by source-level gaps.
@@ -128,7 +130,7 @@ Exact authored headings/effects/delayed semantics remain **QUARANTINED / UNRECOV
 - Derived Predicates / Machine Contracts: **98%**
 - Delayed Consequences: **95%**
 - Replay / Meta-state: **65%**
-- Endings / precedence: **69%**
+- Endings / precedence: **70%**
 - Reachability / Causal Graph: **60%**
 - Production Data Schema: **36%**
 - Decision Engine: **0%**
@@ -139,13 +141,13 @@ Exact authored headings/effects/delayed semantics remain **QUARANTINED / UNRECOV
 - APK: **0%**
 - Release: **0%**
 
-Overall project progress remains approximately **60%**. Scenario QA is approximately **87%** and must not be conflated with overall project completion.
+Overall project progress remains approximately **60%**. Scenario QA is approximately **88%** and must not be conflated with overall project completion.
 
 ## Next autonomous work
 1. Audit the 69 no-outbound and 54 unreferenced candidates against authoritative source text using the semantic-boundary queues.
 2. Separate ROOT/SOURCE, ordinary producer, consumer-only, terminal/ending, qualification, delayed callback, replay-only and true orphan semantics.
 3. Complete delayed cancellation/supersession matrix, especially E184/E185/E245.
-4. Reconcile S11 endings and deterministic precedence with exact incoming paths.
+4. Close source-backed producer matrices for guild influence, coalition cooperation and constitutional preparation where evidence permits.
 5. Build fresh-run and representative replay reachability models with strict `meta.*` isolation.
 6. Prove catalog↔machine graph semantic equality or produce a bounded, explicit delta.
 7. Freeze production contracts only after machine validation and reachability gates pass.
