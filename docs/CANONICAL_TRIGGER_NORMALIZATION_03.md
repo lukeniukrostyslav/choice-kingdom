@@ -1,8 +1,8 @@
 # Choice Kingdom — Canonical Trigger Normalization 03
 
-Date: 2026-09-15
+Date: 2026-09-16
 Status: **SOURCE-LEVEL QA — SAFE NORMALIZATIONS RECORDED; AMBIGUOUS PREDICATES REMAIN OPEN**
-Scope: recurring prose trigger expressions found in the authored E01–E210 expansion layer and their mapping to the existing canonical predicate vocabulary.
+Scope: recurring prose trigger expressions found in the authored E01–E272 expansion layer and their mapping to the existing canonical predicate vocabulary.
 
 ## Purpose
 
@@ -20,12 +20,12 @@ This pass converts only trigger phrases whose semantic meaning is already covere
 | `high power` / strong political power | `pred.power_high` | Matrix explicitly defines political-power predicate | **NORMALIZE**; threshold remains balance-open |
 | `high reputation` | `pred.reputation_high` | Matrix explicitly defines reputation predicate | **NORMALIZE**; threshold remains balance-open |
 | `food shortage`, `food-price pressure`, `food pressure` | `pred.food_pressure` | Matrix explicitly groups these phrases; food is not a sixth numeric resource | **NORMALIZE** to predicate family, but producer contract remains open |
-| `severe winter`, `winter pressure` | `pred.winter_severe` | Matrix explicitly defines the family; exact winter producer/severity still open | **NORMALIZE** to predicate family, producer remains open |
+| `severe winter`, `winter pressure` | `pred.winter_severe` | Matrix explicitly defines the family; E29-A/B are the frozen-scope authored producers; active-cycle expiry remains open | **NORMALIZE** |
 | `border tension`, `border pressure` | `pred.border_tension` | Matrix explicitly defines diplomatic/border pressure; must remain distinct from security-low | **NORMALIZE** |
 | `low army readiness` | `pred.army_readiness_low` | Matrix explicitly separates readiness from security | **NORMALIZE** |
-| `strong market oversight`, `market pressure` | `pred.market_pressure` | Matrix explicitly groups the market-pressure family; exact producer set remains open | **NORMALIZE** to predicate family, producer remains open |
-| `guild labor tension`, `apprentice pressure` | `pred.guild_labor_tension` | Matrix explicitly defines guild-labor pressure | **NORMALIZE** to predicate family, producer remains open |
-| `high information pressure` | `pred.information_pressure_high` | Matrix explicitly defines information pressure and forbids substitution with Toma relationship | **NORMALIZE** to predicate family, cardinality remains open |
+| `strong market oversight`, `market pressure` | `pred.market_pressure` | E19-B is the frozen-scope explicit producer; later expansion producers remain excluded | **NORMALIZE**; clear/cross-cycle lifecycle remains open |
+| `guild labor tension`, `apprentice pressure` | `pred.guild_labor_tension` | Matrix explicitly defines guild-labor pressure | **NORMALIZE** to predicate family; no E01–E272 producer is currently verified |
+| `high information pressure` | `pred.information_pressure_high` | Matrix explicitly defines information pressure and forbids substitution with Toma relationship | **NORMALIZE** to predicate family; no E01–E272 producer/cardinality contract is currently verified |
 | `at least three independent evidence routes` / `three or more related clues` when explicitly intended as independent evidence | `pred.evidence_routes_3` | Matrix requires machine-checkable route independence | **NORMALIZE** only when independence IDs are present |
 | `at least four major character/faction routes active` | `pred.faction_routes_4` | Matrix defines four-route cardinality | **NORMALIZE**; route-completion contract remains open |
 | `simultaneous food, border and civic pressure` | `pred.multi_crisis_3` | Matrix defines this as an explicit conjunction of canonical predicates | **NORMALIZE** |
@@ -60,7 +60,7 @@ The following expressions remain contract-open because their authored meaning is
 `low army readiness` must compile to `pred.army_readiness_low`, not `pred.security_low`.
 
 ### E192
-`pred.transport_disruption` remains its own canonical condition. Its consumer does not prove `pred.food_pressure`; E192's `food_logistics_unstable` and `food_logistics_stabilized` outputs remain current-run markers until the food predicate producer contract is frozen.
+`pred.transport_disruption` remains its own canonical condition. E192 is a consumer of transport disruption but now explicitly produces the current-cycle food-logistics state: E192-B establishes `food_logistics_stabilized` / `pred.food_stable`, while E192-A clears the active stability marker and establishes the unstable-cycle marker. Historical evidence remains queryable; no numeric food resource is introduced.
 
 ## QA consequence
 
@@ -69,11 +69,13 @@ This pass reduces prose-vocabulary ambiguity without pretending that the remaini
 ## Remaining blockers
 
 1. Freeze numerical thresholds for resource predicates through authored consumer validation and balance simulation.
-2. Identify durable producers for food, winter, market, guild-labor and information predicates.
-3. Define independent evidence/faction route identities.
-4. Define noble influence and guild influence contracts without collapsing them into relationship values.
-5. Reconcile all normalized triggers against `EVENT_GRAPH.md` and the complete E01–E272 catalog.
-6. Only after those contracts are frozen, encode them in production data and implement the validator/engine.
+2. Complete durable lifecycle semantics for food, winter and market predicates after their source producers are identified.
+3. Identify a legitimate frozen-scope producer/consumer contract for guild-labor pressure; do not admit E273–E277.
+4. Identify frozen-scope information-pressure evidence/cardinality without substituting Toma relationship strength.
+5. Define independent evidence/faction route identities.
+6. Define noble influence and guild influence contracts without collapsing them into relationship values.
+7. Reconcile all normalized triggers against `EVENT_GRAPH.md` and the complete E01–E272 catalog.
+8. Only after these contracts are frozen, encode them in production data and implement the validator/engine.
 
 ## Gate
 
