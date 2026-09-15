@@ -8,6 +8,12 @@ on:
       - 'docs/EVENT_CATALOG*.md'
       - 'tools/validate_source_closed_producers.py'
       - '.github/workflows/source-closed-producers.yml'
+  pull_request:
+    paths:
+      - 'docs/MACHINE_CANONICAL_GRAPH_01.json'
+      - 'docs/EVENT_CATALOG*.md'
+      - 'tools/validate_source_closed_producers.py'
+      - '.github/workflows/source-closed-producers.yml'
   workflow_dispatch:
 
 jobs:
