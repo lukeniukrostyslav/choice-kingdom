@@ -21,7 +21,7 @@ No mock/stub gameplay or premature production-readiness claims.
 **Narrative/content canonicalization and QA.** Authored checkpoint E01–E272. Production schema and Decision Engine remain blocked until canonical contracts and reachability are sufficiently closed.
 
 ## Scenario QA
-Dedicated Scenario QA score is now approximately **84%**. This is distinct from overall project completion and is not runtime/Android readiness.
+Dedicated Scenario QA score is now approximately **85%**. This is distinct from overall project completion and is not runtime/Android readiness.
 
 ### S01–S12 working indicators
 - S01 **80%**
@@ -35,13 +35,14 @@ Dedicated Scenario QA score is now approximately **84%**. This is distinct from 
 - S09 **60%**
 - S10 **72%**
 - S11 **55%**
-- S12 **75%** — S12.30 machine graph gate + S12.31 E33/E34 source reconciliation + S12.32 machine node classification are now verified. Semantic orphan/reachability closure remains open.
+- S12 **76%** — S12.30 machine graph gate, S12.31 E33/E34 source reconciliation, S12.32 node classification and S12.33 E245 producer closure are verified. Semantic orphan/reachability closure remains open.
 
 ## Latest QA work
+- **S12.33** added `docs/SCENARIO_QA_S12_33_E245_AUTHORITATIVE_PRODUCER_CLOSURE_01.md` and closed E245's producer identity to **E20-A `soldier_compensation`**. E245's title and singular compensated-family-member callback match the soldier's-son route; E125-A border families and E156-A widow/requisition compensation remain distinct. Delayed timing/cancellation lifecycle remains open.
 - **S12.32** added `docs/SCENARIO_QA_S12_32_GRAPH_NODE_CLASSIFICATION_01.md` and extended the canonical graph validator. CI verified 270/272 catalog headings, 296 unique graph edges, 69 catalog events without outbound edges, 15 inbound-only candidates and 54 unreferenced catalog candidates. These are classification candidates, not orphan/reachability verdicts.
 - **S12.31** added `docs/SCENARIO_QA_S12_31_E33_E34_SOURCE_RECONCILIATION_01.md`. It verified that `docs/EVENT_CATALOG.md` currently ends at E32, while S01 independently records E33/E34 only at QA-inventory level. Exact E33/E34 authored prose/effects/delayed semantics remain unrecovered; no content is invented.
 - **S12.30** added `docs/MACHINE_CANONICAL_GRAPH_01.json`, `tools/validate_canonical_graph.py`, `.github/workflows/canonical-graph.yml` and `docs/SCENARIO_QA_S12_30_MACHINE_GRAPH_COMPILATION_01.md`. CI run reached a successful validation step after fixing parser semantics.
-- S12.30 machine gate reports: 296 unique design-level event edges, 43 repeated documentation edges, 216 event nodes referenced by the design graph, 10 delayed consumer rows, 21 source-closed producer rows and 7 hard-negative rules.
+- S12.30 machine gate reports: 296 unique design-level event edges, 43 repeated documentation edges, 216 event nodes referenced by the design graph, 10 delayed consumer rows, 21 source-closed producers before E245 closure, and 7 hard-negative rules.
 - `E271` appears as an intentional post-catalog bridge in the E211–E270 source and as the lifecycle source in E271–E280; it is explicitly allowed in the machine contract rather than treated as a silent duplicate.
 - The stale duplicate catalog source `EVENT_EXPANSION_071_110.md` was removed from the machine authoritative source set because `EVENT_CATALOG_EXPANSION_02.md` is the canonical E71–E110 source.
 - **S12.29** reconciled `docs/CANONICAL_PRODUCER_INVENTORY_01.md`, commit `9c6589b22b53fb2c3a03014c89e826593bc97d57`.
@@ -59,6 +60,7 @@ Dedicated Scenario QA score is now approximately **84%**. This is distinct from 
 - E17-A → `cheap_weapons` → E185
 - E160-A → `winter_rent_ceiling` → E246
 - E136-B → `history.guild_logistics_cooperation` → E194
+- **E20-A → `soldier_compensation` → E245**
 
 ### Composite/source domains
 - E142-A → `auditor_independence`
@@ -67,8 +69,8 @@ Dedicated Scenario QA score is now approximately **84%**. This is distinct from 
 - E271-A → active `pred.border_crisis`; E272-A/B clear it with exact recovered semantics
 - E32 → active `pred.transport_disruption`; E136-A/B clear it
 
-### E245 remains intentionally open
-Candidates are E20-A `soldier_compensation`, E125-A `border_compensation`, and E156-A `requisition_compensation`. The authoritative source must prove a single source, explicit composite, or explicit source-family rule before any union is implemented.
+### E245
+**Producer identity CLOSED:** E20-A `soldier_compensation`. E125-A and E156-A remain independent compensation outcomes. Executable delayed lifecycle is still partial because the authored source uses `6+ turns later` and does not yet provide an absolute due turn/cancellation contract.
 
 ### Systemic explanation
 Evidence families are materially frozen, but exact immutable convergence producer/key remains OPEN. E207 is consumer-only and cannot manufacture convergence.
@@ -86,7 +88,7 @@ Source identity is CLOSED: E142-A + E154-A + E198-A. Negative blockers E142-B/E1
 - `pred.final_charter_prerequisites`;
 - replay `meta.*` producer/key inventory;
 - remaining delayed cancellation/supersession rules;
-- E184 producer closure, E185 crisis resolution, E245 source disambiguation;
+- E184 producer closure, E185 crisis resolution;
 - ending incoming paths and deterministic precedence;
 - exhaustive E01–E272 graph and fresh-run reachability;
 - machine graph ↔ authoritative catalog semantic equality.
@@ -125,20 +127,19 @@ Source identity is CLOSED: E142-A + E154-A + E198-A. Negative blockers E142-B/E1
 - APK: **0%**
 - Release: **0%**
 
-Overall project progress remains approximately **60%**. Scenario QA is approximately **84%** and must not be conflated with overall project completion.
+Overall project progress remains approximately **60%**. Scenario QA is approximately **85%** and must not be conflated with overall project completion.
 
 ## Next autonomous work
 1. Search repository history and remaining catalog/checkpoint sources for exact E33/E34 authored material; otherwise formally quarantine them as unrecovered.
 2. Compile the actual producer→consumer token matrix for the 69 graph candidates, starting with the 54 unreferenced catalog candidates and ending/epilogue nodes.
 3. Separate ROOT/SOURCE, ordinary producer, consumer-only, terminal/ending, qualification, delayed callback, replay-only and true orphan semantics.
-4. Close E245 only from authoritative evidence; never union compensation candidates implicitly.
-5. Close systemic convergence identity or preserve it explicitly OPEN.
-6. Compile guild influence, coalition cooperation and constitutional preparation into exact producer/consumer matrices.
-7. Complete delayed cancellation/supersession matrix.
-8. Reconcile S11 endings and deterministic precedence.
-9. Build fresh-run and representative replay reachability models with strict `meta.*` isolation.
-10. Freeze production contracts only after machine validation and semantic catalog↔graph equality pass.
-11. Then Decision Engine → UI → localization → runtime/Android QA → APK → release.
+4. Close systemic convergence identity or preserve it explicitly OPEN.
+5. Compile guild influence, coalition cooperation and constitutional preparation into exact producer/consumer matrices.
+6. Complete delayed cancellation/supersession matrix, including E245/E185/E184.
+7. Reconcile S11 endings and deterministic precedence.
+8. Build fresh-run and representative replay reachability models with strict `meta.*` isolation.
+9. Freeze production contracts only after machine validation and semantic catalog↔graph equality pass.
+10. Then Decision Engine → UI → localization → runtime/Android QA → APK → release.
 
 ## Honest progress rule
 Documentation alone never makes implementation complete. Source edits count only when authoritative evidence is changed/re-read. No block is ready until its applicable verification passes.
