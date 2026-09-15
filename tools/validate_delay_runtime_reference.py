@@ -64,11 +64,26 @@ if len(rows) != 10:
 if len({r["exactlyOnceKey"] for r in rows}) != len(rows):
     errors.append("exactlyOnceKey values are not unique")
 
+# Isolate each delay for its earliest-turn proof so a later delay cannot be
+# consumed by an unrelated earlier assertion.
+for index, row in enumerate(rows, start=1):
+    isolated = ReferenceDelayRuntime(rows)
+    source_turn = 10 + index
+    if not isolated.schedule(row, source_turn):
+        errors.append(f"initial scheduling rejected for {row['exactlyOnceKey']}")
+    if isolated.schedule(row, source_turn):
+        errors.append(f"duplicate scheduling accepted for {row['exactlyOnceKey']}")
+
+    item = isolated.pending[row["exactlyOnceKey"]]
+    due = item["due"]
+    if due is not None and isolated.due(due - 1):
+        errors.append(f"delay fired before earliestTurn: {row['exactlyOnceKey']}")
+
+# Run the complete set together for persistence and eventual execution checks.
 rt = ReferenceDelayRuntime(rows)
 for index, row in enumerate(rows, start=1):
     source_turn = 10 + index
-    if not rt.schedule(row, source_turn):
-        errors.append(f"initial scheduling rejected for {row['exactlyOnceKey']}")
+    rt.schedule(row, source_turn)
     if rt.schedule(row, source_turn):
         errors.append(f"duplicate scheduling accepted for {row['exactlyOnceKey']}")
 
@@ -76,12 +91,6 @@ pending_before = set(rt.pending)
 rt.save_load_roundtrip()
 if set(rt.pending) != pending_before:
     errors.append("pending delay state changed across save/load roundtrip")
-
-# Relative delays must not fire before their due turn.
-for key, item in list(rt.pending.items()):
-    due = item["due"]
-    if due is not None and rt.due(due - 1):
-        errors.append(f"delay fired before earliestTurn: {key}")
 
 # E185 is condition-bound: no crisis means no execution; crisis permits execution.
 fired_without_crisis = rt.due(999, military_crisis=False)
@@ -91,14 +100,14 @@ fired_with_crisis = rt.due(999, military_crisis=True)
 if "E185" not in fired_with_crisis:
     errors.append("E185 did not execute when the authored military-crisis condition became true")
 
-# All non-E185 delays should resolve once after becoming due.
+# All other delays should resolve once their authored due condition is satisfied.
 remaining_non_e185 = [
     item for item in rt.pending.values() if item["row"]["resolutionTarget"] != "E185"
 ]
 if remaining_non_e185:
     errors.append("one or more due non-E185 delays remained pending")
 
-# Completed keys cannot execute twice.
+# Completed keys cannot execute twice or remain pending.
 for row in rows:
     key = row["exactlyOnceKey"]
     if key in rt.resolved and key in rt.pending:
@@ -118,7 +127,7 @@ if errors:
 print("DELAY_RUNTIME_REFERENCE: PASS")
 print("rows=10")
 print("schedule=deduplicated")
-print("earliest_turn=honored")
+print("earliest_turn=isolated_and_honored")
 print("condition_bound=E185 military_crisis")
 print("save_load=persistent_pending_state")
 print("fresh_run=reset")
