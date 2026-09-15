@@ -76,6 +76,9 @@ required_fragments = {
         "### E261 — The Four-Way Bargain", "### E267 — Rowan's Last Order",
         "### E268 — Seris's Last Bargain", "### E269 — Ivo's Late Account",
         "### E270 — Amara and Toma at Dawn",
+        "`systemic_explanation_convergence`",
+        "E270-A is the **convergence producer** for `pred.systemic_explanation_verified`",
+        "E270-A cannot manufacture missing evidence families",
     ],
 }
 for filename, fragments in required_fragments.items():
@@ -109,8 +112,11 @@ contract_fragments = [
     '"domain": "institutional_audit", "producer": "E154-A", "key": "crown_audited"',
     '"domain": "factional_house", "producer": "E161-A", "key": "house_assembly"',
     '"domain": "military_law", "producer": "E199-A", "key": "army_constitution_oath"',
-    '"pred.final_charter_prerequisites"',
-    '"consumer": "E209"',
+    '"pred.systemic_explanation_verified"', '"producer": "E270-A"',
+    '"key": "systemic_explanation_convergence"', '"warehouse_financial"',
+    '"document_language"', '"witness_organizational"',
+    '"E270-A"', '"E270-A cannot manufacture missing evidence families"',
+    '"pred.final_charter_prerequisites"', '"consumer": "E209"',
     '"status": "SOURCE_LEVEL_QUALIFICATION_SPECIFIED_PRODUCER_NOT_YET_AUTHORED"',
     '"civic_commons_legitimacy"', '"institutional_audit_legitimacy"',
     '"faction_house_guild_representation"', '"military_security_constitutional_route"',
@@ -150,6 +156,7 @@ print("p0_source_contracts=PASS")
 print("guild_representation_normalization=PASS")
 print("guild_and_constitutional_source_domains=PASS")
 print("coalition_machine_contract=PASS")
+print("systemic_explanation_convergence=PASS")
 print("final_charter_qualification_boundary=PASS")
 print("e33_e34_canonical_source=PASS")
 print("anti_circularity_guards=PASS")
