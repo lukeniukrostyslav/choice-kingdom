@@ -79,6 +79,14 @@ Every substantive scenario-QA batch must leave a durable GitHub commit and updat
 - Repository search for exact qualified tokens `pred.coalition_cooperation` and `pred.final_charter_prerequisites` returned no direct indexed matches at this checkpoint; these remain contract-level QA targets, not invented producers.
 - S06: **55% / IN PROGRESS**; global Scenario QA remains 65%.
 
+### Batch S07.1 — E271–E272 border-crisis lifecycle + graph reconciliation
+- Added `docs/SCENARIO_QA_S07_E271_E272_BORDER_LIFECYCLE.md` in commit `ad08b00cd5465c03aca0aeb2aac8e4b8a74b8dd7`.
+- Directly verified the authored E271/E272 lifecycle: E271-A declares the active crisis, E271-B resolves the warning without declaring, and E272-A/B resolve the declared crisis while retaining the historical declaration.
+- Closed the source-level producer/consumer boundary: E271-A is the only authored active-crisis producer; E272-A/B are the authored clear/resolution producers; E195/E253/E255 remain consumers.
+- Reconciled `docs/EVENT_GRAPH.md` in commit `67539450464ae167552534dca8375a25daa8f138` with explicit E271/E272 design-level lifecycle edges.
+- Preserved runtime save/load, exactly-once, turn-order and reachability work as OPEN rather than claiming implementation.
+- S07: **80% / IN PROGRESS**.
+
 ## Active gates
 
 - S01–S06: event inventory + semantic/producer closure.
@@ -90,17 +98,16 @@ Every substantive scenario-QA batch must leave a durable GitHub commit and updat
 - S12: fresh-run/replay reachability, graph-vs-catalog reconciliation and final sweep.
 
 ## Current continuation checkpoint — 2026-09-15
+- Latest S07 artifact commit: `ad08b00cd5465c03aca0aeb2aac8e4b8a74b8dd7`.
+- Latest event-graph reconciliation commit: `67539450464ae167552534dca8375a25daa8f138`.
 - Latest S06 semantic-closure commit: `3c5d9d621943b08ec23fb5579792b5294ef03ccd`.
 - Latest S06 source-inventory commit: `4cc1435c2580aae2ed38eb73c2088567079d099f`.
 - Latest S05 inventory commit: `3c47790828fb5cef203d3117b553e4e88938ca18`.
-- Latest S04 semantic-closure commit: `4b440414ba884469edfc35426ea960d63c70d7b9`.
-- Latest S04 inventory commit: `1250530cfceddd25aa6f9d06e6168f1fcd0ea094`.
-- Latest S03 semantic-closure commit: `fee868c6a4b5ce4bd7aba424081cf75f965c4573`.
-- Next substantive action: continue S06 semantic/producer closure, then reconcile S07 E271–E272 before global S08.
+- Next substantive action: continue global S08 producer/consumer closure using the S01–S07 inventories, then compile S09 predicate dependencies without repeating already-closed source facts.
 
 ## Current status
 Scenario QA remains **65%** until active global gates are actually closed.
 
-Working batch indicators: **S01 80%, S02 70%, S03 70%, S04 70%, S05 60%, S06 55%, S07 55%, S08 60%, S09 45%, S10 60%, S11 55%, S12 20%**.
+Working batch indicators: **S01 80%, S02 70%, S03 70%, S04 70%, S05 60%, S06 55%, S07 80%, S08 60%, S09 45%, S10 60%, S11 55%, S12 20%**.
 
 These batch percentages are working indicators and are not the global Scenario QA percentage.
