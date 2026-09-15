@@ -35,9 +35,10 @@ Dedicated Scenario QA score remains **65%**. This is distinct from overall proje
 - S09 **60%**
 - S10 **72%**
 - S11 **55%**
-- S12 **25%** — improved by S12.2 source-closure delta, but exhaustive reachability is still open.
+- S12 **28%** — S12.2 source closure plus S12.3 canonical invariant audit completed; exhaustive reachability is still open.
 
 ## Latest QA work
+- **S12.3** added `docs/SCENARIO_QA_S12_3_CANONICAL_INVARIANT_AUDIT_01.md`, commit `860444b28cd6e3e36024f9ebf9609b80532efa07`. It converts the latest producer/consumer registry into explicit canonical invariants and records PASS/OPEN/REJECTED states for lifecycle, alias, replay, delayed and ending rules. It does not claim exhaustive reachability.
 - **S12.2** added `docs/SCENARIO_QA_S12_2_SOURCE_CLOSURE_DELTA_AUDIT_01.md`, commit `6c8e82e825e7bcbeeb9d6f105ed7f4f9fd744559`. This reconciles the latest producer inventory against stale wording and closes the source-level ambiguity for active `pred.transport_disruption`: E32 is the explicit active producer; E136-A/B are recovery/clear producers. Runtime cycle identity, ordering, persistence, expiry/supersession and delayed-effect interaction remain open.
 - **S12.1** added the machine-oriented reachability anchor inventory in commit `a61ac9de61f4c448c511e123be38cea12b3b0f5b8`.
 - Canonical budget reform source closure identifies E142-A `auditor_independence`, E154-A `crown_audited` and E198-A `legislative_budget_lock` as the three-domain source candidate set. Predicate validation remains partial.
