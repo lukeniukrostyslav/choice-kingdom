@@ -111,7 +111,7 @@ IDEMPOTENT_REAFFIRMATIONS = {
 semantic_writer_collisions = {
     token: writers for token, writers in duplicates.items()
     if len({writer["event"] for writer in writers}) > 1
-    and not all((token, writer["event"]) in IDEMPOTENT_REAFFIRMATIONS for writer in writers)
+    and not any((token, writer["event"]) in IDEMPOTENT_REAFFIRMATIONS for writer in writers)
 }
 reaffirmed_tokens = {
     token: [writer for writer in writers if (token, writer["event"]) in IDEMPOTENT_REAFFIRMATIONS]
