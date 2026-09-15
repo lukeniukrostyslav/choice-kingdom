@@ -1,0 +1,13 @@
+name: Choice Kingdom Canonical Graph
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  canonical-graph:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate source-level canonical graph contract
+        run: python3 tools/validate_canonical_graph.py
