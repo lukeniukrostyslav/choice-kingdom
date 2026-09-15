@@ -271,8 +271,10 @@ A third fire threatens food distribution.
 ### E192 — The Broken Cart
 **Trigger:** `pred.transport_disruption`.
 A single broken cart delays medicine and grain simultaneously.
-- **A — Prioritize medicine:** +4 trust; `food_logistics_unstable`, worsening food pressure and Amara's route.
-- **B — Prioritize grain:** +4 trust; `food_logistics_stabilized`, while Amara's relationship worsens.
+- **A — Prioritize medicine:** +4 trust; `food_logistics_unstable`, clears `food_logistics_stabilized` if active, and does not establish `pred.food_stable`.
+- **B — Prioritize grain:** +4 trust; `food_logistics_stabilized`, clears `food_logistics_unstable` if active, and establishes `pred.food_stable` for the current food-logistics cycle.
+
+The food-stability predicate is an authored current-cycle state produced only by E192-B within E01–E272. Historical food-logistics evidence remains queryable after a later clear; no numeric food resource is introduced. Future authored invalidation may clear the active cycle without erasing history.
 
 ### E193 — The Soldiers' Bread
 **Trigger:** low gold + high security.
