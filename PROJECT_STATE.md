@@ -50,6 +50,7 @@ Content and canonical QA come before production contracts, engine, UI, localizat
 - `docs/REACHABILITY_PREAUDIT_E01_E070_01.md`
 - `docs/PRODUCER_AUDIT_E071_E110_01.md`
 - `docs/REACHABILITY_PREAUDIT_E071_E110_01.md`
+- `docs/FULL_REACHABILITY_CLOSURE_MATRIX_01.md`
 - `docs/PRODUCER_AUDIT_E111_E180_01.md`
 - `docs/PRODUCER_AUDIT_E143_E150_01.md`
 - `docs/PRODUCER_AUDIT_E181_E210_01.md`
@@ -63,17 +64,16 @@ Content and canonical QA come before production contracts, engine, UI, localizat
 - `docs/CANONICAL_SOURCE_CORRECTIONS_02.md`
 
 ## Current QA checkpoint
-E01–E70 now have dedicated producer/consumer and static reachability pre-audits. The source inventory confirms E01 as the first-turn root, E28 as the explicit forgery producer, E45 as the infrastructure producer, E36/E95 as distinct Mara facts, E55/E269 as distinct Ivo evidence nodes, and E61–E67 as separate ending resolvers. Prose triggers and delayed effects still require canonical machine-safe contracts.
+Producer inventories and static reachability pre-audits now cover the authored scope E01–E272. A consolidated `docs/FULL_REACHABILITY_CLOSURE_MATRIX_01.md` records the cross-range causal closure state and global blockers.
 
-E071–E110 also have dedicated producer/consumer and static reachability pre-audits. That range confirms independent evidence-source counting, delayed callback identity, route-predicate ambiguity, transport/food predicate separation, and coalition semantics as unresolved contracts.
+The matrix explicitly preserves: E28 forgery producers; E45 infrastructure producers; E36/E95 distinct Mara facts; E55/E269 distinct Ivo evidence; E136-B guild-logistics history; E194 qualified logistics derivation; E271 border-crisis declaration; E272 border-crisis resolution; and E61–E67 as separate ending resolvers.
 
-E211–E250 have dedicated producer/consumer and reachability pre-audits. E251–E272 have an exact authored producer/consumer audit. E271-A is the canonical border-crisis declaration producer; E272-A/B are canonical resolution producers. The border lifecycle preserves historical declaration while clearing the active crisis predicate on resolution.
-
-E136-B remains the upstream producer of `history.guild_logistics_cooperation`; E194 consumes that marker and later qualifies the logistics predicate through neutral inspectors and no unresolved immunity risk.
+The consolidated matrix is still **OPEN**, not a proof of runtime reachability. Remaining blockers are canonical derived predicates, route identity, evidence cardinality, delayed consequence semantics, replay metadata, ending precedence and prose timing conditions.
 
 Reachability remains static/pre-audit only. Production schema and runtime implementation remain blocked until canonical contracts are frozen. No validator has been introduced prematurely.
 
 ## Latest source-level commits
+- `1c34444d4cba9e6e5d0e3614afd45ba5dbb75dfb` — consolidated E01–E272 reachability closure matrix.
 - `422f22f38a7b92eee1e9b5f9aef03f2e470fb908` — producer/consumer audit E01–E70.
 - `7e282f2a68a56ae84e1fccf973299db612fe7d20` — reachability pre-audit E01–E70.
 - `b60427459ad04c9f9e09e09f7521731d1a381987` — reachability pre-audit E071–E110.
@@ -81,17 +81,15 @@ Reachability remains static/pre-audit only. Production schema and runtime implem
 - `21a5c782890733b94c50858ea7d0b7021379c941` — producer/consumer audit E251–E272.
 - `2d22b3809e753928ca02d4c8b530ca4dc1e93d53` — reachability pre-audit E211–E250.
 - `14d99ed300c32be7285bd599320a8198da5333fe` — producer/consumer audit E211–E250.
-- `935a7512ce6dfc66e191c456f1d95e72a6ba0efa` — producer audit E143–E150.
-- `9556b6be8e6641e0067ea183a3171ec0ccdbc8c9` — producer audit E111–E180 verified subset.
 
 ## Next highest-value work
-1. Reconcile trigger families and route predicates across E01–E272 without collapsing ambiguous concepts.
-2. Build the full reachability matrix from the complete authored source set.
-3. Resolve delayed/replay source identity and exactly-once semantics.
-4. Verify semantic-collision downstream roles.
-5. Resolve remaining open derived predicates/contracts.
-6. Freeze production data contracts.
-7. Build the real static validator, then implement the engine.
+1. Reconcile all remaining derived predicates and route identities.
+2. Close delayed/replay source identity and exactly-once semantics.
+3. Define ending qualification and precedence.
+4. Reconcile all prose timing triggers into canonical predicates.
+5. Freeze production data contracts.
+6. Build the real static validator against the frozen schema.
+7. Implement the actual Decision Engine and runtime.
 
 ## Honest progress rule
 Percentages represent actual state. Documentation alone does not make implementation complete. Source edits count only when the authoritative catalog is changed and re-read. No block may be called ready until its appropriate verification has passed.
