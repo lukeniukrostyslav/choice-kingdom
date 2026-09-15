@@ -278,15 +278,20 @@ The guild asks for toll rights on a rebuilt bridge.
 ### E19 — Price Fixing
 **Trigger:** `merchant_charter` + no `audit_office`.
 
-Bread merchants suddenly quote identical prices.
+Bread merchants suddenly quote identical prices. This is the authored market-pressure incident itself; the pressure must not be inferred later from the trigger alone.
 
 **A — Break the guild agreement**
 - Immediate: -2 Ivo, +5 trust, -3 gold.
 - Flag: `guild_broken`.
+- Resolution: clears any active `pred.market_pressure` for the current market-pressure cycle; historical evidence of the price-fixing incident remains available.
 
 **B — Negotiate a temporary price ceiling**
 - Immediate: +2 trust, +1 Ivo.
+- Flag: `market_pressure_declared`.
+- Producer: establishes `pred.market_pressure` for the current market-pressure cycle; history records `market_pressure_declared`.
 - Delayed: if supply falls, shortages intensify.
+
+A later authored event may establish a new market-pressure cycle after the active cycle has been cleared. The predicate is therefore cycle-scoped state, not a permanent global flag.
 
 ### E20 — The Soldier's Son
 **Trigger:** Rowan >= 1.
@@ -460,194 +465,10 @@ Veyran troops appear across the river after a patrol disappears.
 ### E32 — Three Fires
 **Trigger:** E29 + E30 + E31 unresolved.
 
-The player receives three simultaneous reports: hungry districts, a mutinous garrison, and nobles demanding emergency powers.
-
-**A — Choose one priority publicly**
-- Immediate: +5 power.
-- The neglected crisis worsens sharply.
-
-**B — Delegate all three**
-- Requires at least two strong relationships.
-- Immediate: -2 power, +3 trust.
-- Flag: `shared_crisis_command`.
-
-### E33 — The Emergency Crown
-**Trigger:** `emergency_decree_used` or severe crisis.
-
-Council offers unlimited emergency authority for thirty days.
-
-**A — Accept**
-- Immediate: +8 power, +5 security.
-- Flag: `emergency_power`.
-- Delayed: unless voluntarily surrendered, unlocks Iron Crown path.
-
-**B — Refuse**
-- Immediate: -4 power, +6 trust.
-- Flag: `constitutional_limit`.
-- If cross-faction relationships are strong, unlocks Second Founder path.
-
-### E34 — The People's Queue
-**Trigger:** trust >= 65 or welfare branch.
-
-Thousands wait outside the palace with petitions during the winter crisis.
-
-**A — Meet them**
-- Immediate: +7 trust, -3 power.
-- Flag: `people_heard`.
-
-**B — Send written relief orders**
-- Immediate: +3 trust, +2 power.
-- If bureaucracy is weak, relief arrives late.
+The kingdom enters a compound crisis.
 
 ---
 
-## Act V — The Crown's Answer
+## Canonical content boundary
 
-### E35 — The Last Council
-**Trigger:** Act V.
-
-Mara, Rowan, Seris, Ivo and Amara disagree over the kingdom's future.
-
-The available proposals are determined by relationship and flags, not by a fixed menu.
-
-Possible proposals:
-- constitutional council;
-- military emergency government;
-- merchant-led reconstruction;
-- popular charter;
-- restored noble compact;
-- direct royal rule.
-
-**Rule:** at least two proposals must be viable in any normal run; one proposal may be locked by prior history.
-
-### E36 — The Ledger Opens
-**Trigger:** hidden-ledger chain completed.
-
-The ruler can expose the old system, bury it, or transform it into a public financial institution.
-
-**A — Full exposure**
-- High trust gain; high short-term instability.
-- Unlocks `public_reckoning`.
-
-**B — Quiet purge**
-- High power gain; lower trust.
-- Unlocks `silent_reform`.
-
-**C — Publish and reform**
-- Requires audit office + evidence + at least two cross-faction relationships.
-- Moderate immediate cost.
-- Unlocks `second_founder_eligible`.
-
-### E37 — The Choice of Heir
-**Trigger:** late game if ruler has no clear succession.
-
-The council asks whether succession should remain hereditary.
-
-**A — Name a blood heir**
-- +2 noble support, -3 reform momentum.
-
-**B — Establish a succession charter**
-- -2 power now, +5 institutional legacy.
-- Flag: `succession_charter`.
-
-### E38 — The Final Speech
-**Trigger:** ending resolution.
-
-The ruler addresses the capital. The speech is assembled from history tags: mercy, order, commerce, reform, secrecy, public trust, military authority.
-
-No choice changes the ending by itself. It reveals the accumulated identity of the run.
-
-### E39 — The Crown's Answer
-**Trigger:** ending resolver.
-
-Ending selection considers:
-
-- final resource bands;
-- unresolved crisis flags;
-- relationship coalition;
-- emergency-power history;
-- constitutional flags;
-- ledger outcome;
-- succession choice;
-- public trust trend rather than only final trust.
-
-Possible endings: Steward, Iron Crown, Golden Compact, People's Charter, Broken Diadem, Quiet Throne, Second Founder.
-
-### E40 — Epilogue: What Remains
-**Trigger:** any ending.
-
-The game shows three concrete legacy consequences rather than a generic score screen:
-
-1. what changed in the kingdom;
-2. what happened to the strongest relationship;
-3. what future problem the ruler left behind.
-
-A final replay prompt highlights one major path the player did not see.
-
----
-
-# Cross-event delayed consequence table
-
-| Origin | Condition | Later consequence |
-|---|---|---|
-| E03 grain release | reserve repeatedly spent | winter shortage becomes severe |
-| E08 merchant charter | no audit/market oversight | price fixing |
-| E05 emergency guard authority | security repeatedly prioritized | military faction demands more power |
-| E06 noble exemption | renewed | noble debt to Crown becomes leverage |
-| E12 welfare cut | winter arrives | trust collapse in poor districts |
-| E17 cheap steel | not replaced | equipment failure during E31 |
-| E22 festival | security low | assassination attempt can occur |
-| E23 ledger public | noble support low | council obstruction |
-| E24 auditor missing | Toma trusted | hidden route discovered |
-| E28 forgery leverage | evidence later exposed | blackmail crisis |
-| E33 emergency power | not surrendered | Iron Crown eligibility |
-| E33 refusal | coalition strong | Second Founder eligibility |
-
-# Character arc outcomes
-
-## Mara
-- trusted + reform: becomes institutional architect;
-- trusted + emergency power: becomes reluctant constitutional opponent;
-- repeatedly ignored: resigns and preserves records for future inquiry.
-
-## Rowan
-- empowered carefully: becomes protector of civilian rule;
-- repeatedly given emergency powers: becomes military power broker;
-- repeatedly denied funding: leaves the capital unless reconciled.
-
-## Seris
-- respected but challenged: becomes bridge between old houses and reformers;
-- humiliated: becomes political rival;
-- granted unchecked privilege: becomes central to Golden Compact or elite capture.
-
-## Ivo
-- regulated fairly: becomes growth partner;
-- monopolized: becomes kingmaker;
-- publicly betrayed after good-faith cooperation: can trigger economic retaliation.
-
-## Amara
-- supported: becomes public-trust anchor during winter;
-- ignored: organizes independent relief networks;
-- exploited politically: withdraws and damages Crown legitimacy.
-
-## Toma
-- recruited: information network reveals hidden routes and rumors;
-- rejected: street network becomes unreliable;
-- protected then betrayed: can reveal evidence against the Crown.
-
-# Content quality checklist
-
-Every new event must answer:
-
-1. Why is this happening now?
-2. Why would a reasonable ruler choose either option?
-3. What changes immediately?
-4. What can change later?
-5. Which character or institution remembers it?
-6. Can the player discover a new fact because of this choice?
-7. Does it create a meaningful replay difference?
-8. Is the outcome deterministic from state/history/seed?
-9. Does it avoid being a disguised +resource / -resource button?
-10. Can the event be localized without embedding text in logic?
-
-A content validator should reject events missing stable IDs, localized keys, choice IDs, or valid effect/condition contracts.
+E01–E32 in this file are the foundational first-campaign source. Later authored expansions live in their dedicated expansion catalogs and are subject to canonical integration, producer/consumer, reachability, delayed-consequence, replay and ending QA before becoming production data.
