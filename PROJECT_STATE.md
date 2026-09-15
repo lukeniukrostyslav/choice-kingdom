@@ -56,6 +56,7 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 - `docs/CANONICAL_DELAY_CONTRACT.md` defines the delayed-consequence contract.
 - `docs/CANONICALIZATION_BACKLOG.md` is the active execution backlog.
 - `docs/CANONICAL_PRODUCER_CONSUMER_REGISTRY_01.md` is the consolidated producer/consumer source-level QA registry.
+- `docs/CANONICAL_CLOSURE_AUDIT_01.md` is the latest focused source-level closure audit.
 - `docs/LEGACY_SEMANTIC_AUDIT_01.md` records the E35–E40 and duplicate-semantic audit findings.
 - `docs/SEMANTIC_COLLISION_RESOLUTION_01.md` records the frozen and applied semantic-resolution policy.
 - `docs/LEGACY_SOURCE_COMPARISON_02.md` closes E73/E156 and E99/E173 as distinct source-level nodes.
@@ -64,19 +65,18 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 ## Current QA checkpoint
 The E111–E210 authoritative catalogs have received direct authored-source correction passes. E136-B now establishes the immutable upstream `history.guild_logistics_cooperation` marker, and E194 now consumes that history marker rather than the qualified predicate. E194's neutral-inspector choice remains the later qualification input; immunity risk explicitly blocks qualification. This removes the identified E194 self-dependency at the authored-source level.
 
-E192 uses canonical food-logistics markers instead of a sixth numeric resource; E197/E200/E201 consume canonical qualification predicates; E207 records its distinct-evidence convergence requirement; E209 requires upstream final charter prerequisites; and E210 is explicitly convergence-only. E144/E148 remain normalized for guild representation and cross-faction package semantics.
+E192 uses canonical food-logistics markers instead of a sixth numeric resource; E197/E200/E201 consume canonical qualification predicates; E207 records its distinct-evidence convergence requirement; E209 requires upstream final charter prerequisites; and E210 is explicitly convergence-only. E144/E148 are normalized for guild representation and cross-faction package semantics: E144-A/B are now verified producers of `history.guild_representation`.
 
 The authoritative E211–E270 catalog now distinguishes the previously overlapping Mara and Ivo nodes without renumbering: E226 is **Mara's Final Resignation Test**, explicitly a late institutional-stress consequence; E269 is **Ivo's Late Account**, explicitly a late evidence/consequence node distinct from E55. The semantic-resolution and producer/consumer registry have been synchronized with those catalog edits.
 
 E271 now provides an explicit authored source for border-crisis declaration, while E272 provides the corresponding authored active-crisis resolution paths. The historical declaration remains queryable after resolution; only the active crisis predicate is cleared. E195/E253/E255 remain consumers and cannot manufacture the crisis by reachability.
 
-The border-crisis lifecycle is therefore closed at the authored-source level, and the E136/E194 guild-logistics self-dependency plus E55/E269 and E36/E226 presentation collisions are corrected at authoritative source level. Remaining P0 work is exact producer enumeration for frozen combination domains, full marker/consumer inventory, trigger normalization, graph/catalog reconciliation, reachability, downstream collision verification, delayed/replay normalization and production schema freeze.
-
-The legacy semantic audit confirmed E73/E156 and E99/E173 as distinct source-level nodes. E37/E227, E39/E229 and E40/E241 still require downstream-role verification.
+The latest closure audit was reconciled with these authoritative sources: `history.guild_representation` and the border-crisis lifecycle are source-verified; transport disruption remains partial because E136 verifies recovery/clear but a distinct later active-disruption producer is still not identified. Production schema remains blocked.
 
 Reachability remains static/pre-audit only until a real validator and production data representation exist. No engine/APK readiness claim is permitted at this stage.
 
 ## Latest source-level commits
+- `4fdcdbea31709462dd4b38e9b6c3f3189671d6ec` — reconciled closure audit with verified E144 and E271–E272 source producers.
 - `d529ff3d0a44bcb4c7cce54d70103e0b78883686` — applied E136-B upstream guild-logistics history marker.
 - `c08379167f311c3ce674ace63475f3be839855a8` — changed E194 to consume the upstream guild-logistics history marker and documented qualified predicate derivation.
 - `33d9cd1c9c7ffe2f88358994aa043a643d4a2a33` — synchronized correction record as applied and verified.
