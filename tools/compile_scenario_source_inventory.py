@@ -82,6 +82,46 @@ for source in sources:
             "choices": choices,
         }
 
+# The canonical graph manifest contains frozen source-closed producer contracts
+# for authored outcomes whose semantic producer is not always encoded as an
+# inline backtick on the A/B prose line. Seed only those positive contracts;
+# explicit clear.* rows remain lifecycle clears, not positive producers.
+for row in manifest.get("source_closed_producers", []):
+    fact = row.get("fact", "")
+    if not fact or fact.startswith("clear."):
+        continue
+    event_id = row.get("event", "")
+    declared_choice = row.get("choice", "")
+    choices = [declared_choice]
+    if declared_choice == "A/B":
+        choices = ["A", "B"]
+    for choice in choices:
+        if any(w["event"] == event_id and w.get("choice") == choice for w in producers.get(fact, [])):
+            continue
+        producers[fact].append({
+            "event": event_id,
+            "source": "MACHINE_CANONICAL_GRAPH_01.json",
+            "choice": choice,
+            "source_contract": True,
+        })
+
+# Composite predicates with an explicit frozen producer event are also
+# canonical source contracts. Derived multi-domain predicates without one
+# explicit producer remain unresolved until their lifecycle is machine-closed.
+for fact, contract in manifest.get("composite_predicates", {}).items():
+    producer = contract.get("producer")
+    if contract.get("status") != "SOURCE-CLOSED" or not producer or not re.fullmatch(r"E\d{2,3}-[AB]", producer):
+        continue
+    event_id, choice = producer.split("-")
+    if not any(w["event"] == event_id and w.get("choice") == choice for w in producers.get(fact, [])):
+        producers[fact].append({
+            "event": event_id,
+            "source": "MACHINE_CANONICAL_GRAPH_01.json#composite_predicates",
+            "choice": choice,
+            "source_contract": True,
+            "composite_source_contract": True,
+        })
+
 missing = sorted(expected - set(events), key=lambda x: int(x[1:]))
 extra = sorted(set(events) - expected, key=lambda x: int(x[1:]))
 if missing:
@@ -169,10 +209,12 @@ inventory = {
     "notes": [
         "Source-level inventory only; no gameplay/fresh-run reachability claim.",
         "A trigger token without an extracted producer is unresolved, not invented.",
+        "Frozen source_closed_producers in MACHINE_CANONICAL_GRAPH_01 are authoritative positive producer contracts and are seeded into the inventory when not already represented by the authored choice extraction.",
+        "Explicit source-closed composite predicates with a frozen producer event are seeded as positive predicate producers; multi-domain predicates without one explicit producer remain unresolved.",
+        "Clear/reset/invalidate/revoke/cancel source contracts are never promoted into positive producers.",
         "All cross-event duplicate writers are retained as an explicit semantic-writer review set unless an explicit idempotent reaffirmation is frozen.",
         "E194-A repeating history.guild_logistics_cooperation is an explicit idempotent reaffirmation of the E136-B durable marker, not an independent producer.",
         "Same-event A/B writers are retained as shared-writer review findings; they are not contradictions by themselves.",
-        "Explicit clear/reset/invalidate/revoke/cancel actions are recorded as choice clears and are not treated as positive producers.",
         "Undefined consumers are reported separately from undefined predicate producers.",
         "Predicate dependency cycles are machine-failing; undefined predicate producers remain source-QA findings until explicitly classified.",
         "Legacy/prose border trigger forms are machine-failing so canonical predicate lifecycle cannot regress silently.",
