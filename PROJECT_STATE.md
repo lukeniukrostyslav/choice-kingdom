@@ -43,37 +43,37 @@ E273–E277 remain outside the frozen catalog. Follow-up audits record exact sou
 
 The border-crisis lifecycle is source-closed: E271-A declares the active crisis and E272-A/B resolve it while preserving historical declaration state. `thread.border` remains a legacy trigger context and must not be silently aliased to `thread.border_crisis`.
 
-Delayed-consequence source extraction covers E127–E130/E141 plus E181–E185 and E242–E246. Producer identity is source-closed for E181 (E45-B), E182 (E117-B), E183 (E118-B), E185 (E17-A) and E244 (E09-B). E242 has an explicit E118-B source but its full producer set remains open. E184 remains source-open. E243 now has a closed exact candidate source E18-B (`public_bridge`) but still requires production-vocabulary normalization. E245 has a closed candidate set E125-A (`border_compensation`) / E156-A (`requisition_compensation`) but still requires an explicit single-source or union decision. E246 has E160-A (`winter_rent_ceiling`) as its exact semantic candidate but still requires vocabulary normalization. A graph-edge audit also found that existing design-level incoming edges for E243/E245 are candidate relationships rather than exact trigger producers; these edges must not be promoted into runtime prerequisites without source closure. See `docs/DELAYED_SOURCE_CLOSURE_05.md`, `docs/DELAYED_GRAPH_EDGE_AUDIT_01.md`, `docs/DELAYED_PRODUCER_CANDIDATE_CLOSURE_01.md` and `docs/DELAYED_NORMALIZATION_GATE_01.md`.
+Delayed-consequence source extraction covers E127–E130/E141 plus E181–E185 and E242–E246. Producer identity is source-closed for E181 (E45-B), E182 (E117-B), E183 (E118-B), E185 (E17-A) and E244 (E09-B). E242 has an explicit E118-B source but its full producer set remains open. E184 remains source-open. E243 has a closed exact candidate source E18-B (`public_bridge`) but requires canonical vocabulary normalization. E245 has candidate sources E125-A (`border_compensation`) and E156-A (`requisition_compensation`), but the two meanings are distinct and no union has been silently declared. E246 has E160-A (`winter_rent_ceiling`) as its exact semantic candidate and requires explicit normalization before runtime. See `docs/DELAYED_PRODUCER_DECISION_MATRIX_01.md`.
 
-Replay mutable-state isolation is contract-closed at the design level: a new run starts with empty pending callbacks, active-cycle predicates, unresolved crises and run-local state; only explicitly authored `meta.*` transfer data may cross the replay boundary. Replay-oriented consumers/intents include E186, E247, E248 and E270, but explicit transfer producers/keys are not source-closed. This remains a verification lead rather than proof of absence. See `docs/REPLAY_META_INVENTORY_01.md` and `docs/REPLAY_META_STATE_CONTRACT_01.md`.
+Replay mutable-state isolation is contract-closed at the design level: a new run starts with empty pending callbacks, active-cycle predicates, unresolved crises and run-local state; only explicitly authored `meta.*` transfer data may cross the replay boundary. A fresh source pass narrowed E186: its normal `warehouse_arson` route is distinct from the previous-run informational unlock wording. E247, E248 and E270 remain consumer intents without source-closed meta producers/keys. No ordinary flag or history marker has been promoted into meta-state. See `docs/REPLAY_META_SOURCE_CLOSURE_02.md`.
 
-The ending qualification design contract is established: endings must be deterministic, predicate-based and causal; relationship scores, route counts and the last event cannot manufacture prerequisites. The seven current ending families and E265–E270 qualification roles are defined. A dedicated deterministic precedence/negative-control/save-load/replay QA matrix has now been added, but its tests remain blocked until machine-readable prerequisites, producers, priority data and runtime fixtures exist. See `docs/ENDING_QUALIFICATION_CONTRACT_01.md`, `docs/ENDING_PATH_COVERAGE_AUDIT_01.md` and `docs/ENDING_PRECEDENCE_TEST_MATRIX_01.md`.
+The ending qualification design contract is established: endings must be deterministic, predicate-based and causal; relationship scores, route counts and the last event cannot manufacture prerequisites. The seven current ending families and E265–E270 qualification roles are defined. A new producer-gap register separates qualification prose from actual source closure. Broken Diadem and Quiet Throne remain especially open because their deterministic failure/withdrawal producers are not frozen. See `docs/ENDING_PRODUCER_GAP_REGISTER_01.md`, `docs/ENDING_QUALIFICATION_CONTRACT_01.md` and `docs/ENDING_PRECEDENCE_TEST_MATRIX_01.md`.
 
 Canonical scope wording has been reconciled: E35–E40 are canonical authored nodes because Act V explicitly continues the E01–E34 catalog. Their remaining work is downstream distinction/graph QA, not renumbering or exclusion. See `docs/CANONICAL_SCOPE_RECONCILIATION_01.md`.
 
 No validator has been introduced prematurely. Production schema and runtime implementation remain blocked until canonical contracts are frozen and the complete catalog reconciliation passes.
 
 ## Latest source-level commits
-- `473dd515df4852be665400d64892ec8391f362ab` — delayed normalization gate for E243/E245/E246.
+- `32742d189975f70b29c1d6d2284f5ae0ba751eac` — ending producer gap register.
+- `deba396de3cc71cc90852f50c184d83b724a6aca` — delayed producer decision matrix.
+- `a5993eb86688866f053f85af883832b94f3a044c` — replay meta source closure 02.
+- `a3d6612fdffb6350b0a47861a50de8b817c83ea0` — PROJECT_STATE update after delayed normalization gate.
 - `ca9c2a677565d5a37c18587413659312bdd1cd2e` — delayed graph edge audit for E243/E245.
-- `2420934160b0b1ff724dcb603d25a8824775ca7f` — corrected delayed consequence source closure 05; E244 producer closed to E09-B.
+- `2420934160b0b1ff724dcb603d25a8824775ca7f` — corrected delayed consequence source closure 05.
 - `3174407794accbc8a3b3140cd8da58b89b546279` — delayed producer disambiguation audit 01.
 - `bc81332c7de13ffd6f637f3cd57fc904df864744` — deterministic ending precedence test matrix 01.
-- `30c32dad89f9b31a1885c45e3ddc34b31fe5e9f4` — E273–E276 consumer/alias audit 01.
-- `f8a6e0923d9f699ce10ffa7a608f19fd53fba9c4` — delayed consequence normalization matrix 01.
 - `c5a22d69069ecb975809b2468bf1e3ec9713e980` — replay meta-state producer/consumer inventory audit.
-- `89812501201e49e23d3e619900ef5a4d46e` — ending path coverage audit E265–E270.
 
 ## Current honest progress
 - Foundation / rules: **95%**
 - Authored content: **90%**
 - Canonical Event IDs / continuity: **100%**
-- Producer / Consumer QA: **94%**
+- Producer / Consumer QA: **95%**
 - Derived predicates / machine contracts: **83%**
-- Delayed Consequences: **86%**
-- Replay / Meta-state: **55%**
-- Endings / precedence: **61%**
-- Reachability / causal graph: **43%**
+- Delayed Consequences: **87%**
+- Replay / Meta-state: **57%**
+- Endings / precedence: **63%**
+- Reachability / causal graph: **44%**
 - Production data schema: **35%**
 - Decision Engine: **0%**
 - UI / UX: **0%**
@@ -83,13 +83,13 @@ No validator has been introduced prematurely. Production schema and runtime impl
 - APK: **0%**
 - Release: **0%**
 
-Overall project progress remains approximately **52%**. The delayed-consequence increase reflects closure of producer candidate sets and explicit normalization gates; it does not imply runtime readiness. Engine, UI and Android work remain unimplemented.
+Overall project progress remains approximately **53%**. The increases reflect actual narrowing/closure of source-level QA gates and explicit producer-gap classification; they do not imply runtime readiness. Engine, UI and Android work remain unimplemented.
 
 ## Next highest-value work
 1. Close exact source/normalization for E184, E243, E245 and E246 without semantic aliasing.
 2. Resolve exact authored `meta.*` replay transfer producers/keys/consumers; do not infer them from ordinary flags.
-3. Complete ending producer/path coverage and fill the authored priority table with deterministic fixtures.
-4. Re-run complete E01–E272 contradiction/cycle/reachability reconciliation, incorporating the newly identified E243/E245 graph-edge candidates.
+3. Complete ending producer/path coverage and author deterministic priority data/fixtures.
+4. Re-run complete E01–E272 contradiction/cycle/reachability reconciliation.
 5. Freeze production data contracts and only then build the static validator.
 6. Implement the actual Decision Engine and runtime.
 7. Proceed to UI, localization, Android QA and APK only after engine contracts are genuinely verified.
