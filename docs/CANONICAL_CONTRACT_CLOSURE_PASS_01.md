@@ -1,6 +1,6 @@
 # Choice Kingdom — Canonical Contract Closure Pass 01
 
-Date: 2026-09-15  
+Date: 2026-09-16  
 Status: **SOURCE-LEVEL QA — CONTRACT CLOSURE WORKING RECORD**  
 Frozen production scope: **E01–E272**
 
@@ -18,8 +18,8 @@ E273–E277 are retained only as **expansion candidates** and are not part of th
 | `history.guild_logistics_cooperation` | CLOSED | E136-B is the upstream immutable producer; E194 consumes it and adds later neutral-inspection qualification. |
 | `pred.border_crisis` | CLOSED at source lifecycle | E271 declares; E272 resolves; active predicate is derived from declaration minus resolution. Security alone cannot create it. |
 | `pred.guild_logistics_cooperation` | CLOSED at source chain | Requires E136-B history plus E194-A neutral-inspection qualification and no immunity-risk blocker. |
-| `pred.food_stable` | PARTIAL | E273-A is an expansion-candidate producer outside the frozen scope. It cannot be admitted to E01–E272 until explicitly promoted into the canonical catalog. Active-cycle invalidation/expiry and full consumer ordering remain open. |
-| `pred.transport_disruption` | PARTIAL | E32 is an explicit active producer in the frozen scope; later expansion material must remain separate until promoted. E136 recovery/clear semantics are source-closed, but full lifecycle persistence/reconciliation remains open. |
+| `pred.food_stable` | CLOSED at source level | E192-B is the frozen-scope authored producer for `food_logistics_stabilized`; E192-A explicitly clears that active marker and establishes the unstable-cycle marker. Runtime cycle expiry/invalidation remains open. |
+| `pred.transport_disruption` | PARTIAL | E32 is an explicit active producer in the frozen scope; E136 recovery/clear semantics are source-closed, but full lifecycle persistence/reconciliation remains open. |
 | `pred.winter_severe` | PARTIAL | E29-A/E29-B are explicit severe-winter producers; immutable history is retained. Deterministic active-cycle validity/expiry remains open. |
 | `pred.market_pressure` | PARTIAL | E19 provides the frozen-scope explicit producer. Later expansion producers remain outside the frozen catalog. Clear/invalidation and cross-cycle ordering remain open. |
 | `pred.guild_labor_tension` | OPEN in frozen scope | Expansion-candidate producer material exists outside E01–E272; it is not admitted to the frozen contract. A frozen-scope producer/consumer contract must be identified or the consumer must remain blocked. |
@@ -36,7 +36,7 @@ E273–E277 are retained only as **expansion candidates** and are not part of th
 | `thread.final_constitutional_phase` | OPEN | Must activate deterministically before E208 without using late consumers as producers. |
 | `pred.final_charter_prerequisites` | OPEN | Exact prerequisite set and mandatory-crisis blockers must be frozen before E209. |
 | Delayed consequence identity | OPEN | Every prose delay needs source choice, exact identity, timing window/condition, cancellation/supersession and exactly-once semantics. |
-| Replay metadata | OPEN | Only `meta.*` facts intentionally persistent across runs may qualify future replay behavior. |
+| Replay metadata | SOURCE-BOUNDARY CLOSED | E186/E247/E248 have explicit `completed_prior_run_meta_export` boundaries and canonical `meta.replay.*` keys; runtime import/reset/reachability remains open. |
 | Ending qualification | OPEN | E61–E67 are distinct ending resolvers; independent prerequisites and precedence still require explicit contract. |
 | Route identity | CLOSED as semantic rule | Relationship values cannot substitute for explicit historical/flag/thread route identity. Exact machine-readable route producer inventory remains part of schema compilation. |
 | Evidence convergence | PARTIAL | Required evidence families are fixed conceptually; exact source IDs and convergence-choice representation still require compilation. |
@@ -58,7 +58,6 @@ E273–E277 are retained only as **expansion candidates** and are not part of th
 
 The production schema remains blocked until these are resolved and reconciled against the frozen E01–E272 authored source set:
 
-- food stability invalidation/expiry and ordering;
 - transport disruption lifecycle/recovery reconciliation;
 - winter active-cycle validity/expiry;
 - market pressure clear/invalidation semantics;
@@ -71,7 +70,7 @@ The production schema remains blocked until these are resolved and reconciled ag
 - budget reform qualifying combination;
 - final charter prerequisite closure;
 - delayed consequence source identity/timing/cancellation/exactly-once extraction;
-- replay meta-state contract;
+- replay runtime import/reset/reachability verification;
 - ending qualification and precedence.
 
 ## Gate result
