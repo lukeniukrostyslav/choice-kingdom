@@ -29,6 +29,13 @@ Every substantive scenario-QA batch must leave a durable GitHub commit and updat
 - Required persistence after every substantive batch: artifact/source correction + GitHub commit + worklog entry + commit SHA.
 - No scenario percentage increase from documentation-only work.
 
+### Batch S01 — E01–E34 inventory checkpoint
+- Added `docs/SCENARIO_QA_S01_E01_E34_INVENTORY.md` in commit `8ec67ff2c9efcc7c49195354740722d6669bffb1`.
+- Current inventory blob SHA: `6ecec7f7b8eb9c1502ba3175e162a5b3af4566d9`.
+- E01–E30, E32–E34 have source-level inventory entries recorded; E31 remains explicitly OPEN pending direct source reread.
+- S01 remains **70% / IN PROGRESS**; duplicate/contradictory writer closure is still open.
+- No scenario percentage increase was claimed from this checkpoint.
+
 ## Active gates — mapped to execution batches
 
 ### S01 — E01–E34 event inventory
@@ -102,6 +109,13 @@ Before starting a QA batch:
 6. after completing a substantive batch, update this file and commit it;
 7. verify the saved file from GitHub before moving to the next batch.
 
+## Current continuation checkpoint — 2026-09-15
+- Latest durable S01 artifact is commit `8ec67ff2c9efcc7c49195354740722d6669bffb1`.
+- Authoritative narrative source currently has blob SHA `afd8155b3359a562e5336ff54b0a0245aec46a4d`.
+- `PROJECT_STATE.md` remains at blob SHA `ec85d9ff9eb1283b4bb9cfd395700ceb3657861b`.
+- The next action is to finish the existing S01 gate, not restart the campaign audit: directly close E31 source verification, then close the S01 duplicate/contradiction scan, and only after that advance to S02.
+- No work from earlier batches is to be repeated merely because S01–S12 are used as an execution checklist.
+
 ## Current status
 
-Scenario QA remains **65%** until the active batches above are actually checked and closed. The execution plan is now durable and prevents restarting the same broad scenario audit from zero.
+Scenario QA remains **65%** until the active batches above are actually checked and closed. The execution plan is durable and prevents restarting the same broad scenario audit from zero.
