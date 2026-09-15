@@ -14,7 +14,7 @@ The registry deliberately records OPEN rows instead of inventing producers.
 
 E271/E272 close the authored border-crisis declaration/resolution lifecycle. The latest QA pass identified and corrected a circular guild-logistics dependency: E136-B is the earlier cooperation source, E194 consumes its history marker, and E194-A supplies the later neutral-inspector qualification. The authoritative catalogs now contain that source correction and have been re-read. Semantic collision distinctions for E55/E269 and E36/E226 have also been applied directly to the authoritative E211–E270 catalog without renumbering IDs.
 
-The latest closure reconciliation also corrected two stale registry/audit interpretations: `history.guild_representation` is explicitly produced by E144-A and E144-B, and `pred.border_crisis` has an authored declaration/resolution lifecycle through E271/E272. These are source-level closures only; runtime evaluation and reachability remain unimplemented.
+The latest closure reconciliation also corrected two stale registry/audit interpretations: `history.guild_representation` is explicitly produced by E144-A and E144-B, and `pred.border_crisis` has an authored declaration/resolution lifecycle through E271/E272. E29-A/B now explicitly establish the severe-winter state for the current winter cycle, closing the winter-severity producer gap at source level. These are source-level closures only; runtime evaluation and reachability remain unimplemented.
 
 ## Registry
 
@@ -35,6 +35,7 @@ The latest closure reconciliation also corrected two stale registry/audit interp
 | `history.house_assembly` | history | E161-A | E162/E202/E261+ | VERIFIED PRODUCER | durable house representation |
 | `history.guild_representation` | history | E144-A/E144-B | E203+ | VERIFIED PRODUCER | both E144 choices establish same representation fact; legacy trigger is alias only |
 | `history.guild_logistics_cooperation` | history | E136-B | E194+ | VERIFIED PRODUCER | immutable upstream cooperation marker; E194 consumes it and later supplies neutral inspection |
+| `history.winter_severity_declared` | history | E29-A/E29-B | E136/E160/E251+ | VERIFIED PRODUCER | immutable declaration for severe current winter cycle; active severity requires deterministic cycle validity/expiry |
 | `thread.border_crisis` | thread | E271-A declaration; E272-A/B resolution | E195/E240/E251/E253+ | VERIFIED SOURCE LIFECYCLE / RUNTIME OPEN | declaration and resolution are distinct authored stages |
 | `history.border_crisis_resolved_diplomatically` | history | E272-A | later callbacks/ending QA | VERIFIED PRODUCER | preserves historical declaration while recording diplomatic resolution |
 | `history.border_crisis_resolved_by_guarantee` | history | E272-B | later callbacks/ending QA | VERIFIED PRODUCER | preserves historical declaration while recording security resolution |
@@ -48,7 +49,7 @@ The latest closure reconciliation also corrected two stale registry/audit interp
 | `pred.border_crisis` | predicate | E271-A declaration; E272-A/B resolution | E195/E253/E255+ | VERIFIED SOURCE LIFECYCLE / RUNTIME OPEN | active only after declaration and before resolution |
 | `pred.guild_logistics_cooperation` | predicate | E136-B upstream marker + E194-A neutral-inspector qualification | downstream guild/ending consumers | VERIFIED SOURCE CHAIN / RUNTIME OPEN | qualification requires prior cooperation marker, neutral inspection, and no unresolved immunity-risk blocker; E194 no longer self-produces its prerequisite |
 | `pred.guild_influence_strong` | predicate | E144/E165/E168/E169 + logistics chain candidates | E200 | CONTRACT FROZEN / PRODUCERS OPEN | at least two distinct institutional guild domains; `rel.ivo` alone forbidden |
-| `pred.systemic_explanation_verified` | predicate | E132–E135/E232–E236 evidence candidates | E207/endgame | CONTRACT FROZEN / PRODUCER OPEN | three evidence domains plus explicit convergence decision |
+| `pred.systemic_explanation_verified` | predicate | E132–E135/E232–E236 evidence candidates | E207/endgame | CONTRACT FROZEN / PRODUCERS OPEN | three evidence domains plus explicit convergence decision |
 | `pred.coalition_cooperation` | predicate | E148-A + distinct faction evidence candidates | E201/E207/E261+ | CONTRACT FROZEN / PRODUCERS OPEN | package + 3 distinct faction identities + no collapse blocker |
 | `pred.constitutional_prepared_strong` | predicate | E142/E145/E146/E148/E150 candidates | E197 | CONTRACT FROZEN / PRODUCERS OPEN | three independent upstream institutional domains |
 | `pred.budget_reform` | predicate | E142/E154/E198 candidates | E198 | OPEN | audit-office independence, crown audit and legislative budget lock are separate semantics; no exact qualifying combination frozen yet |
@@ -66,6 +67,9 @@ E271-A explicitly establishes `border_crisis_declared = true`, `border_crisis_re
 
 ### Guild logistics cooperation
 E136-B establishes the immutable upstream `history.guild_logistics_cooperation` marker. E194 consumes that marker. E194-A establishes `guild_neutral_inspectors`; the qualified `pred.guild_logistics_cooperation` requires the prior marker, neutral inspection, and no unresolved immunity-risk blocker. E194 must not self-produce its prerequisite.
+
+### Winter severity
+E29-A and E29-B are the explicit authored producer for `pred.winter_severe` during the severe winter cycle. They retain `history.winter_severity_declared` as immutable history. The active predicate must later be represented with deterministic cycle identity and explicit expiry/recovery; downstream consumers cannot manufacture it.
 
 ## Remaining P0 work
 
