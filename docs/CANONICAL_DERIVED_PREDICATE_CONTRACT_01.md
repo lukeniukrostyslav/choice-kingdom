@@ -14,8 +14,8 @@ Freeze the semantic rule for contextual conditions before production schema work
 | `pred.border_crisis` | `border_crisis_declared = true` AND `border_crisis_resolved != true`; lifecycle declaration E271-A, resolution E272-A/B | CLOSED |
 | `pred.guild_logistics_cooperation` | `history.guild_logistics_cooperation` AND E194-A neutral-inspection outcome AND no unresolved immunity-risk blocker | CLOSED |
 | `pred.food_stable` | Explicit food-stability producer + explicit invalidation/expiry semantics | OPEN — producer still missing |
-| `pred.transport_disruption` | Explicit disruption producer + not subsequently cleared by transport recovery | OPEN — producer still missing |
-| `pred.winter_severe` | Explicit winter-severity producer/marker with deterministic severity identity | OPEN — producer still missing |
+| `pred.transport_disruption` | Explicit disruption producer + not subsequently cleared by transport recovery | OPEN — active disruption producer still missing; E136-A/B are recovery/clear only |
+| `pred.winter_severe` | E29-A/B explicitly establish the severe winter state for the current winter cycle; `history.winter_severity_declared` is retained; future recovery/expiry must explicitly clear only the active cycle | CLOSED — source producer verified |
 | `pred.market_pressure` | Explicit market-pressure producer/marker with deterministic persistence/clear rule | OPEN — producer still missing |
 | `pred.guild_labor_tension` | Explicit labor-tension producer + persistence/clear rule | OPEN — producer still missing |
 | `pred.information_pressure_high` | Independent information-state evidence/markers and deterministic qualification; never `rel.toma` alone | OPEN — source/cardinality missing |
@@ -41,8 +41,7 @@ Freeze the semantic rule for contextual conditions before production schema work
 The following remain P0 for schema freeze:
 
 - food stability;
-- transport disruption;
-- winter severity;
+- active transport disruption;
 - market pressure;
 - guild labor tension;
 - high information pressure;
@@ -50,6 +49,8 @@ The following remain P0 for schema freeze:
 - constitutional preparation;
 - budget reform;
 - final-charter prerequisites.
+
+Winter severity is no longer a producer gap: E29-A/B are the explicit authored source for the current severe-winter cycle.
 
 ## Gate
 
