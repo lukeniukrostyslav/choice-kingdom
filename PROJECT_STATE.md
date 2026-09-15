@@ -43,7 +43,7 @@ E273–E277 remain outside the frozen catalog. Follow-up audits record exact sou
 
 The border-crisis lifecycle is source-closed: E271-A declares the active crisis and E272-A/B resolve it while preserving historical declaration state. `thread.border` remains a legacy trigger context and must not be silently aliased to `thread.border_crisis`.
 
-Delayed-consequence source extraction covers E127–E130/E141 plus E181–E185 and E242–E246. The latest closure pass source-closes producer identity for E181 (E45-B), E182 (E117-B), E183 (E118-B), E185 (E17-A) and E244 (E09-B). E242 has an explicit E118-B source but its full producer set remains open. E184/E243/E245 remain source-open; E246 requires explicit normalization because the authored E160 marker is `winter_rent_ceiling` while E246 says `price ceiling`. A graph-edge audit also found that existing design-level incoming edges for E243/E245 are candidate relationships rather than exact trigger producers; these edges must not be promoted into runtime prerequisites without source closure. See `docs/DELAYED_SOURCE_CLOSURE_05.md` and `docs/DELAYED_GRAPH_EDGE_AUDIT_01.md`.
+Delayed-consequence source extraction covers E127–E130/E141 plus E181–E185 and E242–E246. Producer identity is source-closed for E181 (E45-B), E182 (E117-B), E183 (E118-B), E185 (E17-A) and E244 (E09-B). E242 has an explicit E118-B source but its full producer set remains open. E184 remains source-open. E243 now has a closed exact candidate source E18-B (`public_bridge`) but still requires production-vocabulary normalization. E245 has a closed candidate set E125-A (`border_compensation`) / E156-A (`requisition_compensation`) but still requires an explicit single-source or union decision. E246 has E160-A (`winter_rent_ceiling`) as its exact semantic candidate but still requires vocabulary normalization. A graph-edge audit also found that existing design-level incoming edges for E243/E245 are candidate relationships rather than exact trigger producers; these edges must not be promoted into runtime prerequisites without source closure. See `docs/DELAYED_SOURCE_CLOSURE_05.md`, `docs/DELAYED_GRAPH_EDGE_AUDIT_01.md`, `docs/DELAYED_PRODUCER_CANDIDATE_CLOSURE_01.md` and `docs/DELAYED_NORMALIZATION_GATE_01.md`.
 
 Replay mutable-state isolation is contract-closed at the design level: a new run starts with empty pending callbacks, active-cycle predicates, unresolved crises and run-local state; only explicitly authored `meta.*` transfer data may cross the replay boundary. Replay-oriented consumers/intents include E186, E247, E248 and E270, but explicit transfer producers/keys are not source-closed. This remains a verification lead rather than proof of absence. See `docs/REPLAY_META_INVENTORY_01.md` and `docs/REPLAY_META_STATE_CONTRACT_01.md`.
 
@@ -54,6 +54,7 @@ Canonical scope wording has been reconciled: E35–E40 are canonical authored no
 No validator has been introduced prematurely. Production schema and runtime implementation remain blocked until canonical contracts are frozen and the complete catalog reconciliation passes.
 
 ## Latest source-level commits
+- `473dd515df4852be665400d64892ec8391f362ab` — delayed normalization gate for E243/E245/E246.
 - `ca9c2a677565d5a37c18587413659312bdd1cd2e` — delayed graph edge audit for E243/E245.
 - `2420934160b0b1ff724dcb603d25a8824775ca7f` — corrected delayed consequence source closure 05; E244 producer closed to E09-B.
 - `3174407794accbc8a3b3140cd8da58b89b546279` — delayed producer disambiguation audit 01.
@@ -69,7 +70,7 @@ No validator has been introduced prematurely. Production schema and runtime impl
 - Canonical Event IDs / continuity: **100%**
 - Producer / Consumer QA: **94%**
 - Derived predicates / machine contracts: **83%**
-- Delayed Consequences: **85%**
+- Delayed Consequences: **86%**
 - Replay / Meta-state: **55%**
 - Endings / precedence: **61%**
 - Reachability / causal graph: **43%**
@@ -82,10 +83,10 @@ No validator has been introduced prematurely. Production schema and runtime impl
 - APK: **0%**
 - Release: **0%**
 
-Overall project progress remains approximately **52%**. The reachability increase reflects an additional source-vs-graph contradiction audit only; it does not imply runtime reachability proof. Engine, UI and Android work remain unimplemented.
+Overall project progress remains approximately **52%**. The delayed-consequence increase reflects closure of producer candidate sets and explicit normalization gates; it does not imply runtime readiness. Engine, UI and Android work remain unimplemented.
 
 ## Next highest-value work
-1. Close exact source producers for E184, E243 and E245; normalize E246 without semantic aliasing.
+1. Close exact source/normalization for E184, E243, E245 and E246 without semantic aliasing.
 2. Resolve exact authored `meta.*` replay transfer producers/keys/consumers; do not infer them from ordinary flags.
 3. Complete ending producer/path coverage and fill the authored priority table with deterministic fixtures.
 4. Re-run complete E01–E272 contradiction/cycle/reachability reconciliation, incorporating the newly identified E243/E245 graph-edge candidates.
