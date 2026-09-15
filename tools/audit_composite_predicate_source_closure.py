@@ -10,7 +10,7 @@ AUDIT = ROOT / "docs/SCENARIO_QA_CONTRACT_CLOSURE_AUDIT_02.md"
 OUT = ROOT / "docs/MACHINE_COMPOSITE_SOURCE_CLOSURE_01.json"
 REQUIRED = {
     "pred.guild_influence_strong":["guild_political_representation","guild_tribunal_independent","official_credit_disclosure","audited_monopoly","history.guild_logistics_cooperation"],
-    "pred.systemic_explanation_verified":["warehouse/financial","document/language","witness/organizational","explicit convergence decision"],
+    "pred.systemic_explanation_verified":["warehouse/financial","document/language","witness/organizational","explicit E270-A convergence decision"],
     "pred.coalition_cooperation":["Explicit cooperation package","identified participants","positive cooperation outcome"],
     "pred.constitutional_prepared_strong":["people_charter_endorsed","crown_audited","house_assembly","military_red_line"],
     "pred.final_charter_prerequisites":["Convergence of already-established","mandatory blockers cleared"],
@@ -23,7 +23,6 @@ def main()->int:
         if missing: errors.append(f"{predicate}: missing frozen source evidence: {missing}")
     for event_id in FORBIDDEN_EXPANSION:
         if event_id in combined and event_id=="E273" and "expansion-only" not in combined.lower(): errors.append("E273 appears without the required expansion-only quarantine context")
-    # Exact bounded non-promotion assertions. Keep these tied to the authoritative audit wording.
     hard_negatives=[
         "`food_logistics_stabilized` is not promoted to `pred.food_stable`",
         "E192-B cannot manufacture the canonical predicate",
