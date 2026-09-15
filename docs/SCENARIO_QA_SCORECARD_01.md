@@ -1,6 +1,6 @@
 # Choice Kingdom — Scenario QA Scorecard 01
 
-Date: 2026-09-15  
+Date: 2026-09-16  
 Frozen authored scope: **E01–E272**  
 Status: **SCENARIO QA REPORTING CONTRACT — SOURCE LEVEL**
 
@@ -13,7 +13,7 @@ Percentages increase only on verified source changes and green relevant gates. T
 | S01 — Canonical Event Coverage | 84% | ADVANCED — E01–E272 exhaustive authored-event scope is structurally validated; semantic/reachability closure remains |
 | S02 — Choice / State Transitions | 70% | OPEN — complete authored transition/effect closure remains |
 | S03 — Producer / Consumer Closure | 100% | SOURCE-CLOSED — exhaustive inventory reports zero undefined consumers after frozen source contracts and canonical trigger normalization |
-| S04 — Predicate Contracts | 90% | ADVANCED — blocked production predicates without in-scope producers remain OPEN/BLOCKED; runtime lifecycle remains open |
+| S04 — Predicate Contracts | 90% | ADVANCED — `pred.food_stable` is now source-closed by E192-B/E192-A; guild-labor and information-pressure production contracts remain OPEN/BLOCKED; runtime lifecycle remains open |
 | S05 — Delayed Consequences | 60% | OPEN — complete consequence and cancellation closure remains |
 | S06 — Replay / Meta State | 65% | ADVANCED — explicit replay meta-state bindings for E186/E247/E248 are frozen and pass the dedicated machine gate; runtime replay execution remains open |
 | S07 — Event Graph / Causality | 83% | ADVANCED — canonical graph gate is green; full causal reachability remains |
@@ -28,7 +28,7 @@ Percentages increase only on verified source changes and green relevant gates. T
 **83.42% — scenario QA / verification progress.**  
 Exact arithmetic mean: **83.4167%**.
 
-## Verified autonomous work — latest block
+## Verified autonomous work — latest blocks
 
 ### S30 — explicit replay/meta-state contract closure
 - Added `docs/MACHINE_REPLAY_CONTRACT_01.json` for E186, E247 and E248.
@@ -36,12 +36,17 @@ Exact arithmetic mean: **83.4167%**.
 - Frozen three canonical `meta.replay.*` keys with exactly-once import and run-reset rules.
 - Added `tools/validate_replay_meta_contract.py` and dedicated workflow `.github/workflows/scenario-replay-meta-contract.yml`.
 - Dedicated workflow run **#1 / 35029340115: PASS**.
-- The canonical-graph run on the same `main` commit reached the replay-related validation steps successfully; full run completion remains monitored by the existing scenario gates.
+
+### S31 — E192 food-stability source closure
+- E192-B now explicitly establishes `food_logistics_stabilized` and `pred.food_stable` for the current cycle.
+- E192-A explicitly clears the active stability marker and establishes the unstable-cycle marker while retaining historical evidence.
+- `docs/MACHINE_CANONICAL_GRAPH_01.json`, `docs/CANONICAL_PRODUCER_INVENTORY_01.md`, and `docs/CANONICAL_DERIVED_PREDICATE_CONTRACT_01.md` are aligned.
+- Predicate parity validator was updated to expect `SOURCE-CLOSED`; the change is committed and is subject to the current main-branch workflow gates.
 
 ## Remaining gates to 100%
 
 1. Complete authored choice/effect transition closure.
-2. Close `pred.food_stable`, `pred.guild_labor_tension`, `pred.information_pressure_high` without admitting E273–E277.
+2. Close `pred.guild_labor_tension` and `pred.information_pressure_high` using only E01–E272; E273–E277 remain excluded.
 3. Complete delayed consequence source identity, cancellation/supersession, persistence and exactly-once semantics.
 4. Prove replay execution/reset semantics beyond the frozen source contract.
 5. Complete exact ending positive prerequisites, negative blockers and deterministic precedence.
