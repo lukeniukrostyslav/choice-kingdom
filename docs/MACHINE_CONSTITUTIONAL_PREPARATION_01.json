@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0",
+  "scope": "E01-E272",
+  "predicate": "pred.constitutional_prepared_strong",
+  "status": "SOURCE_IDENTITIES_RECONCILED_RUNTIME_OPEN",
+  "minimum_independent_domains": 3,
+  "domains": [
+    {
+      "domain": "civic_commons",
+      "producer": "E50-A",
+      "key": "people_charter_endorsed",
+      "status": "VERIFIED_SOURCE"
+    },
+    {
+      "domain": "institutional_audit",
+      "producer": "E154-A",
+      "key": "crown_audited",
+      "same_domain_evidence": ["E155-A:full_crown_audit_published"],
+      "status": "VERIFIED_SOURCE"
+    },
+    {
+      "domain": "factional_house",
+      "producer": "E161-A",
+      "key": "house_assembly",
+      "status": "VERIFIED_SOURCE"
+    },
+    {
+      "domain": "military_law",
+      "producer": "E199-A",
+      "key": "army_constitution_oath",
+      "status": "VERIFIED_SOURCE"
+    }
+  ],
+  "negative_blockers": [
+    "permanent_emergency_power_active",
+    "unresolved constitutional contradiction"
+  ],
+  "explicit_non_alias_rules": [
+    "constitutional_limit != constitutional_prepared_strong",
+    "people_heard != people_charter_endorsed",
+    "full_crown_audit_published != second institutional domain",
+    "relationship values != preparation domain",
+    "E227 military_red_line is not promoted until its authored producer identity is independently reconciled"
+  ],
+  "qualification_rule": "any_3_distinct_domains_plus_blockers_clear",
+  "runtime_order_verified": false,
+  "fresh_run_reachability_verified": false,
+  "decision_engine_promotion_authorized": false
+}
