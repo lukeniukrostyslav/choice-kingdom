@@ -8,7 +8,6 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = ROOT / "docs" / "MACHINE_REPLAY_PRODUCER_PROVENANCE_01.json"
-
 REQUIRED = {"E186", "E247", "E248"}
 FORBIDDEN_CONSUMERS = {"E249", "E250", "E270"}
 
@@ -20,20 +19,20 @@ def main() -> int:
 
     if set(by_consumer) != REQUIRED:
         raise SystemExit(
-            f"replay provenance scope mismatch: expected {sorted(REQUIRED)}, "
-            f"got {sorted(by_consumer)}"
+            f"replay provenance scope mismatch: expected {sorted(REQUIRED)}, got {sorted(by_consumer)}"
         )
 
-    if data.get("status") != "PARTIAL":
-        raise SystemExit("provenance contract must remain PARTIAL until exact bindings are authored")
+    if data.get("status") != "OPEN":
+        raise SystemExit("provenance contract must remain OPEN until exact bindings are authored")
 
     e186 = by_consumer["E186"]
     if not (
-        e186.get("producer_event") == "E131"
+        e186.get("producer_event") is None
+        and e186.get("producer_choice") is None
         and e186.get("candidate_key") == "all_voices_heard"
-        and e186.get("binding_status") == "PARTIAL_SOURCE_EVIDENCE"
+        and e186.get("binding_status") == "OPEN"
     ):
-        raise SystemExit("E186 provenance must remain the conservative E131/all_voices_heard partial finding")
+        raise SystemExit("E186 must not promote E131; all_voices_heard remains an unbound candidate key")
 
     for consumer in ("E247", "E248"):
         record = by_consumer[consumer]
@@ -48,7 +47,7 @@ def main() -> int:
     if data.get("runtime_verified") is not False:
         raise SystemExit("runtime_verified must remain false for source-only provenance")
 
-    print("replay producer provenance contract: PASS (conservative partial/open boundary)")
+    print("replay producer provenance contract: PASS (corrected conservative open boundary)")
     return 0
 
 
