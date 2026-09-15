@@ -42,8 +42,10 @@ This is the fixed reporting metric for the E01–E272 authored campaign. It meas
 The 65% figure does not mean the engine, runtime, Android build, UI, localization or APK are complete. It also does not mean reachability has been proven.
 
 ## Latest QA work
+- S09.6 added `docs/SCENARIO_QA_S09_6_COMPOSITE_PREDICATE_PRODUCER_ENUMERATION_01.md` in commit `2668004a3a52b6c6d80ef7e45345b0d3fd6a41e1`: enumerated source-supported composite predicate producer domains, preserved E209 consumer-only/E210 convergence-only, and kept food stability blocked and E273–E277 excluded.
+- S09.6 worklog durable update committed as `0d738b7348d71e37a452391d90780ce0ab0cc4e6`.
 - S09.5 added `docs/SCENARIO_QA_S09_5_NORMALIZED_DEPENDENCY_EDGE_INVENTORY_01.md` in commit `c505b79ef9dc1675be144a7db69f5a290db18e55`: first normalized source-backed producer→fact/lifecycle→consumer edge surface; hard exclusions for self-satisfaction, recovery-to-active leakage, aliases and E273–E277 contamination.
-- S09.4 added `docs/SCENARIO_QA_S09_4_PREDICATE_CYCLE_SELF_SATISFACTION_AUDIT_01.md` in commit `f64a47baaeadd1c2a65006e4386c0b016d9eeeeb`: isolated the unsafe inclusive `E197/E198/E199/E202–E209 candidates` wording and required E209 to be consumer-only for `pred.final_charter_prerequisites`.
+- S09.4 added `docs/SCENARIO_QA_S09_4_PREDICATE_CYCLE_SELF_SATISFACTION_AUDIT_01.md` in commit `f64a47baaeadd1c2a65006e4386c0b016d9eeeeb`: isolated unsafe inclusive `E197/E198/E199/E202–E209 candidates` wording and required E209 to be consumer-only for `pred.final_charter_prerequisites`.
 - S09.3 reconciled `docs/CANONICAL_DERIVED_PREDICATE_CONTRACT_01.md` in commit `5cb193cfa5d97a340bbab202c842737342538262`: production scope is explicitly E01–E272; E273–E277 predicate producers are quarantined as expansion-only; `pred.food_stable` remains OPEN/BLOCKED with no in-scope producer verified.
 - S09.2 added `docs/SCENARIO_QA_S09_2_SCOPE_CONTRADICTION_AUDIT_01.md` in commit `c4d58020e4202c5a5aea7fb454d3ee012d2e715a`.
 - S09.1 predicate dependency pre-audit added as `docs/SCENARIO_QA_S09_1_PREDICATE_DEPENDENCY_PREAUDIT_01.md`, commit `3a9c2aaa9599671df3ef8410bbb4428b6798e17e`.
@@ -55,7 +57,9 @@ The producer inventory is paired with `docs/MACHINE_INVENTORY_PASS_01.md`, which
 
 The authored producer bridge corrections for E136/E144/E148 and the later E151–E210 trigger/semantic corrections have been applied to the authoritative catalogs and re-read. E136-B supplies `history.guild_logistics_cooperation`; E194 consumes that upstream marker rather than self-consuming the qualified predicate. E29-A/B establish `pred.winter_severe`; E32 establishes `pred.transport_disruption` and E136-A/B are the primary recovery/clear sources. Runtime lifecycle, persistence and ordering remain OPEN.
 
-S09.5 now has an explicit normalized source-backed edge surface. The known closed edges are documented, while composite predicate producers remain partial where exact source IDs, thresholds, lifecycle or chronology are not yet fully compiled. `pred.final_charter_prerequisites` remains BLOCKED until its complete upstream producer set is exhaustively enumerated; E209 is explicitly consumer-only.
+S09.6 now enumerates the current composite-predicate producer domains without promoting consumer outcomes into prerequisites. Guild influence, constitutional preparation, systemic explanation, coalition cooperation, budget reform and final-charter prerequisites remain partial/open where exact source IDs, thresholds, chronology or invalidation are not fully compiled. `pred.food_stable` remains blocked with no in-scope producer; `pred.transport_disruption` has E32 as active producer and E136-A/B as recovery/clear sources.
+
+S09.5 has an explicit normalized source-backed edge surface. The known closed edges are documented, while composite predicate producers remain partial where exact source IDs, thresholds, lifecycle or chronology are not yet fully compiled. `pred.final_charter_prerequisites` remains BLOCKED until its complete upstream producer set is exhaustively enumerated; E209 is explicitly consumer-only.
 
 E243 is source-closed through explicit normalization: E18-B establishes `public_bridge`, and the delayed callback may use that exact machine vocabulary. E245 remains deliberately unresolved across distinct compensation facts; E184 has no source-closed producer; E246 remains specific to `winter_rent_ceiling` pending explicit generic-alias policy.
 
