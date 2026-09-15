@@ -4,125 +4,23 @@ Frozen scope: **E01–E272**
 Expansion candidates: **E273–E277 excluded**  
 Purpose: durable handoff ledger so completed QA work is not repeated.
 
-## Working rule
-Every substantive scenario-QA batch must leave a durable GitHub commit and update this ledger. A later session must read this file, `docs/SCENARIO_QA_EXECUTION_PLAN.md`, and `PROJECT_STATE.md` before repeating any gate.
-
-## Completed batches
-
-### Batch 01 — Reporting contract
-- Scenario QA reporting metric frozen at 65%.
-- E01–E272 frozen denominator.
-- Engine/UI/Android/APK explicitly excluded from this phase.
-
-### Batch 02 — Static closure reconciliation
-- Added `docs/SCENARIO_QA_PASS_02_STATIC_CLOSURE.md`.
-- Reconciled transport lifecycle wording: E32 establishes `pred.transport_disruption(active)`; E136-A/B clear it.
-- Preserved unresolved runtime lifecycle semantics instead of inventing producers.
-- Reconfirmed delayed callback closure matrix.
-- Reconfirmed replay boundary and hard-negative predicate rules.
-- Reconfirmed seven ending families and remaining incoming-path/precedence gap.
-
-### Batch S00 — Execution plan / anti-repeat structure
-- Added `docs/SCENARIO_QA_EXECUTION_PLAN.md`.
-- Split scenario QA into twelve durable batches S01–S12.
-- Each batch has explicit scope and completion checks.
-- Required persistence after every substantive batch: artifact/source correction + GitHub commit + worklog entry + commit SHA.
-- No scenario percentage increase from documentation-only work.
-
-### Batch S01.1 — E31 closure + direct duplicate/contradiction audit
-- Added/updated the S01 source inventory and duplicate/contradiction audit.
-- Closed E31 source retrieval and classified `ledger_fragment_a` as genuine multi-producer convergence requiring an idempotent/provenance contract.
-- Classified E29-A/B as mutually-exclusive branch convergence and E19-A/B as predicate lifecycle establish/clear.
-- S01: **80% / IN PROGRESS**.
-
-### Batch S02.1 — E35–E70 direct source inventory
-- Added `docs/SCENARIO_QA_S02_E35_E70_INVENTORY.md` in commit `914236a2b770c899e39ac4d19fd6070310e6584e`.
-- Directly inventoried E35–E70 and confirmed intentional cross-batch consumers.
-- S02: **70% / IN PROGRESS**.
-
-### Batch S03.1/.2 — E71–E110 inventory + semantic closure
-- Added the S03 inventory and semantic closure artifacts.
-- Open issues retained: `shared_crisis_command` producer, E36/E95 Mara semantic collision, E37/E96 military-oath distinction, E108 investigation-depth normalization.
-- Latest semantic closure commit: `fee868c6a4b5ce4bd7aba424081cf75f965c4573`.
-- S03: **70% / IN PROGRESS**.
-
-### Batch S04.1/.2 — E111–E150 inventory + semantic/producer closure
-- Added direct inventory and semantic closure artifacts.
-- Preserved E139 as infrastructure-only, E144 as `history.guild_representation` convergence, and E148's coalition hard-negative.
-- E130/E143 remain numeric-state contract items; E131 remains replay/meta contract.
-- `emergency_renewal*` has no authored occurrence found in repository search; no producer invented.
-- Latest semantic closure commit: `4b440414ba884469edfc35426ea960d63c70d7b9`.
-- S04: **70% / IN PROGRESS**.
-
-### Batch S05.1 — E151–E210 direct source inventory
-- Added `docs/SCENARIO_QA_S05_E151_E210_INVENTORY.md` in commit `3c47790828fb5cef203d3117b553e4e88938ca18`.
-- Directly inventoried E151–E210, including delayed E181–E185, replay E186–E190, crisis E191–E195 and constitutional/endgame E196–E210.
-- Reconfirmed hard-negative rules for E194, E197, E201/E207, E209 and E210.
-- S05: **60% / IN PROGRESS**.
-
-### Batch S06.1/.2 — E211–E270 inventory + semantic closure
-- Added the S06 source inventory and semantic closure artifacts.
-- Preserved E226/E36 and E269/E55 boundaries, E253 consumer/E271 producer boundary, coalition hard negatives, constitutional qualification boundaries and replay isolation.
-- S06: **55% / IN PROGRESS**.
-
-### Batch S07.1 — E271–E272 border-crisis lifecycle + graph reconciliation
-- Added `docs/SCENARIO_QA_S07_E271_E272_BORDER_LIFECYCLE.md` in commit `ad08b00cd5465c03aca0aeb2aac8e4b8a74b8dd7`.
-- Directly verified the authored E271/E272 lifecycle and reconciled `docs/EVENT_GRAPH.md` in commit `67539450464ae167552534dca8375a25daa8f138`.
-- S07: **80% / IN PROGRESS**.
-
-### Batch S08.1 — global producer/consumer closure checkpoint
-- Added `docs/SCENARIO_QA_S08_GLOBAL_CLOSURE_CHECKPOINT_01.md` in commit `5ec98790a037a7f0bb3fa8a8519ddff3a326dced`.
-- Consolidated source-closed lifecycle producers, hard-negative rules, convergence cases and unresolved trigger classes from S01–S07.
-- S08: **65% / IN PROGRESS**.
-
-### Batch S08.2 — source correction + output normalization
-- Added `docs/SCENARIO_QA_S08_GLOBAL_CLOSURE_CHECKPOINT_02.md` in commit `b2f562705553ad4927e8987f37e1782a5abaf193`.
-- Corrected the stale transport-disruption closure: E32 is the active producer; E136-A/B clear it; E192 consumes it.
-- Directly normalized E192 outputs: `food_logistics_unstable` and `food_logistics_stabilized` are authored markers; `pred.food_stable` is not treated as an authored alias.
-- Reconfirmed E271/E272 border lifecycle and E194 guild-logistics qualification boundaries.
-- S08: **70% / IN PROGRESS**; global Scenario QA remains 65%.
-
-### Batch S09.1 — predicate dependency graph checkpoint
-- Added `docs/SCENARIO_QA_S09_PREDICATE_DEPENDENCY_GRAPH_01.md` in commit `d8b24f097d67d50466b277c940c83bc459526a3d`.
-- Compiled the first static dependency graph from already source-verified producer/consumer edges.
-- Closed static hard-negative/self-satisfaction rules for E194, E197, E201/E207 and E209 without claiming runtime cycle closure.
-- Explicitly preserved independent-domain qualification for coalition, constitutional preparedness, systemic explanation and final-charter predicates.
-- Carried forward unresolved nodes such as `shared_crisis_command`, `full_ledger_published`, replay/meta keys, E184/E245/E246 route vocabulary and food-pressure derived predicate semantics.
-- S09: **50% / IN PROGRESS**; global Scenario QA remains 65%.
-
-### Batch S09.2 — static cycle/self-satisfaction checkpoint
-- Added `docs/SCENARIO_QA_S09_PREDICATE_DEPENDENCY_GRAPH_02.md` in commit `ca4c5b848a08dc577a5ec61430ea533bda5496ac`.
-- Classified lifecycle establish/clear pairs separately from true dependency cycles.
-- Closed the enumerated static self-satisfaction hard negatives for E194, E197, E201, E207, E209 and E210.
-- Preserved independent-domain requirements for coalition, constitutional preparedness, systemic explanation and final-charter qualification.
-- Kept delayed callback cycles and derived-predicate cycles open until S10 contracts normalize timing, identity, persistence and resolution semantics.
-- S09: **55% / IN PROGRESS**; global Scenario QA remains 65%.
-
-### Batch S10.1 — delayed consequence contract extraction
-- Added `docs/SCENARIO_QA_S10_DELAYED_CONSEQUENCES_01.md` in commit `aaba320ba196da1f9e5d3eb0cd4537a6f29a8a53`.
-- Normalized the frozen delayed families E181–E185 and E242–E246 into a required callback contract: sourceEventId, sourceChoiceId, consequenceId, timing, target/resolution identity, exactly-once key, cancellation/supersession, persistence and replay boundary.
-- Source-closed callbacks: E181, E182, E183, E185, E242, E243, E244.
-- Source identity remains open for E184 and E245; E246 remains vocabulary-conditional.
-- No runtime callback was declared ready from prose alone.
-- S10: **65% / IN PROGRESS**; global Scenario QA remains 65%.
-
-### Batch S10.2 — exact delayed callback identity/lifecycle matrix
-- Added `docs/SCENARIO_QA_S10_DELAYED_CONSEQUENCES_02.md` in commit `107c2c40f0c1e454e92bf86904287b691694f4ef`.
-- Confirmed exact authored source choices for E181, E182, E183, E185, E242, E243, E244 and E246; E184/E245 remain blocked on source identity.
-- Defined the static exactly-once invariant: one qualifying source choice → zero/one scheduled callback → zero/one resolution.
-- Distinguished event identity from callback-instance identity and established the run-local identity requirement.
-- Defined minimum-delay semantics (`sourceTurn + N`) versus later eligibility predicates, especially for E185.
-- Recorded required cancellation/supersession decisions without inventing runtime behavior.
-- Closed the static save/load and replay-boundary rules for delayed callbacks.
-- S10: **72% / IN PROGRESS**; global Scenario QA remains 65%.
+## Latest continuation update — 2026-09-15
 
 ### Batch S10.3 — E185 crisis-resolution / exact ordering contract
 - Added `docs/SCENARIO_QA_S10_DELAYED_CONSEQUENCES_03.md` in commit `d9c5853ec0fa92c9b9d0b96da0c246904516de81`.
-- Preserved E17-A as the exact authored source identity and explicitly prevented E185 from being implemented as a simple timer.
+- Preserved E17-A as the exact authored source identity and prevented E185 from being implemented as a simple timer.
 - Defined two-stage eligibility: minimum delay plus independently produced military-crisis state.
 - Defined run-local provenance, deterministic same-turn ordering requirements and exactly-once lifecycle rules.
-- Explicitly separated crisis declaration/clear from delayed callback resolution and preserved the unresolved authored payload/producer instead of inventing them.
-- S10 remains **IN PROGRESS**; global Scenario QA remains 65%.
+- Preserved unresolved authored payload/producer rather than inventing semantics.
+- S10 remains **IN PROGRESS**.
+
+### Batch S08.3 — open-class reconciliation after S10
+- Added `docs/SCENARIO_QA_S08_GLOBAL_CLOSURE_CHECKPOINT_03.md` in commit `8ff8d3731463c0a890cc0f80ffcf4674f97d2af6`.
+- Consolidated source-backed producer families and separated them from derived-condition families.
+- Dispositioned known unresolved classes including `shared_crisis_command`, `full_ledger_published`, `temporary_noble_exemption`, replay `meta.*`, `mastermind_hunt`, `warehouse_arson`, E184, E245 and E246.
+- Preserved semantic collision boundaries for E36/E95/E226, E37/E96/E227 and other downstream distinctions.
+- Defined the evidence required before S08 can be called exhaustive; no runtime schema or invented alias was introduced.
+- S08 remains **IN PROGRESS**.
 
 ## Active gates
 
@@ -134,18 +32,14 @@ Every substantive scenario-QA batch must leave a durable GitHub commit and updat
 - S11: seven ending paths, deterministic precedence, Broken Diadem/Quiet Throne, exact replay `meta.*` keys and isolation.
 - S12: fresh-run/replay reachability, graph-vs-catalog reconciliation and final sweep.
 
-## Current continuation checkpoint — 2026-09-15
-- Latest S10 delayed-consequence checkpoint: `d9c5853ec0fa92c9b9d0b96da0c246904516de81`.
-- Previous S10 identity checkpoint: `107c2c40f0c1e454e92bf86904287b691694f4ef`.
-- Latest S09 predicate graph checkpoint: `ca4c5b848a08dc577a5ec61430ea533bda5496ac`.
-- Latest S08 correction checkpoint: `b2f562705553ad4927e8987f37e1782a5abaf193`.
-- Latest S07 artifact: `ad08b00cd5465c03aca0aeb2aac8e4b8a74b8dd7`.
-- Latest event-graph reconciliation: `67539450464ae167552534dca8375a25daa8f138`.
-- Next substantive action: return to S08 exhaustive producer/consumer closure after the E185 contract, then proceed to S11/S12 only when upstream contracts permit.
-
 ## Current status
+
 Scenario QA remains **65%** until active global gates are actually closed.
 
 Working batch indicators: **S01 80%, S02 70%, S03 70%, S04 70%, S05 60%, S06 55%, S07 80%, S08 70%, S09 55%, S10 72%, S11 55%, S12 20%**.
 
 These batch percentages are working indicators and are not the global Scenario QA percentage.
+
+## Next substantive action
+
+Continue exhaustive S08 producer/consumer extraction across the frozen E01–E272 catalog, then close remaining S09/S10 dependencies before S11/S12. Do not start runtime implementation until the canonical production contracts are sufficiently closed and verified.
