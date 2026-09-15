@@ -25,6 +25,8 @@ jobs:
         run: python3 tools/validate_producer_consumer_collision.py
       - name: Validate ending prerequisite satisfiability contract
         run: python3 tools/validate_ending_prerequisite_satisfiability.py
+      - name: Validate predicate dependency and cycle boundary
+        run: python3 tools/validate_predicate_dependency_audit.py
       - name: Compile graph node classification inventory
         run: python3 tools/classify_graph_nodes.py
       - name: Compile producer consumer matrix
@@ -54,4 +56,5 @@ jobs:
             docs/MACHINE_PRODUCER_CONSUMER_COLLISION_VALIDATION_01.json
             docs/MACHINE_ENDING_PREREQUISITE_SATISFIABILITY_VALIDATION_01.json
             docs/MACHINE_COMPOSITE_SOURCE_CLOSURE_01.json
+            docs/MACHINE_PREDICATE_DEPENDENCY_AUDIT_01.json
           if-no-files-found: error
