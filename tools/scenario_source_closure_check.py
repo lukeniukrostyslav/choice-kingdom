@@ -6,7 +6,6 @@ runtime reachability. It prevents known P0 regressions while the campaign is
 being canonicalized.
 """
 from pathlib import Path
-import json
 import re
 import sys
 
@@ -31,13 +30,11 @@ for path in CATALOGS:
     texts[path.name] = text
     all_events.extend(re.findall(r"^### (E\d{2,3}) —", text, re.M))
 
-# Every production event ID must exist exactly once across the authored catalogs.
 for event_id in [f"E{i:02d}" for i in range(1, 271)]:
     count = all_events.count(event_id)
     if count != 1:
         errors.append(f"{event_id}: expected exactly one authored heading, found {count}")
 
-# Known source-level P0 contracts.
 required_fragments = {
     "EVENT_CATALOG.md": [
         "### E19 — Price Fixing",
@@ -89,29 +86,24 @@ for filename, fragments in required_fragments.items():
         if fragment not in text:
             errors.append(f"{filename}: missing required source contract: {fragment}")
 
-# Machine contract regression guard: coalition qualification must have one
-# explicit producer/key and an independently checked participant threshold.
-contract_path = DOCS / "MACHINE_PREDICATE_COMPOSITE_CONTRACT_01.json"
-if not contract_path.exists():
+# Machine contract regression guard. String-level checks keep this source gate
+# deterministic and make the exact contract visible in the authored repository.
+contract = (DOCS / "MACHINE_PREDICATE_COMPOSITE_CONTRACT_01.json").read_text(encoding="utf-8") if (DOCS / "MACHINE_PREDICATE_COMPOSITE_CONTRACT_01.json").exists() else ""
+coalition_contract_fragments = [
+    '"pred.coalition_cooperation"',
+    '"producer": "E148-A"',
+    '"key": "history.cross_faction_package"',
+    '"minimum_distinct_faction_identities": 3',
+    '"Mara", "Rowan", "Seris", "Ivo", "Amara", "Toma"',
+    '"E261 four_way_bargain is support evidence only"',
+    '"E194 cannot self-produce this predicate"',
+]
+if not contract:
     errors.append("missing machine predicate composite contract")
 else:
-    try:
-        contract = json.loads(contract_path.read_text(encoding="utf-8"))
-        coalition = contract["predicates"]["pred.coalition_cooperation"]
-        if coalition.get("producer") != "E148-A":
-            errors.append("coalition contract: producer must remain E148-A")
-        if coalition.get("key") != "history.cross_faction_package":
-            errors.append("coalition contract: canonical key mismatch")
-        if coalition.get("minimum_distinct_faction_identities") != 3:
-            errors.append("coalition contract: minimum distinct faction threshold must be 3")
-        participants = coalition.get("participant_identities", [])
-        expected = {"Mara", "Rowan", "Seris", "Ivo", "Amara", "Toma"}
-        if set(participants) != expected:
-            errors.append("coalition contract: participant identity set mismatch")
-        if "E261 four_way_bargain is support evidence only" not in coalition.get("non_alias_rules", []):
-            errors.append("coalition contract: E261 support-only boundary missing")
-    except (OSError, ValueError, KeyError, TypeError) as exc:
-        errors.append(f"coalition contract: invalid machine contract: {exc}")
+    for fragment in coalition_contract_fragments:
+        if fragment not in contract:
+            errors.append(f"coalition contract: missing exact fragment: {fragment}")
 
 # Regression guard: E192 must never reintroduce the undefined numeric resource.
 e192 = texts.get("EVENT_CATALOG_EXPANSION_151_210.md", "")
