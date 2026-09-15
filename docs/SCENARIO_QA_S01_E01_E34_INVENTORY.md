@@ -2,7 +2,7 @@
 
 Date: 2026-09-15
 Scope: E01–E34
-Status: **IN PROGRESS — PARTIAL, NOT CLOSED**
+Status: **IN PROGRESS — 80%, NOT CLOSED**
 
 ## Purpose
 
@@ -47,8 +47,8 @@ The catalog is the narrative source of truth; `EVENT_GRAPH.md` is not an indepen
 | E28 | `decree_investigation` + ledger chain | `royal_forgery_proven`, `forgery_leverage` | later evidence / blackmail | VERIFIED |
 | E29 | late campaign + >=2 unresolved pressures | `pred.winter_severe`, `winter_severity_declared` | winter cycle | VERIFIED |
 | E30 | winter + market tension | rescue/seal decision | arsonist escape risk | VERIFIED |
-| E31 | source text not fully re-read in this batch | — | — | OPEN — SOURCE RETRIEVAL |
-| E32 | source-level producer confirmed by prior canonical pass | `pred.transport_disruption(active)` | E136-A/B clear lifecycle | VERIFIED SOURCE-LEVEL |
+| E31 | winter + security <60 or military escalation | `war_mobilization` (A); negotiated withdrawal route (B) | border crisis / diplomatic branch | VERIFIED SOURCE-LEVEL |
+| E32 | E29 + E30 + E31 unresolved | `pred.transport_disruption(active)`, `history.transport_disruption_declared` | E136-A/B clear lifecycle | VERIFIED SOURCE-LEVEL |
 | E33 | emergency decree / severe crisis | `emergency_power` or `constitutional_limit` | Iron Crown / Second Founder routes | VERIFIED |
 | E34 | trust >=65 or welfare branch | `people_heard` | relief-order consequence | VERIFIED |
 
@@ -68,9 +68,21 @@ Confirmed producer-backed facts from E01–E34 include:
 - `ledger_public` → E23-A.
 - `evidence_destroyed` → E21-B.
 - `royal_forgery_proven` → E28-A.
+- `war_mobilization` → E31-A.
 - `pred.market_pressure` current cycle → E19-B; clear → E19-A.
 - `pred.winter_severe` current cycle → E29-A/B.
 - `pred.transport_disruption` active → E32; clear → E136-A/B (cross-batch producer).
+
+## Duplicate / contradiction findings
+
+The direct S01 semantic audit is recorded in `docs/SCENARIO_QA_S01_DUPLICATE_CONTRADICTION_AUDIT_01.md`.
+
+One important multi-producer case is now explicit:
+
+- `ledger_fragment_a` can be acquired through E07-B's delayed route and E21-A's immediate investigation route.
+- This is not currently classified as a contradiction, but the canonical production contract must define idempotent acquisition and/or provenance semantics before the duplicate-writer gate can close.
+
+E29-A/B both establish `pred.winter_severe` for the same winter cycle; this is treated as mutually-exclusive branch convergence, not contradictory writing. E19-A/B are a lifecycle clear/establish pair for `pred.market_pressure`, not duplicate production.
 
 ## Important negative rules
 
@@ -78,15 +90,16 @@ Confirmed producer-backed facts from E01–E34 include:
 - `thread.border` must not be silently equated with `thread.border_crisis`.
 - `price ceiling` must not be generalized into every price-control fact.
 - Delayed consequences are not runtime-ready merely because a source event is known; exact source choice, timing, target, exactly-once identity and cancellation/supersession remain later S10 work.
+- Multi-producer convergence must be explicitly typed; it cannot be silently collapsed into one writer.
 
 ## Current S01 gate result
 
-- Trigger inventory: **PARTIAL** — E31 source reread still required.
-- Concrete output inventory: **PARTIAL** — E31 source reread still required; exhaustive semantic duplicate/contradiction pass is not yet closed.
-- Producer/consumer mapping: **PARTIAL** — source-backed examples verified, global closure belongs to S08.
+- Trigger inventory: **VERIFIED for E01–E34 source scope**.
+- Concrete output inventory: **PARTIAL** — E31 is now closed, but exhaustive semantic duplicate/contradiction closure is not complete.
+- Producer/consumer mapping: **PARTIAL** — source-backed examples verified; global closure belongs to S08.
 - Delayed inventory: **PARTIAL** — source identities recorded where verified; exact callback contracts belong to S10.
-- Duplicate/contradictory writer scan: **NOT CLOSED**.
+- Duplicate/contradictory writer scan: **OPEN** — `ledger_fragment_a` requires an explicit canonical multi-producer contract.
 
-**S01 progress: 70% — not complete.**
+**S01 progress: 80% — not complete.**
 
-No scenario-QA percentage increase is claimed from this working batch. Overall Scenario QA remains **65%** until the defined gates are actually closed.
+No scenario-QA global percentage increase is claimed from this batch. Overall Scenario QA remains **65%** until the defined gates are actually closed.
