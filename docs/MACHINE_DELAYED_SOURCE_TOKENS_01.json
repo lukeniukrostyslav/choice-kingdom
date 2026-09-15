@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "contract": "choice_kingdom.delayed_source_tokens",
+  "scope": "E01-E272",
+  "source": "docs/SCENARIO_QA_DELAYED_SOURCE_TOKEN_EXTRACTION_01.md",
+  "records": [
+    {"consumer":"E181","source_event":"E45","source_choice":"B","token":"infrastructure_concession","status":"CLOSED"},
+    {"consumer":"E182","source_event":"E117","source_choice":"B","token":"veteran_patronage","status":"CLOSED"},
+    {"consumer":"E183","source_event":"E118","source_choice":"B","token":"estate_exception","status":"CLOSED"},
+    {"consumer":"E184","source_event":null,"source_choice":null,"token":null,"status":"OPEN"},
+    {"consumer":"E185","source_event":"E17","source_choice":"A","token":"cheap_weapons","status":"CLOSED_IDENTITY"},
+    {"consumer":"E242","source_event":"E118","source_choice":"B","token":"estate_exception","status":"PARTIAL"},
+    {"consumer":"E243","source_event":"E18","source_choice":"B","token":"public_bridge","status":"CLOSED"},
+    {"consumer":"E244","source_event":"E09","source_choice":"B","token":"flexible_accounts","status":"CLOSED"},
+    {"consumer":"E245","source_event":"E20","source_choice":"A","token":"soldier_compensation","status":"CLOSED"},
+    {"consumer":"E246","source_event":"E160","source_choice":"A","token":"winter_rent_ceiling","status":"CLOSED"}
+  ],
+  "hard_negatives": [
+    "E245 cannot merge E20-A with E125-A or E156-A",
+    "E242 E118-B is not a universal alias for any prior noble exception",
+    "E184 has no invented producer",
+    "relative delay is not converted to an absolute due turn",
+    "E33/E34 are quarantined",
+    "E273-E277 are excluded"
+  ],
+  "runtime_closed": false,
+  "reachability_verified": false
+}
