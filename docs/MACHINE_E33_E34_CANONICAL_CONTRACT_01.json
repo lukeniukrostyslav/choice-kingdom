@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0",
+  "scope": "E33-E34",
+  "status": "source_closed_integration_open",
+  "events": [
+    {
+      "id": "E33",
+      "title": "The Emergency Crown",
+      "trigger": {
+        "authored": "emergency_decree_used or severe crisis",
+        "machine_binding": "OPEN"
+      },
+      "choices": {
+        "A": {
+          "label": "Accept",
+          "effects": {"power": 8, "security": 5},
+          "flags_added": ["emergency_power"],
+          "delayed": "unless voluntarily surrendered, unlocks Iron Crown path"
+        },
+        "B": {
+          "label": "Refuse",
+          "effects": {"power": -4, "trust": 6},
+          "flags_added": ["constitutional_limit"],
+          "conditional": "if cross-faction relationships are strong, unlocks Second Founder path"
+        }
+      }
+    },
+    {
+      "id": "E34",
+      "title": "The People's Queue",
+      "trigger": {
+        "authored": "trust >= 65 or welfare branch",
+        "machine_binding": "OPEN"
+      },
+      "choices": {
+        "A": {
+          "label": "Meet them",
+          "effects": {"trust": 7, "power": -3},
+          "flags_added": ["people_heard"]
+        },
+        "B": {
+          "label": "Send written relief orders",
+          "effects": {"trust": 3, "power": 2},
+          "conditional": "if bureaucracy is weak, relief arrives late"
+        }
+      }
+    }
+  ],
+  "producer_consumer_rules": [
+    "emergency_decree_used is produced canonically by E02-A in current main.",
+    "emergency_power must not be promoted to an ending predicate without an explicit consumer contract.",
+    "constitutional_limit must not be promoted to constitutional_prepared_strong without an explicit producer/ordering contract.",
+    "people_heard is evidence and must not be promoted to final ending qualification without an explicit consumer contract.",
+    "severe crisis, welfare branch, cross-faction relationships, and weak bureaucracy require explicit executable bindings before Decision Engine implementation."
+  ],
+  "source_provenance": {
+    "historical_branch": "qa/e35-e55-producer-audit",
+    "blob_sha": "61de059299400f4621b8e9c74e9c7c654c8fad5c",
+    "reconstruction": false
+  }
+}
