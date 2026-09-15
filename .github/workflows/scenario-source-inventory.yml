@@ -34,6 +34,7 @@ jobs:
           assert 'history.cross_faction_package' in data['producers']
           assert 'same_event_shared_writers' in data
           assert 'contradictory_same_event_writers' not in data
+          assert not data['predicate_cycles']
           print('inventory_shape=PASS')
           PY
       - name: Upload source inventory artifact
@@ -41,3 +42,6 @@ jobs:
         with:
           name: scenario-source-inventory
           path: scenario-source-inventory.json
+
+# S20 verification trigger: inventory schema/predicate-cycle assertion is part of the
+# canonical scenario gate and does not alter authored scenario semantics.
