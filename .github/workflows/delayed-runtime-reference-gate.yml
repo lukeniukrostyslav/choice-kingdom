@@ -1,0 +1,22 @@
+name: Choice Kingdom Delayed Runtime Reference Gate
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/MACHINE_DELAY_CONTRACT_01.json'
+      - 'tools/validate_delay_runtime_reference.py'
+      - '.github/workflows/delayed-runtime-reference-gate.yml'
+  pull_request:
+    paths:
+      - 'docs/MACHINE_DELAY_CONTRACT_01.json'
+      - 'tools/validate_delay_runtime_reference.py'
+      - '.github/workflows/delayed-runtime-reference-gate.yml'
+
+jobs:
+  delayed-runtime-reference:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate delayed lifecycle reference model
+        run: python3 tools/validate_delay_runtime_reference.py
