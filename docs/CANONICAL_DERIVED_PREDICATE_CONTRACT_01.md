@@ -1,7 +1,7 @@
 # Choice Kingdom — Canonical Derived Predicate Contract 01
 
 Status: **SOURCE-LEVEL CONTRACT — NOT ENGINE IMPLEMENTATION**
-Scope: E01–E272
+Scope: E01–E277
 
 ## Purpose
 
@@ -13,13 +13,13 @@ Freeze the semantic rule for contextual conditions before production schema work
 |---|---|---|
 | `pred.border_crisis` | `border_crisis_declared = true` AND `border_crisis_resolved != true`; lifecycle declaration E271-A, resolution E272-A/B | CLOSED |
 | `pred.guild_logistics_cooperation` | `history.guild_logistics_cooperation` AND E194-A neutral-inspection outcome AND no unresolved immunity-risk blocker | CLOSED |
-| `pred.food_stable` | Explicit food-stability producer + explicit invalidation/expiry semantics | OPEN — producer still missing |
-| `pred.transport_disruption` | Explicit disruption producer + not subsequently cleared by transport recovery | OPEN — active disruption producer still missing; E136-A/B are recovery/clear only |
-| `pred.winter_severe` | E29-A/B explicitly establish the severe winter state for the current winter cycle; `history.winter_severity_declared` is retained; future recovery/expiry must explicitly clear only the active cycle | CLOSED — source producer verified |
-| `pred.market_pressure` | Explicit market-pressure producer/marker with deterministic persistence/clear rule | OPEN — producer still missing |
-| `pred.guild_labor_tension` | Explicit labor-tension producer + persistence/clear rule | OPEN — producer still missing |
-| `pred.information_pressure_high` | Independent information-state evidence/markers and deterministic qualification; never `rel.toma` alone | OPEN — source/cardinality missing |
-| `pred.guild_influence_strong` | At least two distinct institutional domains from the canonical guild-influence domain set | PARTIAL |
+| `pred.food_stable` | E273-A `food_stability_standard`; explicit later food-disruption invalidation required | CLOSED — source producer verified; invalidation still needs authored source |
+| `pred.transport_disruption` | Explicit disruption producer + not subsequently cleared by transport recovery | OPEN — active disruption producer still missing; E136/E277 are recovery/clear sources |
+| `pred.winter_severe` | E29-A/B explicitly establish severe winter for current winter cycle; history retained; explicit cycle expiry/recovery required | CLOSED — source producer verified |
+| `pred.market_pressure` | E274-A `market_pressure_declared`; explicit later stabilization/clear rule required | CLOSED — source producer verified; clear source still needs authored reconciliation |
+| `pred.guild_labor_tension` | E275-B `guild_labor_tension_declared`; E275-A can clear active tension; exact persistence semantics to be validated | CLOSED — source producer verified |
+| `pred.information_pressure_high` | E276-B `information_pressure_declared`; E276-A can clear active pressure; not `rel.toma` alone | CLOSED — source producer verified |
+| `pred.guild_influence_strong` | At least two distinct institutional domains from canonical guild-influence domain set | PARTIAL |
 | `pred.systemic_explanation_verified` | Distinct warehouse/financial evidence + document/language evidence + witness/organizational evidence + explicit convergence decision | PARTIAL |
 | `pred.coalition_cooperation` | Explicit cooperation package with identified participants and positive cooperation outcome; not route-count based | PARTIAL |
 | `pred.constitutional_prepared_strong` | Three independent preparation domains: civic/commons, audit/institutional, factional/constitutional or military | OPEN |
@@ -35,23 +35,27 @@ Freeze the semantic rule for contextual conditions before production schema work
 5. Evidence cardinality must be evaluated by independent source identity, not by counting flags from one chain.
 6. Coalition qualification requires explicit cooperation semantics, not four-way/five-way route cardinality.
 7. Derived predicates must have deterministic inputs and deterministic invalidation/clear behavior before they enter production schema.
+8. A newly authored producer outside the original E01–E272 scope cannot be treated as reachable merely because its trigger text names an existing state. Reachability and insertion point must be proven before the expanded catalog is frozen.
 
-## Known producer gaps
+## Current source-level producer closures
 
-The following remain P0 for schema freeze:
+- `pred.food_stable`: E273-A is an explicit producer. The active state is intentionally not considered fully lifecycle-closed until a canonical later disruption/expiry source is reconciled.
+- `pred.market_pressure`: E274-A is an explicit producer. A later stabilization/clear source is still required for a complete lifecycle.
+- `pred.guild_labor_tension`: E275-B is an explicit producer and E275-A is an explicit clear outcome.
+- `pred.information_pressure_high`: E276-B is an explicit producer and E276-A is an explicit clear outcome.
+- `pred.transport_disruption`: no active producer has been accepted yet; E277-A/B only define recovery/clear semantics and therefore cannot close this gap.
 
-- food stability;
-- active transport disruption;
-- market pressure;
-- guild labor tension;
-- high information pressure;
-- exact guild-influence producer set;
-- constitutional preparation;
-- budget reform;
-- final-charter prerequisites.
+## Producer expansion gate
 
-Winter severity is no longer a producer gap: E29-A/B are the explicit authored source for the current severe-winter cycle.
+E273–E277 are authored source candidates outside the original E01–E272 freeze. Before treating them as production content:
+
+1. insert them into a deterministic campaign position or define an explicit post-E272 continuation boundary;
+2. verify every trigger has an upstream producer/reachable path;
+3. verify no event consumes a predicate before its first possible producer;
+4. verify delayed callbacks and save/load identity include the new events;
+5. rerun event-ID uniqueness, trigger normalization, contradiction, cycle and reachability audits;
+6. only then expand the canonical scope beyond E272.
 
 ## Gate
 
-This contract does not authorize engine implementation yet. The complete E01–E272 catalog must be reconciled against this matrix and all remaining producers/consumers must be explicitly mapped before schema freeze and validator implementation.
+Production schema and runtime remain blocked until the expanded catalog is reconciled and all remaining producer/consumer contracts are explicitly mapped.
