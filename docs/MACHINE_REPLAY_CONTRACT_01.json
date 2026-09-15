@@ -1,0 +1,53 @@
+{
+  "schema": "choice-kingdom-machine-replay-contract-1",
+  "scope": {
+    "production_first_event": "E01",
+    "production_last_event": "E272",
+    "excluded_events": ["E273", "E274", "E275", "E276", "E277"]
+  },
+  "reset_boundary": {
+    "run_specific_state": "reset_on_new_run",
+    "meta_state": "copied_only_from_completed_prior_run",
+    "terminal_state": "never_copied_as_active_run_state"
+  },
+  "contracts": [
+    {
+      "event_id": "E186",
+      "kind": "replay_meta_or_same_run",
+      "canonical_meta_key": "meta.replay.warehouse_investigation_unlock",
+      "producer_scope": "completed_prior_run_meta_export",
+      "source_trigger": "`warehouse_arson` or equivalent previous-run informational unlock when supported by replay metadata.",
+      "same_run_route": "warehouse_arson",
+      "replay_route": "meta.replay.warehouse_investigation_unlock",
+      "reset": "run_specific_state_is_cleared; meta key may be re-imported only from the completed prior run",
+      "exactly_once_import": true
+    },
+    {
+      "event_id": "E247",
+      "kind": "replay_meta_only",
+      "canonical_meta_key": "meta.replay.second_run_information_route",
+      "producer_scope": "completed_prior_run_meta_export",
+      "source_trigger": "second-run information route.",
+      "replay_route": "meta.replay.second_run_information_route",
+      "reset": "run_specific state is cleared; this key is the only imported trigger for E247",
+      "exactly_once_import": true
+    },
+    {
+      "event_id": "E248",
+      "kind": "replay_meta_only",
+      "canonical_meta_key": "meta.replay.callback_forgotten_favor",
+      "producer_scope": "completed_prior_run_meta_export",
+      "source_trigger": "replay callback.",
+      "replay_route": "meta.replay.callback_forgotten_favor",
+      "reset": "run_specific state is cleared; this key is the only imported trigger for E248",
+      "exactly_once_import": true
+    }
+  ],
+  "rules": [
+    "Replay metadata is a producer boundary, not an authored event producer.",
+    "A new run may import only the explicitly listed meta keys from the immediately completed prior run.",
+    "Run-specific flags, active predicates, pending delayed events and terminal state never cross the reset boundary.",
+    "E186 retains its same-run warehouse_arson route; replay metadata is an additional explicitly bound route.",
+    "E247 and E248 prose trigger labels are normalized by this machine contract and are not independent runtime predicates."
+  ]
+}
