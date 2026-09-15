@@ -40,6 +40,12 @@ A trigger phrase is not a producer. A consumer cannot manufacture its own prereq
 | clear `pred.border_crisis` | E272 | A/B | Resolves declared active crisis | CLOSED at source level |
 | `army_constitution_oath` / military constitutional evidence | E199 | A | Explicit army constitutional oath route | STRONG |
 
+### Transport-disruption reconciliation
+
+An earlier audit wording described the active producer as open. That wording is superseded by the later source re-read: **E32 is the explicit source-level producer of the current `pred.transport_disruption` crisis state**, and **E136-A/B are its recovery/clear producers**.
+
+The unresolved portion is runtime lifecycle semantics only: save/load persistence, ordering with delayed effects, expiry/supersession and exact cycle identity. No additional producer should be invented to resolve that runtime question.
+
 ## 2. Delayed-consumer producer closure
 
 | Consumer | Authored trigger | Producer closure | Canonical treatment |
