@@ -1,47 +1,19 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "contract": "choice_kingdom.machine_delay_contract",
   "scope": "E01-E272",
   "status": "SOURCE_LEVEL_CANONICAL_EXTRACTION",
   "delays": [
-    {
-      "id": "delay.E25B.E184.quiet_evidence",
-      "sourceEventId": "E25",
-      "sourceChoiceId": "B",
-      "sourceState": "secret_evidence_route",
-      "earliestTurn": {"relativeToSource": 4},
-      "latestTurn": null,
-      "resolutionTarget": "E184",
-      "exactlyOnceKey": "delay.E25B.E184.quiet_evidence",
-      "priority": 0,
-      "cancellationRule": "none_authored; secret_evidence_route remains valid until E184 resolves",
-      "supersedes": null,
-      "saveLoadPolicy": "persistent",
-      "replayPolicy": "run_scoped_pending_delay",
-      "auditLabel": "E184 quiet evidence from E25-B secret evidence route"
-    },
-    {
-      "id": "delay.E118B.E242.renewed_exception",
-      "sourceEventId": "E118",
-      "sourceChoiceId": "B",
-      "sourceState": "estate_exception",
-      "earliestTurn": {"relativeToSource": 6},
-      "latestTurn": null,
-      "resolutionTarget": "E242",
-      "exactlyOnceKey": "delay.E118B.E242.renewed_exception",
-      "priority": 0,
-      "cancellationRule": "none_authored; estate_exception remains valid until E242 resolves",
-      "supersedes": null,
-      "saveLoadPolicy": "persistent",
-      "replayPolicy": "run_scoped_pending_delay",
-      "auditLabel": "E242 renewed exception from E118-B prior noble exception"
-    }
+    {"id":"delay.E25B.E184.quiet_evidence","sourceEventId":"E25","sourceChoiceId":"B","sourceState":"secret_evidence_route","earliestTurn":{"relativeToSource":4},"latestTurn":null,"resolutionTarget":"E184","exactlyOnceKey":"delay.E25B.E184.quiet_evidence","priority":0,"cancellationRule":"none_authored; secret_evidence_route remains valid until E184 resolves","supersedes":null,"saveLoadPolicy":"persistent","replayPolicy":"run_scoped_pending_delay","auditLabel":"E184 quiet evidence from E25-B secret evidence route"},
+    {"id":"delay.E118B.E242.renewed_exception","sourceEventId":"E118","sourceChoiceId":"B","sourceState":"estate_exception","earliestTurn":{"relativeToSource":6},"latestTurn":null,"resolutionTarget":"E242","exactlyOnceKey":"delay.E118B.E242.renewed_exception","priority":0,"cancellationRule":"none_authored; estate_exception remains valid until E242 resolves","supersedes":null,"saveLoadPolicy":"persistent","replayPolicy":"run_scoped_pending_delay","auditLabel":"E242 renewed exception from E118-B prior noble exception"},
+    {"id":"delay.E45B.E181.second_toll_increase","sourceEventId":"E45","sourceChoiceId":"B","sourceState":"infrastructure_concession","earliestTurn":{"relativeToSource":5},"latestTurn":null,"resolutionTarget":"E181","exactlyOnceKey":"delay.E45B.E181.second_toll_increase","priority":0,"cancellationRule":"none_authored; toll concession remains valid until E181 resolves","supersedes":null,"saveLoadPolicy":"persistent","replayPolicy":"run_scoped_pending_delay","auditLabel":"E181 second toll increase from E45-B toll concession"},
+    {"id":"delay.E117B.E182.veteran_promise","sourceEventId":"E117","sourceChoiceId":"B","sourceState":"veteran_patronage","earliestTurn":{"relativeToSource":4},"latestTurn":null,"resolutionTarget":"E182","exactlyOnceKey":"delay.E117B.E182.veteran_promise","priority":0,"cancellationRule":"none_authored; veteran_patronage remains valid until E182 resolves","supersedes":null,"saveLoadPolicy":"persistent","replayPolicy":"run_scoped_pending_delay","auditLabel":"E182 veteran promise from E117-B veteran patronage"},
+    {"id":"delay.E118B.E183.noble_exception_return","sourceEventId":"E118","sourceChoiceId":"B","sourceState":"estate_exception","earliestTurn":{"relativeToSource":5},"latestTurn":null,"resolutionTarget":"E183","exactlyOnceKey":"delay.E118B.E183.noble_exception_return","priority":0,"cancellationRule":"none_authored; estate_exception remains valid until E183 resolves","supersedes":null,"saveLoadPolicy":"persistent","replayPolicy":"run_scoped_pending_delay","auditLabel":"E183 noble exception return from E118-B estate exception"},
+    {"id":"delay.E17A.E185.cheap_steel_failure","sourceEventId":"E17","sourceChoiceId":"A","sourceState":"cheap_weapons","earliestTurn":null,"latestTurn":null,"resolutionTarget":"E185","exactlyOnceKey":"delay.E17A.E185.cheap_steel_failure","priority":0,"cancellationRule":"none_authored; E185 requires a later military crisis and does not define an authored cancellation","supersedes":null,"saveLoadPolicy":"persistent","replayPolicy":"run_scoped_pending_delay","auditLabel":"E185 cheap steel callback from E17-A; condition-bound to later military crisis"},
+    {"id":"delay.E18B.E243.old_bridge","sourceEventId":"E18","sourceChoiceId":"B","sourceState":"public_bridge","earliestTurn":{"relativeToSource":5},"latestTurn":null,"resolutionTarget":"E243","exactlyOnceKey":"delay.E18B.E243.old_bridge","priority":0,"cancellationRule":"none_authored; public bridge investment remains valid until E243 resolves","supersedes":null,"saveLoadPolicy":"persistent","replayPolicy":"run_scoped_pending_delay","auditLabel":"E243 old bridge callback from E18-B public bridge investment"},
+    {"id":"delay.E09B.E244.audit_comes_due","sourceEventId":"E09","sourceChoiceId":"B","sourceState":"flexible_accounts","earliestTurn":{"relativeToSource":5},"latestTurn":null,"resolutionTarget":"E244","exactlyOnceKey":"delay.E09B.E244.audit_comes_due","priority":0,"cancellationRule":"none_authored; flexible_accounts remains historically relevant until E244 resolves","supersedes":null,"saveLoadPolicy":"persistent","replayPolicy":"run_scoped_pending_delay","auditLabel":"E244 audit callback from E09-B flexible accounts"},
+    {"id":"delay.E20A.E245.soldiers_son_returns","sourceEventId":"E20","sourceChoiceId":"A","sourceState":"soldier_compensation","earliestTurn":{"relativeToSource":6},"latestTurn":null,"resolutionTarget":"E245","exactlyOnceKey":"delay.E20A.E245.soldiers_son_returns","priority":0,"cancellationRule":"none_authored; compensation route remains valid until E245 resolves","supersedes":null,"saveLoadPolicy":"persistent","replayPolicy":"run_scoped_pending_delay","auditLabel":"E245 soldier's son callback from E20-A compensation route"},
+    {"id":"delay.E160A.E246.price_ceiling_memory","sourceEventId":"E160","sourceChoiceId":"A","sourceState":"winter_rent_ceiling","earliestTurn":{"relativeToSource":5},"latestTurn":null,"resolutionTarget":"E246","exactlyOnceKey":"delay.E160A.E246.price_ceiling_memory","priority":0,"cancellationRule":"none_authored; winter_rent_ceiling remains historically relevant until E246 resolves","supersedes":null,"saveLoadPolicy":"persistent","replayPolicy":"run_scoped_pending_delay","auditLabel":"E246 price ceiling callback from E160-A temporary rent ceiling"}
   ],
-  "hard_rules": [
-    "E273-E277 cannot appear as source or resolution input",
-    "each exactlyOnceKey is globally unique",
-    "earliestTurn is relative to the source event and never inferred from calendar turns",
-    "none_authored cancellation is explicit and is not equivalent to silent deletion",
-    "pending delay state is run-scoped and must not leak across fresh runs"
-  ]
+  "hard_rules":["E273-E277 cannot appear as source or resolution input","each exactlyOnceKey is globally unique","earliestTurn is relative to the source event and never inferred from calendar turns","condition-bound delays use earliestTurn=null and an explicit condition in the cancellation/qualification contract","none_authored cancellation is explicit and is not equivalent to silent deletion","pending delay state is run-scoped and must not leak across fresh runs"]
 }
