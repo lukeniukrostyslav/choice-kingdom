@@ -21,7 +21,7 @@ No mock/stub gameplay or premature production-readiness claims.
 **Narrative/content canonicalization and QA.** Authored checkpoint E01–E272. Production schema and Decision Engine remain blocked until canonical contracts and reachability are sufficiently closed.
 
 ## Scenario QA
-Dedicated Scenario QA score is now approximately **73%**. This is distinct from overall project completion and is not runtime/Android readiness.
+Dedicated Scenario QA score is now approximately **74%**. This is distinct from overall project completion and is not runtime/Android readiness.
 
 ### S01–S12 working indicators
 - S01 **80%**
@@ -35,17 +35,13 @@ Dedicated Scenario QA score is now approximately **73%**. This is distinct from 
 - S09 **60%**
 - S10 **72%**
 - S11 **55%**
-- S12 **53%** — S12.16 completed E272 source-availability/blocking audit; S12.17 normalized composite predicate source closure; S12.18 audited producer-before-consumer ordering. Exact authored E272 branch tokens, exact systemic convergence evidence, exhaustive graph closure, fresh-run/replay reachability and ending precedence remain open.
+- S12 **55%** — S12.16 E272 source availability, S12.17 composite predicate source closure, S12.18 producer ordering, and S12.19 replay/meta boundary audit completed. Exact authored E272 branch tokens, exact systemic convergence evidence, exhaustive graph closure, replay meta producers, fresh-run/replay reachability and ending precedence remain open.
 
 ## Latest QA work
+- **S12.19** added `docs/SCENARIO_QA_S12_19_REPLAY_META_BOUNDARY_AUDIT_01.md`, commit `cc6936e6c6ffd9074e57f9ba65d62ff7ea4c2075`.
 - **S12.18** added `docs/SCENARIO_QA_S12_18_COMPOSITE_PRODUCER_ORDER_AUDIT_01.md`, commit `33df93136f52883c4c897e414b0640fb6db89b56`.
 - **S12.17** added `docs/SCENARIO_QA_S12_17_PREDICATE_SOURCE_CLOSURE_MATRIX_01.md`, commit `862e6565ca83c1fc3d5bcb4ffac945c1bb14c885`.
 - **S12.16** added `docs/SCENARIO_QA_S12_16_E272_SOURCE_AVAILABILITY_AUDIT_01.md`, commit `1a4c7ea256409116b5129129d02f45aee886c0fb`.
-- **S12.15** added `docs/SCENARIO_QA_S12_15_COMPOSITE_EVIDENCE_IDENTITY_REGISTRY_01.md`, commit `583b9ce826581a88b8ee2c310b7228b5e145a2b`.
-- **S12.15** reconciled `docs/CANONICAL_PRODUCER_CONSUMER_REGISTRY_01.md` with composite evidence/budget findings.
-- **S12.14** added `docs/SCENARIO_QA_S12_14_DELAY_IDENTITY_GATE_01.md`, commit `69b4b5136cb1ababbc95889f8d3df4f9c528b8b7`.
-- **S12.13** added `docs/SCENARIO_QA_S12_13_LATE_CONSUMER_SOURCE_MATRIX_01.md`, commit `4d500908cd9730f8f3c4dcd0e60f315e5f75d8f3`.
-- **S12.12** added `docs/SCENARIO_QA_S12_12_ENDGAME_SOURCE_REGISTRY_01.md`, commit `69cfd11651be41e489ab2c4c35e32071c8956132`.
 
 ## Authoritative P0 source status
 Confirmed in authored catalog text:
@@ -83,6 +79,9 @@ Important unresolved/open areas:
 - exhaustive E01–E272 producer/consumer graph and fresh-run reachability
 - machine graph ↔ authoritative catalog equality
 
+## Replay QA boundary
+E247 is explicitly a second-run information route and E248 an explicit replay callback. Neither may be satisfied by ordinary first-run flags without a declared `meta.*` key and producer. E270's dual-witness evidence remains ordinary run evidence unless the authored source explicitly promotes it. No implicit cross-run persistence is admitted.
+
 ## Canonical vocabulary rules
 State namespaces are `resource.*`, `rel.*`, `flag.*`, `history.*`, `thread.*`, `delay.*`, `ending.*`, and explicit `meta.*` for intentionally persistent cross-run knowledge. Contextual concepts such as food pressure or winter severity must be deterministic predicates or durable markers, never silently become a sixth resource.
 
@@ -108,9 +107,9 @@ Delayed consequences require source choice/event, earliest turn, latest turn or 
 - Producer / Consumer QA: **99%**
 - Derived Predicates / Machine Contracts: **95%**
 - Delayed Consequences: **91%**
-- Replay / Meta-state: **61%**
+- Replay / Meta-state: **65%**
 - Endings / precedence: **69%**
-- Reachability / causal graph: **58%**
+- Reachability / Causal Graph: **58%**
 - Production Data Schema: **36%**
 - Decision Engine: **0%**
 - UI / UX: **0%**
@@ -120,7 +119,7 @@ Delayed consequences require source choice/event, earliest turn, latest turn or 
 - APK: **0%**
 - Release: **0%**
 
-Overall project progress remains approximately **59%**. Scenario QA is approximately **73%** and must not be conflated with overall project completion.
+Overall project progress remains approximately **59%**. Scenario QA is approximately **74%** and must not be conflated with overall project completion.
 
 ## Next autonomous work
 1. Recover exact E272 authored source if present in repository history or alternate authoritative source material; never invent tokens.
