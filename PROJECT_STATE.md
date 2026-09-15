@@ -35,9 +35,11 @@ Dedicated Scenario QA score is now approximately **87%**. This is distinct from 
 - S09 **60%**
 - S10 **72%**
 - S11 **55%**
-- S12 **79%** — S12.30 machine graph gate, S12.31 E33/E34 source reconciliation, S12.32 degree classification, S12.33 E245 producer closure, S12.34 node-classification infrastructure and S12.35 producer/consumer matrix compilation are verified at source-QA level. Semantic orphan/reachability closure remains open.
+- S12 **80%** — S12.30 machine graph gate, S12.31 E33/E34 source reconciliation, S12.32 degree classification, S12.33 E245 producer closure, S12.34 node classification, S12.35 producer/consumer compilation, S12.36 ending/replay reconciliation and S12.37 systemic-convergence machine gate are verified at source-QA level. Semantic orphan/reachability closure remains open.
 
 ## Latest QA work
+- **S12.37** added `docs/SCENARIO_QA_S12_37_SYSTEMIC_CONVERGENCE_MACHINE_GATE_01.md`. It freezes three independent evidence families for `pred.systemic_explanation_verified`, makes the fourth convergence decision an explicit unresolved machine term, preserves E207 as consumer-only, and defines anti-double-counting rules.
+- **S12.36** reconciled ending producer gaps with replay/meta closure and confirmed that ending/replay boundaries remain source-open; no degree heuristic or ordinary flag is promoted into an ending prerequisite or `meta.*` producer.
 - **S12.35** added `tools/compile_producer_consumer_matrix.py` and wired it into canonical graph CI. It converts the working producer/consumer registry into deterministic derived QA data, rejects out-of-scope references, and preserves OPEN/PARTIAL rows without invented aliases.
 - **S12.34** added `tools/classify_graph_nodes.py` and its QA report. It deterministically separates source-missing, replay, delayed-consumer, terminal/endgame, isolated, root, terminal/consumer and ordinary graph-node candidates without promoting degree heuristics to semantic truth.
 - **S12.33** closed E245's producer identity to **E20-A `soldier_compensation`**. E125-A and E156-A remain independent compensation outcomes. Delayed timing/cancellation lifecycle remains open.
@@ -68,7 +70,7 @@ Dedicated Scenario QA score is now approximately **87%**. This is distinct from 
 **Producer identity CLOSED:** E20-A `soldier_compensation`. The authored source uses `6+ turns later` and does not yet provide an absolute due turn/cancellation contract.
 
 ### Systemic explanation
-Evidence families are materially frozen, but exact immutable convergence producer/key remains OPEN. E207 is consumer-only and cannot manufacture convergence.
+Three evidence families are now frozen as distinct machine domains: warehouse/financial, document/language, and witness/organizational. The exact immutable convergence producer/key remains OPEN. E207 is consumer-only and cannot manufacture convergence. S12.37 defines the executable qualification boundary without inventing the missing producer.
 
 ### Budget reform
 Source identity is CLOSED: E142-A + E154-A + E198-A. Negative blockers E142-B/E154-B/E198-B are explicit. Runtime lifecycle/invalidation and reachability remain OPEN.
@@ -128,13 +130,12 @@ Overall project progress remains approximately **60%**. Scenario QA is approxima
 1. Search repository history and remaining catalog/checkpoint sources for exact E33/E34 authored material; otherwise formally quarantine them as unrecovered.
 2. Use the compiled producer/consumer matrix to audit the 69 no-outbound candidates and 54 unreferenced candidates against authoritative source text.
 3. Separate ROOT/SOURCE, ordinary producer, consumer-only, terminal/ending, qualification, delayed callback, replay-only and true orphan semantics.
-4. Close systemic convergence identity or preserve it explicitly OPEN.
-5. Compile guild influence, coalition cooperation and constitutional preparation into exact producer/consumer matrices.
-6. Complete delayed cancellation/supersession matrix, including E245/E185/E184.
-7. Reconcile S11 endings and deterministic precedence.
-8. Build fresh-run and representative replay reachability models with strict `meta.*` isolation.
-9. Freeze production contracts only after machine validation and semantic catalog↔graph equality pass.
-10. Then Decision Engine → UI → localization → runtime/Android QA → APK → release.
+4. Compile guild influence, coalition cooperation and constitutional preparation into exact producer/consumer matrices.
+5. Complete delayed cancellation/supersession matrix, including E245/E185/E184.
+6. Reconcile S11 endings and deterministic precedence.
+7. Build fresh-run and representative replay reachability models with strict `meta.*` isolation.
+8. Freeze production contracts only after machine validation and semantic catalog↔graph equality pass.
+9. Then Decision Engine → UI → localization → runtime/Android QA → APK → release.
 
 ## Honest progress rule
 Documentation alone never makes implementation complete. Source edits count only when authoritative evidence is changed/re-read. No block is ready until its applicable verification passes.
