@@ -35,13 +35,13 @@ Dedicated Scenario QA score is now approximately **77%**. This is distinct from 
 - S09 **60%**
 - S10 **72%**
 - S11 **55%**
-- S12 **62%** — S12.21 reconciled the E242–E246 long-delay source matrix: E242–E244 source identities are closed candidates, E245 remains explicitly multi-candidate, and E246 remains open pending exact price-ceiling producer recovery. Relative timing is not falsely promoted to executable timing.
+- S12 **64%** — S12.22 reconciled the authored source identities for delayed callbacks E181–E185 and E242–E246. It closes source-language identity where evidence exists while keeping E184 producer, E185 resolution timing, E245 route disambiguation and E246 producer open. No relative timing phrase was falsely promoted to executable scheduling.
 
 ## Latest QA work
+- **S12.22** added `docs/SCENARIO_QA_S12_22_DELAYED_SOURCE_CLOSURE_01.md`, commit `02ff2ecb08a67506407350714e238126d01ef440`.
 - **S12.21** added `docs/SCENARIO_QA_S12_21_LONG_DELAY_SOURCE_MATRIX_01.md`, commit `1e9ad37a6984d78ba61ef5e23e53551d7a40f232`.
 - **S12.20** added `docs/SCENARIO_QA_S12_20_E272_EXACT_SOURCE_RECOVERY_01.md`, commit `92c3c3460c9621fe306c26f97079713a180eadee`.
 - **S12.19** added `docs/SCENARIO_QA_S12_19_REPLAY_META_BOUNDARY_AUDIT_01.md`, commit `cc6936e6c6ffd9074e57f9ba65d62ff7ea4c2075`.
-- **S12.18** added `docs/SCENARIO_QA_S12_18_COMPOSITE_PRODUCER_ORDER_AUDIT_01.md`, commit `33df93136f52883c4c897e414b0640fb6db89b56`.
 
 ## Authoritative P0 source status
 Confirmed in authored catalog text:
@@ -67,12 +67,17 @@ Source-level closed chains include:
 - E32 → active `pred.transport_disruption`; E136-A/B clear it
 - E142-A/E154-A/E198-A → budget-reform source domains
 
-### Long-delay source matrix S12.21
-- E242 → E118-B `estate_exception`: source identity closed candidate; exact executable timing/lifecycle open.
-- E243 → E18-B `public_bridge`: source identity closed; exact executable timing/lifecycle open.
-- E244 → E09-B `flexible_accounts`: source identity closed; exact executable timing/lifecycle open.
-- E245 → E125-A `border_compensation` and E156-A `requisition_compensation`: remain distinct candidates; no false merge.
-- E246 → exact price-ceiling producer still open; no generic alias admitted.
+### S12.22 delayed source closure
+- E181 → toll concession: source-language trigger closed; exact producer choice and executable cancellation remain open.
+- E182 → `veteran_patronage`: source identity closed; authored relative timing remains 4+ turns.
+- E183 → `estate_exception`: source identity closed; authored relative timing remains 5+ turns.
+- E184 → secret evidence route: consumer source closed; exact producer remains OPEN.
+- E185 → `cheap_weapons`: source identity closed; later military-crisis resolution semantics remain OPEN.
+- E242 → E118-B `estate_exception`: source identity closed candidate; executable lifecycle open.
+- E243 → E18-B `public_bridge`: source identity closed; executable lifecycle open.
+- E244 → E09-B `flexible_accounts`: source identity closed; executable lifecycle open.
+- E245 → E125-A `border_compensation` / E156-A `requisition_compensation`: distinct candidates retained; no false merge.
+- E246 → price-ceiling consumer wording closed; exact producer remains OPEN.
 
 Important unresolved/open areas:
 - `pred.food_stable` and its relationship to `food_logistics_stabilized`
@@ -83,7 +88,7 @@ Important unresolved/open areas:
 - `pred.final_charter_prerequisites`
 - replay `meta.*` producers/keys for E247/E248/E270
 - exact delayed identities/timing/cancellation for remaining open families
-- E245 route disambiguation and E246 exact price-ceiling producer
+- E184 producer closure, E185 resolution semantics, E245 route disambiguation and E246 exact price-ceiling producer
 - complete incoming paths and deterministic precedence for endings
 - exhaustive E01–E272 producer/consumer graph and fresh-run reachability
 - machine graph ↔ authoritative catalog equality
@@ -115,7 +120,7 @@ Delayed consequences require source choice/event, earliest turn, latest turn or 
 - Canonical Event IDs / continuity: **100%**
 - Producer / Consumer QA: **99%**
 - Derived Predicates / Machine Contracts: **95%**
-- Delayed Consequences: **92%**
+- Delayed Consequences: **93%**
 - Replay / Meta-state: **65%**
 - Endings / precedence: **69%**
 - Reachability / Causal Graph: **58%**
@@ -131,11 +136,11 @@ Delayed consequences require source choice/event, earliest turn, latest turn or 
 Overall project progress remains approximately **60%**. Scenario QA is approximately **77%** and must not be conflated with overall project completion.
 
 ## Next autonomous work
-1. Compile immutable evidence IDs and exact executable formulas for systemic explanation, guild influence, coalition cooperation, constitutional preparation, budget reform and final-charter prerequisites.
-2. Recover E246 exact price-ceiling producer and resolve E245 compensation-route semantics without merging distinct sources.
-3. Reconcile all remaining E01–E272 producer/consumer edges and canonical vocabulary.
-4. Build the complete delayed identity/timing/cancellation matrix and verify save/load/replay isolation.
-5. Reconcile S11 ending incoming paths and deterministic precedence against the expanded graph.
+1. Recover E246 exact price-ceiling producer and resolve E245 compensation-route semantics without merging distinct sources.
+2. Extract exact immutable evidence IDs and executable formulas for systemic explanation, guild influence, coalition cooperation, constitutional preparation, budget reform and final-charter prerequisites.
+3. Reconcile remaining E01–E180 delayed families and canonical producer/consumer edges.
+4. Build complete delayed identity/timing/cancellation matrix and verify save/load/replay isolation.
+5. Reconcile S11 ending incoming paths and deterministic precedence against expanded graph.
 6. Build fresh-run graph from canonical initial state and representative replay graph with strict `meta.*` isolation.
 7. Compare machine graph against authoritative catalog for equality; reject orphan/phantom edges.
 8. Freeze production contracts only after machine checks are clean enough.
