@@ -21,7 +21,7 @@ No mock/stub gameplay or premature production-readiness claims.
 **Narrative/content canonicalization and QA.** Authored checkpoint E01–E272. Production schema and Decision Engine remain blocked until canonical contracts and reachability are sufficiently closed.
 
 ## Scenario QA
-Dedicated Scenario QA score is approximately **89%**. This is distinct from overall project completion and is not runtime/Android readiness.
+Dedicated Scenario QA score is approximately **90%**. This is distinct from overall project completion and is not runtime/Android readiness.
 
 ### S01–S12 working indicators
 - S01 **80%**
@@ -35,9 +35,11 @@ Dedicated Scenario QA score is approximately **89%**. This is distinct from over
 - S09 **62%** — replay meta producer boundary audited; exact meta producer/key inventory remains open.
 - S10 **74%** — authoritative source-choice closure for delayed E181/E243 routes; scheduler/runtime lifecycle remains open.
 - S11 **58%** — ending prerequisite satisfiability screen closes false-positive routes; deterministic precedence remains open.
-- S12 **89%** — raised from 88% after adding the predicate dependency/cycle boundary audit and machine predicate dependency contract; source-level machine QA now covers delayed source tokens, producer/consumer collisions, ending satisfiability, replay-meta boundary and predicate dependency boundaries. Runtime reachability remains unverified.
+- S12 **90%** — raised after adding the machine scenario-QA gate matrix validator and wiring it into canonical-graph CI; source-level machine QA now has an explicit consolidated gate matrix. Runtime reachability remains unverified.
 
 ## Latest QA work
+- **Machine Scenario QA Gate Matrix 01:** added `tools/validate_scenario_qa_gate_matrix.py` and `docs/MACHINE_SCENARIO_QA_GATE_MATRIX_01.json`. The validator freezes S01–S12 source-QA baselines, asserts hard runtime/reachability/precedence blockers, and prevents accidental promotion of scenario QA into runtime readiness. Commit `3aa46ab6a633968426f6691639b929c991d13c68`.
+- **Canonical Graph CI Gate:** `.github/workflows/canonical-graph.yml` now executes the consolidated scenario-QA gate matrix and uploads its machine report together with predicate dependency validation. Commit `b665a7d80cd879165ef006315468e40c23013911`.
 - **Predicate Dependency / Cycle Audit 01:** added `docs/SCENARIO_QA_PREDICATE_DEPENDENCY_CYCLE_AUDIT_01.md`. Screened composite predicates, delayed eligibility dependencies, replay boundaries and known hard negatives without promoting narrative consumers into producers. Commit `ccf68c83f5f128055bf56561ee04de7a545b9669`.
 - **Machine Predicate Dependency Audit 01:** added `docs/MACHINE_PREDICATE_DEPENDENCY_AUDIT_01.json` with explicit open/closed predicate boundaries and delayed dependency identities. Commit `cf640dd0b8c1c43739f32727102ccf166004469c`.
 - **Delayed Source Evidence Closure 02:** added `docs/SCENARIO_QA_DELAYED_SOURCE_EVIDENCE_CLOSURE_02.md`. Re-read authoritative E117/E118/E17/E20/E160 source entries and explicitly recorded exact choices for E182, E183, E185, E245 and E246, while preserving E184 as OPEN and E242 as PARTIAL. Commit `c69f41627473bb45ff56a3e68880edb981485213`.
@@ -117,7 +119,7 @@ Replay-sensitive nodes E186/E247/E248/E249/E250/E270 remain explicitly audited. 
 - APK: **0%**
 - Release: **0%**
 
-Overall project progress remains approximately **60%**. Scenario QA remains approximately **89%**; S06 is **58%**, S09 is **62%**, S10 is **74%**, S11 is **58%**, S12 is now **89%**, and Endings / precedence is **72%**. These source-QA percentages must not be conflated with overall project completion or runtime/Android readiness.
+Overall project progress remains approximately **60%**. Scenario QA is now **≈90%**; S06 is **58%**, S09 is **62%**, S10 is **74%**, S11 is **58%**, and S12 is **90%**. These source-QA percentages must not be conflated with overall project completion or runtime/Android readiness.
 
 ## Honest progress rule
 Documentation alone never makes implementation complete. Source edits count only when authoritative evidence is changed/re-read. No block is ready until its applicable verification passes.
