@@ -12,7 +12,7 @@ The registry deliberately records OPEN rows instead of inventing producers.
 
 ## Current canonical status
 
-E271/E272 close the authored border-crisis declaration/resolution lifecycle. The latest QA pass also identified and specified a circular guild-logistics dependency: E136-B is the earlier cooperation source, E194 consumes its history marker, and E194-A supplies the later neutral-inspector qualification. This correction is source-level only until the authoritative event catalogs are safely edited.
+E271/E272 close the authored border-crisis declaration/resolution lifecycle. The latest QA pass identified and corrected a circular guild-logistics dependency: E136-B is the earlier cooperation source, E194 consumes its history marker, and E194-A supplies the later neutral-inspector qualification. The authoritative catalogs now contain that source correction and have been re-read. Semantic collision distinctions for E55/E269 and E36/E226 have also been applied directly to the authoritative E211–E270 catalog without renumbering IDs.
 
 ## Registry
 
@@ -32,7 +32,7 @@ E271/E272 close the authored border-crisis declaration/resolution lifecycle. The
 | `history.cross_faction_package` | history | E148-A | E149/E201/E261+ | VERIFIED PRODUCER | package != cooperation qualification |
 | `history.house_assembly` | history | E161-A | E162/E202/E261+ | VERIFIED PRODUCER | durable house representation |
 | `history.guild_representation` | history | E144-A/E144-B | E203+ | VERIFIED PRODUCER | both E144 choices establish same representation fact |
-| `history.guild_logistics_cooperation` | history | E136-B candidate source; E194-A later qualification marker | E194+ | SOURCE CHAIN SPECIFIED | E136-B is upstream; E194 must no longer require the final predicate as its own trigger |
+| `history.guild_logistics_cooperation` | history | E136-B; E194-A later qualification marker | E194+ | VERIFIED SOURCE CHAIN | E136-B is the upstream history producer; E194 consumes it and later establishes neutral inspection |
 | `thread.border_crisis` | thread | E271-A declaration; E272-A/B resolution | E195/E240/E251/E253+ | VERIFIED SOURCE LIFECYCLE / RUNTIME OPEN | declaration and resolution are distinct authored stages |
 | `history.border_crisis_resolved_diplomatically` | history | E272-A | later callbacks/ending QA | VERIFIED PRODUCER | preserves historical declaration while recording diplomatic resolution |
 | `history.border_crisis_resolved_by_guarantee` | history | E272-B | later callbacks/ending QA | VERIFIED PRODUCER | preserves historical declaration while recording security resolution |
@@ -44,7 +44,7 @@ E271/E272 close the authored border-crisis declaration/resolution lifecycle. The
 | `pred.food_stable` | predicate/marker | E138/E167/E192 candidates | E192/E216/E225 | OPEN | deterministic definition required |
 | `pred.transport_disruption` | predicate | E136 repair producer + disruption source required | E192/E251+ | PARTIAL | E136 clears active disruption and establishes stable transport; disruption source remains open |
 | `pred.border_crisis` | predicate | E271-A declaration; E272-A/B resolution | E195/E253/E255+ | VERIFIED SOURCE LIFECYCLE / RUNTIME OPEN | active only after declaration and before resolution |
-| `pred.guild_logistics_cooperation` | predicate | E136-B upstream marker + E194-A neutral-inspector qualification | downstream guild/ending consumers | SOURCE CHAIN SPECIFIED / RUNTIME OPEN | qualification requires prior cooperation marker, neutral inspection, and no unresolved immunity-risk blocker; E194 no longer self-produces its prerequisite |
+| `pred.guild_logistics_cooperation` | predicate | E136-B upstream marker + E194-A neutral-inspector qualification | downstream guild/ending consumers | VERIFIED SOURCE CHAIN / RUNTIME OPEN | qualification requires prior cooperation marker, neutral inspection, and no unresolved immunity-risk blocker; E194 no longer self-produces its prerequisite |
 | `pred.guild_influence_strong` | predicate | E144/E165/E168 + logistics chain candidates | E200 | CONTRACT FROZEN / PRODUCERS OPEN | at least two distinct institutional guild domains; `rel.ivo` alone forbidden |
 | `pred.systemic_explanation_verified` | predicate | E132–E135/E232–E236 evidence candidates | E207/endgame | CONTRACT FROZEN / PRODUCER OPEN | three evidence domains plus explicit convergence decision |
 | `pred.coalition_cooperation` | predicate | E148-A + distinct faction evidence candidates | E201/E207/E261+ | CONTRACT FROZEN / PRODUCERS OPEN | package + 3 distinct faction identities + no collapse blocker |
@@ -56,7 +56,7 @@ E271/E272 close the authored border-crisis declaration/resolution lifecycle. The
 
 ## E211–E272 audit result
 
-E211–E270 contain useful authored markers but still require normalization of prose triggers, explicit producer enumeration, delayed/replay metadata, and graph/reachability reconciliation. E251–E255 remain crisis consumers. E271 closes the declaration source gap and E272 closes the authored active-crisis resolution gap. E256–E260 are constitutional stress tests and cannot retroactively create prerequisites. E261–E265 keep coalition cooperation distinct from route count and durability. E266–E270 are endgame character/evidence nodes, not automatic prerequisite producers.
+E211–E270 contain useful authored markers but still require normalization of prose triggers, explicit producer enumeration, delayed/replay metadata, and graph/reachability reconciliation. E251–E255 remain crisis consumers. E271 closes the declaration source gap and E272 closes the authored active-crisis resolution gap. E256–E260 are constitutional stress tests and cannot retroactively create prerequisites. E261–E265 keep coalition cooperation distinct from route count and durability. E266–E270 are endgame character/evidence nodes, not automatic prerequisite producers. E269 is now explicitly titled **Ivo's Late Account** and is authored as a late evidence consequence distinct from E55.
 
 ## Frozen combination rules
 
@@ -67,7 +67,7 @@ Qualification chain now has an explicit upstream/downstream split:
 3. E194-A establishes neutral inspection;
 4. absence of `guild_logistics_immunity_risk` permits the qualified predicate.
 
-This removes the prior self-dependency where E194 required the final predicate that its A choice was intended to establish. The exact catalog edit is specified in `docs/CANONICAL_SOURCE_CORRECTIONS_02.md` and remains pre-runtime.
+The authoritative catalogs now contain this correction. This removes the prior self-dependency where E194 required the final predicate that its A choice was intended to establish. Runtime predicate evaluation remains unimplemented.
 
 ### Strong guild influence
 At least two distinct institutional domains among guild representation, commercial institutional influence, market/credit leverage, guild tribunal outcome and durable guild logistics cooperation. Relationship level alone cannot qualify it.
@@ -89,12 +89,12 @@ E271-A is the explicit authored declaration producer. It requires an already act
 
 ## Remaining P0 work
 
-1. Apply the E136/E194 source correction without reconstructing or losing catalog text.
-2. Enumerate exact durable producers for every remaining domain used by the frozen combination rules.
-3. Expand this registry to every concrete durable flag/history marker in E01–E272 with exact consumers.
-4. Normalize remaining prose triggers and aliases.
-5. Reconcile graph/catalog references and reachability.
-6. Verify delayed/replay source identities and exactly-once semantics across the full catalog.
+1. Enumerate exact durable producers for every remaining domain used by the frozen combination rules.
+2. Expand this registry to every concrete durable flag/history marker in E01–E272 with exact consumers.
+3. Normalize remaining prose triggers and aliases.
+4. Reconcile graph/catalog references and reachability.
+5. Verify delayed/replay source identities and exactly-once semantics across the full catalog.
+6. Apply downstream verification for the E55/E269, E36/E226, E37/E227, E39/E229 and E40/E241 distinctions.
 
 ## Gate
 
