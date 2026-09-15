@@ -6,10 +6,9 @@ Current authored scope: **E01–E272**.
 
 This backlog tracks canonical production readiness. Documentation completion alone does not constitute implementation or runtime readiness.
 
-## Source inventory
-
 - [x] Authored source ranges inventoried.
 - [x] Stable event IDs inventoried through E01–E272.
+- [x] E35–E40 confirmed as canonical authored nodes; downstream distinctions remain separate QA work.
 - [x] Duplicate-title / semantic-collision review initiated.
 - [x] Canonical namespaces reviewed.
 - [x] Semantic collision policy recorded.
@@ -21,8 +20,7 @@ This backlog tracks canonical production readiness. Documentation completion alo
 - [ ] Flag/history/thread producers fully enumerated.
 - [ ] Relationship mutations and gates fully enumerated.
 - [ ] Delayed-consequence source/consumer registry fully reconciled.
-- [ ] E35–E40 legacy source-ID conflict fully resolved in canonical catalog.
-- [ ] Legacy → canonical ID mapping fully reconciled.
+- [ ] Legacy → canonical ID mapping fully reconciled where historical comparison documents still use old wording.
 
 ## Consistency audit
 
@@ -39,7 +37,7 @@ This backlog tracks canonical production readiness. Documentation completion alo
 - [x] Apply and verify E36/E226 resolution in canonical catalog.
 - [ ] Verify downstream distinctions E37/E227, E39/E229, E40/E241.
 
-The E55/E269 and E36/E226 boxes are now checked because the authoritative catalog edits were applied and subsequently recorded by commit `2fa9be1c586117126c4778598ab509ebe5107389`. This does **not** close their downstream graph/reachability QA.
+E35–E40 are not a renumbering/exclusion problem. The authoritative Act V source explicitly continues E01–E34, and E38-A is a verified producer of `hereditary_seats_limited`. See `docs/CANONICAL_SCOPE_RECONCILIATION_01.md`.
 
 ## Delayed consequences / replay
 
