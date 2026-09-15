@@ -7,13 +7,7 @@ Expansion candidates E273–E277 are tracked separately and are not admitted to 
 
 ## Purpose
 
-This inventory converts the latest source audits into explicit producer records without inventing runtime facts. It distinguishes:
-
-- source-closed producers;
-- source-closed lifecycle pairs;
-- candidate producer sets;
-- unresolved consumers;
-- legacy vocabulary that must be normalized before schema freeze.
+This inventory converts the latest source audits into explicit producer records without inventing runtime facts. It distinguishes source-closed producers, source-closed lifecycle pairs, candidate producer sets, unresolved consumers, and legacy vocabulary that must be normalized before schema freeze.
 
 A trigger phrase is not a producer. A consumer cannot manufacture its own prerequisite.
 
@@ -39,6 +33,9 @@ A trigger phrase is not a producer. A consumer cannot manufacture its own prereq
 | `pred.border_crisis` | E271 | A | Declares active border crisis | CLOSED at source level |
 | clear `pred.border_crisis` | E272 | A/B | Resolves declared active crisis | CLOSED at source level |
 | `army_constitution_oath` / military constitutional evidence | E199 | A | Explicit army constitutional oath route | STRONG |
+| `auditor_independence` | E142 | A | Explicit independent auditor route | CLOSED at source level |
+| `crown_audited` | E154 | A | Explicit Crown audit route | CLOSED at source level |
+| `legislative_budget_lock` | E198 | A | Explicit legislative budget-lock route | CLOSED at source level |
 
 ### Transport-disruption reconciliation
 
@@ -58,8 +55,8 @@ The unresolved portion is runtime lifecycle semantics only: save/load persistenc
 | E242 | prior noble exception | E118-B explicit, possibly broader set | PARTIAL; no generic alias |
 | E243 | `public bridge investment` | E18-B → `public_bridge` | SOURCE-EQUIVALENT; normalize vocabulary |
 | E244 | `flexible accounts` | E09-B | source-closed |
-| E245 | `compensation route` | E125-A + E156-A candidates | OPEN; explicit single-source or authored union required |
-| E246 | `price ceiling` | E160-A → `winter_rent_ceiling` | CONDITIONAL; explicit vocabulary normalization required |
+| E245 | `compensation route` | E20-A / E125-A / E156-A candidates | OPEN; authoritative single-source or explicitly authored composite/family rule required |
+| E246 | `price ceiling` | E160-A → `winter_rent_ceiling` | SOURCE-CLOSED; lifecycle and vocabulary normalization remain open |
 
 ## 3. Derived predicates whose producer domains are frozen but not fully compiled
 
@@ -97,27 +94,27 @@ Required evidence families:
 - document/language;
 - witness/organizational.
 
-A raw clue count is forbidden. An explicit convergence decision is required.
+A raw clue count is forbidden. An explicit convergence decision is required. Current source-backed candidates are recorded by S12.26; the immutable convergence producer/key remains open.
 
-**Status: PARTIAL — exact authored evidence IDs still to be compiled.**
+**Status: PARTIAL — evidence-family identities materially frozen; exact convergence producer remains open.**
 
 ### `pred.coalition_cooperation`
 
-E148-A is the authoritative cooperation-package source. Qualification requires explicit participant identities, positive cooperation outcome and absence of an unresolved collapse blocker. `pred.faction_routes_4` is not an alias.
+E148-A is the authoritative cooperation-package source candidate. Qualification requires explicit participant identities, positive cooperation outcome and absence of an unresolved collapse blocker. `pred.faction_routes_4` is not an alias. E261-A `four_way_bargain` alone is insufficient.
 
 **Status: PARTIAL.**
 
 ### `pred.budget_reform`
 
-The following institutional layers remain distinct:
+The source-closed institutional layers are:
 
-- auditor independence;
-- Crown audit;
-- legislative/independent budget lock.
+- E142-A → `auditor_independence`;
+- E154-A → `crown_audited`;
+- E198-A → `legislative_budget_lock`.
 
-No single flag may stand in for all three.
+Negative blockers are E142-B, E154-B and E198-B. E155-A `full_crown_audit_published` is same-domain downstream evidence and cannot count as a second independent domain.
 
-**Status: OPEN.**
+**Status: SOURCE-CLOSED — runtime lifecycle/invalidation/reachability still open.**
 
 ## 4. Replay meta-state
 
@@ -166,7 +163,7 @@ The next pass must compile, from the authoritative catalogs:
 
 ## Gate
 
-**Producer inventory: materially improved, not complete.**
+**Producer inventory: reconciled against S12.24–S12.28 source findings, but not complete.**
 
 **Production schema: BLOCKED.**
 
