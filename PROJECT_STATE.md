@@ -21,7 +21,7 @@ No mock/stub gameplay or premature production-readiness claims.
 **Narrative/content canonicalization and QA.** Authored checkpoint E01–E272. Production schema and Decision Engine remain blocked until canonical contracts and reachability are sufficiently closed.
 
 ## Scenario QA
-Dedicated Scenario QA score is now approximately **72%**. This is distinct from overall project completion and is not runtime/Android readiness.
+Dedicated Scenario QA score is now approximately **73%**. This is distinct from overall project completion and is not runtime/Android readiness.
 
 ### S01–S12 working indicators
 - S01 **80%**
@@ -35,27 +35,17 @@ Dedicated Scenario QA score is now approximately **72%**. This is distinct from 
 - S09 **60%**
 - S10 **72%**
 - S11 **55%**
-- S12 **51%** — S12.16 completed an E272 source-availability/blocking audit. Exact authored E272 branch tokens remain unrecovered; they must not be invented. Exhaustive machine graph, exact systemic convergence evidence, reachability and ending precedence remain open.
+- S12 **53%** — S12.16 completed E272 source-availability/blocking audit; S12.17 normalized composite predicate source closure; S12.18 audited producer-before-consumer ordering. Exact authored E272 branch tokens, exact systemic convergence evidence, exhaustive graph closure, fresh-run/replay reachability and ending precedence remain open.
 
 ## Latest QA work
+- **S12.18** added `docs/SCENARIO_QA_S12_18_COMPOSITE_PRODUCER_ORDER_AUDIT_01.md`, commit `33df93136f52883c4c897e414b0640fb6db89b56`.
+- **S12.17** added `docs/SCENARIO_QA_S12_17_PREDICATE_SOURCE_CLOSURE_MATRIX_01.md`, commit `862e6565ca83c1fc3d5bcb4ffac945c1bb14c885`.
 - **S12.16** added `docs/SCENARIO_QA_S12_16_E272_SOURCE_AVAILABILITY_AUDIT_01.md`, commit `1a4c7ea256409116b5129129d02f45aee886c0fb`.
-- **S12.15** added `docs/SCENARIO_QA_S12_15_COMPOSITE_EVIDENCE_IDENTITY_REGISTRY_01.md`, commit `583b9ce826581a88dfbf7bf752f3eeb891b4c018`.
-- **S12.15** reconciled `docs/CANONICAL_PRODUCER_CONSUMER_REGISTRY_01.md` with composite evidence/budget findings, commit `5e8ca0f1348ee812b53a4de2160fb17000cd1b3e`.
+- **S12.15** added `docs/SCENARIO_QA_S12_15_COMPOSITE_EVIDENCE_IDENTITY_REGISTRY_01.md`, commit `583b9ce826581a88b8ee2c310b7228b5e145a2b`.
+- **S12.15** reconciled `docs/CANONICAL_PRODUCER_CONSUMER_REGISTRY_01.md` with composite evidence/budget findings.
 - **S12.14** added `docs/SCENARIO_QA_S12_14_DELAY_IDENTITY_GATE_01.md`, commit `69b4b5136cb1ababbc95889f8d3df4f9c528b8b7`.
 - **S12.13** added `docs/SCENARIO_QA_S12_13_LATE_CONSUMER_SOURCE_MATRIX_01.md`, commit `4d500908cd9730f8f3c4dcd0e60f315e5f75d8f3`.
 - **S12.12** added `docs/SCENARIO_QA_S12_12_ENDGAME_SOURCE_REGISTRY_01.md`, commit `69cfd11651be41e489ab2c4c35e32071c8956132`.
-- **S12.7** added `docs/SCENARIO_QA_S12_7_P0_IDENTITY_NORMALIZATION_CONTRACT_01.md`, commit `066584f94358c5584623097de2abc933c17ad4e3`.
-- **S12.6** added `docs/SCENARIO_QA_S12_6_P0_MACHINE_DELTA_01.md`.
-- **S12.5** added `docs/SCENARIO_QA_S12_5_P0_AUTHORITATIVE_SOURCE_RECONCILIATION_01.md`, commit `f0c1daac7693cb60040b1e6aa270ff68ce47bbd4`.
-- **S12.4** added `docs/SCENARIO_QA_S12_4_SOURCE_PATCH_APPLICATION_GATE_01.md`, commit `17a74ef695cd0f9b94e2a20b80f3669dbda0cd74`.
-- **S12.3** added `docs/SCENARIO_QA_S12_3_CANONICAL_INVARIANT_AUDIT_01.md`, commit `860444b28cd6e3e36024f9ebf9609b80532efa07`.
-- **S12.2** added `docs/SCENARIO_QA_S12_2_SOURCE_CLOSURE_DELTA_AUDIT_01.md`, commit `6c8e82e825e7bcbeeb9d6f105ed7f4f9fd744559`.
-- **S12.1** added the machine-oriented reachability anchor inventory in commit `a61ac9de61f4c448c511e123be38cea12b3b0f5b8`.
-- Canonical budget reform source closure identifies E142-A `auditor_independence`, E154-A `crown_audited` and E198-A `legislative_budget_lock` as the three-domain source set. Executable qualification remains partial.
-- S11 ending audit established consumer-only ending qualification and rejected generic-score/consumer-as-producer shortcuts.
-- S10.5 closed the semantic QA boundary for delayed lifecycle, persistence and replay isolation while executable callback contracts remain open pending exact source extraction.
-- S10.4 reconciled delayed source identities for E181–E185 and E242–E246.
-- S09.8 normalized the closed dependency graph and rejected self-satisfaction, alias leakage and E273–E277 contamination.
 
 ## Authoritative P0 source status
 Confirmed in authored catalog text:
@@ -116,21 +106,21 @@ Delayed consequences require source choice/event, earliest turn, latest turn or 
 - Authored content: **90%**
 - Canonical Event IDs / continuity: **100%**
 - Producer / Consumer QA: **99%**
-- Derived predicates / machine contracts: **94%**
+- Derived Predicates / Machine Contracts: **95%**
 - Delayed Consequences: **91%**
 - Replay / Meta-state: **61%**
 - Endings / precedence: **69%**
-- Reachability / causal graph: **56%**
-- Production data schema: **36%**
+- Reachability / causal graph: **58%**
+- Production Data Schema: **36%**
 - Decision Engine: **0%**
 - UI / UX: **0%**
 - Localization 20+: **5%**
-- Android implementation: **0%**
+- Android Implementation: **0%**
 - Runtime / Android QA: **0%**
 - APK: **0%**
 - Release: **0%**
 
-Overall project progress is approximately **59%**. Scenario QA is approximately **72%** and must not be conflated with overall project completion.
+Overall project progress remains approximately **59%**. Scenario QA is approximately **73%** and must not be conflated with overall project completion.
 
 ## Next autonomous work
 1. Recover exact E272 authored source if present in repository history or alternate authoritative source material; never invent tokens.
