@@ -1,67 +1,63 @@
-# Choice Kingdom — Canonicalization Execution Backlog
+# Choice Kingdom — Canonicalization Backlog
 
-Status: **ACTIVE**
-Scope: **E01–E272**
+## Scope
 
-## Phase A — inventory
+Current authored scope: **E01–E272**.
 
-- [x] Identify authored source ranges.
-- [x] Establish stable event ID range E01–E272.
-- [x] Identify duplicate display titles.
-- [x] Establish canonical namespaces for state/history/thread/delay/ending/meta.
-- [ ] Extract every authored trigger token into a machine-readable inventory.
-- [ ] Extract every authored flag producer into a machine-readable inventory.
-- [ ] Extract every relationship mutation/gate.
-- [ ] Extract every delayed consequence.
-- [ ] Resolve E35–E40 source-ID conflict between `EVENT_CATALOG.md` and `EVENT_CATALOG_ACT_V_EXPANSION.md`.
-- [ ] Create explicit legacy-to-canonical ID mapping for any retained superseded nodes.
-- [x] Freeze semantic collision resolution policy in `docs/SEMANTIC_COLLISION_RESOLUTION_01.md`.
+This backlog tracks canonical production readiness. Documentation completion alone does not constitute implementation or runtime readiness.
 
-## Phase B — consistency
+## Source inventory
 
-- [ ] Producer/consumer validation for flags.
+- [x] Authored source ranges inventoried.
+- [x] Stable event IDs inventoried through E01–E272.
+- [x] Duplicate-title / semantic-collision review initiated.
+- [x] Canonical namespaces reviewed.
+- [x] Semantic collision policy recorded.
+- [x] Exact-source compare E73/E156 completed; source-level distinction confirmed.
+- [x] Exact-source compare E99/E173 completed; source-level distinction confirmed.
+- [x] Border-crisis producer discovery completed at source level through E271–E272; graph integration remains open.
+- [ ] Machine-readable trigger token inventory fully reconciled.
+- [ ] Flag/history/thread producers fully enumerated.
+- [ ] Relationship mutations and gates fully enumerated.
+- [ ] Delayed-consequence source/consumer registry fully reconciled.
+- [ ] E35–E40 legacy source-ID conflict fully resolved in canonical catalog.
+- [ ] Legacy → canonical ID mapping fully reconciled.
+
+## Consistency audit
+
+- [ ] Producer → consumer validation across E01–E272.
 - [ ] Duplicate semantic flag detection.
 - [ ] Undefined trigger detection.
 - [ ] Impossible prerequisite detection.
-- [ ] Event incoming-edge audit.
-- [ ] Event outgoing-consequence audit.
+- [ ] Incoming-edge audit.
+- [ ] Outgoing-edge audit.
 - [ ] Branch rejoin audit.
-- [ ] Mutually exclusive branch audit.
-- [ ] Reconcile `EVENT_GRAPH.md` against the frozen canonical ID mapping.
-- [ ] Apply the E55/E269 and E36/E226 semantic resolutions to the authoritative catalog.
-- [x] Exact-source compare E73/E156 and E99/E173; both pairs are confirmed distinct source-level nodes.
+- [ ] Mutually-exclusive branch audit.
+- [ ] Full graph ↔ catalog reconciliation.
+- [ ] Apply and verify E55/E269 resolution in canonical catalog.
+- [ ] Apply and verify E36/E226 resolution in canonical catalog.
+- [ ] Verify downstream distinctions E37/E227, E39/E229, E40/E241.
 
-## Phase C — delayed/replay
+## Delayed consequences / replay
 
-- [ ] Normalize all prose delay descriptions.
-- [ ] Assign exactly-once IDs.
-- [ ] Define cancellation/supersession cases.
-- [ ] Separate current-run state from meta progression.
-- [ ] Audit every replay-only trigger.
+- [ ] Stable consequence IDs.
+- [ ] Source → consequence mapping.
+- [ ] Earliest/latest turn constraints.
+- [ ] Exactly-once semantics.
+- [ ] Replay metadata and second-run conditions.
+- [ ] Invalidated / superseded consequence handling.
 
-## Phase D — pacing/balance
+## Pacing / balance
 
-- [ ] Map event pressure by act and turn window.
-- [ ] Identify resource-death spirals.
-- [ ] Identify dominant choices.
-- [ ] Identify choices that are mathematically nonviable too often.
-- [ ] Verify crisis preparation has measurable downstream benefit.
+- [ ] Resource-pressure audit.
+- [ ] Choice-impact audit.
+- [ ] Early/mid/late callback distribution.
+- [ ] Replay divergence audit.
+- [ ] Ending-path simulation.
+- [ ] Critical-prerequisite simulation.
 
-## Phase E — endings
+## Production catalog gate
 
-- [ ] Simulate Steward route.
-- [ ] Simulate Iron Crown route.
-- [ ] Simulate Golden Compact route.
-- [ ] Simulate People's Charter route.
-- [ ] Simulate Broken Diadem routes.
-- [ ] Simulate Quiet Throne routes.
-- [ ] Simulate Second Founder route.
-- [ ] Verify ending independence from one character relationship.
+**BLOCKED until the remaining producer/consumer, graph, delayed-consequence, reachability, ending, and source-ID audits are implemented and their results recorded.**
 
-## Phase F — production catalog gate
-
-The canonical production catalog may be declared ready only after the above audits are implemented and results are recorded. Documentation completion alone does not satisfy the gate.
-
-## Current rule
-
-Do not expand beyond E272 merely to increase the card count. Expand only when this backlog identifies a genuine missing narrative route or when QA demonstrates that a required ending/arc/pacing objective cannot otherwise be satisfied.
+The authoritative source-comparison record is `docs/LEGACY_SOURCE_COMPARISON_02.md`. The semantic-collision status is recorded in `docs/SEMANTIC_COLLISION_RESOLUTION_01.md`.
