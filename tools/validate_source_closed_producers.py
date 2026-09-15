@@ -14,7 +14,7 @@ excluded = set(manifest["scope"].get("excluded_events", []))
 expected = {f"E{i:02d}" for i in range(first, last + 1)} - excluded
 sources = manifest["source_of_truth"]["catalog_sources"]
 head_re = re.compile(r"^### (E\d{2,3}) — (.+)$", re.M)
-choice_re = re.compile(r"^- \*\*([AB])\b.*$", re.M)
+choice_re = re.compile(r"(?:^|\n)\s*(?:-\s*)?\*\*([AB])\s*(?:—|:|-)", re.M)
 
 blocks: dict[str, str] = {}
 for source in sources:
@@ -38,6 +38,10 @@ for row in manifest.get("source_closed_producers", []):
     block = blocks.get(event, "")
     if not block:
         errors.append(f"{fact}: producer event {event} missing from authored catalogs")
+        continue
+    if choice == "explicit crisis outcome":
+        if "pred.transport_disruption" not in block:
+            errors.append(f"{fact}: explicit crisis outcome contract missing from {event}")
         continue
     choices = {m.group(1) for m in choice_re.finditer(block)}
     wanted = {choice} if choice in {"A", "B"} else {"A", "B"}

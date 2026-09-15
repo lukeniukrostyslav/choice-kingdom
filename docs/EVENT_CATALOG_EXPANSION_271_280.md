@@ -62,3 +62,4 @@ After the border alarm has been formally declared, Rowan and the border council 
 - The historical declaration remains queryable for later callbacks and ending qualification.
 
 <!-- S23 trigger marker: canonical border trigger normalization must be included in the next exhaustive source inventory. -->
+<!-- S24 verification marker: source-closed producer contract is re-executed against this canonical catalog on PR CI. -->
