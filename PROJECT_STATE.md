@@ -59,9 +59,12 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 - `docs/LEGACY_SEMANTIC_AUDIT_01.md` records the E35–E40 and duplicate-semantic audit findings.
 - `docs/SEMANTIC_COLLISION_RESOLUTION_01.md` freezes the resolution policy for confirmed/likely semantic collisions before schema freeze.
 - `docs/LEGACY_SOURCE_COMPARISON_02.md` closes E73/E156 and E99/E173 as distinct source-level nodes.
+- `docs/CANONICAL_SOURCE_CORRECTIONS_02.md` records the applied E136/E194 guild-logistics cycle correction.
 
 ## Current QA checkpoint
-The E111–E210 authoritative catalogs have received direct authored-source correction passes. E192 uses canonical food-logistics markers instead of a sixth numeric resource; E194 records durable guild logistics cooperation; E197/E200/E201 consume canonical qualification predicates; E207 records its distinct-evidence convergence requirement; E209 requires upstream final charter prerequisites; and E210 is explicitly convergence-only. E136/E144/E148 were also directly normalized for transport repair, guild representation and cross-faction package semantics.
+The E111–E210 authoritative catalogs have received direct authored-source correction passes. E136-B now establishes the immutable upstream `history.guild_logistics_cooperation` marker, and E194 now consumes that history marker rather than the qualified predicate. E194's neutral-inspector choice remains the later qualification input; immunity risk explicitly blocks qualification. This removes the identified E194 self-dependency at the authored-source level.
+
+E192 uses canonical food-logistics markers instead of a sixth numeric resource; E197/E200/E201 consume canonical qualification predicates; E207 records its distinct-evidence convergence requirement; E209 requires upstream final charter prerequisites; and E210 is explicitly convergence-only. E144/E148 remain normalized for guild representation and cross-faction package semantics.
 
 E271 now provides an explicit authored source for border-crisis declaration, while E272 provides the corresponding authored active-crisis resolution paths. The historical declaration remains queryable after resolution; only the active crisis predicate is cleared. E195/E253/E255 remain consumers and cannot manufacture the crisis by reachability.
 
@@ -72,14 +75,12 @@ The legacy semantic audit confirmed a P0 collision between E55 and E269 (same ti
 Reachability remains static/pre-audit only until a real validator and production data representation exist. No engine/APK readiness claim is permitted at this stage.
 
 ## Latest source-level commits
-- `2700f3ffb92c47ae992887efcd8e06c42eb65d0f` — synchronized canonicalization backlog after confirming E73/E156 and E99/E173 are distinct.
-- `c860391ab31f6e1fdf5a1b8354552c4b013d8ec1` — synchronized README with the actual E01–E272 authored checkpoint.
-- `d6124c4d4f9e4901e107aad3dc12cc61e70cbde2` — closed E73/E156 and E99/E173 source comparison as distinct.
-- `f8147d881d54a28d27c72161b2acbb327063bdc4` — froze semantic collision resolution policy before schema.
-- `b30eeb6c1874c1c666e366e9555b42d3d4145ea2` — updated canonicalization backlog through E272.
-- `f573dbe45661a9cd7a8b836dcf2efdb8e94a7fd0` — added E272 border-crisis resolution bridge.
-- `7bb42f5c6c4da194004631bd4944188c1eab52b6` — refreshed canonical producer/consumer registry through E272.
-- `dc97cd981bdd047084e5e07d3bc07cd8ba4e2636` — recorded legacy/duplicate semantic audit.
+- `d529ff3d0a44bcb4c7cce54d70103e0b78883686` — applied E136-B upstream guild-logistics history marker.
+- `c08379167f311c3ce674ace63475f3be839855a8` — changed E194 to consume the upstream guild-logistics history marker and documented qualified predicate derivation.
+- `33d9cd1c9c7ffe2f88358994aa043a643d4a2a33` — synchronized correction record as applied and verified.
+- `201c8cae2b1009b6480a4b17be5af1d6384df75b` — synchronized canonicalization backlog through E272.
+- `434eec31c66a8afd6052719235e9838cfeae9da8` — updated E211–E270 canonical audit.
+- `e8708b363dac9fa87439c8cf1d85edf2c6535d` — updated semantic collision resolution source audit.
 
 ## Next highest-value work
 1. Apply the frozen E55/E269 and E36/E226 semantic resolutions to the authoritative catalogs without silent renumbering.
