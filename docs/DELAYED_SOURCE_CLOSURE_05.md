@@ -1,6 +1,6 @@
 # Choice Kingdom — Delayed Source Closure 05
 
-Status: **SOURCE-LEVEL QA — PARTIAL CLOSURE**
+Status: **SOURCE-LEVEL QA — PARTIAL CLOSURE**  
 Scope: E181–E185 and E242–E246.
 
 ## Purpose
@@ -18,7 +18,7 @@ Close producer identity only where the authored catalog provides an exact source
 | E185 Cheap Steel Remembered | `cheap_weapons` + later military crisis | E17 | A — cheap weapons procurement | later crisis; no fixed numeric delay | OPEN: crisis-resolution condition, exactly-once, cancellation/supersession, deterministic target |
 | E242 Renewed Exception | prior noble exception | E118-B is an explicit candidate source; other exception producers may exist | transitional exception | 6+ turns | OPEN: complete producer set and whether any other producer creates same semantic fact |
 | E243 Old Bridge | public bridge investment | **NOT SOURCE-CLOSED** | **NOT IDENTIFIED** | 5+ turns | OPEN: exact source event/choice + lifecycle |
-| E244 Audit Comes Due | flexible accounts | **NOT SOURCE-CLOSED** | **NOT IDENTIFIED** | 5+ turns | OPEN: exact producer + failure-resolution semantics + lifecycle |
+| E244 Audit Comes Due | `flexible_accounts` | **E09-B** | B — Keep the system flexible | 5+ turns | OPEN: exact delay key, failure-resolution semantics, cancellation/supersession, save/load and exactly-once |
 | E245 Soldier's Son Returns | compensation route | **NOT SOURCE-CLOSED** | **NOT IDENTIFIED** | 6+ turns | OPEN: exact compensation producer + lifecycle |
 | E246 Price Ceiling Memory | price ceiling | E160 | A — temporary rent/price ceiling route | 5+ turns | OPEN: verify semantic identity of `price ceiling` vs authored `winter_rent_ceiling`; do not alias without normalization |
 
@@ -43,13 +43,13 @@ E17-A is the known producer of `cheap_weapons`. The second half of the trigger i
 E118-B is an explicit source of `estate_exception`, but the phrase "any prior noble exception" is broader than one producer. Before runtime, the producer registry must decide whether E242 intentionally consumes only `estate_exception` or a closed set of additional canonical exception facts. No generic "noble exception" alias should be invented.
 
 ### E243
-`public bridge investment` is not yet mapped to an exact canonical source choice in this closure pass. Do not use E224 merely because it mentions bridge safety; semantic proximity is insufficient.
+`public bridge investment` is not yet mapped to an exact canonical source choice in this closure pass. E45-A establishes `public_infrastructure_trust`, while E45-B establishes `infrastructure_concession`; neither is treated as a silent alias for an investment fact. Do not use E224 merely because it mentions bridge safety; semantic proximity is insufficient.
 
 ### E244
-`flexible accounts` requires an exact source. It must not be manufactured from any event that merely discusses auditing, borrowing or accounting.
+`flexible accounts` has an exact authored producer: E09-B explicitly creates the `flexible_accounts` flag. E244 therefore consumes E09-B's source identity. This closes producer identity only; it does not close the delayed callback lifecycle or the semantic meaning of the later accounting failure.
 
 ### E245
-`compensation route` requires an exact source. Border compensation, requisition compensation and other compensation outcomes must be distinguished before a single producer is selected.
+`compensation route` requires an exact source. The catalog contains multiple compensation outcomes, including requisition compensation and border compensation. They cannot be collapsed into one generic producer without an authored normalization decision. No producer is selected in this pass.
 
 ### E246
 The authored event E160 uses `winter_rent_ceiling`, while E246 says `price ceiling`. These are not automatically identical. Trigger normalization must explicitly decide whether E246 is intended to consume E160-A or another canonical price-control producer.
@@ -75,12 +75,9 @@ No callback is runtime-ready merely because producer identity and timing are kno
 
 ## Gate result
 
-**Producer identity fully closed:** E181, E182, E183, E185.
-
-**Producer identity partially closed:** E242 (known explicit source, complete producer set still open).
-
-**Producer identity open:** E184, E243, E244, E245, E246 semantic normalization.
-
+**Producer identity fully closed:** E181, E182, E183, E184? **No**, E185, **E244**.  
+**Producer identity partially closed:** E242 (known explicit source, complete producer set still open).  
+**Producer identity open:** E184, E243, E245, E246 semantic normalization.  
 **Runtime implementation:** not started.
 
 This document is intentionally conservative: unresolved producer identity remains OPEN rather than being guessed.
