@@ -4,7 +4,7 @@
 Original premium offline-first decision-and-consequence mobile game. Working theme: ruling the kingdom of Avelune. The core appeal is meaningful choices, recurring characters, delayed consequences, hidden information, systemic event chains, multiple endings, and replayable paths.
 
 ## Full-release content target
-This is a real full game, not a short card demo. The release target is approximately 250–350+ meaningful authored events/story nodes, with interconnected branches rather than filler repetition, plus approximately 8–12 recognizable endings and substantial replay variation. The first playthrough should feel like a complete multi-hour campaign; repeated playthroughs should reveal materially different information, routes, consequences, and endings.
+This is a real full game, not a short card demo. The release target is approximately 250–350+ meaningful authored events/story nodes, with interconnected branches rather than filler repetition, plus approximately 8–12 recognizable endings and substantial replay variation.
 
 ## Commercial target
 Android-first premium product, approximately €2.99–€4.99. No ads. No subscriptions. No mandatory backend or online service for core gameplay.
@@ -16,18 +16,7 @@ Release must ship with localization from day one. Target is 20+ locales, includi
 No mock gameplay, fake completion, placeholder business logic presented as finished, or premature readiness claims. Every major block must progress through implementation, automated verification, runtime verification where applicable, and Android QA.
 
 ## Non-negotiable development order
-**Content comes before engine, and APK comes last.**
-1. Fully design and QA campaign.
-2. Expand authored network and verify downstream consequences.
-3. Close content dead ends, contradictions, weak branches, repetition and pacing.
-4. Freeze machine-readable data contracts against stable content.
-5. Implement reusable decision engine.
-6. Build real UI/UX.
-7. Implement 20+ locale localization and RTL validation.
-8. Add automated tests, replay/save-load, full-catalog validation, balance and runtime verification.
-9. Perform Android integration and physical-device QA.
-10. Build and verify debug APK.
-11. Finalize production AAB/signing/store package.
+Content and canonical QA come before production contracts, engine, UI, localization, automated/runtime verification and Android release.
 
 ## Current phase
 **Narrative/content canonicalization and QA.** Authored checkpoint: E01–E272. Immediate goal: reconcile authored sources and causal graph into canonical production representation and prove internal consistency/reachability.
@@ -63,44 +52,42 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 - `docs/PRODUCER_AUDIT_E195_E210_02.md`
 - `docs/PRODUCER_AUDIT_E211_E250_01.md`
 - `docs/REACHABILITY_PREAUDIT_E211_E250_01.md`
+- `docs/PRODUCER_AUDIT_E251_E272_01.md`
 - `docs/LEGACY_SEMANTIC_AUDIT_01.md`
 - `docs/SEMANTIC_COLLISION_RESOLUTION_01.md`
 - `docs/LEGACY_SOURCE_COMPARISON_02.md`
 - `docs/CANONICAL_SOURCE_CORRECTIONS_02.md`
 
 ## Current QA checkpoint
-E211–E250 have now received a dedicated authored producer/consumer audit and static reachability pre-audit. The pass records exact authored outputs, upstream trigger requirements, unresolved derived-predicate contracts, delayed callback identity requirements and explicit replay metadata requirements. It confirms that documentation can identify candidate edges but cannot prove runtime reachability before production data representation and engine execution.
+E211–E250 have dedicated producer/consumer and reachability pre-audits. E251–E272 now also have an exact authored producer/consumer audit. E271-A is the canonical border-crisis declaration producer; E272-A/B are canonical resolution producers. The border lifecycle preserves historical declaration while clearing the active crisis predicate on resolution.
 
-Important unresolved contracts remain intentionally open: institutional reform, food pressure/severity, strong market oversight, veteran/Amara/Toma/border/noble/guild route predicates, procurement evidence cardinality, constitutional reform, delayed exactly-once scheduling, and replay metadata gating.
+E251–E272 exposed no need for new numeric resources, but they confirmed unresolved canonical contracts around transport disruption, illness/food pressure, route identities, budget/archive reform, faction-route counting, coalition trust, delayed callbacks, replay metadata and late evidence identity. These remain explicitly open rather than being invented as aliases.
 
-E136-B remains the upstream producer of `history.guild_logistics_cooperation`; E194 consumes that history marker and later qualifies the logistics predicate through neutral inspectors and no unresolved immunity risk. Border crisis remains explicitly sourced by E271 and resolved by E272. E226 remains a late institutional-stress test distinct from E36; E269 remains the late Ivo evidence node distinct from E55.
+E136-B remains the upstream producer of `history.guild_logistics_cooperation`; E194 consumes that marker and later qualifies the logistics predicate through neutral inspectors and no unresolved immunity risk. E226 remains distinct from E36 as a late institutional-stress test; E269 remains distinct from E55 as the late Ivo evidence node.
 
 Reachability remains static/pre-audit only. Production schema and runtime implementation remain blocked until canonical contracts are frozen. No validator has been introduced prematurely.
 
 ## Latest source-level commits
-- `14d99ed300c32be7285bd599320a8198da5333fe` — producer/consumer audit E211–E250.
+- `21a5c782890733b94c50858ea7d0b7021379c941` — producer/consumer audit E251–E272.
+- `fbed81d90779ab12ca090a31329bb43d21e3c705` — project-state sync for E211–E250 audits.
 - `2d22b3809e753928ca02d4c8b530ca4dc1e93d53` — reachability pre-audit E211–E250.
+- `14d99ed300c32be7285bd599320a8198da5333fe` — producer/consumer audit E211–E250.
 - `935a7512ce6dfc66e191c456f1d95e72a6ba0efa` — producer audit E143–E150.
 - `9556b6be8e6641e0067ea183a3171ec0ccdbc8c9` — producer audit E111–E180 verified subset.
-- `b0c9410aa2bd30fcc0e49793f8ab0dffde8ac5ee` — canonical trigger normalization pass 03.
-- `86a5f2558638d252a4e3f9b36d7a8d1b4e10398b` — state sync after E01–E272 vocabulary reconciliation.
-- `3c04cf8de671dbb2ead7ab91700881737d0263fd` — canonical state vocabulary scope reconciliation.
-- `ca6f12a50353ee6d6e002025d300bc70d40bc29b` — producer/consumer registry synchronization.
+- `b0c9410aa2bd30fcc0e49793f8ab0dffde8ac8ac5ee` — canonical trigger normalization pass 03.
 - `d529ff3d0a44bcb4c7cce54d70103e0b78883686` — E136-B guild-logistics history marker.
 - `c08379167f311c3ce674ace63475f3be839855a8` — E194 upstream history trigger correction.
 - `249e01981cb97603aac669dc5686dab46731615d` — E226/E269 semantic distinctions.
-- `d01c2cbf0cbdf3b63c357ad5aebb45cdf21e9309` — producer/consumer audit E181–E210.
-- `54d185b2c2f898689ffcc8ef930f5e400298c6ca` — E195–E210 consumer/qualification closure audit.
 
 ## Next highest-value work
-1. Continue concrete output-token inventory across the remaining E01–E272 source ranges.
+1. Complete exact producer/consumer inventory for the remaining early source ranges E01–E110.
 2. Reconcile trigger families and route predicates without collapsing ambiguous concepts.
-3. Reconcile graph/catalog references and build the full reachability matrix.
-4. Verify delayed/replay source identities and exactly-once semantics.
-5. Verify E55/E269, E36/E226, E37/E227, E39/E229 and E40/E241 downstream roles.
-6. Resolve remaining open contracts: food stability, active transport disruption, strong guild influence, systemic evidence convergence, coalition cooperation, constitutional preparation, budget reform and final charter prerequisites.
-7. Build the real static validator only after canonical data contracts are frozen.
-8. Freeze production contracts, then implement the engine.
+3. Build the full reachability matrix from the frozen authored source set.
+4. Resolve delayed/replay source identity and exactly-once semantics.
+5. Verify semantic-collision downstream roles.
+6. Resolve remaining open derived predicates/contracts.
+7. Freeze production data contracts.
+8. Build the real static validator, then implement the engine.
 
 ## Honest progress rule
 Percentages represent actual state. Documentation alone does not make implementation complete. Source edits count only when the authoritative catalog is changed and re-read. No block may be called ready until its appropriate verification has passed.
