@@ -46,6 +46,7 @@ Content and canonical QA come before production contracts, engine, UI, localizat
 - `docs/CANONICAL_PRODUCER_CONSUMER_REGISTRY_01.md`
 - `docs/CANONICAL_CLOSURE_AUDIT_01.md`
 - `docs/CANONICAL_CONTRACT_CLOSURE_PASS_01.md`
+- `docs/CANONICAL_ROUTE_CONTRACT_01.md`
 - `docs/CANONICAL_TRIGGER_NORMALIZATION_03.md`
 - `docs/PRODUCER_AUDIT_E01_E070_01.md`
 - `docs/REACHABILITY_PREAUDIT_E01_E070_01.md`
@@ -67,11 +68,13 @@ Content and canonical QA come before production contracts, engine, UI, localizat
 ## Current QA checkpoint
 Producer inventories and static reachability pre-audits now cover the authored scope E01–E272. A consolidated `docs/FULL_REACHABILITY_CLOSURE_MATRIX_01.md` records the cross-range causal closure state and global blockers.
 
-A new `docs/CANONICAL_CONTRACT_CLOSURE_PASS_01.md` consolidates the remaining production-contract blockers and hard invariants. It confirms source-level closure for guild representation, guild logistics cooperation, and the border-crisis lifecycle while keeping food stability, transport disruption, winter severity, market pressure, guild labor tension, information pressure, route identity, evidence convergence, coalition semantics, constitutional preparation, final-charter prerequisites, delayed consequences, replay metadata and ending precedence explicitly open where source contracts are not yet sufficient.
+`docs/CANONICAL_CONTRACT_CLOSURE_PASS_01.md` consolidates production-contract blockers and hard invariants. `docs/CANONICAL_ROUTE_CONTRACT_01.md` now separately defines route identity versus relationship values, guild-influence qualification, constitutional preparation, coalition cooperation, evidence convergence, final-charter convergence, and the semantic separations for border/Mara/Ivo paths.
 
 The consolidated matrix remains **OPEN**, not a proof of runtime reachability. Reachability is static/pre-audit only. Production schema and runtime implementation remain blocked until canonical contracts are frozen. No validator has been introduced prematurely.
 
 ## Latest source-level commits
+- `52a057fada8bdd4e7c10c6955ec631667bba8dbf` — canonical route identity contract 01.
+- `d1110d8e2cf40c6558c686cbec87305d32644618` — project state synchronized after canonical contract closure pass 01.
 - `af9d308062ac57d7fbfb55e944a1f8a43c664c29` — canonical contract closure pass 01.
 - `1c34444d4cba9e6e5d0e3614afd45ba5dbb75dfb` — consolidated E01–E272 reachability closure matrix.
 - `422f22f38a7b92eee1e9b5f9aef03f2e470fb908` — producer/consumer audit E01–E70.
@@ -84,7 +87,7 @@ The consolidated matrix remains **OPEN**, not a proof of runtime reachability. R
 
 ## Next highest-value work
 1. Resolve exact upstream producers for food stability, transport disruption, winter severity, market pressure, guild labor tension and information pressure.
-2. Freeze independent evidence/faction route identities and coalition cooperation semantics.
+2. Freeze evidence-source and faction-route identities and coalition cooperation semantics against the full catalog.
 3. Close constitutional preparation, budget reform and final-charter prerequisites without circularity.
 4. Extract delayed consequence source identity, timing, cancellation/supersession and exactly-once contracts.
 5. Freeze replay meta-state and ending qualification/precedence.
