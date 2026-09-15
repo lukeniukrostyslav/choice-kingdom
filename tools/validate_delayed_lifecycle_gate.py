@@ -51,7 +51,7 @@ def main() -> int:
         if drow.get("saveLoadPolicy") != "persistent": errors.append(f"{consumer}: saveLoadPolicy is not persistent")
         if drow.get("replayPolicy") != "run_scoped_pending_delay": errors.append(f"{consumer}: replayPolicy drift")
         if status in {"OPEN","PARTIAL"}: warnings.append(f"{consumer}: runtime scheduling/cancellation remains open")
-    for row in data.get("delayed_consumers",[]):
+    for row in graph.get("delayed_consumers",[]):
         text=json.dumps(row,ensure_ascii=False).lower()
         if "absolute due" in text or "invented turn" in text: errors.append(f"prohibited invented timing language: {row.get('consumer')}")
     report={"schema_version":"1.4","contract":"choice_kingdom.delayed_lifecycle_gate","scope":"E01-E272","readiness":"BLOCKED" if errors else ("PARTIAL" if warnings else "CLOSED"),"gameplay_verified":False,"checked":checked,"errors":errors,"warnings":warnings,"rules":["source identity and lifecycle closure are separate","relative authored delays are preserved; absolute due turns are not invented","OPEN/PARTIAL rows cannot be promoted by this validator","all ten high-risk delayed consumers must have unique machine identities","persistent save/load and run-scoped replay policies must remain explicit","E184 source identity is closed at E25-B","E242 source identity is closed at E118-B","E185 cheap_weapons identity is distinct from the later military-crisis condition"]}
