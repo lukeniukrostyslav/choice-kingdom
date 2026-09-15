@@ -1,0 +1,26 @@
+name: Choice Kingdom Replay Meta Contract
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/EVENT_CATALOG_*.md'
+      - 'docs/MACHINE_CANONICAL_GRAPH_01.json'
+      - 'docs/MACHINE_REPLAY_CONTRACT_01.json'
+      - 'tools/validate_replay_meta_contract.py'
+      - '.github/workflows/scenario-replay-meta-contract.yml'
+  pull_request:
+    paths:
+      - 'docs/EVENT_CATALOG_*.md'
+      - 'docs/MACHINE_CANONICAL_GRAPH_01.json'
+      - 'docs/MACHINE_REPLAY_CONTRACT_01.json'
+      - 'tools/validate_replay_meta_contract.py'
+      - '.github/workflows/scenario-replay-meta-contract.yml'
+
+jobs:
+  replay-meta-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate replay meta-state contract
+        run: python tools/validate_replay_meta_contract.py
