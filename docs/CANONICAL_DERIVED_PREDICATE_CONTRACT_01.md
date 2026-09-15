@@ -16,7 +16,7 @@ Freeze the semantic rule for contextual conditions before production schema work
 | `pred.food_stable` | E273-A `food_stability_standard`; explicit later food-disruption invalidation required | CLOSED — source producer verified; invalidation still needs authored source |
 | `pred.transport_disruption` | Explicit disruption producer + not subsequently cleared by transport recovery | OPEN — active disruption producer still missing; E136/E277 are recovery/clear sources |
 | `pred.winter_severe` | E29-A/B explicitly establish severe winter for current winter cycle; history retained; explicit cycle expiry/recovery required | CLOSED — source producer verified |
-| `pred.market_pressure` | E274-A `market_pressure_declared`; explicit later stabilization/clear rule required | CLOSED — source producer verified; clear source still needs authored reconciliation |
+| `pred.market_pressure` | E19-B `market_pressure_declared` establishes the current market-pressure cycle; E19-A explicitly clears an active cycle; E274-A is a later additional pressure-cycle producer | CLOSED — source producer verified; later-cycle clear semantics still need authored reconciliation |
 | `pred.guild_labor_tension` | E275-B `guild_labor_tension_declared`; E275-A can clear active tension; exact persistence semantics to be validated | CLOSED — source producer verified |
 | `pred.information_pressure_high` | E276-B `information_pressure_declared`; E276-A can clear active pressure; not `rel.toma` alone | CLOSED — source producer verified |
 | `pred.guild_influence_strong` | At least two distinct institutional domains from canonical guild-influence domain set | PARTIAL |
@@ -36,11 +36,12 @@ Freeze the semantic rule for contextual conditions before production schema work
 6. Coalition qualification requires explicit cooperation semantics, not four-way/five-way route cardinality.
 7. Derived predicates must have deterministic inputs and deterministic invalidation/clear behavior before they enter production schema.
 8. A newly authored producer outside the original E01–E272 scope cannot be treated as reachable merely because its trigger text names an existing state. Reachability and insertion point must be proven before the expanded catalog is frozen.
+9. A predicate may have multiple authored producers when each producer establishes a distinct valid current cycle; a later producer must not retroactively manufacture an earlier eligibility state.
 
 ## Current source-level producer closures
 
 - `pred.food_stable`: E273-A is an explicit producer. The active state is intentionally not considered fully lifecycle-closed until a canonical later disruption/expiry source is reconciled.
-- `pred.market_pressure`: E274-A is an explicit producer. A later stabilization/clear source is still required for a complete lifecycle.
+- `pred.market_pressure`: E19-B is now an explicit early producer for the market-pressure cycle. E19-A explicitly clears the active cycle. E274-A remains a later additional producer candidate for a subsequent cycle; it cannot retroactively satisfy earlier consumers.
 - `pred.guild_labor_tension`: E275-B is an explicit producer and E275-A is an explicit clear outcome.
 - `pred.information_pressure_high`: E276-B is an explicit producer and E276-A is an explicit clear outcome.
 - `pred.transport_disruption`: no active producer has been accepted yet; E277-A/B only define recovery/clear semantics and therefore cannot close this gap.
