@@ -75,10 +75,6 @@ required_fragments = {
         "### E227 — Rowan's Line", "`military_red_line`",
         "### E261 — The Four-Way Bargain", "### E267 — Rowan's Last Order",
         "### E268 — Seris's Last Bargain", "### E269 — Ivo's Late Account",
-        "### E270 — Amara and Toma at Dawn",
-        "`systemic_explanation_convergence`",
-        "E270-A is the **convergence producer** for `pred.systemic_explanation_verified`",
-        "E270-A cannot manufacture missing evidence families",
     ],
 }
 for filename, fragments in required_fragments.items():
@@ -86,6 +82,24 @@ for filename, fragments in required_fragments.items():
     for fragment in fragments:
         if fragment not in text:
             errors.append(f"{filename}: missing required source contract: {fragment}")
+
+# E270 is validated structurally rather than by one prose sentence. This keeps
+# the source gate tied to the authored event block, canonical convergence key,
+# and explicit producer boundary without making formatting the contract.
+e270_text = texts.get("EVENT_CATALOG_EXPANSION_211_270.md", "")
+e270_match = re.search(r"### E270 —.*?(?=\n### E271 —|\Z)", e270_text, re.S)
+if not e270_match:
+    errors.append("EVENT_CATALOG_EXPANSION_211_270.md: missing authored E270 block")
+else:
+    e270 = e270_match.group(0)
+    for fragment in [
+        "`systemic_explanation_convergence`",
+        "pred.systemic_explanation_verified",
+        "E270-A",
+        "cannot manufacture any missing evidence family",
+    ]:
+        if fragment not in e270:
+            errors.append(f"EVENT_CATALOG_EXPANSION_211_270.md: E270 missing structural contract: {fragment}")
 
 e33e34 = texts.get("EVENT_CATALOG_E33_E34_CANONICAL.md", "")
 for fragment in ["### E33", "### E34"]:
