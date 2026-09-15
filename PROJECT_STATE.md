@@ -43,31 +43,30 @@ E273–E277 have now received a second admission audit. They remain outside the 
 
 The border-crisis lifecycle is source-closed: E271-A declares the active crisis and E272-A/B resolve it while preserving historical declaration state. `thread.border` remains a legacy trigger context and must not be silently aliased to `thread.border_crisis`.
 
-Delayed-consequence source extraction covers E127–E130/E141 plus E181–E185 and E242–E246. E128 has verified upstream E17-A (`cheap_weapons`); E129 has verified upstream festival-held route; E130 is closed to E45-B (`infrastructure_concession`); E141 is closed to E48-B (`emergency_renewal_possible`); E127 source identity is now closed to the verified temporary noble-exemption route and no second producer named `hereditary_seats_limited` is proven in the current source inventory. Remaining delayed work is runtime identity/timing/cancellation/persistence rather than inventing producers. See `docs/DELAYED_E127_RECONCILIATION_01.md` and `docs/DELAYED_PRODUCER_CLOSURE_01.md`.
+Delayed-consequence source extraction covers E127–E130/E141 plus E181–E185 and E242–E246. Producer identity is now source-closed for E127, E128, E129, E130 and E141: E127 is produced through E06-B (`temporary_noble_exemption`) and E38-A (`hereditary_seats_limited`); E128 through E17-A; E129 through E22-A; E130 through E45-B; E141 through E48-B. The earlier statement that `hereditary_seats_limited` had no producer was corrected after re-reading the authoritative Act V catalog. Remaining delayed work is executable delay identity/timing/cancellation/persistence rather than producer invention. See `docs/DELAYED_CONSEQUENCE_EXTRACTION_02.md` and `docs/DELAYED_PRODUCER_CLOSURE_01.md`.
 
-Replay mutable-state isolation is now contract-closed at the design level: a new run starts with empty pending callbacks, active-cycle predicates, unresolved crises and run-local state; only explicitly authored `meta.*` transfer data may cross the replay boundary. The exact authored `meta.*` transfer inventory remains OPEN. See `docs/REPLAY_META_STATE_CONTRACT_01.md` and `docs/CANONICAL_DELAY_REPLAY_ENDING_AUDIT_01.md`.
+Replay mutable-state isolation is contract-closed at the design level: a new run starts with empty pending callbacks, active-cycle predicates, unresolved crises and run-local state; only explicitly authored `meta.*` transfer data may cross the replay boundary. The exact authored `meta.*` transfer inventory remains OPEN. See `docs/REPLAY_META_STATE_CONTRACT_01.md` and `docs/CANONICAL_DELAY_REPLAY_ENDING_AUDIT_01.md`.
 
-The ending qualification design contract is also established: endings must be deterministic, predicate-based and causal; relationship scores, route counts and the last event cannot manufacture prerequisites. The seven current ending families and E265–E270 qualification roles are defined, but complete producer/path coverage and final precedence tests remain OPEN. See `docs/ENDING_QUALIFICATION_CONTRACT_01.md`.
+The ending qualification design contract is established: endings must be deterministic, predicate-based and causal; relationship scores, route counts and the last event cannot manufacture prerequisites. The seven current ending families and E265–E270 qualification roles are defined, but complete producer/path coverage and final precedence tests remain OPEN. See `docs/ENDING_QUALIFICATION_CONTRACT_01.md`.
 
 No validator has been introduced prematurely. Production schema and runtime implementation remain blocked until canonical contracts are frozen and the complete catalog reconciliation passes.
 
 ## Latest source-level commits
+- `e4451f6ca8870d68a629f7e41ba297403e0b29e8` — corrected E127 producer closure; E38-A verified as second producer.
+- `2a270b243fc286cd00ac851055eea2d8b24da53c` — corrected delayed consequence extraction E127–E141.
 - `b4a4b8fe714e215ebcece5cd3917350ab09ec949` — freeze replay meta-state isolation contract.
-- `1c4fd1466f45557780ac5d22437378ffd714f50b` — close E127 producer identity reconciliation.
 - `4e674404a82149ef6c162b6955531dd35fae31fd` — delay/replay/ending contract audit.
-- `f2907e4e53ac4753c48b68801cc327c6c85671da` — close source producer identities for E130/E141.
 - `9c11d84d1de42da409521f3b45f693e9aa203d4a` — E273–E277 admission audit 02.
 - `0237626eef0d67066f64f2f90697cf728765a0f2` — transport disruption lifecycle reconciliation.
-- `0f89f64c3d07bd01e7fb803f4a0198ef5de79c46` — delayed callback producer refinement.
 - `0b1d05edd18212355db1c475e7d5bbc3a7cb09b0` — canonical P0 reconciliation 06.
 
 ## Current honest progress
 - Foundation / rules: **95%**
 - Authored content: **90%**
 - Canonical Event IDs / continuity: **100%**
-- Producer / Consumer QA: **88%**
+- Producer / Consumer QA: **90%**
 - Derived predicates / machine contracts: **82%**
-- Delayed Consequences: **77%**
+- Delayed Consequences: **80%**
 - Replay / Meta-state: **55%**
 - Endings / precedence: **58%**
 - Reachability / causal graph: **40%**
@@ -80,10 +79,10 @@ No validator has been introduced prematurely. Production schema and runtime impl
 - APK: **0%**
 - Release: **0%**
 
-Overall project progress is approximately **49%**. The increase reflects real source-level contract closure, not implementation being counted as complete. Engine/UI/Android remain at zero until their prerequisites are genuinely verified.
+Overall project progress is approximately **50%**. This increase reflects verified source-level closure and correction of stale QA claims, not runtime implementation. Engine/UI/Android remain at zero until their prerequisites are genuinely verified.
 
 ## Next highest-value work
-1. Normalize remaining delayed callback fields for E127–E130/E141 and E181–E185/E242–E246.
+1. Normalize remaining executable delay fields for E127–E130/E141 and E181–E185/E242–E246.
 2. Complete E273–E276 consumer/alias graph checks and decide admission without changing frozen semantics.
 3. Inventory all authored `meta.*` replay transfer producers and consumers.
 4. Complete ending producer/path coverage and deterministic precedence tests for E265–E270 and the seven ending families.
