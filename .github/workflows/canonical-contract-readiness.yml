@@ -1,0 +1,19 @@
+name: Choice Kingdom Contract Readiness
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  contract-readiness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate machine contract readiness ledger
+        run: python3 tools/validate_canonical_contract_readiness.py
+      - name: Upload readiness ledger
+        uses: actions/upload-artifact@v4
+        with:
+          name: choice-kingdom-contract-readiness-${{ github.sha }}
+          path: docs/MACHINE_CONTRACT_READINESS_01.json
+          if-no-files-found: error
