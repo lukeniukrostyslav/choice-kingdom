@@ -42,8 +42,10 @@ This is the fixed reporting metric for the E01–E272 authored campaign. It meas
 The 65% figure does not mean the engine, runtime, Android build, UI, localization or APK are complete. It also does not mean reachability has been proven.
 
 ## Latest QA work
+- S08.8 source closure audit added as `docs/SCENARIO_QA_S08_8_SOURCE_CLOSURE_AUDIT_01.md`, commit `1378318513cca1f88b8ee2c310b7228b5e145a2b`.
+- S08.8 kept `pred.food_stable` OPEN, verified transport recovery/clear while keeping the later disruption producer OPEN, and separated strong military-constitutional evidence from still-open Amara/Toma/final constitutional route activation.
 - S08.7 domain qualification audit added as `docs/SCENARIO_QA_S08_7_DOMAIN_QUALIFICATION_AUDIT_01.md`, commit `90694d5529d3df89556d79d54fca386c5d67c99b`.
-- S08.7 budget-reform closure identified the qualifying source set E142-A `auditor_independence`, E154-A `crown_audited`, E198-A `legislative_budget_lock`; formula candidate is AND across those three independent institutional layers. Ordering, reachability, negative-branch leakage and replay verification remain open.
+- S08.7 budget-reform closure identified the qualifying source set E142-A `auditor_independence`, E154-A `crown_audited`, E198-A `legislative_budget_lock`; ordering, reachability, negative-branch leakage and replay verification remain open.
 - S08.6 closure matrix added the current closed/open producer-family matrix.
 - S08.5 corrected the canonical producer registry to reject E273-A/E277 and keep `pred.food_stable` open.
 - S10.3 E185 crisis-resolution/ordering contract remains source-level and blocked on exact military-crisis producer/payload lifecycle.
@@ -91,7 +93,7 @@ Overall project progress remains approximately **53%**. The separate scenario QA
 ## Next highest-value work
 1. Continue exhaustive E01–E272 producer/output/trigger extraction with a hard E273–E277 exclusion filter.
 2. Resolve undefined producers/consumers, duplicate semantic writers and contradictory writers without inventing semantics.
-3. Finish derived predicate contracts and exact canonical vocabulary, including the domain qualification audit now recorded in S08.7.
+3. Finish derived predicate contracts and exact canonical vocabulary, including exact source inspection for E138/E167 food stability, the later transport-disruption producer, and Amara/Toma/final constitutional route activation.
 4. Close delayed E184/E245/E246 and replay/ending contracts.
 5. Run fresh-run reachability and graph-vs-catalog reconciliation.
 6. Freeze production contracts only after evidence is clean enough for machine validation.
