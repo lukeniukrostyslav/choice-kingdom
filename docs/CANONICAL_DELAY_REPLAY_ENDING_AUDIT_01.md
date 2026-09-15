@@ -2,7 +2,8 @@
 
 Date: 2026-09-15
 Status: SOURCE-LEVEL QA — CONTRACT CLOSURE PASS
-Scope: E01–E277
+Scope: **E01–E272**
+Explicitly excluded from production scope: **E273–E277**.
 
 ## Objective
 
@@ -21,6 +22,8 @@ The audit must reject:
 - callbacks surviving an explicit cancellation/supersession branch;
 - callbacks manufacturing a derived predicate that has no qualifying producer;
 - replay runs inheriting pending callbacks from a previous run.
+
+No producer, consumer, predicate, delayed callback or reachability edge from E273–E277 may be used to close an E01–E272 production gap.
 
 ## Replay Isolation
 
