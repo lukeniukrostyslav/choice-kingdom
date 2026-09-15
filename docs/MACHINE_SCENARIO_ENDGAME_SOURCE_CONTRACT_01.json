@@ -1,0 +1,72 @@
+{
+  "contract": "choice_kingdom_scenario_endgame_source_contract_v1",
+  "status": "SOURCE_LEVEL_CLOSED_RUNTIME_OPEN",
+  "scope": ["E148", "E197", "E200", "E207", "E209", "E210"],
+  "rules": {
+    "consumer_cannot_create_prerequisite": true,
+    "support_evidence_is_not_final_predicate": true,
+    "ending_convergence_cannot_backfill_upstream_state": true
+  },
+  "sources": {
+    "E148": {
+      "choice_a": {
+        "marker": "history.cross_faction_package",
+        "participants": ["Mara", "Rowan", "Seris", "Ivo", "Amara", "Toma"],
+        "role": "upstream_coalition_evidence",
+        "does_not_directly_produce": "pred.coalition_cooperation"
+      },
+      "choice_b": {
+        "marker": "selective_coalition",
+        "qualifies_coalition_cooperation": false
+      }
+    },
+    "E197": {
+      "trigger": "pred.constitutional_prepared_strong",
+      "role": "consumer",
+      "retroactive_satisfaction_forbidden": true
+    },
+    "E200": {
+      "trigger": "pred.guild_influence_strong",
+      "required_distinct_domains": 2,
+      "allowed_domains": [
+        "history.guild_representation",
+        "guild_binding_seat",
+        "guild_tribunal_independent",
+        "market_credit_institutional_leverage",
+        "history.guild_logistics_cooperation"
+      ],
+      "relationship_ivo_alone_sufficient": false
+    },
+    "E207": {
+      "trigger": ["pred.systemic_explanation_verified", "pred.coalition_cooperation"],
+      "systemic_evidence_domains": [
+        "warehouse_financial",
+        "document_language",
+        "witness_organizational"
+      ],
+      "requires_explicit_convergence_choice": true,
+      "raw_evidence_count_sufficient": false
+    },
+    "E209": {
+      "trigger": "pred.final_charter_prerequisites",
+      "required_upstream_components": [
+        "civic_commons_legitimacy",
+        "institutional_audit_legitimacy",
+        "faction_house_guild_representation",
+        "military_security_constitutional_route_where_applicable",
+        "information_evidence_legitimacy",
+        "pred.coalition_cooperation",
+        "no_unresolved_mandatory_crisis_blocker"
+      ],
+      "role": "consumer_only",
+      "cannot_create_missing_prerequisites": true
+    },
+    "E210": {
+      "role": "convergence_only",
+      "can_create_missing_prerequisites": false,
+      "can_create_coalition_cooperation": false,
+      "can_create_systemic_explanation": false
+    }
+  },
+  "runtime_verified": false
+}
