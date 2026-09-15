@@ -35,9 +35,11 @@ Dedicated Scenario QA score is approximately **88%**. This is distinct from over
 - S09 **60%**
 - S10 **72%**
 - S11 **56%** — ending incoming-path / precedence review boundary materially tightened; source closure remains partial/open.
-- S12 **86%** — source-level machine QA includes structural diagnostics, bounded catalog↔graph ID coverage, explicit contract readiness, delayed-lifecycle identity checks, predicate-contract parity, the E33/E34 recovery audit, delayed cancellation/supersession boundary work, and the bounded contract-closure audit. This remains source-level QA, not semantic equality or gameplay reachability proof.
+- S12 **86%** — source-level machine QA includes structural diagnostics, bounded catalog↔graph ID coverage, explicit contract readiness, delayed-lifecycle identity checks, predicate-contract parity, the E33/E34 recovery audit, delayed cancellation/supersession boundary work, bounded contract closure, and composite-predicate source-closure enforcement. This remains source-level QA, not semantic equality or gameplay reachability proof.
 
 ## Latest QA work
+- **S12.63 composite-predicate source closure gate:** added `tools/audit_composite_predicate_source_closure.py` and wired it into `.github/workflows/canonical-graph.yml`. The gate verifies the frozen source evidence for guild influence, systemic explanation, coalition cooperation, constitutional preparation and final-charter prerequisites; it also enforces explicit non-promotion assertions and E273–E277 quarantine. It deliberately does not infer missing producers, runtime lifecycle, reachability or semantic equality. Commit `b073e02ebf7f48b97001658acb7e831c833f55a0`, workflow wiring commit `ae46d8c8344666c2cd8df191181f1b3cfede7efa`.
+- **CI status for the new gate:** GitHub Actions run `34998835831` for `ae46d8c8344666c2cd8df191181f1b3cfede7efa` was observed **QUEUED** at the time of the latest check. Therefore no GREEN claim is made yet.
 - **S12.62 bounded contract-closure audit:** added `docs/SCENARIO_QA_CONTRACT_CLOSURE_AUDIT_02.md`. Audited `pred.food_stable`, `pred.systemic_explanation_verified`, `pred.final_charter_prerequisites`, and replay `meta.*` separation. The audit explicitly refuses to promote `food_logistics_stabilized` into `pred.food_stable`, keeps systemic convergence and final-charter convergence producers OPEN, and keeps ordinary history isolated from replay `meta.*` without an authored promotion contract. Commit `087e3c68fdaefa165031148456ab8b80698e4289`.
 - **S12.61 delayed cancellation/supersession boundary audit:** added `docs/CANONICAL_DELAY_CANCELLATION_MATRIX_01.md`. It records the high-risk delayed consumers E181–E185 and E242–E246, separates source-identity closure from runtime lifecycle closure, and explicitly keeps missing cancellation/supersession/exactly-once semantics OPEN rather than inferring them. Commit `2a1861c80c8b3ca452255d3079cd5a56e55158df`.
 - **S12.60 E33/E34 source-recovery audit:** added `docs/SCENARIO_QA_E33_E34_SOURCE_RECOVERY_01.md`. Current authoritative evidence confirms E33/E34 remain unresolved: the restored foundational catalog is explicitly E01–E32, while the Act V expansion starts at E35 with an `E33 resolved` trigger. Git-history inspection did not recover an authoritative E33/E34 body. No replacement semantics were invented. Commit `b579f821a726a1856e50473146518c3292253852`.
@@ -71,6 +73,9 @@ Dedicated Scenario QA score is approximately **88%**. This is distinct from over
 
 ### S12.62 contract closure boundary
 `docs/SCENARIO_QA_CONTRACT_CLOSURE_AUDIT_02.md` records bounded source evidence for food stability, systemic explanation, final charter convergence and replay metadata. None of these contracts is promoted to executable production semantics by inference.
+
+### S12.63 composite predicate source boundary
+`tools/audit_composite_predicate_source_closure.py` now freezes a machine-checkable evidence boundary for the remaining composite predicates. It verifies source evidence and hard non-promotion rules but intentionally leaves producer identity, runtime lifecycle, reachability and semantic equality unresolved where the authoritative source is unresolved.
 
 ## Major unresolved gates
 - authoritative source recovery or explicit authored correction for E33/E34 exact headings/effects;
@@ -107,20 +112,6 @@ Dedicated Scenario QA score is approximately **88%**. This is distinct from over
 - Release: **0%**
 
 Overall project progress remains approximately **60%**. Scenario QA is approximately **88%** and must not be conflated with overall project completion.
-
-## Next autonomous work
-1. Verify fresh GitHub Actions after S12.62; do not claim GREEN until relevant new runs and jobs pass.
-2. Continue source-backed producer compilation for guild influence, coalition cooperation and constitutional preparation where evidence permits.
-3. Reconcile `pred.food_stable` vs `food_logistics_stabilized` without admitting expansion-only E273.
-4. Complete systemic explanation convergence producer/key.
-5. Complete `pred.final_charter_prerequisites`.
-6. Inventory replay `meta.*` producer/key sources.
-7. Continue E33/E34 exact canonical source recovery; if no authoritative source is recoverable, require explicit authored correction.
-8. Determine ending incoming paths and deterministic precedence.
-9. Build fresh-run and representative replay reachability models.
-10. Prove catalog↔machine graph semantic equality or produce a bounded explicit delta beyond ID coverage.
-11. Freeze production contracts only after machine validation and reachability gates pass.
-12. Then Decision Engine → UI → localization → runtime/Android QA → APK → release.
 
 ## Honest progress rule
 Documentation alone never makes implementation complete. Source edits count only when authoritative evidence is changed/re-read. No block is ready until its applicable verification passes.
