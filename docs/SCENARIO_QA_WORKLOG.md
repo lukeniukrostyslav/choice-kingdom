@@ -6,6 +6,16 @@ Purpose: durable handoff ledger so completed QA work is not repeated.
 
 ## Latest continuation update — 2026-09-15
 
+### S18 — exhaustive-source inventory semantic correction
+- Corrected `tools/compile_scenario_source_inventory.py` so the same canonical token emitted by both mutually-exclusive A/B choices is recorded as `same_event_shared_writers` instead of being treated as a contradiction by default.
+- This directly removes the false-positive failure class observed in the prior exhaustive inventory run (including the E136/E144 cases already identified during diagnosis).
+- Added conservative clear/reset/invalidate/revoke/cancel recognition: explicitly clearing a token is recorded under a choice's `clears` field and is not counted as a positive producer.
+- Preserved cross-event duplicate writers as `semantic_writer_collisions` review findings.
+- Preserved predicate dependency cycle detection and undefined predicate-consumer reporting.
+- Updated `.github/workflows/scenario-source-inventory.yml` to validate inventory schema `choice-kingdom-scenario-source-inventory-2` and the new shared-writer/clearing fields.
+- Commits: `31e3373124a8d2f26f757cea24c510335dd1aba4` and `0f7e41819d422b919550dce93d783b2e57b51039`.
+- Fresh GitHub Actions verification was triggered by the changes; percentages remain frozen until the resulting exhaustive inventory and dependent gates are green.
+
 ### S17 — exhaustive-source validator hardening
 - Added machine detection for same-event contradictory writers: one canonical token emitted by both mutually-exclusive A and B choices is now a source-QA failure rather than an undocumented ambiguity.
 - Preserved legitimate multi-event duplicate writers as review findings; duplicate occurrence alone is not treated as contradiction.
