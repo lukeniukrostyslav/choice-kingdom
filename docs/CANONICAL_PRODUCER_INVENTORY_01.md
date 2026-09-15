@@ -36,6 +36,7 @@ A trigger phrase is not a producer. A consumer cannot manufacture its own prereq
 | `auditor_independence` | E142 | A | Explicit independent auditor route | CLOSED at source level |
 | `crown_audited` | E154 | A | Explicit Crown audit route | CLOSED at source level |
 | `legislative_budget_lock` | E198 | A | Explicit legislative budget-lock route | CLOSED at source level |
+| `soldier_compensation` | E20 | A | Publicly compensates the soldier's family; exact subject identity matches E245 | CLOSED |
 
 ### Transport-disruption reconciliation
 
@@ -55,7 +56,7 @@ The unresolved portion is runtime lifecycle semantics only: save/load persistenc
 | E242 | prior noble exception | E118-B explicit, possibly broader set | PARTIAL; no generic alias |
 | E243 | `public bridge investment` | E18-B → `public_bridge` | SOURCE-EQUIVALENT; normalize vocabulary |
 | E244 | `flexible accounts` | E09-B | source-closed |
-| E245 | `compensation route` | E20-A / E125-A / E156-A candidates | OPEN; authoritative single-source or explicitly authored composite/family rule required |
+| E245 | `compensation route` | E20-A → `soldier_compensation` | SOURCE-CLOSED; exact Soldier's Son / compensated-family identity match; E125/E156 remain distinct |
 | E246 | `price ceiling` | E160-A → `winter_rent_ceiling` | SOURCE-CLOSED; lifecycle and vocabulary normalization remain open |
 
 ## 3. Derived predicates whose producer domains are frozen but not fully compiled
@@ -163,11 +164,11 @@ The next pass must compile, from the authoritative catalogs:
 
 ## Gate
 
-**Producer inventory: reconciled against S12.24–S12.28 source findings, but not complete.**
+**Producer inventory: reconciled against S12.24–S12.33 source findings, with E245 producer identity now source-closed.**
 
 **Production schema: BLOCKED.**
 
-**Validator: NOT IMPLEMENTED.**
+**Validator: OPERATIONAL for source-level graph contract checks.**
 
 **Decision Engine: NOT IMPLEMENTED.**
 
