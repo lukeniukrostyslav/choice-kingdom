@@ -35,14 +35,14 @@ Dedicated Scenario QA score is approximately **88%**. This is distinct from over
 - S09 **60%**
 - S10 **72%**
 - S11 **56%** — ending incoming-path / precedence review boundary materially tightened; source closure remains partial/open.
-- S12 **86%** — source-level machine QA includes structural diagnostics, bounded catalog↔graph ID coverage, explicit contract readiness, delayed-lifecycle identity checks, predicate-contract parity, the E33/E34 recovery audit, and the delayed cancellation/supersession boundary matrix. This remains source-level QA, not semantic equality or gameplay reachability proof.
+- S12 **86%** — source-level machine QA includes structural diagnostics, bounded catalog↔graph ID coverage, explicit contract readiness, delayed-lifecycle identity checks, predicate-contract parity, the E33/E34 recovery audit, delayed cancellation/supersession boundary work, and the bounded contract-closure audit. This remains source-level QA, not semantic equality or gameplay reachability proof.
 
 ## Latest QA work
+- **S12.62 bounded contract-closure audit:** added `docs/SCENARIO_QA_CONTRACT_CLOSURE_AUDIT_02.md`. Audited `pred.food_stable`, `pred.systemic_explanation_verified`, `pred.final_charter_prerequisites`, and replay `meta.*` separation. The audit explicitly refuses to promote `food_logistics_stabilized` into `pred.food_stable`, keeps systemic convergence and final-charter convergence producers OPEN, and keeps ordinary history isolated from replay `meta.*` without an authored promotion contract. Commit `087e3c68fdaefa165031148456ab8b80698e4289`.
 - **S12.61 delayed cancellation/supersession boundary audit:** added `docs/CANONICAL_DELAY_CANCELLATION_MATRIX_01.md`. It records the high-risk delayed consumers E181–E185 and E242–E246, separates source-identity closure from runtime lifecycle closure, and explicitly keeps missing cancellation/supersession/exactly-once semantics OPEN rather than inferring them. Commit `2a1861c80c8b3ca452255d3079cd5a56e55158df`.
 - **S12.60 E33/E34 source-recovery audit:** added `docs/SCENARIO_QA_E33_E34_SOURCE_RECOVERY_01.md`. Current authoritative evidence confirms E33/E34 remain unresolved: the restored foundational catalog is explicitly E01–E32, while the Act V expansion starts at E35 with an `E33 resolved` trigger. Git-history inspection did not recover an authoritative E33/E34 body. No replacement semantics were invented. Commit `b579f821a726a1856e50473146518c3292253852`.
-- **S12.59 delayed lifecycle identity expansion:** extended `tools/validate_delayed_lifecycle_gate.py` through E242–E246. The gate now checks the source-backed candidate identities for the renewed exception, bridge callback, flexible-account callback, soldier compensation callback and rent-ceiling callback while preserving the distinction between identity closure and runtime scheduling/cancellation. Commit `312786982fae8b1b0a0f19b0b5a116cc2d04c3ac`. The resulting dedicated CI run `34992811608` completed **SUCCESS**.
-- **S12.58 predicate contract parity correction:** corrected `tools/validate_predicate_contract_parity.py` so it validates exactly the seven predicates represented by the machine graph `composite_predicates` section. Source-closed producer predicates are no longer incorrectly treated as composite predicates. The corrected gate passed the dedicated `Choice Kingdom Contract Readiness` workflow on commit `c55eab2f400749c65a379b2b232728ff0cd2752b`. This is source-level parity, not gameplay semantic equality.
-- **S12.57 predicate contract parity gate:** added `tools/validate_predicate_contract_parity.py` and `.github/workflows/predicate-contract-parity.yml`. The gate cross-checks frozen predicate statuses between `docs/CANONICAL_DERIVED_PREDICATE_CONTRACT_01.md` and `docs/MACHINE_CANONICAL_GRAPH_01.json` without promoting OPEN/PARTIAL items or claiming gameplay equality. Commit `3c317988a9682767e22ad55e09bef9ba4f9305b8`; workflow commit `b5ca167da222a6d028edf93c693d73033c83394c`.
+- **S12.59 delayed lifecycle identity expansion:** extended `tools/validate_delayed_lifecycle_gate.py` through E242–E246. The gate now checks source-backed candidate identities while preserving the distinction between identity closure and runtime scheduling/cancellation. The dedicated delayed lifecycle run `34992811608` completed **SUCCESS**.
+- **S12.58 predicate contract parity correction:** corrected `tools/validate_predicate_contract_parity.py` so it validates exactly the seven predicates represented by the machine graph `composite_predicates` section. The corrected gate passed the dedicated `Choice Kingdom Contract Readiness` workflow on commit `c55eab2f400749c65a379b2b232728ff0cd2752b`.
 
 ## Current canonical source status
 
@@ -63,14 +63,14 @@ Dedicated Scenario QA score is approximately **88%**. This is distinct from over
 - E184: `secret evidence route`, `4+ turns later`; no safe canonical producer alias, therefore OPEN.
 - E185: E17-A `cheap_weapons` plus separate later military crisis; A prevents later failure, B schedules severe delayed loss; cancellation/supersession identity remains OPEN.
 - E192-B `food_logistics_stabilized` is explicitly not `pred.food_stable`.
-- E242: machine source candidate remains E118-B, but the authored trigger says any prior noble exception; identity is only PARTIAL and runtime selection/lifecycle remains open.
-- E243: E18-B source identity closed; authored delay remains `5+ turns later`, so runtime scheduling remains open.
-- E244: E09-B source identity closed; authored delay remains `5+ turns later`, so runtime scheduling remains open.
+- E242: E118-B remains a candidate, but the authored trigger says any prior noble exception; identity is only PARTIAL and runtime selection/lifecycle remains open.
+- E243: E18-B source identity closed; authored delay remains `5+ turns later`, runtime scheduling remains open.
+- E244: E09-B source identity closed; authored delay remains `5+ turns later`, runtime scheduling remains open.
 - E245: E20-A source identity CLOSED; authored timing remains `6+ turns later`; absolute due-turn/cancellation semantics are OPEN.
 - E246: E160-A source identity CLOSED; authored timing remains relative; runtime scheduler and cancellation semantics are OPEN.
 
-### S12.61 lifecycle boundary
-`docs/CANONICAL_DELAY_CANCELLATION_MATRIX_01.md` is the current bounded audit for E181–E185/E242–E246. It closes no runtime lifecycle row by inference. Missing consequence identity, target, cancellation/supersession rule and exactly-once semantics remain explicit blockers.
+### S12.62 contract closure boundary
+`docs/SCENARIO_QA_CONTRACT_CLOSURE_AUDIT_02.md` records bounded source evidence for food stability, systemic explanation, final charter convergence and replay metadata. None of these contracts is promoted to executable production semantics by inference.
 
 ## Major unresolved gates
 - authoritative source recovery or explicit authored correction for E33/E34 exact headings/effects;
@@ -109,7 +109,7 @@ Dedicated Scenario QA score is approximately **88%**. This is distinct from over
 Overall project progress remains approximately **60%**. Scenario QA is approximately **88%** and must not be conflated with overall project completion.
 
 ## Next autonomous work
-1. Verify fresh GitHub Actions after S12.61; do not claim GREEN until relevant new runs and jobs pass.
+1. Verify fresh GitHub Actions after S12.62; do not claim GREEN until relevant new runs and jobs pass.
 2. Continue source-backed producer compilation for guild influence, coalition cooperation and constitutional preparation where evidence permits.
 3. Reconcile `pred.food_stable` vs `food_logistics_stabilized` without admitting expansion-only E273.
 4. Complete systemic explanation convergence producer/key.
