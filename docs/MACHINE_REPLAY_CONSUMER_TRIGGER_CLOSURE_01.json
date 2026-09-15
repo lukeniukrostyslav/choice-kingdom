@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "contract": "choice_kingdom.replay_consumer_trigger_closure",
+  "scope": "E186,E247,E248,E249,E250,E270",
+  "source": "docs/SCENARIO_QA_REPLAY_CONSUMER_TRIGGER_CLOSURE_01.md",
+  "consumer_trigger_status": "CLOSED",
+  "persistent_meta_producer_status": "OPEN",
+  "runtime_verified": false,
+  "fresh_run_isolation_verified": false,
+  "replay_reachability_verified": false,
+  "save_load_isolation_verified": false,
+  "ending_qualification_verified": false,
+  "records": [
+    {"event":"E186","trigger_class":"previous_run_information_unlock","meta_producer":"OPEN"},
+    {"event":"E247","trigger_class":"second_run_information_route","meta_producer":"OPEN"},
+    {"event":"E248","trigger_class":"replay_callback","meta_producer":"OPEN"},
+    {"event":"E249","trigger_class":"archive_route","meta_producer":"OPEN"},
+    {"event":"E250","trigger_class":"related_clues","meta_producer":"OPEN"},
+    {"event":"E270","trigger_class":"simultaneous_character_state","meta_producer":"OPEN"}
+  ],
+  "hard_negatives": [
+    "history.* does not automatically become meta.*",
+    "ordinary archive/information routes do not prove a prior completed run",
+    "E270 does not imply replay state",
+    "consumer nodes cannot manufacture persistent meta state",
+    "E33/E34 remain quarantined",
+    "E273-E277 remain excluded"
+  ]
+}
