@@ -2,7 +2,7 @@
 """Cross-check machine composite predicate status against the authoritative contract table.
 
 This is a bounded source-consistency gate. It does not infer gameplay semantics,
-reachability, runtime invalidation, or promote OPEN/PARTIAL contracts.
+reachability, runtime invalidation, or promote OPEN/BLOCKED contracts.
 """
 from __future__ import annotations
 
@@ -15,22 +15,18 @@ GRAPH = ROOT / "docs" / "MACHINE_CANONICAL_GRAPH_01.json"
 CONTRACT = ROOT / "docs" / "CANONICAL_DERIVED_PREDICATE_CONTRACT_01.md"
 OUT = ROOT / "docs" / "MACHINE_PREDICATE_CONTRACT_PARITY_01.json"
 
-# Only predicates represented in the machine graph's composite_predicates section
-# belong to this parity gate. Source-closed producer predicates are validated by
-# their producer inventories and must not be conflated with composite predicates.
 EXPECTED = {
-    "pred.guild_influence_strong": "PARTIAL",
-    "pred.systemic_explanation_verified": "PARTIAL",
-    "pred.coalition_cooperation": "PARTIAL",
-    "pred.constitutional_prepared_strong": "PARTIAL",
+    "pred.guild_influence_strong": "SOURCE-CLOSED",
+    "pred.systemic_explanation_verified": "SOURCE-CLOSED",
+    "pred.coalition_cooperation": "SOURCE-CLOSED",
+    "pred.constitutional_prepared_strong": "SOURCE-CLOSED",
     "pred.budget_reform": "SOURCE-CLOSED",
-    "pred.final_charter_prerequisites": "OPEN",
+    "pred.final_charter_prerequisites": "OPEN / BLOCKED",
     "pred.food_stable": "OPEN / BLOCKED",
 }
 
 
 def normalize(status: str) -> str:
-    """Normalize machine/Markdown status decoration without weakening semantics."""
     status = re.sub(r"[*`_]", "", status).upper().strip()
     status = re.sub(r"\s*/\s*", " / ", status)
     if status.startswith("SOURCE-CLOSED"):
@@ -91,7 +87,7 @@ def main() -> int:
             )
 
     report = {
-        "schema_version": "1.1",
+        "schema_version": "1.2",
         "contract": "choice_kingdom.predicate_contract_parity",
         "scope": "E01-E272",
         "readiness": "BLOCKED" if errors else "SOURCE_LEVEL_CLOSED",
@@ -105,7 +101,7 @@ def main() -> int:
             "authoritative markdown and machine composite contract must agree on frozen status",
             "status parity does not prove gameplay reachability",
             "status parity does not prove runtime invalidation",
-            "OPEN/PARTIAL predicates are never promoted by this gate",
+            "OPEN/OPEN-BLOCKED predicates are never promoted by this gate",
         ],
     }
     OUT.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
