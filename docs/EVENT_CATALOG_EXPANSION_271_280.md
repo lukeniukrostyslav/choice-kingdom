@@ -5,7 +5,7 @@ These nodes are authored continuation of the E211–E270 expansion. They exist t
 ## Border-crisis lifecycle closure
 
 ### E271 — The Border Council Alarm
-**Trigger:** `thread.border` active + `pred.border_tension` + corroborated frontier-warning infrastructure (`frontier_military_watch` or `civilian_signal_authority`).
+**Trigger:** `pred.border_tension` + corroborated frontier-warning infrastructure (`frontier_military_watch` or `civilian_signal_authority`).
 
 The border council confirms that the warning is no longer only a frontier anomaly: the kingdom must decide whether a formal crisis exists.
 
@@ -23,7 +23,7 @@ The border council confirms that the warning is no longer only a frontier anomal
 **QA rule:** E271-A is the authored declaration producer. E195/E253/E255 are consumers and cannot manufacture the predicate merely by being reached.
 
 ### E272 — The Border Crisis Accord
-**Trigger:** `thread.border_crisis = active` + `border_crisis_declared = true` + an available resolution route (`joint_border_survey`, `negotiated_withdrawal`, `border_commander_report`, or `military_red_line`).
+**Trigger:** `pred.border_crisis` + `border_crisis_declared = true` + an available resolution route (`joint_border_survey`, `negotiated_withdrawal`, `border_commander_report`, or `military_red_line`).
 
 After the border alarm has been formally declared, Rowan and the border council present evidence that allows the Crown to end the emergency without pretending that the earlier warning never happened.
 
