@@ -42,14 +42,13 @@ This is the fixed reporting metric for the E01–E272 authored campaign. It meas
 The 65% figure does not mean the engine, runtime, Android build, UI, localization or APK are complete. It also does not mean reachability has been proven.
 
 ## Latest QA work
+- S09.3 reconciled `docs/CANONICAL_DERIVED_PREDICATE_CONTRACT_01.md` in commit `5cb193cfa5d97a340bbab202c842737342538262`: production scope is now explicitly E01–E272; E273–E277 predicate producers are quarantined as expansion-only; `pred.food_stable` remains OPEN/BLOCKED with no in-scope producer verified.
+- S09.2 added `docs/SCENARIO_QA_S09_2_SCOPE_CONTRADICTION_AUDIT_01.md` in commit `c4d58020e4202c5a5aea7fb454d3ee012d2e715a`, identifying and preserving the contradiction between the older E01–E277 derived-predicate contract and the frozen E01–E272 production registry.
+- S09.1 predicate dependency pre-audit added as `docs/SCENARIO_QA_S09_1_PREDICATE_DEPENDENCY_PREAUDIT_01.md`, commit `3a9c2aaa9599671df3ef8410bbb4428b6798e17e`.
 - S08.10 producer chronology pre-audit added as `docs/SCENARIO_QA_S08_10_PRODUCER_CHRONOLOGY_PREAUDIT_01.md`, commit `a8beccf42802a5664b7b990ff72c02ea540a0982`.
-- S08.10 established source-closed producer-before-consumer rows for transport, winter, guild logistics and border-crisis lifecycle, while keeping guild influence, constitutional preparation, coalition cooperation and final-charter chronology partial/open.
-- S08.10 explicitly preserved duplicate/contradictory-writer gates and hard E273–E277 exclusion; it is a partial pre-audit, not exhaustive closure.
 - S08.9 source reconciliation added as `docs/SCENARIO_QA_S08_9_SOURCE_RECONCILIATION_01.md`, commit `beb8c93e8e4e95c2fb62ab90e4cf36f0e46f7e4b`.
-- S08.9 reconciled food/transport lifecycle evidence against the authoritative late-predicate audit and prevented downstream consumers from being promoted into producers. `pred.food_stable` remains OPEN; E32 is the active transport-disruption producer and E136-A/B are recovery/clear sources, while later reactivation remains unresolved.
 - S08.8 source closure audit added as `docs/SCENARIO_QA_S08_8_SOURCE_CLOSURE_AUDIT_01.md`, commit `1378318513cca1f88b8ee2c310b7228b5e145a2b`.
 - S08.7 domain qualification audit added as `docs/SCENARIO_QA_S08_7_DOMAIN_QUALIFICATION_AUDIT_01.md`, commit `90694d5529d3df89556d79d54fca386c5d67c99b`.
-- S08.7 budget-reform closure identified the qualifying source set E142-A `auditor_independence`, E154-A `crown_audited`, E198-A `legislative_budget_lock`; ordering, reachability, negative-branch leakage and replay verification remain open.
 - S08.6 closure matrix added the current closed/open producer-family matrix.
 - S08.5 corrected the canonical producer registry to reject E273-A/E277 and keep `pred.food_stable` open.
 - S10.3 E185 crisis-resolution/ordering contract remains source-level and blocked on exact military-crisis producer/payload lifecycle.
@@ -65,7 +64,7 @@ The canonical trigger audit has been extended through E272. It records additiona
 
 P0 reconciliation freezes the guild-influence domain boundary, constitutional-preparation domain boundary, systemic-evidence qualification shape, coalition positive-outcome requirements, and budget-reform institutional layers. These remain source-level contracts, not runtime implementation.
 
-E273–E277 remain outside the frozen catalog. Their producer-expansion semantics are not silently promoted into E01–E272. The S08.4 scope-integrity correction explicitly rejects those IDs from frozen producer/consumer, predicate, delayed-source and reachability contracts.
+E273–E277 remain outside the frozen catalog. Their producer-expansion semantics are not silently promoted into E01–E272. S09.3 now also quarantines their predicate producers inside the derived-predicate contract itself.
 
 Replay mutable-state isolation is contract-closed at the design level: a new run starts with empty pending callbacks, active-cycle predicates, unresolved crises and run-local state; only explicitly authored `meta.*` transfer data may cross the replay boundary. E247, E248 and E270 remain consumer intents without source-closed meta producers/keys.
 
