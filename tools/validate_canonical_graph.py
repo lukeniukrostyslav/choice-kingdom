@@ -69,6 +69,8 @@ def main() -> int:
 
     edges: list[tuple[str, str]] = []
     referenced: set[str] = set()
+    outbound: set[str] = set()
+    inbound: set[str] = set()
     for match in CHAIN_RE.finditer(graph_text):
         ids = [canonical_event(x) for x in EVENT_TOKEN_RE.findall(match.group(1))]
         for event_id in ids:
@@ -78,6 +80,8 @@ def main() -> int:
         for src, dst in zip(ids, ids[1:]):
             if src in expected and dst in expected:
                 edges.append((src, dst))
+                outbound.add(src)
+                inbound.add(dst)
 
     seen: set[tuple[str, str]] = set()
     repeated_edges: set[tuple[str, str]] = set()
@@ -89,6 +93,16 @@ def main() -> int:
             errors.append(f"self-loop event edge: {src} -> {dst}")
     if repeated_edges:
         warnings.append(f"design graph repeats {len(repeated_edges)} already-documented causal edges")
+
+    catalog_events = set(catalog_counts) & expected
+    outbound_only_missing = sorted(catalog_events - outbound - inbound)
+    inbound_only = sorted(catalog_events & inbound - outbound)
+    terminal_or_consumer_candidates = sorted(catalog_events - outbound)
+    if terminal_or_consumer_candidates:
+        warnings.append(
+            f"catalog events without outbound design edges: {len(terminal_or_consumer_candidates)}; "
+            "these require terminal/consumer/qualification classification before orphan claims"
+        )
 
     producer_rows = []
     for line in inventory_text.splitlines():
@@ -120,14 +134,19 @@ def main() -> int:
     report = {
         "frozen_scope": f"E{lo:02d}-E{hi}",
         "catalog_event_headings": len(catalog_counts),
-        "catalog_frozen_event_headings": len(set(catalog_counts) & expected),
+        "catalog_frozen_event_headings": len(catalog_events),
         "catalog_missing_frozen_events": len(missing_catalog),
+        "catalog_missing_frozen_event_ids": missing_catalog,
         "catalog_duplicate_frozen_events": len(duplicate_catalog),
         "allowed_catalog_duplicate_events": allowed_duplicates_present,
         "graph_edges_unique": len(seen),
         "graph_edges_repeated_in_design_doc": len(repeated_edges),
         "graph_event_nodes_referenced": len(referenced & expected),
         "graph_event_nodes_missing_from_design_graph": len(expected - referenced),
+        "graph_events_without_outbound_edges": len(terminal_or_consumer_candidates),
+        "graph_events_without_outbound_edge_ids": terminal_or_consumer_candidates,
+        "graph_inbound_only_catalog_candidates": inbound_only,
+        "graph_true_isolated_catalog_candidates": outbound_only_missing,
         "source_closed_producers": len(manifest["source_closed_producers"]),
         "delayed_consumers": len(manifest["delayed_consumers"]),
         "hard_negative_rules": len(actual_negatives),
