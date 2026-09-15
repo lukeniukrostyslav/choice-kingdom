@@ -67,7 +67,7 @@ Every substantive scenario-QA batch must leave a durable GitHub commit and updat
 - Preserved explicit E226-vs-E36 and E269-vs-E55 duplicate boundaries.
 - Reconfirmed E253 cannot create `pred.border_crisis`; E271-A remains the producer.
 - Reconfirmed E261 `four_way_bargain` is not equivalent to `pred.coalition_cooperation` and E270 cannot manufacture final qualification.
-- S06: **50% / IN PROGRESS**.
+- S06: **55% / IN PROGRESS**.
 
 ### Batch S06.2 — semantic closure checkpoint
 - Added `docs/SCENARIO_QA_S06_SEMANTIC_CLOSURE_01.md` in commit `3c5d9d621943b08ec23fb5579792b5294ef03ccd`.
@@ -76,24 +76,24 @@ Every substantive scenario-QA batch must leave a durable GitHub commit and updat
 - Kept E256–E260 separate from `pred.constitutional_prepared_strong` qualification.
 - Kept E269/E270 inside the explicit evidence boundary; neither manufactures systemic explanation or final charter prerequisites.
 - Preserved E226 as a late institutional-stress node distinct from E36 and E247/E248 as replay-aware without inventing `meta.*` keys.
-- Repository search for exact qualified tokens `pred.coalition_cooperation` and `pred.final_charter_prerequisites` returned no direct indexed matches at this checkpoint; these remain contract-level QA targets, not invented producers.
-- S06: **55% / IN PROGRESS**; global Scenario QA remains 65%.
+- S06: **55% / IN PROGRESS**.
 
 ### Batch S07.1 — E271–E272 border-crisis lifecycle + graph reconciliation
 - Added `docs/SCENARIO_QA_S07_E271_E272_BORDER_LIFECYCLE.md` in commit `ad08b00cd5465c03aca0aeb2aac8e4b8a74b8dd7`.
-- Directly verified the authored E271/E272 lifecycle: E271-A declares the active crisis, E271-B resolves the warning without declaring, and E272-A/B resolve the declared crisis while retaining the historical declaration.
-- Closed the source-level producer/consumer boundary: E271-A is the only authored active-crisis producer; E272-A/B are the authored clear/resolution producers; E195/E253/E255 remain consumers.
-- Reconciled `docs/EVENT_GRAPH.md` in commit `67539450464ae167552534dca8375a25daa8f138` with explicit E271/E272 design-level lifecycle edges.
-- Preserved runtime save/load, exactly-once, turn-order and reachability work as OPEN rather than claiming implementation.
+- Directly verified the authored E271/E272 lifecycle and reconciled `docs/EVENT_GRAPH.md` in commit `67539450464ae167552534dca8375a25daa8f138`.
 - S07: **80% / IN PROGRESS**.
 
 ### Batch S08.1 — global producer/consumer closure checkpoint
 - Added `docs/SCENARIO_QA_S08_GLOBAL_CLOSURE_CHECKPOINT_01.md` in commit `5ec98790a037a7f0bb3fa8a8519ddff3a326dced`.
-- Consolidated source-closed lifecycle producers and hard-negative rules from S01–S07 into one global checkpoint.
-- Classified `ledger_fragment_a` as a multi-producer convergence requiring a future idempotent/provenance contract, not a contradiction.
-- Consolidated unresolved producer/consumer/trigger classes including `shared_crisis_command`, `full_ledger_published`, replay state, route shorthand, contextual pressure predicates and E184/E245/E246.
-- Confirmed that exhaustive E01–E272 output/trigger extraction is still required before S08 can close.
-- S08: **65% / IN PROGRESS**; global Scenario QA remains 65%.
+- Consolidated source-closed lifecycle producers, hard-negative rules, convergence cases and unresolved trigger classes from S01–S07.
+- S08: **65% / IN PROGRESS**.
+
+### Batch S08.2 — source correction + output normalization
+- Added `docs/SCENARIO_QA_S08_GLOBAL_CLOSURE_CHECKPOINT_02.md` in commit `b2f562705553ad4927e8987f37e1782a5abaf193`.
+- Corrected the stale transport-disruption closure: E32 is the active producer; E136-A/B clear it; E192 consumes it.
+- Directly normalized E192 outputs: `food_logistics_unstable` and `food_logistics_stabilized` are authored markers; `pred.food_stable` is not treated as an authored alias.
+- Reconfirmed E271/E272 border lifecycle and E194 guild-logistics qualification boundaries.
+- S08: **70% / IN PROGRESS**; global Scenario QA remains 65%.
 
 ## Active gates
 
@@ -106,15 +106,15 @@ Every substantive scenario-QA batch must leave a durable GitHub commit and updat
 - S12: fresh-run/replay reachability, graph-vs-catalog reconciliation and final sweep.
 
 ## Current continuation checkpoint — 2026-09-15
-- Latest S08 global closure checkpoint commit: `5ec98790a037a7f0bb3fa8a8519ddff3a326dced`.
-- Latest S07 artifact commit: `ad08b00cd5465c03aca0aeb2aac8e4b8a74b8dd7`.
-- Latest event-graph reconciliation commit: `67539450464ae167552534dca8375a25daa8f138`.
-- Latest S06 semantic-closure commit: `3c5d9d621943b08ec23fb5579792b5294ef03ccd`.
-- Next substantive action: continue S08 exhaustive output/trigger inventory from the authoritative E01–E272 sources, then use that machine set to drive S09 predicate dependency analysis without repeating already-closed semantic facts.
+- Latest S08 correction checkpoint: `b2f562705553ad4927e8987f37e1782a5abaf193`.
+- Latest S08 global closure checkpoint: `5ec98790a037a7f0bb3fa8a8519ddff3a326dced`.
+- Latest S07 artifact: `ad08b00cd5465c03aca0aeb2aac8e4b8a74b8dd7`.
+- Latest event-graph reconciliation: `67539450464ae167552534dca8375a25daa8f138`.
+- Next substantive action: exhaustive E01–E272 output/trigger extraction, then duplicate/contradiction/undefined producer analysis and S09 predicate dependency compilation.
 
 ## Current status
 Scenario QA remains **65%** until active global gates are actually closed.
 
-Working batch indicators: **S01 80%, S02 70%, S03 70%, S04 70%, S05 60%, S06 55%, S07 80%, S08 65%, S09 45%, S10 60%, S11 55%, S12 20%**.
+Working batch indicators: **S01 80%, S02 70%, S03 70%, S04 70%, S05 60%, S06 55%, S07 80%, S08 70%, S09 45%, S10 60%, S11 55%, S12 20%**.
 
 These batch percentages are working indicators and are not the global Scenario QA percentage.
