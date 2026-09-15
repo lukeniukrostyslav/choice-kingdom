@@ -36,6 +36,13 @@ Every substantive scenario-QA batch must leave a durable GitHub commit and updat
 - S01 remains **70% / IN PROGRESS**; duplicate/contradictory writer closure is still open.
 - No scenario percentage increase was claimed from this checkpoint.
 
+### Batch S00.5 — S01–S12 gate reconciliation / anti-repeat checkpoint
+- Added `docs/SCENARIO_QA_GATE_RECONCILIATION_01.md` in commit `5ceb59f2cac0ef421194e6718f37218d0aa2642c`.
+- Mapped every S01–S12 gate against existing canonical/static/replay/ending work.
+- Marked previously proven work as covered/partial rather than scheduling it for rework.
+- Confirmed that S01–S12 are a verification checklist, not a new project phase.
+- No scenario percentage increase was claimed from this reconciliation.
+
 ## Active gates — mapped to execution batches
 
 ### S01 — E01–E34 event inventory
@@ -110,12 +117,13 @@ Before starting a QA batch:
 7. verify the saved file from GitHub before moving to the next batch.
 
 ## Current continuation checkpoint — 2026-09-15
-- Latest durable S01 artifact is commit `8ec67ff2c9efcc7c49195354740722d6669bffb1`.
+- Latest durable anti-repeat artifact is commit `5ceb59f2cac0ef421194e6718f37218d0aa2642c`.
+- Latest durable S01 inventory remains commit `8ec67ff2c9efcc7c49195354740722d6669bffb1`.
 - Authoritative narrative source currently has blob SHA `afd8155b3359a562e5336ff54b0a0245aec46a4d`.
 - `PROJECT_STATE.md` remains at blob SHA `ec85d9ff9eb1283b4bb9cfd395700ceb3657861b`.
-- The next action is to finish the existing S01 gate, not restart the campaign audit: directly close E31 source verification, then close the S01 duplicate/contradiction scan, and only after that advance to S02.
+- Next substantive action is still the first genuinely open S01 work: directly close E31 source verification, then close the S01 duplicate/contradiction scan, using the reconciliation artifact to avoid repeating already-proven work.
 - No work from earlier batches is to be repeated merely because S01–S12 are used as an execution checklist.
 
 ## Current status
 
-Scenario QA remains **65%** until the active batches above are actually checked and closed. The execution plan is durable and prevents restarting the same broad scenario audit from zero.
+Scenario QA remains **65%** until the active batches above are actually checked and closed. The execution plan and reconciliation are durable and prevent restarting the same broad scenario audit from zero.
