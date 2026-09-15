@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the machine-readable Choice Kingdom canonical graph contract.
-
-Source-level validator only: design-level EVENT_GRAPH edges are not runtime truth.
-"""
+"""Validate the machine-readable Choice Kingdom canonical graph contract."""
 from __future__ import annotations
 
 import json
@@ -16,6 +13,7 @@ PRODUCER_INVENTORY = ROOT / "docs" / "CANONICAL_PRODUCER_INVENTORY_01.md"
 
 EVENT_TOKEN_RE = re.compile(r"\bE(?:[1-9][0-9]{2}|[1-9][0-9]|0[1-9])(?:-[A-Z])?\b")
 CHAIN_RE = re.compile(r"`([^`]*->[^`]*)`")
+HEADING_EVENT_RE = re.compile(r"^###\s+(E(?:[1-9][0-9]{2}|[1-9][0-9]|0[1-9]))\b")
 
 
 def canonical_event(event_id: str) -> str:
@@ -31,10 +29,11 @@ def main() -> int:
     errors: list[str] = []
     warnings: list[str] = []
 
-    if not EVENT_GRAPH.exists():
-        errors.append("EVENT_GRAPH.md is missing")
-    if not PRODUCER_INVENTORY.exists():
-        errors.append("CANONICAL_PRODUCER_INVENTORY_01.md is missing")
+    catalog_sources = [ROOT / p for p in manifest["source_of_truth"]["catalog_sources"]]
+    required_files = [EVENT_GRAPH, PRODUCER_INVENTORY, *catalog_sources]
+    for path in required_files:
+        if not path.exists():
+            errors.append(f"required source file is missing: {path.relative_to(ROOT)}")
     if errors:
         print("CANONICAL GRAPH VALIDATION: FAIL")
         for e in errors:
@@ -43,6 +42,28 @@ def main() -> int:
 
     graph_text = EVENT_GRAPH.read_text(encoding="utf-8")
     inventory_text = PRODUCER_INVENTORY.read_text(encoding="utf-8")
+
+    # Authoritative catalog coverage: exactly one heading definition per frozen event.
+    catalog_counts: dict[str, int] = {}
+    for path in catalog_sources:
+        for line in path.read_text(encoding="utf-8").splitlines():
+            match = HEADING_EVENT_RE.match(line.strip())
+            if match:
+                event_id = match.group(1)
+                catalog_counts[event_id] = catalog_counts.get(event_id, 0) + 1
+
+    missing_catalog = sorted(expected - set(catalog_counts))
+    duplicate_catalog = sorted(e for e, count in catalog_counts.items() if count > 1 and e in expected)
+    out_of_scope_catalog = sorted(e for e in catalog_counts if e not in expected and e not in excluded)
+    excluded_catalog = sorted(e for e in catalog_counts if e in excluded)
+    if missing_catalog:
+        errors.append(f"authoritative catalog is missing {len(missing_catalog)} frozen event headings: {', '.join(missing_catalog)}")
+    if duplicate_catalog:
+        errors.append(f"authoritative catalog duplicates frozen event headings: {', '.join(duplicate_catalog)}")
+    if out_of_scope_catalog:
+        errors.append(f"authoritative catalog contains unexpected event IDs: {', '.join(out_of_scope_catalog)}")
+    if excluded_catalog:
+        warnings.append(f"excluded expansion headings are documented in selected catalog sources: {', '.join(excluded_catalog)}")
 
     # Parse explicit design-level backtick chains. Narrative scope notes are ignored.
     edges: list[tuple[str, str]] = []
@@ -57,9 +78,6 @@ def main() -> int:
             if src in expected and dst in expected:
                 edges.append((src, dst))
 
-    # Repeated design edges are legal: the same causal edge can be documented by
-    # several layer sections. Record them, but do not confuse them with a semantic
-    # contradiction or runtime duplicate writer.
     seen: set[tuple[str, str]] = set()
     repeated_edges: set[tuple[str, str]] = set()
     for src, dst in edges:
@@ -71,8 +89,7 @@ def main() -> int:
     if repeated_edges:
         warnings.append(f"design graph repeats {len(repeated_edges)} already-documented causal edges")
 
-    # Check actual producer rows only; inventory prose is allowed to mention excluded
-    # expansion candidates as an explicit quarantine rule.
+    # Check actual producer rows only; inventory prose may mention excluded IDs as quarantine notes.
     producer_rows = []
     for line in inventory_text.splitlines():
         if line.startswith("|") and "|" in line[1:]:
@@ -108,7 +125,11 @@ def main() -> int:
 
     report = {
         "frozen_scope": f"E{lo:02d}-E{hi}",
-        "excluded_scope": sorted(excluded),
+        "catalog_event_headings": len(catalog_counts),
+        "catalog_frozen_event_headings": len(set(catalog_counts) & expected),
+        "catalog_missing_frozen_events": len(missing_catalog),
+        "catalog_duplicate_frozen_events": len(duplicate_catalog),
+        "excluded_catalog_headings": len(excluded_catalog),
         "graph_edges_unique": len(seen),
         "graph_edges_repeated_in_design_doc": len(repeated_edges),
         "graph_event_nodes_referenced": len(referenced & expected),
