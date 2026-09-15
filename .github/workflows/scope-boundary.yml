@@ -1,0 +1,13 @@
+name: Choice Kingdom Scope Boundary
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  scope-boundary:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate frozen production scope boundaries
+        run: python3 tools/validate_scope_boundaries.py
