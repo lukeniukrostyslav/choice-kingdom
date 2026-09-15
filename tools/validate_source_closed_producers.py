@@ -14,7 +14,7 @@ excluded = set(manifest["scope"].get("excluded_events", []))
 expected = {f"E{i:02d}" for i in range(first, last + 1)} - excluded
 sources = manifest["source_of_truth"]["catalog_sources"]
 head_re = re.compile(r"^### (E\d{2,3}) — (.+)$", re.M)
-choice_re = re.compile(r"(?:^|\n)\s*-\s*\*\*([AB])(?:\b|\s*[—:-])", re.M)
+choice_re = re.compile(r"(?:^|\n)\s*(?:-\s*)?\*\*([AB])\s*(?:—|:|-)", re.M)
 
 blocks: dict[str, str] = {}
 for source in sources:
