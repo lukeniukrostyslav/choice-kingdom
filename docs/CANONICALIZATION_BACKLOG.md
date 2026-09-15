@@ -16,6 +16,7 @@ This backlog tracks canonical production readiness. Documentation completion alo
 - [x] Exact-source compare E73/E156 completed; source-level distinction confirmed.
 - [x] Exact-source compare E99/E173 completed; source-level distinction confirmed.
 - [x] Border-crisis producer discovery completed at source level through E271–E272; graph integration remains open.
+- [x] Safe prose-trigger normalization pass recorded for predicate families already defined by the canonical matrix.
 - [ ] Machine-readable trigger token inventory fully reconciled.
 - [ ] Flag/history/thread producers fully enumerated.
 - [ ] Relationship mutations and gates fully enumerated.
@@ -62,4 +63,4 @@ The E55/E269 and E36/E226 boxes are now checked because the authoritative catalo
 
 **BLOCKED until the remaining producer/consumer, graph, delayed-consequence, reachability, ending, and source-ID audits are implemented and their results recorded.**
 
-The authoritative source-comparison record is `docs/LEGACY_SOURCE_COMPARISON_02.md`. The semantic-collision status is recorded in `docs/SEMANTIC_COLLISION_RESOLUTION_01.md`.
+The authoritative source-comparison record is `docs/LEGACY_SOURCE_COMPARISON_02.md`. The semantic-collision status is recorded in `docs/SEMANTIC_COLLISION_RESOLUTION_01.md`. The latest safe trigger-normalization pass is `docs/CANONICAL_TRIGGER_NORMALIZATION_03.md`.
