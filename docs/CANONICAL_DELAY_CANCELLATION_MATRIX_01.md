@@ -1,43 +1,37 @@
 # Choice Kingdom — Canonical Delay Cancellation / Supersession Matrix 01
 
-Status: **QA EXTRACTION — BOUNDARY AUDIT**  
-Scope: high-risk delayed consumers E181–E185 and E242–E246.  
-This document records only source-backed identity and explicitly known gaps. It does not invent runtime cancellation, due turns, persistence, or resolution semantics.
-
-## Contract
+Status: **QA EXTRACTION — BOUNDARY AUDIT**
+Scope: high-risk delayed consumers E181–E185 and E242–E246.
 
 A delayed consequence is not production-ready until its canonical row can resolve:
-
 `sourceEventId + sourceChoiceId + consequenceId + earliestTurn + resolutionTarget + exactlyOnceKey + cancellation/supersessionRule`
-
-The matrix deliberately separates **source identity closure** from **runtime lifecycle closure**.
 
 | Consumer | Source identity | Timing evidence | Cancellation / supersession | Exactly-once | Status |
 |---|---|---|---|---|---|
-| E181 | E45-B | Authored: `5+ turns after a toll concession` | Not canonically extracted | Not canonically extracted | PARTIAL — identity closed, lifecycle open |
-| E182 | E117-B / `veteran_patronage` | Authored: `4+ turns later` | Not canonically extracted | Not canonically extracted | PARTIAL — identity closed, lifecycle open |
-| E183 | E118-B / `estate_exception` | Authored: `5+ turns later` | Not canonically extracted | Not canonically extracted | PARTIAL — identity closed, lifecycle open |
-| E184 | No safe canonical producer alias | Authored: `4+ turns later` / secret evidence route | Producer itself unresolved | Not canonically extracted | OPEN |
-| E185 | E17-A / `cheap_weapons` plus later military crisis | Delayed severe-loss branch is authored; exact executable timing not normalized | A prevents later failure; B schedules severe delayed loss; supersession identity unresolved | Not canonically extracted | PARTIAL / OPEN |
-| E242 | E118-B candidate | Long-delay callback; exact runtime scheduling open | Trigger says any prior noble exception; selection/lifecycle unresolved | Not canonically extracted | PARTIAL / OPEN |
-| E243 | E18-B / `public_bridge` | Authored: `5+ turns later` | Not canonically extracted | Not canonically extracted | PARTIAL — identity closed, lifecycle open |
-| E244 | E09-B / `flexible_accounts` | Authored: `5+ turns later` | Not canonically extracted | Not canonically extracted | PARTIAL — identity closed, lifecycle open |
-| E245 | E20-A / `soldier_compensation` | Authored: `6+ turns later` | Absolute cancellation/supersession semantics unresolved | Not canonically extracted | PARTIAL — identity closed, lifecycle open |
-| E246 | E160-A / `winter_rent_ceiling` | Authored relative timing; runtime scheduler open | Not canonically extracted | Not canonically extracted | PARTIAL — identity closed, lifecycle open |
+| E181 | E45-B | 5+ turns after toll concession | Not extracted | Not extracted | PARTIAL — lifecycle open |
+| E182 | E117-B / veteran_patronage | 4+ turns later | Not extracted | Not extracted | PARTIAL — lifecycle open |
+| E183 | E118-B / estate_exception | 5+ turns later | Not extracted | Not extracted | PARTIAL — lifecycle open |
+| E184 | No safe canonical producer alias | 4+ turns later / secret evidence route | Producer unresolved | Not extracted | OPEN |
+| E185 | E17-A / cheap_weapons + later military crisis | Delayed branch authored; executable timing not normalized | A prevents later failure; B schedules severe delayed loss; supersession unresolved | Not extracted | PARTIAL / OPEN |
+| E242 | E118-B candidate | Long-delay callback; scheduler open | Selection/lifecycle unresolved | Not extracted | PARTIAL / OPEN |
+| E243 | E18-B / public_bridge | 5+ turns later | Not extracted | Not extracted | PARTIAL — lifecycle open |
+| E244 | E09-B / flexible_accounts | 5+ turns later | Not extracted | Not extracted | PARTIAL — lifecycle open |
+| E245 | E20-A / soldier_compensation | 6+ turns later | Absolute cancellation/supersession unresolved | Not extracted | PARTIAL — lifecycle open |
+| E246 | E160-A / winter_rent_ceiling | Relative timing; scheduler open | Not extracted | Not extracted | PARTIAL — lifecycle open |
 
 ## Hard negatives
 
 1. No absolute due turn is inferred from relative prose.
-2. A consumer cannot manufacture the prerequisite that makes itself eligible.
-3. E245 cannot silently union E20/E125/E156 as interchangeable source families without an authored rule.
-4. A cancellation rule cannot be inferred merely because a later state appears to make an outcome unlikely.
-5. Replay/meta-state is not a cancellation mechanism unless the authored contract explicitly promotes it.
+2. A consumer cannot manufacture its own prerequisite.
+3. E245 cannot silently union E20/E125/E156 without an authored rule.
+4. Cancellation cannot be inferred from narrative likelihood.
+5. Replay/meta-state is not cancellation without an explicit promotion contract.
 6. E273–E277 are excluded from production semantics.
 
-## Promotion gate
+## S10.4 verification addendum — 2026-09-15
 
-A row may be promoted from this matrix to an executable production delay schema only after the authoritative catalog supplies the missing consequence identity, target, lifecycle rule, and exactly-once semantics. Source identity closure alone is insufficient.
+Verified against the current canonical producer/consumer registry and bounded contract audit. E181/E182/E183/E243/E244/E245/E246 have source identities but remain lifecycle-open; E184 has no safe canonical producer alias; E185 retains the explicit A/B distinction; E242 remains a candidate-source case; no E273–E277 source was promoted.
 
-## Current conclusion
+**Result: S10.4 source-boundary verification PASS; runtime lifecycle gate remains OPEN.**
 
-The audit closes no new runtime lifecycle gate. The useful result is a bounded, machine-oriented list of what is known versus still absent, preventing accidental promotion of narrative timing into executable scheduling.
+This is a QA boundary artifact, not an executable production contract.
