@@ -1,0 +1,42 @@
+name: Choice Kingdom Scenario Source Inventory V3
+
+on:
+  pull_request:
+    paths:
+      - 'docs/MACHINE_CANONICAL_GRAPH_01.json'
+      - 'docs/EVENT_CATALOG*.md'
+      - 'tools/compile_scenario_source_inventory.py'
+      - '.github/workflows/scenario-source-inventory-v3.yml'
+  workflow_dispatch:
+
+jobs:
+  source-inventory-v3:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile canonical source inventory v3
+        run: python3 tools/compile_scenario_source_inventory.py
+      - name: Assert exhaustive source closure
+        run: |
+          python3 - <<'PY'
+          import json
+          d=json.load(open('scenario-source-inventory.json',encoding='utf-8'))
+          assert d['schema']=='choice-kingdom-scenario-source-inventory-3'
+          assert d['event_count']==272
+          assert not d['predicate_cycles']
+          assert len(d['semantic_writer_collisions'])==0
+          assert len(d['undefined_consumers'])==0, d['undefined_consumers']
+          assert len(d['undefined_predicate_consumers'])==0, d['undefined_predicate_consumers']
+          print('SOURCE_CLOSURE_V3=PASS')
+          print('events=',d['event_count'])
+          print('source_contracts=',d['source_contract_count'])
+          print('undefined_consumers=',len(d['undefined_consumers']))
+          print('undefined_predicate_consumers=',len(d['undefined_predicate_consumers']))
+          print('semantic_writer_collisions=',len(d['semantic_writer_collisions']))
+          print('predicate_cycles=',len(d['predicate_cycles']))
+          PY
+      - name: Upload source closure artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: scenario-source-inventory-v3
+          path: scenario-source-inventory.json

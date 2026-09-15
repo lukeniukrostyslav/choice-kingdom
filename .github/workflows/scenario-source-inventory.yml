@@ -32,7 +32,7 @@ jobs:
           from pathlib import Path
           p = Path('scenario-source-inventory.json')
           data = json.loads(p.read_text(encoding='utf-8'))
-          assert data['schema'] == 'choice-kingdom-scenario-source-inventory-2', data['schema']
+          assert data['schema'] == 'choice-kingdom-scenario-source-inventory-3', data['schema']
           assert data['event_count'] == 272, data['event_count']
           assert len(data['events']) == 272
           assert data['events'][0]['event_id'] == 'E01'
@@ -66,9 +66,5 @@ jobs:
             scenario-source-inventory.json
             undefined-consumer-source-inspection.json
 
-# S20 verification trigger: inventory schema/predicate-cycle assertion is part of the
-# canonical scenario gate and does not alter authored scenario semantics.
-# S23 verification trigger: expose deterministic inventory closure metrics in CI logs.
-# S24 verification trigger: exhaustive inventory is executable on PRs as well as main pushes.
-# S26 verification trigger: emitted-schema assertions are aligned with the inventory JSON.
-# S27 verification trigger: unresolved consumers receive a source-occurrence inspection artifact.
+# S20 verification trigger: inventory schema/predicate-cycle assertion is part of the canonical scenario gate.
+# S28 verification trigger: source-closed producer contracts and canonical trigger normalizations are included in the machine inventory.

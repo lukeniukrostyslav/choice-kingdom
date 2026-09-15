@@ -25,7 +25,7 @@ Freeze deterministic semantic inputs for contextual conditions before production
 | `pred.coalition_cooperation` | E148-A `history.cross_faction_package` with named participants, positive mutual-concession outcome, and no unresolved coalition-collapse blocker; E261-A is not sufficient by itself | SOURCE CONTRACT CLOSED; runtime blocker evaluation/reachability open |
 | `pred.constitutional_prepared_strong` | Any 3 of 4 independent domains: civic=`people_charter_endorsed` (E50); institutional=`crown_audited` (E154); factional=`house_assembly` (E161); military/law=`army_constitution_oath` (E199) | SOURCE CONTRACT CLOSED; executable aggregation/reachability open |
 | `pred.budget_reform` | E142-A `auditor_independence` + E154-A `crown_audited` + E198-A `legislative_budget_lock`; E142-B/E154-B/E198-B negative blockers; E155-A same-domain downstream evidence | SOURCE CONTRACT CLOSED; runtime invalidation/reachability open |
-| `pred.final_charter_prerequisites` | convergence of civic, institutional, faction/house/guild, military/security, information/evidence, coalition and crisis-resolution facts, with mandatory blockers cleared | OPEN / BLOCKED — consumer E209 remains downstream |
+| `pred.final_charter_prerequisites` | `people_charter_endorsed` + (`crown_audited` OR `full_crown_audit_published`) + (`history.house_assembly` AND `history.guild_representation`) + (`army_constitution_oath` OR `military_red_line`) + information/evidence legitimacy + `pred.coalition_cooperation` + no unresolved mandatory crisis blocker; E209 is consumer-only | SOURCE CONTRACT CLOSED; runtime aggregation/reachability open |
 
 ## Hard derivation rules
 
@@ -51,6 +51,7 @@ Freeze deterministic semantic inputs for contextual conditions before production
 - `pred.coalition_cooperation`: E148-A is the authoritative package source; participant identity is explicit; E261-A alone is not qualification.
 - `pred.constitutional_prepared_strong`: any three independent domains from E50/E154/E161/E199; downstream consequences do not silently create a fourth independent domain.
 - `pred.budget_reform`: E142-A/E154-A/E198-A are the three independent institutional layers; negative blockers are explicit.
+- `pred.final_charter_prerequisites`: exact upstream conjunction is frozen; E209 consumes only and cannot satisfy any prerequisite.
 - `pred.food_stable`: no E01–E272 producer verified.
 - `pred.guild_labor_tension`: no E01–E272 producer verified.
 - `pred.information_pressure_high`: no E01–E272 producer verified.
@@ -89,6 +90,10 @@ E232–E236 provide candidate evidence families. E270-A explicitly records `syst
 
 E148-A records the cross-faction package and named participation from Mara, Rowan, Seris, Ivo, Amara and Toma. The qualification requires that package plus positive mutual-concession semantics and absence of an unresolved collapse blocker. `four_way_bargain` is not an alias.
 
+### Final charter prerequisites
+
+The source-level evaluator is intentionally upstream of E209. Civic legitimacy is `people_charter_endorsed`; institutional legitimacy is `crown_audited` or its published audit result; house/guild representation requires both immutable representation markers; military/security constitutional route is `army_constitution_oath` or the explicitly authored `military_red_line`; information/evidence legitimacy is satisfied only by a canonical evidence marker from the investigation chain; coalition legitimacy is `pred.coalition_cooperation`; and any mandatory active crisis blocker must be resolved before qualification. E209 never manufactures a missing prerequisite.
+
 ## Gate
 
-Source-level composite predicate semantics are now frozen wherever an in-scope authored producer exists. Runtime lifecycle, persistence, contradiction invalidation and fresh-run/replay reachability remain downstream gates. No production schema or Decision Engine implementation is authorized by this document alone.
+Source-level composite predicate semantics are now frozen wherever an in-scope authored producer or deterministic derived contract exists. Runtime lifecycle, persistence, contradiction invalidation and fresh-run/replay reachability remain downstream gates. No production schema or Decision Engine implementation is authorized by this document alone.

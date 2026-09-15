@@ -1,0 +1,10 @@
+{
+  "schema": "choice-kingdom.derived-source-producer-contracts-2",
+  "scope": "E01-E272",
+  "contracts": [
+    {"fact":"pred.coalition_cooperation","event":"E148","choice":"A","source":"docs/CANONICAL_DERIVED_PREDICATE_CONTRACT_01.md","kind":"source_closed_composite_predicate"},
+    {"fact":"pred.constitutional_prepared_strong","event":"DERIVED_GATE","choice":"any-three-of-four E50/E154/E161/E199","source":"docs/CANONICAL_DERIVED_PREDICATE_CONTRACT_01.md","kind":"source_closed_composite_predicate"},
+    {"fact":"pred.guild_influence_strong","event":"DERIVED_GATE","choice":"two-distinct-domain aggregation from frozen source identities","source":"docs/CANONICAL_DERIVED_PREDICATE_CONTRACT_01.md","kind":"source_closed_composite_predicate"},
+    {"fact":"pred.systemic_explanation_verified","event":"E270","choice":"A","source":"docs/CANONICAL_DERIVED_PREDICATE_CONTRACT_01.md","kind":"source_closed_composite_predicate"}
+  ]
+}
