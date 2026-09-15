@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "scope": "E33-E34-downstream",
+  "status": "conservative_boundary_closed",
+  "closed_authored_edges": [
+    {"from": "E33", "to": "E35", "binding": "E33 resolved"},
+    {"from": "E34", "to": "E50", "binding": "people_heard"},
+    {"from": "E33", "to": "E62", "binding": "emergency_power is an authored component"},
+    {"from": "E33", "to": "E67", "binding": "constitutional_limit is an authored component"}
+  ],
+  "explicit_non_alias_rules": [
+    "constitutional_limit != constitutional_prepared_strong",
+    "people_heard != final_charter_prerequisites",
+    "emergency_power != repeated_emergency_use",
+    "emergency_power != military_dependency",
+    "four_way_bargain != coalition_cooperation"
+  ],
+  "open_predicates": [
+    "pred.constitutional_prepared_strong",
+    "pred.coalition_cooperation",
+    "pred.systemic_explanation_verified",
+    "pred.final_charter_prerequisites"
+  ],
+  "decision_engine_gate": "blocked_until_executable_producer_contracts_exist"
+}
