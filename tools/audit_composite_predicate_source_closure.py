@@ -11,7 +11,7 @@ OUT = ROOT / "docs/MACHINE_COMPOSITE_SOURCE_CLOSURE_01.json"
 REQUIRED = {
     "pred.guild_influence_strong":["guild_political_representation","guild_tribunal_independent","official_credit_disclosure","audited_monopoly","history.guild_logistics_cooperation"],
     "pred.systemic_explanation_verified":["warehouse/financial","document/language","witness/organizational","explicit E270-A convergence decision"],
-    "pred.coalition_cooperation":["Explicit cooperation package","identified participants","positive cooperation outcome"],
+    "pred.coalition_cooperation":["cross-faction package","named participants","positive mutual-concession outcome"],
     "pred.constitutional_prepared_strong":["people_charter_endorsed","crown_audited","house_assembly","military_red_line"],
     "pred.final_charter_prerequisites":["Convergence of already-established","mandatory blockers cleared"],
 }
