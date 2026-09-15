@@ -19,6 +19,9 @@ EXPECTED = {
     "E183": {"statuses": {"CLOSED"}, "required_candidate": "E118-B"},
     "E184": {"statuses": {"OPEN"}, "required_candidate": None},
     "E185": {"statuses": {"PARTIAL", "OPEN"}, "required_candidate": "E17-A"},
+    "E242": {"statuses": {"PARTIAL", "OPEN"}, "required_candidate": "E118-B"},
+    "E243": {"statuses": {"CLOSED"}, "required_candidate": "E18-B"},
+    "E244": {"statuses": {"CLOSED"}, "required_candidate": "E09-B"},
     "E245": {"statuses": {"CLOSED", "PARTIAL"}, "required_candidate": "E20-A"},
     "E246": {"statuses": {"CLOSED", "PARTIAL"}, "required_candidate": "E160-A"},
 }
@@ -60,7 +63,7 @@ def main() -> int:
             errors.append(f"delayed row contains prohibited invented timing language: {row.get('consumer')}")
 
     report = {
-        "schema_version": "1.1",
+        "schema_version": "1.2",
         "contract": "choice_kingdom.delayed_lifecycle_gate",
         "scope": "E01-E272",
         "readiness": "BLOCKED" if errors else ("PARTIAL" if warnings else "CLOSED"),
@@ -74,6 +77,7 @@ def main() -> int:
             "OPEN/PARTIAL rows cannot be promoted by this validator",
             "E181 source identity is closed at E45-B; exact runtime scheduler semantics remain separate",
             "E185 cheap_weapons identity is distinct from the later military-crisis condition",
+            "E242-E246 candidate identities are checked without assuming that a candidate closes runtime timing/cancellation",
         ],
     }
     OUT.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
