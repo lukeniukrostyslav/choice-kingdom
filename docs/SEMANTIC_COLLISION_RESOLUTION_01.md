@@ -1,7 +1,7 @@
 # Choice Kingdom — Semantic Collision Resolution 01
 
 Date: 2026-09-15
-Status: **SOURCE-LEVEL QA — RESOLUTION POLICY FROZEN; GRAPH/CATALOG INTEGRATION STILL REQUIRED**
+Status: **SOURCE-LEVEL QA — E55/E269 AND E36/E226 AUTHORITATIVE CATALOG DISTINCTIONS APPLIED; GRAPH/CATALOG INTEGRATION STILL REQUIRED**
 Scope: confirmed and suspected duplicate/overlapping event identities before production schema freeze.
 
 ## Purpose
@@ -13,16 +13,16 @@ Prevent ambiguous runtime identities without silently renumbering authored IDs. 
 ### E55 / E269 — confirmed title collision
 
 - E55 remains the canonical **early/primary ledger-disclosure node**: Ivo exposes guild books and chooses protected submission versus private sealing.
-- E269 remains the authored **late endgame consequence node**, but it must be renamed/reframed before production schema freeze so its title and presentation cannot imply that it is the same event as E55.
-- Do not merge IDs and do not renumber either node.
-- The reframe must preserve E269's late-game choice semantics and make its downstream ending/evidence role explicit.
-- Required dependent updates after the authored rename/reframe: event graph, producer/consumer registry, delayed consequence source IDs if any, replay metadata if any, QA matrix and ending simulations.
+- E269 remains the authored **late endgame consequence/evidence node**, now titled **“Ivo's Late Account”** so its title and presentation cannot imply that it is the same event as E55.
+- IDs remain stable; neither node was merged or renumbered.
+- E269's source text now explicitly identifies its late consequence/evidence role and its distinction from E55.
+- Required dependent verification remains: event graph, producer/consumer registry, delayed consequence source IDs if any, replay metadata if any, QA matrix and ending simulations.
 
-### E36 / E226 — same narrative premise, different potential role
+### E36 / E226 — same narrative premise, different role
 
 - E36 remains the canonical early constitutional/resignation node.
-- E226 may remain only as a **late consequence/test** of accumulated executive overrides and institutional strain.
-- E226 must not repeat E36's presentation or function as a second generic resignation choice.
+- E226 is retained as **“Mara's Final Resignation Test”**, a late consequence/test of accumulated executive overrides and institutional strain.
+- E226's source text now explicitly says it is not a second generic resignation scene and must reference accumulated institutional strain in presentation.
 - Its downstream role must consume earlier institutional history and create materially different late-game consequences.
 - If that distinction cannot be demonstrated in graph/reachability QA, E226 should be removed from the playable catalog rather than duplicated at runtime.
 
@@ -84,11 +84,11 @@ Documentation alone does not mark a collision fully resolved. The authoritative 
 
 ## Current gate impact
 
-- E55/E269: **resolution policy frozen; catalog rename/reframe pending**.
-- E36/E226: **late-consequence policy frozen; catalog distinction pending graph verification**.
+- E55/E269: **AUTHORITATIVE CATALOG DISTINCTION APPLIED; graph/consumer/delayed/replay verification pending**.
+- E36/E226: **AUTHORITATIVE CATALOG DISTINCTION APPLIED; graph/reachability verification pending**.
 - E37/E227: **later-stress-test policy frozen; downstream verification pending**.
 - E39/E229: **distinct-role policy frozen; downstream verification pending**.
 - E40/E241: **distinct-role policy frozen; downstream verification pending**.
 - E73/E156: **SOURCE-LEVEL CLOSED; graph/catalog integration pending**.
 - E99/E173: **SOURCE-LEVEL CLOSED; graph/catalog integration pending**.
-- Production schema: **BLOCKED** until authoritative edits and full reconciliation pass.
+- Production schema: **BLOCKED** until full reconciliation pass.
