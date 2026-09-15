@@ -256,6 +256,29 @@ E90 is an intentional fork: accept systemic corruption or pursue a single-master
 `E269 -> Golden Compact / Second Founder / legitimacy support depending on history`
 `E270 -> Second Founder / coalition / information qualification depending on history`
 
+## Expansion layer E271–E272 — border-crisis lifecycle
+
+These two authored nodes close the border-crisis lifecycle at source level. They remain design-level causal candidates until the future engine verifies exact trigger evaluation and runtime persistence.
+
+### Declaration route
+`E271-A -> border_crisis_declared`
+`E271-A -> thread.border_crisis(active)`
+`E271-A -> pred.border_crisis(active)`
+`pred.border_crisis(active) -> E195/E253/E255`
+
+### Non-crisis route
+`E271-B -> thread.border_crisis(resolved_without_declaration)`
+`E271-B -X-> pred.border_crisis(active)`
+
+### Resolution route
+`E271-A -> E272`
+`E272-A/B -> border_crisis_resolved`
+`E272-A/B -> clear pred.border_crisis`
+`E272-A -> thread.border_crisis(resolved)`
+`E272-B -> thread.border_crisis(resolved_under_security_guarantee)`
+
+Historical declaration is retained after E272; resolution clears the active predicate rather than erasing the historical fact. No new ending or replay prerequisite is inferred from E271/E272.
+
 ## Investigation routes
 
 1. Mara: accounting structure and institutional records.
@@ -306,4 +329,4 @@ The edges above are **design-level causal candidates**, not verified runtime edg
 
 ## Content status
 
-E01–E270 are authored. E71–E270 are expansion layers pending canonical production integration. No expansion node is considered engine-integrated merely because an edge is written here.
+E01–E272 are authored. E71–E272 are expansion layers pending canonical production integration. No expansion node is considered engine-integrated merely because an edge is written here.
