@@ -14,7 +14,7 @@ This pass consolidates the current canonical closure audit into an actionable co
 |---|---|---|
 | `history.guild_representation` | CLOSED | E144 is authoritative producer; legacy wording must normalize to this history marker. |
 | `history.guild_logistics_cooperation` | CLOSED | E136-B is the upstream immutable producer; E194 consumes it. |
-| `pred.border_crisis` | CLOSED at source lifecycle | E271 declares; E272 resolves; active predicate must be derived from declaration minus resolution. Security alone cannot create it. |
+| `pred.border_crisis` | CLOSED at source lifecycle | E271 declares; E272 resolves; active predicate is derived from declaration minus resolution. Security alone cannot create it. |
 | `pred.guild_logistics_cooperation` | CLOSED at source chain | Requires E136-B history plus E194-A neutral-inspection qualification and no immunity-risk blocker. |
 | `pred.food_stable` | OPEN | Requires exact durable producer set, invalidation/expiry semantics, and deterministic derivation. Food remains non-resource. |
 | `pred.transport_disruption` | OPEN | E136 proves recovery/clear semantics but no authoritative upstream disruption producer is yet closed. |
@@ -24,11 +24,11 @@ This pass consolidates the current canonical closure audit into an actionable co
 | `pred.information_pressure_high` | OPEN | Must be based on information-state evidence, not `rel.toma`; cardinality/source identity remains open. |
 | `pred.guild_influence_strong` | PARTIAL | Institutional-domain model is frozen conceptually, but exact minimum producer set must be enumerated and made machine-checkable. |
 | `pred.systemic_explanation_verified` | PARTIAL | Requires distinct warehouse/financial, document/language, and witness/organizational evidence IDs plus explicit convergence choice. |
-| `pred.coalition_cooperation` | PARTIAL | Must be based on explicit package/cooperation membership, distinct from four-route cardinality. |
+| `pred.coalition_cooperation` | CLOSED at authored source semantics | E148-A is the authoritative cooperation package producer and records participation from all six named faction identities; the qualified predicate still requires explicit compilation into machine-readable membership plus absence of an unresolved collapse/invalidation marker. E146 route-count alone and E148-B selective coalition do not satisfy it. |
 | `pred.constitutional_prepared_strong` | OPEN | Must be established before E197 from three independent legitimacy domains; no circular endgame producer allowed. |
 | `pred.budget_reform` | OPEN | Audit independence, crown audit, and legislative budget lock must remain distinct. |
 | `thread.military_constitutional` | STRONG | E199-A's constitutional army oath provides explicit route evidence; final activation contract still needs compilation. |
-| `thread.coalition` | STRONG/PARTIAL | E146/E148 provide authored route evidence; immutable membership/package representation needs exact compilation. |
+| `thread.coalition` | STRONG | E148-A provides the authored cross-faction package and named participation evidence; exact immutable membership/package representation still needs compilation. |
 | `thread.amara_civic` | PARTIAL | Multiple authored Amara choices exist; one explicit route activation contract remains necessary. |
 | `thread.toma_information` | PARTIAL | Multiple authored Toma/information choices exist; explicit activation contract remains necessary. |
 | `thread.final_constitutional_phase` | OPEN | Must activate deterministically before E208 without using late consumers as producers. |
@@ -36,6 +36,8 @@ This pass consolidates the current canonical closure audit into an actionable co
 | Delayed consequence identity | OPEN | Every prose delay needs source choice, exact identity, timing window/condition, cancellation/supersession and exactly-once semantics. |
 | Replay metadata | OPEN | Only `meta.*` facts intentionally persistent across runs may qualify future replay behavior. |
 | Ending qualification | OPEN | E61–E67 are distinct ending resolvers; independent prerequisites and precedence still require explicit contract. |
+| Route identity | CLOSED as semantic rule | Relationship values cannot substitute for explicit historical/flag/thread route identity. See `docs/CANONICAL_ROUTE_CONTRACT_01.md`. Exact machine-readable route producer inventory remains part of schema compilation. |
+| Evidence convergence | PARTIAL | Required evidence families are fixed conceptually; exact source IDs and convergence-choice representation still require compilation. |
 
 ## Hard invariants carried forward
 
@@ -47,6 +49,8 @@ This pass consolidates the current canonical closure audit into an actionable co
 6. Endgame consumers cannot retroactively manufacture preparation predicates.
 7. Replay metadata cannot satisfy current-run state unless the authored contract explicitly makes it a cross-run discovery mechanic.
 8. Delayed consequences must survive save/load and resolve exactly once.
+9. Coalition cooperation is distinct from route count and requires explicit authored cooperation evidence.
+10. Evidence convergence requires distinct evidence families and an explicit convergence decision.
 
 ## P0 closure blockers
 
@@ -60,7 +64,7 @@ The production schema remains blocked until these are resolved and reconciled ag
 - information pressure producer/cardinality;
 - exact guild influence institutional set;
 - independent evidence route IDs and systemic convergence;
-- coalition membership/cooperation semantics;
+- coalition machine-readable membership and collapse/invalidation semantics;
 - constitutional preparation upstream producers;
 - final charter prerequisite closure;
 - delayed consequence source identity/timing/cancellation/exactly-once extraction;
