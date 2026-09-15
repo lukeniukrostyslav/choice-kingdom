@@ -11,3 +11,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Validate source-level canonical graph contract
         run: python3 tools/validate_canonical_graph.py
+      - name: Compile graph node classification inventory
+        run: python3 tools/classify_graph_nodes.py
+      - name: Verify generated classification inventory is deterministic
+        run: git diff --exit-code -- docs/MACHINE_GRAPH_NODE_CLASSIFICATION_01.json
