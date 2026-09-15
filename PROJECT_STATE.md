@@ -35,9 +35,10 @@ Dedicated Scenario QA score remains **65%**. This is distinct from overall proje
 - S09 **60%**
 - S10 **72%**
 - S11 **55%**
-- S12 **28%** — S12.2 source closure plus S12.3 canonical invariant audit completed; exhaustive reachability is still open.
+- S12 **30%** — S12.2 source closure, S12.3 canonical invariant audit and S12.4 source-patch application gate completed; exhaustive reachability and authoritative patch application remain open.
 
 ## Latest QA work
+- **S12.4** added `docs/SCENARIO_QA_S12_4_SOURCE_PATCH_APPLICATION_GATE_01.md`, commit `17a74ef695cd0f9b94e2a20b80f3669dbda0cd74`. It reconciles the P0 patch specification against canonical contracts and identifies a material unresolved semantic conflict: the proposed E192 patch would derive `pred.food_stable` from `food_logistics_stabilized`, while the current canonical contract still says no E01–E272 producer is verified. The patch therefore remains unapplied until authoritative source evidence explicitly resolves the contract. No premature production promotion was made.
 - **S12.3** added `docs/SCENARIO_QA_S12_3_CANONICAL_INVARIANT_AUDIT_01.md`, commit `860444b28cd6e3e36024f9ebf9609b80532efa07`. It converts the latest producer/consumer registry into explicit canonical invariants and records PASS/OPEN/REJECTED states for lifecycle, alias, replay, delayed and ending rules. It does not claim exhaustive reachability.
 - **S12.2** added `docs/SCENARIO_QA_S12_2_SOURCE_CLOSURE_DELTA_AUDIT_01.md`, commit `6c8e82e825e7bcbeeb9d6f105ed7f4f9fd744559`. This reconciles the latest producer inventory against stale wording and closes the source-level ambiguity for active `pred.transport_disruption`: E32 is the explicit active producer; E136-A/B are recovery/clear producers. Runtime cycle identity, ordering, persistence, expiry/supersession and delayed-effect interaction remain open.
 - **S12.1** added the machine-oriented reachability anchor inventory in commit `a61ac9de61f4c448c511e123be38cea12b3b0f5b8`.
@@ -63,7 +64,7 @@ Source-level closed chains include:
 - E142-A/E154-A/E198-A → budget-reform source domains
 
 Important unresolved/open areas:
-- `pred.food_stable`
+- `pred.food_stable` and its relationship to `food_logistics_stabilized`
 - exact machine formula for `pred.guild_influence_strong`
 - `pred.systemic_explanation_verified`
 - `pred.coalition_cooperation`
@@ -73,6 +74,7 @@ Important unresolved/open areas:
 - exact delayed identities/timing/cancellation for remaining open families
 - complete incoming paths and deterministic precedence for endings
 - exhaustive E01–E272 producer/consumer graph and fresh-run reachability
+- authoritative application/re-read of P0 source patches
 
 ## Canonical vocabulary rules
 State namespaces are `resource.*`, `rel.*`, `flag.*`, `history.*`, `thread.*`, `delay.*`, `ending.*`, and explicit `meta.*` for intentionally persistent cross-run knowledge. Contextual concepts such as food pressure or winter severity must be deterministic predicates or durable markers, never silently become a sixth resource.
@@ -90,6 +92,7 @@ Delayed consequences require source choice/event, earliest turn, latest turn or 
 - E136 recovery cannot reactivate transport disruption.
 - ordinary run state cannot automatically become `meta.*`.
 - E273–E277 cannot contribute production edges.
+- `food_logistics_stabilized` must not silently alias `pred.food_stable` until its complete authored predicate/lifecycle contract is explicitly closed.
 
 ## Current honest progress
 - Foundation / rules: **95%**
@@ -113,14 +116,15 @@ Delayed consequences require source choice/event, earliest turn, latest turn or 
 Overall project progress remains approximately **53%**. Scenario QA remains **65%** and must not be conflated with overall project completion.
 
 ## Next autonomous work
-1. Continue exhaustive E01–E272 producer/consumer inventory from authoritative catalogs.
-2. Normalize every output/trigger into canonical vocabulary.
-3. Detect zero-producer, duplicate, contradictory and cyclic semantic tokens.
-4. Continue exact source extraction for E218/E225 and E251–E272 delayed/lifecycle rows.
-5. Reconcile S11 ending incoming paths and precedence against the expanded graph.
-6. Run fresh-run and representative replay reachability from canonical initial state.
-7. Freeze production contracts only after machine checks are clean enough.
-8. Then build Decision Engine → UI → localization → automated/runtime verification → Android → APK → release.
+1. Re-read authoritative authored catalog blocks for E136, E144, E148, E192, E194, E197, E200, E207, E209 and E210 and classify each P0 patch as present/partial/absent.
+2. Resolve the E192 `pred.food_stable` versus `food_logistics_stabilized` conflict from authoritative source evidence only.
+3. Generate the machine-oriented P0 producer/consumer delta.
+4. Continue exhaustive E01–E272 producer/consumer inventory and canonical vocabulary normalization.
+5. Continue exact source extraction for E218/E225 and E251–E272 delayed/lifecycle rows.
+6. Reconcile S11 ending incoming paths and precedence against the expanded graph.
+7. Run fresh-run and representative replay reachability from canonical initial state.
+8. Freeze production contracts only after machine checks are clean enough.
+9. Then build Decision Engine → UI → localization → automated/runtime verification → Android → APK → release.
 
 ## Honest progress rule
 Documentation alone never makes implementation complete. Source edits count only when authoritative evidence is changed/re-read. No block is ready until its applicable verification passes. Owner-controlled release gates must never be falsely marked complete.
