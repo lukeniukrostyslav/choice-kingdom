@@ -21,7 +21,7 @@ No mock/stub gameplay or premature production-readiness claims.
 **Narrative/content canonicalization and QA.** Authored checkpoint E01–E272. Production schema and Decision Engine remain blocked until canonical contracts and reachability are sufficiently closed.
 
 ## Scenario QA
-Dedicated Scenario QA score is now approximately **76%**. This is distinct from overall project completion and is not runtime/Android readiness.
+Dedicated Scenario QA score is now approximately **77%**. This is distinct from overall project completion and is not runtime/Android readiness.
 
 ### S01–S12 working indicators
 - S01 **80%**
@@ -35,14 +35,13 @@ Dedicated Scenario QA score is now approximately **76%**. This is distinct from 
 - S09 **60%**
 - S10 **72%**
 - S11 **55%**
-- S12 **60%** — S12.20 recovered and re-read the exact authored E272 source from repository history, closing the exact E272 branch-token blocker at source level. Remaining blockers are composite predicate executable closure, exact systemic evidence convergence, replay meta producers/keys, delayed identity/timing/cancellation, ending precedence, and fresh-run/replay executable reachability.
+- S12 **62%** — S12.21 reconciled the E242–E246 long-delay source matrix: E242–E244 source identities are closed candidates, E245 remains explicitly multi-candidate, and E246 remains open pending exact price-ceiling producer recovery. Relative timing is not falsely promoted to executable timing.
 
 ## Latest QA work
+- **S12.21** added `docs/SCENARIO_QA_S12_21_LONG_DELAY_SOURCE_MATRIX_01.md`, commit `1e9ad37a6984d78ba61ef5e23e53551d7a40f232`.
 - **S12.20** added `docs/SCENARIO_QA_S12_20_E272_EXACT_SOURCE_RECOVERY_01.md`, commit `92c3c3460c9621fe306c26f97079713a180eadee`.
 - **S12.19** added `docs/SCENARIO_QA_S12_19_REPLAY_META_BOUNDARY_AUDIT_01.md`, commit `cc6936e6c6ffd9074e57f9ba65d62ff7ea4c2075`.
 - **S12.18** added `docs/SCENARIO_QA_S12_18_COMPOSITE_PRODUCER_ORDER_AUDIT_01.md`, commit `33df93136f52883c4c897e414b0640fb6db89b56`.
-- **S12.17** added `docs/SCENARIO_QA_S12_17_PREDICATE_SOURCE_CLOSURE_MATRIX_01.md`, commit `862e6565ca83c1fc3d5bcb4ffac945c1bb14c885`.
-- **S12.16** added `docs/SCENARIO_QA_S12_16_E272_SOURCE_AVAILABILITY_AUDIT_01.md`, commit `1a4c7ea256409116b5129129d02f45aee886c0fb`.
 
 ## Authoritative P0 source status
 Confirmed in authored catalog text:
@@ -68,6 +67,13 @@ Source-level closed chains include:
 - E32 → active `pred.transport_disruption`; E136-A/B clear it
 - E142-A/E154-A/E198-A → budget-reform source domains
 
+### Long-delay source matrix S12.21
+- E242 → E118-B `estate_exception`: source identity closed candidate; exact executable timing/lifecycle open.
+- E243 → E18-B `public_bridge`: source identity closed; exact executable timing/lifecycle open.
+- E244 → E09-B `flexible_accounts`: source identity closed; exact executable timing/lifecycle open.
+- E245 → E125-A `border_compensation` and E156-A `requisition_compensation`: remain distinct candidates; no false merge.
+- E246 → exact price-ceiling producer still open; no generic alias admitted.
+
 Important unresolved/open areas:
 - `pred.food_stable` and its relationship to `food_logistics_stabilized`
 - exact machine formula and immutable evidence IDs for `pred.guild_influence_strong`
@@ -77,6 +83,7 @@ Important unresolved/open areas:
 - `pred.final_charter_prerequisites`
 - replay `meta.*` producers/keys for E247/E248/E270
 - exact delayed identities/timing/cancellation for remaining open families
+- E245 route disambiguation and E246 exact price-ceiling producer
 - complete incoming paths and deterministic precedence for endings
 - exhaustive E01–E272 producer/consumer graph and fresh-run reachability
 - machine graph ↔ authoritative catalog equality
@@ -108,7 +115,7 @@ Delayed consequences require source choice/event, earliest turn, latest turn or 
 - Canonical Event IDs / continuity: **100%**
 - Producer / Consumer QA: **99%**
 - Derived Predicates / Machine Contracts: **95%**
-- Delayed Consequences: **91%**
+- Delayed Consequences: **92%**
 - Replay / Meta-state: **65%**
 - Endings / precedence: **69%**
 - Reachability / Causal Graph: **58%**
@@ -121,17 +128,18 @@ Delayed consequences require source choice/event, earliest turn, latest turn or 
 - APK: **0%**
 - Release: **0%**
 
-Overall project progress remains approximately **60%**. Scenario QA is approximately **76%** and must not be conflated with overall project completion.
+Overall project progress remains approximately **60%**. Scenario QA is approximately **77%** and must not be conflated with overall project completion.
 
 ## Next autonomous work
 1. Compile immutable evidence IDs and exact executable formulas for systemic explanation, guild influence, coalition cooperation, constitutional preparation, budget reform and final-charter prerequisites.
-2. Reconcile all remaining E01–E272 producer/consumer edges and canonical vocabulary.
-3. Build the complete delayed identity/timing/cancellation matrix and verify save/load/replay isolation.
-4. Reconcile S11 ending incoming paths and deterministic precedence against the expanded graph.
-5. Build fresh-run graph from canonical initial state and representative replay graph with strict `meta.*` isolation.
-6. Compare machine graph against authoritative catalog for equality; reject orphan/phantom edges.
-7. Freeze production contracts only after machine checks are clean enough.
-8. Then build Decision Engine → UI → localization → automated/runtime verification → Android → APK → release.
+2. Recover E246 exact price-ceiling producer and resolve E245 compensation-route semantics without merging distinct sources.
+3. Reconcile all remaining E01–E272 producer/consumer edges and canonical vocabulary.
+4. Build the complete delayed identity/timing/cancellation matrix and verify save/load/replay isolation.
+5. Reconcile S11 ending incoming paths and deterministic precedence against the expanded graph.
+6. Build fresh-run graph from canonical initial state and representative replay graph with strict `meta.*` isolation.
+7. Compare machine graph against authoritative catalog for equality; reject orphan/phantom edges.
+8. Freeze production contracts only after machine checks are clean enough.
+9. Then build Decision Engine → UI → localization → automated/runtime verification → Android → APK → release.
 
 ## Honest progress rule
 Documentation alone never makes implementation complete. Source edits count only when authoritative evidence is changed/re-read. No block is ready until its applicable verification passes. Owner-controlled release gates must never be falsely marked complete.
