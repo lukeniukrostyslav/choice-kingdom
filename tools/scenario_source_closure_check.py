@@ -69,6 +69,7 @@ required_fragments = {
         "### E199 — The Army Oath Rewritten", "`army_constitution_oath`",
         "### E200 — The Merchant Oath", "### E207 — The Founder Question",
         "### E209 — The Dawn Charter", "### E210 — The Last Decision Is Not a Choice",
+        "civic/commons legitimacy, institutional/audit legitimacy, faction/house/guild representation, required military/security constitutional route, information/evidence legitimacy, coalition cooperation, and absence of unresolved mandatory crisis blockers",
     ],
     "EVENT_CATALOG_EXPANSION_211_270.md": [
         "### E227 — Rowan's Line", "`military_red_line`",
@@ -108,6 +109,14 @@ contract_fragments = [
     '"domain": "institutional_audit", "producer": "E154-A", "key": "crown_audited"',
     '"domain": "factional_house", "producer": "E161-A", "key": "house_assembly"',
     '"domain": "military_law", "producer": "E199-A", "key": "army_constitution_oath"',
+    '"pred.final_charter_prerequisites"',
+    '"consumer": "E209"',
+    '"status": "SOURCE_LEVEL_QUALIFICATION_SPECIFIED_PRODUCER_NOT_YET_AUTHORED"',
+    '"civic_commons_legitimacy"', '"institutional_audit_legitimacy"',
+    '"faction_house_guild_representation"', '"military_security_constitutional_route"',
+    '"information_evidence_legitimacy"', '"coalition_cooperation"',
+    '"mandatory_crisis_blockers_clear"',
+    '"E209 cannot create pred.final_charter_prerequisites"',
 ]
 if not contract:
     errors.append("missing machine predicate composite contract")
@@ -141,6 +150,7 @@ print("p0_source_contracts=PASS")
 print("guild_representation_normalization=PASS")
 print("guild_and_constitutional_source_domains=PASS")
 print("coalition_machine_contract=PASS")
+print("final_charter_qualification_boundary=PASS")
 print("e33_e34_canonical_source=PASS")
 print("anti_circularity_guards=PASS")
 print("numeric_resource_regression=PASS")
