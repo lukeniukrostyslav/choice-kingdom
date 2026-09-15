@@ -32,13 +32,17 @@ A trigger phrase is not a producer. A consumer cannot manufacture its own prereq
 | clear `pred.transport_disruption` | E136 | A/B | Clears active disruption and establishes stable network | CLOSED at source level |
 | `pred.border_crisis` | E271 | A | Declares active border crisis | CLOSED at source level |
 | clear `pred.border_crisis` | E272 | A/B | Resolves declared active crisis | CLOSED at source level |
-| `army_constitution_oath` / military constitutional evidence | E199 | A | Explicit army constitutional oath route | STRONG |
+| `army_constitution_oath` / military constitutional evidence | E199 | A | Explicit army constitutional oath route | CLOSED at source level |
 | `auditor_independence` | E142 | A | Explicit independent auditor route | CLOSED at source level |
 | `crown_audited` | E154 | A | Explicit Crown audit route | CLOSED at source level |
 | `legislative_budget_lock` | E198 | A | Explicit legislative budget-lock route | CLOSED at source level |
 | `soldier_compensation` | E20 | A | Publicly compensates the soldier's family; exact subject identity matches E245 | CLOSED |
 | `cheap_weapons` | E17 | A | Explicitly buys cheaper weapons; E185 later consumes this identity | CLOSED_IDENTITY |
 | `infrastructure_concession` | E45 | B | Grants long-term bridge/infrastructure concession; E181 later consumes this identity | CLOSED_IDENTITY |
+
+### Guild representation normalization
+
+E49's legacy `guild_political_representation` flag and E144's canonical `history.guild_representation` marker are now explicitly treated as **one representation domain**. They must never count as two independent domains for `pred.guild_influence_strong`. The canonical contract permits both authored sources but requires vocabulary normalization before executable schema freeze.
 
 ### Transport-disruption reconciliation
 
@@ -67,14 +71,14 @@ The unresolved portion is runtime lifecycle semantics only: save/load persistenc
 
 Independent domains currently recognized by source QA:
 
-1. guild representation;
+1. guild representation (`E49` legacy / `E144` canonical);
 2. guild tribunal;
 3. commercial/market evidence;
 4. qualified logistics cooperation.
 
 Anti-double-counting rule: E49/E144 representation evidence is one domain, not two. `rel.ivo` alone is never sufficient.
 
-**Status: PARTIAL — exact machine-readable producer compilation remains open.**
+**Status: SOURCE-LEVEL CONTRACT CLOSED — executable aggregation, contradiction handling, save/load and fresh-run reachability remain open.**
 
 ### `pred.constitutional_prepared_strong`
 
@@ -83,11 +87,11 @@ Frozen independent domains:
 - civic: `people_charter_endorsed`;
 - institutional: `crown_audited` / `full_crown_audit_published`;
 - factional: `house_assembly`;
-- military: `military_red_line`.
+- military: `army_constitution_oath` from E199-A.
 
-At least three independent domains are required by the current source contract. The exact ordering and anti-double-counting implementation remains open.
+At least three independent domains are required by the current source contract. E199-A is the canonical military-law source; E227's `military_red_line` is supporting constitutional-stress evidence and must not silently replace the authored E199 producer.
 
-**Status: PARTIAL.**
+**Status: SOURCE-LEVEL CONTRACT CLOSED — executable aggregation, contradiction handling, save/load and fresh-run reachability remain open.**
 
 ### `pred.systemic_explanation_verified`
 
@@ -105,7 +109,7 @@ A raw clue count is forbidden. An explicit convergence decision is required. Cur
 
 E148-A is the authoritative cooperation-package source candidate. Qualification requires explicit participant identities, positive cooperation outcome and absence of an unresolved collapse blocker. `pred.faction_routes_4` is not an alias. E261-A `four_way_bargain` alone is insufficient.
 
-**Status: PARTIAL.**
+**Status: SOURCE-LEVEL CONTRACT CLOSED — participant persistence, collapse evaluation, deterministic qualification, save/load and fresh-run reachability remain open.**
 
 ### `pred.budget_reform`
 
