@@ -29,14 +29,14 @@ REQUIRED_RULE_FRAGMENTS = (
     "Replay/meta",
     "E33/E34",
 )
-REQUIRED_OPEN_GATES = (
+REQUIRED_OPEN_GATES = [
     "exact positive prerequisite set per family",
     "exact negative blocker set per family",
     "tie-break order when multiple families qualify",
     "fresh-run evaluation order",
     "replay evaluation order",
     "deterministic terminal selection",
-)
+]
 
 
 def main() -> int:
@@ -48,7 +48,7 @@ def main() -> int:
     for fragment in REQUIRED_RULE_FRAGMENTS:
         if not any(fragment in rule for rule in rules):
             errors.append(f"missing boundary rule: {fragment}")
-    if tuple(data.get("required_runtime_resolution", [])) != REQUIRED_OPEN_GATES:
+    if data.get("required_runtime_resolution", []) != REQUIRED_OPEN_GATES:
         errors.append("required runtime resolution gate list mismatch")
     if data.get("precedence_verified") is not False:
         errors.append("precedence_verified must remain false")
