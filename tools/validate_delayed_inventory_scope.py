@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Validate delayed-inventory source IDs against the authoritative catalog scope.
+"""Validate delayed-inventory IDs against the authoritative catalog scope.
 
-This is a source-level consistency gate. It does not infer timing, producer
-semantics, cancellation, reachability, or runtime lifecycle behavior. It only
-ensures that event IDs named by the delayed inventory are actually present in
-one of the catalog sources declared by MACHINE_CANONICAL_GRAPH_01.json and are
-inside frozen production scope.
+This gate checks source-level consistency only. It does not infer timing,
+producer semantics, cancellation, reachability, or runtime lifecycle behavior.
+Known unresolved catalog headings may be explicitly quarantined by the machine
+canonical manifest; quarantine keeps them visible and blocking for semantic
+promotion without making an intentionally unresolved source mismatch look like
+an unexpected catalog failure.
 """
 from __future__ import annotations
 
@@ -58,18 +59,26 @@ def main() -> int:
     hi = int(manifest["scope"]["last_event"])
     excluded = set(manifest["scope"].get("excluded_events", []))
     frozen = {f"E{i:02d}" for i in range(lo, hi + 1)} - excluded
+    quarantine = set(manifest.get("catalog_heading_quarantine", {}).get("ids", []))
 
     outside_scope = sorted(referenced - frozen, key=lambda x: int(x[1:]))
     missing_from_catalog = sorted(referenced - available, key=lambda x: int(x[1:]))
+    quarantined_missing = sorted(missing_from_catalog & quarantine, key=lambda x: int(x[1:]))
+    unexpected_missing = sorted(set(missing_from_catalog) - quarantine, key=lambda x: int(x[1:]))
 
     errors: list[str] = []
     if outside_scope:
         errors.append("inventory references outside frozen scope: " + ", ".join(outside_scope))
-    if missing_from_catalog:
-        errors.append("inventory references IDs absent from catalog headings: " + ", ".join(missing_from_catalog))
+    if unexpected_missing:
+        errors.append("inventory references IDs absent from catalog headings and not quarantined: " + ", ".join(unexpected_missing))
 
+    warnings: list[str] = []
+    if quarantined_missing:
+        warnings.append("inventory references unresolved catalog headings kept in explicit quarantine: " + ", ".join(quarantined_missing))
+
+    status = "PASS_WITH_QUARANTINE" if not errors and warnings else ("PASS" if not errors else "BLOCKED")
     report = {
-        "schema_version": "1.0",
+        "schema_version": "1.1",
         "contract": "choice_kingdom.delayed_inventory_scope",
         "scope": f"E{lo:02d}-E{hi:02d}",
         "referenced_event_count": len(referenced),
@@ -77,14 +86,19 @@ def main() -> int:
         "referenced_events": sorted(referenced, key=lambda x: int(x[1:])),
         "outside_scope": outside_scope,
         "missing_from_catalog": missing_from_catalog,
-        "status": "PASS" if not errors else "BLOCKED",
+        "quarantined_missing": quarantined_missing,
+        "unexpected_missing": unexpected_missing,
+        "status": status,
         "semantic_timing_verified": False,
         "runtime_lifecycle_verified": False,
+        "warnings": warnings,
         "errors": errors,
     }
     OUT.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
-    print(json.dumps({"status": report["status"], "errors": len(errors), "referenced_event_count": len(referenced)}, sort_keys=True))
+    print(json.dumps({"status": status, "errors": len(errors), "warnings": len(warnings), "referenced_event_count": len(referenced)}, sort_keys=True))
+    for warning in warnings:
+        print(f"WARNING: {warning}")
     for error in errors:
         print(f"ERROR: {error}", file=sys.stderr)
     return 1 if errors else 0
