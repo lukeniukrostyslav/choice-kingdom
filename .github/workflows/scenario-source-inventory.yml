@@ -57,7 +57,6 @@ jobs:
           print(f"predicate_cycles={len(data['predicate_cycles'])}")
           PY
       - name: Inspect unresolved consumer sources
-        if: ${{ hashFiles('scenario-source-inventory.json') != '' && fromJSON('true') }}
         run: python3 tools/inspect_undefined_consumer_sources.py
       - name: Upload source inventory and inspection artifacts
         uses: actions/upload-artifact@v4
