@@ -19,3 +19,5 @@ jobs:
         run: python3 tools/triage_graph_candidates.py
       - name: Audit semantic candidate boundary
         run: python3 tools/audit_candidate_semantic_boundary.py
+      - name: Audit conservative structural reachability
+        run: python3 tools/audit_structural_reachability.py
