@@ -1,0 +1,19 @@
+name: Choice Kingdom Delayed Lifecycle Gate
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  delayed-lifecycle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate delayed identity and lifecycle boundary
+        run: python3 tools/validate_delayed_lifecycle_gate.py
+      - name: Upload delayed lifecycle ledger
+        uses: actions/upload-artifact@v4
+        with:
+          name: choice-kingdom-delayed-lifecycle-${{ github.sha }}
+          path: docs/MACHINE_DELAYED_LIFECYCLE_GATE_01.json
+          if-no-files-found: error
