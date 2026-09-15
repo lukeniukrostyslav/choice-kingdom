@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "contract": "choice_kingdom.final_charter_reconciliation",
+  "scope": "E50,E60,E61-E67,E209,E261-E270",
+  "status": "SOURCE_LEVEL_CONSERVATIVE",
+  "rules": [
+    "E50_is_a_canonical_consumer_and_does_not_self_produce_final_charter_prerequisites",
+    "people_charter_endorsed_is_not_equivalent_to_final_charter_prerequisites",
+    "constitutional_limit_is_not_equivalent_to_constitutional_prepared_strong",
+    "four_way_bargain_is_not_equivalent_to_coalition_cooperation",
+    "ordinary_history_is_not_replay_meta",
+    "support_endings_e267_e270_do_not_self_qualify_final_endings"
+  ],
+  "closed_edges": [
+    {"from":"E34-A","token":"people_heard","to":"E50"},
+    {"from":"E40-A","token":"local_relief_councils","to":"E50"},
+    {"from":"E50-A","token":"people_charter_endorsed","to":"E64"},
+    {"from":"E33-B","token":"constitutional_limit","to":"E67_component"}
+  ],
+  "open_predicates": [
+    "pred.final_charter_prerequisites",
+    "pred.constitutional_prepared_strong",
+    "pred.coalition_cooperation",
+    "pred.systemic_explanation_verified"
+  ],
+  "replay_open": ["E186","E247","E248"],
+  "ending_precedence": "OPEN_RUNTIME",
+  "decision_engine_gate": "BLOCKED"
+}
