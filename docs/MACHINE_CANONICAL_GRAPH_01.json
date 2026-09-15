@@ -1,17 +1,12 @@
 {
-  "schema_version": "1.1",
+  "schema_version": "1.2",
   "contract": "choice_kingdom.machine_canonical_graph",
-  "scope": {
-    "first_event": 1,
-    "last_event": 272,
-    "excluded_events": ["E273", "E274", "E275", "E276", "E277"]
-  },
+  "scope": {"first_event": 1,"last_event": 272,"excluded_events": ["E273","E274","E275","E276","E277"]},
   "source_of_truth": {
     "catalog_sources": [
       "docs/EVENT_CATALOG.md",
       "docs/EVENT_CATALOG_ACT_V_EXPANSION.md",
       "docs/EVENT_CATALOG_EXPANSION_02.md",
-      "docs/EVENT_EXPANSION_071_110.md",
       "docs/EVENT_CATALOG_EXPANSION_111_150.md",
       "docs/EVENT_CATALOG_EXPANSION_151_210.md",
       "docs/EVENT_CATALOG_EXPANSION_211_270.md",
@@ -23,6 +18,7 @@
     "delay_contract": "docs/CANONICAL_DELAY_CONTRACT.md",
     "derived_predicates": "docs/CANONICAL_DERIVED_PREDICATE_CONTRACT_01.md"
   },
+  "allowed_catalog_duplicate_event_ids": ["E271"],
   "source_closed_producers": [
     {"fact":"public_bridge","event":"E18","choice":"B"},{"fact":"flexible_accounts","event":"E09","choice":"B"},{"fact":"veteran_patronage","event":"E117","choice":"B"},{"fact":"estate_exception","event":"E118","choice":"B"},{"fact":"border_compensation","event":"E125","choice":"A"},{"fact":"requisition_compensation","event":"E156","choice":"A"},{"fact":"winter_rent_ceiling","event":"E160","choice":"A"},{"fact":"history.guild_logistics_cooperation","event":"E136","choice":"B"},{"fact":"history.guild_representation","event":"E144","choice":"A/B"},{"fact":"history.cross_faction_package","event":"E148","choice":"A"},{"fact":"pred.market_pressure","event":"E19","choice":"B"},{"fact":"clear.pred.market_pressure","event":"E19","choice":"A"},{"fact":"pred.winter_severe","event":"E29","choice":"A/B"},{"fact":"pred.transport_disruption","event":"E32","choice":"explicit crisis outcome"},{"fact":"clear.pred.transport_disruption","event":"E136","choice":"A/B"},{"fact":"pred.border_crisis","event":"E271","choice":"A"},{"fact":"clear.pred.border_crisis","event":"E272","choice":"A/B"},{"fact":"military_constitutional_evidence","event":"E199","choice":"A"},{"fact":"auditor_independence","event":"E142","choice":"A"},{"fact":"crown_audited","event":"E154","choice":"A"},{"fact":"legislative_budget_lock","event":"E198","choice":"A"}
   ],
@@ -48,5 +44,5 @@
     {"id":"four_way_bargain_is_not_cooperation","rule":"four_way_bargain does not alone satisfy pred.coalition_cooperation."}
   ],
   "validation_gates": ["scope_integrity","catalog_event_id_integrity","design_graph_event_id_integrity","duplicate_edge_detection","self_loop_detection","source_closed_producer_scope","delayed_source_ambiguity_visibility","hard_negative_presence"],
-  "known_not_yet_verified": ["complete producer/consumer token compilation E01-E272","catalog_to_graph equality","fresh_run reachability","replay reachability","ending incoming paths and precedence","runtime lifecycle persistence","Decision Engine execution"]
+  "known_not_yet_verified": ["complete producer/consumer token compilation E01-E272","catalog_to_graph equality","fresh_run reachability","replay reachability","ending incoming paths and precedence","runtime lifecycle persistence","Decision Engine execution","exact authoritative E33/E34 source headings"]
 }
