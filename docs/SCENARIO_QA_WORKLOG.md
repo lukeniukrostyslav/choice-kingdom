@@ -6,6 +6,14 @@ Purpose: durable handoff ledger so completed QA work is not repeated.
 
 ## Latest continuation update — 2026-09-15
 
+### S08.10 — producer chronology pre-audit
+- Added `docs/SCENARIO_QA_S08_10_PRODUCER_CHRONOLOGY_PREAUDIT_01.md` in commit `a8beccf42802a5664b7b990ff72c02ea540a0982`.
+- Converted source-closed producer families into explicit producer-before-consumer chronology gates.
+- Confirmed source ordering for E32 → E192 transport consumption, E32 → E136 recovery, E136-B → E194 guild logistics qualification, E29-A/B → later winter consumers, and E271/E272 → downstream border-crisis lifecycle consumers.
+- Marked guild influence, constitutional preparation, coalition cooperation and final-charter chronology as PARTIAL/OPEN because exact exhaustive source IDs and independent-domain qualification are not yet frozen.
+- Added explicit duplicate/contradictory-writer boundaries and preserved hard E273–E277 rejection.
+- S08.10 is a PARTIAL PASS, not an exhaustive closure claim.
+
 ### S08.9 — source reconciliation: food and transport lifecycle
 - Added `docs/SCENARIO_QA_S08_9_SOURCE_RECONCILIATION_01.md` in commit `beb8c93e8e4e95c2fb62ab90e4cf36f0e46f7e4b`.
 - Reconciled S08.8 against the authoritative late-predicate audit and prevented downstream consumers from being promoted into producers.
@@ -71,10 +79,10 @@ Purpose: durable handoff ledger so completed QA work is not repeated.
 
 Scenario QA remains **65%** until active global gates are actually closed.
 
-Working batch indicators: **S01 80%, S02 70%, S03 70%, S04 70%, S05 60%, S06 55%, S07 80%, S08 77%, S09 58%, S10 72%, S11 55%, S12 20%**.
+Working batch indicators: **S01 80%, S02 70%, S03 70%, S04 70%, S05 60%, S06 55%, S07 80%, S08 78%, S09 59%, S10 72%, S11 55%, S12 20%**.
 
 These batch percentages are working indicators and are not the global Scenario QA percentage.
 
 ## Next substantive action
 
-Continue exhaustive E01–E272 producer/output/trigger extraction with the mandatory E273–E277 exclusion filter. Next priority is exact producer chronology, duplicate/contradictory writer detection, predicate-cycle detection, delayed source/target reconciliation, and then S11/S12 ending/replay/reachability closure. Do not start runtime implementation until canonical production contracts are sufficiently closed and verified.
+Continue exhaustive E01–E272 producer/output/trigger extraction with the mandatory E273–E277 exclusion filter. Next priority is completing producer chronology, duplicate/contradictory writer detection, predicate-cycle detection, delayed source/target reconciliation, and then S11/S12 ending/replay/reachability closure. Do not start runtime implementation until canonical production contracts are sufficiently closed and verified.
