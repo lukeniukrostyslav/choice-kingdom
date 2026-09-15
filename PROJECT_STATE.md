@@ -35,10 +35,12 @@ Dedicated Scenario QA score is approximately **88%**. This is distinct from over
 - S09 **60%**
 - S10 **72%**
 - S11 **56%** — ending incoming-path / precedence review boundary materially tightened; source closure remains partial/open.
-- S12 **82%** — source-level machine QA through S12.49 covers graph validation, classification, producer/consumer compilation, conservative triage, qualification/lifecycle gates, ending/replay reconciliation, E245 synchronization, semantic candidate-boundary auditing, frozen production-scope enforcement, CI hardening, ending/replay incoming-path matrix, conservative structural reachability, and budget-reform predicate/source reconciliation. Semantic orphan/gameplay reachability closure remains open.
+- S12 **82%** — source-level machine QA through S12.50 covers graph validation, classification, producer/consumer compilation, conservative triage, qualification/lifecycle gates, ending/replay reconciliation, E245 synchronization, semantic candidate-boundary auditing, frozen production-scope enforcement, CI hardening, ending/replay incoming-path matrix, conservative structural reachability, budget-reform predicate/source reconciliation, and delayed-source evidence reconciliation for E181–E185. Semantic orphan/gameplay reachability closure remains open.
 
 ## Latest QA work
-- **S12.49** reconciled `pred.budget_reform` between the derived-predicate contract and canonical producer inventory. E142-A + E154-A + E198-A are now consistently source-closed; E142-B/E154-B/E198-B are negative blockers; E155-A is same-domain downstream evidence. Runtime invalidation/reachability remain open. Commit: `286e03b8c4a5aad08b602432152766c831d2e6df`; QA record: `3b7a9659738c15a99e10c991bb2c0d6123828189`.
+- **S12.50** re-read authoritative E151–E210 delayed sources and tightened E181–E185 lifecycle boundaries. E182/E183 source identities are closed while relative scheduler anchors remain open; E184 has no safe producer alias; E185 separates source-closed `cheap_weapons` from the later crisis/supersession condition; E192 `food_logistics_stabilized` is explicitly kept distinct from blocked `pred.food_stable`. Commit: `83064432b59a2728c06c62df65966313defcf862`.
+- **CI persistence hardening** updated canonical graph CI to upload all generated machine QA reports, including structural reachability, as a workflow artifact. Commit: `91461206694eecacf40a25492e130eb4ace0680d`.
+- **S12.49** reconciled `pred.budget_reform` between the derived-predicate contract and canonical producer inventory. E142-A + E154-A + E198-A are now consistently source-closed; E142-B/E154-B/E198-B are negative blockers; E155-A is same-domain downstream evidence and cannot count twice. Runtime invalidation/reachability remain open. Commits: contract `286e03b8c4a5aad08b602432152766c831d2e6df`; QA record `3b7a9659738c15a99e10c991bb2c0d6123828189`.
 - **S12.48** added `tools/audit_structural_reachability.py` and wired it into `.github/workflows/canonical-graph.yml`. It computes structural roots and graph-reachable nodes from `EVENT_GRAPH.md` while explicitly refusing to treat graph connectivity as gameplay reachability or orphan proof. Commit: `49a62e56ec3273ecad9911b132856f2a6b032f8c`.
 - **S12.47** added `docs/SCENARIO_QA_S12_47_ENDING_REPLAY_INCOMING_PRECEDENCE_MATRIX_01.md`, consolidating ending incoming-path, precedence and replay boundaries without inventing missing producers or `meta.*` keys. Commit: `7afbb8a2d3ba7097cfeac4e50416c45ec9bc174d`.
 - **S12.46 CI hardening** repaired the scope-boundary workflow so it executes the same source-level graph/classification/matrix/triage prerequisites before `validate_scope_boundaries.py`. Commit: `e28ba4ef2f6a7a04689f26cc6c3ccaccf75c19ac`.
@@ -84,6 +86,14 @@ Dedicated Scenario QA score is approximately **88%**. This is distinct from over
 - Coalition cooperation: positive cooperation + participant identity + no unresolved collapse blocker; four-way bargain alone is rejected.
 - Constitutional preparation: civic + institutional + factional + military source domains; at least three distinct domains required.
 
+### Delayed lifecycle status
+- E181: exact source says `5+ turns after a toll concession`; producer candidate E45-B remains open for canonical closure.
+- E182: E117-B `veteran_patronage`, `4+ turns later`; source identity closed, scheduler anchor open.
+- E183: E118-B `estate_exception`, `5+ turns later`; source identity closed, scheduler anchor open.
+- E184: `secret evidence route`, `4+ turns later`; no safe canonical producer alias, therefore OPEN.
+- E185: E17-A `cheap_weapons` plus separate later military crisis; A prevents later failure, B schedules severe delayed loss; cancellation/supersession identity remains OPEN.
+- E192-B `food_logistics_stabilized` is explicitly not `pred.food_stable`.
+
 ### E245
 **Producer identity CLOSED:** E20-A `soldier_compensation`. Authored timing remains `6+ turns later`; absolute due-turn/cancellation semantics are OPEN.
 
@@ -125,6 +135,7 @@ Exact authored headings/effects/delayed semantics remain **QUARANTINED / UNRECOV
 - E155-A cannot count as an independent second budget-reform domain.
 - vague `later`/`N+ turns` cannot be converted into invented absolute turns.
 - QA summaries cannot substitute for missing authoritative authored prose.
+- `food_logistics_stabilized` ≠ `pred.food_stable`.
 
 ## Current honest progress
 - Foundation / rules: **95%**
@@ -132,7 +143,7 @@ Exact authored headings/effects/delayed semantics remain **QUARANTINED / UNRECOV
 - Canonical Event IDs / continuity: **100%**
 - Producer / Consumer QA: **99%**
 - Derived Predicates / Machine Contracts: **98%**
-- Delayed Consequences: **95%**
+- Delayed Consequences: **96%**
 - Replay / Meta-state: **65%**
 - Endings / precedence: **70%**
 - Reachability / Causal Graph: **61%**
@@ -150,8 +161,8 @@ Overall project progress remains approximately **60%**. Scenario QA is approxima
 ## Next autonomous work
 1. Audit the 69 no-outbound and 54 unreferenced candidates against authoritative source text using the semantic-boundary queues.
 2. Separate ROOT/SOURCE, ordinary producer, consumer-only, terminal/ending, qualification, delayed callback, replay-only and true orphan semantics.
-3. Verify the new structural reachability audit in CI and use its bounded output to prioritize candidate source review.
-4. Complete delayed cancellation/supersession matrix, especially E184/E185/E245.
+3. Verify the latest canonical CI and uploaded machine reports; use structural output to prioritize candidate source review.
+4. Complete delayed cancellation/supersession matrix, especially E181/E184/E185/E245.
 5. Close source-backed producer matrices for guild influence, coalition cooperation and constitutional preparation where evidence permits.
 6. Build fresh-run and representative replay reachability models with strict `meta.*` isolation.
 7. Prove catalog↔machine graph semantic equality or produce a bounded, explicit delta.
