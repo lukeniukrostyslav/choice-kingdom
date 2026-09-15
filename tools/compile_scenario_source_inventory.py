@@ -54,6 +54,13 @@ for event_id, event in events.items():
     for token, labels in by_token.items():
         if {"A", "B"}.issubset(labels): contradictory_writers.setdefault(token, []).append({"event": event_id, "choices": sorted(labels)})
 if contradictory_writers: errors.append("same-event contradictory writers: " + "; ".join(f"{token} ({','.join(x['event'] for x in xs)})" for token, xs in sorted(contradictory_writers.items())))
+# Cross-event duplicate writers are not automatically contradictions: they are retained as an
+# explicit semantic-writer review set so the QA process cannot silently collapse multiple sources.
+semantic_writer_collisions = {
+    token: writers for token, writers in duplicates.items()
+    if len({writer["event"] for writer in writers}) > 1
+}
+undefined_consumers = sorted({token for token in consumers if token not in producers})
 predicate_nodes = sorted(set(predicate_edges) | {t for t in producers if t.startswith("pred.")} | {t for t in consumers if t.startswith("pred.")})
 predicate_graph = {node: sorted(predicate_edges.get(node, set())) for node in predicate_nodes}
 predicate_cycles: list[list[str]] = []; state: dict[str, int] = {}; stack: list[str] = []
@@ -69,12 +76,13 @@ for node in predicate_nodes:
     if state.get(node, 0) == 0: visit(node)
 undefined_predicate_consumers = sorted({t for t in consumers if t.startswith("pred.") and t not in producers})
 if predicate_cycles: errors.append("predicate dependency cycle(s): " + "; ".join(" -> ".join(c) for c in predicate_cycles))
-inventory = {"schema":"choice-kingdom-scenario-source-inventory-1","scope":{"first_event":first,"last_event":last,"excluded_events":sorted(excluded)},"event_count":len(events),"events":[events[k] for k in sorted(events,key=lambda x:int(x[1:]))],"producers":dict(sorted(producers.items())),"consumers":dict(sorted(consumers.items())),"duplicate_output_tokens":duplicates,"contradictory_same_event_writers":contradictory_writers,"predicate_dependency_graph":predicate_graph,"undefined_predicate_consumers":undefined_predicate_consumers,"predicate_cycles":predicate_cycles,"notes":["Source-level inventory only; no gameplay/fresh-run reachability claim.","A trigger token without an extracted producer is unresolved, not invented.","Multiple writers are reported for semantic contradiction review.","Same-event A/B writers for the same token are machine-failing contradictions.","Predicate dependency cycles are machine-failing; undefined predicate producers remain source-QA findings until explicitly classified."]}
+inventory = {"schema":"choice-kingdom-scenario-source-inventory-2","scope":{"first_event":first,"last_event":last,"excluded_events":sorted(excluded)},"event_count":len(events),"events":[events[k] for k in sorted(events,key=lambda x:int(x[1:]))],"producers":dict(sorted(producers.items())),"consumers":dict(sorted(consumers.items())),"duplicate_output_tokens":duplicates,"semantic_writer_collisions":semantic_writer_collisions,"contradictory_same_event_writers":contradictory_writers,"undefined_consumers":undefined_consumers,"predicate_dependency_graph":predicate_graph,"undefined_predicate_consumers":undefined_predicate_consumers,"predicate_cycles":predicate_cycles,"notes":["Source-level inventory only; no gameplay/fresh-run reachability claim.","A trigger token without an extracted producer is unresolved, not invented.","All cross-event duplicate writers are retained as an explicit semantic-writer review set.","Same-event A/B writers for the same token are machine-failing contradictions.","Undefined consumers are reported separately from undefined predicate producers.","Predicate dependency cycles are machine-failing; undefined predicate producers remain source-QA findings until explicitly classified."]}
 print("SOURCE_INVENTORY: FAIL" if errors else "SOURCE_INVENTORY: PASS")
 for error in errors: print(f"- {error}")
-print(f"events={len(events)} expected={len(expected)}"); print(f"unique_output_tokens={len(producers)}"); print(f"trigger_tokens={len(consumers)}"); print(f"duplicate_output_tokens={len(duplicates)}"); print(f"contradictory_same_event_writers={len(contradictory_writers)}"); print(f"predicate_nodes={len(predicate_nodes)}"); print(f"predicate_edges={sum(len(x) for x in predicate_graph.values())}"); print(f"undefined_predicate_consumers={len(undefined_predicate_consumers)}"); print(f"predicate_cycles={len(predicate_cycles)}")
+print(f"events={len(events)} expected={len(expected)}"); print(f"unique_output_tokens={len(producers)}"); print(f"trigger_tokens={len(consumers)}"); print(f"duplicate_output_tokens={len(duplicates)}"); print(f"semantic_writer_collisions={len(semantic_writer_collisions)}"); print(f"contradictory_same_event_writers={len(contradictory_writers)}"); print(f"undefined_consumers={len(undefined_consumers)}"); print(f"predicate_nodes={len(predicate_nodes)}"); print(f"predicate_edges={sum(len(x) for x in predicate_graph.values())}"); print(f"undefined_predicate_consumers={len(undefined_predicate_consumers)}"); print(f"predicate_cycles={len(predicate_cycles)}")
 if duplicates: print("duplicate_output_token_names=" + ",".join(sorted(duplicates)))
 if contradictory_writers: print("contradictory_same_event_writer_names=" + ",".join(sorted(contradictory_writers)))
+if undefined_consumers: print("undefined_consumer_names=" + ",".join(undefined_consumers))
 if undefined_predicate_consumers: print("undefined_predicate_consumer_names=" + ",".join(undefined_predicate_consumers))
 if errors: sys.exit(1)
 out = ROOT / "scenario-source-inventory.json"; out.write_text(json.dumps(inventory, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"); print(f"inventory_file={out.name}")
