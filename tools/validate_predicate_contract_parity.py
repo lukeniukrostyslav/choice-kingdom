@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Cross-check machine predicate status against the authoritative contract table.
+"""Cross-check machine composite predicate status against the authoritative contract table.
 
 This is a bounded source-consistency gate. It does not infer gameplay semantics,
 reachability, runtime invalidation, or promote OPEN/PARTIAL contracts.
@@ -15,38 +15,32 @@ GRAPH = ROOT / "docs" / "MACHINE_CANONICAL_GRAPH_01.json"
 CONTRACT = ROOT / "docs" / "CANONICAL_DERIVED_PREDICATE_CONTRACT_01.md"
 OUT = ROOT / "docs" / "MACHINE_PREDICATE_CONTRACT_PARITY_01.json"
 
+# Only predicates represented in the machine graph's composite_predicates section
+# belong to this parity gate. Source-closed producer predicates are validated by
+# their producer inventories and must not be conflated with composite predicates.
 EXPECTED = {
-    "pred.border_crisis": "CLOSED",
-    "pred.guild_logistics_cooperation": "CLOSED",
-    "pred.food_stable": "OPEN / BLOCKED",
-    "pred.transport_disruption": "SOURCE PRODUCER CLOSED",
-    "pred.winter_severe": "CLOSED",
-    "pred.market_pressure": "CLOSED",
-    "pred.guild_labor_tension": "OPEN",
-    "pred.information_pressure_high": "OPEN",
     "pred.guild_influence_strong": "PARTIAL",
     "pred.systemic_explanation_verified": "PARTIAL",
     "pred.coalition_cooperation": "PARTIAL",
     "pred.constitutional_prepared_strong": "PARTIAL",
     "pred.budget_reform": "SOURCE-CLOSED",
     "pred.final_charter_prerequisites": "OPEN",
+    "pred.food_stable": "OPEN / BLOCKED",
 }
 
 
 def normalize(status: str) -> str:
     status = status.upper().strip()
-    if status.startswith("SOURCE PRODUCER CLOSED"):
-        return "SOURCE PRODUCER CLOSED"
-    if status.startswith("CLOSED"):
-        return "CLOSED"
+    if status.startswith("SOURCE-CLOSED"):
+        return "SOURCE-CLOSED"
     if status.startswith("OPEN / BLOCKED"):
         return "OPEN / BLOCKED"
     if status.startswith("OPEN"):
         return "OPEN"
     if status.startswith("PARTIAL"):
         return "PARTIAL"
-    if status.startswith("SOURCE-CLOSED"):
-        return "SOURCE-CLOSED"
+    if status.startswith("CLOSED"):
+        return "CLOSED"
     return status
 
 
@@ -57,19 +51,29 @@ def main() -> int:
     errors: list[str] = []
     checked: dict[str, dict[str, str | bool]] = {}
 
+    machine_keys = set(machine)
+    expected_keys = set(EXPECTED)
+    unexpected = sorted(machine_keys - expected_keys)
+    missing = sorted(expected_keys - machine_keys)
+    for predicate in missing:
+        errors.append(f"missing machine composite predicate: {predicate}")
+    for predicate in unexpected:
+        errors.append(f"unexpected machine composite predicate not frozen by this gate: {predicate}")
+
     for predicate, expected in EXPECTED.items():
         row = machine.get(predicate)
         if row is None:
-            errors.append(f"missing machine predicate: {predicate}")
             continue
         machine_status = str(row.get("status", ""))
-        pattern = re.compile(r"^\|\s*`" + re.escape(predicate) + r"`\s*\|.*?\|\s*([^|\n]+?)\s*\|\s*$", re.MULTILINE)
+        pattern = re.compile(
+            r"^\|\s*`" + re.escape(predicate) + r"`\s*\|.*?\|\s*([^|\n]+?)\s*\|\s*$",
+            re.MULTILINE,
+        )
         match = pattern.search(text)
         if not match:
             errors.append(f"missing authoritative contract row: {predicate}")
             continue
         contract_status = match.group(1).strip()
-        # The table may contain a longer lifecycle qualifier after the canonical status.
         machine_norm = normalize(machine_status)
         contract_norm = normalize(contract_status)
         ok = machine_norm == normalize(expected) and contract_norm == normalize(expected)
@@ -85,7 +89,7 @@ def main() -> int:
             )
 
     report = {
-        "schema_version": "1.0",
+        "schema_version": "1.1",
         "contract": "choice_kingdom.predicate_contract_parity",
         "scope": "E01-E272",
         "readiness": "BLOCKED" if errors else "SOURCE_LEVEL_CLOSED",
@@ -94,7 +98,9 @@ def main() -> int:
         "errors": errors,
         "checked": checked,
         "rules": [
-            "authoritative markdown and machine contract must agree on frozen predicate status",
+            "only the machine graph composite_predicates section is checked by this gate",
+            "source-closed producer predicates are validated by their producer inventories, not this composite gate",
+            "authoritative markdown and machine composite contract must agree on frozen status",
             "status parity does not prove gameplay reachability",
             "status parity does not prove runtime invalidation",
             "OPEN/PARTIAL predicates are never promoted by this gate",
