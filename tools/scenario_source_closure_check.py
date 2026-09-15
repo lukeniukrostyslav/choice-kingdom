@@ -117,7 +117,7 @@ contract_fragments = [
     '"document_language"', '"witness_organizational"',
     '"E270-A"', '"E270-A cannot manufacture missing evidence families"',
     '"pred.final_charter_prerequisites"', '"consumer": "E209"',
-    '"status": "SOURCE_LEVEL_QUALIFICATION_SPECIFIED_PRODUCER_NOT_YET_AUTHORED"',
+    '"status": "SOURCE_LEVEL_CONTRACT_CLOSED_RUNTIME_OPEN"',
     '"civic_commons_legitimacy"', '"institutional_audit_legitimacy"',
     '"faction_house_guild_representation"', '"military_security_constitutional_route"',
     '"information_evidence_legitimacy"', '"coalition_cooperation"',
