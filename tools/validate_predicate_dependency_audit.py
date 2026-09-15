@@ -24,7 +24,7 @@ REQUIRED_RULES = {
     "consumer_cannot_manufacture_prerequisite",
     "composite_predicates_require_explicit_component_evidence",
     "ordinary_history_is_not_replay_meta",
-    "E33_E34_quarantined",
+    "E33_E34_are_canonical_production_events",
     "E273_E277_excluded",
 }
 
