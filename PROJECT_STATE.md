@@ -4,34 +4,33 @@
 Original premium offline-first decision-and-consequence mobile game. Working theme: ruling the kingdom of Avelune. The core appeal is meaningful choices, recurring characters, delayed consequences, hidden information, systemic event chains, multiple endings, and replayable paths.
 
 ## Full-release content target
-This is a **real full game**, not a short card demo. The release target is approximately **250–350+ meaningful authored events/story nodes**, with interconnected branches rather than filler repetition, plus approximately 8–12 recognizable endings and substantial replay variation. The first playthrough should feel like a complete multi-hour campaign; repeated playthroughs should reveal materially different information, routes, consequences, and endings. The exact final count may change during narrative QA, but quality and causal depth take priority over hitting a number mechanically.
+This is a real full game, not a short card demo. The release target is approximately 250–350+ meaningful authored events/story nodes, with interconnected branches rather than filler repetition, plus approximately 8–12 recognizable endings and substantial replay variation. The first playthrough should feel like a complete multi-hour campaign; repeated playthroughs should reveal materially different information, routes, consequences, and endings.
 
 ## Commercial target
 Android-first premium product, approximately €2.99–€4.99. No ads. No subscriptions. No mandatory backend or online service for core gameplay.
 
 ## Language requirement
-Release must ship with localization from day one. Target is 20+ locales, not English-first with later translation. Localization must cover UI, events, choices, consequences, system messages, endings, and error/fallback text. RTL languages must be tested.
+Release must ship with localization from day one. Target is 20+ locales, including RTL and long-string validation.
 
 ## Engineering rule
 No mock gameplay, fake completion, placeholder business logic presented as finished, or premature readiness claims. Every major block must progress through implementation, automated verification, runtime verification where applicable, and Android QA.
 
 ## Non-negotiable development order
-**Content comes before engine, and APK comes last.** Do not reverse this order for convenience.
-
-1. Fully design and QA the campaign: story, acts, characters, factions, events, branches, delayed consequences, callbacks, investigation routes, crises, pacing, replayability and endings.
-2. Expand the authored network to the full-release scale and verify that events have real downstream consequences rather than filler.
-3. Create the content QA matrix and close narrative dead ends, contradictions, weak branches, repetitive choices and pacing problems.
-4. Only after the real campaign design is stable, finalize machine-readable data contracts against that real content.
-5. Only then implement the reusable decision engine and make it execute the authored campaign faithfully.
-6. Build the real UI/UX around the actual game, not placeholder content.
-7. Implement localization for 20+ locales, including RTL and long-string validation.
-8. Add automated tests, deterministic replay/save-load validation, full-catalog validation, balance and runtime verification.
-9. Perform Android integration, performance, touch, save/reload, accessibility, audio/haptics and physical-device QA.
-10. Build and verify the debug APK only after the game and systems are genuinely ready.
-11. Treat the production AAB/signing/Play release as the final stage after APK and QA gates pass.
+**Content comes before engine, and APK comes last.**
+1. Fully design and QA campaign.
+2. Expand authored network and verify downstream consequences.
+3. Close content dead ends, contradictions, weak branches, repetition and pacing.
+4. Freeze machine-readable data contracts against stable content.
+5. Implement reusable decision engine.
+6. Build real UI/UX.
+7. Implement 20+ locale localization and RTL validation.
+8. Add automated tests, replay/save-load, full-catalog validation, balance and runtime verification.
+9. Perform Android integration and physical-device QA.
+10. Build and verify debug APK.
+11. Finalize production AAB/signing/store package.
 
 ## Current phase
-**Narrative/content canonicalization and QA.** The authored checkpoint is E01–E272. The immediate task is reconciling authored sources and the causal graph into a canonical production representation and proving that the content is internally consistent and reachable.
+**Narrative/content canonicalization and QA.** Authored checkpoint: E01–E272. Immediate goal: reconcile authored sources and causal graph into canonical production representation and prove internal consistency/reachability.
 
 ## Authored content checkpoints
 - E01–E70: authored spine/endgame
@@ -39,80 +38,72 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 - E111–E150: authored expansion
 - E151–E210: authored expansion
 - E211–E270: authored expansion
-- E271: authored border-crisis declaration producer bridge
-- E272: authored border-crisis active-resolution producer bridge
-- Total authored node identifiers currently present: **E01–E272** (272 authored nodes; not all are yet canonically integrated or QA-verified).
+- E271: border-crisis declaration producer bridge
+- E272: border-crisis active-resolution producer bridge
+- Total authored node identifiers: **E01–E272**.
 
 ## Narrative QA artifacts
-- `docs/EVENT_CATALOG.md` contains the original E01–E34 campaign spine.
-- `docs/EVENT_CATALOG_ACT_V_EXPANSION.md` extends the authored spine through E70 and the seven current ending nodes.
-- `docs/EVENT_EXPANSION_071_110.md` contains E71–E110 expansion layer pending canonical graph/catalog integration.
-- `docs/EVENT_CATALOG_EXPANSION_111_150.md` contains E111–E150 expansion layer pending canonical graph/catalog integration.
-- `docs/EVENT_CATALOG_EXPANSION_151_210.md` contains E151–E210 expansion layer pending canonical graph/catalog integration.
-- `docs/EVENT_CATALOG_EXPANSION_211_270.md` contains E211–E270 expansion layer plus the earlier E271 bridge.
-- `docs/EVENT_CATALOG_EXPANSION_271_280.md` contains E271–E272 canonical border lifecycle closure nodes.
-- `docs/CONTENT_QA_MATRIX.md` defines the production content gates.
-- `docs/CANONICAL_STATE_VOCABULARY.md` defines the state namespaces and is now explicitly scoped to E01–E272, including the E271/E272 border lifecycle.
-- `docs/CANONICAL_DELAY_CONTRACT.md` defines the delayed-consequence contract.
-- `docs/CANONICALIZATION_BACKLOG.md` is the active execution backlog.
-- `docs/CANONICAL_PRODUCER_CONSUMER_REGISTRY_01.md` is the consolidated producer/consumer source-level QA registry.
-- `docs/CANONICAL_CLOSURE_AUDIT_01.md` is the latest focused source-level closure audit.
-- `docs/CANONICAL_TRIGGER_NORMALIZATION_03.md` records the latest safe prose-trigger normalization pass and its explicit non-normalization boundaries.
-- `docs/PRODUCER_AUDIT_E111_E180_01.md` records the exact producer audit for the visible authored outputs in E111–E180.
-- `docs/PRODUCER_AUDIT_E143_E150_01.md` records the dedicated E143–E150 source-level producer closure pass.
-- `docs/PRODUCER_AUDIT_E181_E210_01.md` records the exact producer audit for E181–E210 source-level outputs/consumers.
-- `docs/PRODUCER_AUDIT_E195_E210_02.md` records the late-campaign consumer/qualification closure pass for E195–E210.
-- `docs/LEGACY_SEMANTIC_AUDIT_01.md` records the E35–E40 and duplicate-semantic audit findings.
-- `docs/SEMANTIC_COLLISION_RESOLUTION_01.md` records the frozen and applied semantic-resolution policy.
-- `docs/LEGACY_SOURCE_COMPARISON_02.md` closes E73/E156 and E99/E173 as distinct source-level nodes.
-- `docs/CANONICAL_SOURCE_CORRECTIONS_02.md` records the applied E136/E194 guild-logistics cycle correction.
+- `docs/EVENT_CATALOG.md`
+- `docs/EVENT_CATALOG_ACT_V_EXPANSION.md`
+- `docs/EVENT_EXPANSION_071_110.md`
+- `docs/EVENT_CATALOG_EXPANSION_111_150.md`
+- `docs/EVENT_CATALOG_EXPANSION_151_210.md`
+- `docs/EVENT_CATALOG_EXPANSION_211_270.md`
+- `docs/EVENT_CATALOG_EXPANSION_271_280.md`
+- `docs/CONTENT_QA_MATRIX.md`
+- `docs/CANONICAL_STATE_VOCABULARY.md`
+- `docs/CANONICAL_DELAY_CONTRACT.md`
+- `docs/CANONICALIZATION_BACKLOG.md`
+- `docs/CANONICAL_PRODUCER_CONSUMER_REGISTRY_01.md`
+- `docs/CANONICAL_CLOSURE_AUDIT_01.md`
+- `docs/CANONICAL_TRIGGER_NORMALIZATION_03.md`
+- `docs/PRODUCER_AUDIT_E111_E180_01.md`
+- `docs/PRODUCER_AUDIT_E143_E150_01.md`
+- `docs/PRODUCER_AUDIT_E181_E210_01.md`
+- `docs/PRODUCER_AUDIT_E195_E210_02.md`
+- `docs/PRODUCER_AUDIT_E211_E250_01.md`
+- `docs/REACHABILITY_PREAUDIT_E211_E250_01.md`
+- `docs/LEGACY_SEMANTIC_AUDIT_01.md`
+- `docs/SEMANTIC_COLLISION_RESOLUTION_01.md`
+- `docs/LEGACY_SOURCE_COMPARISON_02.md`
+- `docs/CANONICAL_SOURCE_CORRECTIONS_02.md`
 
 ## Current QA checkpoint
-The E111–E210 authoritative catalogs have received direct authored-source correction passes. E136-B now establishes the immutable upstream `history.guild_logistics_cooperation` marker, and E194 now consumes that history marker rather than the qualified predicate. E194's neutral-inspector choice remains the later qualification input; immunity risk explicitly blocks qualification. This removes the identified E194 self-dependency at the authored-source level.
+E211–E250 have now received a dedicated authored producer/consumer audit and static reachability pre-audit. The pass records exact authored outputs, upstream trigger requirements, unresolved derived-predicate contracts, delayed callback identity requirements and explicit replay metadata requirements. It confirms that documentation can identify candidate edges but cannot prove runtime reachability before production data representation and engine execution.
 
-E143–E150 have received a dedicated direct source-level producer pass. E143 is intentionally resource-only; no durable reserve marker was invented. E144-A/B explicitly produce `history.guild_representation`; E145–E147, E148, E149 and E150 have their exact authored durable outcomes recorded. E148's `history.cross_faction_package` remains a source marker only and does not by itself satisfy `pred.coalition_cooperation`; E150's constitutional outputs are outcomes, not proof of final-charter prerequisites.
+Important unresolved contracts remain intentionally open: institutional reform, food pressure/severity, strong market oversight, veteran/Amara/Toma/border/noble/guild route predicates, procurement evidence cardinality, constitutional reform, delayed exactly-once scheduling, and replay metadata gating.
 
-E192 uses canonical food-logistics markers instead of a sixth numeric resource; E197/E200/E201 consume canonical qualification predicates; E207 records its distinct-evidence convergence requirement; E209 requires upstream final charter prerequisites; and E210 is explicitly convergence-only. E144/E148 are normalized for guild representation and cross-faction package semantics.
+E136-B remains the upstream producer of `history.guild_logistics_cooperation`; E194 consumes that history marker and later qualifies the logistics predicate through neutral inspectors and no unresolved immunity risk. Border crisis remains explicitly sourced by E271 and resolved by E272. E226 remains a late institutional-stress test distinct from E36; E269 remains the late Ivo evidence node distinct from E55.
 
-The authoritative E211–E270 catalog distinguishes the previously overlapping Mara and Ivo nodes without renumbering: E226 is **Mara's Final Resignation Test**, explicitly a late institutional-stress consequence; E269 is **Ivo's Late Account**, explicitly a late evidence/consequence node distinct from E55. The semantic-resolution and producer/consumer registry are synchronized with those catalog edits.
-
-E271 now provides an explicit authored source for border-crisis declaration, while E272 provides the corresponding authored active-crisis resolution paths. The historical declaration remains queryable after resolution; only the active crisis predicate is cleared. E195/E253/E255 remain consumers and cannot manufacture the crisis by reachability.
-
-The latest closure audits are reconciled with the authoritative sources: `history.guild_representation` and the border-crisis lifecycle are source-verified; transport disruption remains partial because E136 verifies recovery/clear but a distinct later active-disruption producer is still not identified. The E195–E210 consumer pass confirms that late predicates/threads remain upstream qualifications and are not self-produced by their consumers. Production schema remains blocked.
-
-The latest trigger-normalization pass records only safe mappings already covered by the canonical predicate matrix. Ambiguous concepts such as civic relief, guild leverage, information route, winter illness, and final-charter preparation remain explicitly open rather than being collapsed into arbitrary aliases.
-
-The semantic-collision backlog is synchronized: E55/E269 and E36/E226 are marked as applied/verified at the authoritative-catalog level. Their downstream graph/reachability verification remains open, as do E37/E227, E39/E229 and E40/E241.
-
-The canonical state vocabulary scope has been reconciled to **E01–E272** so the authoritative normalization document covers the complete authored checkpoint.
-
-Reachability remains static/pre-audit only until a real validator and production data representation exist. No engine/APK readiness claim is permitted at this stage.
+Reachability remains static/pre-audit only. Production schema and runtime implementation remain blocked until canonical contracts are frozen. No validator has been introduced prematurely.
 
 ## Latest source-level commits
-- `935a7512ce6dfc66e191c456f1d95e72a6ba0efa` — dedicated producer audit E143–E150.
-- `9556b6be8e6641e0067ea183a3171ec0ccdbc8c9` — exact producer audit for E111–E180 verified subset.
-- `b0c9410aa2bd30fcc0e49793f8ab0dffde8ac5ee` — recorded safe canonical trigger normalization pass 03.
+- `14d99ed300c32be7285bd599320a8198da5333fe` — producer/consumer audit E211–E250.
+- `2d22b3809e753928ca02d4c8b530ca4dc1e93d53` — reachability pre-audit E211–E250.
+- `935a7512ce6dfc66e191c456f1d95e72a6ba0efa` — producer audit E143–E150.
+- `9556b6be8e6641e0067ea183a3171ec0ccdbc8c9` — producer audit E111–E180 verified subset.
+- `b0c9410aa2bd30fcc0e49793f8ab0dffde8ac5ee` — canonical trigger normalization pass 03.
 - `86a5f2558638d252a4e3f9b36d7a8d1b4e10398b` — state sync after E01–E272 vocabulary reconciliation.
-- `3c04cf8de671dbb2ead7ab91700881737d0263fd` — reconciled canonical state vocabulary scope with the complete E01–E272 authored checkpoint.
-- `ca6f12a50353ee6d6e002025d300bc70d40bc29b` — synchronized producer/consumer registry after latest source-level closure reconciliation.
-- `d529ff3d0a44bcb4c7cce54d70103e0b78883686` — applied E136-B upstream guild-logistics history marker.
-- `c08379167f311c3ce674ace63475f3be839855a8` — changed E194 to consume the upstream guild-logistics history marker and documented qualified predicate derivation.
-- `249e01981cb97603aac669dc5686dab46731615d` — applied authoritative E226/E269 semantic distinctions.
+- `3c04cf8de671dbb2ead7ab91700881737d0263fd` — canonical state vocabulary scope reconciliation.
+- `ca6f12a50353ee6d6e002025d300bc70d40bc29b` — producer/consumer registry synchronization.
+- `d529ff3d0a44bcb4c7cce54d70103e0b78883686` — E136-B guild-logistics history marker.
+- `c08379167f311c3ce674ace63475f3be839855a8` — E194 upstream history trigger correction.
+- `249e01981cb97603aac669dc5686dab46731615d` — E226/E269 semantic distinctions.
 - `d01c2cbf0cbdf3b63c357ad5aebb45cdf21e9309` — producer/consumer audit E181–E210.
-- `54d185b2c2f898689ffcc8ef930f5e400298c6ca` — late-campaign E195–E210 consumer/qualification closure audit.
+- `54d185b2c2f898689ffcc8ef930f5e400298c6ca` — E195–E210 consumer/qualification closure audit.
 
 ## Next highest-value work
-1. Enumerate every concrete output token across E01–E272 and map each consumer to its exact authored producer choices.
-2. Reconcile normalized trigger families against the complete catalog and graph, resolving safe aliases while preserving ambiguous distinctions.
-3. Reconcile graph/catalog references and build the event reachability matrix.
+1. Continue concrete output-token inventory across the remaining E01–E272 source ranges.
+2. Reconcile trigger families and route predicates without collapsing ambiguous concepts.
+3. Reconcile graph/catalog references and build the full reachability matrix.
 4. Verify delayed/replay source identities and exactly-once semantics.
-5. Verify E55/E269, E36/E226, E37/E227, E39/E229 and E40/E241 downstream roles in graph/reachability QA.
-6. Resolve remaining OPEN contracts: food stability, active transport disruption, strong guild influence, systemic evidence convergence, coalition cooperation, constitutional preparation, budget reform and final charter prerequisites.
-7. Build a real static catalog validator only after the canonical data contract is frozen against the authored catalog.
-8. Freeze production data contracts, then implement the engine.
+5. Verify E55/E269, E36/E226, E37/E227, E39/E229 and E40/E241 downstream roles.
+6. Resolve remaining open contracts: food stability, active transport disruption, strong guild influence, systemic evidence convergence, coalition cooperation, constitutional preparation, budget reform and final charter prerequisites.
+7. Build the real static validator only after canonical data contracts are frozen.
+8. Freeze production contracts, then implement the engine.
 
 ## Honest progress rule
-Percentages represent actual state of the corresponding work. Documentation alone does not make implementation complete. Source edits count only when the authoritative catalog is actually changed and re-read. No block may be called ready until its appropriate verification has passed.
+Percentages represent actual state. Documentation alone does not make implementation complete. Source edits count only when the authoritative catalog is changed and re-read. No block may be called ready until its appropriate verification has passed.
 
 ## Project separation
 `rulebreak8` is unrelated to this project and must not be modified or used as a source of readiness metrics.
