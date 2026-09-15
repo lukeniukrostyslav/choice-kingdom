@@ -75,7 +75,7 @@ No callback is runtime-ready merely because producer identity and timing are kno
 
 ## Gate result
 
-**Producer identity fully closed:** E181, E182, E183, E184? **No**, E185, **E244**.  
+**Producer identity fully closed:** E181, E182, E183, E185, E244.  
 **Producer identity partially closed:** E242 (known explicit source, complete producer set still open).  
 **Producer identity open:** E184, E243, E245, E246 semantic normalization.  
 **Runtime implementation:** not started.
