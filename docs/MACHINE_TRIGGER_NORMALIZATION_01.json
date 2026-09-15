@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "scope": "E01-E272",
+  "status": "SOURCE_CONTRACT_CLOSED_RUNTIME_OPEN",
+  "purpose": "Canonical trigger identity rules prevent legacy source-language aliases from becoming duplicate runtime facts.",
+  "rules": [
+    {
+      "event": "E144",
+      "legacy_trigger": "guild_political_representation",
+      "canonical_fact": "history.guild_representation",
+      "rule": "legacy trigger is source-language compatibility only; it must not be materialized as a second runtime predicate"
+    },
+    {
+      "event": "E136",
+      "legacy_outcome_alias": "roads_public_labor",
+      "canonical_fact": "transport_network_stable",
+      "rule": "historical alias is not an additional predicate producer"
+    },
+    {
+      "event": "E32",
+      "legacy_fact": "transport_disruption_active",
+      "canonical_fact": "pred.transport_disruption",
+      "rule": "legacy alias must not enter canonical production state"
+    }
+  ],
+  "verification_required": [
+    "authoritative catalog preserves one canonical runtime identity",
+    "aliases cannot satisfy composite predicates directly",
+    "save/load serializes canonical identity only",
+    "fresh-run reachability uses canonical identity"
+  ]
+}
