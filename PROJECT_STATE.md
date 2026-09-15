@@ -21,7 +21,7 @@ No mock/stub gameplay or premature production-readiness claims.
 **Narrative/content canonicalization and QA.** Authored checkpoint E01–E272. Production schema and Decision Engine remain blocked until canonical contracts and reachability are sufficiently closed.
 
 ## Scenario QA
-Dedicated Scenario QA score is now approximately **86%**. This is distinct from overall project completion and is not runtime/Android readiness.
+Dedicated Scenario QA score is now approximately **87%**. This is distinct from overall project completion and is not runtime/Android readiness.
 
 ### S01–S12 working indicators
 - S01 **80%**
@@ -35,10 +35,11 @@ Dedicated Scenario QA score is now approximately **86%**. This is distinct from 
 - S09 **60%**
 - S10 **72%**
 - S11 **55%**
-- S12 **78%** — S12.30 machine graph gate, S12.31 E33/E34 source reconciliation, S12.32 degree classification, S12.33 E245 producer closure and S12.34 machine node-classification infrastructure are verified. Semantic orphan/reachability closure remains open.
+- S12 **79%** — S12.30 machine graph gate, S12.31 E33/E34 source reconciliation, S12.32 degree classification, S12.33 E245 producer closure, S12.34 node-classification infrastructure and S12.35 producer/consumer matrix compilation are verified at source-QA level. Semantic orphan/reachability closure remains open.
 
 ## Latest QA work
-- **S12.34** added `tools/classify_graph_nodes.py` and `docs/SCENARIO_QA_S12_34_MACHINE_NODE_CLASSIFICATION_01.md`. The classifier deterministically separates source-missing, replay, delayed-consumer, terminal/endgame, isolated, root, terminal/consumer and ordinary graph-node candidates without promoting degree heuristics to semantic truth. CI now runs both the canonical graph validator and the classifier.
+- **S12.35** added `tools/compile_producer_consumer_matrix.py` and wired it into canonical graph CI. It converts the working producer/consumer registry into deterministic derived QA data, rejects out-of-scope references, and preserves OPEN/PARTIAL rows without invented aliases.
+- **S12.34** added `tools/classify_graph_nodes.py` and its QA report. It deterministically separates source-missing, replay, delayed-consumer, terminal/endgame, isolated, root, terminal/consumer and ordinary graph-node candidates without promoting degree heuristics to semantic truth.
 - **S12.33** closed E245's producer identity to **E20-A `soldier_compensation`**. E125-A and E156-A remain independent compensation outcomes. Delayed timing/cancellation lifecycle remains open.
 - **S12.32** verified 270/272 catalog headings, 296 unique graph edges, 69 catalog events without outbound edges, 15 inbound-only candidates and 54 unreferenced catalog candidates. These are classification candidates, not orphan/reachability verdicts.
 - **S12.31** verified the E33/E34 authoritative-source gap; exact authored prose/effects/delayed semantics remain unrecovered and no content is invented.
@@ -121,11 +122,11 @@ Source identity is CLOSED: E142-A + E154-A + E198-A. Negative blockers E142-B/E1
 - APK: **0%**
 - Release: **0%**
 
-Overall project progress remains approximately **60%**. Scenario QA is approximately **86%** and must not be conflated with overall project completion.
+Overall project progress remains approximately **60%**. Scenario QA is approximately **87%** and must not be conflated with overall project completion.
 
 ## Next autonomous work
 1. Search repository history and remaining catalog/checkpoint sources for exact E33/E34 authored material; otherwise formally quarantine them as unrecovered.
-2. Use the machine classification inventory to compile the actual producer→consumer token matrix for the 69 no-outbound candidates and 54 unreferenced candidates.
+2. Use the compiled producer/consumer matrix to audit the 69 no-outbound candidates and 54 unreferenced candidates against authoritative source text.
 3. Separate ROOT/SOURCE, ordinary producer, consumer-only, terminal/ending, qualification, delayed callback, replay-only and true orphan semantics.
 4. Close systemic convergence identity or preserve it explicitly OPEN.
 5. Compile guild influence, coalition cooperation and constitutional preparation into exact producer/consumer matrices.
