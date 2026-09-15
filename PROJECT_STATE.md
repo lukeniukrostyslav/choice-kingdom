@@ -35,11 +35,13 @@ Dedicated Scenario QA score remains **65%**. This is distinct from overall proje
 - S09 **60%**
 - S10 **72%**
 - S11 **55%**
-- S12 **33%** — S12.2 source closure, S12.3 invariant audit, S12.4 patch gate and S12.5 authoritative P0 source reconciliation completed; machine-contract closure and exhaustive reachability remain open.
+- S12 **35%** — S12.2 source closure, S12.3 invariant audit, S12.4 patch gate, S12.5 authoritative P0 source reconciliation, S12.6 machine P0 delta and S12.7 P0 identity normalization completed; exhaustive machine graph, exact composite formulas and reachability remain open.
 
 ## Latest QA work
+- **S12.7** added `docs/SCENARIO_QA_S12_7_P0_IDENTITY_NORMALIZATION_CONTRACT_01.md`, commit `066584f94358c5584623097de2abc933c17ad4e3`. E144, E148, E136/E194 and E192 identity boundaries are normalized without inventing producers or aliases.
+- **S12.6** added `docs/SCENARIO_QA_S12_6_P0_MACHINE_DELTA_01.md`. It normalized closed P0 producer/consumer edges and established machine acceptance/rejection rules.
 - **S12.5** added `docs/SCENARIO_QA_S12_5_P0_AUTHORITATIVE_SOURCE_RECONCILIATION_01.md`, commit `f0c1daac7693cb60040b1e6aa270ff68ce47bbd4`. It re-read authoritative catalog evidence and verified that E136, E144, E192 and E194 source patches are actually present; E148 is authored with six named participants but still needs machine-normalized participant identities. It explicitly rejects an implicit E192 `food_logistics_stabilized` → `pred.food_stable` alias.
-- **S12.4** added `docs/SCENARIO_QA_S12_4_SOURCE_PATCH_APPLICATION_GATE_01.md`, commit `17a74ef695cd0f9b94e2a20b80f3669dbda0cd74`. It reconciled the P0 patch specification against canonical contracts and identified the E192 semantic conflict before any false production closure.
+- **S12.4** added `docs/SCENARIO_QA_S12_4_SOURCE_PATCH_APPLICATION_GATE_01.md`, commit `17a74ef695cd0f9b94e2a20b80f3669dbda0cd74`.
 - **S12.3** added `docs/SCENARIO_QA_S12_3_CANONICAL_INVARIANT_AUDIT_01.md`, commit `860444b28cd6e3e36024f9ebf9609b80532efa07`.
 - **S12.2** added `docs/SCENARIO_QA_S12_2_SOURCE_CLOSURE_DELTA_AUDIT_01.md`, commit `6c8e82e825e7bcbeeb9d6f105ed7f4f9fd744559`; E32 is the explicit active transport producer and E136-A/B clear it.
 - **S12.1** added the machine-oriented reachability anchor inventory in commit `a61ac9de61f4c448c511e123be38cea12b3b0f5b8`.
@@ -54,7 +56,7 @@ Dedicated Scenario QA score remains **65%**. This is distinct from overall proje
 Confirmed in authored catalog text:
 - E136-A/B → `transport_network_stable`; clears `transport_disruption_active`; E136-B also establishes guild logistics cooperation history.
 - E144-A/B → `history.guild_representation`.
-- E148-A → `history.cross_faction_package` plus named six-participant package evidence; machine identity normalization still required.
+- E148-A → `history.cross_faction_package` plus named six-participant package evidence; normalized identities are now `faction.mara`, `faction.rowan`, `faction.seris`, `faction.ivo`, `faction.amara`, `faction.toma`.
 - E192-A/B → `food_logistics_unstable` / `food_logistics_stabilized`; no sixth resource and no implicit `pred.food_stable` alias.
 - E194-A/B → neutral-inspection vs immunity-risk branches; qualified logistics cooperation remains dependent on upstream cooperation marker and blocker absence.
 - E271/E272 → canonical border declaration/resolution source chain.
@@ -109,15 +111,15 @@ Delayed consequences require source choice/event, earliest turn, latest turn or 
 - Authored content: **90%**
 - Canonical Event IDs / continuity: **100%**
 - Producer / Consumer QA: **98%**
-- Derived predicates / machine contracts: **85%**
+- Derived predicates / machine contracts: **86%**
 - Delayed Consequences: **88%**
 - Replay / Meta-state: **57%**
 - Endings / precedence: **63%**
-- Reachability / causal graph: **47%**
+- Reachability / causal graph: **49%**
 - Production data schema: **36%**
 - Decision Engine: **0%**
 - UI / UX: **0%**
-- Localization 20+ languages: **5%**
+- Localization 20+: **5%**
 - Android implementation: **0%**
 - Runtime / Android QA: **0%**
 - APK: **0%**
@@ -126,15 +128,14 @@ Delayed consequences require source choice/event, earliest turn, latest turn or 
 Overall project progress is approximately **54%**. Scenario QA remains **65%** and must not be conflated with overall project completion.
 
 ## Next autonomous work
-1. Build the machine-oriented P0 producer/consumer delta from the authoritative source evidence.
-2. Normalize E148 participant identities and E144 legacy trigger aliases.
-3. Extract exact E197/E200/E207/E209/E210 authored rows and close their machine evidence boundaries.
-4. Continue exhaustive E01–E272 producer/consumer inventory and canonical vocabulary normalization.
-5. Continue exact source extraction for E218/E225 and E251–E272 delayed/lifecycle rows.
-6. Reconcile S11 ending incoming paths and deterministic precedence against the expanded graph.
-7. Run fresh-run and representative replay reachability from canonical initial state.
-8. Freeze production contracts only after machine checks are clean enough.
-9. Then build Decision Engine → UI → localization → automated/runtime verification → Android → APK → release.
+1. Extract exact E197/E200/E207/E209/E210 authored rows into the machine producer/consumer registry.
+2. Compile immutable evidence IDs for systemic explanation and exact cardinality/formulas for composite predicates.
+3. Continue exhaustive E01–E272 producer/consumer inventory and canonical vocabulary normalization.
+4. Continue exact source extraction for E218/E225 and E251–E272 delayed/lifecycle rows.
+5. Reconcile S11 ending incoming paths and deterministic precedence against the expanded graph.
+6. Run fresh-run and representative replay reachability from canonical initial state.
+7. Freeze production contracts only after machine checks are clean enough.
+8. Then build Decision Engine → UI → localization → automated/runtime verification → Android → APK → release.
 
 ## Honest progress rule
 Documentation alone never makes implementation complete. Source edits count only when authoritative evidence is changed/re-read. No block is ready until its applicable verification passes. Owner-controlled release gates must never be falsely marked complete.
