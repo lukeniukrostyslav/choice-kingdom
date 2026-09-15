@@ -21,3 +21,14 @@ jobs:
         run: python3 tools/audit_candidate_semantic_boundary.py
       - name: Audit conservative structural reachability
         run: python3 tools/audit_structural_reachability.py
+      - name: Upload canonical QA machine reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: choice-kingdom-canonical-qa-${{ github.sha }}
+          path: |
+            docs/MACHINE_GRAPH_NODE_CLASSIFICATION_01.json
+            docs/MACHINE_PRODUCER_CONSUMER_MATRIX_01.json
+            docs/MACHINE_CANDIDATE_TRIAGE_01.json
+            docs/MACHINE_CANDIDATE_SEMANTIC_BOUNDARY_01.json
+            docs/MACHINE_STRUCTURAL_REACHABILITY_01.json
+          if-no-files-found: error
