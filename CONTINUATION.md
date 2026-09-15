@@ -17,10 +17,6 @@ An original premium Android-first decision-and-consequence game set in Avelune. 
 
 This is a **real full game**, not a short card demo. The frozen authored production scope currently reaches **E01–E272**, with E273–E277 remaining expansion candidates outside the frozen catalog. Release target remains approximately 250–350+ meaningful nodes and approximately 8–12 recognizable endings.
 
-## Reference boundary
-
-The broad decision-game formula may be inspired by Reigns, but **do not copy** its world, characters, text, artwork, UI, event wording, distinctive presentation, or protected creative expression. The project must have its own identity.
-
 ## Product target
 
 - Android first
@@ -45,7 +41,7 @@ Authored sources:
 
 Canonical QA artifacts include the event/trigger/state vocabulary, producer-consumer registry, delayed-consequence contracts, predicate dependency audits, event graph and scenario QA worklog.
 
-The campaign is **not yet production-integrated**. Exhaustive producer/consumer closure, unresolved derived conditions, delayed runtime semantics, replay meta-state, ending-path coverage and fresh-run reachability remain open.
+The campaign is **not yet production-integrated**. Exhaustive producer/consumer closure, machine dependency extraction, delayed runtime semantics, replay meta-state, deterministic ending precedence and fresh-run reachability remain open.
 
 ## Non-negotiable development order
 
@@ -65,19 +61,41 @@ Never report a percentage from planned work alone. Distinguish implementation, t
 
 ## Latest durable QA checkpoint
 
-- S10.3 E185 crisis-resolution / ordering contract: `d9c5853ec0fa92c9b9d0b96da0c246904516de81`
-- S10.2 delayed identity/lifecycle matrix: `107c2c40f0c1e454e92bf86904287b691694f4ef`
-- S09 predicate graph checkpoint: `ca4c5b848a08dc577a5ec61430ea533bda5496ac`
-- S08 producer/consumer correction checkpoint: `b2f562705553ad4927e8987f37e1782a5abaf193`
-- S07 border lifecycle artifact: `ad08b00cd5465c03aca0aeb2aac8e4b8a74b8dd7`
-- S07 event-graph reconciliation: `67539450464ae167552534dca8375a25daa8f138`
+- S13 composite source closures: current derived-predicate contract confirms guild influence, systemic explanation, coalition cooperation, constitutional preparation and budget reform source boundaries.
+- Replay provenance correction: `989e78afbe8829e631911637cb0861074b428f2a` updated the reproducible scenario scorecard after correcting E131/E186 provenance handling.
+- S10.4 delayed source-boundary verification: `5d798fb547eb7b0d7a4f8325a39c1709441e9e63`
+- S11.1 E33/E34 ending-boundary source closure: source/graph CLOSED; deterministic runtime ending order remains OPEN.
+- S08.11 budget reform / coalition source closure: source closure PASS; executable qualification/reachability remains open.
+
+## Scenario score
+
+The reproducible scenario QA scorecard is `docs/SCENARIO_QA_SCORECARD_01.md`.
+
+Current block scores:
+
+- S01 80%
+- S02 70%
+- S03 70%
+- S04 70%
+- S05 60%
+- S06 60%
+- S07 80%
+- S08 84%
+- S09 82%
+- S10 80%
+- S11 72%
+- S12 95%
+- **Aggregate: 75%**
+
+The aggregate is the arithmetic mean of the twelve block scores. It is not runtime readiness.
 
 ## Next highest-value work
 
-1. Return to exhaustive S08 producer/consumer closure across the frozen E01–E272 catalog.
-2. Resolve undefined producers/consumers, duplicate semantic writers and contradictory writers without inventing semantics.
-3. Reconcile remaining derived predicates and exact canonical vocabulary.
-4. Close remaining delayed/replay/ending contracts.
-5. Run fresh-run reachability and graph-vs-catalog reconciliation.
-6. Freeze production contracts only after the above evidence is clean enough for machine validation.
-7. Then build the Decision Engine against the frozen contracts, followed by UI, localization, automated/runtime verification and Android release gates.
+1. Exhaustive producer/consumer inventory over the frozen E01–E272 catalog.
+2. Undefined producer/consumer, duplicate semantic writer and contradictory writer detection.
+3. Machine token extraction and dependency-cycle validation.
+4. Close remaining delayed lifecycle/save-load/exactly-once and replay producer/key contracts.
+5. Resolve exact ending prerequisite/blocker sets and deterministic precedence.
+6. Run fresh-run and replay causal reachability and graph/catalog parity.
+7. Freeze production contracts only after all evidence is clean enough for machine validation.
+8. Only then build the Decision Engine, followed by UI, localization, automated/runtime verification and Android release gates.
