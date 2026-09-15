@@ -29,7 +29,8 @@ Content and canonical QA come before production contracts, engine, UI, localizat
 - E211–E270: authored expansion
 - E271: border-crisis declaration producer bridge
 - E272: border-crisis active-resolution producer bridge
-- Total authored node identifiers: **E01–E272**.
+- E273–E277: authored producer-expansion candidates, **not yet admitted to the frozen E01–E272 production catalog**
+- Total frozen authored node identifiers: **E01–E272**.
 
 ## Current QA checkpoint
 Producer inventories and static reachability pre-audits cover the authored scope E01–E272. The consolidated reachability matrix remains **OPEN** and is not a proof of runtime reachability.
@@ -38,11 +39,18 @@ The authored producer bridge corrections for E136/E144/E148 and the later E151�
 
 The independent-source freeze is **PROVISIONAL/PARTIAL**. Guild-influence and constitutional-preparation candidate domains are identified, but exact full-catalog anti-double-counting reconciliation is still required before those contracts can be CLOSED.
 
-The remaining high-risk producer gaps are still not allowed to be invented in the engine layer. Food stability, guild labor tension and high information pressure require explicit upstream authored semantics or authoritative source corrections before schema freeze. Budget reform, final-charter convergence, coalition participant/outcome qualification, delayed consequence identity/timing/cancellation, replay metadata and ending precedence also remain open. E273–E277 remain source candidates outside the E01–E272 canonical freeze.
+The remaining high-risk producer gaps are still not allowed to be invented in the engine layer. Food stability, guild labor tension and high information pressure now have explicit authored source candidates in E273–E277, but those nodes remain outside the frozen catalog until scope admission, upstream reachability, downstream consumer and duplicate-producer checks are complete. Budget reform, final-charter convergence, coalition participant/outcome qualification, delayed consequence identity/timing/cancellation, replay metadata and ending precedence also remain open.
+
+The border-crisis lifecycle is source-closed: E271-A declares the active crisis and E272-A/B resolve it while preserving historical declaration state. `thread.border` remains a legacy trigger context and must not be silently aliased to `thread.border_crisis`.
+
+The latest delayed-consequence extraction identifies explicit timed callback groups including E127–E130, E141, E181–E185 and E242–E246. These are QA candidates, not production delay records, until source choice IDs, resolution targets, exactly-once identities and cancellation/supersession rules are frozen.
 
 No validator has been introduced prematurely. Production schema and runtime implementation remain blocked until the canonical contracts are frozen and the complete catalog reconciliation passes.
 
 ## Latest source-level commits
+- `d60287e6dc0b954ff068f4042e592a9fbc2239c3` — canonical P0 reconciliation 04; formalized border lifecycle closure and E273–E277 admission boundaries.
+- `f59537c6deb2a96eb1275cca255b152a93e6ee39` — delayed consequence extraction 01; identified explicit timed callback groups and remaining production-data gaps.
+- `692a04f59abf38a41d58d780b027806a853a7f24` — E273–E277 scope admission gate 01.
 - `7acc1e222436f4ab3345a732a5dc83c77032ab29` — restored the canonical E01–E32 catalog after a write error and added explicit E32 transport-disruption producer semantics.
 - `5eaae6acc7d6bb7ebf2b3a77e7017d9e60fdfe0e` — derived predicate contract records E32 as the active transport-disruption producer.
 - `d502f7d5cbe5fc489c5572d5a875062f10894a73` — transport-disruption source audit closed the producer gap while keeping lifecycle QA open.
@@ -66,11 +74,12 @@ No validator has been introduced prematurely. Production schema and runtime impl
 3. Close coalition participant/outcome/blocker semantics.
 4. Close constitutional preparation, budget reform and final-charter prerequisites without circularity.
 5. Extract delayed consequence source identity, timing, cancellation/supersession and exactly-once contracts.
-6. Freeze replay meta-state and ending qualification/precedence.
-7. Re-run complete E01–E272 contradiction/cycle/reachability reconciliation.
-8. Freeze production data contracts.
-9. Build the real static validator against the frozen schema.
-10. Implement the actual Decision Engine and runtime.
+6. Decide formal admission/rejection of E273–E277 after full graph and consumer reconciliation.
+7. Freeze replay meta-state and ending qualification/precedence.
+8. Re-run complete E01–E272 contradiction/cycle/reachability reconciliation.
+9. Freeze production data contracts.
+10. Build the real static validator against the frozen schema.
+11. Implement the actual Decision Engine and runtime.
 
 ## Honest progress rule
 Percentages represent actual state. Documentation alone does not make implementation complete. Source edits count only when the authoritative catalog is changed and re-read. No block may be called ready until its appropriate verification has passed.
