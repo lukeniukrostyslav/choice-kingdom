@@ -1,9 +1,11 @@
 # Choice Kingdom — Canonical State Vocabulary
 
 Status: **DESIGN / QA — NOT ENGINE RUNTIME**
-Scope: E01–E270
+Scope: E01–E272
 
 This document is the normalization contract for narrative QA before decision-engine implementation. It does not make the engine complete.
+
+The authored scope now includes the explicit E271/E272 border-crisis declaration and resolution lifecycle; those nodes are therefore included in this vocabulary audit scope.
 
 ## 1. State namespaces
 
@@ -75,6 +77,10 @@ Examples:
 - `history.ledger_public`
 - `history.evidence_destroyed`
 - `history.cheap_weapons_purchased`
+- `history.guild_representation`
+- `history.guild_logistics_cooperation`
+- `history.border_crisis_resolved_diplomatically`
+- `history.border_crisis_resolved_by_guarantee`
 
 A history marker is not a substitute for a current-state fact when an event must know whether the condition still holds.
 
