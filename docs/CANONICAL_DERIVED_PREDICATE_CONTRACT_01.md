@@ -24,7 +24,7 @@ Freeze the semantic rule for contextual conditions before production schema work
 | `pred.systemic_explanation_verified` | Distinct warehouse/financial evidence + document/language evidence + witness/organizational evidence + explicit convergence decision | PARTIAL |
 | `pred.coalition_cooperation` | Explicit cooperation package with identified participants and positive cooperation outcome; not route-count based | PARTIAL |
 | `pred.constitutional_prepared_strong` | Three independent preparation domains: civic/commons=`people_charter_endorsed`; institutional/audit=`crown_audited`/`full_crown_audit_published`; factional/house=`house_assembly`; military/law=`military_red_line` | PARTIAL — exact source identities frozen; full E01–E272 anti-double-counting and producer-before-consumer reconciliation remains OPEN |
-| `pred.budget_reform` | Independent audit legitimacy + crown-audit legitimacy + legislative budget lock; exact source set still to freeze | OPEN |
+| `pred.budget_reform` | E142-A `auditor_independence` + E154-A `crown_audited` + E198-A `legislative_budget_lock`; E142-B/E154-B/E198-B are negative blockers; E155-A is same-domain downstream evidence and cannot count twice | **SOURCE-CLOSED — runtime lifecycle/invalidation/reachability still OPEN** |
 | `pred.final_charter_prerequisites` | Convergence of already-established civic, institutional, faction/house/guild, military/security, information/evidence, coalition and crisis-resolution facts, with mandatory blockers cleared | OPEN |
 
 ## Hard derivation rules
@@ -45,6 +45,7 @@ Freeze the semantic rule for contextual conditions before production schema work
 - `pred.market_pressure`: E19-B is the explicit early producer for the market-pressure cycle; E19-A explicitly clears the active cycle. Any later producer must be E01–E272 and independently verified.
 - `pred.transport_disruption`: E32 is the explicit active producer for the first canonical compound-crisis cycle. E136-A/B are recovery/clear semantics and cannot be treated as producers.
 - `pred.winter_severe`: E29-A/E29-B are the source-closed producers for the current winter cycle.
+- `pred.budget_reform`: E142-A, E154-A and E198-A are independently source-closed institutional layers; E142-B/E154-B/E198-B are explicit negative blockers; E155-A is same-domain downstream evidence and is not an independent fourth input.
 
 ## Expansion quarantine — E273–E277
 
@@ -67,6 +68,10 @@ E49 is confirmed by the authoritative E01–E70 producer inventory as `guild_pol
 ### Constitutional preparation
 
 E50 is confirmed by the authoritative E01–E70 producer inventory as `people_charter_endorsed`. It is the frozen civic/commons preparation source. Later civic consequences derived from the same charter must not be counted as independent domains.
+
+### Budget reform
+
+The source identity is now reconciled with `CANONICAL_PRODUCER_INVENTORY_01.md`: E142-A establishes auditor independence, E154-A establishes the Crown-audit layer, and E198-A establishes the legislative budget lock. The three inputs are independent institutional layers under the current contract. E155-A is explicitly downstream/same-domain and cannot create a second audit domain. Runtime invalidation, reachability and ordering remain open.
 
 ## Gate
 
