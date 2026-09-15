@@ -54,7 +54,7 @@ Canonical scope wording has been reconciled: E35–E40 are canonical authored no
 No validator has been introduced prematurely. Production schema and runtime implementation remain blocked until canonical contracts are frozen and the complete catalog reconciliation passes.
 
 ## Latest source-level commits
-- `89812501201e...` — ending path coverage audit E265–E270.
+- `89812501201e49adbef23d3e619900ef5a4d46e` — ending path coverage audit E265–E270.
 - `6ea98c0f34f069c59b26a113b6a52fefd45865ed` — canonicalization backlog scope clarification.
 - `b04271583ac2ba29456e5619e644195e3a10d8c9` — canonical scope reconciliation E35–E40.
 - `e597736d8ca48d357e5fb78dc4ea7c9712c84d61` — corrected delayed producer closure and project progress.
