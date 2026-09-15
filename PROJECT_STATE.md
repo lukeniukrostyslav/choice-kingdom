@@ -35,13 +35,13 @@ Dedicated Scenario QA score is now approximately **84%**. This is distinct from 
 - S09 **60%**
 - S10 **72%**
 - S11 **55%**
-- S12 **74%** — S12.30 added and CI-verified a source-level machine canonical graph gate; S12.31 reconciled the E33/E34 source discrepancy and confirmed the foundational EVENT_CATALOG currently ends at E32.
+- S12 **75%** — S12.30 machine graph gate + S12.31 E33/E34 source reconciliation + S12.32 machine node classification are now verified. Semantic orphan/reachability closure remains open.
 
 ## Latest QA work
+- **S12.32** added `docs/SCENARIO_QA_S12_32_GRAPH_NODE_CLASSIFICATION_01.md` and extended the canonical graph validator. CI verified 270/272 catalog headings, 296 unique graph edges, 69 catalog events without outbound edges, 15 inbound-only candidates and 54 unreferenced catalog candidates. These are classification candidates, not orphan/reachability verdicts.
 - **S12.31** added `docs/SCENARIO_QA_S12_31_E33_E34_SOURCE_RECONCILIATION_01.md`. It verified that `docs/EVENT_CATALOG.md` currently ends at E32, while S01 independently records E33/E34 only at QA-inventory level. Exact E33/E34 authored prose/effects/delayed semantics remain unrecovered; no content is invented.
-- **S12.30** added `docs/MACHINE_CANONICAL_GRAPH_01.json`, `tools/validate_canonical_graph.py`, `.github/workflows/canonical-graph.yml` and `docs/SCENARIO_QA_S12_30_MACHINE_GRAPH_COMPILATION_01.md`. CI run for commit `7626994392831a27004eb5a3007432d35eb6b3e9` reached a successful validation step after fixing parser semantics.
-- S12.30 machine gate currently reports: 296 unique design-level event edges, 43 repeated documentation edges, 216 event nodes referenced by the design graph, 10 delayed consumer rows, 21 source-closed producer rows and 7 hard-negative rules.
-- Authoritative catalog reconciliation found **E33 and E34 are verified by S01 QA inventory but their authoritative authored headings/effects are not present in the selected narrative catalog sources**. This remains an explicit source-recovery blocker; no prose is invented.
+- **S12.30** added `docs/MACHINE_CANONICAL_GRAPH_01.json`, `tools/validate_canonical_graph.py`, `.github/workflows/canonical-graph.yml` and `docs/SCENARIO_QA_S12_30_MACHINE_GRAPH_COMPILATION_01.md`. CI run reached a successful validation step after fixing parser semantics.
+- S12.30 machine gate reports: 296 unique design-level event edges, 43 repeated documentation edges, 216 event nodes referenced by the design graph, 10 delayed consumer rows, 21 source-closed producer rows and 7 hard-negative rules.
 - `E271` appears as an intentional post-catalog bridge in the E211–E270 source and as the lifecycle source in E271–E280; it is explicitly allowed in the machine contract rather than treated as a silent duplicate.
 - The stale duplicate catalog source `EVENT_EXPANSION_071_110.md` was removed from the machine authoritative source set because `EVENT_CATALOG_EXPANSION_02.md` is the canonical E71–E110 source.
 - **S12.29** reconciled `docs/CANONICAL_PRODUCER_INVENTORY_01.md`, commit `9c6589b22b53fb2c3a03014c89e826593bc97d57`.
@@ -115,7 +115,7 @@ Source identity is CLOSED: E142-A + E154-A + E198-A. Negative blockers E142-B/E1
 - Delayed Consequences: **95%**
 - Replay / Meta-state: **65%**
 - Endings / precedence: **69%**
-- Reachability / Causal Graph: **59%**
+- Reachability / Causal Graph: **60%**
 - Production Data Schema: **36%**
 - Decision Engine: **0%**
 - UI / UX: **0%**
@@ -128,9 +128,9 @@ Source identity is CLOSED: E142-A + E154-A + E198-A. Negative blockers E142-B/E1
 Overall project progress remains approximately **60%**. Scenario QA is approximately **84%** and must not be conflated with overall project completion.
 
 ## Next autonomous work
-1. Search repository history and all remaining catalog/checkpoint sources for exact E33/E34 authored material; otherwise formally quarantine them as unrecovered.
-2. Compile the full producer→consumer token matrix from the authoritative catalog, starting with the 56 event nodes not represented in the design graph as outbound nodes.
-3. Separate terminal/consumer-only graph nodes from true orphan events.
+1. Search repository history and remaining catalog/checkpoint sources for exact E33/E34 authored material; otherwise formally quarantine them as unrecovered.
+2. Compile the actual producer→consumer token matrix for the 69 graph candidates, starting with the 54 unreferenced catalog candidates and ending/epilogue nodes.
+3. Separate ROOT/SOURCE, ordinary producer, consumer-only, terminal/ending, qualification, delayed callback, replay-only and true orphan semantics.
 4. Close E245 only from authoritative evidence; never union compensation candidates implicitly.
 5. Close systemic convergence identity or preserve it explicitly OPEN.
 6. Compile guild influence, coalition cooperation and constitutional preparation into exact producer/consumer matrices.
