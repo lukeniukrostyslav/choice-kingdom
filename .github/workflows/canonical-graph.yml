@@ -15,3 +15,5 @@ jobs:
         run: python3 tools/classify_graph_nodes.py
       - name: Compile producer consumer matrix
         run: python3 tools/compile_producer_consumer_matrix.py
+      - name: Compile conservative candidate triage
+        run: python3 tools/triage_graph_candidates.py
