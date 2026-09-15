@@ -100,9 +100,23 @@ for event_id, event in events.items():
         if {"A", "B"}.issubset(labels):
             same_event_shared_writers.setdefault(token, []).append({"event": event_id, "choices": sorted(labels)})
 
+# Explicitly documented idempotent reaffirmation: E194-A consumes the durable
+# cooperation marker established upstream by E136-B and repeats that same marker
+# while establishing the new neutral-inspector evidence. This is not a second
+# independent producer and must not create a semantic writer collision.
+IDEMPOTENT_REAFFIRMATIONS = {
+    ("history.guild_logistics_cooperation", "E194"),
+}
+
 semantic_writer_collisions = {
     token: writers for token, writers in duplicates.items()
     if len({writer["event"] for writer in writers}) > 1
+    and not all((token, writer["event"]) in IDEMPOTENT_REAFFIRMATIONS for writer in writers)
+}
+reaffirmed_tokens = {
+    token: [writer for writer in writers if (token, writer["event"]) in IDEMPOTENT_REAFFIRMATIONS]
+    for token, writers in duplicates.items()
+    if any((token, writer["event"]) in IDEMPOTENT_REAFFIRMATIONS for writer in writers)
 }
 undefined_consumers = sorted({token for token in consumers if token not in producers})
 predicate_nodes = sorted(
@@ -146,6 +160,7 @@ inventory = {
     "duplicate_output_tokens": duplicates,
     "semantic_writer_collisions": semantic_writer_collisions,
     "same_event_shared_writers": same_event_shared_writers,
+    "reaffirmed_tokens": reaffirmed_tokens,
     "undefined_consumers": undefined_consumers,
     "predicate_dependency_graph": predicate_graph,
     "undefined_predicate_consumers": undefined_predicate_consumers,
@@ -153,7 +168,8 @@ inventory = {
     "notes": [
         "Source-level inventory only; no gameplay/fresh-run reachability claim.",
         "A trigger token without an extracted producer is unresolved, not invented.",
-        "All cross-event duplicate writers are retained as an explicit semantic-writer review set.",
+        "All cross-event duplicate writers are retained as an explicit semantic-writer review set unless an explicit idempotent reaffirmation is frozen.",
+        "E194-A repeating history.guild_logistics_cooperation is an explicit idempotent reaffirmation of the E136-B durable marker, not an independent producer.",
         "Same-event A/B writers are retained as shared-writer review findings; they are not contradictions by themselves.",
         "Explicit clear/reset/invalidate/revoke/cancel actions are recorded as choice clears and are not treated as positive producers.",
         "Undefined consumers are reported separately from undefined predicate producers.",
@@ -170,6 +186,7 @@ print(f"trigger_tokens={len(consumers)}")
 print(f"duplicate_output_tokens={len(duplicates)}")
 print(f"semantic_writer_collisions={len(semantic_writer_collisions)}")
 print(f"same_event_shared_writers={len(same_event_shared_writers)}")
+print(f"reaffirmed_tokens={len(reaffirmed_tokens)}")
 print(f"undefined_consumers={len(undefined_consumers)}")
 print(f"predicate_nodes={len(predicate_nodes)}")
 print(f"predicate_edges={sum(len(x) for x in predicate_graph.values())}")
@@ -177,6 +194,8 @@ print(f"undefined_predicate_consumers={len(undefined_predicate_consumers)}")
 print(f"predicate_cycles={len(predicate_cycles)}")
 if duplicates:
     print("duplicate_output_token_names=" + ",".join(sorted(duplicates)))
+if reaffirmed_tokens:
+    print("reaffirmed_token_names=" + ",".join(sorted(reaffirmed_tokens)))
 if same_event_shared_writers:
     print("same_event_shared_writer_names=" + ",".join(sorted(same_event_shared_writers)))
 if undefined_consumers:
