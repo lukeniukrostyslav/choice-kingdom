@@ -6,91 +6,98 @@ Status: **SCENARIO QA REPORTING CONTRACT — SOURCE LEVEL**
 
 ## Purpose
 
-This file freezes the reporting meaning of the project's scenario verification percentage. The score must reflect actual QA closure and must not be inflated by plans, documentation volume, or runtime work that has not been executed.
+This scorecard measures only verified scenario QA closure. Percentages are not increased for plans, documentation volume, commits, or unexecuted runtime assumptions.
 
-## Current block scorecard
+## Current 12-block scorecard
 
 | Scenario block | Completion | Current gate |
 |---|---:|---|
-| S01 — canonical event identity / continuity | 80% | OPEN — exhaustive catalog closure remains |
-| S02 — trigger / choice contracts | 70% | OPEN |
-| S03 — state / effect vocabulary | 70% | OPEN |
-| S04 — chronology / causal ordering | 70% | OPEN |
-| S05 — contradiction / branch consistency | 60% | OPEN |
-| S06 — consequence / downstream coverage | 60% | OPEN |
-| S07 — lifecycle / border and cycle boundaries | 80% | OPEN — runtime lifecycle remains |
-| S08 — producer / consumer closure | 96% | ADVANCED — E194 reaffirmation is closed; two stale/prose border trigger forms are explicitly rejected; remaining undefined consumers still require authoritative closure and fresh machine verification |
-| S09 — predicate dependency / cycle QA | 90% | ADVANCED — exhaustive inventory is green with zero predicate cycles; 8 undefined predicate consumers remain for authoritative source/runtime classification |
-| S10 — delayed consequences / persistence / replay boundaries | 80% | ADVANCED — lifecycle and exact replay bindings remain |
-| S11 — ending prerequisites / precedence | 72% | ADVANCED — deterministic ending order remains OPEN |
-| S12 — graph / catalog / reachability reconciliation | 98% | ADVANCED — canonical graph validation and conservative structural reachability are green; fresh-run and replay reachability not verified |
+| S01 — Canonical Event Coverage | 84% | ADVANCED — E01–E272 exhaustive authored-event scope is structurally validated; semantic/reachability closure remains |
+| S02 — Choice / State Transitions | 70% | OPEN — complete authored transition/effect closure remains |
+| S03 — Producer / Consumer Closure | 70% | OPEN — undefined consumer set remains; source-closed manifest producers now have a dedicated green verification gate |
+| S04 — Predicate Contracts | 73% | ADVANCED — predicate parity, source closure and zero-cycle checks are green; undefined predicate lifecycle/runtime closure remains |
+| S05 — Delayed Consequences | 60% | OPEN — complete consequence and cancellation closure remains |
+| S06 — Replay / Meta State | 60% | OPEN — explicit replay producer/key and reset semantics remain |
+| S07 — Event Graph / Causality | 83% | ADVANCED — canonical graph gate is green; full causal reachability remains |
+| S08 — Source / Producer QA | 97% | ADVANCED — 29 declared source-closed producers pass authored-event/choice verification; stale/prose border rejection gate is green |
+| S09 — Canonical Graph | 92% | ADVANCED — canonical graph, predicate parity and contract-readiness gates are green |
+| S10 — Delayed Lifecycle | 83% | ADVANCED — delayed lifecycle gate is green; exact cancellation/supersession/save-load semantics remain |
+| S11 — Replay / Ending QA | 72% | OPEN — deterministic ending precedence and replay reachability remain |
+| S12 — Scope / Integrity Gates | 99% | ADVANCED — E01–E272 scope, scope boundary, contract readiness and integrity gates are green |
 
 ## Aggregate scenario score
 
-**77% — scenario QA / verification progress.**
+**79% — scenario QA / verification progress.**
 
-The aggregate is the arithmetic mean of the twelve block scores above (77.17%, rounded to the nearest whole percent). It is deliberately separate from project completion and runtime readiness.
+The exact arithmetic mean is **78.58%**, rounded to the nearest whole percent. This remains separate from runtime readiness and project completion.
 
-## Real work completed in the latest autonomous blocks
+## Verified autonomous work — latest block
 
-### S22 — stale/prose border trigger normalization
-- Inspected the existing authoritative QA classification and froze `thread.border` as a stale alias that must use canonical `thread.border_crisis`.
-- Froze `thread.border_crisis = active` as a prose predicate expression, not an executable producer; canonical predicate lifecycle remains `pred.border_crisis`.
-- Preserved both raw forms for auditability instead of deleting evidence.
-- Updated `docs/SCENARIO_QA_UNDEFINED_CONSUMER_CLASSIFICATION_01.md` in commit `15dd8539f0ee8e7d527306a8ead7fe26b6d19e93`.
-- This is a source-contract closure step; it does not claim runtime lifecycle or fresh-run reachability.
+### S24 — source-closed producer verification
+- Added `tools/validate_source_closed_producers.py`.
+- Added `Choice Kingdom Source-Closed Producer Verification` CI gate.
+- Hardened authored A/B choice detection to match the canonical catalog's actual heading format.
+- Final PR CI result: **PASS**.
+- Verified: **272 events in scope, 29 declared source-closed producers, 0 errors**.
+
+### S25 — noncanonical border rejection gate repair
+- Repaired the rejection gate so stale/prose forms are preserved as audit evidence in the classification document rather than required to remain in canonical authored triggers.
+- Corrected the canonical assertion to require `pred.border_crisis` as the executable trigger form.
+- Final PR CI result: **PASS**.
+
+### S23 — canonical border trigger normalization
+- E271 canonical trigger: `pred.border_tension` + corroborated frontier-warning infrastructure.
+- E272 canonical trigger: `pred.border_crisis` + `border_crisis_declared = true` + resolution route.
+- Legacy/prose forms remain audit evidence, not executable canonical triggers.
+
+### S22 — stale/prose border trigger classification
+- `thread.border` frozen as stale alias.
+- `thread.border_crisis = active` frozen as prose predicate expression.
+- Canonical lifecycle remains `pred.border_crisis`.
 
 ### S21 — semantic writer collision closure
-- Inspected the authoritative E151–E210 event catalog and verified that `history.guild_logistics_cooperation` is established by E136-B and repeated by E194-A as an explicit upstream-marker reaffirmation while E194 establishes neutral-inspector evidence.
-- Hardened `tools/compile_scenario_source_inventory.py` with an explicit, reviewable idempotent-reaffirmation rule for E194-A; no generic duplicate-writer suppression was introduced.
-- Commit: `cc63fd2e6d44090fbd85c8371d287ccafaab3acb`.
-- Fresh GitHub Actions `source-inventory` job on that commit completed successfully. Machine result reported `semantic_writer_collisions=0`, `reaffirmed_tokens=1`, `events=272/272`, `predicate_cycles=0`, while preserving the 59 undefined consumers and 8 undefined predicate consumers as unresolved findings.
+- E194-A reaffirmation of `history.guild_logistics_cooperation` was explicitly classified as idempotent reaffirmation of E136-B rather than an independent semantic writer.
+- Fresh inventory previously verified `semantic_writer_collisions=0`.
 
-### S20 — exhaustive E01–E272 source inventory green verification
-- Fresh source-inventory verification covered all 272 frozen production events.
-- Machine result: `events=272`, `expected=272`, `unique_output_tokens=243`, `trigger_tokens=90`, `duplicate_output_tokens=3`, `same_event_shared_writers=2`, `undefined_consumers=59`, `predicate_nodes=8`, `predicate_edges=0`, `undefined_predicate_consumers=8`, `predicate_cycles=0`.
-- Generated inventory shape passed and the canonical `scenario-source-inventory` artifact was uploaded successfully.
-- The remaining undefined consumers and predicates remain explicit QA findings; they are not silently promoted into invented producers.
+### S20 — exhaustive E01–E272 source inventory
+- 272/272 events verified.
+- 243 unique output tokens.
+- 90 trigger tokens.
+- 3 duplicate output tokens.
+- 2 same-event shared-writer findings.
+- 59 undefined consumers.
+- 8 undefined predicate consumers.
+- 0 predicate cycles.
 
-### S19 — composite predicate evidence-boundary repair and green verification
-- Inspected the failed `Choice Kingdom Canonical Graph` run and retrieved the exact failing step/log.
-- Reconciled over-specific coalition evidence needles to the authoritative vocabulary: `cross-faction package`, `named participants`, and `positive mutual-concession outcome`.
-- Committed the repair as `91d68e8ce221598e7ad0d2f53d021f18d45d783f`.
-- Fresh `Choice Kingdom Canonical Graph` run completed **SUCCESS** with all 23 workflow steps passing.
+## Latest verified CI set
 
-### S18 — exhaustive-source inventory semantic correction
-- Corrected same-event A/B shared-writer handling, conservative clear extraction, cross-event duplicate review, predicate-cycle detection and unresolved predicate reporting.
-- Updated the source-inventory workflow to schema `choice-kingdom-scenario-source-inventory-2`.
-- Commits: `31e3373124a8d2f26f757cea24c510335dd1aba4` and `0f7e41819d422b919550dce93d783b2e57b51039`.
+On the latest scenario QA PR head, the following gates completed **SUCCESS**:
 
-### S17 — exhaustive-source validator hardening
-- Added machine detection for same-event contradictory writers and repaired predicate contract parity normalization.
+- Choice Kingdom Source-Closed Producer Verification — run #9
+- Choice Kingdom Noncanonical Consumer Rejection Gate — run #9
+- Choice Kingdom Scenario Source Closure — run #32
+- Choice Kingdom Canonical Graph — run #320
+- Choice Kingdom Predicate Contract Parity — run #228
+- Choice Kingdom Contract Readiness — run #251
+- Choice Kingdom Delayed Lifecycle Gate — run #247
+- Choice Kingdom Scope Boundary — run #278
 
-### S16 — frozen scenario contract closure gate
-- Added the frozen E01–E272 contract-closure validator/workflow.
-- GitHub Actions `Choice Kingdom Scenario Contract Closure` completed **SUCCESS**.
-- Runtime reachability, replay reachability, ending execution and Android remain explicitly unclaimed.
-
-### S15 — E270 authoritative systemic-convergence closure
-- Verified E270-A as the convergence step for `pred.systemic_explanation_verified` and reconciled its source-level closure.
-- Runtime aggregation, persistence, contradiction handling, fresh-run reachability and replay promotion remain OPEN.
-
-### S14 — machine predicate dependency validation
-- Added predicate-only dependency graph construction, deterministic DFS cycle detection and explicit unresolved predicate reporting.
+These are source/structural gates. They do not claim runtime gameplay, fresh-run reachability, replay reachability or APK readiness.
 
 ## Remaining gates to 100%
 
-1. Authoritative classification and closure of the remaining undefined consumers and 8 undefined predicate consumers.
-2. Exhaustive duplicate semantic-writer and same-event shared-writer review.
-3. Remaining delayed source identity, lifecycle, cancellation/supersession, save/load and exactly-once contracts.
-4. Explicit replay producer/key bindings for E186/E247/E248.
-5. Exact ending positive prerequisites, negative blockers and deterministic precedence.
-6. Fresh-run and replay causal reachability verification.
-7. Final graph/catalog parity and production-contract freeze.
+1. Authoritative closure of the remaining undefined consumers.
+2. Full choice/state transition closure across E01–E272.
+3. Remaining predicate producer/lifecycle/clear/resolve contracts.
+4. Delayed source identity, cancellation/supersession, persistence and exactly-once semantics.
+5. Explicit replay producer/key bindings for E186/E247/E248.
+6. Exact ending positive prerequisites, negative blockers and deterministic precedence.
+7. Fresh-run and replay causal reachability verification.
+8. Final graph/catalog semantic equality and production-contract freeze.
 
 ## Explicit exclusions
 
-The scenario score does not claim a working Decision Engine, runtime persistence, Android implementation, UI, localization, APK or release readiness. Those gates remain downstream.
+The scenario score does not claim a working Decision Engine, runtime persistence, Android implementation, UI, localization, APK or release readiness. Those are downstream gates.
 
 ## Frozen scope rule
 
@@ -98,4 +105,4 @@ E01–E272 are the production denominator. E273–E277 are expansion candidates 
 
 ## Truth rule
 
-A source document is evidence of QA work, not proof of runtime behavior. A gate reaches 100% only after the underlying authoritative source is checked and the required machine/runtime verification is actually green.
+A source document is evidence of QA work, not proof of runtime behavior. A block reaches 100% only after its authoritative source is checked and its required verification is actually green.
