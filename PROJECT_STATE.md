@@ -42,10 +42,11 @@ This is the fixed reporting metric for the E01–E272 authored campaign. It meas
 The 65% figure does not mean the engine, runtime, Android build, UI, localization or APK are complete. It also does not mean reachability has been proven.
 
 ## Latest QA work
+- S08.4 frozen-scope integrity correction added as `docs/SCENARIO_QA_S08_SCOPE_INTEGRITY_01.md`, commit `2a2787b9f2206da6e4e5c4bda85175289520c1cb`.
 - S10.3 E185 crisis-resolution/ordering contract was added and committed as `d9c5853ec0fa92c9b9d0b96da0c246904516de81`.
 - S08.3 open-class reconciliation was added and committed as `8ff8d3731463c0a890cc0f80ffcf4674f97d2af6`.
-- Durable QA worklog was updated in commit `c92146d0c4635cbfc7a5505c7506097a1fa574af`.
-- S08.3 narrows unresolved producer/consumer classes but does not claim exhaustive closure.
+- Durable QA worklog was updated in commit `1e78c772956ae097a66499b7bf90d26665731330`.
+- S08.4 identified and dispositioned stale out-of-scope E273/E277 producer references; no excluded expansion semantics are admitted into the frozen catalog.
 - E185 now has a static two-stage eligibility/identity/order contract, but its exact military-crisis producer and delayed-loss payload remain source-level blockers.
 
 ## Current QA checkpoint
@@ -59,7 +60,7 @@ The canonical trigger audit has been extended through E272. It records additiona
 
 P0 reconciliation freezes the guild-influence domain boundary, constitutional-preparation domain boundary, systemic-evidence qualification shape, coalition positive-outcome requirements, and budget-reform institutional layers. These remain source-level contracts, not runtime implementation.
 
-E273–E277 remain outside the frozen catalog. Their producer-expansion semantics are not silently promoted into E01–E272.
+E273–E277 remain outside the frozen catalog. Their producer-expansion semantics are not silently promoted into E01–E272. The S08.4 scope-integrity correction explicitly rejects those IDs from frozen producer/consumer, predicate, delayed-source and reachability contracts.
 
 Replay mutable-state isolation is contract-closed at the design level: a new run starts with empty pending callbacks, active-cycle predicates, unresolved crises and run-local state; only explicitly authored `meta.*` transfer data may cross the replay boundary. E247, E248 and E270 remain consumer intents without source-closed meta producers/keys.
 
@@ -89,7 +90,7 @@ No validator has been introduced prematurely. Production schema and runtime impl
 Overall project progress remains approximately **53%**. The separate scenario QA metric is **65%** and must not be conflated with this overall project figure.
 
 ## Next highest-value work
-1. Continue exhaustive E01–E272 producer/output/trigger extraction.
+1. Continue exhaustive E01–E272 producer/output/trigger extraction with a hard E273–E277 exclusion filter.
 2. Resolve undefined producers/consumers, duplicate semantic writers and contradictory writers without inventing semantics.
 3. Finish derived predicate contracts and exact canonical vocabulary.
 4. Close delayed E184/E245/E246 and replay/ending contracts.
