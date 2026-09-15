@@ -73,9 +73,13 @@ E271 now provides an explicit authored source for border-crisis declaration, whi
 
 The latest closure audit was reconciled with these authoritative sources: `history.guild_representation` and the border-crisis lifecycle are source-verified; transport disruption remains partial because E136 verifies recovery/clear but a distinct later active-disruption producer is still not identified. Production schema remains blocked.
 
+The semantic-collision backlog is now synchronized: E55/E269 and E36/E226 are marked as applied/verified at the authoritative-catalog level. Their downstream graph/reachability verification remains open, as do E37/E227, E39/E229 and E40/E241.
+
 Reachability remains static/pre-audit only until a real validator and production data representation exist. No engine/APK readiness claim is permitted at this stage.
 
 ## Latest source-level commits
+- `555e797026c7982927f34645ce60d8a3c1b45671` — synchronized canonicalization backlog after verifying the applied E55/E269 and E36/E226 catalog distinctions.
+- `ca6f12a50353ee6d6e002025d300bc70d40bc29b` — synchronized producer/consumer registry after latest source-level closure reconciliation.
 - `4fdcdbea31709462dd4b38e9b6c3f3189671d6ec` — reconciled closure audit with verified E144 and E271–E272 source producers.
 - `d529ff3d0a44bcb4c7cce54d70103e0b78883686` — applied E136-B upstream guild-logistics history marker.
 - `c08379167f311c3ce674ace63475f3be839855a8` — changed E194 to consume the upstream guild-logistics history marker and documented qualified predicate derivation.
