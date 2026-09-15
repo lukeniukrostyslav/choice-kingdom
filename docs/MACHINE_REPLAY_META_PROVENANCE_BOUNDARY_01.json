@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "contract": "choice_kingdom.replay_meta_provenance_boundary",
+  "scope": "E186,E247,E248,E249,E250,E270",
+  "status": "SOURCE_LEVEL_CONSERVATIVE",
+  "rules": [
+    "ordinary_history_is_not_replay_meta",
+    "replay_consumer_cannot_infer_previous_run_state_from_same_run_history",
+    "exact_replay_producer_and_key_are_required_before_runtime_unlock",
+    "partial_trigger_text_must_not_be_promoted_to_exact_provenance"
+  ],
+  "nodes": {
+    "E186": {
+      "classification": "REPLAY_DEPENDENT",
+      "producer": "OPEN",
+      "provenance_key": "OPEN",
+      "evidence_boundary": "A previous-run informational unlock is required; E131 all_voices_heard is only a candidate source and is not an exact E186 producer binding."
+    },
+    "E247": {
+      "classification": "REPLAY_DEPENDENT",
+      "producer": "OPEN",
+      "provenance_key": "OPEN",
+      "evidence_boundary": "Second-run route is required; ordinary campaign history cannot manufacture replay metadata."
+    },
+    "E248": {
+      "classification": "REPLAY_DEPENDENT",
+      "producer": "OPEN",
+      "provenance_key": "OPEN",
+      "evidence_boundary": "Replay callback requires an explicit previous-run producer/key contract."
+    },
+    "E249": {
+      "classification": "ORDINARY_AUTHORED_STATE",
+      "replay_meta_required": false
+    },
+    "E250": {
+      "classification": "ORDINARY_AUTHORED_STATE",
+      "replay_meta_required": false
+    },
+    "E270": {
+      "classification": "ORDINARY_AUTHORED_STATE",
+      "replay_meta_required": false
+    }
+  },
+  "current_inventory": {
+    "exact_replay_producers_closed": false,
+    "fresh_run_reachability_verified": false,
+    "runtime_replay_isolation_verified": false
+  },
+  "decision_engine_gate": "BLOCKED_UNTIL_EXACT_PRODUCER_KEY_CONTRACTS_EXIST"
+}
