@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "contract": "choice_kingdom.e33_e34_provenance_audit",
+  "source": "docs/SCENARIO_QA_E33_E34_PROVENANCE_AUDIT_01.md",
+  "scope": ["E33", "E34"],
+  "status": "QUARANTINED",
+  "records": [
+    {"event":"E33","status":"OPEN","source_recovered":false},
+    {"event":"E34","status":"OPEN","source_recovered":false}
+  ],
+  "hard_negatives": [
+    "do not infer from numeric adjacency",
+    "do not infer from E32 or E35",
+    "do not invent trigger/choice/effect semantics",
+    "do not promote to Decision Engine"
+  ]
+}
