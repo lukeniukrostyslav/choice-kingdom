@@ -21,7 +21,7 @@ No mock/stub gameplay or premature production-readiness claims.
 **Narrative/content canonicalization and QA.** Authored checkpoint E01–E272. Production schema and Decision Engine remain blocked until canonical contracts and reachability are sufficiently closed.
 
 ## Scenario QA
-Dedicated Scenario QA score is now approximately **85%**. This is distinct from overall project completion and is not runtime/Android readiness.
+Dedicated Scenario QA score is now approximately **86%**. This is distinct from overall project completion and is not runtime/Android readiness.
 
 ### S01–S12 working indicators
 - S01 **80%**
@@ -35,20 +35,14 @@ Dedicated Scenario QA score is now approximately **85%**. This is distinct from 
 - S09 **60%**
 - S10 **72%**
 - S11 **55%**
-- S12 **76%** — S12.30 machine graph gate, S12.31 E33/E34 source reconciliation, S12.32 node classification and S12.33 E245 producer closure are verified. Semantic orphan/reachability closure remains open.
+- S12 **78%** — S12.30 machine graph gate, S12.31 E33/E34 source reconciliation, S12.32 degree classification, S12.33 E245 producer closure and S12.34 machine node-classification infrastructure are verified. Semantic orphan/reachability closure remains open.
 
 ## Latest QA work
-- **S12.33** added `docs/SCENARIO_QA_S12_33_E245_AUTHORITATIVE_PRODUCER_CLOSURE_01.md` and closed E245's producer identity to **E20-A `soldier_compensation`**. E245's title and singular compensated-family-member callback match the soldier's-son route; E125-A border families and E156-A widow/requisition compensation remain distinct. Delayed timing/cancellation lifecycle remains open.
-- **S12.32** added `docs/SCENARIO_QA_S12_32_GRAPH_NODE_CLASSIFICATION_01.md` and extended the canonical graph validator. CI verified 270/272 catalog headings, 296 unique graph edges, 69 catalog events without outbound edges, 15 inbound-only candidates and 54 unreferenced catalog candidates. These are classification candidates, not orphan/reachability verdicts.
-- **S12.31** added `docs/SCENARIO_QA_S12_31_E33_E34_SOURCE_RECONCILIATION_01.md`. It verified that `docs/EVENT_CATALOG.md` currently ends at E32, while S01 independently records E33/E34 only at QA-inventory level. Exact E33/E34 authored prose/effects/delayed semantics remain unrecovered; no content is invented.
-- **S12.30** added `docs/MACHINE_CANONICAL_GRAPH_01.json`, `tools/validate_canonical_graph.py`, `.github/workflows/canonical-graph.yml` and `docs/SCENARIO_QA_S12_30_MACHINE_GRAPH_COMPILATION_01.md`. CI run reached a successful validation step after fixing parser semantics.
-- S12.30 machine gate reports: 296 unique design-level event edges, 43 repeated documentation edges, 216 event nodes referenced by the design graph, 10 delayed consumer rows, 21 source-closed producers before E245 closure, and 7 hard-negative rules.
-- `E271` appears as an intentional post-catalog bridge in the E211–E270 source and as the lifecycle source in E271–E280; it is explicitly allowed in the machine contract rather than treated as a silent duplicate.
-- The stale duplicate catalog source `EVENT_EXPANSION_071_110.md` was removed from the machine authoritative source set because `EVENT_CATALOG_EXPANSION_02.md` is the canonical E71–E110 source.
-- **S12.29** reconciled `docs/CANONICAL_PRODUCER_INVENTORY_01.md`, commit `9c6589b22b53fb2c3a03014c89e826593bc97d57`.
-- **S12.28** added `docs/SCENARIO_QA_S12_28_CANONICAL_INVENTORY_CONTRADICTION_AUDIT_01.md`, commit `e329d232df8d2573fb31a50d9f4a7115b1fa98f5`.
-- **S12.27** added `docs/SCENARIO_QA_S12_27_DELAYED_LIFECYCLE_GATE_MATRIX_01.md`, commit `1bc4298a647dd51b56df6f0e2ce4a33e671367ac`.
-- **S12.26** added `docs/SCENARIO_QA_S12_26_SYSTEMIC_EVIDENCE_IDENTITY_FREEZE_01.md`, commit `1a1dbd679a16570e4cbc766b0f711fe4a42fca67`.
+- **S12.34** added `tools/classify_graph_nodes.py` and `docs/SCENARIO_QA_S12_34_MACHINE_NODE_CLASSIFICATION_01.md`. The classifier deterministically separates source-missing, replay, delayed-consumer, terminal/endgame, isolated, root, terminal/consumer and ordinary graph-node candidates without promoting degree heuristics to semantic truth. CI now runs both the canonical graph validator and the classifier.
+- **S12.33** closed E245's producer identity to **E20-A `soldier_compensation`**. E125-A and E156-A remain independent compensation outcomes. Delayed timing/cancellation lifecycle remains open.
+- **S12.32** verified 270/272 catalog headings, 296 unique graph edges, 69 catalog events without outbound edges, 15 inbound-only candidates and 54 unreferenced catalog candidates. These are classification candidates, not orphan/reachability verdicts.
+- **S12.31** verified the E33/E34 authoritative-source gap; exact authored prose/effects/delayed semantics remain unrecovered and no content is invented.
+- **S12.30** added the machine graph manifest, validator, CI workflow and QA report; the source-level validation gate passed after parser correction.
 
 ## Current canonical source status
 
@@ -66,11 +60,11 @@ Dedicated Scenario QA score is now approximately **85%**. This is distinct from 
 - E142-A → `auditor_independence`
 - E154-A → `crown_audited`
 - E198-A → `legislative_budget_lock`
-- E271-A → active `pred.border_crisis`; E272-A/B clear it with exact recovered semantics
+- E271-A → active `pred.border_crisis`; E272-A/B clear it
 - E32 → active `pred.transport_disruption`; E136-A/B clear it
 
 ### E245
-**Producer identity CLOSED:** E20-A `soldier_compensation`. E125-A and E156-A remain independent compensation outcomes. Executable delayed lifecycle is still partial because the authored source uses `6+ turns later` and does not yet provide an absolute due turn/cancellation contract.
+**Producer identity CLOSED:** E20-A `soldier_compensation`. The authored source uses `6+ turns later` and does not yet provide an absolute due turn/cancellation contract.
 
 ### Systemic explanation
 Evidence families are materially frozen, but exact immutable convergence producer/key remains OPEN. E207 is consumer-only and cannot manufacture convergence.
@@ -127,11 +121,11 @@ Source identity is CLOSED: E142-A + E154-A + E198-A. Negative blockers E142-B/E1
 - APK: **0%**
 - Release: **0%**
 
-Overall project progress remains approximately **60%**. Scenario QA is approximately **85%** and must not be conflated with overall project completion.
+Overall project progress remains approximately **60%**. Scenario QA is approximately **86%** and must not be conflated with overall project completion.
 
 ## Next autonomous work
 1. Search repository history and remaining catalog/checkpoint sources for exact E33/E34 authored material; otherwise formally quarantine them as unrecovered.
-2. Compile the actual producer→consumer token matrix for the 69 graph candidates, starting with the 54 unreferenced catalog candidates and ending/epilogue nodes.
+2. Use the machine classification inventory to compile the actual producer→consumer token matrix for the 69 no-outbound candidates and 54 unreferenced candidates.
 3. Separate ROOT/SOURCE, ordinary producer, consumer-only, terminal/ending, qualification, delayed callback, replay-only and true orphan semantics.
 4. Close systemic convergence identity or preserve it explicitly OPEN.
 5. Compile guild influence, coalition cooperation and constitutional preparation into exact producer/consumer matrices.
