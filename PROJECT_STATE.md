@@ -57,7 +57,7 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 - `docs/CANONICALIZATION_BACKLOG.md` is the active execution backlog.
 - `docs/CANONICAL_PRODUCER_CONSUMER_REGISTRY_01.md` is the consolidated producer/consumer source-level QA registry.
 - `docs/LEGACY_SEMANTIC_AUDIT_01.md` records the E35–E40 and duplicate-semantic audit findings.
-- `docs/SEMANTIC_COLLISION_RESOLUTION_01.md` freezes the resolution policy for confirmed/likely semantic collisions before schema freeze.
+- `docs/SEMANTIC_COLLISION_RESOLUTION_01.md` records the frozen and applied semantic-resolution policy.
 - `docs/LEGACY_SOURCE_COMPARISON_02.md` closes E73/E156 and E99/E173 as distinct source-level nodes.
 - `docs/CANONICAL_SOURCE_CORRECTIONS_02.md` records the applied E136/E194 guild-logistics cycle correction.
 
@@ -66,11 +66,13 @@ The E111–E210 authoritative catalogs have received direct authored-source corr
 
 E192 uses canonical food-logistics markers instead of a sixth numeric resource; E197/E200/E201 consume canonical qualification predicates; E207 records its distinct-evidence convergence requirement; E209 requires upstream final charter prerequisites; and E210 is explicitly convergence-only. E144/E148 remain normalized for guild representation and cross-faction package semantics.
 
+The authoritative E211–E270 catalog now distinguishes the previously overlapping Mara and Ivo nodes without renumbering: E226 is **Mara's Final Resignation Test**, explicitly a late institutional-stress consequence; E269 is **Ivo's Late Account**, explicitly a late evidence/consequence node distinct from E55. The semantic-resolution and producer/consumer registry have been synchronized with those catalog edits.
+
 E271 now provides an explicit authored source for border-crisis declaration, while E272 provides the corresponding authored active-crisis resolution paths. The historical declaration remains queryable after resolution; only the active crisis predicate is cleared. E195/E253/E255 remain consumers and cannot manufacture the crisis by reachability.
 
-The border-crisis lifecycle is therefore closed at the authored-source level, but not at runtime. Remaining P0 work is exact producer enumeration for frozen combination domains, full marker/consumer inventory, trigger normalization, graph/catalog reconciliation, reachability, duplicate semantic cleanup, delayed/replay normalization and production schema freeze.
+The border-crisis lifecycle is therefore closed at the authored-source level, and the E136/E194 guild-logistics self-dependency plus E55/E269 and E36/E226 presentation collisions are corrected at authoritative source level. Remaining P0 work is exact producer enumeration for frozen combination domains, full marker/consumer inventory, trigger normalization, graph/catalog reconciliation, reachability, downstream collision verification, delayed/replay normalization and production schema freeze.
 
-The legacy semantic audit confirmed a P0 collision between E55 and E269 (same title but different authored choice sets) and a high-priority overlap between E36 and E226 (both Mara resignation). Source comparison confirms E73/E156 and E99/E173 are **distinct nodes**, so no renumbering/reframe is required for those pairs. The semantic-resolution policy remains active for E55/E269 and E36/E226, while E37/E227, E39/E229 and E40/E241 still require downstream-role verification.
+The legacy semantic audit confirmed E73/E156 and E99/E173 as distinct source-level nodes. E37/E227, E39/E229 and E40/E241 still require downstream-role verification.
 
 Reachability remains static/pre-audit only until a real validator and production data representation exist. No engine/APK readiness claim is permitted at this stage.
 
@@ -78,17 +80,17 @@ Reachability remains static/pre-audit only until a real validator and production
 - `d529ff3d0a44bcb4c7cce54d70103e0b78883686` — applied E136-B upstream guild-logistics history marker.
 - `c08379167f311c3ce674ace63475f3be839855a8` — changed E194 to consume the upstream guild-logistics history marker and documented qualified predicate derivation.
 - `33d9cd1c9c7ffe2f88358994aa043a643d4a2a33` — synchronized correction record as applied and verified.
-- `201c8cae2b1009b6480a4b17be5af1d6384df75b` — synchronized canonicalization backlog through E272.
-- `434eec31c66a8afd6052719235e9838cfeae9da8` — updated E211–E270 canonical audit.
-- `e8708b363dac9fa87439c8cf1d85edf2c6535d` — updated semantic collision resolution source audit.
+- `249e01981cb97603aac669dc5686dab46731615d` — applied authoritative E226/E269 semantic distinctions.
+- `2fa9be1c586117126c4778598ab509ebe5107389` — synchronized semantic collision resolution after authoritative catalog edits.
+- `5d652e994a1a2d0521737d6bf5d39b2a8cab5933` — synchronized producer/consumer registry after source corrections.
 
 ## Next highest-value work
-1. Apply the frozen E55/E269 and E36/E226 semantic resolutions to the authoritative catalogs without silent renumbering.
-2. Enumerate exact durable producers for every domain used by the frozen combination rules.
-3. Expand the registry to every concrete durable flag/history marker in E01–E272 with exact consumers.
-4. Normalize remaining prose triggers and aliases.
-5. Reconcile graph/catalog references and reachability.
-6. Verify delayed/replay source identities and exactly-once semantics.
+1. Enumerate exact durable producers for every remaining domain used by the frozen combination rules.
+2. Expand the registry to every concrete durable flag/history marker in E01–E272 with exact consumers.
+3. Normalize remaining prose triggers and aliases.
+4. Reconcile graph/catalog references and reachability.
+5. Verify delayed/replay source identities and exactly-once semantics.
+6. Verify E55/E269, E36/E226, E37/E227, E39/E229 and E40/E241 downstream roles in graph/reachability QA.
 7. Build a real static catalog validator only after the canonical data contract is frozen against the authored catalog.
 8. Freeze production data contracts, then implement the engine.
 
