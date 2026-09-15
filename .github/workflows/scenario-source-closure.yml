@@ -1,0 +1,29 @@
+name: Scenario Source Closure
+
+on:
+  push:
+    paths:
+      - 'docs/EVENT_CATALOG.md'
+      - 'docs/EVENT_EXPANSION_071_110.md'
+      - 'docs/EVENT_CATALOG_EXPANSION_111_150.md'
+      - 'docs/EVENT_CATALOG_EXPANSION_151_210.md'
+      - 'docs/EVENT_CATALOG_EXPANSION_211_270.md'
+      - 'tools/scenario_source_closure_check.py'
+      - '.github/workflows/scenario-source-closure.yml'
+  pull_request:
+    paths:
+      - 'docs/EVENT_CATALOG.md'
+      - 'docs/EVENT_EXPANSION_071_110.md'
+      - 'docs/EVENT_CATALOG_EXPANSION_111_150.md'
+      - 'docs/EVENT_CATALOG_EXPANSION_151_210.md'
+      - 'docs/EVENT_CATALOG_EXPANSION_211_270.md'
+      - 'tools/scenario_source_closure_check.py'
+      - '.github/workflows/scenario-source-closure.yml'
+
+jobs:
+  source-closure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run authored scenario source closure
+        run: python3 tools/scenario_source_closure_check.py
