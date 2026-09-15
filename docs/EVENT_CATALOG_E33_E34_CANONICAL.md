@@ -2,7 +2,7 @@
 
 This file is an authoritative catalog source for E33–E34. It restores the exact authored source recovered from the historical producer-audit branch without reconstructing or rewriting the event semantics.
 
-## E33 — The Emergency Crown
+### E33 — The Emergency Crown
 **Trigger:** `emergency_decree_used` or severe crisis.
 
 Council offers unlimited emergency authority for thirty days.
@@ -17,7 +17,7 @@ Council offers unlimited emergency authority for thirty days.
 - Flag: `constitutional_limit`.
 - If cross-faction relationships are strong, unlocks Second Founder path.
 
-## E34 — The People's Queue
+### E34 — The People's Queue
 **Trigger:** trust >= 65 or welfare branch.
 
 Thousands wait outside the palace with petitions during the winter crisis.
