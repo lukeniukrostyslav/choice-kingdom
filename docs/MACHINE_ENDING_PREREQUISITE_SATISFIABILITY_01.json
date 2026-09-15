@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "contract": "choice_kingdom.ending_prerequisite_satisfiability",
+  "scope": "E01-E272",
+  "status": "SOURCE_LEVEL_ONLY",
+  "rules": [
+    "consumer_cannot_manufacture_prerequisite",
+    "support_evidence_is_not_final_predicate",
+    "replay_meta_requires_explicit_promotion",
+    "E33_E34_quarantined",
+    "E273_E277_excluded"
+  ],
+  "families": {
+    "Steward": "OPEN",
+    "Iron Crown": "OPEN",
+    "Golden Compact": "OPEN",
+    "People's Charter": "OPEN_BLOCKED_FINAL_CHARTER_PRODUCER",
+    "Broken Diadem": "OPEN",
+    "Quiet Throne": "OPEN",
+    "Second Founder": "OPEN_BLOCKED_REPLAY_AND_CONVERGENCE"
+  },
+  "known_false_positive_boundaries": [
+    "E209 -> pred.final_charter_prerequisites",
+    "E261 four_way_bargain -> pred.coalition_cooperation",
+    "E267-E270 -> final_predicate_without_contract",
+    "ordinary_history -> replay_meta"
+  ],
+  "fresh_run_reachability_verified": false,
+  "replay_reachability_verified": false,
+  "precedence_verified": false
+}
