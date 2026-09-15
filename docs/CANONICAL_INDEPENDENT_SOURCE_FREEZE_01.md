@@ -12,7 +12,7 @@ The canonical contract requires at least two distinct institutional domains. Can
 
 | Domain | Candidate authored source | Verified authored key / fact | What it proves | Exclusion |
 |---|---|---|---|---|
-| representation | E49 political guild representation | **exact E49 key still requires authoritative E01–E110 source reconciliation** | guild participation in political representation | relationship with Ivo alone does not count |
+| representation | E49 political guild representation | `guild_political_representation` | guild participation in political representation | `guild_political_exclusion` is the opposing outcome; relationship with Ivo alone does not count |
 | tribunal | E168-A independent guild tribunal | `guild_tribunal_independent` | institutional dispute-resolution authority | E168 trigger does not count |
 | market/credit | E165 credit-book disclosure path | `official_credit_disclosure` | commercial institutional disclosure/leverage | repeated market outcomes are not independent domains |
 | market | E166 audited monopoly path | `audited_monopoly` | audited commercial oversight | E166 trigger does not count; same market domain as E165 |
@@ -20,7 +20,7 @@ The canonical contract requires at least two distinct institutional domains. Can
 
 ### E194 downstream qualification
 
-E194-A establishes `guild_neutral_inspectors` and retains `history.guild_logistics_cooperation`, but its own trigger is already `history.guild_logistics_cooperation`. Therefore E194 is a **consumer/refinement**, not an independent producer of the qualified logistics predicate. The qualified downstream predicate requires the upstream cooperation marker, neutral inspectors, and absence of unresolved `guild_logistics_immunity_risk`.
+E194-A establishes `guild_neutral_inspectors` and retains `history.guild_logistics_cooperation`, but its own trigger is already `history.guild_logistics_cooperation`. Therefore E194 is a **consumer/refinement**, not an independent producer of the upstream cooperation fact. The qualified downstream predicate requires the upstream cooperation marker, neutral inspectors, and absence of unresolved `guild_logistics_immunity_risk`.
 
 ### Provisional qualification rule
 
@@ -28,7 +28,7 @@ E194-A establishes `guild_neutral_inspectors` and retains `history.guild_logisti
 
 ### Current status
 
-**PARTIAL — exact keys are now frozen for E168/E165/E166/E136-B; E49 exact key and full producer-before-consumer reconciliation remain open.**
+**PARTIAL — exact source keys are now frozen for E49/E144 representation, E168/E165/E166, and E136-B logistics. Full producer-before-consumer reconciliation across E01–E272 remains open.**
 
 ## `pred.constitutional_prepared_strong`
 
@@ -36,18 +36,20 @@ The canonical contract requires three independent preparation domains. Candidate
 
 | Domain | Candidate source | Verified authored key / fact | Semantic role | Exclusion |
 |---|---|---|---|---|
-| civic/commons | people/civic charter preparation nodes | **exact source key still requires authoritative catalog reconciliation** | establishes civic participation in constitutional preparation | raw trust does not count |
+| civic/commons | E50 People's Charter | `people_charter_endorsed` | explicit civic/commons constitutional legitimacy | raw trust or `people_heard` alone does not count as the full preparation domain |
 | institutional/audit | E154/E155 crown-audit lineage | `crown_audited`, `full_crown_audit_published` | establishes accountable institutional preparation | E258 is a consumer of budget reform, not its producer |
 | factional/house | E161 house assembly | `house_assembly` | establishes factional constitutional preparation | Seris relationship alone does not count |
 | military/law | E227 Rowan's Line | `military_red_line` | establishes military constitutional constraint | security score alone does not count |
 
+E50 is the authoritative early civic/commons source identified in the E01–E70 producer inventory. It is a preparation-domain fact, not a raw trust threshold.
+
 ### Provisional qualification rule
 
-At least three independent preparation domains must be represented by explicit authored state/history facts. Late stress tests (E256–E260) may test or consume preparation but must not retroactively manufacture missing preparation. E154 and E155 remain one institutional/audit domain, not two.
+At least three independent preparation domains must be represented by explicit authored state/history facts. Late stress tests (E256–E260) may test or consume preparation but must not retroactively manufacture missing preparation. E154 and E155 remain one institutional/audit domain, not two. E50 is one civic/commons domain and cannot be double-counted with later civic consequences derived from the same charter decision.
 
 ### Current status
 
-**PARTIAL — exact institutional, house and military keys are verified; civic/commons exact source key and full E01–E272 anti-double-counting reconciliation remain open.**
+**PARTIAL — exact civic, institutional, house and military source keys are now identified; full E01–E272 anti-double-counting and producer-before-consumer reconciliation remains open.**
 
 ## Non-circularity rules
 
@@ -60,8 +62,8 @@ At least three independent preparation domains must be represented by explicit a
 
 ## Next required pass
 
-- reconcile the authoritative E01–E110 source for E49 and freeze its exact representation key;
-- recheck all guild producers/consumers for producer-before-consumer ordering;
-- reconcile exact civic/commons source identity for `pred.constitutional_prepared_strong`;
-- then update the derived-predicate contract and producer/consumer registry together;
-- only after that begin production schema design.
+- reconcile E49/E144 representation keys against all guild producers/consumers and trigger normalization;
+- reconcile E50 civic/commons key against all constitutional-preparation consumers;
+- update the derived-predicate contract and producer/consumer registry together;
+- then run contradiction/cycle/reachability checks;
+- only after those checks begin production schema design.
