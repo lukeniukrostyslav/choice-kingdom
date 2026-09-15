@@ -387,7 +387,17 @@ Late in the endgame, Ivo hands over a private account showing where emergency pr
 ### E270 — Amara and Toma at Dawn
 **Trigger:** Amara and Toma both active.
 A healer and a courier arrive with two different accounts of the final crisis; neither is complete alone.
-- **A — Combine both accounts before acting:** +6 power, +5 trust; `dual_witness_account`.
+
+**A — Combine both accounts before acting:** +6 power, +5 trust; `dual_witness_account`, `systemic_explanation_convergence`.
+
+**Systemic qualification contract:** `systemic_explanation_convergence` is authoritative only when, before E270-A, all four independent evidence families are already present in authored state:
+1. warehouse/financial evidence;
+2. document/language evidence;
+3. witness/organizational evidence;
+4. the explicit E270-A convergence decision.
+
+E270-A is therefore the **convergence producer** for `pred.systemic_explanation_verified`; it cannot manufacture any missing evidence family. The trigger `Amara and Toma both active` is not itself evidence and cannot qualify the predicate.
+
 - **B — Choose the more politically useful account:** +5 power, -6 trust; `single_witness_account`.
 
 ## QA note
