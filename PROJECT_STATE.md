@@ -21,7 +21,7 @@ No mock/stub gameplay or premature production-readiness claims.
 **Narrative/content canonicalization and QA.** Authored checkpoint E01–E272. Production schema and Decision Engine remain blocked until canonical contracts and reachability are sufficiently closed.
 
 ## Scenario QA
-Dedicated Scenario QA score is now approximately **78%**. This is distinct from overall project completion and is not runtime/Android readiness.
+Dedicated Scenario QA score is now approximately **79%**. This is distinct from overall project completion and is not runtime/Android readiness.
 
 ### S01–S12 working indicators
 - S01 **80%**
@@ -35,9 +35,10 @@ Dedicated Scenario QA score is now approximately **78%**. This is distinct from 
 - S09 **60%**
 - S10 **72%**
 - S11 **55%**
-- S12 **66%** — S12.23 closed the exact authored producer identity for E246: E160-A `winter_rent_ceiling` → E246. The delayed 5+ turn scheduling/lifecycle remains open, but producer ambiguity is removed.
+- S12 **67%** — S12.24 reconciled the E245 compensation candidate set and surfaced a source-audit discrepancy: E20-A `soldier_compensation` is present in the earlier delayed-graph audit, while the later canonical inventory listed E125-A/E156-A. E245 remains intentionally OPEN pending authoritative single-source/composite qualification; no generic compensation union is admitted.
 
 ## Latest QA work
+- **S12.24** added `docs/SCENARIO_QA_S12_24_E245_COMPENSATION_SOURCE_RECONCILIATION_01.md`, commit `e1e90ac6422064bf6fc137a6a06c012728fa4429`.
 - **S12.23** added `docs/SCENARIO_QA_S12_23_E246_PRODUCER_CLOSURE_01.md`, commit `63c911bfe91cfd1d520bc97913ceb7e5f146cf5e`.
 - **S12.22** added `docs/SCENARIO_QA_S12_22_DELAYED_SOURCE_CLOSURE_01.md`, commit `02ff2ecb08a67506407350714e238126d01ef440`.
 - **S12.21** added `docs/SCENARIO_QA_S12_21_LONG_DELAY_SOURCE_MATRIX_01.md`, commit `1e9ad37a6984d78ba61ef5e23e53551d7a40f232`.
@@ -68,7 +69,7 @@ Source-level closed chains include:
 - E32 → active `pred.transport_disruption`; E136-A/B clear it
 - E142-A/E154-A/E198-A → budget-reform source domains
 
-### S12.22/S12.23 delayed source closure
+### S12.22–S12.24 delayed source closure
 - E181 → toll concession: source-language trigger closed; exact producer choice and executable cancellation remain open.
 - E182 → `veteran_patronage`: source identity closed; authored relative timing remains 4+ turns.
 - E183 → `estate_exception`: source identity closed; authored relative timing remains 5+ turns.
@@ -77,7 +78,7 @@ Source-level closed chains include:
 - E242 → E118-B `estate_exception`: source identity closed candidate; executable lifecycle open.
 - E243 → E18-B `public_bridge`: source identity closed; executable lifecycle open.
 - E244 → E09-B `flexible_accounts`: source identity closed; executable lifecycle open.
-- E245 → E125-A `border_compensation` / E156-A `requisition_compensation`: distinct candidates retained; no false merge.
+- **E245 → compensation route:** E125-A `border_compensation` and E156-A `requisition_compensation` are confirmed compensation facts; the earlier delayed-graph audit also records E20-A `soldier_compensation`. These must be reconciled against authoritative catalog wording before any producer is selected or unioned. Generic compensation alias remains forbidden.
 - E246 → **E160-A `winter_rent_ceiling` exact producer closed**; executable 5+ turn lifecycle remains open.
 
 Important unresolved/open areas:
@@ -114,6 +115,7 @@ Delayed consequences require source choice/event, earliest turn, latest turn or 
 - ordinary run state cannot automatically become `meta.*`.
 - E273–E277 cannot contribute production edges.
 - `food_logistics_stabilized` must not silently alias `pred.food_stable` until its complete authored predicate/lifecycle contract is explicitly closed.
+- generic `compensation route` must not silently union distinct compensation contexts.
 
 ## Current honest progress
 - Foundation / rules: **95%**
@@ -134,10 +136,10 @@ Delayed consequences require source choice/event, earliest turn, latest turn or 
 - APK: **0%**
 - Release: **0%**
 
-Overall project progress remains approximately **60%**. Scenario QA is approximately **78%** and must not be conflated with overall project completion.
+Overall project progress remains approximately **60%**. Scenario QA is approximately **79%** and must not be conflated with overall project completion.
 
 ## Next autonomous work
-1. Resolve E245 compensation-route semantics without merging E125-A and E156-A; distinguish authored generic trigger from canonical producer candidates.
+1. Re-read authoritative source for E20-A/E125-A/E156-A and close E245 only if an exact source or explicitly authored composite is proven.
 2. Extract exact immutable evidence IDs and executable formulas for systemic explanation, guild influence, coalition cooperation, constitutional preparation, budget reform and final-charter prerequisites.
 3. Reconcile remaining E01–E180 delayed families and canonical producer/consumer edges.
 4. Build complete delayed identity/timing/cancellation matrix and verify save/load/replay isolation.
