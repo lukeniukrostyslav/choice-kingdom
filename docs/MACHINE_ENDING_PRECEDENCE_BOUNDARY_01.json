@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "contract": "choice_kingdom.ending_precedence_boundary",
+  "scope": "E01-E272",
+  "status": "SOURCE_LEVEL_BOUNDARY_CLOSED_RUNTIME_ORDER_OPEN",
+  "families": [
+    "Steward",
+    "Iron Crown",
+    "Golden Compact",
+    "People's Charter",
+    "Broken Diadem",
+    "Quiet Throne",
+    "Second Founder"
+  ],
+  "rules": [
+    "Second Founder cannot qualify from support evidence alone.",
+    "People's Charter cannot qualify while pred.final_charter_prerequisites is producer-unresolved.",
+    "Iron Crown cannot be inferred from security alone.",
+    "Golden Compact cannot be inferred from treasury strength alone.",
+    "Steward cannot be inferred from institutional evidence while a permanent-emergency blocker remains active.",
+    "Broken Diadem is a failure family and must not be used as a positive fallback merely because another ending is unresolved.",
+    "Quiet Throne requires its own authored withdrawal/stability evidence and is not a generic fallback.",
+    "Support nodes E267-E270 do not become final ending predicates without an explicit contract.",
+    "Replay/meta evidence cannot satisfy a fresh-run ending prerequisite without an explicit promotion rule.",
+    "E33/E34 remain quarantined and E273-E277 remain excluded."
+  ],
+  "required_runtime_resolution": [
+    "exact positive prerequisite set per family",
+    "exact negative blocker set per family",
+    "tie-break order when multiple families qualify",
+    "fresh-run evaluation order",
+    "replay evaluation order",
+    "deterministic terminal selection"
+  ],
+  "precedence_verified": false,
+  "fresh_run_reachability_verified": false,
+  "replay_reachability_verified": false,
+  "decision_engine_promotion_authorized": false
+}
