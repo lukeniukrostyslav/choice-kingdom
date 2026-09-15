@@ -42,12 +42,11 @@ This is the fixed reporting metric for the E01–E272 authored campaign. It meas
 The 65% figure does not mean the engine, runtime, Android build, UI, localization or APK are complete. It also does not mean reachability has been proven.
 
 ## Latest QA work
-- S08.4 frozen-scope integrity correction added as `docs/SCENARIO_QA_S08_SCOPE_INTEGRITY_01.md`, commit `2a2787b9f2206da6e4e5c4bda85175289520c1cb`.
-- S10.3 E185 crisis-resolution/ordering contract was added and committed as `d9c5853ec0fa92c9b9d0b96da0c246904516de81`.
-- S08.3 open-class reconciliation was added and committed as `8ff8d3731463c0a890cc0f80ffcf4674f97d2af6`.
-- Durable QA worklog was updated in commit `1e78c772956ae097a66499b7bf90d26665731330`.
-- S08.4 identified and dispositioned stale out-of-scope E273/E277 producer references; no excluded expansion semantics are admitted into the frozen catalog.
-- E185 now has a static two-stage eligibility/identity/order contract, but its exact military-crisis producer and delayed-loss payload remain source-level blockers.
+- S08.7 domain qualification audit added as `docs/SCENARIO_QA_S08_7_DOMAIN_QUALIFICATION_AUDIT_01.md`, commit `90694d5529d3df89556d79d54fca386c5d67c99b`.
+- S08.7 budget-reform closure identified the qualifying source set E142-A `auditor_independence`, E154-A `crown_audited`, E198-A `legislative_budget_lock`; formula candidate is AND across those three independent institutional layers. Ordering, reachability, negative-branch leakage and replay verification remain open.
+- S08.6 closure matrix added the current closed/open producer-family matrix.
+- S08.5 corrected the canonical producer registry to reject E273-A/E277 and keep `pred.food_stable` open.
+- S10.3 E185 crisis-resolution/ordering contract remains source-level and blocked on exact military-crisis producer/payload lifecycle.
 
 ## Current QA checkpoint
 The producer inventory is paired with `docs/MACHINE_INVENTORY_PASS_01.md`, which freezes the current source-closed fact set and explicitly separates runtime-safe normalization from unresolved producer ambiguity. This remains source-level QA, not runtime data.
@@ -92,7 +91,7 @@ Overall project progress remains approximately **53%**. The separate scenario QA
 ## Next highest-value work
 1. Continue exhaustive E01–E272 producer/output/trigger extraction with a hard E273–E277 exclusion filter.
 2. Resolve undefined producers/consumers, duplicate semantic writers and contradictory writers without inventing semantics.
-3. Finish derived predicate contracts and exact canonical vocabulary.
+3. Finish derived predicate contracts and exact canonical vocabulary, including the domain qualification audit now recorded in S08.7.
 4. Close delayed E184/E245/E246 and replay/ending contracts.
 5. Run fresh-run reachability and graph-vs-catalog reconciliation.
 6. Freeze production contracts only after evidence is clean enough for machine validation.
