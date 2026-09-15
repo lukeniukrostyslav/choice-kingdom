@@ -43,28 +43,49 @@ The remaining high-risk producer gaps are still not allowed to be invented in th
 
 The border-crisis lifecycle is source-closed: E271-A declares the active crisis and E272-A/B resolve it while preserving historical declaration state. `thread.border` remains a legacy trigger context and must not be silently aliased to `thread.border_crisis`.
 
-The latest delayed-consequence extraction identifies explicit timed callback groups including E127–E130, E141, E181–E185 and E242–E246. These are QA candidates, not production delay records, until source choice IDs, resolution targets, exactly-once identities and cancellation/supersession rules are frozen.
+The delayed-consequence pass has now extracted the authored contracts for E181–E185 and E242–E246. Numeric earliest-turn boundaries are explicit for most callbacks, while source choice identity, exactly-once keys, cancellation/supersession, persistence and several conditional resolution targets remain OPEN. E185 is a high-risk conditional callback because its resolution depends on a later military crisis rather than a fixed turn count. See `docs/DELAYED_CONSEQUENCE_EXTRACTION_02.md`.
 
 No validator has been introduced prematurely. Production schema and runtime implementation remain blocked until the canonical contracts are frozen and the complete catalog reconciliation passes.
 
 ## Latest source-level commits
+- `c441a81a31261435748ef2679683e0fe2e6ac2aa` — delayed callback extraction 02; E181–E185 and E242–E246.
 - `0b1d05edd18212355db1c475e7d5bbc3a7cb09b0` — canonical P0 reconciliation 06; guild/constitutional/evidence/coalition/budget boundaries and delayed-data gate.
 - `a96a5182739db91341961a875156e89ae9c594f5` — canonical P0 reconciliation 05; narrowed coalition, budget, guild-influence, constitutional-preparation, systemic-evidence and final-charter contracts.
 - `d60287e6dc0b954ff068f4042e592a9fbc2239c3` — canonical P0 reconciliation 04; formalized border lifecycle closure and E273–E277 admission boundaries.
 - `f59537c6deb2a96eb1275cca255b152a93e6ee39` — delayed consequence extraction 01; identified explicit timed callback groups and remaining production-data gaps.
 - `692a04f59abf38a41d58d780b027806a853a7f24` — E273–E277 scope admission gate 01.
 
+## Current honest progress
+- Foundation / rules: **95%**
+- Authored content: **90%**
+- Canonical Event IDs / continuity: **100%**
+- Producer / Consumer QA: **78%**
+- Derived predicates / machine contracts: **78%**
+- Delayed Consequences: **60%**
+- Replay / Meta-state: **42%**
+- Endings / precedence: **52%**
+- Reachability / causal graph: **32%**
+- Production data schema: **35%**
+- Decision Engine: **0%**
+- UI / UX: **0%**
+- Localization 20+ languages: **5%**
+- Android implementation: **0%**
+- Runtime / Android QA: **0%**
+- APK: **0%**
+- Release: **0%**
+
+Overall project progress remains approximately **44%**, because the current work is still concentrated in the prerequisite narrative/QA layer and has not yet produced engine/UI/Android implementation.
+
 ## Next highest-value work
-1. Compile exact authored source IDs for systemic evidence and final-charter prerequisites.
-2. Extract delayed consequence identity/timing/cancellation/supersession event-by-event.
-3. Reconcile E32 transport-disruption lifecycle, reachability and persistence semantics.
-4. Complete E273–E277 admission/rejection graph pass.
-5. Freeze replay meta-state and ending qualification/precedence.
-6. Re-run complete E01–E272 contradiction/cycle/reachability reconciliation.
-7. Freeze production data contracts.
-8. Build the real static validator against the frozen schema.
-9. Implement the actual Decision Engine and runtime.
-10. Proceed to UI, localization, Android QA and APK only after the engine contracts are genuinely verified.
+1. Extract the remaining E127–E130/E141 delayed callback source contracts.
+2. Reconcile E32 transport-disruption lifecycle, reachability and persistence semantics.
+3. Complete E273–E277 admission/rejection graph pass.
+4. Freeze replay meta-state and ending qualification/precedence.
+5. Re-run complete E01–E272 contradiction/cycle/reachability reconciliation.
+6. Freeze production data contracts.
+7. Build the real static validator against the frozen schema.
+8. Implement the actual Decision Engine and runtime.
+9. Proceed to UI, localization, Android QA and APK only after the engine contracts are genuinely verified.
 
 ## Honest progress rule
 Percentages represent actual state. Documentation alone does not make implementation complete. Source edits count only when the authoritative catalog is changed and re-read. No block may be called ready until its appropriate verification has passed.
