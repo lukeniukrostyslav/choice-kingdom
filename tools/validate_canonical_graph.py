@@ -14,6 +14,14 @@ EVENT_TOKEN_RE = re.compile(r"\bE(?:[1-9][0-9]{2}|[1-9][0-9]|0[1-9])(?:-[A-Z])?\
 CHAIN_RE = re.compile(r"`([^`]*->[^`]*)`")
 HEADING_EVENT_RE = re.compile(r"^###\s+(E(?:[1-9][0-9]{2}|[1-9][0-9]|0[1-9]))\b")
 
+# Derived evaluators are not authored event IDs and therefore do not belong to
+# the frozen E01-E272 event namespace. They are nevertheless canonical graph
+# producers when their source contract explicitly declares them.
+ALLOWED_DERIVED_PRODUCERS = {
+    "FINAL_CHARTER_GATE_EVALUATOR",
+    "SCENARIO_STATE_BLOCKER_EVALUATOR",
+}
+
 
 def canonical_event(event_id: str) -> str:
     return event_id.split("-", 1)[0]
@@ -95,7 +103,6 @@ def main() -> int:
         warnings.append(f"design graph repeats {len(repeated_edges)} already-documented causal edges")
 
     catalog_events = set(catalog_counts) & expected
-    outbound_only_missing = sorted(catalog_events - outbound - inbound)
     inbound_only = sorted(catalog_events & inbound - outbound)
     terminal_or_consumer_candidates = sorted(catalog_events - outbound)
     if terminal_or_consumer_candidates:
@@ -116,8 +123,11 @@ def main() -> int:
             errors.append(f"excluded expansion producer leaked into canonical inventory: {excluded_id}")
 
     for row in manifest["source_closed_producers"]:
-        if row["event"] not in expected:
-            errors.append(f"manifest producer outside frozen scope: {row['event']}")
+        producer = row["event"]
+        if producer not in expected and producer not in ALLOWED_DERIVED_PRODUCERS:
+            errors.append(f"manifest producer outside frozen scope: {producer}")
+        if producer in ALLOWED_DERIVED_PRODUCERS:
+            warnings.append(f"derived producer admitted outside event namespace: {producer}")
 
     for row in manifest["delayed_consumers"]:
         consumer = row["consumer"]
@@ -146,10 +156,11 @@ def main() -> int:
         "graph_events_without_outbound_edges": len(terminal_or_consumer_candidates),
         "graph_events_without_outbound_edge_ids": terminal_or_consumer_candidates,
         "graph_inbound_only_catalog_candidates": inbound_only,
-        "graph_true_isolated_catalog_candidates": outbound_only_missing,
+        "graph_true_isolated_catalog_candidates": sorted(catalog_events - outbound - inbound),
         "source_closed_producers": len(manifest["source_closed_producers"]),
         "delayed_consumers": len(manifest["delayed_consumers"]),
         "hard_negative_rules": len(actual_negatives),
+        "allowed_derived_producers": sorted(ALLOWED_DERIVED_PRODUCERS),
         "errors": errors,
         "warnings": warnings,
     }
