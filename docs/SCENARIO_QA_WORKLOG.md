@@ -6,6 +6,14 @@ Purpose: durable handoff ledger so completed QA work is not repeated.
 
 ## Latest continuation update — 2026-09-15
 
+### S14 — machine predicate dependency validation
+- Extended `tools/compile_scenario_source_inventory.py` to build a predicate-only dependency graph from authored trigger/output tokens.
+- Added deterministic DFS cycle detection; any authored `pred.* → pred.*` cycle is now a machine-failing source-QA condition rather than a documentation-only warning.
+- Added explicit reporting of predicate consumers that have no extracted producer, without inventing missing producers.
+- Preserved the distinction between unresolved source vocabulary and runtime reachability; no undefined predicate is silently promoted to a producer.
+- Commit: `b8ca0599cbfc314353b98e504960c317e4e16be0`.
+- CI verification is pending for this new gate; the scenario percentage is not raised until the machine result is green.
+
 ### S13 — composite source closure / replay provenance correction
 - Re-verified the authoritative derived-predicate contract for `pred.guild_influence_strong`, `pred.systemic_explanation_verified`, `pred.coalition_cooperation`, `pred.constitutional_prepared_strong` and `pred.budget_reform`.
 - Confirmed independent source domains, anti-double-counting rules and the E01–E272 scope boundary.
