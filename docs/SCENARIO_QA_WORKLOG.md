@@ -57,6 +57,15 @@ Every substantive scenario-QA batch must leave a durable GitHub commit and updat
 - Identified prose-like trigger concepts that still require canonical machine predicates later; these are contract-closure targets, not yet declared defects.
 - S02 advances to **70% / IN PROGRESS**; duplicate/contradiction and machine-predicate closure remain open.
 
+### Batch S03.1 — E71–E110 direct source inventory + collision findings
+- Added `docs/SCENARIO_QA_S03_E71_E110_INVENTORY.md` in commit `061cda2efe353c68fda3c5cb97175d615362b712`.
+- Directly inventoried E71–E110 from `docs/EVENT_EXPANSION_071_110.md`.
+- Identified E95 `mara_independence` as a semantic-duplicate candidate against E36 `mara_independent_mandate`.
+- Identified E37 `army_law_oath` / `army_crown_oath` and E96 `law_bound_guard` / `personal_guard_oath` as parallel military-oath concepts whose institutional distinction is not yet explicit.
+- Identified E104 trigger `shared_crisis_command` as an open/possibly undefined producer; repository search returned no matching occurrence at this checkpoint.
+- Identified E108 "investigation depth" as a state concept that still needs canonical machine normalization.
+- S03 is **65% / IN PROGRESS**; source inventory is verified but semantic and predicate closure remain open.
+
 ## Active gates — mapped to execution batches
 
 ### S01 — E01–E34 event inventory
@@ -131,14 +140,14 @@ Before starting a QA batch:
 7. verify the saved file from GitHub before moving to the next batch.
 
 ## Current continuation checkpoint — 2026-09-15
+- Latest S03 source-inventory commit: `061cda2efe353c68fda3c5cb97175d615362b712`.
 - Latest S02 source-inventory commit: `914236a2b770c899e39ac4d19fd6070310e6584e`.
 - Latest S01 duplicate audit commit: `ae39aebc8097d3f46e6f61cac47ddb6bfbcd1b96`.
 - Latest S01 inventory commit: `ce3e8e9ec5a9b94209d30907a33d29b9c9475fdd`.
 - Latest S01 inventory blob SHA: `61f396eed0c3f4a97ad16ac5fc7c51bc0d23b44d`.
 - Authoritative narrative source remains `docs/EVENT_CATALOG.md` blob SHA `afd8155b3359a562e5336ff54b0a0245aec46a4d`.
-- Next substantive action is to continue the first genuinely open S01 work (multi-producer contract / exhaustive S01 semantic closure) without re-reading already closed source, then continue S02 semantic closure.
-- Do not restart already verified event inventories merely because S01–S12 are used as an execution checklist.
+- Next substantive action is to continue S03 semantic closure only where genuinely open (especially `shared_crisis_command` and the E95/E36 + E96/E37 normalization candidates), then continue S04. Do not restart already verified inventories.
 
 ## Current status
 
-Scenario QA remains **65%** until the active gates are actually closed. Working batch indicators: **S01 80%, S02 70%**. These batch percentages are not the global Scenario QA percentage.
+Scenario QA remains **65%** until the active gates are actually closed. Working batch indicators: **S01 80%, S02 70%, S03 65%**. These batch percentages are not the global Scenario QA percentage.
