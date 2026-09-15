@@ -168,9 +168,9 @@ A second witness contradicts part of the first testimony but confirms the moveme
 **Trigger:** winter severity.
 A blocked road isolates three villages and establishes a durable transport state.
 - **A — Open a public labor effort:** -4 gold, +5 trust; `transport_network_stable`; clears `transport_disruption_active`.
-- **B — Contract guild transport:** -2 gold, +2 Ivo, +3 security; `transport_network_stable`; clears `transport_disruption_active`; `roads_guild_contract`.
+- **B — Contract guild transport:** -2 gold, +2 Ivo, +3 security; `transport_network_stable`; clears `transport_disruption_active`; `roads_guild_contract`; `history.guild_logistics_cooperation`.
 
-A later canonical disruption event may set `transport_disruption_active`; this choice is the explicit repair producer. `roads_public_labor` is retained only as a historical outcome alias and is not the predicate producer.
+A later canonical disruption event may set `transport_disruption_active`; this choice is the explicit repair producer. `roads_public_labor` is retained only as a historical outcome alias and is not the predicate producer. The immutable cooperation marker makes E136-B an upstream source for the later E194 convoy-qualification route.
 
 ### E137 — The Night Watch Fund
 **Trigger:** low security.
