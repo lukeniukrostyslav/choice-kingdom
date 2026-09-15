@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.6",
+  "schema_version": "1.7",
   "contract": "choice_kingdom.machine_canonical_graph",
   "scope": {"first_event": 1,"last_event": 272,"excluded_events": ["E273","E274","E275","E276","E277"]},
   "source_of_truth": {
@@ -41,10 +41,8 @@
     "pred.coalition_cooperation":{"status":"SOURCE-CLOSED","producer":"E148-A","requires":["positive_mutual_concessions","participant_identity","no_unresolved_coalition_collapse_blocker"],"forbidden_alias":"E261-A four_way_bargain","runtime_verified":false},
     "pred.constitutional_prepared_strong":{"status":"SOURCE-CLOSED","min_distinct_domains":3,"domains":["E50 civic","E154 institutional","E161 factional","E199 military/law"],"runtime_verified":false},
     "pred.budget_reform":{"status":"SOURCE-CLOSED","requires":["auditor_independence","crown_audited","legislative_budget_lock"],"runtime_verified":false},
-    "pred.final_charter_prerequisites":{"status":"SOURCE-CLOSED","producer":"FINAL_CHARTER_GATE_EVALUATOR","consumer_only":["E209"],"runtime_verified":false},
-    "pred.food_stable":{"status":"OPEN/BLOCKED","no_in_scope_producer":true},
-    "pred.guild_labor_tension":{"status":"OPEN/BLOCKED","no_in_scope_producer":true},
-    "pred.information_pressure_high":{"status":"OPEN/BLOCKED","no_in_scope_producer":true}
+    "pred.final_charter_prerequisites":{"status":"OPEN / BLOCKED","consumer_only":["E209"],"runtime_verified":false},
+    "pred.food_stable":{"status":"OPEN/BLOCKED","no_in_scope_producer":true}
   },
   "hard_negatives": [
     {"id":"consumer_cannot_manufacture_prerequisite","rule":"A consumer event cannot satisfy the predicate it consumes."},
