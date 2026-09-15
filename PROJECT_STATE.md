@@ -52,7 +52,7 @@ No mock gameplay, fake completion, placeholder business logic presented as finis
 - `docs/EVENT_CATALOG_EXPANSION_211_270.md` contains E211–E270 expansion layer plus the earlier E271 bridge.
 - `docs/EVENT_CATALOG_EXPANSION_271_280.md` contains E271–E272 canonical border lifecycle closure nodes.
 - `docs/CONTENT_QA_MATRIX.md` defines the production content gates.
-- `docs/CANONICAL_STATE_VOCABULARY.md` defines the state namespaces.
+- `docs/CANONICAL_STATE_VOCABULARY.md` defines the state namespaces and is now explicitly scoped to E01–E272, including the E271/E272 border lifecycle.
 - `docs/CANONICAL_DELAY_CONTRACT.md` defines the delayed-consequence contract.
 - `docs/CANONICALIZATION_BACKLOG.md` is the active execution backlog.
 - `docs/CANONICAL_PRODUCER_CONSUMER_REGISTRY_01.md` is the consolidated producer/consumer source-level QA registry.
@@ -75,9 +75,12 @@ The latest closure audit was reconciled with these authoritative sources: `histo
 
 The semantic-collision backlog is now synchronized: E55/E269 and E36/E226 are marked as applied/verified at the authoritative-catalog level. Their downstream graph/reachability verification remains open, as do E37/E227, E39/E229 and E40/E241.
 
+The canonical state vocabulary scope has now been reconciled from E01–E270 to **E01–E272** so the authoritative normalization document covers the complete authored checkpoint.
+
 Reachability remains static/pre-audit only until a real validator and production data representation exist. No engine/APK readiness claim is permitted at this stage.
 
 ## Latest source-level commits
+- `3c04cf8de671dbb2ead7ab91700881737d0263fd` — reconciled canonical state vocabulary scope with the complete E01–E272 authored checkpoint.
 - `555e797026c7982927f34645ce60d8a3c1b45671` — synchronized canonicalization backlog after verifying the applied E55/E269 and E36/E226 catalog distinctions.
 - `ca6f12a50353ee6d6e002025d300bc70d40bc29b` — synchronized producer/consumer registry after latest source-level closure reconciliation.
 - `4fdcdbea31709462dd4b38e9b6c3f3189671d6ec` — reconciled closure audit with verified E144 and E271–E272 source producers.
@@ -86,7 +89,7 @@ Reachability remains static/pre-audit only until a real validator and production
 - `33d9cd1c9c7ffe2f88358994aa043a643d4a2a33` — synchronized correction record as applied and verified.
 - `249e01981cb97603aac669dc5686dab46731615d` — applied authoritative E226/E269 semantic distinctions.
 - `2fa9be1c586117126c4778598ab509ebe5107389` — synchronized semantic collision resolution after authoritative catalog edits.
-- `5d652e994a1a2d0521737d6bf5d39b2a8cab5933` — synchronized producer/consumer registry after source corrections.
+- `5d652e994a1a2d0521737d6bf5d39b` — synchronized producer/consumer registry after source corrections.
 
 ## Next highest-value work
 1. Enumerate exact durable producers for every remaining domain used by the frozen combination rules.
