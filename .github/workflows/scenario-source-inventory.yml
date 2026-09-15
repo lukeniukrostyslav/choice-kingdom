@@ -7,12 +7,14 @@ on:
       - 'docs/MACHINE_CANONICAL_GRAPH_01.json'
       - 'docs/EVENT_CATALOG*.md'
       - 'tools/compile_scenario_source_inventory.py'
+      - 'tools/inspect_undefined_consumer_sources.py'
       - '.github/workflows/scenario-source-inventory.yml'
   pull_request:
     paths:
       - 'docs/MACHINE_CANONICAL_GRAPH_01.json'
       - 'docs/EVENT_CATALOG*.md'
       - 'tools/compile_scenario_source_inventory.py'
+      - 'tools/inspect_undefined_consumer_sources.py'
       - '.github/workflows/scenario-source-inventory.yml'
   workflow_dispatch:
 
@@ -54,14 +56,19 @@ jobs:
           print(f"predicate_edges={sum(len(v) for v in data['predicate_dependency_graph'].values())}")
           print(f"predicate_cycles={len(data['predicate_cycles'])}")
           PY
-      - name: Upload source inventory artifact
+      - name: Inspect unresolved consumer sources
+        run: python3 tools/inspect_undefined_consumer_sources.py
+      - name: Upload source inventory and inspection artifacts
         uses: actions/upload-artifact@v4
         with:
           name: scenario-source-inventory
-          path: scenario-source-inventory.json
+          path: |
+            scenario-source-inventory.json
+            undefined-consumer-source-inspection.json
 
 # S20 verification trigger: inventory schema/predicate-cycle assertion is part of the
 # canonical scenario gate and does not alter authored scenario semantics.
 # S23 verification trigger: expose deterministic inventory closure metrics in CI logs.
 # S24 verification trigger: exhaustive inventory is executable on PRs as well as main pushes.
 # S26 verification trigger: emitted-schema assertions are aligned with the inventory JSON.
+# S27 verification trigger: unresolved consumers receive a source-occurrence inspection artifact.
