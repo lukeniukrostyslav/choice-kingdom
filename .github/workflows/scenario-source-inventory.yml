@@ -8,6 +8,12 @@ on:
       - 'docs/EVENT_CATALOG*.md'
       - 'tools/compile_scenario_source_inventory.py'
       - '.github/workflows/scenario-source-inventory.yml'
+  pull_request:
+    paths:
+      - 'docs/MACHINE_CANONICAL_GRAPH_01.json'
+      - 'docs/EVENT_CATALOG*.md'
+      - 'tools/compile_scenario_source_inventory.py'
+      - '.github/workflows/scenario-source-inventory.yml'
   workflow_dispatch:
 
 jobs:
@@ -39,7 +45,6 @@ jobs:
           print(f"events={data['event_count']}")
           print(f"unique_output_tokens={data['unique_output_tokens']}")
           print(f"trigger_tokens={data['trigger_tokens']}")
-          print(f"duplicate_output_tokens={data['duplicate_output_tokens']}")
           print(f"semantic_writer_collisions={len(data['semantic_writer_collisions'])}")
           print(f"reaffirmed_tokens={len(data.get('reaffirmed_tokens', []))}")
           print(f"same_event_shared_writers={len(data['same_event_shared_writers'])}")
@@ -58,3 +63,4 @@ jobs:
 # S20 verification trigger: inventory schema/predicate-cycle assertion is part of the
 # canonical scenario gate and does not alter authored scenario semantics.
 # S23 verification trigger: expose deterministic inventory closure metrics in CI logs.
+# S24 verification trigger: exhaustive inventory is executable on PRs as well as main pushes.
