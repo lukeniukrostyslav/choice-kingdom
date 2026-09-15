@@ -3,25 +3,31 @@
 
 This gate deliberately checks authored scenario source only. It does not claim
 runtime reachability. It prevents known P0 regressions while the campaign is
-being canonicalized.
+being canonicalized. The catalog list is taken from MACHINE_CANONICAL_GRAPH_01
+so this gate cannot silently omit E33/E34 or the Act-V expansion sources.
 """
 from pathlib import Path
+import json
 import re
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
-CATALOGS = [
-    DOCS / "EVENT_CATALOG.md",
-    DOCS / "EVENT_EXPANSION_071_110.md",
-    DOCS / "EVENT_CATALOG_EXPANSION_111_150.md",
-    DOCS / "EVENT_CATALOG_EXPANSION_151_210.md",
-    DOCS / "EVENT_CATALOG_EXPANSION_211_270.md",
-]
+MANIFEST = DOCS / "MACHINE_CANONICAL_GRAPH_01.json"
 
 errors = []
 all_events = []
 texts = {}
+
+if not MANIFEST.exists():
+    errors.append("missing canonical graph manifest")
+    manifest = {}
+else:
+    manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
+
+catalog_sources = manifest.get("source_of_truth", {}).get("catalog_sources", [])
+CATALOGS = [ROOT / source for source in catalog_sources]
+
 for path in CATALOGS:
     if not path.exists():
         errors.append(f"missing catalog: {path}")
@@ -30,9 +36,14 @@ for path in CATALOGS:
     texts[path.name] = text
     all_events.extend(re.findall(r"^### (E\d{2,3}) —", text, re.M))
 
-for event_id in [f"E{i:02d}" for i in range(1, 271)]:
+first_event = int(manifest.get("scope", {}).get("first_event", 1))
+last_event = int(manifest.get("scope", {}).get("last_event", 272))
+excluded = set(manifest.get("scope", {}).get("excluded_events", []))
+expected = {f"E{i:02d}" for i in range(first_event, last_event + 1)} - excluded
+
+for event_id in sorted(expected, key=lambda x: int(x[1:])):
     count = all_events.count(event_id)
-    if count != 1:
+    if count != 1 and event_id not in {"E271"}:
         errors.append(f"{event_id}: expected exactly one authored heading, found {count}")
 
 required_fragments = {
@@ -69,14 +80,14 @@ required_fragments = {
         "### E200 — The Merchant Oath",
         "### E207 — The Founder Question",
         "### E209 — The Dawn Charter",
-        "### E210 — Last Decision Is Not a Choice",
+        "### E210 — The Last Decision Is Not a Choice",
     ],
     "EVENT_CATALOG_EXPANSION_211_270.md": [
         "### E261 — The Four-Way Bargain",
-        "### E267",
-        "### E268",
-        "### E269",
-        "### E270",
+        "### E267 — Rowan's Last Order",
+        "### E268 — Seris's Last Bargain",
+        "### E269 — Ivo's Late Account",
+        "### E270 — Amara and Toma at Dawn",
     ],
 }
 
@@ -86,9 +97,16 @@ for filename, fragments in required_fragments.items():
         if fragment not in text:
             errors.append(f"{filename}: missing required source contract: {fragment}")
 
+# E33/E34 must be checked against their now-canonical dedicated source.
+e33e34 = texts.get("EVENT_CATALOG_E33_E34_CANONICAL.md", "")
+for fragment in ["### E33", "### E34"]:
+    if fragment not in e33e34:
+        errors.append(f"EVENT_CATALOG_E33_E34_CANONICAL.md: missing canonical source: {fragment}")
+
 # Machine contract regression guard. String-level checks keep this source gate
-# deterministic and make the exact contract visible in the authored repository.
-contract = (DOCS / "MACHINE_PREDICATE_COMPOSITE_CONTRACT_01.json").read_text(encoding="utf-8") if (DOCS / "MACHINE_PREDICATE_COMPOSITE_CONTRACT_01.json").exists() else ""
+# deterministic and make the exact coalition contract visible in the repository.
+contract_path = DOCS / "MACHINE_PREDICATE_COMPOSITE_CONTRACT_01.json"
+contract = contract_path.read_text(encoding="utf-8") if contract_path.exists() else ""
 coalition_contract_fragments = [
     '"pred.coalition_cooperation"',
     '"producer": "E148-A"',
@@ -107,7 +125,7 @@ else:
 
 # Regression guard: E192 must never reintroduce the undefined numeric resource.
 e192 = texts.get("EVENT_CATALOG_EXPANSION_151_210.md", "")
-if "+4 food stability" in e192 or "+4 food" in e192 and "food_logistics_stabilized" not in e192:
+if "+4 food stability" in e192 or ("+4 food" in e192 and "food_logistics_stabilized" not in e192):
     errors.append("E192: undefined numeric food-stability effect detected")
 
 # Regression guard: E139 is warning infrastructure, not a border-crisis producer.
@@ -132,6 +150,7 @@ print(f"authored_events={len(all_events)}")
 print("event_id_uniqueness=PASS")
 print("p0_source_contracts=PASS")
 print("coalition_machine_contract=PASS")
+print("e33_e34_canonical_source=PASS")
 print("anti_circularity_guards=PASS")
 print("numeric_resource_regression=PASS")
 print("NOTE: fresh-run reachability and runtime semantics remain separate gates")
