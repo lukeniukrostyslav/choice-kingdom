@@ -43,7 +43,7 @@ E273–E277 remain outside the frozen catalog. Follow-up audits record exact sou
 
 The border-crisis lifecycle is source-closed: E271-A declares the active crisis and E272-A/B resolve it while preserving historical declaration state. `thread.border` remains a legacy trigger context and must not be silently aliased to `thread.border_crisis`.
 
-Delayed-consequence source extraction covers E127–E130/E141 plus E181–E185 and E242–E246. The latest closure pass source-closes producer identity for E181 (E45-B), E182 (E117-B), E183 (E118-B) and E185 (E17-A). E242 has an explicit E118-B source but its full producer set remains open. E184/E243/E244/E245 remain source-open; E246 requires explicit normalization because the authored E160 marker is `winter_rent_ceiling` while E246 says `price ceiling`. Complete executable lifecycle fields remain open for all callbacks. See `docs/DELAYED_SOURCE_CLOSURE_05.md`.
+Delayed-consequence source extraction covers E127–E130/E141 plus E181–E185 and E242–E246. The latest closure pass source-closes producer identity for E181 (E45-B), E182 (E117-B), E183 (E118-B), E185 (E17-A) and E244 (E09-B). E242 has an explicit E118-B source but its full producer set remains open. E184/E243/E245 remain source-open; E246 requires explicit normalization because the authored E160 marker is `winter_rent_ceiling` while E246 says `price ceiling`. Complete executable lifecycle fields remain open for all callbacks. See `docs/DELAYED_SOURCE_CLOSURE_05.md` and `docs/DELAYED_PRODUCER_DISAMBIGUATION_01.md`.
 
 Replay mutable-state isolation is contract-closed at the design level: a new run starts with empty pending callbacks, active-cycle predicates, unresolved crises and run-local state; only explicitly authored `meta.*` transfer data may cross the replay boundary. Replay-oriented consumers/intents include E186, E247, E248 and E270, but explicit transfer producers/keys are not source-closed. This remains a verification lead rather than proof of absence. See `docs/REPLAY_META_INVENTORY_01.md` and `docs/REPLAY_META_STATE_CONTRACT_01.md`.
 
@@ -54,29 +54,21 @@ Canonical scope wording has been reconciled: E35–E40 are canonical authored no
 No validator has been introduced prematurely. Production schema and runtime implementation remain blocked until canonical contracts are frozen and the complete catalog reconciliation passes.
 
 ## Latest source-level commits
-- `2edfbf83b8e2c5821e28268540966557659e02b5` — delayed consequence source closure 05.
+- `2420934160b0b1ff724dcb603d25a8824775ca7f` — corrected delayed consequence source closure 05; E244 producer closed to E09-B.
+- `3174407794accbc8a3b3140cd8da58b89b546279` — delayed producer disambiguation audit 01.
 - `bc81332c7de13ffd6f637f3cd57fc904df864744` — deterministic ending precedence test matrix 01.
 - `30c32dad89f9b31a1885c45e3ddc34b31fe5e9f4` — E273–E276 consumer/alias audit 01.
 - `f8a6e0923d9f699ce10ffa7a608f19fd53fba9c4` — delayed consequence normalization matrix 01.
 - `c5a22d69069ecb975809b2468bf1e3ec9713e980` — replay meta-state producer/consumer inventory audit.
 - `89812501201e49e23d3e619900ef5a4d46e` — ending path coverage audit E265–E270.
-- `6ea98c0f34f069c59b26a113b6a52fefd45865ed` — canonicalization backlog scope clarification.
-- `b04271583ac2ba29456e5619e644195e3a10d8c9` — canonical scope reconciliation E35–E40.
-- `e597736d8ca48d357e5fb78dc4ea7c9712c84d61` — corrected delayed producer closure and project progress.
-- `2a270b243fc286cd00ac851055eea2d8b24da53c` — corrected delayed consequence extraction E127–E141.
-- `b4a4b8fe714e215ebcece5cd3917350ab09ec949` — freeze replay meta-state isolation contract.
-- `4e674404a82149ef6c162b6955531dd35fae31fd` — delay/replay/ending contract audit.
-- `9c11d84d1de42da409521f3b45f693e9aa203d4a` — E273–E277 admission audit 02.
-- `0237626eef0d67066f64f2f90697cfb3a` — transport disruption lifecycle reconciliation.
-- `0b1d05edd18212355db1c475e7d5bbc3a7cb09b0` — canonical P0 reconciliation 06.
 
 ## Current honest progress
 - Foundation / rules: **95%**
 - Authored content: **90%**
 - Canonical Event IDs / continuity: **100%**
-- Producer / Consumer QA: **93%**
+- Producer / Consumer QA: **94%**
 - Derived predicates / machine contracts: **83%**
-- Delayed Consequences: **84%**
+- Delayed Consequences: **85%**
 - Replay / Meta-state: **55%**
 - Endings / precedence: **61%**
 - Reachability / causal graph: **42%**
@@ -89,10 +81,10 @@ No validator has been introduced prematurely. Production schema and runtime impl
 - APK: **0%**
 - Release: **0%**
 
-Overall project progress is approximately **52%**. The increase reflects additional source-level closure and deterministic QA design only; runtime implementation is still not counted as complete.
+Overall project progress remains approximately **52%**. The increase in source-level QA does not imply runtime completion; engine, UI and Android work remain unimplemented.
 
 ## Next highest-value work
-1. Close exact source producers for E184, E243, E244 and E245 and normalize E246 without semantic aliasing.
+1. Close exact source producers for E184, E243 and E245; normalize E246 without semantic aliasing.
 2. Resolve exact authored `meta.*` replay transfer producers/keys/consumers; do not infer them from ordinary flags.
 3. Complete ending producer/path coverage and fill the authored priority table with deterministic fixtures.
 4. Re-run complete E01–E272 contradiction/cycle/reachability reconciliation.
