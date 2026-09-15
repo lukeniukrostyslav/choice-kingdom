@@ -64,37 +64,50 @@ Content and canonical QA come before production contracts, engine, UI, localizat
 - `docs/SEMANTIC_COLLISION_RESOLUTION_01.md`
 - `docs/LEGACY_SOURCE_COMPARISON_02.md`
 - `docs/CANONICAL_SOURCE_CORRECTIONS_02.md`
+- `docs/CANONICAL_DERIVED_PREDICATE_CONTRACT_01.md`
+- `docs/CANONICAL_DELAY_INVENTORY_01.md`
+- `docs/CANONICAL_EARLY_PREDICATE_PRODUCER_AUDIT_02.md`
+- `docs/CANONICAL_LATE_PREDICATE_PRODUCER_AUDIT_03.md`
+- `docs/CANONICAL_INDEPENDENT_SOURCE_FREEZE_01.md`
+- `docs/AUTHORED_SOURCE_PATCHSET_01.md`
+- `docs/AUTHORED_CATALOG_PATCH_APPLICATION_01.md`
 
 ## Current QA checkpoint
-Producer inventories and static reachability pre-audits now cover the authored scope E01–E272. A consolidated `docs/FULL_REACHABILITY_CLOSURE_MATRIX_01.md` records the cross-range causal closure state and global blockers.
+Producer inventories and static reachability pre-audits cover the authored scope E01–E272. The consolidated reachability matrix remains **OPEN** and is not a proof of runtime reachability.
 
-`docs/CANONICAL_CONTRACT_CLOSURE_PASS_01.md` consolidates production-contract blockers and hard invariants. `docs/CANONICAL_ROUTE_CONTRACT_01.md` now separately defines route identity versus relationship values, guild-influence qualification, constitutional preparation, coalition cooperation, evidence convergence, final-charter convergence, and the semantic separations for border/Mara/Ivo paths.
+The authored producer bridge corrections for E136/E144/E148 and the later E151–E210 trigger/semantic corrections have been applied to the authoritative catalogs and re-read. In particular, E136-B now supplies the upstream `history.guild_logistics_cooperation` marker and E194 consumes that upstream marker rather than self-consuming the qualified predicate. This closes the identified authored E136/E194 circularity at source level; runtime predicate evaluation remains unimplemented.
 
-The consolidated matrix remains **OPEN**, not a proof of runtime reachability. Reachability is static/pre-audit only. Production schema and runtime implementation remain blocked until canonical contracts are frozen. No validator has been introduced prematurely.
+The independent-source freeze is **PROVISIONAL/PARTIAL**. Guild-influence and constitutional-preparation candidate domains are identified, but exact full-catalog anti-double-counting reconciliation is still required before those contracts can be CLOSED.
+
+The remaining high-risk producer gaps are still not allowed to be invented in the engine layer. Food stability, transport disruption, winter severity, market pressure, guild labor tension and high information pressure require explicit upstream authored semantics or an authoritative source correction before schema freeze. Budget reform, final-charter convergence, coalition participant/outcome qualification, delayed consequence identity/timing/cancellation, replay metadata and ending precedence also remain open.
+
+No validator has been introduced prematurely. Production schema and runtime implementation remain blocked until the canonical contracts are frozen and the complete catalog reconciliation passes.
 
 ## Latest source-level commits
+- `c18e8a4bf0680536a5261fb2c2ac398a0a4fea7a` — provisional independent predicate source freeze.
+- `48961044360d596548c64da985d0ced7a82a8928` — late predicate producer audit E151–E272.
+- `7a9d59848423ed948e0e94853ff5d3d2dea8dab6` — early predicate producer audit E01–E150.
+- `b9b529ce9934391075dfb6d68800b99238bb103f` — broad canonical predicate producer audit.
+- `15300a355da15e8a93c16d29c9bc5abc36f846b9` — canonical delayed consequence inventory.
+- `e021f13a0e7e4726177b641112987d7bc1a8d017` — canonical derived predicate contract.
+- `33d9cd1c9c7ffe2f88358994aa043a643d4a2a33` — E136/E194 source correction marked applied and verified.
+- `d529ff3d0a44bcb4c7cce54d70103e0b78883686` — E136 guild-logistics history producer.
+- `1d2ca828bf59cf5ddf56f152ec80957a05e3c280` — canonical producer bridge fixes E136–E210.
+- `f84930589b1879045f799da818b5c7ec48954621` — producer registry refresh after E136/E144/E148 source closure.
 - `52a057fada8bdd4e7c10c6955ec631667bba8dbf` — canonical route identity contract 01.
-- `d1110d8e2cf40c6558c686cbec87305d32644618` — project state synchronized after canonical contract closure pass 01.
-- `af9d308062ac57d7fbfb55e944a1f8a43c664c29` — canonical contract closure pass 01.
 - `1c34444d4cba9e6e5d0e3614afd45ba5dbb75dfb` — consolidated E01–E272 reachability closure matrix.
-- `422f22f38a7b92eee1e9b5f9aef03f2e470fb908` — producer/consumer audit E01–E70.
-- `7e282f2a68a56ae84e1fccf973299db612fe7d20` — reachability pre-audit E01–E70.
-- `b60427459ad04c9f9e09e09f7521731d1a381987` — reachability pre-audit E071–E110.
-- `288b52384b0b544c9d1b7fbf5f49e11a9cf45b2d` — producer/consumer audit E071–E110.
-- `21a5c782890733b94c50858ea7d0b7021379c941` — producer/consumer audit E251–E272.
-- `2d22b3809e753928ca02d4c8b530ca4dc1e93d53` — reachability pre-audit E211–E250.
-- `14d99ed300c32be7285bd599320a8198da5333fe` — producer/consumer audit E211–E250.
 
 ## Next highest-value work
-1. Resolve exact upstream producers for food stability, transport disruption, winter severity, market pressure, guild labor tension and information pressure.
-2. Freeze evidence-source and faction-route identities and coalition cooperation semantics against the full catalog.
-3. Close constitutional preparation, budget reform and final-charter prerequisites without circularity.
-4. Extract delayed consequence source identity, timing, cancellation/supersession and exactly-once contracts.
-5. Freeze replay meta-state and ending qualification/precedence.
-6. Re-run complete E01–E272 contradiction/cycle/reachability reconciliation.
-7. Freeze production data contracts.
-8. Build the real static validator against the frozen schema.
-9. Implement the actual Decision Engine and runtime.
+1. Resolve explicit upstream producers for food stability, transport disruption, winter severity, market pressure, guild labor tension and information pressure.
+2. Complete exact independent guild-influence and constitutional-preparation source reconciliation.
+3. Close coalition participant/outcome/blocker semantics.
+4. Close constitutional preparation, budget reform and final-charter prerequisites without circularity.
+5. Extract delayed consequence source identity, timing, cancellation/supersession and exactly-once contracts.
+6. Freeze replay meta-state and ending qualification/precedence.
+7. Re-run complete E01–E272 contradiction/cycle/reachability reconciliation.
+8. Freeze production data contracts.
+9. Build the real static validator against the frozen schema.
+10. Implement the actual Decision Engine and runtime.
 
 ## Honest progress rule
 Percentages represent actual state. Documentation alone does not make implementation complete. Source edits count only when the authoritative catalog is changed and re-read. No block may be called ready until its appropriate verification has passed.
