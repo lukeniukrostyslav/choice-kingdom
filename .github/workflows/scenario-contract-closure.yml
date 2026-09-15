@@ -1,0 +1,27 @@
+name: Choice Kingdom Scenario Contract Closure
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/MACHINE_CANONICAL_GRAPH_01.json'
+      - 'docs/EVENT_CATALOG*.md'
+      - 'tools/compile_scenario_source_inventory.py'
+      - 'tools/validate_scenario_contract_closure.py'
+      - '.github/workflows/scenario-contract-closure.yml'
+  workflow_dispatch:
+
+jobs:
+  contract-closure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile canonical source inventory
+        run: python3 tools/compile_scenario_source_inventory.py
+      - name: Validate frozen contract closure
+        run: python3 tools/validate_scenario_contract_closure.py
+      - name: Upload closure evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: scenario-contract-closure
+          path: scenario-source-inventory.json
