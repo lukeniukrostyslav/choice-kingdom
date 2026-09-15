@@ -12,6 +12,24 @@ Preparation systems:
 - Civic relief: E12 -> E40 -> E50 -> E56/E106.
 - Information: E13 -> E21 -> E25 -> E41/E42 -> E43/E57.
 
+## Canonical delayed-producer edges
+
+The following edges are explicitly source-backed and reconcile delayed-consumer identity with the authored producer choice. They do **not** prove runtime scheduling, exactly-once delivery, cancellation/supersession, or gameplay reachability.
+
+`E09-B -> E244`
+`E17-A -> E185`
+`E18-B -> E243`
+`E20-A -> E245`
+`E45-B -> E181`
+
+Already represented in the broader graph and retained as canonical producer chains:
+`E117-B -> E182`
+`E118-B -> E183/E242`
+`E160-A -> E246`
+`E136-B -> E194`
+
+Hard boundary: E184 has no safe canonical producer alias and remains OPEN. E242 remains only partially closed because its authored consumer wording refers to a broader noble-exception family than can safely be aliased universally.
+
 ## Expansion layer E71–E110
 
 These nodes expand the spaces between the spine and endgame rather than forming a second linear campaign.
