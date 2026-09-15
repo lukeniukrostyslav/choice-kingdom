@@ -35,9 +35,10 @@ Dedicated Scenario QA score is now approximately **72%**. This is distinct from 
 - S09 **60%**
 - S10 **72%**
 - S11 **55%**
-- S12 **50%** — S12.14 delayed identity gate and S12.15 composite evidence identity/source reconciliation completed; exhaustive machine graph, exact systemic convergence evidence, exact E272 authored tokens, reachability and ending precedence remain open.
+- S12 **51%** — S12.16 completed an E272 source-availability/blocking audit. Exact authored E272 branch tokens remain unrecovered; they must not be invented. Exhaustive machine graph, exact systemic convergence evidence, reachability and ending precedence remain open.
 
 ## Latest QA work
+- **S12.16** added `docs/SCENARIO_QA_S12_16_E272_SOURCE_AVAILABILITY_AUDIT_01.md`, commit `1a4c7ea256409116b5129129d02f45aee886c0fb`.
 - **S12.15** added `docs/SCENARIO_QA_S12_15_COMPOSITE_EVIDENCE_IDENTITY_REGISTRY_01.md`, commit `583b9ce826581a88dfbf7bf752f3eeb891b4c018`.
 - **S12.15** reconciled `docs/CANONICAL_PRODUCER_CONSUMER_REGISTRY_01.md` with composite evidence/budget findings, commit `5e8ca0f1348ee812b53a4de2160fb17000cd1b3e`.
 - **S12.14** added `docs/SCENARIO_QA_S12_14_DELAY_IDENTITY_GATE_01.md`, commit `69b4b5136cb1ababbc95889f8d3df4f9c528b8b7`.
@@ -132,7 +133,7 @@ Delayed consequences require source choice/event, earliest turn, latest turn or 
 Overall project progress is approximately **59%**. Scenario QA is approximately **72%** and must not be conflated with overall project completion.
 
 ## Next autonomous work
-1. Extract exact E272 authored branch tokens and verify complete border lifecycle.
+1. Recover exact E272 authored source if present in repository history or alternate authoritative source material; never invent tokens.
 2. Compile immutable evidence IDs and exact executable formulas for systemic explanation, guild influence, coalition cooperation, constitutional preparation, budget reform and final-charter prerequisites.
 3. Continue exhaustive E01–E272 producer/consumer inventory and canonical vocabulary normalization.
 4. Build delayed identity/timing/cancellation matrix for all remaining early/late families.
