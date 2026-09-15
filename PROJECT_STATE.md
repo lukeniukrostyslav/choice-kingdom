@@ -34,19 +34,22 @@ Content and canonical QA come before production contracts, engine, UI, localizat
 ## Current QA checkpoint
 Producer inventories and static reachability pre-audits cover the authored scope E01–E272. The consolidated reachability matrix remains **OPEN** and is not a proof of runtime reachability.
 
-The authored producer bridge corrections for E136/E144/E148 and the later E151–E210 trigger/semantic corrections have been applied to the authoritative catalogs and re-read. E136-B supplies the upstream `history.guild_logistics_cooperation` marker and E194 consumes that upstream marker rather than self-consuming the qualified predicate. E29-A/B now explicitly establish `pred.winter_severe` for the current severe-winter cycle while retaining `history.winter_severity_declared`; this closes the winter-severity producer gap at source level. Runtime predicate evaluation and deterministic cycle expiry remain unimplemented.
+The authored producer bridge corrections for E136/E144/E148 and the later E151–E210 trigger/semantic corrections have been applied to the authoritative catalogs and re-read. E136-B supplies the upstream `history.guild_logistics_cooperation` marker and E194 consumes that upstream marker rather than self-consuming the qualified predicate. E29-A/B now explicitly establish `pred.winter_severe` for the current severe-winter cycle while retaining `history.winter_severity_declared`; this closes the winter-severity producer gap at source level. E32 now explicitly establishes `pred.transport_disruption` for the compound-crisis cycle with `history.transport_disruption_declared`; E136/E277 remain recovery/clear sources and E192 remains a consumer. Runtime predicate evaluation and deterministic cycle expiry remain unimplemented.
 
 The independent-source freeze is **PROVISIONAL/PARTIAL**. Guild-influence and constitutional-preparation candidate domains are identified, but exact full-catalog anti-double-counting reconciliation is still required before those contracts can be CLOSED.
 
-The remaining high-risk producer gaps are still not allowed to be invented in the engine layer. Food stability, active transport disruption, market pressure, guild labor tension and high information pressure require explicit upstream authored semantics or authoritative source corrections before schema freeze. Budget reform, final-charter convergence, coalition participant/outcome qualification, delayed consequence identity/timing/cancellation, replay metadata and ending precedence also remain open.
+The remaining high-risk producer gaps are still not allowed to be invented in the engine layer. Food stability, guild labor tension and high information pressure require explicit upstream authored semantics or authoritative source corrections before schema freeze. Budget reform, final-charter convergence, coalition participant/outcome qualification, delayed consequence identity/timing/cancellation, replay metadata and ending precedence also remain open. E273–E277 remain source candidates outside the E01–E272 canonical freeze.
 
 No validator has been introduced prematurely. Production schema and runtime implementation remain blocked until the canonical contracts are frozen and the complete catalog reconciliation passes.
 
 ## Latest source-level commits
+- `7acc1e222436f4ab3345a732a5dc83c77032ab29` — restored the canonical E01–E32 catalog after a write error and added explicit E32 transport-disruption producer semantics.
+- `5eaae6acc7d6bb7ebf2b3a77e7017d9e60fdfe0e` — derived predicate contract records E32 as the active transport-disruption producer.
+- `d502f7d5cbe5fc489c5572d5a875062f10894a73` — transport-disruption source audit closed the producer gap while keeping lifecycle QA open.
+- `9ff556514673af73e555f13ba45d711cc518a49a` — synchronized project state after E32 producer closure.
 - `e1b10d4fefaea7415fff3ec57f6fcd1be1a2eac1` — producer registry updated for verified winter-severity source.
 - `4968322515da7e754f6d7802e225494d23b44f3e` — derived predicate contract updated for winter-severity closure.
 - `5d315aa71610f5c7582bf03a292dc86439a8b72e` — E29-A/B explicit winter-severity producer source correction.
-- `047d45174c8cbfd62057b1784225ab7b9fd3e7d5` — project state synchronized after source-level QA pass.
 - `c18e8a4bf0680536a5261fb2c2ac398a0a4fea7a` — provisional independent predicate source freeze.
 - `48961044360d596548c64da985d0ced7a82a8928` — late predicate producer audit E151–E272.
 - `7a9d59848423ed948e0e94853ff5d3d2dea8dab6` — early predicate producer audit E01–E150.
@@ -58,7 +61,7 @@ No validator has been introduced prematurely. Production schema and runtime impl
 - `1c34444d4cba9e6e5d0e3614afd45ba5dbb75dfb` — consolidated E01–E272 reachability closure matrix.
 
 ## Next highest-value work
-1. Resolve explicit upstream producers for food stability, active transport disruption, market pressure, guild labor tension and information pressure.
+1. Reconcile E32 transport disruption through lifecycle clear/expiry, reachability, delayed identity and persistence semantics.
 2. Complete exact independent guild-influence and constitutional-preparation source reconciliation.
 3. Close coalition participant/outcome/blocker semantics.
 4. Close constitutional preparation, budget reform and final-charter prerequisites without circularity.
