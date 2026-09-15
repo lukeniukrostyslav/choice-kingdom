@@ -16,6 +16,7 @@ This backlog tracks canonical production readiness. Documentation completion alo
 - [x] Exact-source compare E99/E173 completed; source-level distinction confirmed.
 - [x] Border-crisis producer discovery completed at source level through E271–E272; graph integration remains open.
 - [x] Safe prose-trigger normalization pass recorded for predicate families already defined by the canonical matrix.
+- [x] E243 delayed trigger normalized exactly from E18-B `public_bridge`; stale graph-audit wording corrected.
 - [ ] Machine-readable trigger token inventory fully reconciled.
 - [ ] Flag/history/thread producers fully enumerated.
 - [ ] Relationship mutations and gates fully enumerated.
@@ -47,6 +48,10 @@ E35–E40 are not a renumbering/exclusion problem. The authoritative Act V sourc
 - [ ] Exactly-once semantics.
 - [ ] Replay metadata and second-run conditions.
 - [ ] Invalidated / superseded consequence handling.
+- [x] E243 producer correction and exact `public_bridge` normalization recorded.
+- [ ] E245 compensation-route producer decision.
+- [ ] E184 secret-evidence producer closure.
+- [ ] E246 explicit price-ceiling vocabulary normalization.
 
 ## Pacing / balance
 
@@ -61,4 +66,4 @@ E35–E40 are not a renumbering/exclusion problem. The authoritative Act V sourc
 
 **BLOCKED until the remaining producer/consumer, graph, delayed-consequence, reachability, ending, and source-ID audits are implemented and their results recorded.**
 
-The authoritative source-comparison record is `docs/LEGACY_SOURCE_COMPARISON_02.md`. The semantic-collision status is recorded in `docs/SEMANTIC_COLLISION_RESOLUTION_01.md`. The latest safe trigger-normalization pass is `docs/CANONICAL_TRIGGER_NORMALIZATION_03.md`.
+The authoritative source-comparison record is `docs/LEGACY_SOURCE_COMPARISON_02.md`. The semantic-collision status is recorded in `docs/SEMANTIC_COLLISION_RESOLUTION_01.md`. The latest safe trigger-normalization pass is `docs/CANONICAL_TRIGGER_NORMALIZATION_03.md`. E243's correction record is `docs/DELAYED_GRAPH_EDGE_CORRECTION_01.md`.
