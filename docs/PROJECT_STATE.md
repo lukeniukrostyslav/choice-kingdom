@@ -8,7 +8,7 @@ The project is an original premium offline-first Android decision-and-consequenc
 
 Recent source-level QA closed the market-pressure producer gap: E19-B explicitly establishes the current `pred.market_pressure` cycle and E19-A clears that active cycle while preserving historical evidence. E274-A remains a later producer candidate and requires cycle/reachability reconciliation before catalog integration.
 
-A transport-disruption source audit was recorded separately. The current reviewed semantics do not yet justify a safe direct producer: E136/E277 are recovery/clear semantics and E192 is a consumer. No predicate may be inferred from generic military, border, toll, or resource pressure.
+The transport-disruption producer gap is now **source-level closed**: authoritative E32 explicitly establishes `pred.transport_disruption` for the compound-crisis cycle and records `history.transport_disruption_declared`. E136/E277 remain recovery/clear semantics and E192 remains a consumer. Lifecycle clear/expiry, save/load identity, delayed identity and replay isolation are still open.
 
 The delayed-consequence audit also found a source-ID scope mismatch: the inventory's older E31–E35 family must not be treated as canonical runtime references while the authoritative catalog boundary is E32. This has now been recorded as a P0 reconciliation rule; stale/draft event IDs must not enter engine, save-state, exactly-once, or replay identity.
 
@@ -16,7 +16,7 @@ Guild independent-source reconciliation is now documented provisionally: represe
 
 ## Active P0 work sequence
 
-1. Establish a semantically correct upstream producer for `pred.transport_disruption`, or document a source-level correction only after re-reading the authoritative candidate events.
+1. Reconcile the newly closed E32 transport producer through lifecycle clear/expiry, reachability, delayed identity and persistence semantics.
 2. Close exact source/key reconciliation for `pred.guild_influence_strong`.
 3. Freeze independent source domains for `pred.constitutional_prepared_strong`.
 4. Reconcile coalition participant/outcome qualification and systemic evidence convergence.
