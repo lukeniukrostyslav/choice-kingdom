@@ -29,7 +29,7 @@ Dedicated Scenario QA score is approximately **89%**. This is distinct from over
 - S03 **70%**
 - S04 **70%**
 - S05 **60%**
-- S06 **55%**
+- S06 **58%** — raised from 55% after authoritative choice-level closure for delayed E181–E183/E185/E243–E246 source evidence; runtime delayed lifecycle remains open.
 - S07 **80%**
 - S08 **78%**
 - S09 **62%** — replay meta producer boundary audited; exact meta producer/key inventory remains open.
@@ -38,6 +38,8 @@ Dedicated Scenario QA score is approximately **89%**. This is distinct from over
 - S12 **88%** — source-level machine QA includes delayed source tokens, producer/consumer collision screening, ending satisfiability and replay-meta boundary audits. Runtime reachability remains unverified.
 
 ## Latest QA work
+- **Delayed Source Evidence Closure 02:** added `docs/SCENARIO_QA_DELAYED_SOURCE_EVIDENCE_CLOSURE_02.md`. Re-read the authoritative E117/E118/E17/E20/E160 source entries and explicitly recorded exact choices for E182, E183, E185, E245 and E246, while preserving E184 as OPEN and E242 as PARTIAL. Commit `c69f41627473bb45ff56a3e68880edb981485213`.
+- **Machine Delayed Source Tokens 01:** upgraded the delayed source-token contract to schema 1.1, adding explicit closed/partial/open source-evidence sets and hard negatives while preserving runtime and reachability as unverified. Commit `b3b2b16dbd9ce219c4814abdfa051eed0682a2d5`.
 - **Delayed Source Evidence Closure 01:** added `docs/SCENARIO_QA_DELAYED_SOURCE_EVIDENCE_CLOSURE_01.md`. Re-read authoritative E45/E18 catalog evidence and explicitly closed E181 to exact source choice **E45-B `Grant long-term concession`**. Also confirmed E243 remains distinct and source-closed to E18-B `Keep the bridge public` / `public_bridge`; E18-A `Grant the toll` is not merged into that producer. Commit `4f19f59ff003824e3ebeb002475967b97095744e`.
 - **Delayed Edge Closure Matrix 01:** promoted E181 and E243 exact source-choice evidence while keeping scheduler, cancellation, exactly-once, resolution and reachability fields open. Commit `20588cf8fbed14384d327cfdf1580cc52203d0f5`.
 - **CI failure discovered and repaired:** workflow run `35001150143` failed before the new gates because `validate_delayed_inventory_scope.py` used a list in a set intersection. The failure was reproduced from GitHub Actions logs and the validator was corrected to keep `missing_from_catalog` as a set until set operations complete. Fix commit `2982607b2ab0f23057c00984d9e7e4b89ca4bebf`. A fresh workflow run is expected from the subsequent pushes; it is not yet claimed GREEN.
@@ -46,8 +48,6 @@ Dedicated Scenario QA score is approximately **89%**. This is distinct from over
 - **Machine Ending Prerequisite Satisfiability 01:** added `docs/MACHINE_ENDING_PREREQUISITE_SATISFIABILITY_01.json`. Commit `294a60cae1e2fd3f4a948a7c6cc6a0275042aa9d`.
 - **Ending Satisfiability Validator:** added `tools/validate_ending_prerequisite_satisfiability.py`. Commit `a73533fa1432122beaf7f2f57280d9bcb596f017`.
 - **Producer/Consumer Collision Audit 01:** added `docs/SCENARIO_QA_PRODUCER_CONSUMER_COLLISION_AUDIT_01.md`. E245 remains exclusively E20-A; E242 remains partial; E184 remains open; E185 source identity and later crisis lifecycle remain separate. Commit `ce2f20b9664dd37b0c0f9ddc5362f5748b851a3b`.
-- **Machine Producer/Consumer Collision Contract 01:** added `docs/MACHINE_PRODUCER_CONSUMER_COLLISION_01.json`. Commit `f221fd3a8649ac6cf91b70f27d0c5bc57d4ceef7`.
-- **Producer/Consumer Collision Validator:** added `tools/validate_producer_consumer_collision.py`. Commit `adf6796f78a665fb333556a78dc7db8cef0b454e`.
 
 ## Current canonical source status
 
@@ -108,7 +108,7 @@ Replay-sensitive nodes E186/E247/E248/E249/E250/E270 are explicitly audited. The
 - APK: **0%**
 - Release: **0%**
 
-Overall project progress remains approximately **60%**. Scenario QA remains approximately **89%**; S09 is **62%**, S10 is now **74%**, S11 is **58%**, S12 is **88%**, and Endings / precedence is **72%**. These source-QA percentages must not be conflated with overall project completion or runtime/Android readiness.
+Overall project progress remains approximately **60%**. Scenario QA remains approximately **89%**; S06 is now **58%**, S09 is **62%**, S10 is **74%**, S11 is **58%**, S12 is **88%**, and Endings / precedence is **72%**. These source-QA percentages must not be conflated with overall project completion or runtime/Android readiness.
 
 ## Honest progress rule
 Documentation alone never makes implementation complete. Source edits count only when authoritative evidence is changed/re-read. No block is ready until its applicable verification passes.
