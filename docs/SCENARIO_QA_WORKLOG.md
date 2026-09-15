@@ -6,6 +6,14 @@ Purpose: durable handoff ledger so completed QA work is not repeated.
 
 ## Latest continuation update — 2026-09-15
 
+### S09.2 — frozen-scope contradiction audit
+- Added `docs/SCENARIO_QA_S09_2_SCOPE_CONTRADICTION_AUDIT_01.md` in commit `c4d58020e4202c5a5aea7fb454d3ee012d2e715a`.
+- Found a material contradiction: the frozen producer registry/S08 chronology rejects E273-A as a production producer for `pred.food_stable`, while `CANONICAL_DERIVED_PREDICATE_CONTRACT_01.md` still lists E273-A as a CLOSED producer and declares scope E01–E277.
+- Confirmed the project-level scorecard and contract-closure records continue to freeze production at E01–E272; E273–E277 remain expansion candidates.
+- Confirmed the P0 authored patchset is a specification/checklist and does not prove that the authoritative event catalog has been patched.
+- Preserved the safe disposition: E273–E277 cannot satisfy E01–E272 producer lookups; `pred.food_stable` remains OPEN/BLOCKED until an in-scope producer is verified or the authoritative catalog is explicitly changed and re-read.
+- No percentage was increased merely for documenting the contradiction. S09 remains **60%** and global Scenario QA remains **65%**.
+
 ### S09.1 — predicate dependency pre-audit
 - Added `docs/SCENARIO_QA_S09_1_PREDICATE_DEPENDENCY_PREAUDIT_01.md` in commit `3a9c2aaa9599671df3ef8410bbb4428b6798e17e`.
 - Started the predicate dependency gate using only source-closed facts; no design-level event-graph edge was promoted into runtime truth.
@@ -92,4 +100,4 @@ These batch percentages are working indicators and are not the global Scenario Q
 
 ## Next substantive action
 
-Continue exhaustive E01–E272 producer/output/trigger extraction with the mandatory E273–E277 exclusion filter. Next priority is completing token-level predicate dependency extraction, cycle/self-satisfaction detection, duplicate semantic alias detection, delayed source/target reconciliation, and then S11/S12 ending/replay/reachability closure. Do not start runtime implementation until canonical production contracts are sufficiently closed and verified.
+Continue exhaustive E01–E272 producer/output/trigger extraction with the mandatory E273–E277 exclusion filter. Highest priority is identifying the authoritative authored catalog files, applying only the explicitly authorized P0 source corrections that are actually missing, re-reading them, reconciling the producer registry, then continuing token-level predicate dependency/cycle checks. Do not start runtime implementation until canonical production contracts are sufficiently closed and verified.
