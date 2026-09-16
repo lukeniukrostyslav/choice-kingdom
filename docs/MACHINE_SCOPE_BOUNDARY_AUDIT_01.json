@@ -1,0 +1,11 @@
+{
+  "ending_candidate_boundary": ["E265", "E266", "E267", "E268", "E269", "E270"],
+  "errors": [],
+  "excluded_scope": ["E273", "E274", "E275", "E276", "E277"],
+  "reachability_proven": false,
+  "replay_candidate_boundary": ["E247", "E248", "E249", "E250"],
+  "schema_version": "1.0",
+  "scope": "E01-E272",
+  "semantic_orphans_proven": false,
+  "status": "GREEN"
+}
