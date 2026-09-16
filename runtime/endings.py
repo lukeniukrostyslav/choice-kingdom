@@ -63,20 +63,19 @@ class EndingResolver:
     ) -> EndingResolution:
         self._validate_terminal_boundary(state)
         qualified = self._canonical_positive_set(qualified_endings)
-        priority = authored_priority or {}
-        candidates_for_priority = set(qualified)
-        if explicit_withdrawal:
-            candidates_for_priority.add(END_QUIET_THRONE)
-        self._validate_priority_table(priority, candidates_for_priority)
 
+        # Failure is evaluated before withdrawal or any positive-ending precedence.
         if collapse_failure:
             winner = END_BROKEN_DIADEM
-        elif explicit_withdrawal:
-            winner = self._select_by_authored_priority(candidates_for_priority, priority)
-        elif not qualified:
-            raise EndingResolutionError("no ending qualifies and no authored fallback exists")
         else:
-            winner = self._select_by_authored_priority(set(qualified), priority)
+            priority = authored_priority or {}
+            candidates = set(qualified)
+            if explicit_withdrawal:
+                candidates.add(END_QUIET_THRONE)
+            self._validate_priority_table(priority, candidates)
+            if not candidates:
+                raise EndingResolutionError("no ending qualifies and no authored fallback exists")
+            winner = self._select_by_authored_priority(candidates, priority)
 
         self._record_immutable_identity(state, winner)
         return EndingResolution(
