@@ -23,6 +23,7 @@ def test_source_closed_predicates_compile_only_from_canonical_facts() -> None:
             "guild_tribunal_independent",
             "merchant_charter",
             "guild_neutral_inspectors",
+            "food_logistics_stabilized",
         }
     )
     state.history.update(
@@ -41,7 +42,7 @@ def test_source_closed_predicates_compile_only_from_canonical_facts() -> None:
     predicates = EndingSourceCompiler.compile_state(state).predicates
 
     assert "pred.guild_influence_strong" in predicates
-    assert "pred.food_stable" not in predicates
+    assert "pred.food_stable" in predicates
     assert "pred.systemic_explanation_verified" in predicates
     assert "pred.coalition_cooperation" in predicates
     assert "pred.constitutional_prepared_strong" in predicates
@@ -65,9 +66,14 @@ def test_food_predicate_uses_the_explicit_producer_marker() -> None:
     state = GameState.fresh("food-predicate")
     catalog = AuthoredCatalog.from_repository(ROOT)
 
-    assert catalog.trigger_satisfied("E192", state) is False
-
     state.flags.add("food_logistics_stabilized")
     predicates = EndingSourceCompiler.compile_state(state).predicates
+    assert "pred.food_stable" in predicates
+
+    state.flags.add("food_logistics_unstable")
+    predicates = EndingSourceCompiler.compile_state(state).predicates
     assert "pred.food_stable" not in predicates
+
+    # E192 itself is triggered by transport disruption, not by food_stable; this
+    # guards against accidentally treating a derived outcome as its own producer.
     assert catalog.trigger_satisfied("E192", state) is False
