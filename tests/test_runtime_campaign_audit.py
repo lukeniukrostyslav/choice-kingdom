@@ -20,8 +20,8 @@ def test_runtime_campaign_audit_is_deterministic_and_non_promotional():
     assert report["audit_only"] is True
     assert report["scope"] == "E01-E272"
     assert report["execution_errors"] == []
-    assert report["visited_event_count"] == 61
-    assert report["missing_event_count"] == 211
+    assert report["visited_event_count"] == 66
+    assert report["missing_event_count"] == 206
     assert report["visited_events"][0] == "E01"
     assert report["visited_events"][-1] == "E230"
     assert "unresolved prose predicates" in report["semantic_boundary"]
