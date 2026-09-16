@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def test_frozen_catalog_loads_exactly_and_excludes_expansion_nodes():
     catalog = AuthoredCatalog.from_repository(ROOT)
     catalog.validate()
-    assert len(catalog.events) == 272 - 5
+    assert len(catalog.events) == 272
     assert "E273" not in catalog.events
     assert "E277" not in catalog.events
 
