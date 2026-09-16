@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "contract": "choice_kingdom.ending_alias_boundary",
+  "scope": "E01-E272",
+  "status": "SOURCE_LEVEL_BOUNDARY",
+  "canonical_identifiers": {
+    "border_route": "thread.border_crisis",
+    "commercial_route": "thread.ivo_market",
+    "coalition": "pred.coalition_cooperation",
+    "systemic_explanation": "pred.systemic_explanation_verified"
+  },
+  "forbidden_runtime_aliases": [
+    "thread.border",
+    "thread.guild",
+    "four_way_bargain",
+    "systemic_explanation_verified"
+  ],
+  "authoritative_machine_sources": [
+    "docs/MACHINE_CANONICAL_GRAPH_01.json",
+    "docs/MACHINE_PRODUCER_CONSUMER_REGISTRY_01.md",
+    "docs/MACHINE_ENDING_PREREQUISITE_SATISFIABILITY_01.json",
+    "docs/MACHINE_ENDING_PRECEDENCE_BOUNDARY_01.json"
+  ],
+  "documentation_allowlist": [
+    "docs/ENDING_QUALIFICATION_CONTRACT_01.md",
+    "docs/ENDING_PRECEDENCE_TEST_MATRIX_01.md",
+    "docs/MACHINE_ENDING_ALIAS_BOUNDARY_01.json"
+  ],
+  "rules": [
+    "forbidden aliases may be documented as prohibited historical identifiers but cannot appear as runtime state names in authoritative machine sources",
+    "canonical identifiers must remain namespace-qualified exactly as frozen",
+    "no alias may manufacture an ending prerequisite",
+    "E273-E277 remain excluded from production semantics"
+  ]
+}
