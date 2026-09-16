@@ -13,7 +13,7 @@ from runtime.delays import (
     schedule_authored_delay,
 )
 from runtime.engine import DecisionEngine
-from runtime.state import GameState, PendingDelay, SaveStore
+from runtime.state import EXCLUDED_EVENTS, GameState, PendingDelay, SaveStore
 
 
 def test_all_ten_frozen_delay_specs_have_canonical_identity():
@@ -155,22 +155,18 @@ def _prime_state_for_authored_source(engine: DecisionEngine, event_id: str) -> G
         state.current_event_id = prerequisites[-1]
     if event_id == "E17":
         state.resources["security"] = 60
+    if event_id == "E160":
+        # E160's canonical trigger is prose "severe winter"; the machine graph
+        # explicitly binds that trigger to pred.winter_severe from E29-A/B.
+        state.flags.add("pred.winter_severe")
     return state
-
-
-# E160 is deliberately excluded from direct engine execution here: its canonical
-# trigger is prose-only ("severe winter") and no machine predicate currently
-# represents that condition. Treating it as executable would invent semantics.
-EXECUTABLE_DELAY_SPECS = tuple(
-    spec for spec in CANONICAL_DELAY_SPECS if spec.source_event_id != "E160"
-)
 
 
 @pytest.mark.parametrize(
     "event_id,choice_id,resolution_target",
-    [(spec.source_event_id, spec.source_choice_id, spec.resolution_target) for spec in EXECUTABLE_DELAY_SPECS],
+    [(spec.source_event_id, spec.source_choice_id, spec.resolution_target) for spec in CANONICAL_DELAY_SPECS],
 )
-def test_each_machine_executable_delayed_choice_executes_through_decision_engine(
+def test_each_canonical_delayed_choice_executes_through_decision_engine(
     event_id: str, choice_id: str, resolution_target: str
 ):
     engine = DecisionEngine(Path(__file__).resolve().parents[1])
@@ -188,8 +184,16 @@ def test_each_machine_executable_delayed_choice_executes_through_decision_engine
 
     if delay.condition_bound:
         assert delay.scheduled_turn is None
+        # E185 has no calendar due turn. Its contract requires the exact later
+        # military-crisis qualification; advancing turns alone must never resolve it.
+        state.turn += 100
+        assert due_delays(state) == ()
+        with pytest.raises(ValueError, match="condition not satisfied"):
+            resolve_condition_bound_delay(state, delay.exactly_once_key, False)
     else:
         assert delay.scheduled_turn is not None
+        state.turn = delay.scheduled_turn - 1
+        assert due_delays(state) == ()
         state.turn = delay.scheduled_turn
         assert due_delays(state) == (delay,)
         assert resolve_due_delay(state, delay.exactly_once_key).status == "resolved"
@@ -197,17 +201,70 @@ def test_each_machine_executable_delayed_choice_executes_through_decision_engine
             resolve_due_delay(state, delay.exactly_once_key)
 
 
-def test_e160_delayed_source_is_explicitly_blocked_until_winter_predicate_exists():
+def test_e160_requires_the_canonical_winter_predicate_not_a_generic_flag():
     engine = DecisionEngine(Path(__file__).resolve().parents[1])
-    state = _prime_state_for_authored_source(engine, "E160")
+    state = GameState.fresh("e160-negative")
+    state.resources.update({name: 100 for name in state.resources})
+    state.relationships.update({name: 3 for name in state.relationships})
     with pytest.raises(ValueError, match="event trigger not satisfied: E160"):
         engine.execute(state, "E160", "E160-A")
 
+    state.flags.add("pred.winter_severe")
+    result = engine.execute(state, "E160", "E160-A")
+    assert result.event_id == "E160"
+    delay = state.pending_delays["delay.E160A.E246.price_ceiling_memory"]
+    assert delay.scheduled_turn == state.turn - 1 + 5
 
-def test_all_machine_executable_delays_remain_run_scoped_after_engine_execution(tmp_path):
+
+def test_e185_cannot_be_resolved_by_time_alone():
+    engine = DecisionEngine(Path(__file__).resolve().parents[1])
+    state = _prime_state_for_authored_source(engine, "E17")
+    engine.execute(state, "E17", "E17-A")
+    delay = state.pending_delays["delay.E17A.E185.cheap_steel_failure"]
+    state.turn = 10_000
+    assert due_delays(state) == ()
+    with pytest.raises(ValueError, match="condition not satisfied"):
+        resolve_condition_bound_delay(state, delay.exactly_once_key, False)
+    assert state.pending_delays[delay.exactly_once_key].status == "pending"
+
+
+def test_duplicate_scheduling_is_rejected_without_duplicate_pending_state():
+    state = GameState.fresh("delay-duplicate")
+    first = schedule_authored_delay(state, "E45", "E45-B")
+    assert first is not None
+    with pytest.raises(ValueError, match="duplicate or consumed delay key"):
+        schedule_authored_delay(state, "E45", "E45-B")
+    assert list(state.pending_delays) == [first.exactly_once_key]
+
+
+def test_excluded_events_are_rejected_as_delay_source_and_target():
+    state = GameState.fresh("delay-excluded")
+    with pytest.raises(ValueError, match="excluded event"):
+        state.schedule(
+            PendingDelay(
+                exactly_once_key="delay.excluded.source",
+                source_event_id=next(iter(EXCLUDED_EVENTS)),
+                source_choice_id="A",
+                resolution_target="E181",
+                scheduled_turn=3,
+            )
+        )
+    with pytest.raises(ValueError, match="excluded event"):
+        state.schedule(
+            PendingDelay(
+                exactly_once_key="delay.excluded.target",
+                source_event_id="E45",
+                source_choice_id="E45-B",
+                resolution_target=next(iter(EXCLUDED_EVENTS)),
+                scheduled_turn=3,
+            )
+        )
+
+
+def test_all_canonical_delays_remain_run_scoped_after_engine_execution(tmp_path):
     engine = DecisionEngine(Path(__file__).resolve().parents[1])
     snapshots = []
-    for index, spec in enumerate(EXECUTABLE_DELAY_SPECS):
+    for index, spec in enumerate(CANONICAL_DELAY_SPECS):
         state = _prime_state_for_authored_source(engine, spec.source_event_id)
         engine.execute(state, spec.source_event_id, spec.source_choice_id)
         path = tmp_path / f"delay-{index}.json"
