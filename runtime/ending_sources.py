@@ -52,6 +52,12 @@ class EndingSourceCompiler:
 
         predicates: set[str] = set()
 
+        # E192-B is the sole source-closed producer of the current food-stability
+        # cycle; E192-A clears it. Keep this typed marker in the same compiler used
+        # by runtime trigger evaluation instead of maintaining a second special case.
+        if "food_logistics_stabilized" in flags_set and "food_logistics_unstable" not in flags_set:
+            predicates.add("pred.food_stable")
+
         domains = {
             "civic" if "people_charter_endorsed" in flags_set else None,
             "institutional" if {"crown_audited", "full_crown_audit_published"} & flags_set else None,
