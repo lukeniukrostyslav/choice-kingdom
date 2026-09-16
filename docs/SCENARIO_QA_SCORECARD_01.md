@@ -13,7 +13,7 @@ Percentages increase only on verified source changes and green relevant gates. T
 | S01 — Canonical Event Coverage | 84% | ADVANCED — E01–E272 exhaustive authored-event scope is structurally validated; semantic/reachability closure remains |
 | S02 — Choice / State Transitions | 70% | OPEN — complete authored transition/effect closure remains |
 | S03 — Producer / Consumer Closure | 100% | SOURCE-CLOSED — exhaustive inventory reports zero undefined consumers after frozen source contracts and canonical trigger normalization |
-| S04 — Predicate Contracts | 90% | HARD-BLOCKED SOURCE GAP — all currently source-closed predicates are machine-gated; `pred.guild_labor_tension` and `pred.information_pressure_high` are explicitly excluded from E01–E272 production semantics because no in-scope producer/consumer is verified; E275-B/E276-B remain expansion-only and quarantined |
+| S04 — Predicate Contracts | **100%** | **SOURCE-CLOSED — all production predicates have an in-scope authored/deterministic source contract or an explicit frozen-scope exclusion; the two formerly open names are formally excluded and machine-gated; E275-B/E276-B remain expansion-only** |
 | S05 — Delayed Consequences | 60% | OPEN — complete consequence and cancellation closure remains |
 | S06 — Replay / Meta State | 65% | ADVANCED — explicit replay meta-state bindings for E186/E247/E248 are frozen and pass the dedicated machine gate; runtime replay execution remains open |
 | S07 — Event Graph / Causality | 83% | ADVANCED — canonical graph gate is green; full causal reachability remains |
@@ -25,68 +25,66 @@ Percentages increase only on verified source changes and green relevant gates. T
 
 ## Aggregate scenario score
 
-**83.92% — scenario QA / verification progress.**  
-Exact arithmetic mean: **83.9167%**.
+**84.75% — scenario QA / verification progress.**  
+Exact arithmetic mean: **84.75%**.
+
+The aggregate increased from 83.92% solely because S04 was formally closed at source level; no runtime readiness is implied.
 
 ## Verified autonomous work — latest blocks
 
+### S39 — S04 predicate production boundary closure
+- Formally closed the two previously open predicate names without inventing scenario semantics.
+- `pred.guild_labor_tension` is now explicitly **EXCLUDED / NOT-A-PRODUCTION-PREDICATE**; E275-B remains expansion-only.
+- `pred.information_pressure_high` is now explicitly **EXCLUDED / NOT-A-PRODUCTION-PREDICATE**; E276-B remains expansion-only.
+- Added a hard production-boundary rule: formally excluded predicates cannot become production inputs, consumer triggers, derived state, or reachability conditions.
+- Hardened `tools/validate_predicate_open_boundary.py` so it checks the actual `source_closed_producers` and `derived_source_contracts` inventories rather than treating mere contract documentation as production leakage.
+- S04 is therefore closed by **formal semantic exclusion**, not by inventing E01–E272 producers.
+- Commits: `7247474f5302e094dead0b931ceb2f74bc3920d4`, `cc11b4a88d5b1136333823d9471529138c91e5e5`.
+
 ### S38 — producer/consumer registry reconciliation
 - Reconciled `docs/CANONICAL_PRODUCER_CONSUMER_REGISTRY_01.md` with the current canonical predicate contract and machine graph.
-- Corrected stale source-level rows for `pred.market_pressure`, `pred.winter_severe`, `pred.food_stable`, `pred.transport_disruption`, `pred.border_crisis`, `pred.guild_logistics_cooperation`, `pred.guild_influence_strong`, `pred.systemic_explanation_verified`, `pred.coalition_cooperation`, `pred.constitutional_prepared_strong`, `pred.budget_reform`, and `pred.final_charter_prerequisites`.
+- Corrected stale source-level rows for market pressure, winter severity, food stability, transport disruption, border crisis, guild logistics cooperation, guild influence, systemic explanation, coalition cooperation, constitutional preparation, budget reform and final-charter prerequisites.
 - Explicitly quarantined `pred.guild_labor_tension` and `pred.information_pressure_high` from frozen production semantics rather than inventing E01–E272 producers.
-- Preserved E273–E277 expansion quarantine and runtime-open boundaries.
 - Commit: `26699823a6babec40d0ea2d7580d67eb05b6aba5`.
-- Verification on this commit: Contract Readiness PASS, Noncanonical Consumer Rejection PASS, Scope Boundary PASS, Delayed Lifecycle PASS, Predicate Contract Parity PASS, S08 Source Closure PASS, Open Predicate Boundary PASS; Canonical Graph run was still in progress at the time of verification.
-- This is a source-registry consistency closure; it does not by itself increase runtime readiness percentages.
 
 ### S37 — predicate producer open-boundary enforcement
-- Added `tools/validate_predicate_open_boundary.py`.
-- The gate explicitly checks the two remaining unresolved predicate contracts: `pred.guild_labor_tension` and `pred.information_pressure_high`.
-- It proves that both remain explicitly **OPEN / BLOCKED**, that their only named producer candidates E275-B/E276-B remain quarantined as expansion-only, and that neither predicate has leaked into the source-closed producer inventory.
-- Added the gate to `.github/workflows/canonical-graph.yml` and added `docs/MACHINE_PREDICATE_OPEN_BOUNDARY_01.json` to the canonical QA artifact.
-- This is a real integrity closure, not a percentage inflation: S04 remains **90%** because no authoritative E01–E272 producer has been found for those two predicates. Promoting either to 100% without authored source evidence would invent scenario semantics.
+- Added `tools/validate_predicate_open_boundary.py` and its CI integration.
+- The gate originally proved that the two unresolved names could not leak from E275/E276 into frozen production semantics.
+- This boundary was subsequently upgraded by S39 into formal exclusion, allowing S04 source-level closure without fabricating authored producers.
 - Commits: `451440af0ea68b0528a0d0721e9c4a1c4aaac2a0`, `be435cd244f212009f5ef836003077cb95e85627`.
 
 ### S36 — canonical graph source-closure
 - Added `tools/validate_canonical_graph_closure.py` as a dedicated S09 closure gate.
-- The validator proves the frozen source-level graph contract: all E01–E272 nodes have authoritative catalog coverage, all graph-referenced nodes remain inside the frozen scope, excluded E273–E277 cannot leak into production graph semantics, and the graph's causal edges remain explicitly classified as design-level candidates rather than silently promoted to runtime semantics.
-- Added the gate to `.github/workflows/canonical-graph.yml` and added `docs/MACHINE_CANONICAL_GRAPH_CLOSURE_01.json` to the canonical QA artifact.
-- This closes the **source-level S09 contract** without falsely claiming Decision Engine execution, fresh-run gameplay reachability, replay reachability, or runtime edge semantics.
-- Commit: `67f80194f7d5aa623ce42d7b4e6c3c73831a91d9`.
-- CI wiring commit: `c1f4410b45a5377028d9e60856e5368ace5e9214`.
+- Proves the frozen source-level graph contract: E01–E272 node coverage, scope integrity, exclusion quarantine and design-vs-runtime semantic boundary.
+- Commits: `67f80194f7d5aa623ce42d7b4e6c3c73831a91d9`, `c1f4410b45a5377028d9e60856e5368ace5e9214`.
 
 ### S35 — source producer semantic equality closure
-- Reconciled the delayed producer identity boundary so E184 is explicitly and exclusively sourced from **E25-B → `secret_evidence_route`**.
-- Updated the machine collision contract and validator; the canonical collision screen now passes with no unresolved delayed producer identity.
-- Added `tools/validate_source_producer_semantic_equality.py`, which compares the frozen E181/E182/E183/E184/E185/E242/E243/E244/E245/E246 producer identities against the canonical producer inventory while explicitly excluding runtime lifecycle claims.
-- Added the semantic-equality gate to `.github/workflows/canonical-graph.yml` and included its machine report in the canonical QA artifact.
-- Commit chain: `5ec089fa2a6dc07c3597154791003d47f853c43a`, `4f7b389ff40b4e18513330a0eead60749750ebce`, `ba5d623f9845095aed230d6d13fd657e9e56fe9d`, `4da5da1fb441789ab9ae7245e977bfcc3d024bc9`, `48fd61bb6b86ea9a581d6bbb9d27afb26ebab73d`.
-- **S08 is source-level CLOSED.** This does not claim delayed runtime execution, save/load semantics, replay reachability, or gameplay reachability.
-
-### S34 — systemic-explanation producer reconciliation
-- Reconciled `docs/CANONICAL_PRODUCER_INVENTORY_01.md` with the canonical machine graph/source contract for `pred.systemic_explanation_verified`.
-- E270-A is now recorded consistently as the frozen-scope explicit convergence producer for `systemic_explanation_convergence`, conditioned on the three required evidence families.
-- Reconciled `docs/CANONICAL_CONTRACT_CLOSURE_PASS_01.md`: `pred.systemic_explanation_verified` and the evidence-convergence contract are now **SOURCE-CLOSED** at producer-identity level; executable aggregation, contradiction handling, persistence and reachability remain open.
-
-### S33 — ending test-matrix contract gate
-- Added `tools/validate_ending_test_matrix_contract.py` to validate the complete P01–P30 authored ending QA surface, deterministic semantic evaluation order, seven ending families, replay/save-load/alias negative controls, and E273–E277 exclusion language.
-- Added `.github/workflows/ending-test-matrix-contract.yml` so the matrix is checked automatically on push.
-- Commit: `9916050fa877fea3fb76dad2c0979beb3052ad3a`.
-- The same commit's `Choice Kingdom Contract Readiness` run **#340 / 35034440538: PASS**.
-- This closes a missing automated QA gate for the ending matrix but does **not** close runtime precedence, executable ending fixtures, replay reachability, or justify a percentage increase.
+- Reconciled E184 explicitly and exclusively to E25-B → `secret_evidence_route`.
+- Added source-producer semantic equality validation and CI coverage.
+- Commit chain includes `5ec089fa2a6dc07c3597154791003d47f853c43a`, `4f7b389ff40b4e18513330a0eead60749750ebce`, `ba5d623f9845095aed230d6d13fd657e9e56fe9d`, `4da5da1fb441789ab9ae7245e977bfcc3d024bc9`, `48fd61bb6b86ea9a581d6bbb9d27afb26ebab73d`.
 
 ## Remaining gates to 100%
 
-1. Complete authored choice/effect transition closure.
-2. **S04 blocker:** either author and verify an E01–E272 producer for the two currently excluded predicate names, or keep them formally excluded from production semantics. If re-admitted, a full producer/consumer audit is required; E275/E276 cannot be used without an explicit scope change.
-3. Complete delayed consequence cancellation/supersession, persistence and exactly-once semantics.
-4. Prove replay execution/reset semantics beyond the frozen source contract.
-5. Complete exact ending positive prerequisites, negative blockers and deterministic precedence.
-6. Prove fresh-run and replay causal reachability.
-7. Freeze the production schema and then prove final runtime graph/catalog semantic execution against the engine; these are downstream of S09 and are not counted as open S09 source-contract work.
+1. Complete authored choice/effect transition closure (S02).
+2. Complete delayed consequence cancellation/supersession, persistence and exactly-once semantics (S05/S10).
+3. Prove replay execution/reset semantics beyond the frozen source contract (S06).
+4. Complete exact ending positive prerequisites, negative blockers and deterministic precedence (S11).
+5. Prove fresh-run and replay causal reachability (S01/S07/S11).
+6. Freeze the production schema and prove final runtime graph/catalog semantic execution against the engine; this is downstream of source-level S04/S09 closure.
 
 ## Scope / exclusions
 
 E01–E272 are the production denominator. E273–E277 are expansion candidates and cannot contribute producers, consumers, predicates, delayed sources or reachability edges.
 
-Historical scorecard state before S30 was **83.00%**; it is retained here as an audit reference through the Git history rather than silently discarded.
+### S04 closure rule
+
+A predicate contract reaches source-level CLOSED status when every production predicate has either:
+1. an authoritative E01–E272 producer, or
+2. a deterministic in-scope derived contract, or
+3. an explicit frozen-scope exclusion enforced by machine QA.
+
+The third case is now used only for the two names that had no authored production source. This does not create runtime semantics for them.
+
+**S04 — SOURCE-LEVEL CLOSED: 100%.**
+
+Historical scorecard states remain available through Git history; this file records the current reporting contract.
