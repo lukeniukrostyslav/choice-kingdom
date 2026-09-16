@@ -1,110 +1,73 @@
 # Choice Kingdom — Project State
 
 ## Product
-Original premium offline-first decision-and-consequence mobile game set in Avelune. Meaningful choices, recurring characters, delayed consequences, hidden information, systemic event chains, multiple endings and replayable paths.
-
-## Release target
-- Android-first premium one-time purchase, approximately €2.99–€4.99.
-- No ads, no subscription, no mandatory backend for core gameplay.
-- 20+ locales including RTL and long-string validation.
-- Full authored campaign target: approximately 250–350+ meaningful nodes and 8–12 recognizable endings.
-
-## Frozen authored scope
-Production catalog is **E01–E272**. E273–E277 are expansion candidates and are excluded from production semantics, producer/consumer edges and reachability.
+Original premium offline-first decision-and-consequence mobile game set in Avelune. Android-first, one-time purchase target €2.99–€4.99, no ads/subscription/mandatory backend for core gameplay, 20+ locales including RTL. Frozen production catalog: **E01–E272**. E273–E277 are expansion-only and excluded from production semantics/reachability.
 
 ## Development order
-**Content → canonical QA → machine-readable contracts → Decision Engine → UI → localization/tests → Android QA → APK → release.**
-
-No mock/stub gameplay or premature production-readiness claims.
+**Content → canonical QA → machine-readable contracts → Decision Engine → UI → localization/tests → Android QA → APK → release.** No mock/stub gameplay and no premature readiness claims.
 
 ## Current phase
-**Scenario QA remains the active phase, now moving from source/contract integration into runtime scenario verification. S01–S12 are source/contract closed, including S06 replay/meta-state. The scenario-wide source/contract integration gate is GREEN on GitHub. Decision Engine remains intentionally blocked until runtime scenario verification is implemented and verified.** Authored checkpoint E01–E272.
+**Scenario QA → runtime scenario verification.** S01–S12 are source/contract closed. Scenario-wide source/contract integration is GREEN. The first executable runtime state/persistence boundary is now implemented and CI-verified. Full Decision Engine promotion remains blocked until authored choice execution, delayed lifecycle, replay/meta transfer, ending resolution, save/load equivalence and determinism are verified.
 
-## Current verified S01–S12 scorecard
-- S01 **100%** — frozen E01–E272 catalog closure, source inventory exhaustiveness and canonical structural reachability gate are GREEN. Source-level only; runtime gameplay reachability remains downstream.
-- S02 **100%** — authored choice → state/effect transition closure is source-level closed and CI-verified. Runtime Decision Engine execution remains downstream.
-- S03 **100%** — source-level producer/consumer closure closed.
-- S04 **100%** — production predicate contracts source-closed; explicit frozen exclusions are machine-gated.
-- S05 **100%** — ten frozen high-risk delayed callbacks E181–E185 and E242–E246 are source/contract closed with exact identities, deterministic relative/condition-bound timing, unique lifecycle identity, cancellation classification, explicit supersession, persistent save/load policy and run-scoped replay policy. Runtime lifecycle execution is not claimed.
-- S06 **100% source/contract** — replay/meta-state surface E186/E247/E248 is contract-closed with explicit reset boundary, immediately-completed-prior-run import boundary and exactly-once import. Dedicated GitHub Actions run `35105326553` completed **success** on 2026-09-16. Runtime replay execution/reset/isolation remains downstream.
-- S07 **100%** — source-level causal graph closed and CI-verified.
+## S01–S12 source/contract scorecard
+- S01 **100%** — frozen E01–E272 catalog/source inventory/structural reachability closure.
+- S02 **100%** — authored choice → state/effect transition closure, CI-verified; runtime execution downstream.
+- S03 **100%** — producer/consumer source closure.
+- S04 **100%** — predicate contracts source-closed; frozen exclusions machine-gated.
+- S05 **100%** — ten frozen delayed callbacks E181–E185 and E242–E246 source/contract closed; runtime execution downstream.
+- S06 **100% source/contract** — E186/E247/E248 replay/meta contract closed; runtime replay downstream.
+- S07 **100%** — source causal graph closed and CI-verified; runtime reachability downstream.
 - S08 **100%** — source/producer QA closed and CI-verified.
 - S09 **100%** — canonical graph source closure closed and CI-verified.
-- S10 **100%** — frozen high-risk delayed lifecycle source/contract surface E181–E185 and E242–E246 is source-closed. Production runtime execution is not claimed.
-- S11 **100%** — ending qualification, precedence and exact runtime-identifier alias boundary are implemented and CI-verified. Runtime ending execution remains downstream.
+- S10 **100%** — delayed lifecycle source/contract surface closed; runtime downstream.
+- S11 **100%** — ending qualification/precedence/identifier boundary CI-verified; runtime ending resolution downstream.
 - S12 **100%** — scope/integrity gates closed.
 
-**Scenario QA source/contract status: 100%.** This is not 100% runtime scenario completion. Fresh-run gameplay, replay execution, save/load gameplay equivalence, runtime ending resolution and Decision Engine execution remain hard runtime blocks.
+**Scenario QA source/contract status: 100%. This is not 100% runtime gameplay completion.**
 
 ## Latest verified work
-### Scenario-wide source/contract integration gate — GREEN
-- Commit `51809fddc344c02ad48b48a44a7a4df5f7aea2cf` fixed the workflow so canonical causal reports are rebuilt inside the scenario-wide job instead of relying on a prior workflow artifact.
-- GitHub Actions run `35106595137` (`Choice Kingdom Scenario-Wide Source Contract Gate`, run #3) completed **success** on 2026-09-16.
-- Its job `scenario-wide-gate` completed successfully through: canonical source report rebuild → scenario-wide source/contract gate → runtime-promotion-block assertion.
-- Related canonical graph, S01, predicate parity, open-predicate boundary and delayed-lifecycle checks on the same commit were also GREEN.
-- This is a **source/contract integration GREEN only**. Runtime promotion remains blocked by design.
+### Scenario-wide source/contract integration — GREEN
+- Commit `51809fddc344c02ad48b48a44a7a4df5f7aea2cf` fixed causal-report generation inside the wide-gate workflow.
+- GitHub Actions run `35106595137` completed **success** on 2026-09-16.
+- Runtime-promotion-block assertion also passed.
 
-### Runtime scenario verification — PLAN CREATED
-- Added `docs/RUNTIME_SCENARIO_VERIFICATION_PLAN_01.md`.
-- The plan defines executable gates for fresh-run isolation, authored choice/state execution, delayed consequences, replay/meta transfer, ending resolution/precedence, save/load equivalence and determinism, plus required negative cases.
-- No runtime implementation or Decision Engine promotion is claimed by this plan.
+### Runtime scenario core — FIRST EXECUTABLE RUNTIME BOUNDARY GREEN
+Repository inspection showed no existing Godot/runtime/persistence implementation to wrap at this boundary; the repository was still catalog/contracts/QA-only. A mock path was therefore not introduced.
 
-### S06 — REPLAY / META-STATE SOURCE/CONTRACT CLOSURE: 100%
-- Added `docs/S06_REPLAY_META_STATE_CLOSURE_01.md`.
-- Added `tools/validate_s06_replay_meta_state_closure.py` and `.github/workflows/s06-replay-meta-state-closure.yml`.
-- Frozen replay surface is exactly E186, E247 and E248.
-- Contract enforces run reset, import only from the immediately completed prior run, exactly-once import, terminal-state isolation and preservation of E186 same-run `warehouse_arson` routing.
-- Dedicated GitHub Actions run `35105326553` completed **success** on 2026-09-16.
-- Runtime replay execution/reset/isolation is deliberately not claimed.
+Added:
+- `runtime/__init__.py`
+- `runtime/state.py` — versioned `GameState`, canonical five resources/six relationships, flags/history/threads, run-local pending delays, exactly-once delay resolution, E273–E277 rejection, JSON save/load boundary.
+- `tests/test_runtime_state.py` — fresh-run isolation, save/load equivalence, exactly-once delays, condition-bound delay discipline, excluded-event rejection.
+- `.github/workflows/runtime-scenario-core.yml`
 
-### S05 — DELAYED LIFECYCLE SOURCE/CONTRACT CLOSURE: 100%
-- Added `docs/S05_DELAYED_LIFECYCLE_CLOSURE_01.md`, `tools/validate_s05_delayed_lifecycle_closure.py` and `.github/workflows/s05-delayed-lifecycle-closure.yml`.
-- Locked E181–E185 and E242–E246 to exact authored source choices: E45-B, E117-B, E118-B, E25-B, E17-A, E118-B, E18-B, E09-B, E20-A and E160-A.
-- Required unique lifecycle identities, explicit timing, resolution target, cancellation classification, supersession, persistent save/load, run-scoped replay and deterministic priority.
-- No authored cancellation/supersession edges were invented; `none_authored`/`null` are explicit.
+GitHub Actions run **`35107430687`** (`Choice Kingdom Runtime Scenario Core`, #1) completed **success** on 2026-09-16. Runtime test step completed successfully.
 
-### S01 — SCENARIO SOURCE CLOSURE: 100% SOURCE-LEVEL
-- Added `tools/validate_s01_scenario_closure.py` and `.github/workflows/s01-scenario-source-closure.yml`.
-- Frozen production scope E01–E272; E273–E277 excluded.
-- S01 verifies exhaustive frozen catalog coverage, no unexpected duplicate headings, inventory 272/272 and causal reachability closure.
-- GitHub Actions check `35104747355` completed **success** on 2026-09-16.
+This is **runtime foundation GREEN**, not full gameplay GREEN. The runtime does not yet execute all 520 authored choices or the complete event catalog.
 
-### S10 — Delayed Lifecycle: SOURCE/CONTRACT CLOSED 100%
-- `docs/MACHINE_DELAY_CONTRACT_01.json` and `docs/MACHINE_CANONICAL_GRAPH_01.json` were hardened around the ten frozen delayed consumers.
-- E185 uses exact E17-A producer identity and remains condition-bound to a later military crisis with `earliestTurn=null`; no invented turn was introduced.
-
-### S02 — Choice → State Transition: SOURCE-CLOSED 100%
-- Added `docs/S02_CHOICE_STATE_TRANSITION_CLOSURE_01.md` and `tools/validate_s02_choice_state_transition_closure.py`.
-- Frozen source cardinality is 272 events / 259 normal / 13 special / 520 choice rows.
-- GitHub Actions S02 run `35100082164` completed **success** on 2026-09-16.
-
-### S11 — Ending / Replay QA: SOURCE-CLOSED 100%, CI GREEN
-- Added machine-readable ending qualification and precedence contracts and exact alias-boundary validation.
-- GitHub Actions manual workflow run #6, commit `847502b`, completed **Success**.
-
-## Major downstream blocks
+## Major blocks
 - Foundation / Rules: **95%**
 - Authored Content: **90%**
-- Canonical Event IDs / Continuity: **100%**
+- Canonical IDs / Continuity: **100%**
 - Producer / Consumer QA: **100%**
 - Derived Predicates / Machine Contracts: **90%**
-- Delayed Consequences: **100% source/contract closure for frozen high-risk surface; runtime not implemented**
-- Replay / Meta-state: **100% source/contract closure; runtime not implemented**
-- Endings / precedence: **100% source-level + CI GREEN; runtime ending execution remains**
+- Delayed Consequences: **100% source/contract; runtime execution pending**
+- Replay / Meta-state: **100% source/contract; runtime transfer pending**
+- Endings / precedence: **100% source/contract + CI; runtime resolution pending**
 - Reachability / Causal Graph: **100% source-level**
 - Production Data Schema: **36%**
-- Decision Engine: **0%**
+- Runtime State / Persistence Foundation: **15%**
+- Decision Engine: **0%** — state boundary alone is not the engine.
 - UI / UX: **0%**
 - Localization 20+: **5%**
 - Android Implementation: **0%**
-- Runtime / Android QA: **0%**
+- Runtime / Android QA: **0%** beyond headless runtime foundation
 - APK: **0%**
 - Release: **0%**
 
-Overall project progress remains approximately **61%**. Source/contract closure is not runtime/gameplay completion.
+Overall project progress remains approximately **61%**; the new runtime foundation is intentionally too small to change the rounded overall estimate.
 
 ## NEXT ACTION
-**Inspect the actual runtime/engine and persistence boundaries in the repository, then implement the first executable runtime scenario harness without introducing mock gameplay. Start with fresh-run isolation and save/load equivalence, then add delayed lifecycle, replay/meta transfer and ending-resolution gates. Do not promote the Decision Engine until all required runtime scenario gates are GREEN.**
+**Extend the real runtime boundary into authored choice execution. Build a data-driven event/choice loader against the frozen E01–E272 authored source/contracts, then verify representative immediate state transitions and route handling. Next integrate the ten frozen delayed lifecycle entries, replay/meta import boundary, ending resolver and complete save/load/determinism gates. Do not promote Decision Engine production readiness until the complete runtime scenario gate is GREEN.**
 
 ## Honest progress rule
-Documentation alone never makes implementation complete. Source edits count only when authoritative evidence is changed/re-read. No block is ready until its applicable verification passes. Source/contract GREEN must never be reported as runtime gameplay GREEN.
+Documentation alone never makes implementation complete. Every percentage requires authoritative evidence and the applicable verification. Source/contract GREEN must never be reported as runtime gameplay GREEN.
