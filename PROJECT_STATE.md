@@ -18,11 +18,11 @@ Production catalog is **E01–E272**. E273–E277 are expansion candidates and a
 No mock/stub gameplay or premature production-readiness claims.
 
 ## Current phase
-**Narrative/content canonicalization and QA.** Authored checkpoint E01–E272. Source-level canonical graph and causal closure are now green; production schema, Decision Engine, UI and runtime reachability remain downstream.
+**Narrative/content canonicalization and QA.** Authored checkpoint E01–E272. Source-level canonical graph, causal closure and authored choice/state transition closure are now green; production schema, Decision Engine, UI and runtime reachability remain downstream.
 
 ## Current verified S01–S12 scorecard
 - S01 **84%** — authored-event coverage structurally validated; semantic/gameplay reachability remains.
-- S02 **70%** — authored choice/effect transition closure remains incomplete.
+- S02 **100%** — authored choice → state/effect transition closure is source-level closed and CI-verified. Runtime Decision Engine execution, persistence and gameplay reachability remain downstream and are not included in this source-level percentage.
 - S03 **100%** — source-level producer/consumer closure closed.
 - S04 **100%** — production predicate contracts source-closed; explicit frozen exclusions are machine-gated.
 - S05 **60%** — delayed consequence cancellation/supersession and full lifecycle semantics remain.
@@ -34,9 +34,20 @@ No mock/stub gameplay or premature production-readiness claims.
 - S11 **72%** — ending/replay QA remains open on exact executable prerequisites, precedence and reachability.
 - S12 **100%** — scope/integrity gates closed.
 
-**Scenario QA aggregate: 86.17%** (exact mean 86.1667%). This is source/contract verification progress, not runtime or Android readiness.
+**Scenario QA aggregate: 88.67%** (exact mean 88.6667%). This is source/contract verification progress, not runtime or Android readiness.
 
 ## Latest verified work
+### S02 — Choice → State Transition: SOURCE-CLOSED 100%
+- Added `docs/S02_CHOICE_STATE_TRANSITION_CLOSURE_01.md` defining the frozen S02 source contract.
+- Added `tools/validate_s02_choice_state_transition_closure.py` as an executable S02 closure gate.
+- Added `.github/workflows/s02-choice-state-transition-closure.yml` for push/PR verification.
+- Frozen source cardinality is **272 events / 259 normal / 13 special / 520 choice rows**.
+- E51-C and E108-C are the confirmed authored additional alternatives.
+- Base transition validator reports **semantic_gaps=0**, explicit transition payloads, distinct alternative signatures and authored event coverage for all 272 events.
+- S02 closure gate additionally rejects numeric contextual sixth-resource patterns and confirms the frozen 520-row cardinality.
+- GitHub Actions S02 run **35100082164**, job **104806986908**, head `3bf2d8f8bbb1fdb75ef2084e9d1ed25a9f598bdc`, completed **success** on 2026-09-16. The job log reports `S02_CHOICE_STATE_TRANSITION_CLOSURE: PASS`.
+- This is source-level closure only. Runtime Decision Engine execution, save/load persistence, replay execution and gameplay reachability remain downstream gates.
+
 ### S07 — Event Graph / Causality: SOURCE-CLOSED 100%
 - Added and wired `tools/validate_causal_reachability_contract.py`.
 - Frozen production scope is E01–E272; E273–E277 remain excluded.
