@@ -8,9 +8,9 @@ ROOT = Path(__file__).resolve().parents[1]
 GRAPH = ROOT / "docs/MACHINE_CANONICAL_GRAPH_01.json"
 EXPECTED = {f"E{i:02d}" for i in range(1, 273)}
 HEADING = re.compile(r"^### (E\d{2,3}) — .+$", re.M)
-# Canonical catalogs use **A — ...** and - **A — ...:** followed by effects.
 CHOICE_HEADING = re.compile(r"^(?:-\s*)?\*\*([AB])\s*[—:]\s*(.*?)\*\*", re.M)
-CHOICE_PLAIN = re.compile(r"^(?:-\s*)?([AB])\s*[—:]\s*(.+?)\s*$", re.M)
+# Older expansion blocks use '- A action:' / '- B action:' without bolding.
+CHOICE_PLAIN = re.compile(r"^\s*-\s*([AB])(?:\s+[A-Za-zА-Яа-я]|\s*[—:])(.+?)\s*$", re.M)
 TOKEN_RE = re.compile(r"`[^`]+`")
 DELTA_RE = re.compile(r"[+-]\d+(?:\.\d+)?\s+[A-Za-zА-Яа-я_]+")
 CLAUSE_RE = re.compile(r"^\s*-\s*(?:Immediate|Flag|Unlock|Producer|Delayed|Resolution|Clear|Trigger|Effect|State|History|Meta|Ending|Condition)\s*:", re.I | re.M)
@@ -20,7 +20,7 @@ EFFECT_PATTERNS = [
     CLAUSE_RE,
     re.compile(r"\b(?:clear|clears|reset|resets|resolve|resolves|cancel|cancels|invalidate|invalidates|revoke|revokes|prevent|prevents|schedule|schedules|unlock|unlocks|delayed|immediate|establish|establishes|produces|sets|marks)\b", re.I),
 ]
-STATE_HINT = re.compile(r"(?:\b(?:state|flag|predicate|history|thread|meta|ending|cycle|condition|route|evidence|trigger|effect|immediate|delayed|unlock|producer|resolution)\b|`[^`]+`)", re.I)
+STATE_HINT = re.compile(r"(?:\b(?:state|flag|predicate|history|thread|meta|ending|cycle|condition|route|evidence|trigger|effect|immediate|delayed|unlock|producer|resolution|creates|unlocks|later)\b|`[^`]+`)", re.I)
 SPECIAL_EVENT_HINT = re.compile(r"\b(?:Source-level producer|canonical producer|explicitly establishes|explicitly records|derived gate)\b", re.I)
 
 
