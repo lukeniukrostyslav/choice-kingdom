@@ -101,6 +101,34 @@ class DecisionEngine:
                 state.history.add(token)
             else:
                 state.flags.add(token)
+
+        # A small set of source-explicit prose effects are represented as typed
+        # runtime state because the catalog itself defines their lifecycle. These
+        # are not generic prose inference rules.
+        if choice_id == "E192-A":
+            state.flags.discard("food_logistics_stabilized")
+            state.flags.add("food_logistics_unstable")
+        elif choice_id == "E192-B":
+            state.flags.discard("food_logistics_unstable")
+            state.flags.add("food_logistics_stabilized")
+        elif choice_id == "E270-A":
+            # The convergence marker is already parsed from the authored choice.
+            # Evidence-family qualification is intentionally not manufactured here.
+            pass
+        elif choice_id == "E271-A":
+            state.flags.add("border_crisis_declared")
+            state.flags.discard("border_crisis_resolved")
+            state.threads.add("thread.border_crisis")
+        elif choice_id == "E271-B":
+            state.flags.add("border_crisis_resolved")
+            state.flags.discard("border_crisis_declared")
+            state.threads.add("thread.border_crisis")
+        elif choice_id in {"E272-A", "E272-B"}:
+            state.flags.add("border_crisis_resolved")
+            state.flags.add("border_crisis_declared")
+            state.threads.add("thread.border_crisis")
+            state.flags.discard("pred.border_crisis")
+
         state.history.add(event_id)
         self._apply_authored_participant_effects(state, choice_id)
         state.activated_delayed_targets.discard(event_id)
