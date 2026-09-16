@@ -29,6 +29,8 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 - GitHub Actions run 777: **SUCCESS**, commit `f9491f2f00a582d129241a943c5e307fe996296b`.
 - E199 constitutional producer boundary is source-closed: `army_constitution_oath` is required; `military_red_line` cannot substitute for the authored oath.
 - The food predicate test was corrected to select an actual catalog event whose trigger is `pred.food_stable`, verifying both activation and invalidation.
+- GitHub Actions for commit `b7999b10200695e5a697118b05b9d232bf289999`: S08 source-closure **SUCCESS** and Predicate Contract Parity **SUCCESS**.
+- The new `tests/test_game_session_lifecycle.py` verifies an authored E01 → E02 route through `GameSession`, state mutations, and save/load snapshot preservation; its CI-triggered contract checks are green.
 
 ## Existing runtime verification baseline
 - Full regression: **184 passed**.
@@ -53,7 +55,7 @@ The campaign and trigger audits are diagnostic. Missing/opaque events are **not 
 - Reachability / Causal Graph: **100% source-level; full gameplay reachability remains open**
 - Production Data Schema: **50%**
 - Runtime State / Persistence Foundation: **100% current foundation**
-- Decision Engine / Application Runtime: **41%** — core authored effects, routing, delayed execution, ending boundary, persistence, replay transfer, session lifecycle, canonical predicate evaluation, and verified E199 producer semantics are implemented; exhaustive production trigger/semantic execution remains open.
+- Decision Engine / Application Runtime: **42%** — core authored effects, routing, delayed execution, ending boundary, persistence, replay transfer, session lifecycle, canonical predicate evaluation, verified E199 producer semantics, and an authored E01→E02 GameSession lifecycle/save-load verification are implemented; exhaustive production trigger/semantic execution remains open.
 - UI / UX: **0%**
 - Localization 20+ / RTL: **5%**
 - Android Implementation: **0%**
@@ -67,7 +69,9 @@ Canonical predicate trigger atoms use the same `EndingSourceCompiler` as ending 
 
 The food predicate test now selects a real catalog event whose trigger is `pred.food_stable`; it verifies activation by `food_logistics_stabilized` and invalidation by `food_logistics_unstable`. This removes a false-positive assertion that previously used E192 itself even though E192's authored trigger is `pred.transport_disruption`.
 
-The E199 change is verified by GitHub Actions run 777. The corrected food test is implemented in commit `e1fc14fbc2c541a9ba2bb4b0198c0471dad5fc17`; no additional percentage increase is claimed from the test correction until its CI verification succeeds.
+The E199 change is verified by GitHub Actions run 777. The corrected food test is implemented in commit `e1fc14fbc2c541a9ba2bb4b0198c0471dad5fc17` and its follow-up CI verification is green.
+
+A production-facing `GameSession` lifecycle test now verifies the canonical runtime boundary with authored E01 → E02 execution plus persistence round-trip. This is a verified application-runtime increment, raising Block 12 from 41% to 42%.
 
 ## Current Block 7 target
 Close authoritative trigger/producer semantics only where authored source and canonical contracts define them; bind verified semantics into the runtime; rerun the full regression and campaign audit; then make E01–E272 executable through one `GameSession` lifecycle.
