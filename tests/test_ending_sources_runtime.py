@@ -1,6 +1,10 @@
 from __future__ import annotations
 
+import pytest
+
+from runtime.ending_contract import EndingContractError, EndingQualification
 from runtime.ending_sources import EndingSourceCompiler
+from runtime.endings import END_STEWARD, EndingResolver
 from runtime.state import GameState, SaveStore
 
 
@@ -100,6 +104,39 @@ def test_live_game_state_is_the_runtime_source_boundary() -> None:
     assert "pred.systemic_explanation_verified" in facts.predicates
     assert "pred.coalition_cooperation" in facts.predicates
     assert "pred.final_charter_prerequisites" in facts.predicates
+
+
+def test_live_state_rejects_stale_aliases_instead_of_promoting_them() -> None:
+    state = GameState.fresh("alias-negative")
+    state.flags.update({"four_way_bargain", "systemic_explanation_convergence"})
+    state.threads.update({"thread.border", "thread.guild"})
+    state.history.add("history.cross_faction_package")
+    state.coalition_participants.update({"commons", "guild"})
+    state.ending_evidence_families.update({"warehouse_or_financial", "document_or_language"})
+
+    facts = EndingSourceCompiler.compile_state(state)
+    assert "pred.coalition_cooperation" not in facts.predicates
+    assert "pred.systemic_explanation_verified" not in facts.predicates
+    assert "pred.final_charter_prerequisites" not in facts.predicates
+
+
+def test_unscoped_second_founder_prerequisites_are_rejected() -> None:
+    with pytest.raises(EndingContractError, match="unscoped systemic_explanation_verified"):
+        EndingQualification.build(flags={"systemic_explanation_verified"})
+    with pytest.raises(EndingContractError, match="unscoped coalition_cooperation"):
+        EndingQualification.build(flags={"coalition_cooperation"})
+
+
+def test_ending_resolution_is_repeatable_from_the_same_snapshot() -> None:
+    state = GameState.fresh("deterministic-ending")
+    state.terminal = True
+    EndingResolver().resolve(state, qualified_endings=[END_STEWARD])
+    snapshot = state.snapshot()
+
+    first = snapshot["ending_identity"]
+    restored = GameState.from_snapshot(snapshot)
+    second = EndingResolver().resolve(restored, qualified_endings=[END_STEWARD]).ending_id
+    assert first == second == END_STEWARD
 
 
 def test_ending_source_facts_survive_save_load_without_leaking_to_fresh_run(tmp_path) -> None:
