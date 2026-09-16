@@ -1,0 +1,25 @@
+name: Choice Kingdom Runtime Scenario Core
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'runtime/**'
+      - 'tests/test_runtime_state.py'
+      - '.github/workflows/runtime-scenario-core.yml'
+  workflow_dispatch:
+
+jobs:
+  runtime-state-core:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install test runner
+        run: python -m pip install --disable-pip-version-check pytest
+      - name: Run runtime state tests
+        run: python -m pytest -q tests/test_runtime_state.py
