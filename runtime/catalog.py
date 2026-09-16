@@ -18,6 +18,7 @@ REL_RE = re.compile(r"([+-]\d+)\s+(Mara|Rowan|Seris|Ivo|Amara|Toma)\b", re.I)
 TOKEN_RE = re.compile(r"`([^`]+)`")
 AFTER_EVENT_RE = re.compile(r"\bafter\s+(E\d{2,3})\b", re.I)
 COMPLETED_EVENT_RE = re.compile(r"\b(E\d{2,3})\s+(?:complete|completed|resolved)\b", re.I)
+STANDALONE_EVENT_RE = re.compile(r"\b(E\d{2,3})\b", re.I)
 NUMERIC_RE = re.compile(r"\b(gold|trust|security|power|reputation)\s*(<=|>=|<|>)\s*(\d+)\b", re.I)
 REL_COND_RE = re.compile(r"\b(Mara|Rowan|Seris|Ivo|Amara|Toma)\s*(<=|>=|<|>)\s*(-?\d+)\b", re.I)
 
@@ -171,6 +172,20 @@ class AuthoredCatalog:
             matched_condition = True
             if required not in state.history:
                 return False
+        # Some authored triggers use a direct event reference as one branch of
+        # an OR expression (for example, "E146 or strong cross-faction cooperation").
+        # Treat only explicit event IDs as completed-event prerequisites; other
+        # prose remains non-executable until it has a canonical token binding.
+        authored_event_refs = tuple(dict.fromkeys(ref.upper() for ref in STANDALONE_EVENT_RE.findall(trigger)))
+        for required in authored_event_refs:
+            if required == event_id:
+                continue
+            if required not in state.history:
+                continue
+            matched_condition = True
+            break
+        else:
+            authored_event_refs = ()
         for name, op, raw in REL_COND_RE.findall(trigger):
             matched_condition = True
             if not _compare(state.relationships[name.lower()], op, int(raw)):
