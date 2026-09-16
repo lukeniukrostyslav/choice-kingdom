@@ -56,6 +56,7 @@ The following entries declare authored production nodes that currently have no e
 - E112 — coverage declaration only
 - E113 — coverage declaration only
 - E115 — coverage declaration only
+- E210 — coverage declaration only
 
 ## Core spine
 `E01 -> E02 -> E03 -> E04`
