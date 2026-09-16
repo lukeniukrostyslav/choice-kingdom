@@ -38,6 +38,8 @@ def test_source_closed_composites_are_not_silently_runtime_closed() -> None:
 def test_guild_influence_machine_contract_is_explicit_and_unverified() -> None:
     path = ROOT / "docs" / "MACHINE_GUILD_INFLUENCE_CONTRACT_01.json"
     contract = load(path)
+    graph = load(GRAPH)
+    graph_contract = graph["composite_predicates"]["pred.guild_influence_strong"]
     assert contract["scope"] == "E01-E272"
     assert contract["predicate"] == "pred.guild_influence_strong"
     assert contract["minimum_distinct_domains"] == 3
@@ -47,6 +49,8 @@ def test_guild_influence_machine_contract_is_explicit_and_unverified() -> None:
         "commercial_market",
         "qualified_logistics",
     ]
+    assert graph_contract["min_distinct_domains"] == contract["minimum_distinct_domains"]
+    assert graph_contract["domains"] == [d["id"] for d in contract["domains"]]
     assert contract["consumer_cannot_manufacture"] is True
     assert contract["runtime_verified"] is False
     assert "rel.ivo" in contract["forbidden_aliases"]
@@ -55,6 +59,8 @@ def test_guild_influence_machine_contract_is_explicit_and_unverified() -> None:
 def test_coalition_machine_contract_freezes_e148_participant_identity_boundary() -> None:
     path = ROOT / "docs" / "MACHINE_COALITION_COOPERATION_CONTRACT_01.json"
     contract = load(path)
+    graph = load(GRAPH)
+    graph_contract = graph["composite_predicates"]["pred.coalition_cooperation"]
     assert contract["producer"] == "E148-A"
     assert contract["minimum_distinct_participants"] == 3
     assert contract["canonical_participant_identities"] == [
@@ -65,6 +71,9 @@ def test_coalition_machine_contract_freezes_e148_participant_identity_boundary()
         "amara",
         "toma",
     ]
+    assert graph_contract["producer"] == contract["producer"]
+    assert graph_contract["minimum_distinct_participants"] == contract["minimum_distinct_participants"]
+    assert graph_contract["canonical_participant_identities"] == contract["canonical_participant_identities"]
     assert contract["producer_runtime_binding"]["choice"] == "E148-A"
     assert contract["runtime_verified"] is False
 
