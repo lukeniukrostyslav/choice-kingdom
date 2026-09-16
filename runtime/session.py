@@ -5,6 +5,7 @@ from pathlib import Path
 
 from .ending_contract import EndingQualification
 from .endings import EndingResolution, EndingResolver
+from .ending_sources import EndingSourceCompiler, SourceClosedEndingFacts
 from .engine import DecisionEngine, ExecutionResult, DelayedActivationResult
 from .replay import CompletedRunExport, ReplayBoundary
 from .state import GameState, SaveStore
@@ -93,6 +94,10 @@ class GameSession:
         result = self.engine.execute(self.state, due.target_event_id, choice_id)
         self._selected_event_id = self.state.current_event_id
         return result
+
+    def ending_source_facts(self) -> SourceClosedEndingFacts:
+        """Expose only source-closed derived ending facts for application code."""
+        return EndingSourceCompiler.compile_state(self.state)
 
     def resolve_ending(self, qualification: EndingQualification) -> EndingResolution:
         if self.state.terminal:
