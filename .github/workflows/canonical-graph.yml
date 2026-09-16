@@ -11,6 +11,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Validate source-level canonical graph contract
         run: python3 tools/validate_canonical_graph.py
+      - name: Validate canonical graph source closure
+        run: python3 tools/validate_canonical_graph_closure.py
       - name: Validate frozen event graph integrity
         run: python3 tools/validate_event_graph_integrity.py
       - name: Validate frozen catalog to graph ID parity
@@ -62,6 +64,7 @@ jobs:
             docs/MACHINE_CANDIDATE_SEMANTIC_BOUNDARY_01.json
             docs/MACHINE_STRUCTURAL_REACHABILITY_01.json
             docs/MACHINE_CATALOG_GRAPH_PARITY_01.json
+            docs/MACHINE_CANONICAL_GRAPH_CLOSURE_01.json
             docs/MACHINE_DELAY_INVENTORY_SCOPE_01.json
             docs/MACHINE_DELAYED_LIFECYCLE_GATE_01.json
             docs/MACHINE_DELAYED_SOURCE_TOKEN_VALIDATION_01.json
