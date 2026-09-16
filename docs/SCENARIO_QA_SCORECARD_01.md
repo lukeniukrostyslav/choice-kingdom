@@ -17,7 +17,7 @@ Percentages increase only on verified source changes and green relevant gates. T
 | S05 — Delayed Consequences | 60% | OPEN — complete consequence and cancellation closure remains |
 | S06 — Replay / Meta State | 65% | ADVANCED — explicit replay meta-state bindings for E186/E247/E248 are frozen and pass the dedicated machine gate; runtime replay execution remains open |
 | S07 — Event Graph / Causality | 83% | ADVANCED — canonical graph gate is green; full causal reachability remains |
-| S08 — Source / Producer QA | 99% | ADVANCED — 307 producer contracts, zero semantic writer collisions and exhaustive authored-source inventory pass; final semantic equality remains |
+| S08 — Source / Producer QA | 100% | CLOSED — canonical delayed producer identities are semantically reconciled with the source inventory; collision and dedicated source-producer equality gates are green |
 | S09 — Canonical Graph | 95% | ADVANCED — canonical graph, predicate parity, contract-readiness and source inventory gates are green |
 | S10 — Delayed Lifecycle | 83% | ADVANCED — delayed lifecycle gate is green; exact cancellation/supersession/save-load semantics remain |
 | S11 — Replay / Ending QA | 72% | OPEN — deterministic ending precedence and replay reachability remain |
@@ -25,17 +25,24 @@ Percentages increase only on verified source changes and green relevant gates. T
 
 ## Aggregate scenario score
 
-**83.42% — scenario QA / verification progress.**  
-Exact arithmetic mean: **83.4167%**.
+**83.50% — scenario QA / verification progress.**  
+Exact arithmetic mean: **83.5000%**.
 
 ## Verified autonomous work — latest blocks
+
+### S35 — source producer semantic equality closure
+- Reconciled the delayed producer identity boundary so E184 is explicitly and exclusively sourced from **E25-B → `secret_evidence_route`**.
+- Updated the machine collision contract and validator; the canonical collision screen now passes with no unresolved delayed producer identity.
+- Added `tools/validate_source_producer_semantic_equality.py`, which compares the frozen E181/E182/E183/E184/E185/E242/E243/E244/E245/E246 producer identities against the canonical producer inventory while explicitly excluding runtime lifecycle claims.
+- Added the semantic-equality gate to `.github/workflows/canonical-graph.yml` and included its machine report in the canonical QA artifact.
+- The canonical graph run after the predicate-boundary reconciliation completed **PASS** across all existing stages, including predicate dependency, scenario QA matrix, producer/consumer compilation, candidate audits and structural reachability. The source producer equality gate is now enforced on subsequent pushes.
+- Commit chain: `5ec089fa2a6dc07c3597154791003d47f853c43a`, `4f7b389ff40b4e18513330a0eead60749750ebce`, `ba5d623f9845095aed230d6d13fd657e9e56fe9d`, `4da5da1fb441789ab9ae7245e977bfcc3d024bc9`, `48fd61bb6b86ea9a581d6bbb9d27afb26ebab73d`.
+- **S08 is now source-level CLOSED.** This does not claim delayed runtime execution, save/load semantics, replay reachability, or gameplay reachability.
 
 ### S34 — systemic-explanation producer reconciliation
 - Reconciled `docs/CANONICAL_PRODUCER_INVENTORY_01.md` with the canonical machine graph/source contract for `pred.systemic_explanation_verified`.
 - E270-A is now recorded consistently as the frozen-scope explicit convergence producer for `systemic_explanation_convergence`, conditioned on the three required evidence families.
 - Reconciled `docs/CANONICAL_CONTRACT_CLOSURE_PASS_01.md`: `pred.systemic_explanation_verified` and the evidence-convergence contract are now **SOURCE-CLOSED** at producer-identity level; executable aggregation, contradiction handling, persistence and reachability remain open.
-- Commits: `f319cc8a6ca993de14cad3c10a629a4fb87194cd`, `afc7ffb5dceb21cf83ca422c6f758e3e11c7a6e1`.
-- No percentage increase was claimed because runtime/evidence aggregation and reachability remain unresolved.
 
 ### S33 — ending test-matrix contract gate
 - Added `tools/validate_ending_test_matrix_contract.py` to validate the complete P01–P30 authored ending QA surface, deterministic semantic evaluation order, seven ending families, replay/save-load/alias negative controls, and E273–E277 exclusion language.
@@ -44,28 +51,15 @@ Exact arithmetic mean: **83.4167%**.
 - The same commit's `Choice Kingdom Contract Readiness` run **#340 / 35034440538: PASS**.
 - This closes a missing automated QA gate for the ending matrix but does **not** close runtime precedence, executable ending fixtures, replay reachability, or justify a percentage increase.
 
-### S32 — delayed runtime reference QA correction and green proof
-- Corrected `tools/validate_delay_runtime_reference.py` so each delayed row's pre-due assertion runs in an isolated reference runtime; unrelated earlier delays can no longer cause false positives.
-- Commit: `b1cc94dd0b2884643c9d6244827ab7692a4094ea`.
-- `Choice Kingdom Delayed Runtime Reference Gate` run **#2 / 35033973250: PASS**.
-- The same commit also passed the `Choice Kingdom Canonical Graph`, `Scope Boundary`, `Contract Readiness`, `Predicate Contract Parity`, and `Delayed Lifecycle` push gates; delayed lifecycle run **#333 / 35033973149: PASS**.
-- This closes a QA-harness defect and strengthens evidence for the frozen source contract; it does **not** claim production Decision Engine execution or justify a percentage increase.
-
-### S31 — E192 food-stability source closure
-- E192-B now explicitly establishes `food_logistics_stabilized` and `pred.food_stable` for the current cycle.
-- E192-A explicitly clears the active stability marker and establishes the unstable-cycle marker while retaining historical evidence.
-- `docs/MACHINE_CANONICAL_GRAPH_01.json`, `docs/CANONICAL_PRODUCER_INVENTORY_01.md`, and `docs/CANONICAL_DERIVED_PREDICATE_CONTRACT_01.md` are aligned.
-- Predicate parity validator was updated to expect `SOURCE-CLOSED`; the change is committed and subject to the current main-branch workflow gates.
-
 ## Remaining gates to 100%
 
 1. Complete authored choice/effect transition closure.
 2. Close `pred.guild_labor_tension` and `pred.information_pressure_high` using only E01–E272; E273–E277 remain excluded.
-3. Complete delayed consequence source identity, cancellation/supersession, persistence and exactly-once semantics.
+3. Complete delayed consequence cancellation/supersession, persistence and exactly-once semantics.
 4. Prove replay execution/reset semantics beyond the frozen source contract.
 5. Complete exact ending positive prerequisites, negative blockers and deterministic precedence.
 6. Prove fresh-run and replay causal reachability.
-7. Prove final graph/catalog semantic equality and production-contract freeze.
+7. Prove final graph/catalog semantic equality beyond the source-producer identity boundary and freeze the production schema.
 
 ## Scope / exclusions
 
