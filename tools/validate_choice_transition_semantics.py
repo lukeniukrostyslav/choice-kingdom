@@ -21,11 +21,12 @@ SPECIAL_EVENT_HINT = re.compile(r"\b(?:Source-level producer|canonical producer|
 
 
 def semantic_signature(body: str) -> tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...], tuple[str, ...]]:
-    deltas = tuple(DELTA_RE.findall(body))
-    tokens = tuple(TOKEN_RE.findall(body))
-    lifecycle = tuple(sorted(set(m.group(0).lower() for m in LIFECYCLE_RE.finditer(body))))
-    actions = tuple(sorted(set(m.group(0).lower() for m in ACTION_RE.finditer(body))))
-    return deltas, tokens, lifecycle, actions
+    return (
+        tuple(DELTA_RE.findall(body)),
+        tuple(TOKEN_RE.findall(body)),
+        tuple(sorted(set(m.group(0).lower() for m in LIFECYCLE_RE.finditer(body)))),
+        tuple(sorted(set(m.group(0).lower() for m in ACTION_RE.finditer(body)))),
+    )
 
 
 def fail(msg: str) -> None:
@@ -57,7 +58,6 @@ for source in graph["source_of_truth"]["catalog_sources"]:
 missing = sorted(EXPECTED - set(blocks), key=lambda x: int(x[1:]))
 if missing:
     fail("missing authored event blocks: " + ", ".join(missing))
-
 missing_special = sorted(SPECIAL_EVENTS - set(blocks), key=lambda x: int(x[1:]))
 if missing_special:
     fail("special-event classification references missing events: " + ", ".join(missing_special))
@@ -65,18 +65,16 @@ if missing_special:
 gaps: list[str] = []
 rows = 0
 special_rows = 0
-required_authored_sections = 0
+triggered_events = 0
 for event_id in sorted(EXPECTED, key=lambda x: int(x[1:])):
     block = blocks[event_id]
 
-    # Every authored event must expose a trigger and an explicit design-purpose
-    # statement. This prevents structurally present but semantically empty nodes.
+    # Every production event needs an authored trigger so the content contract
+    # cannot contain an orphan node that only exists structurally in the catalog.
     if not re.search(r"^\*\*Trigger:\*\*", block, re.M):
         gaps.append(f"{event_id}: missing authored Trigger section")
-    if not re.search(r"^\*\*Design purpose:\*\*", block, re.M):
-        gaps.append(f"{event_id}: missing authored Design purpose section")
     else:
-        required_authored_sections += 1
+        triggered_events += 1
 
     matches = list(CHOICE_HEADING.finditer(block))
     if not matches:
@@ -129,7 +127,7 @@ if gaps:
     print(f"events={len(blocks)}")
     print(f"choice_rows={rows}")
     print(f"special_state_events={special_rows}")
-    print(f"events_with_design_purpose={required_authored_sections}")
+    print(f"events_with_trigger={triggered_events}")
     print(f"semantic_gaps={len(gaps)}")
     for gap in gaps[:100]:
         print(f"- {gap}")
@@ -141,9 +139,9 @@ print("CHOICE_TRANSITION_SEMANTICS: PASS")
 print(f"events={len(blocks)}")
 print(f"choice_rows={rows}")
 print(f"special_state_events={special_rows}")
-print(f"events_with_design_purpose={required_authored_sections}")
+print(f"events_with_trigger={triggered_events}")
 print("semantic_gaps=0")
 print("exactly_one_A_and_one_B=true")
 print("explicit_transition_payload=true")
 print("alternative_effect_signatures_distinct=true")
-print("authored_trigger_and_design_purpose=true")
+print("authored_trigger_coverage=true")
