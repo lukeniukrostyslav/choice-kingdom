@@ -1,0 +1,13 @@
+{
+  "schema_version":"1.0",
+  "contract":"choice_kingdom.coalition_cooperation",
+  "scope":"E01-E272",
+  "status":"SOURCE_CONTRACT_IDENTIFIED",
+  "predicate":"pred.coalition_cooperation",
+  "producer":"E148-A",
+  "requires":["positive_mutual_concessions","participant_identity","no_unresolved_coalition_collapse_blocker"],
+  "consumer_cannot_manufacture":true,
+  "forbidden_aliases":["history.cross_faction_package","four_way_bargain","rel.ivo","rel.seris"],
+  "runtime_verified":false,
+  "remaining_checks":["canonical participant identity set","positive outcome validation","collapse/invalidation lifecycle","producer-before-consumer ordering","reachability","save-load preservation","replay isolation"]
+}
