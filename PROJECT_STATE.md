@@ -7,7 +7,7 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 **Content → canonical QA → machine-readable contracts → Decision Engine → UI → localization/tests → Android QA → APK → release.** No mock/stub gameplay and no premature readiness claims.
 
 ## Current phase
-**Production runtime integration / Block 7.** Blocks 1–6 have implementation/verification closure at their defined boundaries. `GameSession` is the application-facing presentation-neutral seam. Deterministic full-campaign and trigger-semantics audits are now in place. Android UI, localization, device QA, APK/AAB and store release remain open.
+**Production runtime integration / Block 7.** Blocks 1–6 have implementation/verification closure at their defined boundaries. `GameSession` is the application-facing presentation-neutral seam. Deterministic full-campaign and trigger-semantics audits are in place. Android UI, localization, device QA, APK/AAB and store release remain open.
 
 ## Closed source/contract gates
 - S01 **100%** — frozen E01–E272 catalog and source inventory.
@@ -28,7 +28,7 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 ## Latest verified evidence
 - GitHub Actions run 777: **SUCCESS**, commit `f9491f2f00a582d129241a943c5e307fe996296b`.
 - E199 constitutional producer boundary is source-closed: `army_constitution_oath` is required; `military_red_line` cannot substitute for the authored oath.
-- Food predicate test now targets an actual event whose trigger is `pred.food_stable`, rather than testing unrelated E192 trigger semantics.
+- The food predicate test was corrected to select an actual catalog event whose trigger is `pred.food_stable`, verifying both activation and invalidation.
 
 ## Existing runtime verification baseline
 - Full regression: **184 passed**.
@@ -63,11 +63,11 @@ The campaign and trigger audits are diagnostic. Missing/opaque events are **not 
 
 ## Latest runtime closure
 
-Canonical predicate trigger atoms use the same `EndingSourceCompiler` as ending qualification. E199 constitutional readiness is now tied to its canonical authored producer `army_constitution_oath`; the later `military_red_line` evidence cannot silently substitute for that producer. The source-level negative/positive test locks this boundary.
+Canonical predicate trigger atoms use the same `EndingSourceCompiler` as ending qualification. E199 constitutional readiness is tied to its canonical authored producer `army_constitution_oath`; the later `military_red_line` evidence cannot silently substitute for that producer. The source-level negative/positive test locks this boundary.
 
-The food predicate test was also corrected so it selects a real catalog event whose trigger is `pred.food_stable`; it now verifies both activation by `food_logistics_stabilized` and invalidation by `food_logistics_unstable`. This prevents a false-positive test from treating E192's unrelated `pred.transport_disruption` trigger as a food-stability trigger.
+The food predicate test now selects a real catalog event whose trigger is `pred.food_stable`; it verifies activation by `food_logistics_stabilized` and invalidation by `food_logistics_unstable`. This removes a false-positive assertion that previously used E192 itself even though E192's authored trigger is `pred.transport_disruption`.
 
-These changes are **IMPLEMENTED / VERIFICATION PENDING** until the new GitHub Actions run for commit `e1fc14fbc2c541a9ba2bb4b0198c0471dad5fc17` completes successfully. No additional percentage increase is claimed from this test correction alone.
+The E199 change is verified by GitHub Actions run 777. The corrected food test is implemented in commit `e1fc14fbc2c541a9ba2bb4b0198c0471dad5fc17`; no additional percentage increase is claimed from the test correction until its CI verification succeeds.
 
 ## Current Block 7 target
 Close authoritative trigger/producer semantics only where authored source and canonical contracts define them; bind verified semantics into the runtime; rerun the full regression and campaign audit; then make E01–E272 executable through one `GameSession` lifecycle.
