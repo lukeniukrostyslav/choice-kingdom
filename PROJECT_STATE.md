@@ -7,7 +7,7 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 **Content → canonical QA → machine-readable contracts → Decision Engine → UI → localization/tests → Android QA → APK → release.** No mock/stub gameplay and no premature readiness claims.
 
 ## Current phase
-**Scenario QA → runtime scenario verification.** S01–S12 are source/contract closed. Scenario-wide source/contract integration is GREEN. The first executable runtime state/persistence boundary is now implemented and CI-verified. Full Decision Engine promotion remains blocked until authored choice execution, delayed lifecycle, replay/meta transfer, ending resolution, save/load equivalence and determinism are verified.
+**Scenario QA → runtime scenario verification.** S01–S12 are source/contract closed. Scenario-wide source/contract integration is GREEN. The runtime state/persistence boundary is implemented and CI-verified. The first authored-content execution boundary is implemented, but its latest GitHub Actions verification is still pending after fixing two test/loader defects found by CI.
 
 ## S01–S12 source/contract scorecard
 - S01 **100%** — frozen E01–E272 catalog/source inventory/structural reachability closure.
@@ -40,9 +40,22 @@ Added:
 - `tests/test_runtime_state.py` — fresh-run isolation, save/load equivalence, exactly-once delays, condition-bound delay discipline, excluded-event rejection.
 - `.github/workflows/runtime-scenario-core.yml`
 
-GitHub Actions run **`35107430687`** (`Choice Kingdom Runtime Scenario Core`, #1) completed **success** on 2026-09-16. Runtime test step completed successfully.
+GitHub Actions run **`35107430687`** (`Choice Kingdom Runtime Scenario Core`, #1) completed **success** on 2026-09-16.
 
-This is **runtime foundation GREEN**, not full gameplay GREEN. The runtime does not yet execute all 520 authored choices or the complete event catalog.
+### Authored choice execution — IMPLEMENTED, VERIFICATION IN PROGRESS
+Added:
+- `runtime/catalog.py` — data-driven loader reading the catalog sources declared by `docs/MACHINE_CANONICAL_GRAPH_01.json`, frozen E01–E272 scope enforcement, authored A/B/C choice parsing, explicit immediate numeric deltas, relationship deltas, state tokens and conservative trigger checks. Special authored nodes without explicit player choices are preserved rather than fabricated.
+- `runtime/engine.py` — real immediate authored choice execution against `GameState`, state/history/relationship/resource mutation, authored token clearing, choice history and explicit unlock extraction. Delayed prose is deliberately not converted into invented timing.
+- `tests/test_authored_choice_execution.py` — frozen catalog load, E01-A transition, E51-C three-way choice execution, E108-C shorthand preservation, excluded-event rejection.
+- `.github/workflows/runtime-authored-choice-execution.yml` — source contract gate plus representative runtime execution tests.
+
+Verification findings:
+- First runtime execution run **`35108060919`** failed on an overly strict loader assumption for authored special node E32 and then exposed a test cardinality/trigger issue.
+- Those defects were corrected in commits `c44630a7672ad42e97f0d9abdc072039c88ac300` and `dc4c6d09c7164b2b7c3b27529d0727e53d340fe8`.
+- The corrected workflow verification for the latest commit is **pending / not yet observed**, so this block is **not marked GREEN** yet.
+- The failed run nevertheless confirmed the authoritative source contract step itself passed: `CHOICE_STATE_TRANSITIONS: PASS`, events=272, transition_gaps=0.
+
+This is not yet a full Decision Engine. Trigger semantics remain intentionally conservative where authored prose is not machine-executable, and delayed/replay/ending semantics are still downstream.
 
 ## Major blocks
 - Foundation / Rules: **95%**
@@ -55,19 +68,19 @@ This is **runtime foundation GREEN**, not full gameplay GREEN. The runtime does 
 - Endings / precedence: **100% source/contract + CI; runtime resolution pending**
 - Reachability / Causal Graph: **100% source-level**
 - Production Data Schema: **36%**
-- Runtime State / Persistence Foundation: **15%**
-- Decision Engine: **0%** — state boundary alone is not the engine.
+- Runtime State / Persistence Foundation: **15%** — CI GREEN; authored choice execution is the next unverified increment.
+- Decision Engine: **0% production-ready** — first execution boundary exists, but full engine semantics are not closed.
 - UI / UX: **0%**
 - Localization 20+: **5%**
 - Android Implementation: **0%**
-- Runtime / Android QA: **0%** beyond headless runtime foundation
+- Runtime / Android QA: **0%** beyond headless runtime foundation and unverified authored-choice boundary.
 - APK: **0%**
 - Release: **0%**
 
-Overall project progress remains approximately **61%**; the new runtime foundation is intentionally too small to change the rounded overall estimate.
+Overall project progress remains approximately **61%**. No overall increase is claimed until the authored runtime gate is GREEN and the subsequent lifecycle/replay/ending gates are verified.
 
 ## NEXT ACTION
-**Extend the real runtime boundary into authored choice execution. Build a data-driven event/choice loader against the frozen E01–E272 authored source/contracts, then verify representative immediate state transitions and route handling. Next integrate the ten frozen delayed lifecycle entries, replay/meta import boundary, ending resolver and complete save/load/determinism gates. Do not promote Decision Engine production readiness until the complete runtime scenario gate is GREEN.**
+**Verify the corrected authored-choice runtime gate. If GREEN, extend the same real execution boundary into deterministic routing across representative authored nodes, then integrate the ten frozen delayed lifecycle entries, replay/meta import boundary, ending resolver and complete save/load/determinism gates. If the gate fails, fix the concrete failure before adding new runtime semantics. Do not promote Decision Engine production readiness until the complete runtime scenario gate is GREEN.**
 
 ## Honest progress rule
 Documentation alone never makes implementation complete. Every percentage requires authoritative evidence and the applicable verification. Source/contract GREEN must never be reported as runtime gameplay GREEN.
