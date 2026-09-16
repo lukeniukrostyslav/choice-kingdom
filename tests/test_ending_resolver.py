@@ -33,6 +33,8 @@ DISPLAY_TO_ID = {
     "Golden Compact": END_GOLDEN_COMPACT,
     "Steward": END_STEWARD,
     "Iron Crown": END_IRON_CROWN,
+    "Quiet Throne": END_QUIET_THRONE,
+    "Broken Diadem": END_BROKEN_DIADEM,
 }
 
 
@@ -100,7 +102,7 @@ def test_collapse_failure_precedes_positive_ending():
 def test_machine_authored_priority_covers_every_positive_pair():
     assert len(AUTHORED_PRIORITY) == 10
     for left, right in itertools.combinations(POSITIVE, 2):
-        winner = AUTHORED_PRIORITY.get((left, right), AUTHORED_PRIORITY.get((right, left)))
+        winner = AUTHORED_PRIORITY.get((left, right), AUTHored_PRIORITY.get((right, left)))
         assert winner in {left, right}
 
 
@@ -153,7 +155,10 @@ def test_quiet_throne_wins_only_when_no_positive_ending_qualifies():
 
 def test_quiet_throne_is_not_allowed_to_enter_positive_pairwise_priority():
     source = load_precedence_source()
-    positive_pairs = {frozenset(pair) for pair in source["pairwise_coverage"]}
+    positive_pairs = {
+        frozenset((DISPLAY_TO_ID[left], DISPLAY_TO_ID[right]))
+        for left, right in source["pairwise_coverage"]
+    }
     for positive in POSITIVE:
         assert frozenset((END_QUIET_THRONE, positive)) in positive_pairs
     assert all(left != END_QUIET_THRONE and right != END_QUIET_THRONE for left, right in AUTHORED_PRIORITY)
