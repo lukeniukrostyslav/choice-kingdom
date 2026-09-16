@@ -1,13 +1,38 @@
 {
-  "schema_version":"1.0",
-  "contract":"choice_kingdom.coalition_cooperation",
-  "scope":"E01-E272",
-  "status":"SOURCE_CONTRACT_CLOSED_RUNTIME_ORDER_OPEN",
-  "predicate":"pred.coalition_cooperation",
-  "producer":"E148-A",
-  "requires":["positive_mutual_concessions","participant_identity","no_unresolved_coalition_collapse_blocker"],
-  "consumer_cannot_manufacture":true,
-  "forbidden_aliases":["history.cross_faction_package","four_way_bargain","rel.ivo","rel.seris"],
-  "runtime_verified":false,
-  "remaining_checks":["canonical participant identity set","positive outcome validation","collapse/invalidation lifecycle","producer-before-consumer ordering","reachability","save-load preservation","replay isolation"]
+  "schema_version": "1.0",
+  "contract": "choice_kingdom.coalition_cooperation",
+  "scope": "E01-E272",
+  "status": "SOURCE_CONTRACT_CLOSED_RUNTIME_ORDER_OPEN",
+  "predicate": "pred.coalition_cooperation",
+  "producer": "E148-A",
+  "requires": [
+    "positive_mutual_concessions",
+    "at_least_three_distinct_canonical_participant_identities",
+    "no_unresolved_coalition_collapse_blocker"
+  ],
+  "canonical_participant_identities": [
+    "mara",
+    "rowan",
+    "seris",
+    "ivo",
+    "amara",
+    "toma"
+  ],
+  "minimum_distinct_participants": 3,
+  "producer_runtime_binding": {
+    "choice": "E148-A",
+    "records_participants": ["mara", "rowan", "seris", "ivo", "amara", "toma"],
+    "source_basis": "E148-A explicitly records participation from Mara, Rowan, Seris, Ivo, Amara and Toma"
+  },
+  "consumer_cannot_manufacture": true,
+  "forbidden_aliases": ["history.cross_faction_package", "four_way_bargain", "rel.ivo", "rel.seris"],
+  "runtime_verified": false,
+  "remaining_checks": [
+    "positive outcome validation",
+    "collapse/invalidation lifecycle",
+    "producer-before-consumer ordering",
+    "fresh-run reachability",
+    "save-load preservation",
+    "replay isolation"
+  ]
 }
