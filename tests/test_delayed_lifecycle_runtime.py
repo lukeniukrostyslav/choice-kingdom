@@ -26,16 +26,16 @@ def test_all_ten_frozen_delay_specs_have_canonical_identity():
 
 def test_frozen_source_choice_identity_matches_machine_delay_contract():
     expected = {
-        "E181": ("E45", "B"),
-        "E182": ("E117", "B"),
-        "E183": ("E118", "B"),
-        "E184": ("E25", "B"),
-        "E185": ("E17", "A"),
-        "E242": ("E118", "B"),
-        "E243": ("E18", "B"),
-        "E244": ("E09", "B"),
-        "E245": ("E20", "A"),
-        "E246": ("E160", "A"),
+        "E181": ("E45", "E45-B"),
+        "E182": ("E117", "E117-B"),
+        "E183": ("E118", "E118-B"),
+        "E184": ("E25", "E25-B"),
+        "E185": ("E17", "E17-A"),
+        "E242": ("E118", "E118-B"),
+        "E243": ("E18", "E18-B"),
+        "E244": ("E09", "E09-B"),
+        "E245": ("E20", "E20-A"),
+        "E246": ("E160", "E160-A"),
     }
     actual = {
         spec.resolution_target: (spec.source_event_id, spec.source_choice_id)
@@ -47,7 +47,7 @@ def test_frozen_source_choice_identity_matches_machine_delay_contract():
 def test_authored_choice_schedules_relative_delay_after_source_turn():
     state = GameState.fresh("delay-schedule")
     state.turn = 7
-    delay = schedule_authored_delay(state, "E45", "B")
+    delay = schedule_authored_delay(state, "E45", "E45-B")
 
     assert delay is not None
     assert delay.exactly_once_key == "delay.E45B.E181.second_toll_increase"
@@ -58,7 +58,7 @@ def test_authored_choice_schedules_relative_delay_after_source_turn():
 def test_due_delay_resolves_only_at_earliest_turn_and_only_once():
     state = GameState.fresh("delay-due")
     state.turn = 7
-    delay = schedule_authored_delay(state, "E20", "A")
+    delay = schedule_authored_delay(state, "E20", "E20-A")
     assert delay is not None
     assert due_delays(state) == ()
 
@@ -74,7 +74,7 @@ def test_due_delay_resolves_only_at_earliest_turn_and_only_once():
 
 def test_condition_bound_delay_requires_explicit_resolution_condition():
     state = GameState.fresh("delay-condition")
-    delay = schedule_authored_delay(state, "E17", "A")
+    delay = schedule_authored_delay(state, "E17", "E17-A")
     assert delay is not None
     assert delay.condition_bound is True
     assert delay.scheduled_turn is None
@@ -92,7 +92,7 @@ def test_cancellation_is_observable_and_blocks_resolution():
     delay = PendingDelay(
         exactly_once_key="delay.test.cancel",
         source_event_id="E45",
-        source_choice_id="B",
+        source_choice_id="E45-B",
         resolution_target="E181",
         scheduled_turn=4,
     )
@@ -111,14 +111,14 @@ def test_supersession_marks_prior_delay_without_silent_deletion():
     old = PendingDelay(
         exactly_once_key="delay.test.old",
         source_event_id="E45",
-        source_choice_id="B",
+        source_choice_id="E45-B",
         resolution_target="E181",
         scheduled_turn=4,
     )
     new = PendingDelay(
         exactly_once_key="delay.test.new",
         source_event_id="E118",
-        source_choice_id="B",
+        source_choice_id="E118-B",
         resolution_target="E242",
         scheduled_turn=5,
         supersedes=old.exactly_once_key,
@@ -131,7 +131,7 @@ def test_supersession_marks_prior_delay_without_silent_deletion():
 
 def test_pending_delay_survives_save_load_and_replay_runs_are_isolated(tmp_path):
     first = GameState.fresh("delay-save-a")
-    schedule_authored_delay(first, "E09", "B")
+    schedule_authored_delay(first, "E09", "E09-B")
     path = tmp_path / "delay.json"
     SaveStore.save(first, path)
     restored = SaveStore.load(path)
@@ -201,7 +201,7 @@ def test_e160_delayed_source_is_explicitly_blocked_until_winter_predicate_exists
     engine = DecisionEngine(Path(__file__).resolve().parents[1])
     state = _prime_state_for_authored_source(engine, "E160")
     with pytest.raises(ValueError, match="event trigger not satisfied: E160"):
-        engine.execute(state, "E160", "A")
+        engine.execute(state, "E160", "E160-A")
 
 
 def test_all_machine_executable_delays_remain_run_scoped_after_engine_execution(tmp_path):
