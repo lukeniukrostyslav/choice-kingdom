@@ -69,11 +69,21 @@ def test_food_predicate_uses_the_explicit_producer_marker() -> None:
     state.flags.add("food_logistics_stabilized")
     predicates = EndingSourceCompiler.compile_state(state).predicates
     assert "pred.food_stable" in predicates
+    assert catalog.trigger_satisfied("E192", state) is False
 
     state.flags.add("food_logistics_unstable")
     predicates = EndingSourceCompiler.compile_state(state).predicates
     assert "pred.food_stable" not in predicates
-
-    # E192 itself is triggered by transport disruption, not by food_stable; this
-    # guards against accidentally treating a derived outcome as its own producer.
     assert catalog.trigger_satisfied("E192", state) is False
+
+
+def test_predicate_trigger_atom_uses_the_same_source_compiler() -> None:
+    state = GameState.fresh("predicate-trigger")
+    catalog = AuthoredCatalog.from_repository(ROOT)
+    event = next(event for event in catalog.events.values() if event.trigger.lower().strip() == "pred.food_stable")
+
+    state.flags.add("food_logistics_stabilized")
+    assert catalog.trigger_satisfied(event.event_id, state) is True
+
+    state.flags.add("food_logistics_unstable")
+    assert catalog.trigger_satisfied(event.event_id, state) is False
