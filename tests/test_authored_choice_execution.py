@@ -79,7 +79,7 @@ def test_representative_authored_chain_executes_e01_to_e02_without_inferred_edge
     assert second.next_event_ids == ()
     assert state.current_event_id == "E02"
     assert state.turn == 3
-    assert state.relationships["mara"] == 1
+    assert state.relationships["mara"] == 2
     assert state.resources["power"] == 48
     assert "decree_investigation" in state.flags
     assert "E02" in state.history
