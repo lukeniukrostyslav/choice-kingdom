@@ -35,12 +35,22 @@ CANONICAL_DELAY_SPECS: tuple[DelaySpec, ...] = (
     DelaySpec("E246.price_ceiling_memory", "E160", "E160-A", "E246", "delay.E160A.E246.price_ceiling_memory", 5),
 )
 
-_BY_CHOICE = {(spec.source_event_id, spec.source_choice_id): spec for spec in CANONICAL_DELAY_SPECS}
+_BY_CHOICE: dict[tuple[str, str], tuple[DelaySpec, ...]] = {}
+for _spec in CANONICAL_DELAY_SPECS:
+    _BY_CHOICE.setdefault((_spec.source_event_id, _spec.source_choice_id), ())
+    _BY_CHOICE[(_spec.source_event_id, _spec.source_choice_id)] += (_spec,)
 _BY_KEY = {spec.exactly_once_key: spec for spec in CANONICAL_DELAY_SPECS}
 
 
 def spec_for_choice(event_id: str, choice_id: str) -> DelaySpec | None:
-    return _BY_CHOICE.get((event_id, choice_id))
+    """Return the first canonical delay for compatibility with single-delay callers."""
+    specs = _BY_CHOICE.get((event_id, choice_id), ())
+    return specs[0] if specs else None
+
+
+def specs_for_choice(event_id: str, choice_id: str) -> tuple[DelaySpec, ...]:
+    """Return every canonical delayed consequence authored by one source choice."""
+    return _BY_CHOICE.get((event_id, choice_id), ())
 
 
 def spec_for_key(exactly_once_key: str) -> DelaySpec | None:
@@ -48,22 +58,30 @@ def spec_for_key(exactly_once_key: str) -> DelaySpec | None:
 
 
 def schedule_authored_delay(state: GameState, event_id: str, choice_id: str) -> PendingDelay | None:
-    spec = spec_for_choice(event_id, choice_id)
-    if spec is None:
+    """Schedule every canonical delay emitted by the authored source choice.
+
+    Some authored choices intentionally fan out into multiple delayed consequences
+    (E118-B -> E183 and E242). All rows must be persisted exactly once.
+    """
+    specs = specs_for_choice(event_id, choice_id)
+    if not specs:
         return None
-    scheduled_turn = None if spec.condition_bound else state.turn + (spec.earliest_after_turns or 0)
-    delay = PendingDelay(
-        exactly_once_key=spec.exactly_once_key,
-        source_event_id=spec.source_event_id,
-        source_choice_id=spec.source_choice_id,
-        resolution_target=spec.resolution_target,
-        scheduled_turn=scheduled_turn,
-        condition_bound=spec.condition_bound,
-        priority=spec.priority,
-        supersedes=spec.supersedes,
-    )
-    state.schedule(delay)
-    return delay
+    scheduled: list[PendingDelay] = []
+    for spec in specs:
+        scheduled_turn = None if spec.condition_bound else state.turn + (spec.earliest_after_turns or 0)
+        delay = PendingDelay(
+            exactly_once_key=spec.exactly_once_key,
+            source_event_id=spec.source_event_id,
+            source_choice_id=spec.source_choice_id,
+            resolution_target=spec.resolution_target,
+            scheduled_turn=scheduled_turn,
+            condition_bound=spec.condition_bound,
+            priority=spec.priority,
+            supersedes=spec.supersedes,
+        )
+        state.schedule(delay)
+        scheduled.append(delay)
+    return scheduled[0]
 
 
 def due_delays(state: GameState) -> tuple[PendingDelay, ...]:
