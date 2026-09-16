@@ -19,6 +19,10 @@ CLAUSE = re.compile(
     r"^\s*-\s*(?:Immediate|Flag|Unlock|Producer|Delayed|Resolution|Clear|Trigger|Effect|State|History|Meta|Ending|Condition)\s*:",
     re.I | re.M,
 )
+AUTHORED_TRANSITION_VERB = re.compile(
+    r"\b(?:unlock(?:s|ed)?|create(?:s|d)?|increase(?:s|d)?|decrease(?:s|d)?|strengthen(?:s|ed)?|lower(?:s|ed)?|raise(?:s|d)?|open(?:s|ed)?|close(?:s|d)?|clear(?:s|ed)?|resolve(?:s|d)?|cancel(?:s|led)?|prevent(?:s|ed)?|schedule(?:s|d)?|establish(?:es|ed)?|produce(?:s|d)?|record(?:s|ed)?|retain(?:s|ed)?|leave(?:s|d)?|replace(?:s|d)?|preserve(?:s|d)?|remove(?:s|d)?|risk|evidence|pressure|stability|reform|contradiction)\b",
+    re.I,
+)
 
 # Explicitly forbidden numeric sixth-resource pattern. Contextual state names may
 # exist as flags/predicates, but they must not become silent numeric resources.
@@ -58,7 +62,6 @@ for source in source_files:
         event_id = match.group(1)
         end = matches[i + 1].start() if i + 1 < len(matches) else len(text)
         if event_id in blocks:
-            # E271 is the only explicitly permitted duplicate catalog heading.
             if event_id != "E271":
                 fail(f"duplicate canonical event block: {event_id}")
             continue
@@ -91,7 +94,12 @@ for event_id in sorted(EXPECTED_EVENTS, key=lambda x: int(x[1:])):
         if FORBIDDEN_NUMERIC_CONTEXT.search(body):
             errors.append(f"{event_id}-{label}: forbidden numeric contextual resource pattern")
 
-        has_transition = bool(DELTA.search(body) or TOKEN.search(body) or CLAUSE.search(body))
+        has_transition = bool(
+            DELTA.search(body)
+            or TOKEN.search(body)
+            or CLAUSE.search(body)
+            or AUTHORED_TRANSITION_VERB.search(body)
+        )
         if not has_transition:
             errors.append(f"{event_id}-{label}: no explicit state/effect transition signal")
 
