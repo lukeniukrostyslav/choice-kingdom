@@ -1,0 +1,27 @@
+name: Choice Kingdom S11 Ending Source Closure
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/MACHINE_ENDING_QUALIFICATION_CONTRACT_01.json'
+      - 'docs/MACHINE_ENDING_PRECEDENCE_TABLE_01.json'
+      - 'docs/MACHINE_ENDING_ALIAS_BOUNDARY_01.json'
+      - 'docs/ENDING_PRECEDENCE_TEST_MATRIX_01.md'
+      - 'tools/validate_ending_source_closure.py'
+  pull_request:
+    paths:
+      - 'docs/MACHINE_ENDING_QUALIFICATION_CONTRACT_01.json'
+      - 'docs/MACHINE_ENDING_PRECEDENCE_TABLE_01.json'
+      - 'docs/MACHINE_ENDING_ALIAS_BOUNDARY_01.json'
+      - 'docs/ENDING_PRECEDENCE_TEST_MATRIX_01.md'
+      - 'tools/validate_ending_source_closure.py'
+  workflow_dispatch:
+
+jobs:
+  s11-ending-source-closure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate S11 ending source closure
+        run: python3 tools/validate_ending_source_closure.py
