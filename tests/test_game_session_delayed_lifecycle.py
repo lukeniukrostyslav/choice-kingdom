@@ -10,7 +10,7 @@ from runtime.session import GameSession
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_game_session_delayed_target_uses_canonical_activation() -> None:
+def test_game_session_delayed_target_uses_application_boundary() -> None:
     session = GameSession.new(ROOT, "delay-session")
     schedule_authored_delay(session.state, "E45", "E45-B")
 
@@ -20,10 +20,11 @@ def test_game_session_delayed_target_uses_canonical_activation() -> None:
     assert delay.scheduled_turn is not None
 
     session.state.turn = delay.scheduled_turn
-    activated = session.engine.activate_delayed_target(session.state, key)
+    activated = session.activate_delayed_target(key)
 
     assert activated.target_event_id == "E181"
     assert session.state.current_event_id == "E181"
+    assert session.view().event_id == "E181"
     assert "E181" in session.state.activated_delayed_targets
     assert session.state.pending_delays[key].status == "resolved"
 
@@ -37,4 +38,4 @@ def test_game_session_condition_bound_delay_requires_explicit_condition() -> Non
     assert delay.scheduled_turn is None
 
     with pytest.raises(ValueError, match="condition not satisfied"):
-        session.engine.activate_delayed_target(session.state, key, condition_satisfied=False)
+        session.activate_delayed_target(key, condition_satisfied=False)
