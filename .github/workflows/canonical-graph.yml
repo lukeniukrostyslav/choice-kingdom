@@ -2,7 +2,10 @@ name: Choice Kingdom Canonical Graph
 
 on:
   push:
+    branches:
+      - main
   pull_request:
+  workflow_dispatch:
 
 jobs:
   canonical-graph:
