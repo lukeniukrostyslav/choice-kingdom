@@ -1,0 +1,32 @@
+name: Choice Kingdom S06 Replay Meta-State Closure
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/MACHINE_REPLAY_CONTRACT_01.json'
+      - 'docs/MACHINE_CANONICAL_GRAPH_01.json'
+      - 'docs/S06_REPLAY_META_STATE_CLOSURE_01.md'
+      - 'docs/EVENT_CATALOG*.md'
+      - 'tools/validate_replay_meta_contract.py'
+      - 'tools/validate_s06_replay_meta_state_closure.py'
+      - '.github/workflows/s06-replay-meta-state-closure.yml'
+  workflow_dispatch:
+
+jobs:
+  s06-replay-meta-state-closure:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Validate replay meta contract
+        run: python tools/validate_replay_meta_contract.py
+      - name: Validate S06 closure
+        run: python tools/validate_s06_replay_meta_state_closure.py
+      - name: Verify closure document
+        run: |
+          grep -q 'E186' docs/S06_REPLAY_META_STATE_CLOSURE_01.md
+          grep -q 'E247' docs/S06_REPLAY_META_STATE_CLOSURE_01.md
+          grep -q 'E248' docs/S06_REPLAY_META_STATE_CLOSURE_01.md
+          grep -q 'immediately completed prior run' docs/S06_REPLAY_META_STATE_CLOSURE_01.md
+          grep -q 'terminal/ending state' docs/S06_REPLAY_META_STATE_CLOSURE_01.md
