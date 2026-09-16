@@ -63,6 +63,12 @@ class DecisionEngine:
             and self._route_allowed(state, event.event_id)
         )
 
+    @staticmethod
+    def _apply_authored_participant_effects(state: GameState, choice_id: str) -> None:
+        """Apply only the explicitly authored E148-A coalition participant effect."""
+        for participant in AUTHORED_COALITION_PARTICIPANTS.get(choice_id, ()):
+            state.record_coalition_participant(participant)
+
     def execute(self, state: GameState, event_id: str, choice_id: str) -> ExecutionResult:
         if state.terminal:
             raise ValueError("cannot execute a choice after terminal state")
@@ -96,8 +102,7 @@ class DecisionEngine:
             else:
                 state.flags.add(token)
         state.history.add(event_id)
-        for participant in AUTHORED_COALITION_PARTICIPANTS.get(choice_id, ()):
-            state.record_coalition_participant(participant)
+        self._apply_authored_participant_effects(state, choice_id)
         state.activated_delayed_targets.discard(event_id)
 
         # Scheduling happens only after the authored choice effects have committed.
