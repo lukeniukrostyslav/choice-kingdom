@@ -3,14 +3,16 @@
   "counts": {
     "CANONICAL_TOKEN_OR_THRESHOLD": 75,
     "EMPTY": 40,
+    "EVENT_PREREQUISITE": 2,
     "EVENT_REFERENCE": 1,
     "FIRST_TURN": 1,
-    "OPAQUE_PROSE": 121,
+    "OPAQUE_PROSE": 105,
     "PARTIAL_PROSE": 33,
+    "SAFE_CANONICAL_ALIAS": 14,
     "SEVERE_WINTER": 1
   },
-  "opaque_or_partial_count": 154,
+  "opaque_or_partial_count": 138,
   "schema_version": "1.0",
   "scope": "E01-E272",
-  "semantic_boundary": "Opaque prose is not converted into runtime truth. Each such trigger requires an authoritative canonical producer/predicate/route contract before engine implementation."
+  "semantic_boundary": "Opaque prose is not converted into runtime truth. Each such trigger requires an authoritative canonical producer/predicate/route contract before engine implementation. Safe canonical aliases and explicit after-event prerequisites are classified separately from unresolved prose."
 }
