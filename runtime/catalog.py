@@ -154,8 +154,6 @@ class AuthoredCatalog:
         if event_id in state.history:
             return False
 
-        # Replay metadata is an explicit producer boundary. It is not inferred
-        # from ordinary history, flags, trigger prose, or same-run evidence.
         replay_key = REPLAY_META_BY_EVENT.get(event_id)
         if replay_key is not None and replay_key in REPLAY_META_KEYS and replay_key in state.imported_meta_keys:
             return True
@@ -167,13 +165,7 @@ class AuthoredCatalog:
         if low == "severe winter":
             return _state_has_marker(state, "pred.winter_severe")
 
-        # Evaluate boolean structure only for atoms the runtime can prove.
-        # Unknown prose stays UNKNOWN rather than being guessed as a route.
-        # This lets authored OR branches work (for example ``token or score``)
-        # without silently converting narrative shorthand into gameplay truth.
         if " or " in low:
-            # A direct authored event reference is an executable OR branch even
-            # when the other branch remains narrative/opaque.
             for first, second in EVENT_OR_RE.findall(trigger):
                 required = (first or second).upper()
                 if required != event_id and required in state.history:
@@ -217,20 +209,11 @@ def _evaluate_trigger_atom(clause: str, state, prerequisites: tuple[str, ...]) -
     if low == "severe winter":
         return _state_has_marker(state, "pred.winter_severe")
 
-    # Source-closed composite predicates are evaluated through the same canonical
-    # compiler used by ending qualification. This is deliberately limited to
-    # predicates whose producer/evidence contracts are already frozen; unresolved
-    # prose route names remain UNKNOWN.
     predicate_atom = low.strip("`")
     if predicate_atom.startswith("pred.") and re.fullmatch(r"pred\.[a-z0-9_]+", predicate_atom):
         facts = EndingSourceCompiler.compile_state(state).predicates
-        if predicate_atom == "pred.food_stable":
-            return "food_logistics_stabilized" in state.flags
-        if predicate_atom == "pred.border_crisis":
-            return "border_crisis_declared" in state.flags and "border_crisis_resolved" not in state.flags
         return predicate_atom in facts
 
-    # Explicit completed/resolved/after-event prerequisites are canonical event facts.
     match = COMPLETED_EVENT_RE.fullmatch(normalized)
     if match:
         return match.group(1).upper() in state.history
@@ -250,8 +233,6 @@ def _evaluate_trigger_atom(clause: str, state, prerequisites: tuple[str, ...]) -
     if tokens:
         return _state_has_marker(state, tokens.group(1))
 
-    # A bare canonical event prerequisite can occur in a compound authored branch
-    # only when it is one of the already extracted explicit prerequisites.
     event_match = re.fullmatch(r"E\d{2,3}", normalized, flags=re.I)
     if event_match and event_match.group(0).upper() in prerequisites:
         return event_match.group(0).upper() in state.history
