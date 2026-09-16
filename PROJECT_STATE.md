@@ -18,7 +18,7 @@ Production catalog is **E01–E272**. E273–E277 are expansion candidates and a
 No mock/stub gameplay or premature production-readiness claims.
 
 ## Current phase
-**Narrative/content canonicalization and QA.** Authored checkpoint E01–E272. Source-level canonical graph, causal closure and authored choice/state transition closure are now green; production schema, Decision Engine, UI and runtime reachability remain downstream.
+**Narrative/content canonicalization and QA.** Authored checkpoint E01–E272. Source-level canonical graph, causal closure, authored choice/state transition closure and ending qualification/precedence source closure are now green; production schema, Decision Engine, UI and runtime reachability remain downstream.
 
 ## Current verified S01–S12 scorecard
 - S01 **84%** — authored-event coverage structurally validated; semantic/gameplay reachability remains.
@@ -31,10 +31,10 @@ No mock/stub gameplay or premature production-readiness claims.
 - S08 **100%** — source/producer QA closed and CI-verified.
 - S09 **100%** — canonical graph source closure closed and CI-verified.
 - S10 **83%** — delayed lifecycle source gate green; runtime persistence/cancellation semantics remain.
-- S11 **72%** — ending/replay QA remains open on exact executable prerequisites, precedence and reachability.
+- S11 **100%** — ending qualification, exact source-level prerequisite/blocker sets, deterministic authored precedence table, alias boundary and executable source-closure gate are closed and CI-verified. Runtime ending execution, fresh-run/replay reachability and Decision Engine integration remain downstream.
 - S12 **100%** — scope/integrity gates closed.
 
-**Scenario QA aggregate: 88.67%** (exact mean 88.6667%). This is source/contract verification progress, not runtime or Android readiness.
+**Scenario QA aggregate: 91.00%** (exact mean 91.0%). This is source/contract verification progress, not runtime or Android readiness.
 
 ## Latest verified work
 ### S02 — Choice → State Transition: SOURCE-CLOSED 100%
@@ -47,6 +47,15 @@ No mock/stub gameplay or premature production-readiness claims.
 - S02 closure gate additionally rejects numeric contextual sixth-resource patterns and confirms the frozen 520-row cardinality.
 - GitHub Actions S02 run **35100082164**, job **104806986908**, head `3bf2d8f8bbb1fdb75ef2084e9d1ed25a9f598bdc`, completed **success** on 2026-09-16. The job log reports `S02_CHOICE_STATE_TRANSITION_CLOSURE: PASS`.
 - This is source-level closure only. Runtime Decision Engine execution, save/load persistence, replay execution and gameplay reachability remain downstream gates.
+
+### S11 — Ending / Replay QA: SOURCE-CLOSED 100%
+- Added `docs/MACHINE_ENDING_QUALIFICATION_CONTRACT_01.json` with an exact machine-readable positive prerequisite and negative blocker set for all seven ending families.
+- Added `docs/MACHINE_ENDING_PRECEDENCE_TABLE_01.json` with deterministic evaluation order, explicit positive-ending priority data and pairwise precedence coverage.
+- Preserved the existing conservative alias boundary: canonical identifiers remain `thread.border_crisis`, `thread.ivo_market`, `pred.coalition_cooperation` and `pred.systemic_explanation_verified`; stale aliases cannot manufacture prerequisites.
+- Added `tools/validate_ending_source_closure.py` as the executable S11 source-closure gate.
+- Added `.github/workflows/s11-ending-source-closure.yml` for push/PR/manual verification.
+- The source contract explicitly keeps runtime execution, fresh-run reachability and replay reachability false until those downstream systems exist; this is not hidden or counted as runtime completion.
+- People's Charter remains explicitly dependent on runtime aggregation of `pred.final_charter_prerequisites`; Second Founder remains explicitly dependent on replay/meta transfer keys and runtime systemic convergence. These are tracked downstream blockers, not invented away.
 
 ### S07 — Event Graph / Causality: SOURCE-CLOSED 100%
 - Added and wired `tools/validate_causal_reachability_contract.py`.
@@ -66,17 +75,15 @@ No mock/stub gameplay or premature production-readiness claims.
 - Replay producer provenance remains conservative: E131 explicitly provides `all_voices_heard`; E186 is partial; E247/E248 remain open until exact authored producer/key tuples exist.
 - Composite predicates such as systemic explanation, coalition cooperation, constitutional preparation, budget reform and final-charter prerequisites are source-closed but runtime qualification remains open.
 
-## S11 remaining gates
-Ending prerequisite and precedence validators intentionally remain conservative. The seven ending families are inventoried, but the following must still be proven before Decision Engine promotion:
-1. exact positive prerequisite set per ending family;
-2. exact negative blocker set per ending family;
-3. deterministic tie-break order when multiple families qualify;
-4. fresh-run evaluation order;
-5. replay evaluation order;
-6. deterministic terminal selection;
-7. fresh-run and replay gameplay reachability.
+## S11 remaining downstream gates
+S11 source-level closure is complete. The following are deliberately downstream and must not be counted as already implemented:
+1. Decision Engine execution of the exact prerequisite/blocker contract;
+2. runtime deterministic ending selection;
+3. fresh-run gameplay reachability;
+4. replay gameplay reachability and meta transfer execution;
+5. save/load equivalence at ending resolution.
 
-People's Charter remains blocked by complete final-charter producer qualification. Second Founder remains blocked by replay/meta producer/key closure and convergence qualification. These are not to be invented merely to increase a percentage.
+These downstream items belong to runtime/Decision Engine work, not a reopened S11 source-contract gap.
 
 ## Major downstream blocks
 - Foundation / Rules: **95%**
@@ -86,7 +93,7 @@ People's Charter remains blocked by complete final-charter producer qualificatio
 - Derived Predicates / Machine Contracts: **90%**
 - Delayed Consequences: **98%**
 - Replay / Meta-state: **65%**
-- Endings / precedence: **65%**
+- Endings / precedence: **100% source-level**
 - Reachability / Causal Graph: **100% source-level**
 - Production Data Schema: **36%**
 - Decision Engine: **0%**
@@ -100,7 +107,7 @@ People's Charter remains blocked by complete final-charter producer qualificatio
 Overall project progress remains approximately **60%**. This deliberately does not treat source-level QA closure as runtime/gameplay completion.
 
 ## NEXT ACTION
-**S11 — Ending / Replay QA closure pass.** Reconcile the authoritative ending qualification sources against the seven ending families, identify only evidence-backed positive/negative prerequisites and precedence rules, then add executable machine gates and CI verification. Do not promote the Decision Engine until S11's exact runtime-boundary contracts are proven.
+**Downstream runtime/Decision Engine work after S11 source closure.** Implement the machine-readable S02/S11 contracts without changing authored semantics, then verify runtime ending selection, save/load equivalence, replay isolation and fresh-run/replay reachability. Do not relabel runtime gates as complete merely because source contracts are green.
 
 ## Honest progress rule
 Documentation alone never makes implementation complete. Source edits count only when authoritative evidence is changed/re-read. No block is ready until its applicable verification passes.
