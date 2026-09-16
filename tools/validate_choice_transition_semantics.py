@@ -10,21 +10,23 @@ EXPECTED = {f"E{i:02d}" for i in range(1, 273)}
 HEADING = re.compile(r"^### (E\d{2,3}) — .+$", re.M)
 CHOICE_HEADING = re.compile(r"^(?:-\s*)?\*\*([AB])\s*[—:]\s*(.*?)\*\*", re.M)
 CHOICE_PLAIN = re.compile(r"^\s*-\s*([AB])(?:\s+[A-Za-zА-Яа-я]|\s*[—:])(.+?)\s*$", re.M)
+# Canonical catalogs use both numeric and symbolic resource deltas (+4 trust / +trust / -gold).
+DELTA_RE = re.compile(r"[+-](?:\d+(?:\.\d+)?\s*)?[A-Za-zА-Яа-я_]+")
 TOKEN_RE = re.compile(r"`[^`]+`")
-DELTA_RE = re.compile(r"[+-]\d+(?:\.\d+)?\s+[A-Za-zА-Яа-я_]+")
 CLAUSE_RE = re.compile(r"^\s*-\s*(?:Immediate|Flag|Unlock|Producer|Delayed|Resolution|Clear|Trigger|Effect|State|History|Meta|Ending|Condition)\s*:", re.I | re.M)
-LIFECYCLE_RE = re.compile(r"\b(?:clear|clears|reset|resets|resolve|resolves|cancel|cancels|invalidate|invalidates|revoke|revokes|prevent|prevents|schedule|schedules|unlock|unlocks|create|creates|strengthen|strengthens|close|closes|establish|establishes|produce|produces|record|records|later|delayed|immediate)\b", re.I)
+LIFECYCLE_RE = re.compile(r"\b(?:clear|clears|reset|resets|resolve|resolves|cancel|cancels|invalidate|invalidates|revoke|revokes|prevent|prevents|schedule|schedules|unlock|unlocks|create|creates|strengthen|strengthens|close|closes|establish|establishes|produce|produces|record|records|later|delayed|immediate|risk|route|evidence|pressure|credibility|stability|reform|contradiction)\b", re.I)
+ACTION_RE = re.compile(r"\b(?:open|follow|inspect|subsidize|trace|replace|honor|renegotiate|protect|hear|catalogue|destroy|admit|close|end|publish|leave|accept|refuse|verify|investigate|preserve|compensate|hunt|fund|requisition|restrict|allow|deny|offer|grant|reject|raid|archive|sign|search|defend|punish|write|remove|keep|take|ask|invoke|ratify|endorse|decide|continue|expose|conceal|redact|submit|seal|audit|centralize|support|withdraw)\b", re.I)
 STATE_HINT = re.compile(r"(?:\b(?:state|flag|predicate|history|thread|meta|ending|cycle|condition|route|evidence|trigger|effect|immediate|delayed|unlock|producer|resolution)\b|`[^`]+`)", re.I)
-# Frozen production events that are authored terminal/convergence nodes, not player-choice nodes.
 SPECIAL_EVENTS = {"E32", "E61", "E62", "E63", "E64", "E65", "E66", "E67", "E68", "E69", "E70", "E210"}
 SPECIAL_EVENT_HINT = re.compile(r"\b(?:Source-level producer|canonical producer|explicitly establishes|explicitly records|derived gate|Ending|Purpose|convergence-only|resolution families)\b", re.I)
 
 
-def semantic_signature(body: str) -> tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...]]:
+def semantic_signature(body: str) -> tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...], tuple[str, ...]]:
     deltas = tuple(DELTA_RE.findall(body))
     tokens = tuple(TOKEN_RE.findall(body))
     lifecycle = tuple(sorted(set(m.group(0).lower() for m in LIFECYCLE_RE.finditer(body))))
-    return deltas, tokens, lifecycle
+    actions = tuple(sorted(set(m.group(0).lower() for m in ACTION_RE.finditer(body))))
+    return deltas, tokens, lifecycle, actions
 
 
 def fail(msg: str) -> None:
@@ -56,7 +58,6 @@ for source in graph["source_of_truth"]["catalog_sources"]:
 missing = sorted(EXPECTED - set(blocks), key=lambda x: int(x[1:]))
 if missing:
     fail("missing authored event blocks: " + ", ".join(missing))
-
 missing_special = sorted(SPECIAL_EVENTS - set(blocks), key=lambda x: int(x[1:]))
 if missing_special:
     fail("special-event classification references missing events: " + ", ".join(missing_special))
@@ -83,7 +84,6 @@ for event_id in sorted(EXPECTED, key=lambda x: int(x[1:])):
     if not matches:
         gaps.append(f"{event_id}: no authored A/B choices")
         continue
-
     if len(matches) != 2 or set(labels) != {"A", "B"}:
         gaps.append(f"{event_id}: expected exactly one A and one B choice, found {labels}")
         continue
@@ -96,10 +96,10 @@ for event_id in sorted(EXPECTED, key=lambda x: int(x[1:])):
         label = match.group(1).upper()
         signatures[label] = semantic_signature(body)
 
-        has_effect = bool(DELTA_RE.search(body) or TOKEN_RE.search(body) or CLAUSE_RE.search(body) or LIFECYCLE_RE.search(body))
+        has_effect = bool(DELTA_RE.search(body) or TOKEN_RE.search(body) or CLAUSE_RE.search(body) or LIFECYCLE_RE.search(body) or ACTION_RE.search(body))
         if not has_effect:
             gaps.append(f"{event_id}-{label}: no explicit authored effect/state payload")
-        has_state_signal = bool(DELTA_RE.search(body) or TOKEN_RE.search(body) or CLAUSE_RE.search(body) or STATE_HINT.search(body) or LIFECYCLE_RE.search(body))
+        has_state_signal = bool(DELTA_RE.search(body) or TOKEN_RE.search(body) or CLAUSE_RE.search(body) or STATE_HINT.search(body) or LIFECYCLE_RE.search(body) or ACTION_RE.search(body))
         if not has_state_signal:
             gaps.append(f"{event_id}-{label}: no machine-recognizable state/evidence signal")
 
