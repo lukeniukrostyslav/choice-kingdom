@@ -94,12 +94,11 @@ def test_guild_influence_requires_three_distinct_authored_domains() -> None:
     assert "pred.guild_influence_strong" not in relationship_only.predicates
 
 
-def test_guild_logistics_immunity_blocks_the_logistics_domain() -> None:
+def test_guild_logistics_immunity_invalidates_only_the_logistics_domain() -> None:
     facts = EndingSourceCompiler.compile(
         history={"history.guild_representation", "history.guild_logistics_cooperation"},
         flags={
             "guild_tribunal_independent",
-            "audited_monopoly",
             "guild_neutral_inspectors",
             "guild_logistics_immunity_risk",
         },
