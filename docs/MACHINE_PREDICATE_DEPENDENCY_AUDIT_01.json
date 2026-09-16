@@ -1,34 +1,52 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "contract": "choice_kingdom.predicate_dependency_audit",
   "scope": "E01-E272",
   "status": "SOURCE_LEVEL_ONLY",
+  "predicates": {
+    "pred.guild_influence_strong": "SOURCE-CLOSED_RUNTIME_OPEN",
+    "pred.systemic_explanation_verified": "SOURCE-CLOSED_RUNTIME_OPEN",
+    "pred.coalition_cooperation": "SOURCE-CLOSED_RUNTIME_OPEN",
+    "pred.constitutional_prepared_strong": "SOURCE-CLOSED_RUNTIME_OPEN",
+    "pred.budget_reform": "SOURCE-CLOSED_RUNTIME_OPEN",
+    "pred.final_charter_prerequisites": "SOURCE-CLOSED_RUNTIME_OPEN",
+    "pred.food_stable": "SOURCE-CLOSED_RUNTIME_OPEN",
+    "pred.border_crisis": "SOURCE-CLOSED_RUNTIME_OPEN"
+  },
+  "source_provenance_updates": {
+    "pred.systemic_explanation_verified": {
+      "producer": "E270-A",
+      "key": "systemic_explanation_convergence",
+      "requires": [
+        "warehouse_or_financial",
+        "document_or_language",
+        "witness_or_organizational",
+        "explicit_convergence"
+      ]
+    },
+    "pred.food_stable": {
+      "producer": "E192-B",
+      "key": "food_logistics_stabilized",
+      "clear": "E192-A"
+    },
+    "pred.coalition_cooperation": {
+      "producer": "E148-A",
+      "requires": [
+        "positive_mutual_concessions",
+        "participant_identity",
+        "no_unresolved_coalition_collapse_blocker"
+      ]
+    }
+  },
   "rules": [
     "consumer_cannot_manufacture_prerequisite",
     "composite_predicates_require_explicit_component_evidence",
     "ordinary_history_is_not_replay_meta",
     "E33_E34_are_canonical_production_events",
-    "E273_E277_excluded"
+    "E273_E277_excluded",
+    "source_closed_does_not_mean_runtime_verified"
   ],
-  "predicates": {
-    "pred.guild_influence_strong": "OPEN",
-    "pred.systemic_explanation_verified": "OPEN",
-    "pred.coalition_cooperation": "OPEN",
-    "pred.constitutional_prepared_strong": "OPEN",
-    "pred.budget_reform": "SOURCE_CLOSED_RUNTIME_OPEN",
-    "pred.final_charter_prerequisites": "OPEN_BLOCKED",
-    "pred.food_stable": "OPEN_BLOCKED",
-    "pred.border_crisis": "SOURCE_CLOSED_RUNTIME_OPEN"
-  },
-  "delayed_boundaries": {
-    "E181": "E45-B",
-    "E243": "E18-B",
-    "E245": "E20-A",
-    "E242": "E118-B_PARTIAL",
-    "E184": "PRODUCER_OPEN",
-    "E185": "E17-A_IDENTITY_CLOSED_LIFECYCLE_OPEN"
-  },
-  "replay_meta_inventory_closed": false,
+  "runtime_verified": false,
   "fresh_run_reachability_verified": false,
-  "runtime_verified": false
+  "replay_reachability_verified": false
 }
