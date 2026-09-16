@@ -18,6 +18,7 @@ on:
       - 'tests/test_ending_resolver.py'
       - 'tests/test_ending_contract.py'
       - 'tests/test_ending_sources.py'
+      - 'tests/test_ending_sources_runtime.py'
       - 'tests/test_budget_reform_contract.py'
       - 'tests/test_final_charter_contract.py'
       - 'tests/test_constitutional_prepared_contract.py'
@@ -40,6 +41,7 @@ on:
       - 'tests/test_ending_resolver.py'
       - 'tests/test_ending_contract.py'
       - 'tests/test_ending_sources.py'
+      - 'tests/test_ending_sources_runtime.py'
       - 'tests/test_budget_reform_contract.py'
       - 'tests/test_final_charter_contract.py'
       - 'tests/test_constitutional_prepared_contract.py'
@@ -60,4 +62,4 @@ jobs:
       - name: Validate authored ending QA matrix
         run: python tools/validate_ending_test_matrix_contract.py
       - name: Execute ending resolver runtime gate
-        run: python -m pytest -q tests/test_ending_resolver.py tests/test_ending_contract.py tests/test_runtime_state.py tests/test_ending_sources.py tests/test_budget_reform_contract.py tests/test_final_charter_contract.py tests/test_constitutional_prepared_contract.py tests/test_ending_source_contract_inventory.py tests/test_systemic_coalition_contracts.py
+        run: python -m pytest -q tests/test_ending_resolver.py tests/test_ending_contract.py tests/test_runtime_state.py tests/test_ending_sources.py tests/test_ending_sources_runtime.py tests/test_budget_reform_contract.py tests/test_final_charter_contract.py tests/test_constitutional_prepared_contract.py tests/test_ending_source_contract_inventory.py tests/test_systemic_coalition_contracts.py
