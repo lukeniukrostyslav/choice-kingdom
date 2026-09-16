@@ -1,5 +1,9 @@
 from __future__ import annotations
 
+import re
+
+import pytest
+
 from runtime.delays import (
     CANONICAL_DELAY_SPECS,
     due_delays,
@@ -7,6 +11,7 @@ from runtime.delays import (
     resolve_due_delay,
     schedule_authored_delay,
 )
+from runtime.engine import DecisionEngine
 from runtime.state import GameState, PendingDelay, SaveStore
 
 
@@ -142,3 +147,68 @@ def test_pending_delay_survives_save_load_and_replay_runs_are_isolated(tmp_path)
     second = GameState.fresh("delay-save-b")
     assert second.pending_delays == {}
     assert restored.run_id != second.run_id
+
+
+def _prime_state_for_authored_source(engine: DecisionEngine, event_id: str) -> GameState:
+    """Satisfy only machine-readable trigger requirements; never invent route edges."""
+    state = GameState.fresh(f"delay-source-{event_id}")
+    event = engine.event(event_id)
+    state.resources.update({name: 100 for name in state.resources})
+    state.relationships.update({name: 3 for name in state.relationships})
+    state.flags.update(re.findall(r"`([^`]+)`", event.trigger))
+    prerequisites = engine.catalog.authored_prerequisites(event_id)
+    state.history.update(prerequisites)
+    if prerequisites:
+        state.current_event_id = prerequisites[-1]
+    state.turn = max(state.turn, 2)
+    if "first turn" in event.trigger.lower():
+        state.turn = 1
+    return state
+
+
+@pytest.mark.parametrize(
+    "event_id,choice_id,resolution_target",
+    [(spec.source_event_id, spec.source_choice_id, spec.resolution_target) for spec in CANONICAL_DELAY_SPECS],
+)
+def test_each_canonical_delayed_choice_executes_through_decision_engine(
+    event_id: str, choice_id: str, resolution_target: str
+):
+    engine = DecisionEngine(__import__("pathlib").Path(__file__).resolve().parents[1])
+    state = _prime_state_for_authored_source(engine, event_id)
+
+    result = engine.execute(state, event_id, choice_id)
+    delay = next(d for d in state.pending_delays.values() if d.resolution_target == resolution_target)
+
+    assert result.event_id == event_id
+    assert delay.source_event_id == event_id
+    assert delay.source_choice_id == choice_id
+    assert delay.status == "pending"
+    assert delay.exactly_once_key
+    assert delay.resolution_target == resolution_target
+
+    if delay.condition_bound:
+        assert delay.scheduled_turn is None
+    else:
+        assert delay.scheduled_turn is not None
+        assert delay.scheduled_turn > result.state_snapshot["turn"] - 1
+        state.turn = delay.scheduled_turn
+        assert due_delays(state) == (delay,)
+        assert resolve_due_delay(state, delay.exactly_once_key).status == "resolved"
+        with pytest.raises(ValueError, match="not pending"):
+            resolve_due_delay(state, delay.exactly_once_key)
+
+
+def test_all_canonical_delays_remain_run_scoped_after_real_engine_execution(tmp_path):
+    engine = DecisionEngine(__import__("pathlib").Path(__file__).resolve().parents[1])
+    snapshots = []
+    for index, spec in enumerate(CANONICAL_DELAY_SPECS):
+        state = _prime_state_for_authored_source(engine, spec.source_event_id)
+        engine.execute(state, spec.source_event_id, spec.source_choice_id)
+        path = tmp_path / f"delay-{index}.json"
+        SaveStore.save(state, path)
+        restored = SaveStore.load(path)
+        snapshots.append(restored.snapshot())
+
+    fresh = GameState.fresh("fresh-after-delayed-sources")
+    assert fresh.pending_delays == {}
+    assert all(snapshot["pending_delays"] for snapshot in snapshots)
