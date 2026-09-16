@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Validate authored choice transition semantics (S02)
+        run: python3 tools/validate_choice_transition_semantics.py
       - name: Validate source-level canonical graph contract
         run: python3 tools/validate_canonical_graph.py
       - name: Validate canonical graph source closure
