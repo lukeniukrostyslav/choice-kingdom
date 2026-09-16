@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Mapping, Sequence
 
+from .ending_contract import EndingQualification
 from .state import GameState
 
 END_STEWARD = "END_STEWARD"
@@ -83,6 +84,22 @@ class EndingResolver:
             qualified_positive_endings=tuple(sorted(qualified)),
             failure=collapse_failure,
             withdrawal=explicit_withdrawal,
+        )
+
+    def resolve_qualification(
+        self,
+        state: GameState,
+        qualification: EndingQualification,
+        *,
+        authored_priority: Mapping[tuple[str, str], str] | None = None,
+    ) -> EndingResolution:
+        """Resolve only a validated machine-readable authored qualification contract."""
+        return self.resolve(
+            state,
+            qualified_endings=tuple(sorted(qualification.positive_endings)),
+            collapse_failure=qualification.collapse_failure,
+            explicit_withdrawal=qualification.explicit_withdrawal,
+            authored_priority=authored_priority,
         )
 
     def _validate_terminal_boundary(self, state: GameState) -> None:
