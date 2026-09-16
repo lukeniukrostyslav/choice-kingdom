@@ -7,6 +7,7 @@
   "producer": "E148-A",
   "requires": [
     "positive_mutual_concessions",
+    "coalition_candidate_package",
     "at_least_three_distinct_canonical_participant_identities",
     "no_unresolved_coalition_collapse_blocker"
   ],
@@ -21,8 +22,9 @@
   "minimum_distinct_participants": 3,
   "producer_runtime_binding": {
     "choice": "E148-A",
+    "positive_outcome_marker": "coalition_candidate_package",
     "records_participants": ["mara", "rowan", "seris", "ivo", "amara", "toma"],
-    "source_basis": "E148-A explicitly records participation from Mara, Rowan, Seris, Ivo, Amara and Toma"
+    "source_basis": "E148-A explicitly says build a package with mutual concessions, records history.cross_faction_package and coalition_candidate_package, and records participation from Mara, Rowan, Seris, Ivo, Amara and Toma"
   },
   "consumer_cannot_manufacture": true,
   "forbidden_aliases": ["history.cross_faction_package", "four_way_bargain", "rel.ivo", "rel.seris"],
