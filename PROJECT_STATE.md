@@ -7,7 +7,7 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 **Content → canonical QA → machine-readable contracts → Decision Engine → UI → localization/tests → Android QA → APK → release.** No mock/stub gameplay and no premature readiness claims.
 
 ## Current phase
-**Production runtime integration / Block 7.** Blocks 1–6 have implementation/verification closure at their defined boundaries. `GameSession` is the application-facing presentation-neutral seam. A deterministic full-campaign runtime audit is now in place. Android UI, localization, device QA, APK/AAB and store release remain open.
+**Production runtime integration / Block 7.** Blocks 1–6 have implementation/verification closure at their defined boundaries. `GameSession` is the application-facing presentation-neutral seam. Deterministic full-campaign and trigger-semantics audits are now in place. Android UI, localization, device QA, APK/AAB and store release remain open.
 
 ## Closed source/contract gates
 - S01 **100%** — frozen E01–E272 catalog and source inventory.
@@ -25,22 +25,15 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 
 **Scenario QA source/contract status: 100%. This is not 100% runtime gameplay completion.**
 
-## Runtime closures
-- Deterministic authored routing: **100% runtime-verified at defined boundary**.
-- Delayed consequences: **100% runtime-verified** for the frozen ten-delay lifecycle and target activation boundary.
-- Replay/meta-state: **100% runtime-verified** at the current transfer boundary.
-- Endings/precedence: **100% runtime-verified at executable Python boundary**.
-- Save/load/determinism: **100% closed** with integrity checks, atomic replacement, backup recovery and deterministic continuation.
-- `GameSession`: **100% of the current session-boundary contract**, with dedicated tests and validator across E01–E272.
-
 ## Latest local verification
-- `PYTHONPATH=. pytest -q` → **181 passed**.
-- Production catalog validator → **PASS**: 272 events, 520 choices, 13 no-choice special nodes.
-- Runtime session boundary validator → **PASS** across 272 events.
-- Structural graph audit → **PASS**: 305 edges, 140 roots, 272 structurally reachable, 0 structurally unreachable, 65 sink candidates, 62 weak components.
-- Deterministic campaign audit → **61 unique events executed / 211 remaining / 0 execution errors**, stopping at E230 under currently implemented trigger/routing semantics.
+- Full regression: **182 passed**.
+- Production catalog: **PASS**, 272 events / 520 choices / 13 no-choice special nodes.
+- Runtime session boundary: **PASS**, 272-event catalog.
+- Structural graph: **PASS**, 305 edges / 140 roots / 272 structurally reachable / 0 structurally unreachable.
+- Deterministic campaign audit: **61 unique events executed / 211 remaining / 0 execution errors**, stopping at E230 under currently implemented trigger/routing semantics.
+- Runtime trigger semantics audit: **PASS**, 272 triggers classified; **154 opaque/partial** expressions remain explicitly open for authoritative semantic binding.
 
-The campaign audit is explicitly diagnostic. The 211 remaining events are **not declared impossible**. It does not invent trigger thresholds, infer route activation from relationships, or turn graph edges into runtime rules.
+The campaign and trigger audits are diagnostic. Missing/opaque events are **not declared impossible**. No trigger threshold, route activation, relationship proxy, or graph edge is promoted into gameplay semantics without source evidence.
 
 ## Major blocks
 - Foundation / Rules: **100%**
@@ -58,19 +51,23 @@ The campaign audit is explicitly diagnostic. The 211 remaining events are **not 
 - UI / UX: **0%**
 - Localization 20+ / RTL: **5%**
 - Android Implementation: **0%**
-- Runtime / Android QA: **20%** — headless runtime and deterministic campaign audit verified; Android/device gameplay remains open.
+- Runtime / Android QA: **20%** — headless runtime and deterministic audits verified; Android/device gameplay remains open.
 - APK / AAB: **0%**
 - Release / Store: **0%**
 
 ## Current Block 7 target
-Close authoritative trigger/producer semantics only where the authored source and canonical contracts define them; bind those semantics into the runtime; repeatedly re-run the full regression and campaign audit; then make the complete E01–E272 campaign executable through one `GameSession` lifecycle.
+Close authoritative trigger/producer semantics only where authored source and canonical contracts define them; bind verified semantics into the runtime; rerun the full regression and campaign audit; then make E01–E272 executable through one `GameSession` lifecycle.
 
-## Important files added for this checkpoint
+## Latest work saved to GitHub
 - `tools/audit_runtime_campaign.py`
 - `tests/test_runtime_campaign_audit.py`
 - `.github/workflows/runtime-campaign-audit.yml`
 - `docs/RUNTIME_CAMPAIGN_AUDIT_01.md`
-- generated local machine report: `docs/MACHINE_RUNTIME_CAMPAIGN_AUDIT_01.json`
+- `tools/audit_runtime_trigger_semantics.py`
+- `tests/test_runtime_trigger_semantics_audit.py`
+- `.github/workflows/runtime-trigger-semantics-audit.yml`
+- `docs/RUNTIME_TRIGGER_SEMANTICS_CLOSURE_01.md`
+- `docs/MACHINE_RUNTIME_TRIGGER_SEMANTICS_AUDIT_01.json`
 
 ## Honest progress rule
 Documentation never makes implementation complete. Every percentage requires authoritative evidence and applicable verification. Source/contract GREEN must never be reported as runtime gameplay GREEN. Owner-controlled physical Android QA, production signing and store publication remain open until actually performed.
