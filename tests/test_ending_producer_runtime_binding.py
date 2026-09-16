@@ -22,6 +22,22 @@ def test_e148_a_runtime_binding_records_only_canonical_authored_participants() -
     }
 
 
+def test_e148_a_full_authored_execution_produces_the_coalition_source_state() -> None:
+    engine = DecisionEngine(Path("."))
+    state = GameState.fresh("e148-execution")
+    state.current_event_id = "E146"
+    state.history.add("E146")
+
+    result = engine.execute(state, "E148", "E148-A")
+
+    assert result.choice_id == "E148-A"
+    assert "history.cross_faction_package" in state.history
+    assert "coalition_candidate_package" in state.flags
+    assert state.coalition_participants == set(AUTHORED_COALITION_PARTICIPANTS["E148-A"])
+    facts = EndingSourceCompiler.compile_state(state)
+    assert "pred.coalition_cooperation" in facts.predicates
+
+
 def test_e148_runtime_participants_feed_the_coalition_predicate_without_aliases() -> None:
     state = GameState.fresh("e148-predicate")
     state.history.add("history.cross_faction_package")
