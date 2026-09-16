@@ -163,41 +163,86 @@ class AuthoredCatalog:
         low = trigger.lower().strip().rstrip(".")
         if not trigger:
             return True
-        matched_condition = False
-        for name, op, raw in NUMERIC_RE.findall(trigger):
-            matched_condition = True
-            if not _compare(state.resources[name.lower()], op, int(raw)):
-                return False
-        for required in self.authored_prerequisites(event_id):
-            matched_condition = True
-            if required not in state.history:
-                return False
-        # A direct event reference is executable only when authored as an OR
-        # branch. This preserves compound AND triggers such as E29 + E30 + E31.
-        for first, second in EVENT_OR_RE.findall(trigger):
-            required = (first or second).upper()
-            if required == event_id:
-                continue
-            matched_condition = True
-            if required not in state.history:
-                return False
-        for name, op, raw in REL_COND_RE.findall(trigger):
-            matched_condition = True
-            if not _compare(state.relationships[name.lower()], op, int(raw)):
-                return False
-        for token in TOKEN_RE.findall(trigger):
-            matched_condition = True
-            if token not in state.flags and token not in state.history and token not in state.threads:
-                return False
-        if "first turn" in low:
-            matched_condition = True
-            if state.turn != 1:
-                return False
         if low == "severe winter":
-            matched_condition = True
-            if "pred.winter_severe" not in state.flags and "pred.winter_severe" not in state.history and "pred.winter_severe" not in state.threads:
-                return False
-        return matched_condition
+            return _state_has_marker(state, "pred.winter_severe")
+
+        # Evaluate boolean structure only for atoms the runtime can prove.
+        # Unknown prose stays UNKNOWN rather than being guessed as a route.
+        # This lets authored OR branches work (for example ``token or score``)
+        # without silently converting narrative shorthand into gameplay truth.
+        if " or " in low:
+            # A direct authored event reference is an executable OR branch even
+            # when the other branch remains narrative/opaque.
+            for first, second in EVENT_OR_RE.findall(trigger):
+                required = (first or second).upper()
+                if required != event_id and required in state.history:
+                    return True
+            branches = re.split(r"\bor\b", trigger, flags=re.I)
+            return any(
+                _evaluate_trigger_branch(branch, state, self.authored_prerequisites(event_id)) is True
+                for branch in branches
+            )
+
+        result = _evaluate_trigger_branch(trigger, state, self.authored_prerequisites(event_id))
+        return result is True
+
+
+def _state_has_marker(state, marker: str) -> bool:
+    return marker in state.flags or marker in state.history or marker in state.threads
+
+
+def _evaluate_trigger_branch(trigger: str, state, prerequisites: tuple[str, ...]) -> bool | None:
+    """Evaluate one AND branch; return None when authored prose is unresolved."""
+    clauses = [part.strip(" ,;:()") for part in re.split(r"(?:\band\b|\+)", trigger, flags=re.I)]
+    values: list[bool] = []
+    for clause in clauses:
+        if not clause:
+            continue
+        value = _evaluate_trigger_atom(clause, state, prerequisites)
+        if value is None:
+            return None
+        values.append(value)
+    if not values:
+        return None
+    return all(values)
+
+
+def _evaluate_trigger_atom(clause: str, state, prerequisites: tuple[str, ...]) -> bool | None:
+    """Evaluate only canonical atoms; narrative residue deliberately remains unknown."""
+    normalized = clause.strip().rstrip(".").strip()
+    low = normalized.lower()
+    if low == "first turn":
+        return state.turn == 1
+    if low == "severe winter":
+        return _state_has_marker(state, "pred.winter_severe")
+
+    # Explicit completed/resolved/after-event prerequisites are canonical event facts.
+    match = COMPLETED_EVENT_RE.fullmatch(normalized)
+    if match:
+        return match.group(1).upper() in state.history
+    match = AFTER_EVENT_RE.fullmatch(normalized)
+    if match:
+        return match.group(1).upper() in state.history
+
+    numeric = list(NUMERIC_RE.finditer(normalized))
+    if numeric and " ".join(m.group(0) for m in numeric) == normalized:
+        return all(_compare(state.resources[name.lower()], op, int(raw)) for name, op, raw in (m.groups() for m in numeric))
+
+    relationships = list(REL_COND_RE.finditer(normalized))
+    if relationships and " ".join(m.group(0) for m in relationships) == normalized:
+        return all(_compare(state.relationships[name.lower()], op, int(raw)) for name, op, raw in (m.groups() for m in relationships))
+
+    tokens = TOKEN_RE.fullmatch(normalized)
+    if tokens:
+        return _state_has_marker(state, tokens.group(1))
+
+    # A bare canonical event prerequisite can occur in a compound authored branch
+    # only when it is one of the already extracted explicit prerequisites.
+    event_match = re.fullmatch(r"E\d{2,3}", normalized, flags=re.I)
+    if event_match and event_match.group(0).upper() in prerequisites:
+        return event_match.group(0).upper() in state.history
+
+    return None
 
 
 def _compare(value: int, op: str, target: int) -> bool:
