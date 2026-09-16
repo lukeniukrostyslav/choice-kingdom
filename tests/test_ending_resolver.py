@@ -1,4 +1,6 @@
 import itertools
+import json
+from pathlib import Path
 
 import pytest
 
@@ -25,11 +27,51 @@ POSITIVE = (
     END_IRON_CROWN,
 )
 
+DISPLAY_TO_ID = {
+    "Second Founder": END_SECOND_FOUNDER,
+    "People's Charter": END_PEOPLES_CHARTER,
+    "Golden Compact": END_GOLDEN_COMPACT,
+    "Steward": END_STEWARD,
+    "Iron Crown": END_IRON_CROWN,
+}
+
 
 def terminal_state() -> GameState:
     state = GameState.fresh("ending-test")
     state.terminal = True
     return state
+
+
+def load_precedence_source() -> dict:
+    path = Path(__file__).resolve().parents[1] / "docs" / "MACHINE_ENDING_PRECEDENCE_TABLE_01.json"
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def test_runtime_priority_is_exact_projection_of_authored_source_table():
+    source = load_precedence_source()
+    expected_order = tuple(DISPLAY_TO_ID[name] for name in source["positive_priority"])
+    assert expected_order == POSITIVE
+
+    expected_pairs = {
+        (higher, lower): higher
+        for index, higher in enumerate(expected_order)
+        for lower in expected_order[index + 1 :]
+    }
+    assert AUTHORED_PRIORITY == expected_pairs
+
+
+def test_source_pairwise_coverage_contains_every_positive_pair():
+    source = load_precedence_source()
+    expected_pairs = {
+        frozenset((left, right))
+        for left, right in itertools.combinations(POSITIVE, 2)
+    }
+    source_pairs = {
+        frozenset((DISPLAY_TO_ID[left], DISPLAY_TO_ID[right]))
+        for left, right in source["pairwise_coverage"]
+        if left in DISPLAY_TO_ID and right in DISPLAY_TO_ID
+    }
+    assert expected_pairs <= source_pairs
 
 
 def test_single_authored_positive_ending_is_resolved_and_immutable():
