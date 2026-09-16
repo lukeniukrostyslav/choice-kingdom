@@ -108,8 +108,6 @@ class AuthoredCatalog:
                 resource_deltas=resource_deltas, relationship_deltas=relationship_deltas,
                 state_tokens=tuple(dict.fromkeys(tokens)), clear_tokens=tuple(dict.fromkeys(clears)),
             ))
-        if not choices:
-            raise CatalogError(f"event has no authored choices: {event_id}")
         return Event(event_id, title, trigger, tuple(choices), source)
 
     def get(self, event_id: str) -> Event:
@@ -123,8 +121,8 @@ class AuthoredCatalog:
             raise CatalogError("runtime catalog scope is not exactly E01-E272 excluding E273-E277")
         for event in self.events.values():
             labels = {choice.label for choice in event.choices}
-            if not {"A", "B"}.issubset(labels):
-                raise CatalogError(f"missing A/B choice in {event.event_id}")
+            if labels and not {"A", "B"}.issubset(labels):
+                raise CatalogError(f"incomplete authored choice set in {event.event_id}: {sorted(labels)}")
 
     def trigger_satisfied(self, event_id: str, state) -> bool:
         event = self.get(event_id)
