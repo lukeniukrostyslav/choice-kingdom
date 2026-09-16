@@ -13,7 +13,7 @@ Percentages increase only on verified source changes and green relevant gates. T
 | S01 — Canonical Event Coverage | 84% | ADVANCED — E01–E272 exhaustive authored-event scope is structurally validated; semantic/reachability closure remains |
 | S02 — Choice / State Transitions | 70% | OPEN — complete authored transition/effect closure remains |
 | S03 — Producer / Consumer Closure | 100% | SOURCE-CLOSED — exhaustive inventory reports zero undefined consumers after frozen source contracts and canonical trigger normalization |
-| S04 — Predicate Contracts | 90% | ADVANCED — `pred.food_stable` is now source-closed by E192-B/E192-A; guild-labor and information-pressure production contracts remain OPEN/BLOCKED; runtime lifecycle remains open |
+| S04 — Predicate Contracts | 90% | ADVANCED — `pred.food_stable` and `pred.systemic_explanation_verified` are now source-closed by E192-B/E192-A and E270-A respectively; guild-labor and information-pressure production contracts remain OPEN/BLOCKED; runtime lifecycle remains open |
 | S05 — Delayed Consequences | 60% | OPEN — complete consequence and cancellation closure remains |
 | S06 — Replay / Meta State | 65% | ADVANCED — explicit replay meta-state bindings for E186/E247/E248 are frozen and pass the dedicated machine gate; runtime replay execution remains open |
 | S07 — Event Graph / Causality | 83% | ADVANCED — canonical graph gate is green; full causal reachability remains |
@@ -29,6 +29,13 @@ Percentages increase only on verified source changes and green relevant gates. T
 Exact arithmetic mean: **83.4167%**.
 
 ## Verified autonomous work — latest blocks
+
+### S34 — systemic-explanation producer reconciliation
+- Reconciled `docs/CANONICAL_PRODUCER_INVENTORY_01.md` with the canonical machine graph/source contract for `pred.systemic_explanation_verified`.
+- E270-A is now recorded consistently as the frozen-scope explicit convergence producer for `systemic_explanation_convergence`, conditioned on the three required evidence families.
+- Reconciled `docs/CANONICAL_CONTRACT_CLOSURE_PASS_01.md`: `pred.systemic_explanation_verified` and the evidence-convergence contract are now **SOURCE-CLOSED** at producer-identity level; executable aggregation, contradiction handling, persistence and reachability remain open.
+- Commits: `f319cc8a6ca993de14cad3c10a629a4fb87194cd`, `afc7ffb5dceb21cf83ca422c6f758e3e11c7a6e1`.
+- No percentage increase was claimed because runtime/evidence aggregation and reachability remain unresolved.
 
 ### S33 — ending test-matrix contract gate
 - Added `tools/validate_ending_test_matrix_contract.py` to validate the complete P01–P30 authored ending QA surface, deterministic semantic evaluation order, seven ending families, replay/save-load/alias negative controls, and E273–E277 exclusion language.
