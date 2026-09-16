@@ -108,6 +108,9 @@ class AuthoredCatalog:
                 resource_deltas=resource_deltas, relationship_deltas=relationship_deltas,
                 state_tokens=tuple(dict.fromkeys(tokens)), clear_tokens=tuple(dict.fromkeys(clears)),
             ))
+        # Some authored special nodes are intentionally state-producing narrative
+        # boundaries without player choices (for example E32). Preserve them in the
+        # runtime catalog rather than inventing A/B choices that do not exist in source.
         return Event(event_id, title, trigger, tuple(choices), source)
 
     def get(self, event_id: str) -> Event:
