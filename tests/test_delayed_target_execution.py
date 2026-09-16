@@ -25,13 +25,10 @@ def test_due_delayed_target_is_activated_by_decision_engine_then_executed():
     delay = state.pending_delays[key]
     state.turn = delay.scheduled_turn
 
-    activation = engine.activate_delayed_target(state, key)
-    assert activation.target_event_id == "E243"
+    result = engine.execute_delayed_target(state, key, "E243-A")
+    assert result.event_id == "E243"
     assert state.pending_delays[key].status == "resolved"
     assert state.current_event_id == "E243"
-
-    result = engine.execute(state, "E243", "E243-A")
-    assert result.event_id == "E243"
     assert "E243" in state.history
     assert state.activated_delayed_targets == set()
 
