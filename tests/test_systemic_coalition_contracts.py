@@ -33,11 +33,16 @@ def test_coalition_contract_matches_frozen_graph_and_rejects_alias() -> None:
     source = graph["composite_predicates"]["pred.coalition_cooperation"]
     assert contract["producer"] == "E148-A"
     assert contract["requires"] == [
-        "positive_mutual_concessions", "participant_identity", "no_unresolved_coalition_collapse_blocker"
+        "positive_mutual_concessions",
+        "coalition_candidate_package",
+        "at_least_three_distinct_canonical_participant_identities",
+        "no_unresolved_coalition_collapse_blocker",
     ]
+    assert contract["producer_runtime_binding"]["positive_outcome_marker"] == "coalition_candidate_package"
     assert "four_way_bargain" in contract["forbidden_aliases"]
     assert source["status"] == "SOURCE-CLOSED"
     assert source["producer"] == "E148-A"
+    assert source["positive_outcome_marker"] == "coalition_candidate_package"
     assert source["runtime_verified"] is False
 
 
