@@ -69,7 +69,6 @@ def main() -> int:
     sources = [ROOT / path for path in contract.get("authoritative_machine_sources", [])]
     allowlist = {ROOT / path for path in contract.get("documentation_allowlist", [])}
     errors: list[str] = []
-    source_texts: dict[str, str] = {}
     runtime_source_ids: dict[str, list[str]] = {}
 
     if contract.get("scope") != EXPECTED_SCOPE:
@@ -95,7 +94,6 @@ def main() -> int:
             errors.append(f"missing authoritative machine source: {rel}")
             continue
         text = path.read_text(encoding="utf-8")
-        source_texts[rel] = text
         if path.suffix == ".json":
             try:
                 parsed = json.loads(text)
