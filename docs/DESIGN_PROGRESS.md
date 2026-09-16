@@ -18,15 +18,15 @@ The visual direction is a premium illustrated political chronicle: restrained pa
 | 6 | Event Screen — production visual implementation | 68% |
 | 7 | A/B Choice System | 80% |
 | 8 | A/B/C Choice System | 76% |
-| 9 | Choice — idle | 75% |
+| 9 | Choice — idle | 77% |
 | 10 | Choice — focus | 70% |
 | 11 | Choice — pressed | 70% |
-| 12 | Choice — resolving | 78% |
-| 13 | Choice — disabled | 75% |
-| 14 | Choice — resolved | 78% |
-| 15 | Double-submit / interaction safety | 82% |
-| 16 | Long choice titles | 72% |
-| 17 | Long supporting text | 72% |
+| 12 | Choice — resolving | 80% |
+| 13 | Choice — disabled | 78% |
+| 14 | Choice — resolved | 80% |
+| 15 | Double-submit / interaction safety | 85% |
+| 16 | Long choice titles | 74% |
+| 17 | Long supporting text | 74% |
 | 18 | Long narrative | 62% |
 | 19 | Human stakes / character context | 40% |
 | 20 | Artwork / illustration system | 35% |
@@ -43,7 +43,7 @@ The visual direction is a premium illustrated political chronicle: restrained pa
 | 31 | Small-screen adaptation | 50% |
 | 32 | Tall-screen adaptation | 30% |
 | 33 | Large-font accessibility | 32% |
-| 34 | Screen-reader semantics | 45% |
+| 34 | Screen-reader semantics | 50% |
 | 35 | Focus / keyboard accessibility | 45% |
 | 36 | RTL | 38% |
 | 37 | Localization / long translations | 30% |
@@ -59,7 +59,18 @@ The visual direction is a premium illustrated political chronicle: restrained pa
 | 47 | Visual regression / screenshot QA | 10% |
 | 48 | Physical Android visual QA | 0% |
 
-Overall design pass: approximately **43%**.
+Overall design pass: approximately **44%**.
+
+## Latest verified design work
+
+- Hardened the prototype's decision-button semantics with explicit choice indexing and complete accessible labels for title + supporting text.
+- Preserved a strict UI boundary: the prototype still does not calculate gameplay outcomes; it explicitly defers gameplay effects to `GameSession`.
+- Strengthened resolving/disabled/resolved interaction semantics and the single-submit guard in the prototype code.
+- Kept physical Android visual QA at 0% because no physical-device verification has been performed in this pass.
+
+## Important verification boundary
+
+The latest visual CSS hardening attempt was not wired into `index.html` because the GitHub write was blocked before it could be committed. The unused temporary stylesheet was removed. Therefore no percentage above is credited for CSS changes that did not land. The percentages reflect only verified repository changes.
 
 ## Current execution order
 
