@@ -36,7 +36,7 @@ def test_collapse_failure_precedes_positive_ending():
     state = terminal_state()
     result = EndingResolver().resolve(
         state,
-        qualified_endings=[END_STEWARD],
+        qualified_endings=[END_STEWARD, END_PEOPLES_CHARTER],
         collapse_failure=True,
     )
     assert result.ending_id == END_BROKEN_DIADEM
