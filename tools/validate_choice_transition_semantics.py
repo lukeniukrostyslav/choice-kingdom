@@ -17,8 +17,10 @@ CLAUSE_RE = re.compile(r"^\s*-\s*(?:Immediate|Flag|Unlock|Producer|Delayed|Resol
 LIFECYCLE_RE = re.compile(r"\b(?:clear|clears|reset|resets|resolve|resolves|cancel|cancels|invalidate|invalidates|revoke|revokes|prevent|prevents|schedule|schedules|unlock|unlocks|create|creates|strengthen|strengthens|close|closes|establish|establishes|produce|produces|record|records|later|delayed|immediate|risk|route|evidence|pressure|credibility|stability|reform|contradiction)\b", re.I)
 ACTION_RE = re.compile(r"\b(?:open|follow|inspect|subsidize|trace|replace|honor|renegotiate|protect|hear|catalogue|destroy|admit|close|end|publish|leave|accept|refuse|verify|investigate|preserve|compensate|hunt|fund|requisition|restrict|allow|deny|offer|grant|reject|raid|archive|sign|search|defend|punish|write|remove|keep|take|ask|invoke|ratify|endorse|decide|continue|expose|conceal|redact|submit|seal|audit|centralize|support|withdraw)\b", re.I)
 STATE_HINT = re.compile(r"(?:\b(?:state|flag|predicate|history|thread|meta|ending|cycle|condition|route|evidence|trigger|effect|immediate|delayed|unlock|producer|resolution)\b|`[^`]+`)", re.I)
-SPECIAL_EVENTS = {"E32", "E61", "E62", "E63", "E64", "E65", "E66", "E67", "E68", "E69", "E70", "E210"}
-SPECIAL_EVENT_HINT = re.compile(r"\b(?:Source-level producer|canonical producer|explicitly establishes|explicitly records|derived gate|Ending|Purpose|convergence-only|resolution families)\b", re.I)
+# These are authored terminal/convergence nodes, not ordinary A/B player-choice events.
+# E270 is intentionally one-sided: E270-A is the explicit convergence decision and producer.
+SPECIAL_EVENTS = {"E32", "E61", "E62", "E63", "E64", "E65", "E66", "E67", "E68", "E69", "E70", "E210", "E270"}
+SPECIAL_EVENT_HINT = re.compile(r"\b(?:Source-level producer|canonical producer|explicitly establishes|explicitly records|derived gate|Ending|Purpose|convergence-only|resolution families|convergence producer|convergence decision)\b", re.I)
 
 
 def semantic_signature(body: str) -> tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...], tuple[str, ...]]:
@@ -73,7 +75,14 @@ for event_id in sorted(EXPECTED, key=lambda x: int(x[1:])):
     labels = [m.group(1).upper() for m in matches]
 
     if event_id in SPECIAL_EVENTS:
-        if matches:
+        if event_id == "E270":
+            if labels != ["A"]:
+                gaps.append(f"E270: canonical convergence node must contain exactly one authored A decision, found {labels}")
+            elif not re.search(r"systemic_explanation_convergence|convergence producer|convergence decision", block, re.I):
+                gaps.append("E270: missing explicit convergence producer marker")
+            else:
+                special_rows += 1
+        elif matches:
             gaps.append(f"{event_id}: classified special/convergence node but contains player-choice rows")
         elif not SPECIAL_EVENT_HINT.search(block):
             gaps.append(f"{event_id}: special/convergence classification lacks explicit authored marker")
@@ -88,7 +97,7 @@ for event_id in sorted(EXPECTED, key=lambda x: int(x[1:])):
         gaps.append(f"{event_id}: expected exactly one A and one B choice, found {labels}")
         continue
 
-    signatures: dict[str, tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...]]] = {}
+    signatures: dict[str, tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...], tuple[str, ...]]] = {}
     for index, match in enumerate(matches):
         rows += 1
         next_start = matches[index + 1].start() if index + 1 < len(matches) else len(block)
