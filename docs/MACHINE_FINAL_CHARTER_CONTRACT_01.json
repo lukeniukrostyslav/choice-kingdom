@@ -1,61 +1,23 @@
 {
-  "schema_version": "1.0",
-  "contract": "choice_kingdom.final_charter_prerequisites",
-  "scope": "E01-E272",
-  "status": "SOURCE_CONTRACT_IDENTIFIED",
-  "predicate": "pred.final_charter_prerequisites",
-  "consumer": "E209",
-  "consumer_cannot_manufacture": true,
-  "required_domains": [
-    {
-      "id": "civic_commons_legitimacy",
-      "canonical_sources": ["people_charter_endorsed"]
-    },
-    {
-      "id": "audit_institutional_legitimacy",
-      "canonical_sources": ["crown_audited", "full_crown_audit_published"]
-    },
-    {
-      "id": "faction_house_guild_representation",
-      "canonical_sources": ["history.house_assembly", "history.guild_representation"]
-    },
-    {
-      "id": "military_security_constitutional_route",
-      "canonical_sources": ["thread.military_constitutional", "military_red_line"]
-    },
-    {
-      "id": "information_evidence_legitimacy",
-      "canonical_sources": ["pred.systemic_explanation_verified", "systemic_explanation_convergence"]
-    },
-    {
-      "id": "coalition_cooperation",
-      "canonical_sources": ["pred.coalition_cooperation"]
-    }
+  "schema_version":"1.0",
+  "contract":"choice_kingdom.final_charter_prerequisites",
+  "scope":"E01-E272",
+  "status":"SOURCE_CONTRACT_CLOSED_RUNTIME_ORDER_OPEN",
+  "predicate":"pred.final_charter_prerequisites",
+  "consumer":"E209",
+  "consumer_cannot_manufacture":true,
+  "required_domains":[
+    {"id":"civic_commons_legitimacy","canonical_sources":["people_charter_endorsed"]},
+    {"id":"audit_institutional_legitimacy","canonical_sources":["crown_audited","full_crown_audit_published"]},
+    {"id":"faction_house_guild_representation","canonical_sources":["history.house_assembly","history.guild_representation"]},
+    {"id":"military_security_constitutional_route","canonical_sources":["thread.military_constitutional","military_red_line"]},
+    {"id":"information_evidence_legitimacy","canonical_sources":["pred.systemic_explanation_verified","systemic_explanation_convergence"]},
+    {"id":"coalition_cooperation","canonical_sources":["pred.coalition_cooperation"]}
   ],
-  "mandatory_blocker": "no_unresolved_mandatory_crisis_blocker",
-  "forbidden_manufacturers": ["E209", "E210"],
-  "forbidden_aliases": [
-    "four_way_bargain",
-    "rel.ivo",
-    "rel.seris",
-    "security_score_alone"
-  ],
-  "rules": [
-    "All required domains must be established before E209.",
-    "Historical markers may satisfy only the explicitly named historical requirements.",
-    "E210 may resolve already-established ending state but may not manufacture prerequisites.",
-    "No late ending outcome may retroactively satisfy this predicate.",
-    "A mandatory crisis blocker must be evaluated as current unresolved state, not inferred from absence of a historical marker."
-  ],
-  "runtime_verified": false,
-  "remaining_checks": [
-    "exact frozen-catalog producer mapping",
-    "producer-before-consumer ordering",
-    "domain anti-double-counting",
-    "mandatory-crisis blocker state contract",
-    "reachability",
-    "save-load preservation",
-    "replay isolation",
-    "contradiction-and-cycle checks"
-  ]
+  "mandatory_blocker":"no_unresolved_mandatory_crisis_blocker",
+  "forbidden_manufacturers":["E209","E210"],
+  "forbidden_aliases":["four_way_bargain","rel.ivo","rel.seris","security_score_alone"],
+  "rules":["All required domains must be established before E209.","Historical markers may satisfy only the explicitly named historical requirements.","E210 may resolve already-established ending state but may not manufacture prerequisites.","No late ending outcome may retroactively satisfy this predicate.","A mandatory crisis blocker must be evaluated as current unresolved state, not inferred from absence of a historical marker."],
+  "runtime_verified":false,
+  "remaining_checks":["exact frozen-catalog producer mapping","producer-before-consumer ordering","domain anti-double-counting","mandatory-crisis blocker state contract","reachability","save-load preservation","replay isolation","contradiction-and-cycle checks"]
 }
