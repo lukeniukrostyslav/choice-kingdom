@@ -13,7 +13,7 @@
   ],
   "upstream_of":["E197","pred.final_charter_prerequisites"],
   "consumer_cannot_manufacture":true,
-  "anti_double_counting":["one source event cannot count as two domains","relationship values never count as a domain","late E197-E210 outcomes cannot create this predicate retroactively"],
+  "anti_double_counting":["one source event cannot count as two domains","relationship values never count as a domain","E197-E210 outcomes cannot create this predicate retroactively"],
   "runtime_verified":false,
   "remaining_checks":["producer-before-consumer ordering","reachability of each domain","domain cardinality at runtime","save-load preservation","replay isolation","contradiction and cycle checks"]
 }
