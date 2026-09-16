@@ -32,8 +32,29 @@ class DecisionEngine:
     def event(self, event_id: str) -> Event:
         return self.catalog.get(event_id)
 
+    def _route_allowed(self, state: GameState, event_id: str) -> bool:
+        """Allow only an explicitly authored prerequisite to be the next route.
+
+        A prerequisite may be one of several completed requirements. The current
+        event must be one of those requirements; this prevents a caller from jumping
+        to an unrelated event merely because its numeric/token trigger happens to pass.
+        Events without an explicit event prerequisite are left to their own machine
+        trigger contract rather than inventing a graph edge here.
+        """
+        prerequisites = self.catalog.authored_prerequisites(event_id)
+        if not prerequisites:
+            return True
+        if not all(required in state.history for required in prerequisites):
+            return False
+        return state.current_event_id in prerequisites
+
     def available(self, state: GameState) -> tuple[Event, ...]:
-        return tuple(event for event in self.catalog.events.values() if self.catalog.trigger_satisfied(event.event_id, state))
+        return tuple(
+            event
+            for event in self.catalog.events.values()
+            if self.catalog.trigger_satisfied(event.event_id, state)
+            and self._route_allowed(state, event.event_id)
+        )
 
     def execute(self, state: GameState, event_id: str, choice_id: str) -> ExecutionResult:
         if state.terminal:
@@ -41,10 +62,12 @@ class DecisionEngine:
         event = self.catalog.get(event_id)
         if not self.catalog.trigger_satisfied(event_id, state):
             raise ValueError(f"event trigger not satisfied: {event_id}")
-        if state.current_event_id not in {event_id, "E01"} and event_id not in state.history:
-            # Current-event routing is not fully inferred from prose. The caller may explicitly
-            # enter an authored event after a verified trigger, but cannot jump outside catalog scope.
-            pass
+        if not self._route_allowed(state, event_id):
+            prerequisites = self.catalog.authored_prerequisites(event_id)
+            raise ValueError(
+                f"event route not allowed: {event_id}; current={state.current_event_id}; "
+                f"prerequisites={prerequisites}"
+            )
         try:
             choice = next(choice for choice in event.choices if choice.choice_id == choice_id)
         except StopIteration as exc:
