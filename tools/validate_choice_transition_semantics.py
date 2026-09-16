@@ -22,13 +22,17 @@ SPECIAL_EVENT_HINT = re.compile(r"\b(?:Source-level producer|canonical producer|
 EXPECTED_EVENT_COUNT = 272
 EXPECTED_SPECIAL_EVENT_COUNT = len(SPECIAL_EVENTS)
 EXPECTED_NORMAL_EVENT_COUNT = EXPECTED_EVENT_COUNT - EXPECTED_SPECIAL_EVENT_COUNT
-# Frozen authored cardinality: 259 normal events have A+B, plus the documented E108-C alternative.
 EXPECTED_CHOICE_ROW_COUNT = EXPECTED_NORMAL_EVENT_COUNT * 2 + 1
 EXPECTED_ADDITIONAL_CHOICE_EVENTS = {"E108": {"C"}}
 
 
 def semantic_signature(body: str) -> tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...], tuple[str, ...]]:
-    return (tuple(DELTA_RE.findall(body)), tuple(TOKEN_RE.findall(body)), tuple(sorted(set(m.group(0).lower() for m in LIFECYCLE_RE.finditer(body)))), tuple(sorted(set(m.group(0).lower() for m in ACTION_RE.finditer(body))))
+    return (
+        tuple(DELTA_RE.findall(body)),
+        tuple(TOKEN_RE.findall(body)),
+        tuple(sorted(set(m.group(0).lower() for m in LIFECYCLE_RE.finditer(body)))),
+        tuple(sorted(set(m.group(0).lower() for m in ACTION_RE.finditer(body)))),
+    )
 
 
 def fail(msg: str) -> None:
@@ -111,7 +115,7 @@ for event_id in sorted(EXPECTED, key=lambda x: int(x[1:])):
     if not matches:
         gaps.append(f"{event_id}: no authored A/B choices")
         continue
-    if "A" not in labels or "B" not in labels or len(labels) < 2 or len(labels) != len(set(labels)):
+    if "A" not in labels or "B" not in labels or len(matches) < 2 or len(labels) != len(set(labels)):
         gaps.append(f"{event_id}: expected at least one A and one B with unique labels, found {labels}")
         continue
     allowed = {"A", "B"} | EXPECTED_ADDITIONAL_CHOICE_EVENTS.get(event_id, set())
@@ -159,8 +163,10 @@ if gaps:
     print(f"special_state_events={special_rows}")
     print(f"authored_events={authored_events}")
     print(f"semantic_gaps={len(gaps)}")
-    for gap in gaps[:100]: print(f"- {gap}")
-    if len(gaps) > 100: print(f"- ... {len(gaps)-100} more")
+    for gap in gaps[:100]:
+        print(f"- {gap}")
+    if len(gaps) > 100:
+        print(f"- ... {len(gaps)-100} more")
     raise SystemExit(1)
 
 print("CHOICE_TRANSITION_SEMANTICS: PASS")
