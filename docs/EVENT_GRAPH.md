@@ -81,7 +81,7 @@ The following edges are explicitly source-backed and reconcile delayed-consumer 
 Already represented in the broader graph and retained as canonical producer chains:
 `E117-B -> E182`
 `E118-B -> E183/E242`
-`E160-B -> E246`
+`E160-A -> E246`
 `E136-B -> E194`
 
 E184 is now source-closed to its authored `E25-B` secret-evidence route. E242 is now source-closed to its authored `E118-B` estate-exception route. Their runtime scheduling/cancellation/reachability semantics remain downstream lifecycle gates.
