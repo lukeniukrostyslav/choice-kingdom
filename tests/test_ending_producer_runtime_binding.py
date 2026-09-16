@@ -25,6 +25,7 @@ def test_e148_a_runtime_binding_records_only_canonical_authored_participants() -
 def test_e148_runtime_participants_feed_the_coalition_predicate_without_aliases() -> None:
     state = GameState.fresh("e148-predicate")
     state.history.add("history.cross_faction_package")
+    state.flags.add("coalition_candidate_package")
     DecisionEngine._apply_authored_participant_effects(state, "E148-A")
 
     facts = EndingSourceCompiler.compile_state(state)
