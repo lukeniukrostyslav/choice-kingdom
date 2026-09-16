@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Enforce the source-level quarantine for predicates without authored producers."""
+"""Enforce the production predicate boundary and formal exclusion of non-production candidates."""
 from __future__ import annotations
 
 import json
@@ -10,9 +10,9 @@ CONTRACT = ROOT / "docs" / "CANONICAL_DERIVED_PREDICATE_CONTRACT_01.md"
 AUDIT = ROOT / "docs" / "MACHINE_CANONICAL_GRAPH_01.json"
 OUT = ROOT / "docs" / "MACHINE_PREDICATE_OPEN_BOUNDARY_01.json"
 
-BLOCKED = {
-    "pred.guild_labor_tension": "No E01-E272 producer verified; E275-B is expansion-only.",
-    "pred.information_pressure_high": "No E01-E272 producer verified; E276-B is expansion-only.",
+EXCLUDED = {
+    "pred.guild_labor_tension": ("E275-B", "guild-labor tension"),
+    "pred.information_pressure_high": ("E276-B", "information pressure"),
 }
 
 
@@ -21,34 +21,35 @@ def main() -> int:
     graph = json.loads(AUDIT.read_text(encoding="utf-8"))
     errors: list[str] = []
     checked: dict[str, dict[str, object]] = {}
+    graph_text = json.dumps(graph, sort_keys=True)
 
-    for predicate, reason in BLOCKED.items():
+    for predicate, (expansion_id, label) in EXCLUDED.items():
         marker = f"`{predicate}`"
         start = text.find(marker)
-        in_contract = start >= 0 and "OPEN / BLOCKED" in text[start : start + 300]
-        expansion_id = "E275-B" if predicate == "pred.guild_labor_tension" else "E276-B"
-        expansion_quarantine = expansion_id in text and "Expansion quarantine" in text
-        leaked = predicate in json.dumps(graph.get("source_closed_producers", []), sort_keys=True)
-        ok = in_contract and expansion_quarantine and not leaked
+        window = text[start : start + 450] if start >= 0 else ""
+        explicitly_excluded = "EXCLUDED / NOT-A-PRODUCTION-PREDICATE" in window
+        expansion_only = expansion_id in text and "expansion-only" in text.lower()
+        production_inventory_leak = predicate in graph_text
+        ok = explicitly_excluded and expansion_only and not production_inventory_leak
         checked[predicate] = {
-            "expected": "OPEN_BLOCKED_SOURCE_BOUNDARY",
-            "contract_explicitly_blocked": in_contract,
-            "expansion_producer_quarantined": expansion_quarantine,
-            "leaked_into_source_closed_producers": leaked,
-            "reason": reason,
+            "expected": "FORMALLY_EXCLUDED_FROM_PRODUCTION",
+            "contract_explicitly_excluded": explicitly_excluded,
+            "expansion_candidate_quarantined": expansion_only,
+            "leaked_into_canonical_graph": production_inventory_leak,
+            "label": label,
             "ok": ok,
         }
         if not ok:
-            errors.append(f"{predicate}: open-boundary contract is not conservative")
+            errors.append(f"{predicate}: formal production exclusion is not enforced")
 
     result = {
-        "schema_version": "1.0",
-        "contract": "choice_kingdom.predicate_open_boundary",
-        "readiness": "PASS_OPEN_BOUNDARY_ENFORCED" if not errors else "FAIL",
+        "schema_version": "2.0",
+        "contract": "choice_kingdom.predicate_production_boundary",
+        "readiness": "PASS_PRODUCTION_BOUNDARY_CLOSED" if not errors else "FAIL",
         "scope": "E01-E272",
-        "blocked_predicates": checked,
+        "formally_excluded_predicates": checked,
         "runtime_verified": False,
-        "note": "This gate does not close the predicates. It prevents prose, aliases, or E273-E277 from being promoted into production predicate semantics without an authored E01-E272 producer.",
+        "note": "The two candidates are formally removed from production predicate semantics. E275/E276 remain expansion-only and cannot satisfy production contracts unless the frozen scope is explicitly changed and re-audited.",
         "errors": errors,
     }
     OUT.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
