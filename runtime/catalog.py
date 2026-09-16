@@ -4,17 +4,13 @@ from dataclasses import dataclass
 from pathlib import Path
 import re
 
-from .state import EXCLUDED_EVENTS, PRODUCTION_FIRST, PRODUCTION_LAST
+from .state import EXCLUDED_EVENTS, PRODUCTION_FIRST, PRODUCTION_LAST, REPLAY_META_KEYS
 
 HEADING_RE = re.compile(r"^### (E\d{2,3}) — (.+)$", re.M)
 CHOICE_PATTERNS = (
-    # Canonical legacy form: optional list marker, bold A/B label, closing **.
     re.compile(r"^(?:-\s*)?\*\*([A-Z])\s*[—:]\s*(.+?)\*\*$", re.M),
-    # Canonical expansion form: - **A — ...; effects... (no closing ** before effects).
     re.compile(r"^-\s*\*\*([A-Z])\s*[—:]\s*(.+)$", re.M),
-    # Canonical bold-label form with explicit colon after the bold text.
     re.compile(r"^(?:-\s*)?\*\*([A-Z])\s*[—:]\s*(.+?)\*\*:\s*(.*)$", re.M),
-    # Plain authored list form.
     re.compile(r"^-\s*([A-Z])\s+(.*)$", re.M),
 )
 DELTA_RE = re.compile(r"([+-]\d+)\s+(gold|trust|security|power|reputation)\b", re.I)
@@ -24,6 +20,13 @@ AFTER_EVENT_RE = re.compile(r"\bafter\s+(E\d{2,3})\b", re.I)
 COMPLETED_EVENT_RE = re.compile(r"\b(E\d{2,3})\s+(?:complete|completed|resolved)\b", re.I)
 NUMERIC_RE = re.compile(r"\b(gold|trust|security|power|reputation)\s*(<=|>=|<|>)\s*(\d+)\b", re.I)
 REL_COND_RE = re.compile(r"\b(Mara|Rowan|Seris|Ivo|Amara|Toma)\s*(<=|>=|<|>)\s*(-?\d+)\b", re.I)
+
+REPLAY_META_BY_EVENT = {
+    "E186": "meta.replay.warehouse_investigation_unlock",
+    "E247": "meta.replay.second_run_information_route",
+    "E248": "meta.replay.callback_forgotten_favor",
+}
+
 
 @dataclass(frozen=True)
 class Choice:
@@ -36,6 +39,7 @@ class Choice:
     state_tokens: tuple[str, ...]
     clear_tokens: tuple[str, ...]
 
+
 @dataclass(frozen=True)
 class Event:
     event_id: str
@@ -44,8 +48,10 @@ class Event:
     choices: tuple[Choice, ...]
     source: str
 
+
 class CatalogError(ValueError):
     pass
+
 
 class AuthoredCatalog:
     def __init__(self, root: Path, events: dict[str, Event]):
@@ -145,6 +151,13 @@ class AuthoredCatalog:
         event = self.get(event_id)
         if event_id in state.history:
             return False
+
+        # Replay metadata is an explicit producer boundary. It is not inferred
+        # from ordinary history, flags, trigger prose, or same-run evidence.
+        replay_key = REPLAY_META_BY_EVENT.get(event_id)
+        if replay_key is not None and replay_key in REPLAY_META_KEYS and replay_key in state.imported_meta_keys:
+            return True
+
         trigger = event.trigger
         low = trigger.lower().strip().rstrip(".")
         if not trigger:
@@ -170,13 +183,12 @@ class AuthoredCatalog:
             matched_condition = True
             if state.turn != 1:
                 return False
-        # Canonical derived-predicate binding: E160's authored "severe winter"
-        # trigger consumes the current-cycle predicate produced by E29-A/B.
         if low == "severe winter":
             matched_condition = True
             if "pred.winter_severe" not in state.flags and "pred.winter_severe" not in state.history and "pred.winter_severe" not in state.threads:
                 return False
         return matched_condition
+
 
 def _compare(value: int, op: str, target: int) -> bool:
     return {"<": value < target, "<=": value <= target, ">": value > target, ">=": value >= target}[op]
