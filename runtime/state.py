@@ -1,4 +1,4 @@
-from __future__ import annotations
+from __future__
 
 from dataclasses import asdict, dataclass, field
 import json
@@ -10,6 +10,12 @@ PRODUCTION_LAST = 272
 EXCLUDED_EVENTS = frozenset({"E273", "E274", "E275", "E276", "E277"})
 RESOURCES = ("gold", "trust", "security", "power", "reputation")
 RELATIONSHIPS = ("mara", "rowan", "seris", "ivo", "amara", "toma")
+REPLAY_META_KEYS = frozenset({
+    "meta.replay.warehouse_investigation_unlock",
+    "meta.replay.second_run_information_route",
+    "meta.replay.callback_forgotten_favor",
+})
+REPLAY_EXPORT_SCHEMA = 1
 
 
 @dataclass(frozen=True)
@@ -61,6 +67,46 @@ class GameState:
         if character not in RELATIONSHIPS:
             raise ValueError(f"non-canonical relationship: {character}")
         self.relationships[character] = max(-3, min(3, self.relationships[character] + delta))
+
+    def record_replay_meta(self, key: str) -> bool:
+        """Record one explicitly authored replay-meta producer key."""
+        if key not in REPLAY_META_KEYS:
+            raise ValueError(f"non-canonical replay meta key: {key}")
+        if key in self.imported_meta_keys:
+            return False
+        self.imported_meta_keys.add(key)
+        return True
+
+    def export_completed_run_meta(self) -> dict[str, Any]:
+        """Export only canonical replay metadata from a completed prior run."""
+        if not self.terminal:
+            raise ValueError("replay metadata can only be exported from a completed run")
+        return {
+            "schema_version": REPLAY_EXPORT_SCHEMA,
+            "run_id": self.run_id,
+            "completed": True,
+            "meta_keys": sorted(self.imported_meta_keys),
+        }
+
+    @classmethod
+    def new_run_from_completed_prior(
+        cls, run_id: str, prior_export: dict[str, Any] | None = None
+    ) -> "GameState":
+        """Create a clean run, importing only canonical metadata from one completed prior run."""
+        state = cls.fresh(run_id)
+        if prior_export is None:
+            return state
+        if prior_export.get("schema_version") != REPLAY_EXPORT_SCHEMA:
+            raise ValueError("unsupported replay export schema")
+        if prior_export.get("completed") is not True:
+            raise ValueError("prior replay export is not a completed run")
+        prior_run_id = prior_export.get("run_id")
+        if not isinstance(prior_run_id, str) or not prior_run_id:
+            raise ValueError("replay export is missing prior run identity")
+        for key in prior_export.get("meta_keys", []):
+            if key in REPLAY_META_KEYS:
+                state.record_replay_meta(key)
+        return state
 
     def schedule(self, delay: PendingDelay) -> None:
         existing = self.pending_delays.get(delay.exactly_once_key)
@@ -146,6 +192,9 @@ class GameState:
             raise ValueError("unsupported runtime save schema")
         if payload.get("current_event_id") in EXCLUDED_EVENTS:
             raise ValueError("excluded event cannot be restored as current production event")
+        imported_meta = set(payload.get("imported_meta_keys", []))
+        if not imported_meta.issubset(REPLAY_META_KEYS):
+            raise ValueError("snapshot contains non-canonical replay meta key")
         pending = {
             key: PendingDelay(**value) for key, value in payload.get("pending_delays", {}).items()
         }
@@ -160,7 +209,7 @@ class GameState:
             threads=set(payload.get("threads", [])),
             pending_delays=pending,
             activated_delayed_targets=set(payload.get("activated_delayed_targets", [])),
-            imported_meta_keys=set(payload.get("imported_meta_keys", [])),
+            imported_meta_keys=imported_meta,
             terminal=bool(payload.get("terminal", False)),
         )
 
