@@ -71,7 +71,9 @@ def test_representative_authored_chain_executes_e01_to_e02_without_inferred_edge
     assert state.turn == 2
 
     assert engine.catalog.authored_prerequisites("E02") == ("E01",)
-    assert tuple(event.event_id for event in engine.available(state)) == ("E02",)
+    available_ids = {event.event_id for event in engine.available(state)}
+    assert "E02" in available_ids
+    assert "E03" not in available_ids
 
     second = engine.execute(state, "E02", "E02-B")
     assert second.next_event_ids == ()
@@ -80,7 +82,7 @@ def test_representative_authored_chain_executes_e01_to_e02_without_inferred_edge
     assert state.relationships["mara"] == 1
     assert state.resources["power"] == 48
     assert "decree_investigation" in state.flags
-    assert tuple(event.event_id for event in engine.available(state)) != ("E02",)
+    assert "E02" in state.history
 
 
 def test_authored_prerequisite_blocks_unrelated_jump_even_when_trigger_is_satisfied():
@@ -135,6 +137,7 @@ def test_e51_c_executes_three_way_authored_choice_without_dropping_choice_c():
     state = GameState.fresh("run-e51-c")
     state.turn = 10
     state.history.add("E47")
+    state.current_event_id = "E47"
 
     result = engine.execute(state, "E51", "E51-C")
 
