@@ -33,5 +33,10 @@
     "canonical identifiers must remain namespace-qualified exactly as frozen",
     "no alias may manufacture an ending prerequisite",
     "E273-E277 remain excluded from production semantics"
-  ]
+  ],
+  "qa_revalidation": {
+    "validator": "tools/validate_ending_alias_boundary.py",
+    "commit": "51f8b77dca732733e1de46086e9d7d1080726f98",
+    "purpose": "force authoritative S11 CI verification after runtime-identifier extraction hardening"
+  }
 }
