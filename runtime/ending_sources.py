@@ -62,7 +62,10 @@ class EndingSourceCompiler:
             "civic" if "people_charter_endorsed" in flags_set else None,
             "institutional" if {"crown_audited", "full_crown_audit_published"} & flags_set else None,
             "factional" if "history.house_assembly" in history_set else None,
-            "military" if "military_red_line" in flags_set or "thread.military_constitutional" in threads_set else None,
+            # E199-A is the canonical military-law producer for this domain.
+            # `military_red_line` is later supporting constitutional-stress evidence
+            # and must not silently substitute for the authored oath decision.
+            "military" if "army_constitution_oath" in flags_set else None,
         }
         domains.discard(None)
         if len(domains) >= 3:
@@ -110,7 +113,7 @@ class EndingSourceCompiler:
             "people_charter_endorsed" in flags_set,
             bool({"crown_audited", "full_crown_audit_published"} & flags_set),
             "history.house_assembly" in history_set and "history.guild_representation" in history_set,
-            bool({"military_red_line"} & flags_set) or "thread.military_constitutional" in threads_set,
+            "army_constitution_oath" in flags_set,
             "pred.systemic_explanation_verified" in predicates,
             "pred.coalition_cooperation" in predicates,
         }
