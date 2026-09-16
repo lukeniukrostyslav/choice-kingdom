@@ -17,6 +17,8 @@ This checkpoint records the next Block 7 runtime integration step for E01–E272
 
 ## Verification status
 
-GitHub Actions was triggered by the runtime changes. At checkpoint creation the relevant run was still queued/in progress, so this change is **IMPLEMENTED / VERIFICATION PENDING**, not runtime-verified closure.
+GitHub Actions verification is **PASS** for commit `a8a83c1febb49b9a0cc14452ff2408135caf755d`. The `Choice Kingdom Open Predicate Boundary` push workflow completed successfully (run 402). This closes the previous verification-pending status for the centralized canonical predicate trigger integration.
+
+The verified boundary is source-closed predicate trigger evaluation through the shared compiler. It does **not** close the remaining 138 opaque/partial authored trigger expressions, and it does not claim full E01–E272 gameplay reachability.
 
 No opaque prose trigger was promoted by this change. The remaining open trigger semantics are unchanged.
