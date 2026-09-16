@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0",
+  "contract": "choice_kingdom.budget_reform",
+  "scope": "E01-E272",
+  "status": "SOURCE_CONTRACT_IDENTIFIED",
+  "predicate": "pred.budget_reform",
+  "independent_domains": [
+    {
+      "event": "E142-A",
+      "marker": "auditor_independence",
+      "domain": "audit_independence"
+    },
+    {
+      "event": "E154-A",
+      "marker": "crown_audited",
+      "domain": "crown_audit"
+    },
+    {
+      "event": "E198-A",
+      "marker": "legislative_budget_lock",
+      "domain": "legislative_budget_control"
+    }
+  ],
+  "required_combination": "all_three_independent_domains",
+  "downstream_only": [
+    "E155-full_crown_audit_published"
+  ],
+  "negative_branches": [
+    "E142-B-auditor_crown_control",
+    "E154-B-crown_exempt_from_audit",
+    "E198-B-executive_budget_override_retained"
+  ],
+  "consumer": "E258",
+  "consumer_cannot_manufacture": true,
+  "runtime_verified": false,
+  "remaining_checks": [
+    "producer_before_consumer_ordering",
+    "producer_reachability",
+    "negative_branch_exclusion",
+    "no_retroactive_prerequisite_creation",
+    "save_replay_preservation",
+    "contradiction_and_cycle_checks"
+  ]
+}
