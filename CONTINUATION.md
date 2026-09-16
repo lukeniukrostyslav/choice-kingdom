@@ -14,7 +14,7 @@ Blocks 1–6 are closed at their defined boundaries. Block 7 is active. Runtime 
 - Session boundary: **PASS**, 272-event catalog.
 - Structural graph: **305 edges / 140 roots / 272 structurally reachable / 0 structurally unreachable**.
 - Deterministic campaign audit: **61 unique events executed / 211 remaining / 0 execution errors**, stopping at E230 under current runtime trigger/routing semantics.
-- Trigger semantics audit: **PASS**, all 272 authored triggers classified; **154 opaque/partial** expressions remain open for authoritative semantic binding.
+- Trigger semantics audit: **PASS**, all 272 authored triggers classified; **138 opaque/partial** expressions remain open for authoritative semantic binding. The audit now separately classifies 2 explicit after-event prerequisites and 14 safe canonical alias phrases.
 
 These audits are diagnostic. They do not declare the remaining events impossible and do not invent missing gameplay semantics.
 
@@ -39,12 +39,13 @@ These audits are diagnostic. They do not declare the remaining events impossible
 - Release / Store: **0%**
 
 ## Latest work saved to GitHub
-- Deterministic campaign runtime audit + regression/CI gate.
-- Runtime trigger semantics audit + regression/CI gate.
+- Refined deterministic campaign runtime audit.
+- Runtime trigger semantics audit now distinguishes explicit prerequisites and source-approved canonical aliases from unresolved prose.
+- Regression/CI gates updated.
 - `PROJECT_STATE.md` and this continuation checkpoint updated.
 
 ## Next work
-1. Reconcile the 154 opaque/partial trigger expressions against authoritative producer/consumer contracts.
+1. Reconcile the 138 opaque/partial trigger expressions against authoritative producer/consumer contracts.
 2. Implement only verified semantics in the runtime.
 3. Re-run the complete regression and campaign audit.
 4. Expand `GameSession` to exhaustive E01–E272 execution.
