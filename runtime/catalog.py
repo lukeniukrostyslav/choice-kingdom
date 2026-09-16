@@ -15,6 +15,7 @@ DELTA_RE = re.compile(r"([+-]\d+)\s+(gold|trust|security|power|reputation)\b", r
 REL_RE = re.compile(r"([+-]\d+)\s+(Mara|Rowan|Seris|Ivo|Amara|Toma)\b", re.I)
 TOKEN_RE = re.compile(r"`([^`]+)`")
 AFTER_EVENT_RE = re.compile(r"\bafter\s+(E\d{2,3})\b", re.I)
+COMPLETED_EVENT_RE = re.compile(r"\b(E\d{2,3})\s+(?:complete|completed|resolved)\b", re.I)
 NUMERIC_RE = re.compile(r"\b(gold|trust|security|power|reputation)\s*(<=|>=|<|>)\s*(\d+)\b", re.I)
 REL_COND_RE = re.compile(r"\b(Mara|Rowan|Seris|Ivo|Amara|Toma)\s*(<=|>=|<|>)\s*(-?\d+)\b", re.I)
 
@@ -140,13 +141,13 @@ class AuthoredCatalog:
             matched_condition = True
             if not _compare(state.resources[name.lower()], op, int(raw)):
                 return False
+        for required in list(AFTER_EVENT_RE.findall(trigger)) + list(COMPLETED_EVENT_RE.findall(trigger)):
+            matched_condition = True
+            if required.upper() not in state.history:
+                return False
         for name, op, raw in REL_COND_RE.findall(trigger):
             matched_condition = True
             if not _compare(state.relationships[name.lower()], op, int(raw)):
-                return False
-        for required in AFTER_EVENT_RE.findall(trigger):
-            matched_condition = True
-            if required.upper() not in state.history:
                 return False
         for token in TOKEN_RE.findall(trigger):
             matched_condition = True
