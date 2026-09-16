@@ -23,3 +23,4 @@ jobs:
       - name: Verify immediate routing does not leak delayed unlocks
         run: python -m pytest -q tests/test_authored_choice_execution.py -k e01_a_executes_authored_immediate_state_transition
       # Push-triggered runtime gate is intentionally kept on main so each routing change is executable-verified.
+      # PR execution is also retained as a deterministic verification path for protected changes.
