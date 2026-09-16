@@ -39,6 +39,8 @@ jobs:
         run: python3 tools/validate_ending_precedence_boundary.py
       - name: Validate predicate dependency and cycle boundary
         run: python3 tools/validate_predicate_dependency_audit.py
+      - name: Validate unresolved predicate producer boundary
+        run: python3 tools/validate_predicate_open_boundary.py
       - name: Validate scenario QA gate matrix
         run: python3 tools/validate_scenario_qa_gate_matrix.py
       - name: Compile graph node classification inventory
@@ -77,6 +79,7 @@ jobs:
             docs/MACHINE_COMPOSITE_SOURCE_CLOSURE_01.json
             docs/MACHINE_PREDICATE_DEPENDENCY_AUDIT_01.json
             docs/MACHINE_PREDICATE_DEPENDENCY_VALIDATION_01.json
+            docs/MACHINE_PREDICATE_OPEN_BOUNDARY_01.json
             docs/MACHINE_SCENARIO_QA_GATE_MATRIX_01.json
             docs/MACHINE_ENDING_PRECEDENCE_BOUNDARY_01.json
           if-no-files-found: error
