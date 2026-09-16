@@ -22,8 +22,9 @@ SPECIAL_EVENT_HINT = re.compile(r"\b(?:Source-level producer|canonical producer|
 EXPECTED_EVENT_COUNT = 272
 EXPECTED_SPECIAL_EVENT_COUNT = len(SPECIAL_EVENTS)
 EXPECTED_NORMAL_EVENT_COUNT = EXPECTED_EVENT_COUNT - EXPECTED_SPECIAL_EVENT_COUNT
-EXPECTED_CHOICE_ROW_COUNT = EXPECTED_NORMAL_EVENT_COUNT * 2 + 1
-EXPECTED_ADDITIONAL_CHOICE_EVENTS = {"E108": {"C"}}
+# Frozen authored cardinality: 259 normal events have A+B, plus documented E51-C and E108-C alternatives.
+EXPECTED_CHOICE_ROW_COUNT = EXPECTED_NORMAL_EVENT_COUNT * 2 + 2
+EXPECTED_ADDITIONAL_CHOICE_EVENTS = {"E51": {"C"}, "E108": {"C"}}
 
 
 def semantic_signature(body: str) -> tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...], tuple[str, ...]]:
@@ -177,7 +178,7 @@ print(f"special_state_events={special_rows}")
 print(f"authored_events={authored_events}")
 print("semantic_gaps=0")
 print("at_least_A_and_B=true")
-print("documented_additional_choice_E108_C=true")
+print("documented_additional_choices_E51_C_E108_C=true")
 print("explicit_transition_payload=true")
 print("alternative_effect_signatures_distinct=true")
 print("authored_event_coverage=true")
