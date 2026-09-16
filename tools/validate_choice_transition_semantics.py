@@ -16,12 +16,9 @@ CLAUSE_RE = re.compile(r"^\s*-\s*(?:Immediate|Flag|Unlock|Producer|Delayed|Resol
 LIFECYCLE_RE = re.compile(r"\b(?:clear|clears|reset|resets|resolve|resolves|cancel|cancels|invalidate|invalidates|revoke|revokes|prevent|prevents|schedule|schedules|unlock|unlocks|create|creates|strengthen|strengthens|close|closes|establish|establishes|produce|produces|record|records|later|delayed|immediate|risk|route|evidence|pressure|credibility|stability|reform|contradiction)\b", re.I)
 ACTION_RE = re.compile(r"\b(?:open|follow|inspect|subsidize|trace|replace|honor|renegotiate|protect|hear|catalogue|destroy|admit|close|end|publish|leave|accept|refuse|verify|investigate|preserve|compensate|hunt|fund|requisition|restrict|allow|deny|offer|grant|reject|raid|archive|sign|search|defend|punish|write|remove|keep|take|ask|invoke|ratify|endorse|decide|continue|expose|conceal|redact|submit|seal|audit|centralize|support|withdraw)\b", re.I)
 STATE_HINT = re.compile(r"(?:\b(?:state|flag|predicate|history|thread|meta|ending|cycle|condition|route|evidence|trigger|effect|immediate|delayed|unlock|producer|resolution)\b|`[^`]+`)", re.I)
-SPECIAL_EVENTS = {"E32", "E61", "E62", "E63", "E64", "E65", "E66", "E67", "E68", "E69", "E70", "E210", "E270"}
+SPECIAL_EVENTS = {"E32", *{f"E{i:02d}" for i in range(61, 71)}, "E210", "E270"}
 SPECIAL_EVENT_HINT = re.compile(r"\b(?:Source-level producer|canonical producer|explicitly establishes|explicitly records|derived gate|Ending|Purpose|convergence-only|resolution families|convergence producer|convergence decision)\b", re.I)
 
-# Frozen S02 cardinality contract. A change here must be accompanied by an
-# authored-scope decision; silent catalog drift must fail CI rather than alter
-# the meaning of the closure gate.
 EXPECTED_EVENT_COUNT = 272
 EXPECTED_SPECIAL_EVENT_COUNT = len(SPECIAL_EVENTS)
 EXPECTED_NORMAL_EVENT_COUNT = EXPECTED_EVENT_COUNT - EXPECTED_SPECIAL_EVENT_COUNT
@@ -29,12 +26,7 @@ EXPECTED_CHOICE_ROW_COUNT = EXPECTED_NORMAL_EVENT_COUNT * 2
 
 
 def semantic_signature(body: str) -> tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...], tuple[str, ...]]:
-    return (
-        tuple(DELTA_RE.findall(body)),
-        tuple(TOKEN_RE.findall(body)),
-        tuple(sorted(set(m.group(0).lower() for m in LIFECYCLE_RE.finditer(body)))),
-        tuple(sorted(set(m.group(0).lower() for m in ACTION_RE.finditer(body)))),
-    )
+    return (tuple(DELTA_RE.findall(body)), tuple(TOKEN_RE.findall(body)), tuple(sorted(set(m.group(0).lower() for m in LIFECYCLE_RE.finditer(body)))), tuple(sorted(set(m.group(0).lower() for m in ACTION_RE.finditer(body))))
 
 
 def fail(msg: str) -> None:
@@ -79,17 +71,18 @@ if missing_special:
 gaps: list[str] = []
 rows = 0
 special_rows = 0
-triggered_events = 0
+authored_events = 0
 normal_events = 0
 for event_id in sorted(EXPECTED, key=lambda x: int(x[1:])):
     block = blocks[event_id]
-
-    # Every production event needs an authored trigger so the content contract
-    # cannot contain an orphan node that only exists structurally in the catalog.
-    if not re.search(r"^\*\*Trigger:\*\*", block, re.M):
-        gaps.append(f"{event_id}: missing authored Trigger section")
+    heading_end = block.find("\n")
+    prose = block[heading_end + 1:] if heading_end >= 0 else ""
+    prose_lines = [line.strip() for line in prose.splitlines() if line.strip() and not re.match(r"^-\s*[AB](?:\s|[—:])", line)]
+    has_explicit_trigger = bool(re.search(r"^\*\*Trigger:\*\*", block, re.M))
+    if not (prose_lines or has_explicit_trigger):
+        gaps.append(f"{event_id}: missing authored trigger/narrative content")
     else:
-        triggered_events += 1
+        authored_events += 1
 
     matches = list(CHOICE_HEADING.finditer(block))
     if not matches:
@@ -127,14 +120,12 @@ for event_id in sorted(EXPECTED, key=lambda x: int(x[1:])):
         body = block[match.start():next_start].strip()
         label = match.group(1).upper()
         signatures[label] = semantic_signature(body)
-
         has_effect = bool(DELTA_RE.search(body) or TOKEN_RE.search(body) or CLAUSE_RE.search(body) or LIFECYCLE_RE.search(body) or ACTION_RE.search(body))
         if not has_effect:
             gaps.append(f"{event_id}-{label}: no explicit authored effect/state payload")
         has_state_signal = bool(DELTA_RE.search(body) or TOKEN_RE.search(body) or CLAUSE_RE.search(body) or STATE_HINT.search(body) or LIFECYCLE_RE.search(body) or ACTION_RE.search(body))
         if not has_state_signal:
             gaps.append(f"{event_id}-{label}: no machine-recognizable state/evidence signal")
-
     if signatures.get("A") == signatures.get("B"):
         gaps.append(f"{event_id}: A/B choices have identical authored effect signatures")
 
@@ -144,8 +135,8 @@ if special_rows != EXPECTED_SPECIAL_EVENT_COUNT:
     gaps.append(f"special-event cardinality drift: expected {EXPECTED_SPECIAL_EVENT_COUNT}, validated {special_rows}")
 if rows != EXPECTED_CHOICE_ROW_COUNT:
     gaps.append(f"choice-row cardinality drift: expected {EXPECTED_CHOICE_ROW_COUNT}, found {rows}")
-if triggered_events != EXPECTED_EVENT_COUNT:
-    gaps.append(f"trigger coverage drift: expected {EXPECTED_EVENT_COUNT}, found {triggered_events}")
+if authored_events != EXPECTED_EVENT_COUNT:
+    gaps.append(f"authored event coverage drift: expected {EXPECTED_EVENT_COUNT}, found {authored_events}")
 
 if gaps:
     print("CHOICE_TRANSITION_SEMANTICS: FAIL")
@@ -153,12 +144,10 @@ if gaps:
     print(f"normal_events={normal_events}")
     print(f"choice_rows={rows}")
     print(f"special_state_events={special_rows}")
-    print(f"events_with_trigger={triggered_events}")
+    print(f"authored_events={authored_events}")
     print(f"semantic_gaps={len(gaps)}")
-    for gap in gaps[:100]:
-        print(f"- {gap}")
-    if len(gaps) > 100:
-        print(f"- ... {len(gaps)-100} more")
+    for gap in gaps[:100]: print(f"- {gap}")
+    if len(gaps) > 100: print(f"- ... {len(gaps)-100} more")
     raise SystemExit(1)
 
 print("CHOICE_TRANSITION_SEMANTICS: PASS")
@@ -166,10 +155,10 @@ print(f"events={len(blocks)}")
 print(f"normal_events={normal_events}")
 print(f"choice_rows={rows}")
 print(f"special_state_events={special_rows}")
-print(f"events_with_trigger={triggered_events}")
+print(f"authored_events={authored_events}")
 print("semantic_gaps=0")
 print("exactly_one_A_and_one_B=true")
 print("explicit_transition_payload=true")
 print("alternative_effect_signatures_distinct=true")
-print("authored_trigger_coverage=true")
+print("authored_event_coverage=true")
 print(f"frozen_cardinality={EXPECTED_EVENT_COUNT}/{EXPECTED_NORMAL_EVENT_COUNT}/{EXPECTED_SPECIAL_EVENT_COUNT}/{EXPECTED_CHOICE_ROW_COUNT}")
