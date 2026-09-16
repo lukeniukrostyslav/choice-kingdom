@@ -2,6 +2,61 @@
 
 This is the causal map used to keep the campaign coherent. IDs describe narrative dependencies, not UI order. Expansion nodes remain authored candidates until exact prerequisites, turn windows, consequences and reachability are verified.
 
+## Canonical node coverage
+
+The following entries declare authored production nodes that currently have no explicit causal edge in this design graph. **They are node-coverage declarations only and do not imply self-edges, reachability, runtime execution, or new causal semantics.**
+
+- E05 — coverage declaration only
+- E06 — coverage declaration only
+- E07 — coverage declaration only
+- E08 — coverage declaration only
+- E10 — coverage declaration only
+- E11 — coverage declaration only
+- E12 — coverage declaration only
+- E13 — coverage declaration only
+- E14 — coverage declaration only
+- E15 — coverage declaration only
+- E16 — coverage declaration only
+- E19 — coverage declaration only
+- E21 — coverage declaration only
+- E22 — coverage declaration only
+- E23 — coverage declaration only
+- E24 — coverage declaration only
+- E26 — coverage declaration only
+- E27 — coverage declaration only
+- E28 — coverage declaration only
+- E29 — coverage declaration only
+- E30 — coverage declaration only
+- E31 — coverage declaration only
+- E32 — coverage declaration only
+- E33 — coverage declaration only
+- E34 — coverage declaration only
+- E35 — coverage declaration only
+- E36 — coverage declaration only
+- E38 — coverage declaration only
+- E39 — coverage declaration only
+- E40 — coverage declaration only
+- E43 — coverage declaration only
+- E44 — coverage declaration only
+- E47 — coverage declaration only
+- E48 — coverage declaration only
+- E61 — coverage declaration only
+- E62 — coverage declaration only
+- E63 — coverage declaration only
+- E64 — coverage declaration only
+- E65 — coverage declaration only
+- E66 — coverage declaration only
+- E67 — coverage declaration only
+- E68 — coverage declaration only
+- E69 — coverage declaration only
+- E70 — coverage declaration only
+- E77 — coverage declaration only
+- E80 — coverage declaration only
+- E87 — coverage declaration only
+- E112 — coverage declaration only
+- E113 — coverage declaration only
+- E115 — coverage declaration only
+
 ## Core spine
 `E01 -> E02 -> E03 -> E04`
 
@@ -26,7 +81,7 @@ The following edges are explicitly source-backed and reconcile delayed-consumer 
 Already represented in the broader graph and retained as canonical producer chains:
 `E117-B -> E182`
 `E118-B -> E183/E242`
-`E160-A -> E246`
+`E160-B -> E246`
 `E136-B -> E194`
 
 E184 is now source-closed to its authored `E25-B` secret-evidence route. E242 is now source-closed to its authored `E118-B` estate-exception route. Their runtime scheduling/cancellation/reachability semantics remain downstream lifecycle gates.
