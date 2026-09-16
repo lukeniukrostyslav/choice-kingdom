@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-import itertools
-
 import pytest
 
 from runtime.ending_precedence import AUTHORED_PRIORITY
@@ -43,15 +41,11 @@ def test_p01_p05_ending_family_boundaries():
 
 
 def test_p06_p09_source_qualification_and_blockers():
-    golden = EndingSourceCompiler.compile(
-        flags={"audited_monopoly", "merchant_charter"},
-        history={"history.guild_representation", "history.guild_logistics_cooperation"},
-        flags_extra=None,
-    ) if False else EndingSourceCompiler.compile(
+    guild = EndingSourceCompiler.compile(
         flags={"audited_monopoly", "merchant_charter", "guild_tribunal_independent", "guild_neutral_inspectors"},
         history={"history.guild_representation", "history.guild_logistics_cooperation"},
     )
-    assert "pred.guild_influence_strong" in golden.predicates
+    assert "pred.guild_influence_strong" in guild.predicates
 
     charter = EndingSourceCompiler.compile(
         flags={"people_charter_endorsed", "crown_audited", "full_crown_audit_published", "military_red_line"},
@@ -126,9 +120,8 @@ def test_p19_p20_quiet_positive_and_repeatability():
     assert first == second == END_SECOND_FOUNDER
 
 
-def test_p21_p23_save_load_and_delay_lifecycle(tmp_path):
-    state = GameState.fresh("p21")
-    state.terminal = True
+def test_p21_save_load_preserves_resolved_ending(tmp_path):
+    state = terminal_state("p21")
     state.flags.add("systemic_explanation_convergence")
     state.ending_evidence_families.update({"warehouse_or_financial", "document_or_language", "witness_or_organizational"})
     EndingResolver().resolve(state, qualified_endings=[END_SECOND_FOUNDER])
@@ -170,18 +163,16 @@ def test_p24_p26_replay_isolation():
 
 
 def test_p27_p30_namespace_aliases_are_rejected():
-    compiler = EndingSourceCompiler
+    from runtime.ending_contract import EndingQualification
+
     with pytest.raises(Exception):
-        from runtime.ending_contract import EndingQualification
         EndingQualification.build(predicates={"thread.border"})
     with pytest.raises(Exception):
-        from runtime.ending_contract import EndingQualification
         EndingQualification.build(predicates={"thread.guild"})
-    assert "pred.coalition_cooperation" not in compiler.compile(
+    assert "pred.coalition_cooperation" not in EndingSourceCompiler.compile(
         history={"history.cross_faction_package"},
         flags={"four_way_bargain"},
         coalition_participants={"unknown"},
     ).predicates
     with pytest.raises(Exception):
-        from runtime.ending_contract import EndingQualification
         EndingQualification.build(flags={"systemic_explanation_verified"})
