@@ -9,15 +9,18 @@ ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = ROOT / "docs" / "MACHINE_PREDICATE_DEPENDENCY_AUDIT_01.json"
 OUT = ROOT / "docs" / "MACHINE_PREDICATE_DEPENDENCY_VALIDATION_01.json"
 
+# These are source-level closures, not runtime closures.  A predicate may be
+# SOURCE-CLOSED while executable qualification, invalidation, persistence and
+# reachability are still explicitly OPEN.
 EXPECTED = {
-    "pred.guild_influence_strong": "OPEN",
-    "pred.systemic_explanation_verified": "OPEN",
-    "pred.coalition_cooperation": "OPEN",
-    "pred.constitutional_prepared_strong": "OPEN",
-    "pred.budget_reform": "SOURCE_CLOSED_RUNTIME_OPEN",
-    "pred.final_charter_prerequisites": "OPEN_BLOCKED",
-    "pred.food_stable": "OPEN_BLOCKED",
-    "pred.border_crisis": "SOURCE_CLOSED_RUNTIME_OPEN",
+    "pred.guild_influence_strong": "SOURCE-CLOSED_RUNTIME_OPEN",
+    "pred.systemic_explanation_verified": "SOURCE-CLOSED_RUNTIME_OPEN",
+    "pred.coalition_cooperation": "SOURCE-CLOSED_RUNTIME_OPEN",
+    "pred.constitutional_prepared_strong": "SOURCE-CLOSED_RUNTIME_OPEN",
+    "pred.budget_reform": "SOURCE-CLOSED_RUNTIME_OPEN",
+    "pred.final_charter_prerequisites": "SOURCE-CLOSED_RUNTIME_OPEN",
+    "pred.food_stable": "SOURCE-CLOSED_RUNTIME_OPEN",
+    "pred.border_crisis": "SOURCE-CLOSED_RUNTIME_OPEN",
 }
 
 REQUIRED_RULES = {
@@ -54,7 +57,7 @@ def main() -> int:
         errors.append("runtime verification must remain false")
 
     result = {
-        "schema_version": "1.0",
+        "schema_version": "1.1",
         "contract": "choice_kingdom.predicate_dependency_audit_validation",
         "readiness": "PASS_CONSERVATIVE_SCREEN" if not errors else "FAIL",
         "checked": checked,
@@ -62,6 +65,7 @@ def main() -> int:
         "runtime_verified": False,
         "reachability_verified": False,
         "replay_meta_inventory_closed": False,
+        "note": "Source-closed predicates remain runtime-open; this gate validates contract consistency only.",
     }
     OUT.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(json.dumps({"readiness": result["readiness"], "errors": len(errors)}, sort_keys=True))
