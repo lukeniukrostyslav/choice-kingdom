@@ -7,7 +7,10 @@ import re
 from .state import EXCLUDED_EVENTS, PRODUCTION_FIRST, PRODUCTION_LAST
 
 HEADING_RE = re.compile(r"^### (E\d{2,3}) — (.+)$", re.M)
-CHOICE_RE = re.compile(r"^(?:-\s*)?\*\*([A-Z])\s*[—:]\s*(.+?)\*\*$", re.M)
+CHOICE_PATTERNS = (
+    re.compile(r"^(?:-\s*)?\*\*([A-Z])\s*[—:]\s*(.+?)\*\*$", re.M),
+    re.compile(r"^-\s*([A-Z])\s+(.*)$", re.M),
+)
 DELTA_RE = re.compile(r"([+-]\d+)\s+(gold|trust|security|power|reputation)\b", re.I)
 REL_RE = re.compile(r"([+-]\d+)\s+(Mara|Rowan|Seris|Ivo|Amara|Toma)\b", re.I)
 TOKEN_RE = re.compile(r"`([^`]+)`")
@@ -80,7 +83,10 @@ class AuthoredCatalog:
     def _parse_event(event_id: str, title: str, block: str, source: str) -> Event:
         trigger_match = re.search(r"^\*\*Trigger:\*\* (.+)$", block, re.M)
         trigger = trigger_match.group(1).strip() if trigger_match else ""
-        rows = list(CHOICE_RE.finditer(block))
+        rows = []
+        for pattern in CHOICE_PATTERNS:
+            rows.extend(pattern.finditer(block))
+        rows.sort(key=lambda match: match.start())
         choices: list[Choice] = []
         for index, row in enumerate(rows):
             end = rows[index + 1].start() if index + 1 < len(rows) else len(block)
@@ -90,8 +96,7 @@ class AuthoredCatalog:
             relationship_deltas = {name.lower(): int(delta) for delta, name in REL_RE.findall(body)}
             tokens: list[str] = []
             clears: list[str] = []
-            lines = body.splitlines()
-            for line in lines:
+            for line in body.splitlines():
                 for token in TOKEN_RE.findall(line):
                     low = line.lower()
                     if any(word in low for word in ("clear", "remove", "reset", "invalidate", "revoke", "cancel")):
