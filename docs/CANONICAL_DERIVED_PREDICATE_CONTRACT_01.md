@@ -18,14 +18,14 @@ Freeze deterministic semantic inputs for contextual conditions before production
 | `pred.transport_disruption` | E32 explicit active disruption producer; E136-A/B explicit recovery/clear | CLOSED at source level; runtime lifecycle open |
 | `pred.winter_severe` | E29-A/B explicitly establish severe winter for current winter cycle; history retained | CLOSED at source level; runtime cycle expiry open |
 | `pred.market_pressure` | E19-B establishes current market-pressure cycle; E19-A clears active cycle | CLOSED at source level; runtime cycle lifecycle open |
-| `pred.guild_labor_tension` | No E01–E272 producer currently verified; E275-B is expansion-only | OPEN / BLOCKED |
-| `pred.information_pressure_high` | No E01–E272 producer currently verified; E276-B is expansion-only | OPEN / BLOCKED |
+| `pred.guild_labor_tension` | **No production source by design; formally excluded from frozen E01–E272 predicate semantics. E275-B is expansion-only.** | **EXCLUDED / NOT-A-PRODUCTION-PREDICATE** |
+| `pred.information_pressure_high` | **No production source by design; formally excluded from frozen E01–E272 predicate semantics. E276-B is expansion-only.** | **EXCLUDED / NOT-A-PRODUCTION-PREDICATE** |
 | `pred.guild_influence_strong` | At least two distinct domains from: representation=`guild_political_representation`/`history.guild_representation`; tribunal=`guild_tribunal_independent`; commercial=`official_credit_disclosure`/`audited_monopoly`; qualified logistics=`history.guild_logistics_cooperation` + E194-A qualification | SOURCE CONTRACT CLOSED; executable aggregation/reachability open |
 | `pred.systemic_explanation_verified` | warehouse/financial evidence + document/language evidence + witness/organizational evidence + explicit E270-A convergence decision | SOURCE CONTRACT CLOSED by E270-A; runtime evidence aggregation/reachability open |
 | `pred.coalition_cooperation` | E148-A `history.cross_faction_package` with named participants, positive mutual-concession outcome, and no unresolved coalition-collapse blocker; E261-A is not sufficient by itself | SOURCE CONTRACT CLOSED; runtime blocker evaluation/reachability open |
 | `pred.constitutional_prepared_strong` | Any 3 of 4 independent domains: civic=`people_charter_endorsed` (E50); institutional=`crown_audited` (E154); factional=`house_assembly` (E161); military/law=`army_constitution_oath` (E199) | SOURCE CONTRACT CLOSED; executable aggregation/reachability open |
 | `pred.budget_reform` | E142-A `auditor_independence` + E154-A `crown_audited` + E198-A `legislative_budget_lock`; E142-B/E154-B/E198-B negative blockers; E155-A same-domain downstream evidence | SOURCE CONTRACT CLOSED; runtime invalidation/reachability open |
-| `pred.final_charter_prerequisites` | `people_charter_endorsed` + (`crown_audited` OR `full_crown_audit_published`) + (`history.house_assembly` AND `history.guild_representation`) + (`army_constitution_oath` OR `military_red_line`) + information/evidence legitimacy + `pred.coalition_cooperation` + no unresolved mandatory crisis blocker; E209 is consumer-only | SOURCE CONTRACT CLOSED; runtime aggregation/reachability open |
+| `pred.final_charter_prerequisites` | `people_charter_endorsed` + (`crown_audited` OR `full_crown_audit_published`) + (`history.house_assembly` AND `history.guild_representation`) + (`army_constitution_oath` OR `military_red_line`) + information/evidence legitimacy + `pred.coalition_cooperation` + no unresolved mandatory crisis blocker; E209 is consumer-only | SOURCE CONTRACT CLOSED; runtime aggregation/invalidation open |
 
 ## Hard derivation rules
 
@@ -38,6 +38,7 @@ Freeze deterministic semantic inputs for contextual conditions before production
 7. Derived predicates require deterministic inputs and deterministic invalidation/clear behavior before entering production schema.
 8. A producer outside E01–E272 cannot satisfy a production producer/consumer lookup.
 9. A later producer must not retroactively satisfy an earlier consumer; cycle identity is required once runtime exists.
+10. A predicate formally marked `EXCLUDED / NOT-A-PRODUCTION-PREDICATE` is not a production input, consumer trigger, derived state, or reachability condition. Its expansion candidate remains quarantined until an explicit scope change is approved and all canonical audits are rerun.
 
 ## Current source-level production closures
 
@@ -52,9 +53,16 @@ Freeze deterministic semantic inputs for contextual conditions before production
 - `pred.coalition_cooperation`: E148-A is the authoritative package source; participant identity is explicit; E261-A alone is not qualification.
 - `pred.constitutional_prepared_strong`: any three independent domains from E50/E154/E161/E199; downstream consequences do not silently create a fourth independent domain.
 - `pred.budget_reform`: E142-A/E154-A/E198-A are the three independent institutional layers; negative blockers are explicit.
-- `pred.final_charter_prerequisites`: exact upstream conjunction is frozen; E209 consumes only and cannot satisfy any prerequisite.
-- `pred.guild_labor_tension`: no E01–E272 producer verified.
-- `pred.information_pressure_high`: no E01–E272 producer verified.
+- `pred.final_charter_prerequisites`: exact upstream conjunction is frozen; E209 is consumer-only and cannot satisfy any prerequisite.
+
+## Formal predicate exclusion — frozen production scope
+
+The following names are retained only as explicit negative QA fixtures. They are **not predicates in production semantics**:
+
+- `pred.guild_labor_tension` — excluded; E275-B is expansion-only and cannot be referenced by E01–E272 production logic.
+- `pred.information_pressure_high` — excluded; E276-B is expansion-only and cannot be referenced by E01–E272 production logic.
+
+This is a deliberate semantic closure, not an unresolved producer gap. No alias, relationship score, prose interpretation, consumer reachability, or expansion event may recreate either predicate inside E01–E272. Re-admission requires an explicit production-scope change followed by event-ID, producer/consumer, predicate, contradiction, cycle, delay, save/load, replay and reachability audits.
 
 ## Expansion quarantine — E273–E277
 
@@ -96,4 +104,8 @@ The source-level evaluator is intentionally upstream of E209. Civic legitimacy i
 
 ## Gate
 
-Source-level composite predicate semantics are now frozen wherever an in-scope authored producer or deterministic derived contract exists. Runtime lifecycle, persistence, contradiction invalidation and fresh-run/replay reachability remain downstream gates. No production schema or Decision Engine implementation is authorized by this document alone.
+**S04 source-level predicate contract: CLOSED 2026-09-16.**
+
+All production predicates have either an in-scope authored/deterministic source contract or an explicit frozen-scope exclusion. The two formerly open names are formally excluded rather than silently unresolved. Runtime lifecycle, persistence, contradiction invalidation and fresh-run/replay reachability remain downstream gates and do not reopen the S04 source contract.
+
+No production schema or Decision Engine implementation is authorized by this document alone.
