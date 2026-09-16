@@ -5,7 +5,7 @@ from pathlib import Path
 import re
 
 from .catalog import AuthoredCatalog, Event
-from .delays import due_delays, schedule_authored_delay, spec_for_key
+from .delays import due_delays, schedule_authored_delay
 from .state import GameState
 
 # Only explicit immediate Unlock/Unlocks lines are executable routing signals.
@@ -109,17 +109,11 @@ class DecisionEngine:
         *,
         condition_satisfied: bool | None = None,
     ) -> DelayedActivationResult:
-        """Resolve a canonical delay and hand its authored target to the engine.
-
-        The delay contract owns eligibility timing. The target is not auto-chosen:
-        activation makes the target event the current authored decision, after which
-        its normal choices execute through ``DecisionEngine.execute``. Condition-bound
-        rows require an explicit producer-backed condition result.
-        """
+        """Resolve a canonical delay and hand its authored target to the engine."""
         delay = state.pending_delays.get(exactly_once_key)
         if delay is None:
             raise KeyError(exactly_once_key)
-        self.event(delay.resolution_target)  # reject excluded/out-of-scope targets
+        self.event(delay.resolution_target)
         if delay.condition_bound:
             if condition_satisfied is not True:
                 raise ValueError(f"condition not satisfied: {exactly_once_key}")
@@ -131,6 +125,30 @@ class DecisionEngine:
             target_event_id=resolved.resolution_target,
             state_snapshot=state.snapshot(),
         )
+
+    def execute_delayed_target(
+        self,
+        state: GameState,
+        exactly_once_key: str,
+        choice_id: str,
+        *,
+        condition_satisfied: bool | None = None,
+    ) -> ExecutionResult:
+        """Activate a due delayed target and execute its authored choice through the same engine."""
+        delay = state.pending_delays.get(exactly_once_key)
+        if delay is None:
+            raise KeyError(exactly_once_key)
+        if delay.status != "pending":
+            raise ValueError(f"delay is not pending: {exactly_once_key}")
+        target = self.event(delay.resolution_target)
+        if not any(choice.choice_id == choice_id for choice in target.choices):
+            raise KeyError(choice_id)
+        self.activate_delayed_target(
+            state,
+            exactly_once_key,
+            condition_satisfied=condition_satisfied,
+        )
+        return self.execute(state, target.event_id, choice_id)
 
     def activate_next_due_delay(self, state: GameState) -> DelayedActivationResult:
         due = due_delays(state)
