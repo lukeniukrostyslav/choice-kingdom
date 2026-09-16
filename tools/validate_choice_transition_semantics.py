@@ -10,15 +10,12 @@ EXPECTED = {f"E{i:02d}" for i in range(1, 273)}
 HEADING = re.compile(r"^### (E\d{2,3}) — .+$", re.M)
 CHOICE_HEADING = re.compile(r"^(?:-\s*)?\*\*([AB])\s*[—:]\s*(.*?)\*\*", re.M)
 CHOICE_PLAIN = re.compile(r"^\s*-\s*([AB])(?:\s+[A-Za-zА-Яа-я]|\s*[—:])(.+?)\s*$", re.M)
-# Canonical catalogs use both numeric and symbolic resource deltas (+4 trust / +trust / -gold).
 DELTA_RE = re.compile(r"[+-](?:\d+(?:\.\d+)?\s*)?[A-Za-zА-Яа-я_]+")
 TOKEN_RE = re.compile(r"`[^`]+`")
 CLAUSE_RE = re.compile(r"^\s*-\s*(?:Immediate|Flag|Unlock|Producer|Delayed|Resolution|Clear|Trigger|Effect|State|History|Meta|Ending|Condition)\s*:", re.I | re.M)
 LIFECYCLE_RE = re.compile(r"\b(?:clear|clears|reset|resets|resolve|resolves|cancel|cancels|invalidate|invalidates|revoke|revokes|prevent|prevents|schedule|schedules|unlock|unlocks|create|creates|strengthen|strengthens|close|closes|establish|establishes|produce|produces|record|records|later|delayed|immediate|risk|route|evidence|pressure|credibility|stability|reform|contradiction)\b", re.I)
 ACTION_RE = re.compile(r"\b(?:open|follow|inspect|subsidize|trace|replace|honor|renegotiate|protect|hear|catalogue|destroy|admit|close|end|publish|leave|accept|refuse|verify|investigate|preserve|compensate|hunt|fund|requisition|restrict|allow|deny|offer|grant|reject|raid|archive|sign|search|defend|punish|write|remove|keep|take|ask|invoke|ratify|endorse|decide|continue|expose|conceal|redact|submit|seal|audit|centralize|support|withdraw)\b", re.I)
 STATE_HINT = re.compile(r"(?:\b(?:state|flag|predicate|history|thread|meta|ending|cycle|condition|route|evidence|trigger|effect|immediate|delayed|unlock|producer|resolution)\b|`[^`]+`)", re.I)
-# These are authored terminal/convergence nodes, not ordinary A/B player-choice events.
-# E270 is intentionally one-sided: E270-A is the explicit convergence decision and producer.
 SPECIAL_EVENTS = {"E32", "E61", "E62", "E63", "E64", "E65", "E66", "E67", "E68", "E69", "E70", "E210", "E270"}
 SPECIAL_EVENT_HINT = re.compile(r"\b(?:Source-level producer|canonical producer|explicitly establishes|explicitly records|derived gate|Ending|Purpose|convergence-only|resolution families|convergence producer|convergence decision)\b", re.I)
 
@@ -60,6 +57,7 @@ for source in graph["source_of_truth"]["catalog_sources"]:
 missing = sorted(EXPECTED - set(blocks), key=lambda x: int(x[1:]))
 if missing:
     fail("missing authored event blocks: " + ", ".join(missing))
+
 missing_special = sorted(SPECIAL_EVENTS - set(blocks), key=lambda x: int(x[1:]))
 if missing_special:
     fail("special-event classification references missing events: " + ", ".join(missing_special))
@@ -67,8 +65,19 @@ if missing_special:
 gaps: list[str] = []
 rows = 0
 special_rows = 0
+required_authored_sections = 0
 for event_id in sorted(EXPECTED, key=lambda x: int(x[1:])):
     block = blocks[event_id]
+
+    # Every authored event must expose a trigger and an explicit design-purpose
+    # statement. This prevents structurally present but semantically empty nodes.
+    if not re.search(r"^\*\*Trigger:\*\*", block, re.M):
+        gaps.append(f"{event_id}: missing authored Trigger section")
+    if not re.search(r"^\*\*Design purpose:\*\*", block, re.M):
+        gaps.append(f"{event_id}: missing authored Design purpose section")
+    else:
+        required_authored_sections += 1
+
     matches = list(CHOICE_HEADING.finditer(block))
     if not matches:
         matches = list(CHOICE_PLAIN.finditer(block))
@@ -120,6 +129,7 @@ if gaps:
     print(f"events={len(blocks)}")
     print(f"choice_rows={rows}")
     print(f"special_state_events={special_rows}")
+    print(f"events_with_design_purpose={required_authored_sections}")
     print(f"semantic_gaps={len(gaps)}")
     for gap in gaps[:100]:
         print(f"- {gap}")
@@ -131,7 +141,9 @@ print("CHOICE_TRANSITION_SEMANTICS: PASS")
 print(f"events={len(blocks)}")
 print(f"choice_rows={rows}")
 print(f"special_state_events={special_rows}")
+print(f"events_with_design_purpose={required_authored_sections}")
 print("semantic_gaps=0")
 print("exactly_one_A_and_one_B=true")
 print("explicit_transition_payload=true")
 print("alternative_effect_signatures_distinct=true")
+print("authored_trigger_and_design_purpose=true")
