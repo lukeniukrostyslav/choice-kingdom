@@ -55,3 +55,25 @@ def test_missing_authored_prerequisite_blocks_route_even_if_another_prerequisite
     state.history.add(prerequisites[0])
     state.current_event_id = prerequisites[0]
     assert engine._route_allowed(state, target) is False
+
+
+def test_e148_authored_event_reference_or_branch_is_runtime_executable():
+    engine = DecisionEngine(ROOT)
+    state = GameState.fresh("e148-or-trigger")
+    state.history.add("E146")
+    state.current_event_id = "E146"
+
+    event = engine.event("E148")
+    assert "E146 or" in event.trigger
+    assert engine.catalog.trigger_satisfied("E148", state) is True
+    assert engine._route_allowed(state, "E148") is True
+
+
+def test_e148_or_branch_does_not_treat_unrelated_event_history_as_the_authored_reference():
+    engine = DecisionEngine(ROOT)
+    state = GameState.fresh("e148-or-negative")
+    state.history.add("E145")
+    state.current_event_id = "E145"
+
+    assert engine.catalog.trigger_satisfied("E148", state) is False
+    assert engine._route_allowed(state, "E148") is True
