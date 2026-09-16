@@ -4,7 +4,17 @@ Frozen scope: **E01–E272**
 Expansion candidates: **E273–E277 excluded**  
 Purpose: durable handoff ledger so completed QA work is not repeated.
 
-## Latest continuation update — 2026-09-15
+## Latest continuation update — 2026-09-16
+
+### S10.6 — delayed lifecycle source closure
+- Re-read the authoritative machine delay contract and canonical graph before changing the S10 gate.
+- Confirmed the frozen high-risk delayed identity set is exactly E181–E185 and E242–E246, with unique `exactlyOnceKey`, persistent save/load policy and run-scoped replay policy.
+- Closed E185's remaining source ambiguity without inventing a turn: E17-A is the exact producer identity and E185 is explicitly **condition-bound** to a later military crisis, represented by `earliestTurn=null` plus the authored condition in `cancellationRule`.
+- Updated `docs/MACHINE_CANONICAL_GRAPH_01.json` so E185 is source-closed, matching the existing E17-A producer record.
+- Hardened `tools/validate_delayed_lifecycle_gate.py` so all ten frozen delayed consumers must be CLOSED; it separately validates E185's condition-bound semantics and rejects invented absolute timing.
+- Hardened `tools/validate_machine_delay_contract.py` with the same condition-bound E185 rule and full ten-consumer CLOSED requirement.
+- The reference runtime model already proves the intended E185 boundary: it cannot resolve without the later military-crisis condition and can resolve once that authored condition becomes true; it remains explicitly a QA/reference model, not production Decision Engine runtime.
+- Result: **S10 source/contract lifecycle closure is complete pending fresh push-CI confirmation. Production runtime execution is deliberately not claimed.**
 
 ### S21 — semantic writer collision closure
 - Inspected the authoritative E151–E210 catalog and verified the duplicate `history.guild_logistics_cooperation` occurrence: E136-B establishes the durable cooperation marker and E194-A repeats it as an explicit reaffirmation while establishing neutral-inspector evidence.
