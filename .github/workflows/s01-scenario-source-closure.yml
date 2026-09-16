@@ -12,29 +12,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - name: Compile canonical scenario source inventory
         run: python3 tools/compile_scenario_source_inventory.py
-
-      - name: Validate S01 frozen scenario source closure
-        run: python3 tools/validate_s01_scenario_closure.py
-
-      - name: Validate S02 choice to state transition closure
-        run: python3 tools/validate_s02_choice_state_transition_closure.py
-
+      - name: Validate canonical causal reachability contract
+        run: python3 tools/validate_causal_reachability_contract.py
       - name: Validate canonical graph source closure
         run: python3 tools/validate_canonical_graph_closure.py
-
-      - name: Validate causal reachability contract
-        run: python3 tools/validate_causal_reachability_contract.py
-
+      - name: Validate S01 frozen scenario source closure
+        run: python3 tools/validate_s01_scenario_closure.py
+      - name: Validate S02 choice to state transition closure
+        run: python3 tools/validate_s02_choice_state_transition_closure.py
       - name: Upload S01 machine closure report
         uses: actions/upload-artifact@v4
         with:
           name: choice-kingdom-s01-source-closure-${{ github.sha }}
           path: |
             docs/MACHINE_S01_SCENARIO_CLOSURE_01.json
-            docs/scenario-source-inventory.json
+            scenario-source-inventory.json
             docs/MACHINE_CAUSAL_REACHABILITY_01.json
             docs/MACHINE_CANONICAL_GRAPH_CLOSURE_01.json
           if-no-files-found: error
