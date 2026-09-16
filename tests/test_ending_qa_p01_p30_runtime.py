@@ -61,7 +61,7 @@ def test_p10_p11_second_founder_requires_canonical_predicates():
     state = terminal_state("p10")
     qualification = EndingSourceCompiler.compile(
         systemic_evidence_families={"warehouse_or_financial", "document_or_language", "witness_or_organizational"},
-        flags={"systemic_explanation_convergence"},
+        flags={"systemic_explanation_convergence", "coalition_candidate_package"},
         history={"history.cross_faction_package"},
         coalition_participants={"mara", "rowan", "seris"},
     )
