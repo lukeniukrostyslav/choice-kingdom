@@ -45,7 +45,6 @@ def main() -> int:
                 errors.append(f"{family}: {key} must be a list")
         if not data.get("positive_all") and not data.get("positive_any"):
             errors.append(f"{family}: no positive qualification clauses")
-        # Broken Diadem is a failure family, so an empty negative-blocker set is valid.
         if family != "Broken Diadem" and not data.get("negative_blockers"):
             errors.append(f"{family}: negative blocker set is empty")
 
@@ -57,17 +56,20 @@ def main() -> int:
         errors.append("positive priority does not cover every positive family")
 
     required_pairs = {tuple(pair) for pair in p.get("pairwise_coverage", [])}
-    required = {
-        ("Steward", "People's Charter"),
-        ("Steward", "Golden Compact"),
-        ("Steward", "Iron Crown"),
-        ("Golden Compact", "People's Charter"),
-        ("Golden Compact", "Second Founder"),
-        ("People's Charter", "Second Founder"),
-        ("Iron Crown", "Steward"),
-        ("Iron Crown", "People's Charter"),
+    # All ten unordered positive-ending pairs are mandatory. The authored table
+    # stores each pair in its explicit authored direction; do not infer priority
+    # from that direction.
+    required_positive_pairs = {
+        tuple(sorted((higher, lower)))
+        for index, higher in enumerate(POSITIVE)
+        for lower in POSITIVE[index + 1 :]
     }
-    if not required.issubset(required_pairs):
+    actual_positive_pairs = {
+        tuple(sorted(pair))
+        for pair in required_pairs
+        if pair[0] in POSITIVE and pair[1] in POSITIVE
+    }
+    if not required_positive_pairs.issubset(actual_positive_pairs):
         errors.append("required positive pairwise precedence coverage incomplete")
     if not all(("Quiet Throne", f) in required_pairs for f in POSITIVE):
         errors.append("Quiet Throne pairwise coverage incomplete")
