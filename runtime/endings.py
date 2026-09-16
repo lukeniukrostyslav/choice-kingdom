@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Mapping, MutableMapping, Sequence
+from typing import Mapping, Sequence
 
 from .state import GameState
 
@@ -48,12 +48,7 @@ class EndingResolution:
 
 
 class EndingResolver:
-    """Deterministic ending boundary; predicate production remains outside this consumer.
-
-    The resolver intentionally receives already-compiled authored qualification results.
-    It never treats resource values, relationship scores, route names, stale aliases, or
-    arbitrary history markers as an ending prerequisite on its own.
-    """
+    """Deterministic ending boundary; predicate production remains outside this consumer."""
 
     SAVE_SCHEMA_VERSION = 1
 
@@ -69,15 +64,15 @@ class EndingResolver:
         self._validate_terminal_boundary(state)
         qualified = self._canonical_positive_set(qualified_endings)
         priority = authored_priority or {}
-        self._validate_priority_table(priority, qualified)
+        candidates_for_priority = set(qualified)
+        if explicit_withdrawal:
+            candidates_for_priority.add(END_QUIET_THRONE)
+        self._validate_priority_table(priority, candidates_for_priority)
 
-        # Semantic precedence is contractual: collapse/failure is evaluated first.
         if collapse_failure:
             winner = END_BROKEN_DIADEM
         elif explicit_withdrawal:
-            candidates = set(qualified)
-            candidates.add(END_QUIET_THRONE)
-            winner = self._select_by_authored_priority(candidates, priority)
+            winner = self._select_by_authored_priority(candidates_for_priority, priority)
         elif not qualified:
             raise EndingResolutionError("no ending qualifies and no authored fallback exists")
         else:
@@ -109,7 +104,7 @@ class EndingResolver:
 
     @staticmethod
     def _validate_priority_table(
-        priority: Mapping[tuple[str, str], str], qualified: set[str]
+        priority: Mapping[tuple[str, str], str], candidates: set[str]
     ) -> None:
         for (left, right), winner in priority.items():
             if left not in ENDING_IDS or right not in ENDING_IDS or left == right:
@@ -119,13 +114,11 @@ class EndingResolver:
                     f"priority winner must be one of the pair: {(left, right)!r} -> {winner!r}"
                 )
 
-        candidates = set(qualified)
         if len(candidates) <= 1:
             return
-        for left in sorted(candidates):
-            for right in sorted(candidates):
-                if left >= right:
-                    continue
+        ordered = sorted(candidates)
+        for index, left in enumerate(ordered):
+            for right in ordered[index + 1 :]:
                 if (left, right) not in priority and (right, left) not in priority:
                     raise EndingResolutionError(
                         f"missing authored priority for simultaneous endings: {left} × {right}"
@@ -141,9 +134,10 @@ class EndingResolver:
             return next(iter(candidates))
 
         remaining = set(candidates)
-        for left in sorted(candidates):
-            for right in sorted(candidates):
-                if left >= right or left not in remaining or right not in remaining:
+        ordered = sorted(candidates)
+        for index, left in enumerate(ordered):
+            for right in ordered[index + 1 :]:
+                if left not in remaining or right not in remaining:
                     continue
                 winner = priority.get((left, right), priority.get((right, left)))
                 if winner is None:
@@ -160,10 +154,7 @@ class EndingResolver:
 
     @staticmethod
     def _record_immutable_identity(state: GameState, ending_id: str) -> None:
-        existing = getattr(state, "ending_identity", None)
-        if existing is not None and existing != ending_id:
-            raise EndingResolutionError(
-                f"ending identity is immutable: already recorded as {existing}"
-            )
-        if existing is None:
-            setattr(state, "ending_identity", ending_id)
+        try:
+            state.set_ending_identity(ending_id)
+        except ValueError as exc:
+            raise EndingResolutionError(str(exc)) from exc
