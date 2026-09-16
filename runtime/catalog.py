@@ -8,7 +8,12 @@ from .state import EXCLUDED_EVENTS, PRODUCTION_FIRST, PRODUCTION_LAST
 
 HEADING_RE = re.compile(r"^### (E\d{2,3}) — (.+)$", re.M)
 CHOICE_PATTERNS = (
+    # Canonical catalog form: - **A — ...**
     re.compile(r"^(?:-\s*)?\*\*([A-Z])\s*[—:]\s*(.+?)\*\*$", re.M),
+    # Canonical authored form used by the expansion catalogs: - **A — ...; effects."
+    # There is intentionally no closing ** before the effects, so accept the
+    # complete line and let the next A/B row delimit the choice body.
+    re.compile(r"^-\s*\*\*([A-Z])\s*[—:]\s*(.+)$", re.M),
     re.compile(r"^(?:-\s*)?\*\*([A-Z])\s*[—:]\s*(.+?)\*\*:\s*(.*)$", re.M),
     re.compile(r"^-\s*([A-Z])\s+(.*)$", re.M),
 )
