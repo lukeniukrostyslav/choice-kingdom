@@ -10,6 +10,7 @@ PRODUCTION_LAST = 272
 EXCLUDED_EVENTS = frozenset({"E273", "E274", "E275", "E276", "E277"})
 RESOURCES = ("gold", "trust", "security", "power", "reputation")
 RELATIONSHIPS = ("mara", "rowan", "seris", "ivo", "amara", "toma")
+CANONICAL_COALITION_PARTICIPANTS = frozenset(RELATIONSHIPS)
 REPLAY_META_KEYS = frozenset({
     "meta.replay.warehouse_investigation_unlock",
     "meta.replay.second_run_information_route",
@@ -96,8 +97,8 @@ class GameState:
         return True
 
     def record_coalition_participant(self, participant: str) -> bool:
-        if not isinstance(participant, str) or not participant:
-            raise ValueError("coalition participant identity must be a non-empty canonical string")
+        if participant not in CANONICAL_COALITION_PARTICIPANTS:
+            raise ValueError(f"non-canonical coalition participant: {participant!r}")
         if participant in self.coalition_participants:
             return False
         self.coalition_participants.add(participant)
@@ -258,6 +259,9 @@ class GameState:
         evidence = set(payload.get("ending_evidence_families", []))
         if not evidence.issubset(ENDING_EVIDENCE_FAMILIES):
             raise ValueError("snapshot contains non-canonical ending evidence family")
+        participants = set(payload.get("coalition_participants", []))
+        if not participants.issubset(CANONICAL_COALITION_PARTICIPANTS):
+            raise ValueError("snapshot contains non-canonical coalition participant")
         ending_identity = payload.get("ending_identity")
         if ending_identity is not None and ending_identity not in ENDING_IDS:
             raise ValueError("snapshot contains non-canonical ending identity")
@@ -277,7 +281,7 @@ class GameState:
             activated_delayed_targets=set(payload.get("activated_delayed_targets", [])),
             imported_meta_keys=imported_meta,
             ending_evidence_families=evidence,
-            coalition_participants=set(payload.get("coalition_participants", [])),
+            coalition_participants=participants,
             unresolved_coalition_blockers=set(payload.get("unresolved_coalition_blockers", [])),
             unresolved_mandatory_crisis_blockers=set(payload.get("unresolved_mandatory_crisis_blockers", [])),
             terminal=bool(payload.get("terminal", False)),
