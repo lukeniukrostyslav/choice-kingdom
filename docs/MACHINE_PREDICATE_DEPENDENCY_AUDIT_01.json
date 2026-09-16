@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1",
+  "schema_version": "1.2",
   "contract": "choice_kingdom.predicate_dependency_audit",
   "scope": "E01-E272",
   "status": "SOURCE_LEVEL_ONLY",
@@ -17,12 +17,7 @@
     "pred.systemic_explanation_verified": {
       "producer": "E270-A",
       "key": "systemic_explanation_convergence",
-      "requires": [
-        "warehouse_or_financial",
-        "document_or_language",
-        "witness_or_organizational",
-        "explicit_convergence"
-      ]
+      "requires": ["warehouse_or_financial", "document_or_language", "witness_or_organizational", "explicit_convergence"]
     },
     "pred.food_stable": {
       "producer": "E192-B",
@@ -31,11 +26,7 @@
     },
     "pred.coalition_cooperation": {
       "producer": "E148-A",
-      "requires": [
-        "positive_mutual_concessions",
-        "participant_identity",
-        "no_unresolved_coalition_collapse_blocker"
-      ]
+      "requires": ["positive_mutual_concessions", "participant_identity", "no_unresolved_coalition_collapse_blocker"]
     }
   },
   "rules": [
@@ -48,5 +39,6 @@
   ],
   "runtime_verified": false,
   "fresh_run_reachability_verified": false,
-  "replay_reachability_verified": false
+  "replay_reachability_verified": false,
+  "replay_meta_inventory_closed": false
 }
