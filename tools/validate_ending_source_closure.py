@@ -41,9 +41,11 @@ def main() -> int:
     for family in FAMILIES:
         data = q["families"].get(family, {})
         for key in ("positive_all", "positive_any", "negative_blockers"):
-            if not isinstance(data.get(key), list) or not data[key]:
-                if key != "positive_any" or family not in {"Steward", "Golden Compact", "People's Charter", "Quiet Throne", "Second Founder"}:
-                    errors.append(f"{family}: missing {key}")
+            if not isinstance(data.get(key), list):
+                errors.append(f"{family}: {key} must be a list")
+        if not data.get("positive_all") and not data.get("positive_any"):
+            errors.append(f"{family}: no positive qualification clauses")
+        # Broken Diadem is a failure family, so an empty negative-blocker set is valid.
         if family != "Broken Diadem" and not data.get("negative_blockers"):
             errors.append(f"{family}: negative blocker set is empty")
 
@@ -54,9 +56,7 @@ def main() -> int:
     if set(p.get("positive_priority", [])) != set(POSITIVE):
         errors.append("positive priority does not cover every positive family")
 
-    required_pairs = {
-        tuple(pair) for pair in p.get("pairwise_coverage", [])
-    }
+    required_pairs = {tuple(pair) for pair in p.get("pairwise_coverage", [])}
     required = {
         ("Steward", "People's Charter"),
         ("Steward", "Golden Compact"),
