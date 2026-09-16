@@ -1,0 +1,18 @@
+{
+  "blocks": {"S11": "100%", "S12": "100%", "S13": "100%"},
+  "checks": [
+    {"id": "S12.graph_integrity", "status": "PASS", "causal_edges": 305, "causal_nodes": 221, "unreachable_causal_nodes": 0},
+    {"id": "S11.replay_and_S13.ending_runtime", "status": "PASS", "tests": 48},
+    {"id": "S13.full_regression", "status": "PASS", "tests": 172}
+  ],
+  "closure_boundary": [
+    "S11 proves runtime replay reset/import isolation for canonical meta.* state.",
+    "S12 proves frozen graph integrity and rooted structural reachability; it does not claim every conditional gameplay path is feasible.",
+    "S13 proves the current executable Python scenario regression surface is green, including ending resolution and persistence.",
+    "Android UI, physical-device QA, APK/AAB and store release remain later product gates."
+  ],
+  "contract": "choice_kingdom.final_scenario_runtime_gate",
+  "schema_version": "1.0",
+  "scope": "E01-E272",
+  "status": "PASS"
+}
