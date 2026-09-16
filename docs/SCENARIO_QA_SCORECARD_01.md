@@ -13,7 +13,7 @@ Percentages increase only on verified source changes and green relevant gates. T
 | S01 — Canonical Event Coverage | 84% | ADVANCED — E01–E272 exhaustive authored-event scope is structurally validated; semantic/reachability closure remains |
 | S02 — Choice / State Transitions | 70% | OPEN — complete authored transition/effect closure remains |
 | S03 — Producer / Consumer Closure | 100% | SOURCE-CLOSED — exhaustive inventory reports zero undefined consumers after frozen source contracts and canonical trigger normalization |
-| S04 — Predicate Contracts | 90% | HARD-BLOCKED SOURCE GAP — all currently source-closed predicates are machine-gated; `pred.guild_labor_tension` and `pred.information_pressure_high` still have no verified E01–E272 producer, while E275-B/E276-B are expansion-only and quarantined |
+| S04 — Predicate Contracts | 90% | HARD-BLOCKED SOURCE GAP — all currently source-closed predicates are machine-gated; `pred.guild_labor_tension` and `pred.information_pressure_high` are explicitly excluded from E01–E272 production semantics because no in-scope producer/consumer is verified; E275-B/E276-B remain expansion-only and quarantined |
 | S05 — Delayed Consequences | 60% | OPEN — complete consequence and cancellation closure remains |
 | S06 — Replay / Meta State | 65% | ADVANCED — explicit replay meta-state bindings for E186/E247/E248 are frozen and pass the dedicated machine gate; runtime replay execution remains open |
 | S07 — Event Graph / Causality | 83% | ADVANCED — canonical graph gate is green; full causal reachability remains |
@@ -29,6 +29,15 @@ Percentages increase only on verified source changes and green relevant gates. T
 Exact arithmetic mean: **83.9167%**.
 
 ## Verified autonomous work — latest blocks
+
+### S38 — producer/consumer registry reconciliation
+- Reconciled `docs/CANONICAL_PRODUCER_CONSUMER_REGISTRY_01.md` with the current canonical predicate contract and machine graph.
+- Corrected stale source-level rows for `pred.market_pressure`, `pred.winter_severe`, `pred.food_stable`, `pred.transport_disruption`, `pred.border_crisis`, `pred.guild_logistics_cooperation`, `pred.guild_influence_strong`, `pred.systemic_explanation_verified`, `pred.coalition_cooperation`, `pred.constitutional_prepared_strong`, `pred.budget_reform`, and `pred.final_charter_prerequisites`.
+- Explicitly quarantined `pred.guild_labor_tension` and `pred.information_pressure_high` from frozen production semantics rather than inventing E01–E272 producers.
+- Preserved E273–E277 expansion quarantine and runtime-open boundaries.
+- Commit: `26699823a6babec40d0ea2d7580d67eb05b6aba5`.
+- Verification on this commit: Contract Readiness PASS, Noncanonical Consumer Rejection PASS, Scope Boundary PASS, Delayed Lifecycle PASS, Predicate Contract Parity PASS, S08 Source Closure PASS, Open Predicate Boundary PASS; Canonical Graph run was still in progress at the time of verification.
+- This is a source-registry consistency closure; it does not by itself increase runtime readiness percentages.
 
 ### S37 — predicate producer open-boundary enforcement
 - Added `tools/validate_predicate_open_boundary.py`.
@@ -69,7 +78,7 @@ Exact arithmetic mean: **83.9167%**.
 ## Remaining gates to 100%
 
 1. Complete authored choice/effect transition closure.
-2. **S04 blocker:** identify and authoritatively verify an E01–E272 producer for `pred.guild_labor_tension` and `pred.information_pressure_high`, or formally revise/remove those predicates from production semantics together with their consumer triggers; E275/E276 cannot be used without an explicit scope change.
+2. **S04 blocker:** either author and verify an E01–E272 producer for the two currently excluded predicate names, or keep them formally excluded from production semantics. If re-admitted, a full producer/consumer audit is required; E275/E276 cannot be used without an explicit scope change.
 3. Complete delayed consequence cancellation/supersession, persistence and exactly-once semantics.
 4. Prove replay execution/reset semantics beyond the frozen source contract.
 5. Complete exact ending positive prerequisites, negative blockers and deterministic precedence.
