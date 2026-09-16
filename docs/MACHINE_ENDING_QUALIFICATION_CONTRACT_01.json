@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0",
+  "contract": "choice_kingdom.ending_qualification_machine_boundary",
+  "scope": "E01-E272",
+  "status": "SOURCE_CONTRACT_CLOSED_RUNTIME_GATES_OPEN",
+  "families": {
+    "Steward": {
+      "positive_all": ["thread.institutional_reform", "pred.constitutional_prepared_strong", "emergency_power_constrained_or_expired"],
+      "positive_any": [],
+      "negative_blockers": ["permanent_emergency_authority", "terminal_institutional_capture", "severe_unresolved_multi_crisis_collapse"]
+    },
+    "Iron Crown": {
+      "positive_all": ["security_or_military_route", "strong_security_military_dependency", "emergency_authority_retained_or_constitutional_limits_weakened"],
+      "positive_any": ["thread.border_crisis", "explicit_authored_military_route"],
+      "negative_blockers": ["independent_military_review_plus_strong_distributed_constitutional_reform"]
+    },
+    "Golden Compact": {
+      "positive_all": ["thread.ivo_market", "commercial_economic_route", "durable_guild_or_trade_cooperation", "treasury_economic_stability"],
+      "positive_any": [],
+      "negative_blockers": ["terminal_economic_collapse", "complete_rejection_of_commercial_route"]
+    },
+    "People's Charter": {
+      "positive_all": ["pred.final_charter_prerequisites", "durable_public_commons_participation"],
+      "positive_any": ["thread.institutional_reform", "explicit_authored_civic_governance_route"],
+      "negative_blockers": ["terminal_authoritarian_state", "terminal_collapse"]
+    },
+    "Broken Diadem": {
+      "positive_all": ["deterministic_terminal_failure_predicate"],
+      "positive_any": ["two_independent_unresolved_major_crisis_paths", "institutional_breakdown_plus_severe_systemic_pressure"],
+      "negative_blockers": []
+    },
+    "Quiet Throne": {
+      "positive_all": ["explicit_withdrawal_or_abdication_or_low_intervention_history", "no_stronger_positive_ending_qualifies"],
+      "positive_any": [],
+      "negative_blockers": ["stronger_positive_ending_qualifies"]
+    },
+    "Second Founder": {
+      "positive_all": ["thread.archive_or_investigation", "pred.systemic_explanation_verified", "pred.coalition_cooperation", "constitutional_redesign", "emergency_power_constrained_or_expired"],
+      "positive_any": [],
+      "negative_blockers": ["permanent_emergency_authority", "missing_required_systemic_evidence", "missing_required_coalition_cooperation"]
+    }
+  },
+  "canonical_source_rules": [
+    "pred.final_charter_prerequisites is consumer-only and E209 cannot manufacture it",
+    "pred.systemic_explanation_verified is produced by the E270-A convergence contract and cannot be inferred from relationship state",
+    "pred.coalition_cooperation is produced by the E148-A cross-faction package contract; E261-A alone is insufficient",
+    "thread.border_crisis is the canonical border route identifier",
+    "thread.ivo_market is the canonical commercial route identifier",
+    "forbidden ending aliases cannot satisfy any prerequisite",
+    "E273-E277 cannot satisfy any production ending prerequisite"
+  ],
+  "blocked_runtime_producers": {
+    "People's Charter": ["final_charter_prerequisite_runtime_aggregation"],
+    "Second Founder": ["replay_meta_transfer_keys", "systemic_convergence_runtime_aggregation"]
+  },
+  "fresh_run_reachability_verified": false,
+  "replay_reachability_verified": false,
+  "runtime_execution_verified": false
+}
