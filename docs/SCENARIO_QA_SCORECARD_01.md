@@ -13,7 +13,7 @@ Percentages increase only on verified source changes and green relevant gates. T
 | S01 — Canonical Event Coverage | 84% | ADVANCED — E01–E272 exhaustive authored-event scope is structurally validated; semantic/reachability closure remains |
 | S02 — Choice / State Transitions | 70% | OPEN — complete authored transition/effect closure remains |
 | S03 — Producer / Consumer Closure | 100% | SOURCE-CLOSED — exhaustive inventory reports zero undefined consumers after frozen source contracts and canonical trigger normalization |
-| S04 — Predicate Contracts | 90% | ADVANCED — `pred.food_stable` and `pred.systemic_explanation_verified` are now source-closed by E192-B/E192-A and E270-A respectively; guild-labor and information-pressure production contracts remain OPEN/BLOCKED; runtime lifecycle remains open |
+| S04 — Predicate Contracts | 90% | HARD-BLOCKED SOURCE GAP — all currently source-closed predicates are machine-gated; `pred.guild_labor_tension` and `pred.information_pressure_high` still have no verified E01–E272 producer, while E275-B/E276-B are expansion-only and quarantined |
 | S05 — Delayed Consequences | 60% | OPEN — complete consequence and cancellation closure remains |
 | S06 — Replay / Meta State | 65% | ADVANCED — explicit replay meta-state bindings for E186/E247/E248 are frozen and pass the dedicated machine gate; runtime replay execution remains open |
 | S07 — Event Graph / Causality | 83% | ADVANCED — canonical graph gate is green; full causal reachability remains |
@@ -29,6 +29,14 @@ Percentages increase only on verified source changes and green relevant gates. T
 Exact arithmetic mean: **83.9167%**.
 
 ## Verified autonomous work — latest blocks
+
+### S37 — predicate producer open-boundary enforcement
+- Added `tools/validate_predicate_open_boundary.py`.
+- The gate explicitly checks the two remaining unresolved predicate contracts: `pred.guild_labor_tension` and `pred.information_pressure_high`.
+- It proves that both remain explicitly **OPEN / BLOCKED**, that their only named producer candidates E275-B/E276-B remain quarantined as expansion-only, and that neither predicate has leaked into the source-closed producer inventory.
+- Added the gate to `.github/workflows/canonical-graph.yml` and added `docs/MACHINE_PREDICATE_OPEN_BOUNDARY_01.json` to the canonical QA artifact.
+- This is a real integrity closure, not a percentage inflation: S04 remains **90%** because no authoritative E01–E272 producer has been found for those two predicates. Promoting either to 100% without authored source evidence would invent scenario semantics.
+- Commits: `451440af0ea68b0528a0d0721e9c4a1c4aaac2a0`, `be435cd244f212009f5ef836003077cb95e85627`.
 
 ### S36 — canonical graph source-closure
 - Added `tools/validate_canonical_graph_closure.py` as a dedicated S09 closure gate.
@@ -54,14 +62,14 @@ Exact arithmetic mean: **83.9167%**.
 ### S33 — ending test-matrix contract gate
 - Added `tools/validate_ending_test_matrix_contract.py` to validate the complete P01–P30 authored ending QA surface, deterministic semantic evaluation order, seven ending families, replay/save-load/alias negative controls, and E273–E277 exclusion language.
 - Added `.github/workflows/ending-test-matrix-contract.yml` so the matrix is checked automatically on push.
-- Commit: `9916050fa877fea3fb76fad2c0979beb3052ad3a`.
+- Commit: `9916050fa877fea3fb76dad2c0979beb3052ad3a`.
 - The same commit's `Choice Kingdom Contract Readiness` run **#340 / 35034440538: PASS**.
 - This closes a missing automated QA gate for the ending matrix but does **not** close runtime precedence, executable ending fixtures, replay reachability, or justify a percentage increase.
 
 ## Remaining gates to 100%
 
 1. Complete authored choice/effect transition closure.
-2. Close `pred.guild_labor_tension` and `pred.information_pressure_high` using only E01–E272; E273–E277 remain excluded.
+2. **S04 blocker:** identify and authoritatively verify an E01–E272 producer for `pred.guild_labor_tension` and `pred.information_pressure_high`, or formally revise/remove those predicates from production semantics together with their consumer triggers; E275/E276 cannot be used without an explicit scope change.
 3. Complete delayed consequence cancellation/supersession, persistence and exactly-once semantics.
 4. Prove replay execution/reset semantics beyond the frozen source contract.
 5. Complete exact ending positive prerequisites, negative blockers and deterministic precedence.
