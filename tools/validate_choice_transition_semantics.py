@@ -8,7 +8,8 @@ ROOT = Path(__file__).resolve().parents[1]
 GRAPH = ROOT / "docs/MACHINE_CANONICAL_GRAPH_01.json"
 EXPECTED = {f"E{i:02d}" for i in range(1, 273)}
 HEADING = re.compile(r"^### (E\d{2,3}) — .+$", re.M)
-CHOICE_HEADING = re.compile(r"^(?:-\s*)?\*\*([AB])\s*[—:]\s*(.*?)\*\*\s*$", re.M)
+# Canonical catalogs use **A — ...** and - **A — ...:** followed by effects.
+CHOICE_HEADING = re.compile(r"^(?:-\s*)?\*\*([AB])\s*[—:]\s*(.*?)\*\*", re.M)
 CHOICE_PLAIN = re.compile(r"^(?:-\s*)?([AB])\s*[—:]\s*(.+?)\s*$", re.M)
 TOKEN_RE = re.compile(r"`[^`]+`")
 DELTA_RE = re.compile(r"[+-]\d+(?:\.\d+)?\s+[A-Za-zА-Яа-я_]+")
@@ -77,9 +78,6 @@ for event_id in sorted(EXPECTED, key=lambda x: int(x[1:])):
         matches = list(CHOICE_PLAIN.finditer(block))
     labels = [m.group(1).upper() for m in matches]
 
-    # Some frozen production events are authored state producers rather than
-    # player-choice events (for example E32). They require explicit canonical
-    # producer/state prose instead of an invented A/B transition.
     if not matches:
         if SPECIAL_EVENT_HINT.search(block):
             special_rows += 1
