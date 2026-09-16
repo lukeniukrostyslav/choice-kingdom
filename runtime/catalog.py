@@ -9,6 +9,7 @@ from .state import EXCLUDED_EVENTS, PRODUCTION_FIRST, PRODUCTION_LAST
 HEADING_RE = re.compile(r"^### (E\d{2,3}) — (.+)$", re.M)
 CHOICE_PATTERNS = (
     re.compile(r"^(?:-\s*)?\*\*([A-Z])\s*[—:]\s*(.+?)\*\*$", re.M),
+    re.compile(r"^(?:-\s*)?\*\*([A-Z])\s*[—:]\s*(.+?)\*\*:\s*(.*)$", re.M),
     re.compile(r"^-\s*([A-Z])\s+(.*)$", re.M),
 )
 DELTA_RE = re.compile(r"([+-]\d+)\s+(gold|trust|security|power|reputation)\b", re.I)
@@ -89,10 +90,14 @@ class AuthoredCatalog:
             rows.extend(pattern.finditer(block))
         rows.sort(key=lambda match: match.start())
         choices: list[Choice] = []
+        seen_labels: set[str] = set()
         for index, row in enumerate(rows):
             end = rows[index + 1].start() if index + 1 < len(rows) else len(block)
             body = block[row.start():end]
             label, text = row.group(1), row.group(2).strip()
+            if label in seen_labels:
+                continue
+            seen_labels.add(label)
             resource_deltas = {resource.lower(): int(delta) for delta, resource in DELTA_RE.findall(body)}
             relationship_deltas = {name.lower(): int(delta) for delta, name in REL_RE.findall(body)}
             tokens: list[str] = []
