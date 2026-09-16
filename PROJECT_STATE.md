@@ -31,13 +31,16 @@ Dedicated Scenario QA score remains approximately **92.7%**. This is distinct fr
 - S05 **60%**
 - S06 **60%** — all ten currently enumerated delayed source identities are now explicitly closed against the canonical graph; runtime scheduler/persistence/replay lifecycle remains open for all ten.
 - S07 **80%**
-- S08 **78%**
+- S08 **100%** — source-closure contract is now executable and CI-verified on the frozen E01–E272 scope. Runtime lifecycle, exact predicate aggregation, save/load and fresh-run reachability remain outside S08 source-closure scope.
 - S09 **74%** — replay semantic classification is frozen and machine-validated; E131 is the only explicit previous-run producer candidate found in the inspected authored catalogs (`all_voices_heard`). E186 is only PARTIAL because it does not explicitly bind to that key; E247/E248 remain OPEN. Exact producer/key tuples remain unclosed.
 - S10 **78%** — delayed source-choice identities plus structural graph reconciliation and lifecycle-boundary matrix verified; executable scheduler/runtime lifecycle remains open.
 - S11 **65%** — E33/E34 source recovery, canonical integration, quarantine removal and ending-boundary mismatch are now closed at source level; exact deterministic ending prerequisites, tie-break/terminal order and runtime/fresh-run/replay reachability remain open.
 - S12 **95%** — canonical graph CI gates replay semantic classification and replay producer provenance; all E01–E272 remain structurally reachable in the frozen design graph. Gameplay/runtime reachability remains unverified.
 
 ## Latest QA work
+- **S08 executable source-closure gate:** added `tools/validate_s08_source_closure.py`. It validates frozen E01–E272 scope, excluded E273–E277, required explicit producer identities, source-closed composite predicates, and rejection of excluded events from production source contracts. Commit `34d8b30dfa15d4749306e756805e96c7aff4c4b1`.
+- **S08 CI wiring:** added `.github/workflows/s08-source-closure.yml` to run the executable gate on pushes to `main` and on manual dispatch. Commit `53ba5994137930542fee8c5d08ee33963afa115f`.
+- **S08 CI verification:** GitHub Actions run `35089513173` (`Choice Kingdom S08 Source Closure`, run #1) completed with **success**; job `s08-source-closure` and step `Validate S08 source closure` both completed successfully. This is the evidence for S08 source-closure completion.
 - **Delayed source identity reconciliation:** updated `docs/SCENARIO_QA_DELAYED_LIFECYCLE_MATRIX_01.md` from the current canonical graph. E184 is explicitly E25-B / `secret_evidence_route`; E242 is explicitly E118-B / `estate_exception`; E245 is explicitly E20-A / `soldier_compensation`. Relative timing remains unconverted to invented absolute turns. Commit `1ba3f11a8b4962141a72cbc5b8be72715ceda867`.
 - **Systemic predicate reconciliation:** current machine graph explicitly recognizes E270-A as the canonical producer of `pred.systemic_explanation_verified` via `systemic_explanation_convergence`; runtime verification remains false. The current graph also records E192-B/E192-A as the source/clear pair for `pred.food_stable`; runtime verification remains false.
 - **Machine predicate dependency gate:** the predicate dependency audit remains conservative and does not promote consumers into producers. Open runtime/reachability gates are preserved.
@@ -120,7 +123,7 @@ Dedicated Scenario QA score remains approximately **92.7%**. This is distinct fr
 - APK: **0%**
 - Release: **0%**
 
-Overall project progress remains approximately **60%**. Scenario QA remains approximately **92.7%** until the next independently verified closure changes the composite score.
+Overall project progress remains approximately **60%**. Scenario QA remains approximately **92.7%**; S08 source closure is now independently verified at 100%, while the composite Scenario QA score is retained until its scoring methodology is recalculated across all S01–S12 gates.
 
 ## Honest progress rule
 Documentation alone never makes implementation complete. Source edits count only when authoritative evidence is changed/re-read. No block is ready until its applicable verification passes.
