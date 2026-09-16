@@ -7,6 +7,17 @@ if TYPE_CHECKING:
     from .state import GameState
 
 
+CANONICAL_COALITION_PARTICIPANTS = frozenset({
+    "mara",
+    "rowan",
+    "seris",
+    "ivo",
+    "amara",
+    "toma",
+})
+COALITION_MIN_DISTINCT_PARTICIPANTS = 3
+
+
 @dataclass(frozen=True)
 class SourceClosedEndingFacts:
     """Deterministic compilation of authored source facts into derived predicates."""
@@ -61,9 +72,10 @@ class EndingSourceCompiler:
         if required_evidence <= evidence and "systemic_explanation_convergence" in flags_set:
             predicates.add("pred.systemic_explanation_verified")
 
+        canonical_participants = participants & CANONICAL_COALITION_PARTICIPANTS
         if (
             "history.cross_faction_package" in history_set
-            and participants
+            and len(canonical_participants) >= COALITION_MIN_DISTINCT_PARTICIPANTS
             and not coalition_blockers
         ):
             predicates.add("pred.coalition_cooperation")
