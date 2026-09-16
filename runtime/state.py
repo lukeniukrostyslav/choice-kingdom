@@ -25,6 +25,11 @@ ENDING_IDS = frozenset({
     "END_QUIET_THRONE",
     "END_SECOND_FOUNDER",
 })
+ENDING_EVIDENCE_FAMILIES = frozenset({
+    "warehouse_or_financial",
+    "document_or_language",
+    "witness_or_organizational",
+})
 
 
 @dataclass(frozen=True)
@@ -61,6 +66,10 @@ class GameState:
     pending_delays: dict[str, PendingDelay] = field(default_factory=dict)
     activated_delayed_targets: set[str] = field(default_factory=set)
     imported_meta_keys: set[str] = field(default_factory=set)
+    ending_evidence_families: set[str] = field(default_factory=set)
+    coalition_participants: set[str] = field(default_factory=set)
+    unresolved_coalition_blockers: set[str] = field(default_factory=set)
+    unresolved_mandatory_crisis_blockers: set[str] = field(default_factory=set)
     terminal: bool = False
     ending_identity: str | None = None
 
@@ -78,8 +87,39 @@ class GameState:
             raise ValueError(f"non-canonical relationship: {character}")
         self.relationships[character] = max(-3, min(3, self.relationships[character] + delta))
 
+    def record_ending_evidence(self, family: str) -> bool:
+        if family not in ENDING_EVIDENCE_FAMILIES:
+            raise ValueError(f"non-canonical ending evidence family: {family}")
+        if family in self.ending_evidence_families:
+            return False
+        self.ending_evidence_families.add(family)
+        return True
+
+    def record_coalition_participant(self, participant: str) -> bool:
+        if not isinstance(participant, str) or not participant:
+            raise ValueError("coalition participant identity must be a non-empty canonical string")
+        if participant in self.coalition_participants:
+            return False
+        self.coalition_participants.add(participant)
+        return True
+
+    def set_coalition_blocker(self, blocker: str, unresolved: bool = True) -> None:
+        if not isinstance(blocker, str) or not blocker:
+            raise ValueError("coalition blocker identity must be a non-empty canonical string")
+        if unresolved:
+            self.unresolved_coalition_blockers.add(blocker)
+        else:
+            self.unresolved_coalition_blockers.discard(blocker)
+
+    def set_mandatory_crisis_blocker(self, blocker: str, unresolved: bool = True) -> None:
+        if not isinstance(blocker, str) or not blocker:
+            raise ValueError("mandatory crisis blocker identity must be a non-empty canonical string")
+        if unresolved:
+            self.unresolved_mandatory_crisis_blockers.add(blocker)
+        else:
+            self.unresolved_mandatory_crisis_blockers.discard(blocker)
+
     def record_replay_meta(self, key: str) -> bool:
-        """Record one explicitly authored replay-meta producer key."""
         if key not in REPLAY_META_KEYS:
             raise ValueError(f"non-canonical replay meta key: {key}")
         if key in self.imported_meta_keys:
@@ -88,7 +128,6 @@ class GameState:
         return True
 
     def export_completed_run_meta(self) -> dict[str, Any]:
-        """Export only canonical replay metadata from a completed prior run."""
         if not self.terminal:
             raise ValueError("replay metadata can only be exported from a completed run")
         return {
@@ -102,7 +141,6 @@ class GameState:
     def new_run_from_completed_prior(
         cls, run_id: str, prior_export: dict[str, Any] | None = None
     ) -> "GameState":
-        """Create a clean run, importing only canonical metadata from one completed prior run."""
         state = cls.fresh(run_id)
         if prior_export is None:
             return state
@@ -197,11 +235,13 @@ class GameState:
             "flags": sorted(self.flags),
             "history": sorted(self.history),
             "threads": sorted(self.threads),
-            "pending_delays": {
-                key: asdict(value) for key, value in sorted(self.pending_delays.items())
-            },
+            "pending_delays": {key: asdict(value) for key, value in sorted(self.pending_delays.items())},
             "activated_delayed_targets": sorted(self.activated_delayed_targets),
             "imported_meta_keys": sorted(self.imported_meta_keys),
+            "ending_evidence_families": sorted(self.ending_evidence_families),
+            "coalition_participants": sorted(self.coalition_participants),
+            "unresolved_coalition_blockers": sorted(self.unresolved_coalition_blockers),
+            "unresolved_mandatory_crisis_blockers": sorted(self.unresolved_mandatory_crisis_blockers),
             "terminal": self.terminal,
             "ending_identity": self.ending_identity,
         }
@@ -215,14 +255,15 @@ class GameState:
         imported_meta = set(payload.get("imported_meta_keys", []))
         if not imported_meta.issubset(REPLAY_META_KEYS):
             raise ValueError("snapshot contains non-canonical replay meta key")
+        evidence = set(payload.get("ending_evidence_families", []))
+        if not evidence.issubset(ENDING_EVIDENCE_FAMILIES):
+            raise ValueError("snapshot contains non-canonical ending evidence family")
         ending_identity = payload.get("ending_identity")
         if ending_identity is not None and ending_identity not in ENDING_IDS:
             raise ValueError("snapshot contains non-canonical ending identity")
         if ending_identity is not None and payload.get("terminal") is not True:
             raise ValueError("non-terminal snapshot cannot contain ending identity")
-        pending = {
-            key: PendingDelay(**value) for key, value in payload.get("pending_delays", {}).items()
-        }
+        pending = {key: PendingDelay(**value) for key, value in payload.get("pending_delays", {}).items()}
         return cls(
             run_id=str(payload["run_id"]),
             turn=int(payload["turn"]),
@@ -235,6 +276,10 @@ class GameState:
             pending_delays=pending,
             activated_delayed_targets=set(payload.get("activated_delayed_targets", [])),
             imported_meta_keys=imported_meta,
+            ending_evidence_families=evidence,
+            coalition_participants=set(payload.get("coalition_participants", [])),
+            unresolved_coalition_blockers=set(payload.get("unresolved_coalition_blockers", [])),
+            unresolved_mandatory_crisis_blockers=set(payload.get("unresolved_mandatory_crisis_blockers", [])),
             terminal=bool(payload.get("terminal", False)),
             ending_identity=ending_identity,
         )
