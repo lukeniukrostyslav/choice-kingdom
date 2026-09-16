@@ -20,17 +20,19 @@ class DelaySpec:
 
 
 # Frozen from docs/MACHINE_DELAY_CONTRACT_01.json and its QA reconciliation.
+# Runtime catalog choice identifiers are fully qualified (for example E45-B),
+# so the contract and engine use the same identity without translation.
 CANONICAL_DELAY_SPECS: tuple[DelaySpec, ...] = (
-    DelaySpec("E181.second_toll_increase", "E45", "B", "E181", "delay.E45B.E181.second_toll_increase", 5),
-    DelaySpec("E182.veteran_promise", "E117", "B", "E182", "delay.E117B.E182.veteran_promise", 4),
-    DelaySpec("E183.noble_exception_return", "E118", "B", "E183", "delay.E118B.E183.noble_exception_return", 5),
-    DelaySpec("E184.quiet_evidence", "E25", "B", "E184", "delay.E25B.E184.quiet_evidence", 4),
-    DelaySpec("E185.cheap_steel_failure", "E17", "A", "E185", "delay.E17A.E185.cheap_steel_failure", None, condition_bound=True),
-    DelaySpec("E242.renewed_exception", "E118", "B", "E242", "delay.E118B.E242.renewed_exception", 6),
-    DelaySpec("E243.old_bridge", "E18", "B", "E243", "delay.E18B.E243.old_bridge", 5),
-    DelaySpec("E244.audit_comes_due", "E09", "B", "E244", "delay.E09B.E244.audit_comes_due", 5),
-    DelaySpec("E245.soldiers_son_returns", "E20", "A", "E245", "delay.E20A.E245.soldiers_son_returns", 6),
-    DelaySpec("E246.price_ceiling_memory", "E160", "A", "E246", "delay.E160A.E246.price_ceiling_memory", 5),
+    DelaySpec("E181.second_toll_increase", "E45", "E45-B", "E181", "delay.E45B.E181.second_toll_increase", 5),
+    DelaySpec("E182.veteran_promise", "E117", "E117-B", "E182", "delay.E117B.E182.veteran_promise", 4),
+    DelaySpec("E183.noble_exception_return", "E118", "E118-B", "E183", "delay.E118B.E183.noble_exception_return", 5),
+    DelaySpec("E184.quiet_evidence", "E25", "E25-B", "E184", "delay.E25B.E184.quiet_evidence", 4),
+    DelaySpec("E185.cheap_steel_failure", "E17", "E17-A", "E185", "delay.E17A.E185.cheap_steel_failure", None, condition_bound=True),
+    DelaySpec("E242.renewed_exception", "E118", "E118-B", "E242", "delay.E118B.E242.renewed_exception", 6),
+    DelaySpec("E243.old_bridge", "E18", "E18-B", "E243", "delay.E18B.E243.old_bridge", 5),
+    DelaySpec("E244.audit_comes_due", "E09", "E09-B", "E244", "delay.E09B.E244.audit_comes_due", 5),
+    DelaySpec("E245.soldiers_son_returns", "E20", "E20-A", "E245", "delay.E20A.E245.soldiers_son_returns", 6),
+    DelaySpec("E246.price_ceiling_memory", "E160", "E160-A", "E246", "delay.E160A.E246.price_ceiling_memory", 5),
 )
 
 _BY_CHOICE = {(spec.source_event_id, spec.source_choice_id): spec for spec in CANONICAL_DELAY_SPECS}
