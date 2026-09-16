@@ -46,6 +46,8 @@ jobs:
         run: python3 tools/validate_ending_precedence_boundary.py
       - name: Validate ending alias boundary
         run: python3 tools/validate_ending_alias_boundary.py
+      - name: Validate ending test matrix contract
+        run: python3 tools/validate_ending_test_matrix_contract.py
       - name: Validate predicate dependency and cycle boundary
         run: python3 tools/validate_predicate_dependency_audit.py
       - name: Validate unresolved predicate producer boundary
