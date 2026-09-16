@@ -1,17 +1,15 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import FrozenSet, Iterable
+from typing import TYPE_CHECKING, FrozenSet, Iterable
+
+if TYPE_CHECKING:
+    from .state import GameState
 
 
 @dataclass(frozen=True)
 class SourceClosedEndingFacts:
-    """Deterministic compilation of authored source facts into derived predicates.
-
-    This layer intentionally accepts only canonical state namespaces and explicit
-    evidence-family inputs. It never infers an ending, promotes relationships to
-    institutional evidence, or treats a consumer event as a producer.
-    """
+    """Deterministic compilation of authored source facts into derived predicates."""
 
     predicates: FrozenSet[str]
 
@@ -42,23 +40,19 @@ class EndingSourceCompiler:
 
         predicates: set[str] = set()
 
-        # Constitutional preparation: at least three distinct authored domains.
         domains = {
             "civic" if "people_charter_endorsed" in flags_set else None,
             "institutional" if {"crown_audited", "full_crown_audit_published"} & flags_set else None,
             "factional" if "history.house_assembly" in history_set else None,
-            "military" if {"military_red_line"} & flags_set or "thread.military_constitutional" in threads_set else None,
+            "military" if "military_red_line" in flags_set or "thread.military_constitutional" in threads_set else None,
         }
         domains.discard(None)
         if len(domains) >= 3:
             predicates.add("pred.constitutional_prepared_strong")
 
-        # Budget reform: all three documented producer facts are required.
         if {"auditor_independence", "crown_audited", "legislative_budget_lock"} <= flags_set:
             predicates.add("pred.budget_reform")
 
-        # Systemic explanation: three independent families plus explicit E270-A
-        # convergence. The convergence token alone is never sufficient.
         required_evidence = {
             "warehouse_or_financial",
             "document_or_language",
@@ -67,8 +61,6 @@ class EndingSourceCompiler:
         if required_evidence <= evidence and "systemic_explanation_convergence" in flags_set:
             predicates.add("pred.systemic_explanation_verified")
 
-        # Coalition cooperation is sourced by the positive coalition route and
-        # requires canonical participant identity plus no unresolved blocker.
         if (
             "history.cross_faction_package" in history_set
             and participants
@@ -76,8 +68,6 @@ class EndingSourceCompiler:
         ):
             predicates.add("pred.coalition_cooperation")
 
-        # Final charter is a consumer-only derived gate. It requires all authored
-        # upstream domains and an explicit blocker check; E209/E210 cannot create it.
         charter_upstream = {
             "people_charter_endorsed" in flags_set,
             bool({"crown_audited", "full_crown_audit_published"} & flags_set),
@@ -90,3 +80,21 @@ class EndingSourceCompiler:
             predicates.add("pred.final_charter_prerequisites")
 
         return SourceClosedEndingFacts(frozenset(predicates))
+
+    @staticmethod
+    def compile_state(state: "GameState") -> SourceClosedEndingFacts:
+        """Compile only canonical ending facts already recorded on a live GameState.
+
+        No relationship score, route name, stale alias, or consumer event is promoted
+        into an ending prerequisite. The state owns evidence and blocker lifecycle;
+        this compiler only derives the documented predicates from those facts.
+        """
+        return EndingSourceCompiler.compile(
+            flags=state.flags,
+            history=state.history,
+            threads=state.threads,
+            systemic_evidence_families=state.ending_evidence_families,
+            coalition_participants=state.coalition_participants,
+            unresolved_coalition_blockers=state.unresolved_coalition_blockers,
+            unresolved_mandatory_crisis_blockers=state.unresolved_mandatory_crisis_blockers,
+        )
