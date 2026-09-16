@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from typing import Mapping, Sequence
 
 from .ending_contract import EndingQualification
+from .ending_precedence import AUTHORED_PRIORITY
 from .state import GameState
 
 END_STEWARD = "END_STEWARD"
@@ -69,13 +70,20 @@ class EndingResolver:
         if collapse_failure:
             winner = END_BROKEN_DIADEM
         else:
-            priority = authored_priority or {}
-            candidates = set(qualified)
-            if explicit_withdrawal:
-                candidates.add(END_QUIET_THRONE)
-            self._validate_priority_table(priority, candidates)
+            priority = authored_priority if authored_priority is not None else AUTHORED_PRIORITY
+            # The authored table makes Quiet Throne a stage, not a simultaneous
+            # positive-ending competitor: it is selected only when no positive
+            # ending qualifies.
+            if qualified:
+                candidates = set(qualified)
+            elif explicit_withdrawal:
+                candidates = {END_QUIET_THRONE}
+            else:
+                candidates = set()
+
             if not candidates:
                 raise EndingResolutionError("no ending qualifies and no authored fallback exists")
+            self._validate_priority_table(priority, candidates)
             winner = self._select_by_authored_priority(candidates, priority)
 
         self._record_immutable_identity(state, winner)
