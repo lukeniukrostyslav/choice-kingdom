@@ -1,0 +1,14 @@
+name: Choice Kingdom S08 Source Closure
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  s08-source-closure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate S08 source closure
+        run: python3 tools/validate_s08_source_closure.py
