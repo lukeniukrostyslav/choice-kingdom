@@ -7,13 +7,15 @@ import re
 from .state import EXCLUDED_EVENTS, PRODUCTION_FIRST, PRODUCTION_LAST
 
 HEADING_RE = re.compile(r"^### (E\d{2,3}) — (.+)$", re.M)
-# Accept all authored Markdown variants, including expansion rows with a bold
-# choice label and a colon, while preserving legacy rows without a leading '-'.
 CHOICE_PATTERNS = (
-    re.compile(r"^\s*(?:-\s*)?\*\*([A-Z])\s*[—:]\s*(.*?)(?:\*\*)?:\s*(.*)$", re.M),
-    re.compile(r"^\s*(?:-\s*)?\*\*([A-Z])\s*[—:]\s*(.+?)\*\*\s*$", re.M),
-    re.compile(r"^\s*(?:-\s*)?\*\*([A-Z])\s*[—:]\s*(.+)$", re.M),
-    re.compile(r"^\s*(?:-\s*)?([A-Z])\s+(.*)$", re.M),
+    # Canonical legacy form: optional list marker, bold A/B label, closing **.
+    re.compile(r"^(?:-\s*)?\*\*([A-Z])\s*[—:]\s*(.+?)\*\*$", re.M),
+    # Canonical expansion form: - **A — ...; effects... (no closing ** before effects).
+    re.compile(r"^-\s*\*\*([A-Z])\s*[—:]\s*(.+)$", re.M),
+    # Canonical bold-label form with explicit colon after the bold text.
+    re.compile(r"^(?:-\s*)?\*\*([A-Z])\s*[—:]\s*(.+?)\*\*:\s*(.*)$", re.M),
+    # Plain authored list form.
+    re.compile(r"^-\s*([A-Z])\s+(.*)$", re.M),
 )
 DELTA_RE = re.compile(r"([+-]\d+)\s+(gold|trust|security|power|reputation)\b", re.I)
 REL_RE = re.compile(r"([+-]\d+)\s+(Mara|Rowan|Seris|Ivo|Amara|Toma)\b", re.I)
