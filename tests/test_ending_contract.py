@@ -1,18 +1,36 @@
 import pytest
 
 from runtime.ending_contract import EndingContractError, EndingQualification
+from runtime.endings import END_SECOND_FOUNDER, END_STEWARD, EndingResolver
+from runtime.state import GameState
+
+
+def terminal_state() -> GameState:
+    state = GameState.fresh("ending-contract-test")
+    state.terminal = True
+    return state
 
 
 def test_canonical_second_founder_predicates_are_namespace_exact():
     qualification = EndingQualification.build(
+        positive_endings={END_SECOND_FOUNDER},
         predicates={
             "pred.systemic_explanation_verified",
             "pred.coalition_cooperation",
             "pred.constitutional_prepared_strong",
-        }
+        },
     )
     assert "pred.systemic_explanation_verified" in qualification.predicates
     assert "pred.coalition_cooperation" in qualification.predicates
+
+
+def test_validated_qualification_reaches_resolver_without_reinterpreting_tokens():
+    qualification = EndingQualification.build(
+        positive_endings={END_STEWARD},
+        flags={"constitution_first", "constitutional_limit"},
+    )
+    result = EndingResolver().resolve_qualification(terminal_state(), qualification)
+    assert result.ending_id == END_STEWARD
 
 
 def test_history_cross_faction_package_does_not_alias_to_cooperation():
