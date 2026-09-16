@@ -18,6 +18,26 @@ def test_all_ten_frozen_delay_specs_have_canonical_identity():
     assert len({spec.exactly_once_key for spec in CANONICAL_DELAY_SPECS}) == 10
 
 
+def test_frozen_source_choice_identity_matches_machine_delay_contract():
+    expected = {
+        "E181": ("E45", "E45-B"),
+        "E182": ("E117", "E117-B"),
+        "E183": ("E118", "E118-B"),
+        "E184": ("E25", "E25-B"),
+        "E185": ("E17", "E17-A"),
+        "E242": ("E118", "E118-B"),
+        "E243": ("E18", "E18-B"),
+        "E244": ("E09", "E09-B"),
+        "E245": ("E20", "E20-A"),
+        "E246": ("E160", "E160-A"),
+    }
+    actual = {
+        spec.resolution_target: (spec.source_event_id, spec.source_choice_id)
+        for spec in CANONICAL_DELAY_SPECS
+    }
+    assert actual == expected
+
+
 def test_authored_choice_schedules_relative_delay_after_source_turn():
     state = GameState.fresh("delay-schedule")
     state.turn = 7
@@ -48,7 +68,7 @@ def test_due_delay_resolves_only_at_earliest_turn_and_only_once():
 
 def test_condition_bound_delay_requires_explicit_resolution_condition():
     state = GameState.fresh("delay-condition")
-    delay = schedule_authored_delay(state, "E17", "E17-B")
+    delay = schedule_authored_delay(state, "E17", "E17-A")
     assert delay is not None
     assert delay.condition_bound is True
     assert delay.scheduled_turn is None
