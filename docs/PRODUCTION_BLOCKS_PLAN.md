@@ -9,8 +9,8 @@ This is the working execution order for production completion. Work proceeds seq
 1. 🔒 **Deterministic Authored Routing** — closed; representative authored execution, immediate-routing boundary, prerequisite routing and regression verification are GREEN.
 2. 🔒 **Deterministic Routing Expansion** — closed; explicit authored prerequisite routing is executable across the verified production scenario surface without invented graph semantics.
 3. 🔒 **Delayed Consequences Lifecycle** — closed; frozen delayed entries, turn scheduling/resolution, condition-bound E185 activation, cancellation/supersession, exactly-once behavior, persistence and DecisionEngine target activation/execution are verified.
-4. ⏳ **Replay / Meta-State** — current block; implement replay/meta import and runtime transfer boundaries with exact authored keys/tuples.
-5. ⏳ **Endings + Precedence Resolver** — executable ending qualification, incoming paths and precedence verification.
+4. 🔒 **Replay / Meta-State** — closed; replay/meta import and runtime transfer boundaries are implemented with canonical authored keys, completed-run export, fresh-run import, persistence validation and GREEN authored/delayed runtime verification.
+5. ⏳ **Endings + Precedence Resolver** — current block; executable ending qualification, incoming paths and precedence verification.
 6. ⏳ **Complete Save / Load + Determinism** — full lifecycle persistence, stable snapshots, repeated-run determinism and recovery verification.
 7. ⏳ **Production Decision Engine** — integrate the completed runtime semantics into the full decision-engine boundary; no production-readiness claim before the complete runtime scenario gate is GREEN.
 8. ⏳ **UI / UX** — production game interface and all interaction mechanisms wired to real runtime state.
@@ -24,4 +24,4 @@ This is the working execution order for production completion. Work proceeds seq
 Complete each large block through code → tests → CI → fixes → verification → commit before moving to the next block. Do not return to already closed blocks as standalone tasks unless a later change causes a concrete regression.
 
 ## Current position
-**Blocks 1–3 are closed. Block 4 is now the current production block.**
+**Blocks 1–4 are closed. Block 5 is now the current production block.**
