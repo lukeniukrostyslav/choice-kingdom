@@ -7,7 +7,10 @@ import re
 from .catalog import AuthoredCatalog, Choice, Event
 from .state import GameState
 
-UNLOCK_RE = re.compile(r"\bunlock(?:s|ed)?\s+`?(E\d{2,3})", re.I)
+# Only explicit immediate Unlock/Unlocks lines are executable routing signals.
+# Delayed prose such as "after 3 turns, unlock E07..." is intentionally excluded
+# until the delayed-lifecycle runtime is integrated.
+IMMEDIATE_UNLOCK_RE = re.compile(r"^-\s*\*\*Unlocks?\*\*\s+`?(E\d{2,3})", re.I | re.M)
 
 @dataclass(frozen=True)
 class ExecutionResult:
@@ -66,5 +69,5 @@ class DecisionEngine:
         state.current_event_id = event_id
         state.turn += 1
 
-        next_ids = tuple(dict.fromkeys(UNLOCK_RE.findall(choice.body)))
+        next_ids = tuple(dict.fromkeys(IMMEDIATE_UNLOCK_RE.findall(choice.body)))
         return ExecutionResult(event_id, choice_id, next_ids, state.snapshot())
