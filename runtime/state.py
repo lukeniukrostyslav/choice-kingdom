@@ -16,6 +16,15 @@ REPLAY_META_KEYS = frozenset({
     "meta.replay.callback_forgotten_favor",
 })
 REPLAY_EXPORT_SCHEMA = 1
+ENDING_IDS = frozenset({
+    "END_STEWARD",
+    "END_IRON_CROWN",
+    "END_GOLDEN_COMPACT",
+    "END_PEOPLES_CHARTER",
+    "END_BROKEN_DIADEM",
+    "END_QUIET_THRONE",
+    "END_SECOND_FOUNDER",
+})
 
 
 @dataclass(frozen=True)
@@ -53,6 +62,7 @@ class GameState:
     activated_delayed_targets: set[str] = field(default_factory=set)
     imported_meta_keys: set[str] = field(default_factory=set)
     terminal: bool = False
+    ending_identity: str | None = None
 
     @classmethod
     def fresh(cls, run_id: str) -> "GameState":
@@ -167,6 +177,15 @@ class GameState:
         self.activated_delayed_targets.add(delay.resolution_target)
         return self.resolve_delay(exactly_once_key)
 
+    def set_ending_identity(self, ending_id: str) -> None:
+        if ending_id not in ENDING_IDS:
+            raise ValueError(f"non-canonical ending identity: {ending_id}")
+        if not self.terminal:
+            raise ValueError("ending identity requires terminal runtime state")
+        if self.ending_identity is not None and self.ending_identity != ending_id:
+            raise ValueError("ending identity is immutable")
+        self.ending_identity = ending_id
+
     def snapshot(self) -> dict[str, Any]:
         return {
             "schema_version": 1,
@@ -184,6 +203,7 @@ class GameState:
             "activated_delayed_targets": sorted(self.activated_delayed_targets),
             "imported_meta_keys": sorted(self.imported_meta_keys),
             "terminal": self.terminal,
+            "ending_identity": self.ending_identity,
         }
 
     @classmethod
@@ -195,6 +215,11 @@ class GameState:
         imported_meta = set(payload.get("imported_meta_keys", []))
         if not imported_meta.issubset(REPLAY_META_KEYS):
             raise ValueError("snapshot contains non-canonical replay meta key")
+        ending_identity = payload.get("ending_identity")
+        if ending_identity is not None and ending_identity not in ENDING_IDS:
+            raise ValueError("snapshot contains non-canonical ending identity")
+        if ending_identity is not None and payload.get("terminal") is not True:
+            raise ValueError("non-terminal snapshot cannot contain ending identity")
         pending = {
             key: PendingDelay(**value) for key, value in payload.get("pending_delays", {}).items()
         }
@@ -211,6 +236,7 @@ class GameState:
             activated_delayed_targets=set(payload.get("activated_delayed_targets", [])),
             imported_meta_keys=imported_meta,
             terminal=bool(payload.get("terminal", False)),
+            ending_identity=ending_identity,
         )
 
 
