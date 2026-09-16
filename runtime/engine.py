@@ -4,13 +4,14 @@ from dataclasses import dataclass
 from pathlib import Path
 import re
 
-from .catalog import AuthoredCatalog, Choice, Event
+from .catalog import AuthoredCatalog, Event
+from .delays import schedule_authored_delay
 from .state import GameState
 
 # Only explicit immediate Unlock/Unlocks lines are executable routing signals.
-# Delayed prose such as "after 3 turns, unlock E07..." is intentionally excluded
-# until the delayed-lifecycle runtime is integrated.
+# Delayed prose is handled by the canonical delayed lifecycle instead.
 IMMEDIATE_UNLOCK_RE = re.compile(r"^-\s*\*\*Unlocks?\*\*\s+`?(E\d{2,3})", re.I | re.M)
+
 
 @dataclass(frozen=True)
 class ExecutionResult:
@@ -19,12 +20,10 @@ class ExecutionResult:
     next_event_ids: tuple[str, ...]
     state_snapshot: dict
 
-class DecisionEngine:
-    """Small, real authored-content execution boundary.
 
-    It intentionally executes only explicit immediate deltas/state markers parsed from
-    the authored source. Delayed prose is not silently converted into runtime timing.
-    """
+class DecisionEngine:
+    """Real authored-content execution boundary with canonical delay scheduling."""
+
     def __init__(self, root: Path):
         self.catalog = AuthoredCatalog.from_repository(root)
         self.catalog.validate()
@@ -33,14 +32,6 @@ class DecisionEngine:
         return self.catalog.get(event_id)
 
     def _route_allowed(self, state: GameState, event_id: str) -> bool:
-        """Allow only an explicitly authored prerequisite to be the next route.
-
-        A prerequisite may be one of several completed requirements. The current
-        event must be one of those requirements; this prevents a caller from jumping
-        to an unrelated event merely because its numeric/token trigger happens to pass.
-        Events without an explicit event prerequisite are left to their own machine
-        trigger contract rather than inventing a graph edge here.
-        """
         prerequisites = self.catalog.authored_prerequisites(event_id)
         if not prerequisites:
             return True
@@ -89,6 +80,12 @@ class DecisionEngine:
             else:
                 state.flags.add(token)
         state.history.add(event_id)
+
+        # Scheduling happens only after the authored choice effects have committed.
+        # Relative timing is anchored to the source turn; condition-bound delays
+        # intentionally carry no invented due turn.
+        schedule_authored_delay(state, event_id, choice_id)
+
         state.current_event_id = event_id
         state.turn += 1
 
