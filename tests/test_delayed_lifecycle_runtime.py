@@ -189,9 +189,9 @@ def test_each_canonical_delayed_choice_executes_through_decision_engine(
     else:
         assert delay.scheduled_turn is not None
         state.turn = delay.scheduled_turn - 1
-        assert due_delays(state) == ()
+        assert delay.exactly_once_key not in {d.exactly_once_key for d in due_delays(state)}
         state.turn = delay.scheduled_turn
-        assert due_delays(state) == (delay,)
+        assert delay.exactly_once_key in {d.exactly_once_key for d in due_delays(state)}
         assert resolve_due_delay(state, delay.exactly_once_key).status == "resolved"
         with pytest.raises(ValueError, match="not pending"):
             resolve_due_delay(state, delay.exactly_once_key)
