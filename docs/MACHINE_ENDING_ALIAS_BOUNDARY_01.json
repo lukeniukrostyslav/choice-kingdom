@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "contract": "choice_kingdom.ending_alias_boundary",
   "scope": "E01-E272",
   "status": "SOURCE_LEVEL_BOUNDARY",
@@ -17,7 +17,7 @@
   ],
   "authoritative_machine_sources": [
     "docs/MACHINE_CANONICAL_GRAPH_01.json",
-    "docs/MACHINE_PRODUCER_CONSUMER_REGISTRY_01.md",
+    "docs/CANONICAL_PRODUCER_CONSUMER_REGISTRY_01.md",
     "docs/MACHINE_ENDING_PREREQUISITE_SATISFIABILITY_01.json",
     "docs/MACHINE_ENDING_PRECEDENCE_BOUNDARY_01.json"
   ],
