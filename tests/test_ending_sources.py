@@ -46,22 +46,31 @@ def test_systemic_explanation_needs_three_evidence_families_and_convergence():
     assert "pred.systemic_explanation_verified" in complete.predicates
 
 
-def test_coalition_requires_authored_history_participant_identity_and_no_blocker():
+def test_coalition_requires_authored_positive_outcome_participant_identity_and_no_blocker():
     incomplete = EndingSourceCompiler.compile(
         history={"history.cross_faction_package"},
     )
     assert "pred.coalition_cooperation" not in incomplete.predicates
 
     blocked = EndingSourceCompiler.compile(
+        flags={"coalition_candidate_package"},
         history={"history.cross_faction_package"},
-        coalition_participants={"commons", "houses"},
+        coalition_participants={"mara", "rowan", "seris"},
         unresolved_coalition_blockers={"coalition_withdrawal"},
     )
     assert "pred.coalition_cooperation" not in blocked.predicates
 
-    complete = EndingSourceCompiler.compile(
+    insufficient = EndingSourceCompiler.compile(
+        flags={"coalition_candidate_package"},
         history={"history.cross_faction_package"},
-        coalition_participants={"commons", "houses"},
+        coalition_participants={"mara", "rowan"},
+    )
+    assert "pred.coalition_cooperation" not in insufficient.predicates
+
+    complete = EndingSourceCompiler.compile(
+        flags={"coalition_candidate_package"},
+        history={"history.cross_faction_package"},
+        coalition_participants={"mara", "rowan", "seris"},
     )
     assert "pred.coalition_cooperation" in complete.predicates
 
@@ -81,6 +90,7 @@ def test_final_charter_is_consumer_only_and_requires_all_upstream_contracts():
             "crown_audited",
             "systemic_explanation_convergence",
             "military_red_line",
+            "coalition_candidate_package",
         },
         history={
             "history.house_assembly",
@@ -93,7 +103,7 @@ def test_final_charter_is_consumer_only_and_requires_all_upstream_contracts():
             "document_or_language",
             "witness_or_organizational",
         },
-        coalition_participants={"commons", "houses", "guilds"},
+        coalition_participants={"mara", "rowan", "seris"},
     )
     assert "pred.final_charter_prerequisites" in facts.predicates
 
@@ -105,6 +115,7 @@ def test_final_charter_blocker_prevents_manufacture():
             "crown_audited",
             "systemic_explanation_convergence",
             "military_red_line",
+            "coalition_candidate_package",
         },
         history={
             "history.house_assembly",
@@ -116,7 +127,7 @@ def test_final_charter_blocker_prevents_manufacture():
             "document_or_language",
             "witness_or_organizational",
         },
-        coalition_participants={"commons", "houses", "guilds"},
+        coalition_participants={"mara", "rowan", "seris"},
         unresolved_mandatory_crisis_blockers={"pred.border_crisis"},
     )
     assert "pred.final_charter_prerequisites" not in facts.predicates
