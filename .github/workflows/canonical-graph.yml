@@ -42,6 +42,8 @@ jobs:
         run: python3 tools/validate_ending_prerequisite_satisfiability.py
       - name: Validate ending precedence boundary
         run: python3 tools/validate_ending_precedence_boundary.py
+      - name: Validate ending alias boundary
+        run: python3 tools/validate_ending_alias_boundary.py
       - name: Validate predicate dependency and cycle boundary
         run: python3 tools/validate_predicate_dependency_audit.py
       - name: Validate unresolved predicate producer boundary
@@ -82,6 +84,7 @@ jobs:
             docs/MACHINE_PRODUCER_CONSUMER_COLLISION_VALIDATION_01.json
             docs/MACHINE_SOURCE_PRODUCER_SEMANTIC_EQUALITY_01.json
             docs/MACHINE_ENDING_PREREQUISITE_SATISFIABILITY_VALIDATION_01.json
+            docs/MACHINE_ENDING_ALIAS_BOUNDARY_VALIDATION_01.json
             docs/MACHINE_COMPOSITE_SOURCE_CLOSURE_01.json
             docs/MACHINE_PREDICATE_DEPENDENCY_AUDIT_01.json
             docs/MACHINE_PREDICATE_DEPENDENCY_VALIDATION_01.json
