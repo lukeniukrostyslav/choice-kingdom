@@ -31,7 +31,7 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 - Runtime session boundary: **PASS**, 272-event catalog.
 - Structural graph: **PASS**, 305 edges / 140 roots / 272 structurally reachable / 0 structurally unreachable.
 - Deterministic campaign audit: **61 unique events executed / 211 remaining / 0 execution errors**, stopping at E230 under currently implemented trigger/routing semantics.
-- Runtime trigger semantics audit: **PASS**, 272 triggers classified; **154 opaque/partial** expressions remain explicitly open for authoritative semantic binding.
+- Runtime trigger semantics audit: **PASS**, 272 triggers classified; **138 opaque/partial** expressions remain explicitly open. The audit now separately identifies 2 explicit after-event prerequisites and 14 safe source-level canonical alias phrases.
 
 The campaign and trigger audits are diagnostic. Missing/opaque events are **not declared impossible**. No trigger threshold, route activation, relationship proxy, or graph edge is promoted into gameplay semantics without source evidence.
 
@@ -63,7 +63,7 @@ Close authoritative trigger/producer semantics only where authored source and ca
 - `tests/test_runtime_campaign_audit.py`
 - `.github/workflows/runtime-campaign-audit.yml`
 - `docs/RUNTIME_CAMPAIGN_AUDIT_01.md`
-- `tools/audit_runtime_trigger_semantics.py`
+- `tools/audit_runtime_trigger_semantics.py` — refined source classification for explicit prerequisites and safe canonical aliases.
 - `tests/test_runtime_trigger_semantics_audit.py`
 - `.github/workflows/runtime-trigger-semantics-audit.yml`
 - `docs/RUNTIME_TRIGGER_SEMANTICS_CLOSURE_01.md`
