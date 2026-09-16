@@ -9,33 +9,22 @@ GRAPH = ROOT / "docs/MACHINE_CANONICAL_GRAPH_01.json"
 EXPECTED = {f"E{i:02d}" for i in range(1, 273)}
 HEADING = re.compile(r"^### (E\d{2,3}) — .+$", re.M)
 CHOICE_HEADING = re.compile(r"^(?:-\s*)?\*\*([AB])\s*[—:]\s*(.*?)\*\*", re.M)
-# Older expansion blocks use '- A action:' / '- B action:' without bolding.
 CHOICE_PLAIN = re.compile(r"^\s*-\s*([AB])(?:\s+[A-Za-zА-Яа-я]|\s*[—:])(.+?)\s*$", re.M)
 TOKEN_RE = re.compile(r"`[^`]+`")
 DELTA_RE = re.compile(r"[+-]\d+(?:\.\d+)?\s+[A-Za-zА-Яа-я_]+")
 CLAUSE_RE = re.compile(r"^\s*-\s*(?:Immediate|Flag|Unlock|Producer|Delayed|Resolution|Clear|Trigger|Effect|State|History|Meta|Ending|Condition)\s*:", re.I | re.M)
-EFFECT_PATTERNS = [
-    DELTA_RE,
-    TOKEN_RE,
-    CLAUSE_RE,
-    re.compile(r"\b(?:clear|clears|reset|resets|resolve|resolves|cancel|cancels|invalidate|invalidates|revoke|revokes|prevent|prevents|schedule|schedules|unlock|unlocks|delayed|immediate|establish|establishes|produces|sets|marks)\b", re.I),
-]
-STATE_HINT = re.compile(r"(?:\b(?:state|flag|predicate|history|thread|meta|ending|cycle|condition|route|evidence|trigger|effect|immediate|delayed|unlock|producer|resolution|creates|unlocks|later)\b|`[^`]+`)", re.I)
-SPECIAL_EVENT_HINT = re.compile(r"\b(?:Source-level producer|canonical producer|explicitly establishes|explicitly records|derived gate)\b", re.I)
+LIFECYCLE_RE = re.compile(r"\b(?:clear|clears|reset|resets|resolve|resolves|cancel|cancels|invalidate|invalidates|revoke|revokes|prevent|prevents|schedule|schedules|unlock|unlocks|create|creates|strengthen|strengthens|close|closes|establish|establishes|produce|produces|record|records|later|delayed|immediate)\b", re.I)
+STATE_HINT = re.compile(r"(?:\b(?:state|flag|predicate|history|thread|meta|ending|cycle|condition|route|evidence|trigger|effect|immediate|delayed|unlock|producer|resolution)\b|`[^`]+`)", re.I)
+# Frozen production events that are authored terminal/convergence nodes, not player-choice nodes.
+SPECIAL_EVENTS = {"E32", "E61", "E62", "E63", "E64", "E65", "E66", "E67", "E68", "E69", "E70", "E210"}
+SPECIAL_EVENT_HINT = re.compile(r"\b(?:Source-level producer|canonical producer|explicitly establishes|explicitly records|derived gate|Ending|Purpose|convergence-only|resolution families)\b", re.I)
 
 
 def semantic_signature(body: str) -> tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...]]:
     deltas = tuple(DELTA_RE.findall(body))
     tokens = tuple(TOKEN_RE.findall(body))
-    clauses = tuple(sorted(set(
-        m.group(1).lower()
-        for m in re.finditer(
-            r"^\s*-\s*(Immediate|Flag|Unlock|Producer|Delayed|Resolution|Clear|Trigger|Effect|State|History|Meta|Ending|Condition)\s*:",
-            body,
-            re.I | re.M,
-        )
-    )))
-    return deltas, tokens, clauses
+    lifecycle = tuple(sorted(set(m.group(0).lower() for m in LIFECYCLE_RE.finditer(body))))
+    return deltas, tokens, lifecycle
 
 
 def fail(msg: str) -> None:
@@ -68,6 +57,10 @@ missing = sorted(EXPECTED - set(blocks), key=lambda x: int(x[1:]))
 if missing:
     fail("missing authored event blocks: " + ", ".join(missing))
 
+missing_special = sorted(SPECIAL_EVENTS - set(blocks), key=lambda x: int(x[1:]))
+if missing_special:
+    fail("special-event classification references missing events: " + ", ".join(missing_special))
+
 gaps: list[str] = []
 rows = 0
 special_rows = 0
@@ -78,11 +71,17 @@ for event_id in sorted(EXPECTED, key=lambda x: int(x[1:])):
         matches = list(CHOICE_PLAIN.finditer(block))
     labels = [m.group(1).upper() for m in matches]
 
-    if not matches:
-        if SPECIAL_EVENT_HINT.search(block):
+    if event_id in SPECIAL_EVENTS:
+        if matches:
+            gaps.append(f"{event_id}: classified special/convergence node but contains player-choice rows")
+        elif not SPECIAL_EVENT_HINT.search(block):
+            gaps.append(f"{event_id}: special/convergence classification lacks explicit authored marker")
+        else:
             special_rows += 1
-            continue
-        gaps.append(f"{event_id}: no authored A/B choices and no explicit canonical special-event producer contract")
+        continue
+
+    if not matches:
+        gaps.append(f"{event_id}: no authored A/B choices")
         continue
 
     if len(matches) != 2 or set(labels) != {"A", "B"}:
@@ -97,12 +96,12 @@ for event_id in sorted(EXPECTED, key=lambda x: int(x[1:])):
         label = match.group(1).upper()
         signatures[label] = semantic_signature(body)
 
-        if not any(p.search(body) for p in EFFECT_PATTERNS):
+        has_effect = bool(DELTA_RE.search(body) or TOKEN_RE.search(body) or CLAUSE_RE.search(body) or LIFECYCLE_RE.search(body))
+        if not has_effect:
             gaps.append(f"{event_id}-{label}: no explicit authored effect/state payload")
-        if not CLAUSE_RE.search(body) and not DELTA_RE.search(body) and not TOKEN_RE.search(body):
-            gaps.append(f"{event_id}-{label}: no machine-recognizable transition payload")
-        elif not STATE_HINT.search(body):
-            gaps.append(f"{event_id}-{label}: effect lacks state/evidence marker")
+        has_state_signal = bool(DELTA_RE.search(body) or TOKEN_RE.search(body) or CLAUSE_RE.search(body) or STATE_HINT.search(body) or LIFECYCLE_RE.search(body))
+        if not has_state_signal:
+            gaps.append(f"{event_id}-{label}: no machine-recognizable state/evidence signal")
 
     if signatures.get("A") == signatures.get("B"):
         gaps.append(f"{event_id}: A/B choices have identical authored effect signatures")
