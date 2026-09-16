@@ -17,7 +17,7 @@ def test_source_closed_predicates_compile_only_from_canonical_facts() -> None:
             "crown_audited",
             "auditor_independence",
             "legislative_budget_lock",
-            "military_red_line",
+            "army_constitution_oath",
             "systemic_explanation_convergence",
             "coalition_candidate_package",
             "guild_tribunal_independent",
@@ -48,6 +48,24 @@ def test_source_closed_predicates_compile_only_from_canonical_facts() -> None:
     assert "pred.constitutional_prepared_strong" in predicates
     assert "pred.budget_reform" in predicates
     assert "pred.final_charter_prerequisites" in predicates
+
+
+def test_constitutional_readiness_rejects_supporting_red_line_without_e199_oath() -> None:
+    state = GameState.fresh("constitutional-negative")
+    state.flags.update({
+        "people_charter_endorsed",
+        "crown_audited",
+        "military_red_line",
+    })
+    state.history.add("history.house_assembly")
+
+    predicates = EndingSourceCompiler.compile_state(state).predicates
+
+    assert "pred.constitutional_prepared_strong" not in predicates
+
+    state.flags.add("army_constitution_oath")
+    predicates = EndingSourceCompiler.compile_state(state).predicates
+    assert "pred.constitutional_prepared_strong" in predicates
 
 
 def test_coalition_predicate_rejects_noncanonical_shortcuts() -> None:
