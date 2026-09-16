@@ -22,6 +22,7 @@ if(query.get('rtl')==='1')document.documentElement.dir='rtl';
 if(query.get('font')==='large')document.documentElement.classList.add('large-type');
 if(query.get('artwork')==='none')document.documentElement.classList.add('no-artwork');
 if(query.get('narrative')==='long')document.documentElement.classList.add('long-narrative');
+if(query.get('qa')==='states')document.documentElement.classList.add('state-qa');
 
 function render(){
   resources.forEach(k=>$(k).textContent=state[k]);
@@ -30,23 +31,52 @@ function render(){
   renderChoices();
 }
 
+function choiceMarkup(choice,index,stateClass='',stateLabel=''){
+  const button=document.createElement('button');
+  button.className=`choice ${stateClass}`.trim();
+  button.dataset.choice=choice.id;
+  button.dataset.index=String(index+1);
+  button.type='button';
+  button.setAttribute('aria-pressed',stateClass==='resolved'||stateClass==='selected'?'true':'false');
+  button.setAttribute('aria-label',`${index+1}. ${choice.title}. ${choice.support}`);
+  if(stateClass==='disabled')button.disabled=true;
+  if(stateClass==='resolving'||stateClass==='disabled')button.setAttribute('aria-disabled','true');
+  button.innerHTML=`<span class="choice-kicker">${choice.kicker}</span><strong>${choice.title}</strong><span class="choice-support">${choice.support}</span><span class="choice-state" aria-hidden="true">${stateLabel}</span>`;
+  return button;
+}
+
 function renderChoices(){
   const root=$('choices');
   root.classList.toggle('choice-count-3',choiceSet.length===3);
   root.setAttribute('aria-label',`${choiceSet.length} available decision${choiceSet.length===1?'':'s'}`);
   root.replaceChildren();
   choiceSet.forEach((choice,index)=>{
-    const button=document.createElement('button');
-    button.className='choice';
-    button.dataset.choice=choice.id;
-    button.dataset.index=String(index+1);
-    button.type='button';
-    button.setAttribute('aria-pressed','false');
-    button.setAttribute('aria-label',`${index+1}. ${choice.title}. ${choice.support}`);
-    button.innerHTML=`<span class="choice-kicker">${choice.kicker}</span><strong>${choice.title}</strong><span class="choice-support">${choice.support}</span><span class="choice-state" aria-hidden="true"></span>`;
+    const button=choiceMarkup(choice,index);
     button.addEventListener('click',()=>choose(choice.id));
     root.appendChild(button);
   });
+  if(query.get('qa')==='states')renderStateQA(root);
+}
+
+function renderStateQA(root){
+  const states=[
+    ['idle','IDLE'],['focused','FOCUS'],['pressed','PRESSED'],['resolving','RESOLVING'],['resolved','SELECTED'],['disabled','DISABLED']
+  ];
+  root.classList.add('qa-state-grid');
+  root.setAttribute('aria-label','Choice state visual QA matrix');
+  root.replaceChildren();
+  states.forEach(([stateClass,label],index)=>{
+    const choice=choiceSet[index%choiceSet.length];
+    const card=choiceMarkup(choice,index,stateClass,label);
+    card.setAttribute('tabindex',stateClass==='focused'?'0':'-1');
+    if(stateClass==='pressed')card.setAttribute('aria-pressed','true');
+    if(stateClass==='focused')card.classList.add('qa-focused');
+    if(stateClass==='pressed')card.classList.add('qa-pressed');
+    root.appendChild(card);
+  });
+  $('consequence').hidden=false;
+  $('consequenceText').textContent='Design QA fixture: every decision state is shown together. This fixture does not execute gameplay.';
+  $('choices').setAttribute('aria-busy','false');
 }
 
 function choose(id){
