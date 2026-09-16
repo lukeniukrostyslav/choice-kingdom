@@ -46,6 +46,39 @@ def test_coalition_requires_participants_and_no_blocker() -> None:
     assert "pred.coalition_cooperation" not in blocked.predicates
 
 
+def test_guild_influence_requires_three_distinct_authored_domains() -> None:
+    common = dict(
+        history={"history.guild_representation", "history.guild_logistics_cooperation"},
+        flags={"guild_tribunal_independent", "audited_monopoly", "guild_neutral_inspectors"},
+    )
+    facts = EndingSourceCompiler.compile(**common)
+    assert "pred.guild_influence_strong" in facts.predicates
+
+    representation_only = EndingSourceCompiler.compile(
+        history={"history.guild_representation"},
+    )
+    assert "pred.guild_influence_strong" not in representation_only.predicates
+
+    relationship_only = EndingSourceCompiler.compile(
+        flags={"rel.ivo"},
+        history={"thread.guild"},
+    )
+    assert "pred.guild_influence_strong" not in relationship_only.predicates
+
+
+def test_guild_logistics_immunity_blocks_the_logistics_domain() -> None:
+    facts = EndingSourceCompiler.compile(
+        history={"history.guild_representation", "history.guild_logistics_cooperation"},
+        flags={
+            "guild_tribunal_independent",
+            "audited_monopoly",
+            "guild_neutral_inspectors",
+            "guild_logistics_immunity_risk",
+        },
+    )
+    assert "pred.guild_influence_strong" not in facts.predicates
+
+
 def test_systemic_explanation_requires_all_evidence_families_and_convergence() -> None:
     incomplete = EndingSourceCompiler.compile(
         systemic_evidence_families={"warehouse_or_financial", "document_or_language"},
