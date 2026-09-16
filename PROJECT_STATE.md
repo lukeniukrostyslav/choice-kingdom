@@ -33,6 +33,7 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 - Deterministic campaign audit: **66 unique events executed / 206 remaining / 0 execution errors**, stopping at E230 under currently implemented trigger/routing semantics.
 - Runtime trigger semantics audit: **PASS**, 272 triggers classified; **138 opaque/partial** expressions remain explicitly open. The audit separately identifies 2 explicit after-event prerequisites and 14 safe source-level canonical alias phrases.
 - Canonical predicate trigger integration: **PASS** in GitHub Actions run 402 (`a8a83c1f...`).
+- E199 constitutional producer boundary: **PASS** in GitHub Actions run 777 (`f9491f2f...`). The runtime now requires the authored `army_constitution_oath` producer for `pred.constitutional_prepared_strong`; supporting `military_red_line` evidence cannot substitute for E199-A.
 
 The campaign and trigger audits are diagnostic. Missing/opaque events are **not declared impossible**. No trigger threshold, route activation, relationship proxy, or graph edge is promoted into gameplay semantics without source evidence.
 
@@ -48,7 +49,7 @@ The campaign and trigger audits are diagnostic. Missing/opaque events are **not 
 - Reachability / Causal Graph: **100% source-level; full gameplay reachability remains open**
 - Production Data Schema: **50%**
 - Runtime State / Persistence Foundation: **100% current foundation**
-- Decision Engine / Application Runtime: **40%** — core authored effects, routing, delayed execution, ending boundary, persistence, replay transfer, session lifecycle, and structured boolean evaluation of already-canonical trigger atoms are implemented; exhaustive production trigger/semantic execution remains open.
+- Decision Engine / Application Runtime: **41%** — core authored effects, routing, delayed execution, ending boundary, persistence, replay transfer, session lifecycle, and structured boolean evaluation of already-canonical trigger atoms are implemented; the E199 constitutional producer boundary is now runtime-verified; exhaustive production trigger/semantic execution remains open.
 - UI / UX: **0%**
 - Localization 20+ / RTL: **5%**
 - Android Implementation: **0%**
@@ -60,15 +61,19 @@ The campaign and trigger audits are diagnostic. Missing/opaque events are **not 
 
 Canonical predicate trigger atoms now use the same `EndingSourceCompiler` as ending qualification. This removes the duplicated `pred.food_stable` trigger special case and preserves the authored E192-B producer / E192-A invalidation semantics in one source-closed compiler. New tests cover both positive and invalidated food-stability states plus trigger evaluation through the shared compiler.
 
-The centralized canonical predicate trigger integration is now **IMPLEMENTED / VERIFIED** by GitHub Actions run 402 on commit `a8a83c1febb49b9a0cc14452ff2408135caf755d`. This verification closes that implementation checkpoint but does not increase Block 12 by itself, because the remaining production trigger/semantic execution gap is still substantial.
+The centralized canonical predicate trigger integration is **IMPLEMENTED / VERIFIED** by GitHub Actions run 402 on commit `a8a83c1febb49b9a0cc14452ff2408135caf755d`.
+
+The E199 constitutional producer boundary is **IMPLEMENTED / VERIFIED** by GitHub Actions run 777 on commit `f9491f2f00a582d129241a943c5e307fe996296b`. The runtime contract requires the authored `army_constitution_oath` marker for the military constitutional domain and explicitly rejects `military_red_line` as a substitute.
+
+This is a genuine incremental closure for Block 12, so its progress is raised from **40% to 41%**. This does not imply that the broader production trigger/semantic execution gap is closed.
 
 ## Current Block 7 target
 Close authoritative trigger/producer semantics only where authored source and canonical contracts define them; bind verified semantics into the runtime; rerun the full regression and campaign audit; then make E01–E272 executable through one `GameSession` lifecycle.
 
 ## Latest work saved to GitHub
-- `runtime/ending_sources.py` — source-closed predicate compilation including E192 food-stability lifecycle.
+- `runtime/ending_sources.py` — source-closed predicate compilation including E192 food-stability lifecycle and canonical E199 military-law producer semantics.
 - `runtime/catalog.py` — all canonical `pred.*` trigger atoms now route through `EndingSourceCompiler` instead of maintaining a separate `pred.food_stable` special case.
-- `tests/test_runtime_source_closed_predicates.py` — source-closed predicate, hard-negative, invalidation, and shared-trigger-compiler coverage.
+- `tests/test_runtime_source_closed_predicates.py` — source-closed predicate, hard-negative, invalidation, shared-trigger-compiler, and E199 producer-boundary coverage.
 - `docs/RUNTIME_SOURCE_CLOSED_PREDICATE_CLOSURE_01.md` — verified implementation checkpoint.
 - `tools/audit_runtime_campaign.py`
 - `tests/test_runtime_campaign_audit.py`
