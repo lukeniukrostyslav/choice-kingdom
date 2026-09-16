@@ -170,6 +170,12 @@ class AuthoredCatalog:
             matched_condition = True
             if state.turn != 1:
                 return False
+        # Canonical derived-predicate binding: E160's authored "severe winter"
+        # trigger consumes the current-cycle predicate produced by E29-A/B.
+        if low == "severe winter":
+            matched_condition = True
+            if "pred.winter_severe" not in state.flags and "pred.winter_severe" not in state.history and "pred.winter_severe" not in state.threads:
+                return False
         return matched_condition
 
 def _compare(value: int, op: str, target: int) -> bool:
