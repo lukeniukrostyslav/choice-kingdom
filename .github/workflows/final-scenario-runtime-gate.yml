@@ -1,0 +1,35 @@
+name: Choice Kingdom Final Scenario Runtime Gate
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'runtime/**'
+      - 'tests/**'
+      - 'tools/validate_causal_reachability_contract.py'
+      - 'tools/validate_scenario_final_gate.py'
+      - 'docs/MACHINE_CANONICAL_GRAPH_01.json'
+      - 'docs/EVENT_GRAPH.md'
+      - '.github/workflows/final-scenario-runtime-gate.yml'
+  pull_request:
+    paths:
+      - 'runtime/**'
+      - 'tests/**'
+      - 'tools/validate_causal_reachability_contract.py'
+      - 'tools/validate_scenario_final_gate.py'
+      - 'docs/MACHINE_CANONICAL_GRAPH_01.json'
+      - 'docs/EVENT_GRAPH.md'
+      - '.github/workflows/final-scenario-runtime-gate.yml'
+
+jobs:
+  final-scenario-runtime:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install test runner
+        run: python -m pip install --upgrade pytest
+      - name: Run final S11-S13 runtime gate
+        run: PYTHONPATH=. python tools/validate_scenario_final_gate.py
