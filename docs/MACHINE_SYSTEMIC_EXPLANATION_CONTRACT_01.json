@@ -1,0 +1,18 @@
+{
+  "schema_version":"1.0",
+  "contract":"choice_kingdom.systemic_explanation_verified",
+  "scope":"E01-E272",
+  "status":"SOURCE_CONTRACT_IDENTIFIED",
+  "predicate":"pred.systemic_explanation_verified",
+  "producer":"E270-A",
+  "requires_distinct_evidence_domains":[
+    "warehouse_or_financial",
+    "document_or_language",
+    "witness_or_organizational"
+  ],
+  "explicit_convergence":"systemic_explanation_convergence",
+  "consumer_cannot_manufacture":true,
+  "forbidden_aliases":["history.cross_faction_package","four_way_bargain","systemic_explanation_verified"],
+  "runtime_verified":false,
+  "remaining_checks":["exact evidence-ID cardinality","contradiction handling","producer-before-consumer ordering","reachability","save-load preservation","replay isolation"]
+}
