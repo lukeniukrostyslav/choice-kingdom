@@ -148,7 +148,7 @@ def test_e51_c_executes_three_way_authored_choice_without_dropping_choice_c():
     assert result.choice_id == "E51-C"
 
 
-def test_e108_c_is_loaded_as_authored_even where_source_uses_shorthand_effects():
+def test_e108_c_is_loaded_as_authored_even_where_source_uses_shorthand_effects():
     engine = DecisionEngine(ROOT)
     event = engine.event("E108")
     choice = next(choice for choice in event.choices if choice.choice_id == "E108-C")
@@ -204,7 +204,7 @@ def test_every_explicit_prerequisite_requires_the_current_authored_route():
     assert checked > 0
 
 
-def test_missing_authored_prerequisite_blocks_route_even if_another_is_present():
+def test_missing_authored_prerequisite_blocks_route_even_if_another_is_present():
     engine = DecisionEngine(ROOT)
     targets = [
         event_id
