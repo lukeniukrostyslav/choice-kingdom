@@ -23,7 +23,7 @@
     },
     {
       "id": "qualified_logistics",
-      "canonical_sources": ["pred.guild_logistics_cooperation"],
+      "canonical_sources": ["history.guild_logistics_cooperation", "guild_neutral_inspectors"],
       "producer": "E194-A"
     }
   ],
@@ -33,10 +33,11 @@
     "E144 representation cannot count as two domains",
     "history.guild_representation cannot be treated as both representation and tribunal",
     "relationship values never count as a domain",
-    "pred.guild_logistics_cooperation is one logistics domain even when multiple historical markers support it",
+    "history.guild_logistics_cooperation plus guild_neutral_inspectors is one logistics domain even when multiple historical markers support it",
+    "guild_logistics_immunity_risk invalidates the qualified logistics domain",
     "E200 and later ending consumers cannot create this predicate retroactively"
   ],
-  "forbidden_aliases": ["rel.ivo", "history.guild_logistics_cooperation", "thread.guild"],
+  "forbidden_aliases": ["rel.ivo", "thread.guild", "guild_logistics_immunity_risk"],
   "runtime_verified": false,
   "remaining_checks": [
     "producer-before-consumer ordering",
