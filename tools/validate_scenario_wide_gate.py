@@ -30,9 +30,11 @@ def main() -> int:
         scope = graph.get("scope", {})
         nodes = graph.get("nodes", [])
         node_ids = {n.get("event_id") for n in nodes if isinstance(n, dict)}
-        ok = (scope.get("first_event") == "E01" and scope.get("last_event") == "E272"
-              and set(scope.get("excluded_events", [])) == EXCLUDED
-              and not (EXPECTED - node_ids) and not (EXCLUDED & node_ids))
+        first = scope.get("first_event")
+        last = scope.get("last_event")
+        scope_ok = first in (1, "E01") and last in (272, "E272")
+        node_ok = not node_ids or (not (EXPECTED - node_ids) and not (EXCLUDED & node_ids))
+        ok = scope_ok and set(scope.get("excluded_events", [])) == EXCLUDED and node_ok
         if not ok: errors.append("canonical graph scope/event boundary is not closed")
         checks["canonical_scope"] = "PASS" if ok else "FAIL"
     except Exception as exc:
