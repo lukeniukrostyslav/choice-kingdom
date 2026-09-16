@@ -12,8 +12,8 @@ from .state import GameState
 # Delayed prose is handled by the canonical delayed lifecycle instead.
 IMMEDIATE_UNLOCK_RE = re.compile(r"^-\s*\*\*Unlocks?\*\*\s+`?(E\d{2,3})", re.I | re.M)
 
-# E148-A is the authored coalition producer. The source text explicitly names
-# the six participating factions; keep that producer mapping explicit rather than
+# E148-A is the authored coalition producer. The source text explicitly names the
+# six participating factions; keep that producer mapping explicit rather than
 # inferring participants from relationships, generic coalition flags, or E261.
 AUTHORED_COALITION_PARTICIPANTS = {
     "E148-A": ("mara", "rowan", "seris", "ivo", "amara", "toma"),
@@ -102,9 +102,9 @@ class DecisionEngine:
             else:
                 state.flags.add(token)
 
-        # A small set of source-explicit prose effects are represented as typed
-        # runtime state because the catalog itself defines their lifecycle. These
-        # are not generic prose inference rules.
+        # Authored effects with typed runtime lifecycle are represented explicitly
+        # here. Derived predicates themselves are compiled centrally by the
+        # source-closed predicate compiler used by trigger evaluation and endings.
         if choice_id == "E192-A":
             state.flags.discard("food_logistics_stabilized")
             state.flags.add("food_logistics_unstable")
