@@ -2,7 +2,7 @@
   "schema_version":"1.0",
   "contract":"choice_kingdom.coalition_cooperation",
   "scope":"E01-E272",
-  "status":"SOURCE_CONTRACT_IDENTIFIED",
+  "status":"SOURCE_CONTRACT_CLOSED_RUNTIME_ORDER_OPEN",
   "predicate":"pred.coalition_cooperation",
   "producer":"E148-A",
   "requires":["positive_mutual_concessions","participant_identity","no_unresolved_coalition_collapse_blocker"],
