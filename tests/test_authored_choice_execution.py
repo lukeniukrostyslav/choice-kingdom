@@ -41,6 +41,11 @@ def test_e01_b_does_not_leak_delayed_unlock_into_immediate_routing():
     assert result.next_event_ids == ()
 
 
+def test_explicit_event_prerequisite_is_exposed_from_authored_trigger():
+    engine = DecisionEngine(ROOT)
+    assert engine.catalog.authored_prerequisites("E02") == ("E01",)
+
+
 def test_core_spine_routes_deterministically_through_explicit_prerequisite():
     engine = DecisionEngine(ROOT)
     state = GameState.fresh("run-core-spine")
@@ -54,6 +59,18 @@ def test_core_spine_routes_deterministically_through_explicit_prerequisite():
     assert "E02" in state.history
     assert engine.catalog.trigger_satisfied("E02", state) is False
     assert "E02" not in {event.event_id for event in engine.available(state)}
+
+
+def test_authored_prerequisite_blocks_unrelated_jump_even_when_trigger_is_satisfied():
+    engine = DecisionEngine(ROOT)
+    state = GameState.fresh("run-route-guard")
+    state.history.add("E01")
+    state.current_event_id = "E99"
+
+    assert engine.catalog.trigger_satisfied("E02", state)
+    assert "E02" not in {event.event_id for event in engine.available(state)}
+    with pytest.raises(ValueError, match="event route not allowed: E02"):
+        engine.execute(state, "E02", "E02-B")
 
 
 def test_authored_event_is_single_use_and_cannot_be_replayed():
