@@ -125,6 +125,12 @@ class AuthoredCatalog:
             if labels and not {"A", "B"}.issubset(labels):
                 raise CatalogError(f"incomplete authored choice set in {event.event_id}: {sorted(labels)}")
 
+    def authored_prerequisites(self, event_id: str) -> tuple[str, ...]:
+        """Return only event prerequisites explicitly authored in the trigger text."""
+        event = self.get(event_id)
+        refs = list(AFTER_EVENT_RE.findall(event.trigger)) + list(COMPLETED_EVENT_RE.findall(event.trigger))
+        return tuple(dict.fromkeys(ref.upper() for ref in refs))
+
     def trigger_satisfied(self, event_id: str, state) -> bool:
         event = self.get(event_id)
         if event_id in state.history:
@@ -133,17 +139,15 @@ class AuthoredCatalog:
         low = trigger.lower().strip().rstrip(".")
         if not trigger:
             return True
-        if low == "first turn":
-            return state.turn == 1
 
         matched_condition = False
         for name, op, raw in NUMERIC_RE.findall(trigger):
             matched_condition = True
             if not _compare(state.resources[name.lower()], op, int(raw)):
                 return False
-        for required in list(AFTER_EVENT_RE.findall(trigger)) + list(COMPLETED_EVENT_RE.findall(trigger)):
+        for required in self.authored_prerequisites(event_id):
             matched_condition = True
-            if required.upper() not in state.history:
+            if required not in state.history:
                 return False
         for name, op, raw in REL_COND_RE.findall(trigger):
             matched_condition = True
