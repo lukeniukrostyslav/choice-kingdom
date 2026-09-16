@@ -34,6 +34,7 @@ A trigger phrase is not a producer. A consumer cannot manufacture its own prereq
 | clear `pred.border_crisis` | E272 | A/B | Resolves declared active crisis | CLOSED at source level |
 | `pred.food_stable` | E192 | B | Establishes `food_logistics_stabilized` for the current food-logistics cycle | CLOSED at source level |
 | clear `pred.food_stable` | E192 | A | Clears `food_logistics_stabilized` and establishes the unstable-cycle marker while retaining history | CLOSED at source level |
+| `pred.systemic_explanation_verified` | E270 | A | Explicit convergence decision establishes `systemic_explanation_convergence` after the required independent evidence families | CLOSED at source level |
 | `army_constitution_oath` / military constitutional evidence | E199 | A | Explicit army constitutional oath route | CLOSED at source level |
 | `auditor_independence` | E142 | A | Explicit independent auditor route | CLOSED at source level |
 | `crown_audited` | E154 | A | Explicit Crown audit route | CLOSED at source level |
@@ -104,9 +105,9 @@ Required evidence families:
 - document/language;
 - witness/organizational.
 
-A raw clue count is forbidden. An explicit convergence decision is required. Current source-backed candidates are recorded by S12.26; the immutable convergence producer/key remains open.
+E270-A is the frozen-scope explicit convergence producer and establishes `systemic_explanation_convergence` only after the required distinct evidence families are present. This closes the source producer identity; executable evidence-family aggregation, persistence, contradiction handling and reachability remain open.
 
-**Status: PARTIAL — evidence-family identities materially frozen; exact convergence producer remains open.**
+**Status: SOURCE-LEVEL CONTRACT CLOSED — runtime/evidence aggregation remains open.**
 
 ### `pred.coalition_cooperation`
 
