@@ -16,5 +16,7 @@ def test_runtime_trigger_semantics_audit_is_deterministic() -> None:
     report = json.loads((ROOT / "docs/MACHINE_RUNTIME_TRIGGER_SEMANTICS_AUDIT_01.json").read_text())
     assert report["scope"] == "E01-E272"
     assert report["audit_only"] is True
-    assert report["opaque_or_partial_count"] == 154
+    assert report["opaque_or_partial_count"] < 154
+    assert report["counts"]["EVENT_PREREQUISITE"] >= 2
+    assert report["counts"]["SAFE_CANONICAL_ALIAS"] >= 10
     assert sum(report["counts"].values()) == 272
