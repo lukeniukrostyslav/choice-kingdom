@@ -18,7 +18,7 @@ Production catalog is **E01–E272**. E273–E277 are expansion candidates and a
 No mock/stub gameplay or premature production-readiness claims.
 
 ## Current phase
-**Narrative/content canonicalization and QA.** Authored checkpoint E01–E272. Source-level canonical graph, causal closure, authored choice/state transition closure and ending qualification/precedence source closure are now green; production schema, Decision Engine, UI and runtime reachability remain downstream.
+**S11 ending source closure final CI verification.** Authored checkpoint E01–E272. Source-level canonical graph, causal closure and S02 choice/state transition closure are green. S11 qualification and precedence contracts are green; the last alias gate exposed a false-positive substring match, which has now been corrected to exact identifier matching and wired into the dedicated S11 workflow. Final CI verification is pending on the new commit.
 
 ## Current verified S01–S12 scorecard
 - S01 **84%** — authored-event coverage structurally validated; semantic/gameplay reachability remains.
@@ -31,10 +31,10 @@ No mock/stub gameplay or premature production-readiness claims.
 - S08 **100%** — source/producer QA closed and CI-verified.
 - S09 **100%** — canonical graph source closure closed and CI-verified.
 - S10 **83%** — delayed lifecycle source gate green; runtime persistence/cancellation semantics remain.
-- S11 **100%** — ending qualification, exact source-level prerequisite/blocker sets, deterministic authored precedence table, alias boundary and executable source-closure gate are closed and CI-verified. Runtime ending execution, fresh-run/replay reachability and Decision Engine integration remain downstream.
+- S11 **99% — final CI verification pending**. Ending qualification, exact prerequisite/blocker sets, deterministic precedence and alias boundary are implemented; the prior CI failure was a validator false positive caused by substring matching (`thread.border` matching `thread.border_crisis`, etc.). The validator now uses exact identifier matching and the alias gate is included in the dedicated S11 workflow. Do not mark S11 100% until the new CI run is green.
 - S12 **100%** — scope/integrity gates closed.
 
-**Scenario QA aggregate: 91.00%** (exact mean 91.0%). This is source/contract verification progress, not runtime or Android readiness.
+**Scenario QA aggregate: pending final S11 CI verification.**
 
 ## Latest verified work
 ### S02 — Choice → State Transition: SOURCE-CLOSED 100%
@@ -48,42 +48,24 @@ No mock/stub gameplay or premature production-readiness claims.
 - GitHub Actions S02 run **35100082164**, job **104806986908**, head `3bf2d8f8bbb1fdb75ef2084e9d1ed25a9f598bdc`, completed **success** on 2026-09-16. The job log reports `S02_CHOICE_STATE_TRANSITION_CLOSURE: PASS`.
 - This is source-level closure only. Runtime Decision Engine execution, save/load persistence, replay execution and gameplay reachability remain downstream gates.
 
-### S11 — Ending / Replay QA: SOURCE-CLOSED 100%
-- Added `docs/MACHINE_ENDING_QUALIFICATION_CONTRACT_01.json` with an exact machine-readable positive prerequisite and negative blocker set for all seven ending families.
+### S11 — Ending / Replay QA: final CI verification pending
+- Added `docs/MACHINE_ENDING_QUALIFICATION_CONTRACT_01.json` with exact machine-readable positive prerequisite and negative blocker sets for all seven ending families.
 - Added `docs/MACHINE_ENDING_PRECEDENCE_TABLE_01.json` with deterministic evaluation order, explicit positive-ending priority data and pairwise precedence coverage.
-- Preserved the existing conservative alias boundary: canonical identifiers remain `thread.border_crisis`, `thread.ivo_market`, `pred.coalition_cooperation` and `pred.systemic_explanation_verified`; stale aliases cannot manufacture prerequisites.
+- Preserved the conservative alias boundary: canonical identifiers remain `thread.border_crisis`, `thread.ivo_market`, `pred.coalition_cooperation` and `pred.systemic_explanation_verified`; stale aliases cannot manufacture prerequisites.
 - Added `tools/validate_ending_source_closure.py` as the executable S11 source-closure gate.
-- Added `.github/workflows/s11-ending-source-closure.yml` for push/PR/manual verification.
+- Added `tools/validate_ending_alias_boundary.py` exact identifier matching so canonical IDs containing an old alias as a prefix are not false positives.
+- Added `.github/workflows/s11-ending-source-closure.yml` and wired both source closure and alias boundary validation into the same S11 gate.
+- Previous canonical-graph run `35100900713` reached the S11 alias step; S02/canonical graph/S07/replay/source-producer/ending prerequisite/source closure/precedence all passed. The only failure was the old substring-based alias validator. This is fixed; final green verification is still required.
 - The source contract explicitly keeps runtime execution, fresh-run reachability and replay reachability false until those downstream systems exist; this is not hidden or counted as runtime completion.
 - People's Charter remains explicitly dependent on runtime aggregation of `pred.final_charter_prerequisites`; Second Founder remains explicitly dependent on replay/meta transfer keys and runtime systemic convergence. These are tracked downstream blockers, not invented away.
 
-### S07 — Event Graph / Causality: SOURCE-CLOSED 100%
-- Added and wired `tools/validate_causal_reachability_contract.py`.
-- Frozen production scope is E01–E272; E273–E277 remain excluded.
-- Every production event is either represented by an explicit causal edge or explicitly classified as coverage-only.
-- Structural causal components are rooted; unreachable causal nodes and self-loops are rejected.
-- Feedback components are reported separately and are not treated as runtime gameplay proof.
-- Cardinality is frozen at the current source contract: **305 causal edges / 221 causal nodes**; drift fails the gate.
-- The validator explicitly preserves the boundary: runtime gameplay reachability, runtime engine execution and replay reachability are not proven by S07.
-- Canonical Graph workflow is explicitly runnable on pushes to `main` and manual dispatch.
-- GitHub Actions canonical graph run **35094845549**, run #474, head `b8b79edf1a0f37c35152c59b3fe7feb72210e4fe`, completed **success** on 2026-09-16. This is the authoritative S07 CI evidence.
-
-## Current canonical source status
-- E33/E34 are canonical production events; source-level boundary is closed.
-- Predicate production boundary is source-closed; excluded predicate names cannot leak into frozen production semantics.
-- Delayed source identities for E181–E185 and E242–E246 are source-closed; runtime lifecycle remains open.
-- Replay producer provenance remains conservative: E131 explicitly provides `all_voices_heard`; E186 is partial; E247/E248 remain open until exact authored producer/key tuples exist.
-- Composite predicates such as systemic explanation, coalition cooperation, constitutional preparation, budget reform and final-charter prerequisites are source-closed but runtime qualification remains open.
-
 ## S11 remaining downstream gates
-S11 source-level closure is complete. The following are deliberately downstream and must not be counted as already implemented:
+After source-level S11 closure, the following remain deliberately downstream and must not be counted as already implemented:
 1. Decision Engine execution of the exact prerequisite/blocker contract;
 2. runtime deterministic ending selection;
 3. fresh-run gameplay reachability;
 4. replay gameplay reachability and meta transfer execution;
 5. save/load equivalence at ending resolution.
-
-These downstream items belong to runtime/Decision Engine work, not a reopened S11 source-contract gap.
 
 ## Major downstream blocks
 - Foundation / Rules: **95%**
@@ -93,7 +75,7 @@ These downstream items belong to runtime/Decision Engine work, not a reopened S1
 - Derived Predicates / Machine Contracts: **90%**
 - Delayed Consequences: **98%**
 - Replay / Meta-state: **65%**
-- Endings / precedence: **100% source-level**
+- Endings / precedence: **99% source-level, final CI pending**
 - Reachability / Causal Graph: **100% source-level**
 - Production Data Schema: **36%**
 - Decision Engine: **0%**
@@ -107,7 +89,7 @@ These downstream items belong to runtime/Decision Engine work, not a reopened S1
 Overall project progress remains approximately **60%**. This deliberately does not treat source-level QA closure as runtime/gameplay completion.
 
 ## NEXT ACTION
-**Downstream runtime/Decision Engine work after S11 source closure.** Implement the machine-readable S02/S11 contracts without changing authored semantics, then verify runtime ending selection, save/load equivalence, replay isolation and fresh-run/replay reachability. Do not relabel runtime gates as complete merely because source contracts are green.
+**Verify the new S11 CI run. If green, freeze S11 at 100% and move to downstream Decision Engine implementation without reopening S02.**
 
 ## Honest progress rule
 Documentation alone never makes implementation complete. Source edits count only when authoritative evidence is changed/re-read. No block is ready until its applicable verification passes.
