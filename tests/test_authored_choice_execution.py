@@ -27,6 +27,9 @@ def test_e01_a_executes_authored_immediate_state_transition():
     assert "open_petition_hall" in state.flags
     assert "E01" in state.history
     assert result.event_id == "E01"
+    # E01-A's E07 unlock is explicitly delayed, so it must not be exposed as
+    # an immediate route before delayed-lifecycle runtime is integrated.
+    assert result.next_event_ids == ()
 
 
 def test_e51_c_executes_three_way_authored_choice_without_dropping_choice_c():
