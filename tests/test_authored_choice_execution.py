@@ -27,8 +27,19 @@ def test_e01_a_executes_authored_immediate_state_transition():
     assert "open_petition_hall" in state.flags
     assert "E01" in state.history
     assert result.event_id == "E01"
-    # E01-A's E07 unlock is explicitly delayed, so it must not be exposed as
-    # an immediate route before delayed-lifecycle runtime is integrated.
+    # E01-A has only a delayed unlock in the authored source; it must not become
+    # an immediate next-event edge.
+    assert result.next_event_ids == ()
+
+
+def test_e01_b_does_not_leak_delayed_unlock_into_immediate_routing():
+    engine = DecisionEngine(ROOT)
+    state = GameState.fresh("run-e01-b")
+    result = engine.execute(state, "E01", "E01-B")
+
+    assert state.resources["power"] == 52
+    assert state.relationships["seris"] == 1
+    assert "court_first" in state.flags
     assert result.next_event_ids == ()
 
 
