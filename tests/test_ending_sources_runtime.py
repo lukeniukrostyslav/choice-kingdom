@@ -3,7 +3,10 @@ from __future__ import annotations
 import pytest
 
 from runtime.ending_contract import EndingContractError, EndingQualification
-from runtime.ending_sources import EndingSourceCompiler
+from runtime.ending_sources import (
+    CANONICAL_COALITION_PARTICIPANTS,
+    EndingSourceCompiler,
+)
 from runtime.endings import END_STEWARD, EndingResolver
 from runtime.state import GameState, SaveStore
 
@@ -31,16 +34,30 @@ def test_relationships_and_four_way_bargain_do_not_create_cooperation() -> None:
     assert "pred.coalition_cooperation" not in facts.predicates
 
 
-def test_coalition_requires_participants_and_no_blocker() -> None:
+def test_coalition_requires_three_canonical_participants_and_no_blocker() -> None:
+    canonical = {"mara", "rowan", "seris"}
+    assert canonical <= CANONICAL_COALITION_PARTICIPANTS
     facts = EndingSourceCompiler.compile(
         history={"history.cross_faction_package"},
-        coalition_participants={"commons", "guild", "houses", "border"},
+        coalition_participants=canonical,
     )
     assert "pred.coalition_cooperation" in facts.predicates
 
-    blocked = EndingSourceCompiler.compile(
+    insufficient = EndingSourceCompiler.compile(
+        history={"history.cross_faction_package"},
+        coalition_participants={"mara", "rowan"},
+    )
+    assert "pred.coalition_cooperation" not in insufficient.predicates
+
+    unknown_only = EndingSourceCompiler.compile(
         history={"history.cross_faction_package"},
         coalition_participants={"commons", "guild", "houses", "border"},
+    )
+    assert "pred.coalition_cooperation" not in unknown_only.predicates
+
+    blocked = EndingSourceCompiler.compile(
+        history={"history.cross_faction_package"},
+        coalition_participants=canonical,
         unresolved_coalition_blockers={"withdrawal_pending"},
     )
     assert "pred.coalition_cooperation" not in blocked.predicates
@@ -110,7 +127,7 @@ def test_final_charter_requires_upstream_predicates_and_no_current_blocker() -> 
             "document_or_language",
             "witness_or_organizational",
         },
-        coalition_participants={"commons", "guild", "houses", "border"},
+        coalition_participants={"mara", "rowan", "seris"},
     )
     ready = EndingSourceCompiler.compile(**common)
     assert "pred.final_charter_prerequisites" in ready.predicates
@@ -129,7 +146,7 @@ def test_live_game_state_is_the_runtime_source_boundary() -> None:
     state.threads.add("thread.military_constitutional")
     for family in ("warehouse_or_financial", "document_or_language", "witness_or_organizational"):
         assert state.record_ending_evidence(family)
-    for participant in ("commons", "guild", "houses", "border"):
+    for participant in ("mara", "rowan", "seris"):
         assert state.record_coalition_participant(participant)
 
     facts = EndingSourceCompiler.compile_state(state)
@@ -144,7 +161,7 @@ def test_live_state_rejects_stale_aliases_instead_of_promoting_them() -> None:
     state.flags.update({"four_way_bargain", "systemic_explanation_convergence"})
     state.threads.update({"thread.border", "thread.guild"})
     state.history.add("history.cross_faction_package")
-    state.coalition_participants.update({"commons", "guild"})
+    state.coalition_participants.update({"commons", "guild", "houses"})
     state.ending_evidence_families.update({"warehouse_or_financial", "document_or_language"})
 
     facts = EndingSourceCompiler.compile_state(state)
@@ -179,8 +196,9 @@ def test_ending_source_facts_survive_save_load_without_leaking_to_fresh_run(tmp_
     state.record_ending_evidence("warehouse_or_financial")
     state.record_ending_evidence("document_or_language")
     state.record_ending_evidence("witness_or_organizational")
-    state.record_coalition_participant("commons")
-    state.record_coalition_participant("guild")
+    state.record_coalition_participant("mara")
+    state.record_coalition_participant("rowan")
+    state.record_coalition_participant("seris")
 
     path = tmp_path / "ending-state.json"
     SaveStore.save(state, path)
