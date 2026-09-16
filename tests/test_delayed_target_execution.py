@@ -95,3 +95,20 @@ def test_condition_bound_e185_requires_explicit_condition_result():
     with pytest.raises(ValueError, match="condition not satisfied"):
         engine.activate_delayed_target(state, delay.exactly_once_key, condition_satisfied=False)
     assert state.pending_delays[delay.exactly_once_key].status == "pending"
+
+
+def test_condition_bound_e185_can_activate_target_only_when_condition_is_explicitly_true():
+    engine = DecisionEngine(ROOT)
+    state = GameState.fresh("target-e185-true")
+    delay = schedule_authored_delay(state, "E17", "E17-A")
+    assert delay is not None
+
+    activation = engine.activate_delayed_target(
+        state,
+        delay.exactly_once_key,
+        condition_satisfied=True,
+    )
+
+    assert activation.target_event_id == "E185"
+    assert state.pending_delays[delay.exactly_once_key].status == "resolved"
+    assert state.current_event_id == "E185"
