@@ -211,8 +211,7 @@ def _evaluate_trigger_atom(clause: str, state, prerequisites: tuple[str, ...]) -
 
     predicate_atom = low.strip("`")
     if predicate_atom.startswith("pred.") and re.fullmatch(r"pred\.[a-z0-9_]+", predicate_atom):
-        facts = EndingSourceCompiler.compile_state(state).predicates
-        return predicate_atom in facts
+        return predicate_atom in EndingSourceCompiler.compile_state(state).predicates
 
     match = COMPLETED_EVENT_RE.fullmatch(normalized)
     if match:
