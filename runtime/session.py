@@ -93,11 +93,13 @@ class GameSession:
         condition_satisfied: bool | None = None,
     ) -> DelayedActivationResult:
         """Activate one canonical delayed consequence through the application seam."""
-        return self.engine.activate_delayed_target(
+        result = self.engine.activate_delayed_target(
             self.state,
             exactly_once_key,
             condition_satisfied=condition_satisfied,
         )
+        self._selected_event_id = result.target_event_id
+        return result
 
     def execute_delayed_target(
         self,
@@ -117,7 +119,9 @@ class GameSession:
         return result
 
     def activate_next_due_delay(self) -> DelayedActivationResult:
-        return self.engine.activate_next_due_delay(self.state)
+        result = self.engine.activate_next_due_delay(self.state)
+        self._selected_event_id = result.target_event_id
+        return result
 
     def execute_next_due_delay(self, choice_id: str) -> ExecutionResult:
         due = self.engine.activate_next_due_delay(self.state)
