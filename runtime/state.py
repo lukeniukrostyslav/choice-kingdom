@@ -44,6 +44,7 @@ class GameState:
     history: set[str] = field(default_factory=set)
     threads: set[str] = field(default_factory=set)
     pending_delays: dict[str, PendingDelay] = field(default_factory=dict)
+    activated_delayed_targets: set[str] = field(default_factory=set)
     imported_meta_keys: set[str] = field(default_factory=set)
     terminal: bool = False
 
@@ -110,6 +111,16 @@ class GameState:
         self.pending_delays[exactly_once_key] = resolved
         return resolved
 
+    def activate_delayed_target(self, exactly_once_key: str) -> PendingDelay:
+        delay = self.pending_delays.get(exactly_once_key)
+        if delay is None:
+            raise KeyError(exactly_once_key)
+        if delay.status != "pending":
+            raise ValueError(f"delay is not pending: {exactly_once_key}")
+        self.current_event_id = delay.resolution_target
+        self.activated_delayed_targets.add(delay.resolution_target)
+        return self.resolve_delay(exactly_once_key)
+
     def snapshot(self) -> dict[str, Any]:
         return {
             "schema_version": 1,
@@ -124,6 +135,7 @@ class GameState:
             "pending_delays": {
                 key: asdict(value) for key, value in sorted(self.pending_delays.items())
             },
+            "activated_delayed_targets": sorted(self.activated_delayed_targets),
             "imported_meta_keys": sorted(self.imported_meta_keys),
             "terminal": self.terminal,
         }
@@ -147,6 +159,7 @@ class GameState:
             history=set(payload.get("history", [])),
             threads=set(payload.get("threads", [])),
             pending_delays=pending,
+            activated_delayed_targets=set(payload.get("activated_delayed_targets", [])),
             imported_meta_keys=set(payload.get("imported_meta_keys", [])),
             terminal=bool(payload.get("terminal", False)),
         )
