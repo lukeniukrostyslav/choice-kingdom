@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#171512">
+  <title>Choice Kingdom — Visual Prototype</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand"><span class="crest">A</span><div><strong>AVELUNE</strong><small>THE ROYAL CHRONICLE</small></div></div>
+      <div class="turn">TURN <b id="turn">014</b></div>
+    </header>
+
+    <section class="realm-strip" aria-label="Realm state">
+      <div><span>GOLD</span><b id="gold">62</b></div>
+      <div><span>TRUST</span><b id="trust">57</b></div>
+      <div><span>SECURITY</span><b id="security">49</b></div>
+      <div><span>POWER</span><b id="power">54</b></div>
+      <div><span>REPUTATION</span><b id="reputation">61</b></div>
+    </section>
+
+    <section class="event" aria-live="polite">
+      <div class="scene" role="img" aria-label="A candlelit winter archive with ledgers and a worried royal clerk">
+        <div class="scene-glow"></div><div class="scene-title">THE WINTER ARCHIVE</div>
+        <div class="scene-caption">NORTH RECORD ROOM · AFTER MIDNIGHT</div>
+      </div>
+      <div class="event-copy">
+        <p class="eyebrow">A ledger arrives without a seal.</p>
+        <h1>The Winter Ledger</h1>
+        <p class="narrative">Mara places the book before you without opening it. The figures inside do not match the Crown's accounts for the grain reserve. If the discrepancy is real, someone has been moving provisions through the winter markets before the court was meant to know.</p>
+        <p class="human"><span>MARА</span> waits for your answer. She has brought no accusation—only the evidence.</p>
+      </div>
+
+      <div class="choices" id="choices">
+        <button class="choice" data-choice="open">
+          <span class="choice-kicker">EXAMINE THE EVIDENCE</span>
+          <strong>Open the ledger</strong>
+          <span>Trust the record and begin with the numbers.</span>
+        </button>
+        <button class="choice" data-choice="seal">
+          <span class="choice-kicker">PROTECT THE CROWN</span>
+          <strong>Seal the ledger</strong>
+          <span>Keep the accusation inside the palace for now.</span>
+        </button>
+      </div>
+
+      <div class="consequence" id="consequence" hidden>
+        <span class="pulse"></span><div><small>THE CHRONICLE REMEMBERS</small><strong id="consequenceText"></strong></div>
+      </div>
+    </section>
+
+    <nav class="nav" aria-label="Secondary navigation">
+      <button class="nav-item active" data-panel="event">Chronicle</button>
+      <button class="nav-item" data-panel="realm">Realm</button>
+      <button class="nav-item" data-panel="history">History</button>
+      <button class="nav-item" data-panel="characters">People</button>
+    </nav>
+
+    <section class="panel" id="panel" hidden></section>
+  </main>
+  <script src="./app.js"></script>
+</body>
+</html>
