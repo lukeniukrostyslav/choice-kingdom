@@ -47,11 +47,33 @@ def test_core_spine_routes_deterministically_through_explicit_prerequisite():
 
     engine.execute(state, "E01", "E01-A")
     assert engine.catalog.trigger_satisfied("E02", state)
+    assert "E02" in {event.event_id for event in engine.available(state)}
     assert "E03" not in {event.event_id for event in engine.available(state)}
 
     engine.execute(state, "E02", "E02-B")
     assert "E02" in state.history
     assert engine.catalog.trigger_satisfied("E02", state) is False
+    assert "E02" not in {event.event_id for event in engine.available(state)}
+
+
+def test_authored_event_is_single_use_and_cannot_be_replayed():
+    engine = DecisionEngine(ROOT)
+    state = GameState.fresh("run-single-use")
+
+    engine.execute(state, "E01", "E01-A")
+
+    with pytest.raises(ValueError, match="event trigger not satisfied: E01"):
+        engine.execute(state, "E01", "E01-A")
+
+
+def test_unrecognized_authored_trigger_is_not_invented_as_runtime_route():
+    engine = DecisionEngine(ROOT)
+    state = GameState.fresh("run-unknown-trigger")
+
+    # E03 says only "food prices rise in the capital". There is no machine
+    # predicate for that prose yet, so runtime must not infer it as satisfied.
+    assert engine.catalog.trigger_satisfied("E03", state) is False
+    assert "E03" not in {event.event_id for event in engine.available(state)}
 
 
 def test_fresh_runs_are_isolated_and_repeat_the_same_authored_transition():
@@ -62,7 +84,11 @@ def test_fresh_runs_are_isolated_and_repeat_the_same_authored_transition():
     first_result = engine.execute(first, "E01", "E01-A")
     second_result = engine.execute(second, "E01", "E01-A")
 
-    assert first.snapshot() == second.snapshot() | {"run_id": "repeat-a"}
+    first_snapshot = first.snapshot()
+    second_snapshot = second.snapshot()
+    first_snapshot.pop("run_id")
+    second_snapshot.pop("run_id")
+    assert first_snapshot == second_snapshot
     assert first_result.state_snapshot["resources"] == second_result.state_snapshot["resources"]
     assert first_result.state_snapshot["flags"] == second_result.state_snapshot["flags"]
 
