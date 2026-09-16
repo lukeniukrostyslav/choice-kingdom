@@ -15,6 +15,7 @@ on:
       - 'docs/MACHINE_CONSTITUTIONAL_PREPARED_CONTRACT_01.json'
       - 'docs/MACHINE_SYSTEMIC_EXPLANATION_CONTRACT_01.json'
       - 'docs/MACHINE_COALITION_COOPERATION_CONTRACT_01.json'
+      - 'docs/MACHINE_GUILD_INFLUENCE_CONTRACT_01.json'
       - 'tests/test_ending_resolver.py'
       - 'tests/test_ending_contract.py'
       - 'tests/test_ending_sources.py'
@@ -24,6 +25,7 @@ on:
       - 'tests/test_constitutional_prepared_contract.py'
       - 'tests/test_ending_source_contract_inventory.py'
       - 'tests/test_systemic_coalition_contracts.py'
+      - 'tests/test_guild_influence_contract.py'
       - '.github/workflows/ending-runtime-gate.yml'
   pull_request:
     paths:
@@ -38,6 +40,7 @@ on:
       - 'docs/MACHINE_CONSTITUTIONAL_PREPARED_CONTRACT_01.json'
       - 'docs/MACHINE_SYSTEMIC_EXPLANATION_CONTRACT_01.json'
       - 'docs/MACHINE_COALITION_COOPERATION_CONTRACT_01.json'
+      - 'docs/MACHINE_GUILD_INFLUENCE_CONTRACT_01.json'
       - 'tests/test_ending_resolver.py'
       - 'tests/test_ending_contract.py'
       - 'tests/test_ending_sources.py'
@@ -47,6 +50,7 @@ on:
       - 'tests/test_constitutional_prepared_contract.py'
       - 'tests/test_ending_source_contract_inventory.py'
       - 'tests/test_systemic_coalition_contracts.py'
+      - 'tests/test_guild_influence_contract.py'
       - '.github/workflows/ending-runtime-gate.yml'
 
 jobs:
@@ -66,6 +70,6 @@ jobs:
       - name: Ending source compiler tests
         run: python -m pytest -q tests/test_ending_sources.py tests/test_ending_sources_runtime.py
       - name: Source contract inventory tests
-        run: python -m pytest -q tests/test_budget_reform_contract.py tests/test_final_charter_contract.py tests/test_constitutional_prepared_contract.py tests/test_ending_source_contract_inventory.py tests/test_systemic_coalition_contracts.py
+        run: python -m pytest -q tests/test_budget_reform_contract.py tests/test_final_charter_contract.py tests/test_constitutional_prepared_contract.py tests/test_ending_source_contract_inventory.py tests/test_systemic_coalition_contracts.py tests/test_guild_influence_contract.py
       - name: Runtime state persistence tests
         run: python -m pytest -q tests/test_runtime_state.py
