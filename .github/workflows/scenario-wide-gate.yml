@@ -1,0 +1,32 @@
+name: Choice Kingdom Scenario-Wide Source Contract Gate
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/MACHINE_CANONICAL_GRAPH_01.json'
+      - 'docs/MACHINE_CAUSAL_REACHABILITY_01.json'
+      - 'docs/MACHINE_REPLAY_CONTRACT_01.json'
+      - 'docs/MACHINE_DELAY_CONTRACT_01.json'
+      - 'tools/validate_scenario_wide_gate.py'
+      - '.github/workflows/scenario-wide-gate.yml'
+  workflow_dispatch:
+
+jobs:
+  scenario-wide-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run scenario-wide source/contract gate
+        run: python tools/validate_scenario_wide_gate.py
+      - name: Assert runtime promotion remains blocked
+        run: |
+          python - <<'PY'
+          import json
+          p='docs/MACHINE_SCENARIO_WIDE_GATE_01.json'
+          d=json.load(open(p,encoding='utf-8'))
+          assert d['source_contract_gate'] == 'PASS'
+          assert d['decision_engine_promotion_authorized'] is False
+          assert all(v is False for v in d['runtime_blocks'].values())
+          print('PASS: source/contract gate GREEN; runtime promotion remains blocked')
+          PY
