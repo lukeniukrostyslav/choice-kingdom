@@ -104,6 +104,20 @@ def test_machine_authored_priority_covers_every_positive_pair():
         assert winner in {left, right}
 
 
+@pytest.mark.parametrize(
+    "higher,lower",
+    [
+        (higher, lower)
+        for index, higher in enumerate(POSITIVE)
+        for lower in POSITIVE[index + 1 :]
+    ],
+)
+def test_every_positive_pair_resolves_to_the_authored_higher_priority(higher, lower):
+    state = terminal_state()
+    result = EndingResolver().resolve(state, qualified_endings=[higher, lower])
+    assert result.ending_id == higher
+
+
 def test_machine_authored_priority_is_used_by_default():
     state = terminal_state()
     result = EndingResolver().resolve(
@@ -135,6 +149,26 @@ def test_quiet_throne_wins_only_when_no_positive_ending_qualifies():
         explicit_withdrawal=True,
     )
     assert positive.ending_id == END_GOLDEN_COMPACT
+
+
+def test_quiet_throne_is_not_allowed_to_enter_positive_pairwise_priority():
+    source = load_precedence_source()
+    positive_pairs = {frozenset(pair) for pair in source["pairwise_coverage"]}
+    for positive in POSITIVE:
+        assert frozenset((END_QUIET_THRONE, positive)) in positive_pairs
+    assert all(left != END_QUIET_THRONE and right != END_QUIET_THRONE for left, right in AUTHORED_PRIORITY)
+
+
+def test_broken_diadem_is_a_failure_stage_not_a_positive_priority_entry():
+    source = load_precedence_source()
+    assert "Broken Diadem" not in source["positive_priority"]
+    state = terminal_state()
+    result = EndingResolver().resolve(
+        state,
+        qualified_endings=[END_SECOND_FOUNDER, END_PEOPLES_CHARTER],
+        collapse_failure=True,
+    )
+    assert result.ending_id == END_BROKEN_DIADEM
 
 
 def test_unknown_ending_id_cannot_enter_resolver():
