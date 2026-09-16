@@ -1,0 +1,32 @@
+name: Choice Kingdom S02 Choice State Transition Closure
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/EVENT_CATALOG.md'
+      - 'docs/EVENT_CATALOG_*.md'
+      - 'docs/MACHINE_CANONICAL_GRAPH_01.json'
+      - 'docs/S02_CARDINALITY_CONTRACT.md'
+      - 'docs/S02_CHOICE_STATE_TRANSITION_CLOSURE_01.md'
+      - 'tools/validate_choice_transition_semantics.py'
+      - 'tools/validate_s02_choice_state_transition_closure.py'
+      - '.github/workflows/s02-choice-state-transition-closure.yml'
+  pull_request:
+    paths:
+      - 'docs/EVENT_CATALOG.md'
+      - 'docs/EVENT_CATALOG_*.md'
+      - 'docs/MACHINE_CANONICAL_GRAPH_01.json'
+      - 'docs/S02_CARDINALITY_CONTRACT.md'
+      - 'docs/S02_CHOICE_STATE_TRANSITION_CLOSURE_01.md'
+      - 'tools/validate_choice_transition_semantics.py'
+      - 'tools/validate_s02_choice_state_transition_closure.py'
+      - '.github/workflows/s02-choice-state-transition-closure.yml'
+
+jobs:
+  s02-choice-state-transition:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate S02 choice to state transition closure
+        run: python tools/validate_s02_choice_state_transition_closure.py
