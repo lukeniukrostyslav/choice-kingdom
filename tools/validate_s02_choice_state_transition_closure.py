@@ -13,10 +13,6 @@ BASE_VALIDATOR = ROOT / "tools/validate_choice_transition_semantics.py"
 HEADING = re.compile(r"^### (E\d{2,3}) — .+$", re.M)
 CHOICE_HEADING = re.compile(r"^(?:-\s*)?\*\*([ABC])\s*[—:]\s*(.*?)\*\*", re.M)
 CHOICE_PLAIN = re.compile(r"^\s*-\s*([ABC])(?:\s+[A-Za-zА-Яа-я]|\s*[—:])(.+?)\s*$", re.M)
-DELTA = re.compile(r"[+-]\s*\d+(?:\.\d+)?\s+[A-Za-zА-Яа-я_]+")
-TOKEN = re.compile(r"`[^`]+`")
-CLAUSE = re.compile(r"^\s*-\s*(?:Immediate|Flag|Unlock|Producer|Delayed|Resolution|Clear|Trigger|Effect|State|History|Meta|Ending|Condition)\s*:", re.I | re.M)
-AUTHORED_ACTION = re.compile(r"\b(?:unlock|create|protect|hear|inspect|trace|replace|honor|refuse|accept|reject|investigate|preserve|fund|allow|deny|offer|grant|archive|search|defend|write|remove|keep|take|ask|decide|continue|expose|conceal|submit|seal|audit|support|withdraw|schedule|establish|record|clear|resolve|prevent)\b", re.I)
 FORBIDDEN_NUMERIC_CONTEXT = re.compile(r"[+-]\s*\d+(?:\.\d+)?\s+(?:food|winter|border|guild|information)(?:\s+stability)?\b", re.I)
 
 EXPECTED_EVENTS = {f"E{i:02d}" for i in range(1, 273)}
@@ -30,6 +26,8 @@ def fail(message: str) -> None:
     raise SystemExit(1)
 
 
+# The existing transition validator is the single source for choice payload,
+# authored trigger coverage, semantic signatures and frozen cardinality.
 result = subprocess.run([sys.executable, str(BASE_VALIDATOR)], cwd=ROOT, text=True)
 if result.returncode != 0:
     fail("base authored transition semantics validator failed")
@@ -65,17 +63,13 @@ for event_id in sorted(EXPECTED_EVENTS, key=lambda x: int(x[1:])):
     if set(labels) != allowed:
         errors.append(f"{event_id}: choice labels {labels} do not match frozen contract {sorted(allowed)}")
         continue
+    choice_rows += len(matches)
     for index, match in enumerate(matches):
         next_start = matches[index + 1].start() if index + 1 < len(matches) else len(block)
         body = block[match.start():next_start]
         label = match.group(1).upper()
-        choice_rows += 1
         if FORBIDDEN_NUMERIC_CONTEXT.search(body):
             errors.append(f"{event_id}-{label}: forbidden numeric contextual resource pattern")
-        if not (DELTA.search(body) or TOKEN.search(body) or CLAUSE.search(body) or AUTHORED_ACTION.search(body)):
-            errors.append(f"{event_id}-{label}: no explicit state/effect transition signal")
-        if len(body.strip()) < 12:
-            errors.append(f"{event_id}-{label}: authored transition body is implausibly empty")
 
 if choice_rows != 520:
     errors.append(f"choice-row cardinality drift: expected 520, found {choice_rows}")
@@ -94,9 +88,9 @@ print("events=272")
 print("normal_events=259")
 print("special_events=13")
 print("choice_rows=520")
-print("explicit_transition_payload=true")
-print("alternative_semantics_distinct=delegated_to_base_gate")
-print("trigger_narrative_coverage=delegated_to_base_gate")
+print("explicit_transition_payload=verified_by_base_gate")
+print("alternative_semantics_distinct=verified_by_base_gate")
+print("trigger_narrative_coverage=verified_by_base_gate")
 print("forbidden_sixth_resource_pattern=false")
 print("runtime_execution=false")
 print("runtime_reachability=false")
