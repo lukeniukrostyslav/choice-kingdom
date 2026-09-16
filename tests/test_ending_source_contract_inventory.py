@@ -10,6 +10,7 @@ CONTRACTS = {
     "pred.budget_reform": ROOT / "docs" / "MACHINE_BUDGET_REFORM_CONTRACT_01.json",
     "pred.final_charter_prerequisites": ROOT / "docs" / "MACHINE_FINAL_CHARTER_CONTRACT_01.json",
     "pred.constitutional_prepared_strong": ROOT / "docs" / "MACHINE_CONSTITUTIONAL_PREPARED_CONTRACT_01.json",
+    "pred.guild_influence_strong": ROOT / "docs" / "MACHINE_GUILD_INFLUENCE_CONTRACT_01.json",
 }
 
 
@@ -33,6 +34,19 @@ def test_source_closed_composites_are_not_silently_runtime_closed() -> None:
     for predicate in CONTRACTS:
         assert graph["composite_predicates"][predicate]["status"] == "SOURCE-CLOSED"
         assert graph["composite_predicates"][predicate]["runtime_verified"] is False
+
+
+def test_guild_influence_contract_has_four_distinct_authored_domains() -> None:
+    contract = load(CONTRACTS["pred.guild_influence_strong"])
+    assert contract["minimum_distinct_domains"] == 3
+    assert [d["id"] for d in contract["domains"]] == [
+        "representation",
+        "tribunal",
+        "commercial_market",
+        "qualified_logistics",
+    ]
+    assert contract["consumer_cannot_manufacture"] is True
+    assert "rel.ivo" in contract["forbidden_aliases"]
 
 
 def test_canonical_graph_keeps_known_runtime_boundaries_visible() -> None:
