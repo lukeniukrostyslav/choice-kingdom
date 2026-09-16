@@ -19,3 +19,5 @@ jobs:
         run: python tools/audit_choice_state_transitions.py
       - name: Execute authored runtime gate
         run: python -m pytest -q tests/test_authored_choice_execution.py tests/test_runtime_state.py
+      - name: Execute delayed lifecycle gate
+        run: python -m pytest -q tests/test_delayed_lifecycle_runtime.py tests/test_runtime_state.py
