@@ -35,12 +35,14 @@ function renderChoices(){
   root.classList.toggle('choice-count-3',choiceSet.length===3);
   root.setAttribute('aria-label',`${choiceSet.length} available decision${choiceSet.length===1?'':'s'}`);
   root.replaceChildren();
-  choiceSet.forEach(choice=>{
+  choiceSet.forEach((choice,index)=>{
     const button=document.createElement('button');
     button.className='choice';
     button.dataset.choice=choice.id;
+    button.dataset.index=String(index+1);
     button.type='button';
     button.setAttribute('aria-pressed','false');
+    button.setAttribute('aria-label',`${index+1}. ${choice.title}. ${choice.support}`);
     button.innerHTML=`<span class="choice-kicker">${choice.kicker}</span><strong>${choice.title}</strong><span class="choice-support">${choice.support}</span><span class="choice-state" aria-hidden="true"></span>`;
     button.addEventListener('click',()=>choose(choice.id));
     root.appendChild(button);
