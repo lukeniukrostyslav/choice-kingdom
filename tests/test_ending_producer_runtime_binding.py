@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from runtime.engine import AUTHORED_COALITION_PARTICIPANTS, DecisionEngine
+from runtime.ending_sources import EndingSourceCompiler
 from runtime.state import GameState
 
 
@@ -19,6 +20,21 @@ def test_e148_a_runtime_binding_records_only_canonical_authored_participants() -
         "amara",
         "toma",
     }
+
+
+def test_e148_runtime_participants_feed_the_coalition_predicate_without_aliases() -> None:
+    state = GameState.fresh("e148-predicate")
+    state.history.add("history.cross_faction_package")
+    DecisionEngine._apply_authored_participant_effects(state, "E148-A")
+
+    facts = EndingSourceCompiler.compile_state(state)
+    assert "pred.coalition_cooperation" in facts.predicates
+
+    state.history.add("four_way_bargain")
+    state.coalition_participants.clear()
+    state.coalition_participants.update({"commons", "guild", "houses"})
+    facts = EndingSourceCompiler.compile_state(state)
+    assert "pred.coalition_cooperation" not in facts.predicates
 
 
 def test_non_producer_choices_cannot_create_coalition_participants() -> None:
