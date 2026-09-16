@@ -23,15 +23,21 @@
       <div><span>REPUTATION</span><b id="reputation">61</b></div>
     </section>
 
-    <section class="event" aria-live="polite">
+    <section class="event" aria-labelledby="event-title">
       <div class="scene" role="img" aria-label="A candlelit winter archive with ledgers and a worried royal clerk">
-        <div class="scene-glow" aria-hidden="true"></div><div class="scene-title">THE WINTER ARCHIVE</div>
+        <div class="scene-glow" aria-hidden="true"></div>
+        <div class="scene-title">THE WINTER ARCHIVE</div>
         <div class="scene-caption">NORTH RECORD ROOM · AFTER MIDNIGHT</div>
+      </div>
+      <div class="no-artwork-card" aria-hidden="true">
+        <span class="no-artwork-mark">✦</span>
+        <span>THE WINTER ARCHIVE</span>
+        <small>NORTH RECORD ROOM · AFTER MIDNIGHT</small>
       </div>
       <div class="event-copy">
         <p class="eyebrow">A ledger arrives without a seal.</p>
-        <h1>The Winter Ledger</h1>
-        <p class="narrative">Mara places the book before you without opening it. The figures inside do not match the Crown's accounts for the grain reserve. If the discrepancy is real, someone has been moving provisions through the winter markets before the court was meant to know.</p>
+        <h1 id="event-title">The Winter Ledger</h1>
+        <p class="narrative" id="narrative">Mara places the book before you without opening it. The figures inside do not match the Crown's accounts for the grain reserve. If the discrepancy is real, someone has been moving provisions through the winter markets before the court was meant to know.</p>
         <p class="human"><span>MARA</span> waits for your answer. She has brought no accusation—only the evidence.</p>
       </div>
 
@@ -39,9 +45,9 @@
         <span>YOUR DECISION</span>
         <small>Choose one course of action.</small>
       </div>
-      <div class="choices" id="choices" aria-label="Available decisions"></div>
+      <div class="choices" id="choices" role="group" aria-label="Available decisions" aria-busy="false"></div>
 
-      <div class="consequence" id="consequence" role="status" hidden>
+      <div class="consequence" id="consequence" role="status" aria-live="polite" hidden>
         <span class="pulse" aria-hidden="true"></span><div><small>THE CHRONICLE REMEMBERS</small><strong id="consequenceText"></strong></div>
       </div>
     </section>
@@ -54,7 +60,7 @@
       <button class="nav-item" data-panel="factions">Factions</button>
     </nav>
 
-    <section class="panel" id="panel" hidden></section>
+    <section class="panel" id="panel" aria-label="Selected chronicle section" hidden></section>
   </main>
   <script src="./app.js"></script>
 </body>
