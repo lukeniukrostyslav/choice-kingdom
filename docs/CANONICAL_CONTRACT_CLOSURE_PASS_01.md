@@ -25,7 +25,7 @@ E273–E277 are retained only as **expansion candidates** and are not part of th
 | `pred.guild_labor_tension` | OPEN in frozen scope | Expansion-candidate producer material exists outside E01–E272; it is not admitted to the frozen contract. A frozen-scope producer/consumer contract must be identified or the consumer must remain blocked. |
 | `pred.information_pressure_high` | OPEN in frozen scope | Expansion-candidate producer material exists outside E01–E272; it is not admitted to the frozen contract. Exact frozen-scope evidence and cardinality remain to be closed. |
 | `pred.guild_influence_strong` | PARTIAL | Independent domains are frozen: representation, tribunal, commercial/market, qualified logistics. E49/E144 cannot double-count. Exact producer-before-consumer machine-checkable compilation remains open. |
-| `pred.systemic_explanation_verified` | PARTIAL | Requires distinct warehouse/financial, document/language, and witness/organizational evidence IDs plus explicit convergence choice; exact authored source IDs remain to be compiled. |
+| `pred.systemic_explanation_verified` | SOURCE-CLOSED | E270-A is the frozen-scope explicit convergence producer for `systemic_explanation_convergence`, conditioned on the required distinct warehouse/financial, document/language and witness/organizational evidence families. Runtime aggregation, persistence, contradiction handling and reachability remain open. |
 | `pred.coalition_cooperation` | PARTIAL | E148-A is the authoritative cooperation-package source with named participation. Any later expansion evidence remains outside the frozen catalog. Machine-readable membership, positive-outcome compilation and collapse/invalidation semantics remain open. |
 | `pred.constitutional_prepared_strong` | PARTIAL | Frozen domains: civic=`people_charter_endorsed`; institutional=`crown_audited`/`full_crown_audit_published`; factional=`house_assembly`; military=`military_red_line`. At least three independent domains are required; full ordering/anti-double-counting remains open. |
 | `pred.budget_reform` | OPEN | Audit independence, crown audit and legislative budget lock must remain distinct; exact authored qualifying combination is not frozen. |
@@ -39,7 +39,7 @@ E273–E277 are retained only as **expansion candidates** and are not part of th
 | Replay metadata | SOURCE-BOUNDARY CLOSED | E186/E247/E248 have explicit `completed_prior_run_meta_export` boundaries and canonical `meta.replay.*` keys; runtime import/reset/reachability remains open. |
 | Ending qualification | OPEN | E61–E67 are distinct ending resolvers; independent prerequisites and precedence still require explicit contract. |
 | Route identity | CLOSED as semantic rule | Relationship values cannot substitute for explicit historical/flag/thread route identity. Exact machine-readable route producer inventory remains part of schema compilation. |
-| Evidence convergence | PARTIAL | Required evidence families are fixed conceptually; exact source IDs and convergence-choice representation still require compilation. |
+| Evidence convergence | SOURCE-CLOSED | E270-A is the authored convergence decision; it requires the three distinct evidence families before establishing `systemic_explanation_convergence`. Executable evidence aggregation and reachability remain open. |
 
 ## Hard invariants carried forward
 
@@ -64,7 +64,7 @@ The production schema remains blocked until these are resolved and reconciled ag
 - guild labor tension frozen-scope producer/consumer closure;
 - information pressure frozen-scope evidence/cardinality closure;
 - exact guild influence machine-readable domain compilation;
-- independent evidence source IDs and systemic convergence;
+- systemic explanation executable evidence aggregation, contradiction handling and reachability;
 - coalition machine-readable membership, positive outcome and collapse/invalidation semantics;
 - constitutional preparation producer ordering and anti-double-counting;
 - budget reform qualifying combination;
