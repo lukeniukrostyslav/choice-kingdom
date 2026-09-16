@@ -118,3 +118,161 @@ def test_save_load_rejects_non_canonical_coalition_participant():
     payload["coalition_participants"] = ["mara", "commons", "guild"]
     with pytest.raises(ValueError, match="non-canonical coalition participant"):
         GameState.from_snapshot(payload)
+
+
+def test_save_format_has_integrity_digest_and_is_deterministic(tmp_path):
+    state = GameState.fresh("run-digest")
+    state.flags.update({"z_flag", "a_flag"})
+    state.history.update({"E02", "E01"})
+    path = tmp_path / "save.json"
+    SaveStore.save(state, path)
+    first = path.read_text(encoding="utf-8")
+    digest = SaveStore.snapshot_digest(state)
+    payload = json.loads(first)
+    assert payload["format_version"] == 2
+    assert payload["snapshot_sha256"] == digest
+    assert SaveStore.load(path).snapshot() == state.snapshot()
+
+    SaveStore.save(state, path)
+    assert path.read_text(encoding="utf-8") == first
+    assert SaveStore.snapshot_digest(SaveStore.load(path)) == digest
+
+
+def test_save_load_continuation_is_deterministic(tmp_path):
+    from pathlib import Path
+    from runtime.engine import DecisionEngine
+
+    engine = DecisionEngine(Path(__file__).resolve().parents[1])
+    uninterrupted = GameState.fresh("deterministic")
+    checkpointed = GameState.fresh("deterministic")
+
+    engine.execute(uninterrupted, "E01", "E01-A")
+    engine.execute(checkpointed, "E01", "E01-A")
+
+    checkpoint = tmp_path / "midrun.json"
+    SaveStore.save(checkpointed, checkpoint)
+    restored = SaveStore.load(checkpoint)
+
+    engine.execute(uninterrupted, "E02", "E02-B")
+    engine.execute(restored, "E02", "E02-B")
+    assert uninterrupted.snapshot() == restored.snapshot()
+
+
+def test_corrupt_primary_save_recovers_from_previous_atomic_backup(tmp_path):
+    state = GameState.fresh("recovery")
+    path = tmp_path / "save.json"
+    SaveStore.save(state, path)
+
+    state.turn = 4
+    state.flags.add("recovery_marker")
+    SaveStore.save(state, path)
+    backup = path.with_name("save.json.bak")
+    assert backup.exists()
+
+    path.write_text("{not valid json", encoding="utf-8")
+    restored = SaveStore.load_with_recovery(path)
+    assert restored.turn == 1
+    assert "recovery_marker" not in restored.flags
+
+
+def test_corrupt_save_without_backup_is_rejected(tmp_path):
+    path = tmp_path / "save.json"
+    path.write_text(
+        json.dumps({
+            "format_version": 2,
+            "snapshot": GameState.fresh("corrupt").snapshot(),
+            "snapshot_sha256": "0" * 64,
+        }),
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="integrity check failed"):
+        SaveStore.load_with_recovery(path)
+
+
+def test_save_load_preserves_complete_runtime_lifecycle_state(tmp_path):
+    state = GameState.fresh("complete-state")
+    state.turn = 42
+    state.current_event_id = "E272"
+    state.resources.update({"gold": 12, "trust": 87, "security": 41, "power": 66, "reputation": 73})
+    state.relationships.update({"mara": 2, "rowan": -1, "seris": 3, "ivo": 0, "amara": 1, "toma": -2})
+    state.flags.update({"flag.alpha", "flag.beta"})
+    state.history.update({"E01", "E148", "history.alpha"})
+    state.threads.update({"thread.border", "thread.ivo_market"})
+    state.schedule(PendingDelay(
+        "delay.complete.pending", "E18", "E18-B", "E243", 45, priority=2
+    ))
+    state.pending_delays["delay.complete.resolved"] = PendingDelay(
+        "delay.complete.resolved", "E20", "E20-A", "E245", 20, status="resolved"
+    )
+    state.activated_delayed_targets.add("E243")
+    state.record_replay_meta("meta.replay.warehouse_investigation_unlock")
+    state.record_ending_evidence("warehouse_or_financial")
+    state.record_coalition_participant("mara")
+    state.set_coalition_blocker("blocker.trade", True)
+    state.set_mandatory_crisis_blocker("blocker.border", False)
+    state.terminal = True
+    state.set_ending_identity("END_STEWARD")
+
+    path = tmp_path / "complete.json"
+    SaveStore.save(state, path)
+    restored = SaveStore.load(path)
+    assert restored.snapshot() == state.snapshot()
+    assert SaveStore.snapshot_digest(restored) == SaveStore.snapshot_digest(state)
+
+
+def test_save_load_determinism_survives_delayed_target_execution(tmp_path):
+    from pathlib import Path
+    from runtime.engine import DecisionEngine
+
+    engine = DecisionEngine(Path(__file__).resolve().parents[1])
+    def prepared():
+        state = GameState.fresh("delay-deterministic")
+        state.resources.update({name: 100 for name in state.resources})
+        state.relationships.update({name: 3 for name in state.relationships})
+        state.flags.update({"merchant_charter", "competitive_market"})
+        state.current_event_id = "E18"
+        engine.execute(state, "E18", "E18-B")
+        return state
+
+    uninterrupted = prepared()
+    checkpointed = prepared()
+    path = tmp_path / "delayed.json"
+    SaveStore.save(checkpointed, path)
+    checkpointed = SaveStore.load(path)
+
+    key = "delay.E18B.E243.old_bridge"
+    for state in (uninterrupted, checkpointed):
+        state.turn = state.pending_delays[key].scheduled_turn
+        engine.execute_delayed_target(state, key, "E243-A")
+
+    assert uninterrupted.snapshot() == checkpointed.snapshot()
+
+
+def test_snapshot_validation_rejects_non_canonical_runtime_shapes():
+    payload = GameState.fresh("shape").snapshot()
+    payload["resources"]["unknown"] = 1
+    with pytest.raises(ValueError, match="non-canonical resource set"):
+        GameState.from_snapshot(payload)
+
+    payload = GameState.fresh("shape").snapshot()
+    payload["turn"] = 0
+    with pytest.raises(ValueError, match="invalid turn"):
+        GameState.from_snapshot(payload)
+
+    payload = GameState.fresh("shape").snapshot()
+    payload["current_event_id"] = "E999"
+    with pytest.raises(ValueError, match="excluded or non-production event"):
+        GameState.from_snapshot(payload)
+
+    payload = GameState.fresh("shape").snapshot()
+    payload["pending_delays"] = {
+        "outer-key": {
+            "exactly_once_key": "inner-key",
+            "source_event_id": "E18",
+            "source_choice_id": "E18-B",
+            "resolution_target": "E243",
+            "scheduled_turn": 4,
+        }
+    }
+    with pytest.raises(ValueError, match="delay key mismatch"):
+        GameState.from_snapshot(payload)

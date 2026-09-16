@@ -1,7 +1,10 @@
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
+import hashlib
 import json
+import os
+import re
 from pathlib import Path
 from typing import Any
 
@@ -17,6 +20,8 @@ REPLAY_META_KEYS = frozenset({
     "meta.replay.callback_forgotten_favor",
 })
 REPLAY_EXPORT_SCHEMA = 1
+RUNTIME_SAVE_FORMAT_VERSION = 2
+RUNTIME_SNAPSHOT_SCHEMA = 1
 ENDING_IDS = frozenset({
     "END_STEWARD",
     "END_IRON_CROWN",
@@ -227,7 +232,7 @@ class GameState:
 
     def snapshot(self) -> dict[str, Any]:
         return {
-            "schema_version": 1,
+            "schema_version": RUNTIME_SNAPSHOT_SCHEMA,
             "run_id": self.run_id,
             "turn": self.turn,
             "current_event_id": self.current_event_id,
@@ -249,10 +254,40 @@ class GameState:
 
     @classmethod
     def from_snapshot(cls, payload: dict[str, Any]) -> "GameState":
-        if payload.get("schema_version") != 1:
+        if not isinstance(payload, dict):
+            raise ValueError("runtime snapshot must be an object")
+        if payload.get("schema_version") != RUNTIME_SNAPSHOT_SCHEMA:
             raise ValueError("unsupported runtime save schema")
-        if payload.get("current_event_id") in EXCLUDED_EVENTS:
-            raise ValueError("excluded event cannot be restored as current production event")
+        run_id = payload.get("run_id")
+        if not isinstance(run_id, str) or not run_id:
+            raise ValueError("runtime snapshot is missing run identity")
+        turn = payload.get("turn")
+        if not isinstance(turn, int) or isinstance(turn, bool) or turn < 1:
+            raise ValueError("runtime snapshot has invalid turn")
+        current_event = payload.get("current_event_id")
+        if not isinstance(current_event, str) or not re.fullmatch(r"E\d{2,3}", current_event):
+            raise ValueError("runtime snapshot has invalid current event identity")
+        if current_event in EXCLUDED_EVENTS or not (
+            PRODUCTION_FIRST <= int(current_event[1:]) <= PRODUCTION_LAST
+        ):
+            raise ValueError("excluded or non-production event cannot be restored")
+        resources = payload.get("resources")
+        relationships = payload.get("relationships")
+        if not isinstance(resources, dict) or set(resources) != set(RESOURCES):
+            raise ValueError("runtime snapshot has non-canonical resource set")
+        if not all(isinstance(v, int) and not isinstance(v, bool) and 0 <= v <= 100 for v in resources.values()):
+            raise ValueError("runtime snapshot has invalid resource value")
+        if not isinstance(relationships, dict) or set(relationships) != set(RELATIONSHIPS):
+            raise ValueError("runtime snapshot has non-canonical relationship set")
+        if not all(isinstance(v, int) and not isinstance(v, bool) and -3 <= v <= 3 for v in relationships.values()):
+            raise ValueError("runtime snapshot has invalid relationship value")
+        pending_payload = payload.get("pending_delays", {})
+        if not isinstance(pending_payload, dict):
+            raise ValueError("runtime snapshot has invalid pending delay map")
+        if any(key != value.get("exactly_once_key") for key, value in pending_payload.items() if isinstance(value, dict)):
+            raise ValueError("runtime snapshot delay key mismatch")
+        if any(not isinstance(value, dict) for value in pending_payload.values()):
+            raise ValueError("runtime snapshot has invalid pending delay record")
         imported_meta = set(payload.get("imported_meta_keys", []))
         if not imported_meta.issubset(REPLAY_META_KEYS):
             raise ValueError("snapshot contains non-canonical replay meta key")
@@ -267,13 +302,13 @@ class GameState:
             raise ValueError("snapshot contains non-canonical ending identity")
         if ending_identity is not None and payload.get("terminal") is not True:
             raise ValueError("non-terminal snapshot cannot contain ending identity")
-        pending = {key: PendingDelay(**value) for key, value in payload.get("pending_delays", {}).items()}
+        pending = {key: PendingDelay(**value) for key, value in pending_payload.items()}
         return cls(
-            run_id=str(payload["run_id"]),
-            turn=int(payload["turn"]),
-            current_event_id=str(payload["current_event_id"]),
-            resources={key: int(value) for key, value in payload["resources"].items()},
-            relationships={key: int(value) for key, value in payload["relationships"].items()},
+            run_id=run_id,
+            turn=turn,
+            current_event_id=current_event,
+            resources={key: int(value) for key, value in resources.items()},
+            relationships={key: int(value) for key, value in relationships.items()},
             flags=set(payload.get("flags", [])),
             history=set(payload.get("history", [])),
             threads=set(payload.get("threads", [])),
@@ -290,13 +325,72 @@ class GameState:
 
 
 class SaveStore:
-    """Versioned local JSON persistence boundary for headless runtime tests."""
+    """Versioned local persistence with atomic replacement and integrity checking.
+
+    The on-disk format is an envelope around the canonical snapshot. Legacy raw
+    schema-v1 snapshots remain readable so existing saves are not stranded.
+    """
 
     @staticmethod
-    def save(state: GameState, path: Path) -> None:
+    def _digest(snapshot: dict[str, Any]) -> str:
+        canonical = json.dumps(
+            snapshot, separators=(",", ":"), sort_keys=True, ensure_ascii=False
+        ).encode("utf-8")
+        return hashlib.sha256(canonical).hexdigest()
+
+    @classmethod
+    def snapshot_digest(cls, state: GameState) -> str:
+        return cls._digest(state.snapshot())
+
+    @classmethod
+    def save(cls, state: GameState, path: Path) -> None:
+        path = Path(path)
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(json.dumps(state.snapshot(), indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        snapshot = state.snapshot()
+        envelope = {
+            "format_version": RUNTIME_SAVE_FORMAT_VERSION,
+            "snapshot": snapshot,
+            "snapshot_sha256": cls._digest(snapshot),
+        }
+        payload = json.dumps(
+            envelope, indent=2, sort_keys=True, ensure_ascii=False
+        ) + "\n"
+        temp = path.with_name(f".{path.name}.tmp")
+        backup = path.with_name(f"{path.name}.bak")
+        temp.write_text(payload, encoding="utf-8")
+        with temp.open("rb") as handle:
+            os.fsync(handle.fileno())
+        if path.exists():
+            os.replace(path, backup)
+        os.replace(temp, path)
 
-    @staticmethod
-    def load(path: Path) -> GameState:
-        return GameState.from_snapshot(json.loads(path.read_text(encoding="utf-8")))
+    @classmethod
+    def _read(cls, path: Path) -> GameState:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        # Legacy raw snapshot compatibility.
+        if isinstance(payload, dict) and "snapshot" not in payload:
+            return GameState.from_snapshot(payload)
+        if not isinstance(payload, dict) or payload.get("format_version") != RUNTIME_SAVE_FORMAT_VERSION:
+            raise ValueError("unsupported runtime save format")
+        snapshot = payload.get("snapshot")
+        if not isinstance(snapshot, dict):
+            raise ValueError("runtime save is missing snapshot")
+        expected = payload.get("snapshot_sha256")
+        if not isinstance(expected, str) or expected != cls._digest(snapshot):
+            raise ValueError("runtime save integrity check failed")
+        return GameState.from_snapshot(snapshot)
+
+    @classmethod
+    def load(cls, path: Path) -> GameState:
+        return cls._read(Path(path))
+
+    @classmethod
+    def load_with_recovery(cls, path: Path) -> GameState:
+        path = Path(path)
+        try:
+            return cls._read(path)
+        except (OSError, ValueError, json.JSONDecodeError) as primary_error:
+            backup = path.with_name(f"{path.name}.bak")
+            if not backup.exists():
+                raise primary_error
+            return cls._read(backup)

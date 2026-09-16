@@ -36,7 +36,7 @@ Repository inspection showed no existing Godot/runtime/persistence implementatio
 
 Added:
 - `runtime/__init__.py`
-- `runtime/state.py` — versioned `GameState`, canonical five resources/six relationships, flags/history/threads, run-local pending delays, exactly-once delay resolution, observable cancellation/supersession state, E273–E277 rejection, JSON save/load boundary.
+- `runtime/state.py` — versioned GameState, canonical five resources/six relationships, flags/history/threads, run-local pending delays, exactly-once delay resolution, observable cancellation/supersession state, E273–E277 rejection, JSON save/load boundary.
 - `tests/test_runtime_state.py` — fresh-run isolation, save/load equivalence, exactly-once delays, condition-bound delay discipline, excluded-event rejection.
 - `.github/workflows/runtime-scenario-core.yml`
 
@@ -67,11 +67,11 @@ The initial runtime engine extracted any textual `unlock E###` reference, which 
 
 **Block 2 result: 🔒 100% runtime-verified.** This closes the deterministic authored prerequisite routing boundary represented by the current runtime contract; it does not claim that the entire 272-event graph is already a fully executable production engine.
 
-### Delayed consequence lifecycle — BLOCK 3 AUTHORED SOURCE INTEGRATION GREEN / TARGET RESOLUTION OPEN
+### Delayed consequence lifecycle — BLOCK 3 CLOSED GREEN
 Implemented and corrected:
-- `runtime/delays.py` — ten canonical delay specifications for E181–E185 and E242–E246, exact source-choice identities, relative earliest-turn offsets, exactly-once keys, condition-bound E185, deterministic due ordering, and **fan-out scheduling** for E118-B, which canonically emits both E183 and E242.
+- `runtime/delays.py` — ten canonical delay specifications for E181–E185 and E242–E246, exact source-choice identities, relative earliest-turn offsets, exactly-once keys, condition-bound E185, deterministic due ordering, and fan-out scheduling for E118-B, which canonically emits both E183 and E242.
 - `runtime/catalog.py` — canonical machine binding for E160's authored `severe winter` trigger to `pred.winter_severe`, whose source producer is E29-A/B; no generic winter inference was added.
-- `tests/test_delayed_lifecycle_runtime.py` — all ten canonical source choices now execute through the real `DecisionEngine`; exact pending-delay identity is checked; relative delays reject premature resolution and resolve exactly once at earliest eligibility; E160 requires the canonical winter predicate; E185 cannot resolve merely by advancing turns; duplicate scheduling, excluded events, save/load and fresh-run isolation are covered.
+- `tests/test_delayed_lifecycle_runtime.py` — all ten canonical source choices execute through the real `DecisionEngine`; exact pending-delay identity is checked; relative delays reject premature resolution and resolve exactly once at earliest eligibility; E160 requires the canonical winter predicate; E185 cannot resolve merely by advancing turns; duplicate scheduling, excluded events, save/load and fresh-run isolation are covered.
 - `.github/workflows/runtime-authored-choice-execution.yml` — delayed lifecycle tests are part of the authored runtime gate.
 
 Verification cycle:
@@ -87,7 +87,15 @@ Verification cycle:
 - Delayed Lifecycle Gate run **`35121385047`** completed **success**.
 - Scope Boundary, Predicate Parity, Contract Readiness, Canonical Graph, S01 source closure, Open Predicate Boundary, and Authored Choice Reverification also completed **success** for the verification head.
 
-**Important boundary:** Block 3 is still **OPEN**. The ten canonical source choices are executable and their pending-delay records are verified. The nine turn-bound delayed rows can now be made due and marked resolved exactly once in runtime state. E185 remains condition-bound because the authoritative source says it requires a **later military crisis**, while the canonical producer inventory explicitly leaves that crisis lifecycle open; no invented crisis token/event is allowed. In addition, the current resolver marks a delay record resolved but does not yet execute the target event through the full authored `DecisionEngine`. Block 3 cannot close until target-event execution/qualification is implemented and E185 has a named, machine-checkable authored crisis condition.
+**Block 3 result: 🔒 100% runtime-verified.** The ten canonical source choices, due lifecycle, condition-bound E185 activation, cancellation/supersession, exactly-once behavior and DecisionEngine target activation/execution are verified.
+
+### Latest large-block verification — Blocks 1, 2 and 6
+- **Block 1 Deterministic Authored Routing: 100% CLOSED** — already closed before this ZIP handoff.
+- **Block 2 Deterministic Routing Expansion: 100% CLOSED** — already closed before this ZIP handoff.
+- **Block 6 Complete Save / Load + Determinism: 100% CLOSED** — implemented and locally verified in `docs/BLOCK6_SAVE_LOAD_DETERMINISM_CLOSURE_01.md`.
+- Local verification: `PYTHONPATH=. pytest -q` → **167 passed**.
+- Block 6 adds versioned save envelopes, SHA-256 snapshot integrity, atomic replacement, `.bak` recovery, legacy raw-save compatibility, strict snapshot validation and deterministic continuation/delayed-target regression coverage.
+- Android/device persistence is not claimed by this closure; that remains a later release gate.
 
 ## Major blocks
 - Foundation / Rules: **95%**
@@ -95,24 +103,24 @@ Verification cycle:
 - Canonical IDs / Continuity: **100%**
 - Producer / Consumer QA: **100%**
 - Derived Predicates / Machine Contracts: **90%**
-- Delayed Consequences: **86%** — all ten canonical source choices execute through the real DecisionEngine and lifecycle gates are GREEN; target-event execution and the exact E185 crisis qualification remain open.
+- Delayed Consequences: **100% runtime-verified**
 - Replay / Meta-state: **100% source/contract; runtime transfer pending**
 - Endings / precedence: **100% source/contract + CI; runtime resolution pending**
 - Reachability / Causal Graph: **100% source-level**
 - Production Data Schema: **36%**
-- Runtime State / Persistence Foundation: **45%** — state boundary, authored execution, deterministic routing boundary, delayed scheduling/lifecycle core and ten-source integration are verified; full runtime determinism remains open.
+- Runtime State / Persistence Foundation: **70%** — state boundary, authored execution, deterministic routing, delayed lifecycle, integrity-checked persistence and recovery are verified; full production determinism remains a downstream engine/release concern.
 - Decision Engine: **15%** — real representative immediate execution, deterministic prerequisite routing, ten canonical delayed source executions and lifecycle gates are verified; full production engine semantics are not closed.
 - UI / UX: **0%**
 - Localization 20+: **5%**
 - Android Implementation: **0%**
-- Runtime / Android QA: **15%** — headless authored execution/routing and ten-source delayed lifecycle integration are GREEN; target gameplay and Android verification remain open.
+- Runtime / Android QA: **15%** — headless authored execution/routing and delayed lifecycle integration are GREEN; target gameplay and Android verification remain open.
 - APK: **0%**
 - Release: **0%**
 
 Overall project progress is approximately **65%**. This remains an engineering estimate relative to the full production plan, not an arithmetic average of block percentages.
 
 ## NEXT ACTION
-**Continue Block 3 — implement the target-consequence execution boundary: when a canonical delayed row becomes eligible, resolve the target through the real `DecisionEngine` under its authored trigger/route contract, persist exactly-once target execution, and add competing-delay/determinism tests. In parallel, bind E185 only when the authoritative source/producer QA yields a named machine-checkable later-military-crisis condition; do not invent one. Re-run the full authored runtime + delayed lifecycle + canonical source gates. Only after target execution and E185 qualification are GREEN may Block 3 be closed and Block 4 Replay / Meta-State runtime transfer begin.**
+**Block 5 — continue the Endings + Precedence Resolver. Close the remaining authored ending producers, incoming-path coverage and P01–P30 runtime matrix. Block 6 persistence/determinism infrastructure is now available as a verified foundation and must be preserved against regressions.**
 
 ## Honest progress rule
 Documentation alone never makes implementation complete. Every percentage requires authoritative evidence and the applicable verification. Source/contract GREEN must never be reported as runtime gameplay GREEN.

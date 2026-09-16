@@ -1,0 +1,24 @@
+name: Choice Kingdom Save Load Determinism
+
+on:
+  push:
+    paths:
+      - "runtime/**"
+      - "tests/**"
+      - ".github/workflows/save-load-determinism.yml"
+  pull_request:
+    paths:
+      - "runtime/**"
+      - "tests/**"
+      - ".github/workflows/save-load-determinism.yml"
+
+jobs:
+  save-load-determinism:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: python -m pip install --upgrade pip pytest
+      - run: PYTHONPATH=. pytest -q tests/test_runtime_state.py tests/test_delayed_lifecycle_runtime.py tests/test_delayed_target_execution.py tests/test_replay_meta_runtime.py tests/test_ending_resolver.py tests/test_ending_sources_runtime.py
