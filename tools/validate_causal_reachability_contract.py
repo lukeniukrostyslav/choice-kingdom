@@ -26,6 +26,8 @@ OUT = ROOT / "docs" / "MACHINE_CAUSAL_REACHABILITY_01.json"
 TOKEN = re.compile(r"\bE(?:[1-9][0-9]{2}|[1-9][0-9]|0[1-9])(?:-[A-Z])?\b")
 CHAIN = re.compile(r"`([^`]*->[^`]*)`")
 COVERAGE = re.compile(r"^-\s+(E(?:[1-9][0-9]{2}|[1-9][0-9]|0[1-9]))\s+—\s+coverage declaration only\s*$")
+EXPECTED_CAUSAL_EDGE_COUNT = 305
+EXPECTED_CAUSAL_NODE_COUNT = 221
 
 
 def canon(value: str) -> str:
@@ -71,8 +73,6 @@ def main() -> int:
         if event not in events:
             errors.append(f"out-of-scope coverage declaration: {event}")
 
-    # S09 establishes node parity. S07 requires each event to be either part
-    # of an explicit causal edge or explicitly classified in the graph.
     edge_events = {event for edge in edges for event in edge}
     missing_classification = sorted(events - edge_events - coverage, key=key)
     if missing_classification:
@@ -81,7 +81,15 @@ def main() -> int:
             f"coverage classification: {', '.join(missing_classification)}"
         )
 
-    # Structural roots are causal nodes without inbound causal edges.
+    if len(edges) != EXPECTED_CAUSAL_EDGE_COUNT:
+        errors.append(
+            f"causal edge cardinality drift: expected {EXPECTED_CAUSAL_EDGE_COUNT}, got {len(edges)}"
+        )
+    if len(edge_events) != EXPECTED_CAUSAL_NODE_COUNT:
+        errors.append(
+            f"causal node cardinality drift: expected {EXPECTED_CAUSAL_NODE_COUNT}, got {len(edge_events)}"
+        )
+
     causal_nodes = edge_events
     roots = sorted((e for e in causal_nodes if not inbound[e]), key=key)
     reachable = set(roots)
@@ -100,8 +108,6 @@ def main() -> int:
             + ", ".join(unreachable_causal)
         )
 
-    # Detect cycles for visibility, but do not reject them. Cycles are
-    # structural feedback candidates and remain distinct from runtime loops.
     index = 0
     indices: dict[str, int] = {}
     lowlink: dict[str, int] = {}
@@ -142,11 +148,13 @@ def main() -> int:
     cyclic_components.sort(key=lambda component: key(component[0]))
 
     report = {
-        "schema_version": "1.1",
+        "schema_version": "1.2",
         "scope": "E01-E272",
         "excluded_events": sorted(excluded, key=key),
         "causal_edge_count": len(edges),
+        "expected_causal_edge_count": EXPECTED_CAUSAL_EDGE_COUNT,
         "causal_node_count": len(causal_nodes),
+        "expected_causal_node_count": EXPECTED_CAUSAL_NODE_COUNT,
         "structural_root_count": len(roots),
         "structural_roots": roots,
         "causal_nodes_reachable_from_structural_root": len(reachable),
