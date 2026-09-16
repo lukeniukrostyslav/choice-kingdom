@@ -11,6 +11,10 @@ jobs:
       - uses: actions/checkout@v4
       - name: Validate delayed identity and lifecycle boundary
         run: python3 tools/validate_delayed_lifecycle_gate.py
+      - name: Install test runner
+        run: python3 -m pip install --upgrade pytest
+      - name: Execute delayed lifecycle runtime tests
+        run: python3 -m pytest -q tests/test_delayed_lifecycle_runtime.py tests/test_runtime_state.py
       - name: Upload delayed lifecycle ledger
         uses: actions/upload-artifact@v4
         with:
