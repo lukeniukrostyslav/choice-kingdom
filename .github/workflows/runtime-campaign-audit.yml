@@ -1,0 +1,31 @@
+name: Runtime Campaign Audit
+
+on:
+  push:
+    paths:
+      - 'runtime/**'
+      - 'tools/audit_runtime_campaign.py'
+      - 'tests/test_runtime_campaign_audit.py'
+      - 'docs/MACHINE_CANONICAL_GRAPH_01.json'
+      - 'docs/MACHINE_PRODUCTION_CATALOG_01.json'
+      - 'docs/EVENT_CATALOG*.md'
+  pull_request:
+    paths:
+      - 'runtime/**'
+      - 'tools/audit_runtime_campaign.py'
+      - 'tests/test_runtime_campaign_audit.py'
+      - 'docs/MACHINE_CANONICAL_GRAPH_01.json'
+      - 'docs/MACHINE_PRODUCTION_CATALOG_01.json'
+      - 'docs/EVENT_CATALOG*.md'
+
+jobs:
+  campaign-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --upgrade pip pytest
+      - run: python tools/audit_runtime_campaign.py
+      - run: python -m pytest -q tests/test_runtime_campaign_audit.py
