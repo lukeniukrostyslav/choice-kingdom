@@ -203,3 +203,24 @@ def test_canonical_expansion_choice_rows_for_delayed_sources_are_present():
     for event_id, choice_ids in expected.items():
         actual = tuple(choice.choice_id for choice in engine.event(event_id).choices)
         assert actual == choice_ids
+
+
+def test_structured_or_trigger_uses_known_authored_branch_without_guessing_opaque_branch():
+    engine = DecisionEngine(ROOT)
+    state = GameState.fresh("structured-or")
+    state.flags.add("court_first")
+    assert engine.catalog.trigger_satisfied("E06", state) is True
+
+    state = GameState.fresh("structured-or-numeric")
+    state.resources["trust"] = 59
+    assert engine.catalog.trigger_satisfied("E12", state) is True
+
+
+def test_structured_and_trigger_requires_all_known_atoms():
+    engine = DecisionEngine(ROOT)
+    state = GameState.fresh("structured-and")
+    state.relationships["mara"] = 1
+    state.flags.add("decree_investigation")
+    assert engine.catalog.trigger_satisfied("E09", state) is True
+    state.flags.clear()
+    assert engine.catalog.trigger_satisfied("E09", state) is False
