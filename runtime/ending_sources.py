@@ -68,6 +68,24 @@ class EndingSourceCompiler:
         ):
             predicates.add("pred.coalition_cooperation")
 
+        # Guild influence requires three distinct authored domains. Relationship
+        # values and generic guild history are intentionally not accepted as domains.
+        guild_domains = {
+            "representation" if "history.guild_representation" in history_set else None,
+            "tribunal" if "guild_tribunal_independent" in flags_set else None,
+            "commercial_market" if {"audited_monopoly", "merchant_charter"} & flags_set else None,
+            "qualified_logistics"
+            if (
+                "history.guild_logistics_cooperation" in history_set
+                and "guild_neutral_inspectors" in flags_set
+                and "guild_logistics_immunity_risk" not in flags_set
+            )
+            else None,
+        }
+        guild_domains.discard(None)
+        if len(guild_domains) >= 3:
+            predicates.add("pred.guild_influence_strong")
+
         charter_upstream = {
             "people_charter_endorsed" in flags_set,
             bool({"crown_audited", "full_crown_audit_published"} & flags_set),
