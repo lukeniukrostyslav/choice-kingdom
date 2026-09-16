@@ -28,7 +28,7 @@ E273–E277 are retained only as **expansion candidates** and are not part of th
 | `pred.systemic_explanation_verified` | SOURCE-CLOSED | E270-A is the frozen-scope explicit convergence producer for `systemic_explanation_convergence`, conditioned on the required distinct warehouse/financial, document/language and witness/organizational evidence families. Runtime aggregation, persistence, contradiction handling and reachability remain open. |
 | `pred.coalition_cooperation` | PARTIAL | E148-A is the authoritative cooperation-package source with named participation. Any later expansion evidence remains outside the frozen catalog. Machine-readable membership, positive-outcome compilation and collapse/invalidation semantics remain open. |
 | `pred.constitutional_prepared_strong` | PARTIAL | Frozen domains: civic=`people_charter_endorsed`; institutional=`crown_audited`/`full_crown_audit_published`; factional=`house_assembly`; military=`military_red_line`. At least three independent domains are required; full ordering/anti-double-counting remains open. |
-| `pred.budget_reform` | OPEN | Audit independence, crown audit and legislative budget lock must remain distinct; exact authored qualifying combination is not frozen. |
+| `pred.budget_reform` | PARTIAL | Source contract is now machine-frozen: E142-A audit independence + E154-A Crown audit + E198-A legislative budget lock. E155 is downstream only; negative branches are explicit. Ordering, reachability, save/replay preservation and contradiction/cycle checks remain open. |
 | `thread.military_constitutional` | STRONG | E199-A provides explicit constitutional army-oath evidence; final machine-readable activation compilation remains open. |
 | `thread.coalition` | STRONG | E148-A provides authored cross-faction package and participation evidence; exact immutable membership/package representation remains open. |
 | `thread.amara_civic` | PARTIAL | Multiple authored Amara choices exist; one explicit route activation contract remains necessary. |
@@ -67,7 +67,7 @@ The production schema remains blocked until these are resolved and reconciled ag
 - systemic explanation executable evidence aggregation, contradiction handling and reachability;
 - coalition machine-readable membership, positive outcome and collapse/invalidation semantics;
 - constitutional preparation producer ordering and anti-double-counting;
-- budget reform qualifying combination;
+- budget reform producer-before-consumer ordering, reachability, preservation and contradiction/cycle checks;
 - final charter prerequisite closure;
 - delayed consequence source identity/timing/cancellation/exactly-once extraction;
 - replay runtime import/reset/reachability verification;
