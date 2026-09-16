@@ -27,8 +27,6 @@ def test_e01_a_executes_authored_immediate_state_transition():
     assert "open_petition_hall" in state.flags
     assert "E01" in state.history
     assert result.event_id == "E01"
-    # E01-A has only a delayed unlock in the authored source; it must not become
-    # an immediate next-event edge.
     assert result.next_event_ids == ()
 
 
@@ -41,6 +39,32 @@ def test_e01_b_does_not_leak_delayed_unlock_into_immediate_routing():
     assert state.relationships["seris"] == 1
     assert "court_first" in state.flags
     assert result.next_event_ids == ()
+
+
+def test_core_spine_routes_deterministically_through_explicit_prerequisite():
+    engine = DecisionEngine(ROOT)
+    state = GameState.fresh("run-core-spine")
+
+    engine.execute(state, "E01", "E01-A")
+    assert engine.catalog.trigger_satisfied("E02", state)
+    assert "E03" not in {event.event_id for event in engine.available(state)}
+
+    engine.execute(state, "E02", "E02-B")
+    assert "E02" in state.history
+    assert engine.catalog.trigger_satisfied("E02", state) is False
+
+
+def test_fresh_runs_are_isolated_and_repeat_the_same_authored_transition():
+    engine = DecisionEngine(ROOT)
+    first = GameState.fresh("repeat-a")
+    second = GameState.fresh("repeat-b")
+
+    first_result = engine.execute(first, "E01", "E01-A")
+    second_result = engine.execute(second, "E01", "E01-A")
+
+    assert first.snapshot() == second.snapshot() | {"run_id": "repeat-a"}
+    assert first_result.state_snapshot["resources"] == second_result.state_snapshot["resources"]
+    assert first_result.state_snapshot["flags"] == second_result.state_snapshot["flags"]
 
 
 def test_e51_c_executes_three_way_authored_choice_without_dropping_choice_c():
@@ -68,8 +92,6 @@ def test_e108_c_is_loaded_as_authored_even_where_source_uses_shorthand_effects()
     state = GameState.fresh("run-e108-c")
     state.turn = 10
     engine.execute(state, "E108", "E108-C")
-    # No numeric value is invented for the shorthand source expression; the authored
-    # choice itself is still recorded as the executed history transition.
     assert "E108" in state.history
 
 
