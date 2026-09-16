@@ -16,6 +16,7 @@ CANONICAL_COALITION_PARTICIPANTS = frozenset({
     "toma",
 })
 COALITION_MIN_DISTINCT_PARTICIPANTS = 3
+COALITION_POSITIVE_OUTCOME_MARKER = "coalition_candidate_package"
 
 
 @dataclass(frozen=True)
@@ -74,7 +75,8 @@ class EndingSourceCompiler:
 
         canonical_participants = participants & CANONICAL_COALITION_PARTICIPANTS
         if (
-            "history.cross_faction_package" in history_set
+            COALITION_POSITIVE_OUTCOME_MARKER in flags_set
+            and "history.cross_faction_package" in history_set
             and len(canonical_participants) >= COALITION_MIN_DISTINCT_PARTICIPANTS
             and not coalition_blockers
         ):
