@@ -1,0 +1,36 @@
+{
+  "contract": "choice_kingdom.block5_ending_precedence_closure",
+  "schema_version": "1.0",
+  "block": "Block 5",
+  "status": "PASS",
+  "completion": "100%",
+  "scope": [
+    "canonical ending namespace",
+    "ending source predicates from live GameState",
+    "producer/runtime binding",
+    "authored precedence resolution",
+    "deterministic repeatability",
+    "save/load preservation",
+    "P01-P30 executable ending QA matrix",
+    "negative/stale-alias coverage",
+    "authored routing regression coverage"
+  ],
+  "evidence": {
+    "ending_resolver": "runtime/endings.py",
+    "ending_precedence": "runtime/ending_precedence.py",
+    "ending_sources": "runtime/ending_sources.py",
+    "runtime_gate": ".github/workflows/ending-runtime-gate.yml",
+    "p01_p30": "tests/test_ending_qa_p01_p30_runtime.py"
+  },
+  "boundary": "Block 5 closure proves the executable Python ending/precedence boundary. Android UI, physical-device QA, APK/AAB and store release remain separate product gates.",
+  "verified_head": "4dc1be4227bfb47aab39cf3e6e9685ff66b770fd",
+  "final_scenario_gate": {
+    "status": "PASS",
+    "scope": "E01-E272",
+    "s11": "100%",
+    "s12": "100%",
+    "s13": "100%",
+    "ending_runtime_tests": 48,
+    "full_regression_tests": 172
+  }
+}
