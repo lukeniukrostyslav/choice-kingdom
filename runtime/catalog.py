@@ -127,8 +127,10 @@ class AuthoredCatalog:
     def trigger_satisfied(self, event_id: str, state) -> bool:
         event = self.get(event_id)
         trigger = event.trigger
-        low = trigger.lower()
-        if not trigger or low == "first turn":
+        low = trigger.lower().strip().rstrip(".")
+        if not trigger:
+            return True
+        if low == "first turn":
             return state.turn == 1
         for name, op, raw in NUMERIC_RE.findall(trigger):
             if not _compare(state.resources[name.lower()], op, int(raw)):
