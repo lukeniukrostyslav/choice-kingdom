@@ -19,6 +19,14 @@ STATE_HINT = re.compile(r"(?:\b(?:state|flag|predicate|history|thread|meta|endin
 SPECIAL_EVENTS = {"E32", "E61", "E62", "E63", "E64", "E65", "E66", "E67", "E68", "E69", "E70", "E210", "E270"}
 SPECIAL_EVENT_HINT = re.compile(r"\b(?:Source-level producer|canonical producer|explicitly establishes|explicitly records|derived gate|Ending|Purpose|convergence-only|resolution families|convergence producer|convergence decision)\b", re.I)
 
+# Frozen S02 cardinality contract. A change here must be accompanied by an
+# authored-scope decision; silent catalog drift must fail CI rather than alter
+# the meaning of the closure gate.
+EXPECTED_EVENT_COUNT = 272
+EXPECTED_SPECIAL_EVENT_COUNT = len(SPECIAL_EVENTS)
+EXPECTED_NORMAL_EVENT_COUNT = EXPECTED_EVENT_COUNT - EXPECTED_SPECIAL_EVENT_COUNT
+EXPECTED_CHOICE_ROW_COUNT = EXPECTED_NORMAL_EVENT_COUNT * 2
+
 
 def semantic_signature(body: str) -> tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...], tuple[str, ...]]:
     return (
@@ -58,6 +66,12 @@ for source in graph["source_of_truth"]["catalog_sources"]:
 missing = sorted(EXPECTED - set(blocks), key=lambda x: int(x[1:]))
 if missing:
     fail("missing authored event blocks: " + ", ".join(missing))
+extra = sorted(set(blocks) - EXPECTED, key=lambda x: int(x[1:]))
+if extra:
+    fail("catalog contains out-of-scope event blocks: " + ", ".join(extra))
+if len(blocks) != EXPECTED_EVENT_COUNT:
+    fail(f"event cardinality drift: expected {EXPECTED_EVENT_COUNT}, found {len(blocks)}")
+
 missing_special = sorted(SPECIAL_EVENTS - set(blocks), key=lambda x: int(x[1:]))
 if missing_special:
     fail("special-event classification references missing events: " + ", ".join(missing_special))
@@ -66,6 +80,7 @@ gaps: list[str] = []
 rows = 0
 special_rows = 0
 triggered_events = 0
+normal_events = 0
 for event_id in sorted(EXPECTED, key=lambda x: int(x[1:])):
     block = blocks[event_id]
 
@@ -97,6 +112,7 @@ for event_id in sorted(EXPECTED, key=lambda x: int(x[1:])):
             special_rows += 1
         continue
 
+    normal_events += 1
     if not matches:
         gaps.append(f"{event_id}: no authored A/B choices")
         continue
@@ -122,9 +138,19 @@ for event_id in sorted(EXPECTED, key=lambda x: int(x[1:])):
     if signatures.get("A") == signatures.get("B"):
         gaps.append(f"{event_id}: A/B choices have identical authored effect signatures")
 
+if normal_events != EXPECTED_NORMAL_EVENT_COUNT:
+    gaps.append(f"normal-event cardinality drift: expected {EXPECTED_NORMAL_EVENT_COUNT}, found {normal_events}")
+if special_rows != EXPECTED_SPECIAL_EVENT_COUNT:
+    gaps.append(f"special-event cardinality drift: expected {EXPECTED_SPECIAL_EVENT_COUNT}, validated {special_rows}")
+if rows != EXPECTED_CHOICE_ROW_COUNT:
+    gaps.append(f"choice-row cardinality drift: expected {EXPECTED_CHOICE_ROW_COUNT}, found {rows}")
+if triggered_events != EXPECTED_EVENT_COUNT:
+    gaps.append(f"trigger coverage drift: expected {EXPECTED_EVENT_COUNT}, found {triggered_events}")
+
 if gaps:
     print("CHOICE_TRANSITION_SEMANTICS: FAIL")
     print(f"events={len(blocks)}")
+    print(f"normal_events={normal_events}")
     print(f"choice_rows={rows}")
     print(f"special_state_events={special_rows}")
     print(f"events_with_trigger={triggered_events}")
@@ -137,6 +163,7 @@ if gaps:
 
 print("CHOICE_TRANSITION_SEMANTICS: PASS")
 print(f"events={len(blocks)}")
+print(f"normal_events={normal_events}")
 print(f"choice_rows={rows}")
 print(f"special_state_events={special_rows}")
 print(f"events_with_trigger={triggered_events}")
@@ -145,3 +172,4 @@ print("exactly_one_A_and_one_B=true")
 print("explicit_transition_payload=true")
 print("alternative_effect_signatures_distinct=true")
 print("authored_trigger_coverage=true")
+print(f"frozen_cardinality={EXPECTED_EVENT_COUNT}/{EXPECTED_NORMAL_EVENT_COUNT}/{EXPECTED_SPECIAL_EVENT_COUNT}/{EXPECTED_CHOICE_ROW_COUNT}")
