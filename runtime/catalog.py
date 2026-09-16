@@ -5,6 +5,7 @@ from pathlib import Path
 import re
 
 from .state import EXCLUDED_EVENTS, PRODUCTION_FIRST, PRODUCTION_LAST, REPLAY_META_KEYS
+from .ending_sources import EndingSourceCompiler
 
 HEADING_RE = re.compile(r"^### (E\d{2,3}) — (.+)$", re.M)
 CHOICE_PATTERNS = (
@@ -215,6 +216,19 @@ def _evaluate_trigger_atom(clause: str, state, prerequisites: tuple[str, ...]) -
         return state.turn == 1
     if low == "severe winter":
         return _state_has_marker(state, "pred.winter_severe")
+
+    # Source-closed composite predicates are evaluated through the same canonical
+    # compiler used by ending qualification. This is deliberately limited to
+    # predicates whose producer/evidence contracts are already frozen; unresolved
+    # prose route names remain UNKNOWN.
+    predicate_atom = low.strip("`")
+    if predicate_atom.startswith("pred.") and re.fullmatch(r"pred\.[a-z0-9_]+", predicate_atom):
+        facts = EndingSourceCompiler.compile_state(state).predicates
+        if predicate_atom == "pred.food_stable":
+            return "food_logistics_stabilized" in state.flags
+        if predicate_atom == "pred.border_crisis":
+            return "border_crisis_declared" in state.flags and "border_crisis_resolved" not in state.flags
+        return predicate_atom in facts
 
     # Explicit completed/resolved/after-event prerequisites are canonical event facts.
     match = COMPLETED_EVENT_RE.fullmatch(normalized)
