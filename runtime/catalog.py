@@ -134,21 +134,33 @@ class AuthoredCatalog:
             return True
         if low == "first turn":
             return state.turn == 1
+
+        matched_condition = False
         for name, op, raw in NUMERIC_RE.findall(trigger):
+            matched_condition = True
             if not _compare(state.resources[name.lower()], op, int(raw)):
                 return False
         for name, op, raw in REL_COND_RE.findall(trigger):
+            matched_condition = True
             if not _compare(state.relationships[name.lower()], op, int(raw)):
                 return False
         for required in AFTER_EVENT_RE.findall(trigger):
+            matched_condition = True
             if required.upper() not in state.history:
                 return False
         for token in TOKEN_RE.findall(trigger):
+            matched_condition = True
             if token not in state.flags and token not in state.history and token not in state.threads:
                 return False
-        if "first turn" in low and state.turn != 1:
-            return False
-        return True
+        if "first turn" in low:
+            matched_condition = True
+            if state.turn != 1:
+                return False
+
+        # Never invent runtime semantics for prose-only triggers such as
+        # "food prices rise", "Act II", or "late campaign". Such triggers
+        # must first receive an explicit machine predicate/contract.
+        return matched_condition
 
 def _compare(value: int, op: str, target: int) -> bool:
     return {"<": value < target, "<=": value <= target, ">": value > target, ">=": value >= target}[op]
