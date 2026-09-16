@@ -13,7 +13,7 @@ EXPECTED = {
     "E181": ("E45-B", "infrastructure_concession", "NO_MERGE"),
     "E182": ("E117-B", "veteran_patronage", "CLOSED_IDENTITY"),
     "E183": ("E118-B", "estate_exception", "NO_MERGE"),
-    "E184": (None, None, "OPEN"),
+    "E184": ("E25-B", "secret_evidence_route", "CLOSED_IDENTITY"),
     "E185": ("E17-A", "cheap_weapons", "SEPARATE_LIFECYCLE"),
     "E242": ("E118-B", "estate_exception", "PARTIAL_NO_ALIAS"),
     "E243": ("E18-B", "public_bridge", "NO_MERGE"),
@@ -45,7 +45,7 @@ def main() -> int:
         errors.append("E245 must remain exclusively E20-A")
 
     result = {
-        "schema_version": "1.0",
+        "schema_version": "1.1",
         "contract": "choice_kingdom.producer_consumer_collision_validation",
         "readiness": "PASS_COLLISION_SCREEN" if not errors else "FAIL",
         "checked": checked,
