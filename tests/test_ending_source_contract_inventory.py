@@ -52,6 +52,23 @@ def test_guild_influence_machine_contract_is_explicit_and_unverified() -> None:
     assert "rel.ivo" in contract["forbidden_aliases"]
 
 
+def test_coalition_machine_contract_freezes_e148_participant_identity_boundary() -> None:
+    path = ROOT / "docs" / "MACHINE_COALITION_COOPERATION_CONTRACT_01.json"
+    contract = load(path)
+    assert contract["producer"] == "E148-A"
+    assert contract["minimum_distinct_participants"] == 3
+    assert contract["canonical_participant_identities"] == [
+        "mara",
+        "rowan",
+        "seris",
+        "ivo",
+        "amara",
+        "toma",
+    ]
+    assert contract["producer_runtime_binding"]["choice"] == "E148-A"
+    assert contract["runtime_verified"] is False
+
+
 def test_canonical_graph_keeps_known_runtime_boundaries_visible() -> None:
     graph = load(GRAPH)
     known = set(graph["known_not_yet_verified"])
