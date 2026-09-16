@@ -86,6 +86,36 @@ class GameSession:
             raise ValueError(f"event is not currently available: {event_id}")
         self._selected_event_id = event_id
 
+    def activate_delayed_target(
+        self,
+        exactly_once_key: str,
+        *,
+        condition_satisfied: bool | None = None,
+    ) -> DelayedActivationResult:
+        """Activate one canonical delayed consequence through the application seam."""
+        return self.engine.activate_delayed_target(
+            self.state,
+            exactly_once_key,
+            condition_satisfied=condition_satisfied,
+        )
+
+    def execute_delayed_target(
+        self,
+        exactly_once_key: str,
+        choice_id: str,
+        *,
+        condition_satisfied: bool | None = None,
+    ) -> ExecutionResult:
+        """Activate and execute one canonical delayed target through the same seam as normal choices."""
+        result = self.engine.execute_delayed_target(
+            self.state,
+            exactly_once_key,
+            choice_id,
+            condition_satisfied=condition_satisfied,
+        )
+        self._selected_event_id = self.state.current_event_id
+        return result
+
     def activate_next_due_delay(self) -> DelayedActivationResult:
         return self.engine.activate_next_due_delay(self.state)
 
