@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "contract": "choice_kingdom.ending_precedence_table",
+  "scope": "E01-E272",
+  "status": "SOURCE_CONTRACT_CLOSED_RUNTIME_ORDER_OPEN",
+  "evaluation_order": [
+    "terminal_state_and_save_version",
+    "collapse_failure",
+    "quiet_throne",
+    "positive_endings",
+    "authored_positive_priority",
+    "immutable_ending_identity"
+  ],
+  "positive_priority": [
+    "Second Founder",
+    "People's Charter",
+    "Golden Compact",
+    "Steward",
+    "Iron Crown"
+  ],
+  "special_family_rules": {
+    "Broken Diadem": "wins during the collapse/failure stage when its deterministic terminal failure predicate is satisfied",
+    "Quiet Throne": "wins during the withdrawal stage only when no stronger positive ending qualifies"
+  },
+  "pairwise_coverage": [
+    ["Steward", "People's Charter"],
+    ["Steward", "Golden Compact"],
+    ["Steward", "Iron Crown"],
+    ["Golden Compact", "People's Charter"],
+    ["Golden Compact", "Second Founder"],
+    ["People's Charter", "Second Founder"],
+    ["Iron Crown", "Steward"],
+    ["Iron Crown", "People's Charter"],
+    ["Quiet Throne", "Steward"],
+    ["Quiet Throne", "Iron Crown"],
+    ["Quiet Throne", "Golden Compact"],
+    ["Quiet Throne", "People's Charter"],
+    ["Quiet Throne", "Second Founder"],
+    ["Broken Diadem", "Steward"],
+    ["Broken Diadem", "Iron Crown"],
+    ["Broken Diadem", "Golden Compact"],
+    ["Broken Diadem", "People's Charter"],
+    ["Broken Diadem", "Second Founder"]
+  ],
+  "determinism_rules": [
+    "priority is data, never source-file order",
+    "priority is data, never event-ID order",
+    "priority is data, never enum order",
+    "priority is data, never code-branch order",
+    "one terminal ending identity is recorded immutably",
+    "prior history is never mutated to manufacture qualification"
+  ],
+  "runtime_verified": false
+}
