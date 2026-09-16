@@ -4,9 +4,9 @@ from pathlib import Path
 
 import pytest
 
-from runtime.delays import CANONICAL_DELAY_SPECS, schedule_authored_delay
+from runtime.delays import CANONICAL_DELAY_SPECS, due_delays, schedule_authored_delay
 from runtime.engine import DecisionEngine
-from runtime.state import GameState, SaveStore
+from runtime.state import GameState, PendingDelay, SaveStore
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -53,6 +53,23 @@ def test_delayed_target_activation_is_exactly_once_and_persists():
     finally:
         restored_path.unlink(missing_ok=True)
     assert restored.snapshot() == state.snapshot()
+
+
+def test_competing_due_delays_use_deterministic_turn_priority_and_key_order():
+    state = GameState.fresh("competing-delays")
+    state.pending_delays = {
+        "delay.z": PendingDelay("delay.z", "E18", "E18-B", "E243", 6, priority=2),
+        "delay.a": PendingDelay("delay.a", "E20", "E20-A", "E245", 6, priority=1),
+        "delay.m": PendingDelay("delay.m", "E25", "E25-B", "E184", 6, priority=1),
+        "delay.late": PendingDelay("delay.late", "E45", "E45-B", "E181", 7, priority=0),
+    }
+    state.turn = 6
+
+    first = tuple(delay.exactly_once_key for delay in due_delays(state))
+    second = tuple(delay.exactly_once_key for delay in due_delays(state))
+
+    assert first == ("delay.a", "delay.m", "delay.z", "delay.late")
+    assert second == first
 
 
 def test_all_nine_turn_bound_canonical_delays_have_target_activation_contract():
