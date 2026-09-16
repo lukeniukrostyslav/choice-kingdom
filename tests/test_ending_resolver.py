@@ -102,7 +102,7 @@ def test_collapse_failure_precedes_positive_ending():
 def test_machine_authored_priority_covers_every_positive_pair():
     assert len(AUTHORED_PRIORITY) == 10
     for left, right in itertools.combinations(POSITIVE, 2):
-        winner = AUTHORED_PRIORITY.get((left, right), AUTHored_PRIORITY.get((right, left)))
+        winner = AUTHORED_PRIORITY.get((left, right), AUTHORED_PRIORITY.get((right, left)))
         assert winner in {left, right}
 
 
