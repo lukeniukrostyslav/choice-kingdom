@@ -1,0 +1,25 @@
+name: S05 Delayed Lifecycle Closure
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/MACHINE_CANONICAL_GRAPH_01.json'
+      - 'docs/MACHINE_DELAY_CONTRACT_01.json'
+      - 'docs/S05_DELAYED_LIFECYCLE_CLOSURE_01.md'
+      - 'tools/validate_s05_delayed_lifecycle_closure.py'
+      - '.github/workflows/s05-delayed-lifecycle-closure.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  s05-delayed-lifecycle-closure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate S05 delayed lifecycle closure
+        run: python3 tools/validate_s05_delayed_lifecycle_closure.py
+      - name: Show closure report
+        run: cat docs/MACHINE_S05_DELAYED_LIFECYCLE_CLOSURE_01.json
