@@ -8,7 +8,7 @@ Fast handoff for any future ChatGPT session or developer. Read this file first, 
 
 - GitHub: `lukeniukrostyslav/choice-kingdom`
 - Project: **Choice Kingdom**
-- Current status: **authored full-game checkpoint + canonicalization/QA phase**
+- Current status: **full authored game checkpoint + runtime integration + application session boundary**
 - Separate from `rulebreak8`.
 
 ## What we are building
@@ -30,22 +30,13 @@ This is a **real full game**, not a short card demo. The frozen authored product
 
 ## Canonical current state
 
-Authored sources:
+Blocks 1–6 have implementation/verification closure at their defined boundaries. The runtime now includes state, authored choice execution, deterministic routing, delayed lifecycle, replay/meta transfer, ending/precedence resolution, integrity-checked persistence/recovery, and the presentation-neutral `GameSession` application boundary.
 
-- E01–E70: core spine/endgame
-- E71–E110: expansion
-- E111–E150: expansion
-- E151–E210: expansion
-- E211–E270: expansion
-- E271–E272: border-crisis producer/resolution bridge
-
-Canonical QA artifacts include the event/trigger/state vocabulary, producer-consumer registry, delayed-consequence contracts, predicate dependency audits, event graph and scenario QA worklog.
-
-The campaign is **not yet production-integrated**. Exhaustive producer/consumer closure, machine dependency extraction, delayed runtime semantics, replay meta-state, deterministic ending precedence and fresh-run reachability remain open.
+The frozen authored catalog remains **E01–E272**. The remaining production work is to expand the application runtime into exhaustive full-campaign scenario execution, then build the Android presentation, localization, device QA and release gates.
 
 ## Non-negotiable development order
 
-**Content → canonical QA → machine-readable contracts → engine → UI → localization/tests → Android QA → production release.**
+**Content → canonical QA → machine-readable contracts → Decision Engine → UI → localization/tests → Android QA → production release.**
 
 Do not reverse this order for convenience.
 
@@ -59,44 +50,49 @@ Operate autonomously when the user says to continue. Work in large coherent bloc
 
 Never report a percentage from planned work alone. Distinguish implementation, tests, integration, runtime verification and owner-required gates.
 
-## Latest durable QA checkpoint
+## Latest runtime closure
 
-- S14 machine predicate dependency validation: `b8ca0599cbfc314353b98e504960c317e4e16be0` adds a source-level predicate dependency graph, deterministic cycle detection and explicit undefined predicate-consumer reporting to the scenario inventory compiler. CI result is still pending; no percentage increase is claimed yet.
-- S13 composite source closures: current derived-predicate contract confirms guild influence, systemic explanation, coalition cooperation, constitutional preparation and budget reform source boundaries.
-- Replay provenance correction: `989e78afbe8829e631911637cb0861074b428f2a` updated the reproducible scenario scorecard after correcting E131/E186 provenance handling.
-- S10.4 delayed source-boundary verification: `5d798fb547eb7b0d7a4f8325a39c1709441e9e63`
-- S11.1 E33/E34 ending-boundary source closure: source/graph CLOSED; deterministic runtime ending order remains OPEN.
-- S08.11 budget reform / coalition source closure: source closure PASS; executable qualification/reachability remains open.
+- Block 5 ending/precedence executable boundary is closed and verified.
+- Block 6 save/load/determinism is closed and verified.
+- `runtime/session.py` adds `GameSession` and `SessionView` as the application-facing runtime seam.
+- `tests/test_game_session.py` covers session presentation focus, choice delegation, persistence, backup recovery and atomic ending qualification failure.
+- `.github/workflows/runtime-session-boundary.yml` verifies the session boundary in CI.
+- `docs/RUNTIME_SESSION_BOUNDARY_CLOSURE_01.md` records the closure.
+- Local verification: `PYTHONPATH=. pytest -q` → **178 passed**; dedicated session-boundary validation → **PASS** over E01–E272.
+- This closure does not claim Android UI, physical-device QA, APK/AAB or store readiness.
 
-## Scenario score
+## Current major-block status
 
-The reproducible scenario QA scorecard is `docs/SCENARIO_QA_SCORECARD_01.md`.
-
-Current block scores:
-
-- S01 80%
-- S02 70%
-- S03 70%
-- S04 70%
-- S05 60%
-- S06 60%
-- S07 80%
-- S08 84%
-- S09 82%
-- S10 80%
-- S11 72%
-- S12 95%
-- **Aggregate: 75%**
-
-The aggregate is the arithmetic mean of the twelve block scores. It is not runtime readiness.
+- Foundation / Rules: **100%**
+- Authored Content: **90%**
+- Canonical IDs / Continuity: **100%**
+- Producer / Consumer QA: **100% source-level**
+- Derived Predicates / Machine Contracts: **100% source-level**
+- Delayed Consequences: **100% runtime-verified**
+- Replay / Meta-state: **100% runtime-verified**
+- Endings / precedence: **100% runtime-verified at executable boundary**
+- Reachability / Causal Graph: **100% source-level; exhaustive gameplay reachability remains open**
+- Production Data Schema: **36%**
+- Runtime State / Persistence Foundation: **100% current foundation**
+- Decision Engine / Application Runtime: **30%**
+- UI / UX: **0%**
+- Localization 20+ / RTL: **5%**
+- Android Implementation: **0%**
+- Runtime / Android QA: **15%**
+- APK / AAB: **0%**
+- Release / Store: **0%**
 
 ## Next highest-value work
 
-1. Verify the new machine predicate dependency gate and classify its undefined predicate-consumer findings.
-2. Exhaustive producer/consumer inventory over the frozen E01–E272 catalog.
-3. Undefined producer/consumer, duplicate semantic writer and contradictory writer detection.
-4. Close remaining delayed lifecycle/save-load/exactly-once and replay producer/key contracts.
-5. Resolve exact ending prerequisite/blocker sets and deterministic precedence.
-6. Run fresh-run and replay causal reachability and graph/catalog parity.
-7. Freeze production contracts only after all evidence is clean enough for machine validation.
-8. Only then build the Decision Engine, followed by UI, localization, automated/runtime verification and Android release gates.
+1. Expand `GameSession` into exhaustive full-campaign scenario execution without inventing authored semantics.
+2. Add deterministic full-catalog scenario/reachability simulation and classify every unreachable/sink case.
+3. Close the remaining production data-schema extraction needed by the application layer.
+4. Build the real Android presentation layer against `GameSession`.
+5. Implement 20+ localization and RTL/long-string validation.
+6. Run automated balance, replay, persistence and full-catalog regression gates.
+7. Build and verify Android, then perform physical-device QA.
+8. Produce the final APK/AAB and owner-controlled release materials.
+
+## Owner-required gates
+
+Physical Android QA, production signing credentials and store publication remain owner-controlled gates and must never be marked complete by local automation alone.
