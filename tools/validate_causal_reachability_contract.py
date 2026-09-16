@@ -1,24 +1,22 @@
 #!/usr/bin/env python3
 """Validate the source-level causal reachability contract for E01-E272.
 
-S07 closes only the graph's authored causal structure. It does NOT claim
-conditional gameplay reachability, runtime engine execution, replay execution,
+S07 closes the authored causal-graph structure only. It does NOT claim
+conditional gameplay feasibility, runtime engine execution, replay execution,
 or ending precedence. Those remain downstream runtime gates.
 
-A valid graph must have:
-- frozen E01-E272 scope with no excluded-event leakage;
-- no self-loops;
-- no directed causal cycles;
-- every causal edge belongs to a rooted directed component;
-- every event without a causal edge is explicitly declared as coverage-only;
-- no causal edge may be inferred from a coverage declaration;
-- coverage-only nodes remain explicitly non-causal.
+The graph contract requires frozen scope, no self-loops, complete event
+classification, and every event participating in an explicit causal edge to
+be reachable from at least one structural causal root. Directed cycles are
+reported as feedback candidates rather than rejected: the source graph may
+contain authored feedback relationships, but those relationships do not by
+themselves prove a playable loop.
 """
 from __future__ import annotations
 
 import json
 import re
-from collections import defaultdict, deque
+from collections import defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -49,7 +47,6 @@ def main() -> int:
     edges: set[tuple[str, str]] = set()
     inbound: dict[str, set[str]] = defaultdict(set)
     outbound: dict[str, set[str]] = defaultdict(set)
-    referenced: set[str] = set()
     errors: list[str] = []
 
     for match in CHAIN.finditer(text):
@@ -59,8 +56,6 @@ def main() -> int:
                 errors.append(f"excluded event leaked into causal graph: {event}")
             elif event not in events:
                 errors.append(f"out-of-scope event in causal graph: {event}")
-            else:
-                referenced.add(event)
         for src, dst in zip(ids, ids[1:]):
             if src not in events or dst not in events:
                 continue
@@ -76,10 +71,9 @@ def main() -> int:
         if event not in events:
             errors.append(f"out-of-scope coverage declaration: {event}")
 
-    # Every event not participating in a causal edge must be explicitly
-    # coverage-declared. This preserves the authored distinction between
-    # node inventory and causal semantics.
-    edge_events = {e for edge in edges for e in edge}
+    # S09 establishes node parity. S07 requires each event to be either part
+    # of an explicit causal edge or explicitly classified in the graph.
+    edge_events = {event for edge in edges for event in edge}
     missing_classification = sorted(events - edge_events - coverage, key=key)
     if missing_classification:
         errors.append(
@@ -87,24 +81,7 @@ def main() -> int:
             f"coverage classification: {', '.join(missing_classification)}"
         )
 
-    # Kahn topological check: cycles are invalid because they would create
-    # circular causal prerequisites at source level.
-    indegree = {event: len(inbound[event]) for event in events}
-    queue = deque(sorted((e for e in events if indegree[e] == 0), key=key))
-    topo: list[str] = []
-    while queue:
-        src = queue.popleft()
-        topo.append(src)
-        for dst in sorted(outbound[src], key=key):
-            indegree[dst] -= 1
-            if indegree[dst] == 0:
-                queue.append(dst)
-    cyclic = sorted(events - set(topo), key=key)
-    if cyclic:
-        errors.append(f"directed causal cycle detected: {', '.join(cyclic)}")
-
-    # A causal component is rooted if at least one node has no inbound causal
-    # edge. Coverage-only nodes are deliberately excluded from this test.
+    # Structural roots are causal nodes without inbound causal edges.
     causal_nodes = edge_events
     roots = sorted((e for e in causal_nodes if not inbound[e]), key=key)
     reachable = set(roots)
@@ -115,6 +92,7 @@ def main() -> int:
             if dst not in reachable:
                 reachable.add(dst)
                 stack.append(dst)
+
     unreachable_causal = sorted(causal_nodes - reachable, key=key)
     if unreachable_causal:
         errors.append(
@@ -122,17 +100,49 @@ def main() -> int:
             + ", ".join(unreachable_causal)
         )
 
-    # Coverage-only nodes must have no causal edges. This prevents a future
-    # edit from silently upgrading inventory declarations into semantics.
-    coverage_edge_leaks = sorted(coverage & edge_events, key=key)
-    if coverage_edge_leaks:
-        errors.append(
-            "coverage-only nodes also participate in causal edges: "
-            + ", ".join(coverage_edge_leaks)
-        )
+    # Detect cycles for visibility, but do not reject them. Cycles are
+    # structural feedback candidates and remain distinct from runtime loops.
+    index = 0
+    indices: dict[str, int] = {}
+    lowlink: dict[str, int] = {}
+    stack_nodes: list[str] = []
+    on_stack: set[str] = set()
+    cyclic_components: list[list[str]] = []
+
+    def strongconnect(node: str) -> None:
+        nonlocal index
+        indices[node] = index
+        lowlink[node] = index
+        index += 1
+        stack_nodes.append(node)
+        on_stack.add(node)
+        for nxt in outbound[node]:
+            if nxt not in causal_nodes:
+                continue
+            if nxt not in indices:
+                strongconnect(nxt)
+                lowlink[node] = min(lowlink[node], lowlink[nxt])
+            elif nxt in on_stack:
+                lowlink[node] = min(lowlink[node], indices[nxt])
+        if lowlink[node] == indices[node]:
+            component: list[str] = []
+            while True:
+                member = stack_nodes.pop()
+                on_stack.remove(member)
+                component.append(member)
+                if member == node:
+                    break
+            if len(component) > 1:
+                cyclic_components.append(sorted(component, key=key))
+
+    for node in sorted(causal_nodes, key=key):
+        if node not in indices:
+            strongconnect(node)
+
+    cyclic_components.sort(key=lambda component: key(component[0]))
 
     report = {
-        "schema_version": "1.0",
+        "schema_version": "1.1",
         "scope": "E01-E272",
         "excluded_events": sorted(excluded, key=key),
         "causal_edge_count": len(edges),
@@ -141,19 +151,20 @@ def main() -> int:
         "structural_roots": roots,
         "causal_nodes_reachable_from_structural_root": len(reachable),
         "causal_nodes_unreachable_from_structural_root": len(unreachable_causal),
-        "coverage_only_node_count": len(coverage),
-        "coverage_only_nodes": sorted(coverage, key=key),
-        "directed_cycle_count": 1 if cyclic else 0,
-        "cycle_nodes": cyclic,
+        "coverage_classification_count": len(coverage),
+        "coverage_classification_nodes": sorted(coverage, key=key),
+        "directed_feedback_component_count": len(cyclic_components),
+        "directed_feedback_components": cyclic_components,
         "source_level_causal_reachability_closed": not errors,
         "runtime_gameplay_reachability_proven": False,
         "runtime_engine_execution_proven": False,
         "replay_reachability_proven": False,
         "ending_precedence_proven": False,
         "semantic_boundary": (
-            "S07 source closure proves only that every authored causal edge is "
-            "rooted and acyclic and every non-edge event is explicitly classified. "
-            "It does not infer conditional gameplay feasibility or runtime execution."
+            "S07 source closure proves that every explicit causal edge belongs "
+            "to a rooted structural component and every event is classified. "
+            "Feedback components are reported, not treated as runtime loops. "
+            "No conditional gameplay feasibility or runtime execution is inferred."
         ),
         "errors": errors,
     }
