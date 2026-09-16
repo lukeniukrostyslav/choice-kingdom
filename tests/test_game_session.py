@@ -63,3 +63,19 @@ def test_session_ending_boundary_is_atomic_on_invalid_qualification():
     with pytest.raises(Exception):
         session.resolve_ending(EndingQualification.build())
     assert session.state.terminal is False
+
+
+def test_ending_source_facts_are_derived_from_live_state():
+    session = GameSession.new(ROOT, "ending-facts")
+    session.state.flags.update({"crown_audited", "systemic_explanation_convergence", "military_red_line", "coalition_candidate_package"})
+    session.state.history.update({"history.house_assembly", "history.cross_faction_package", "history.guild_representation"})
+    session.state.threads.add("thread.military_constitutional")
+    for family in ("warehouse_or_financial", "document_or_language", "witness_or_organizational"):
+        session.state.record_ending_evidence(family)
+    for participant in ("mara", "rowan", "seris"):
+        session.state.record_coalition_participant(participant)
+
+    facts = session.ending_source_facts()
+    assert "pred.constitutional_prepared_strong" in facts.predicates
+    assert "pred.systemic_explanation_verified" in facts.predicates
+    assert "pred.coalition_cooperation" in facts.predicates
