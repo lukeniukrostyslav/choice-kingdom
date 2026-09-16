@@ -8,30 +8,33 @@ ROOT = Path(__file__).resolve().parents[1]
 GRAPH = ROOT / "docs/MACHINE_CANONICAL_GRAPH_01.json"
 EXPECTED = {f"E{i:02d}" for i in range(1, 273)}
 HEADING = re.compile(r"^### (E\d{2,3}) — .+$", re.M)
-CHOICE = re.compile(r"^(?:\*\*|-\s*)([AB])\s*[—:]\s*(.+?)(?:\*\*)?$", re.M)
+# Canonical catalogs use both **A — ...** and - **A — ...** forms.
+CHOICE_HEADING = re.compile(r"^\s*(?:-\s*)?\*\*([AB])\s*[—:]\s*(.+?)\*\*\s*$", re.M)
 TOKEN_RE = re.compile(r"`[^`]+`")
 DELTA_RE = re.compile(r"[+-]\d+(?:\.\d+)?\s+[A-Za-zА-Яа-я_]+")
+CLAUSE_RE = re.compile(r"^\s*-\s*(?:Immediate|Flag|Unlock|Producer|Delayed|Resolution|Clear|Trigger|Effect|State|History|Meta|Ending|Condition)\s*:", re.I | re.M)
 EFFECT_PATTERNS = [
     DELTA_RE,
     TOKEN_RE,
+    CLAUSE_RE,
     re.compile(r"\b(?:clear|clears|reset|resets|resolve|resolves|cancel|cancels|invalidate|invalidates|revoke|revokes|prevent|prevents|schedule|schedules|unlock|unlocks|delayed|immediate|establish|establishes|produces|sets|marks)\b", re.I),
 ]
-STATE_HINT = re.compile(r"(?:\b(?:state|flag|predicate|history|thread|meta|ending|cycle|condition|route|evidence|trigger|effect)\b|`[^`]+`)", re.I)
+STATE_HINT = re.compile(r"(?:\b(?:state|flag|predicate|history|thread|meta|ending|cycle|condition|route|evidence|trigger|effect|immediate|delayed|unlock|producer|resolution)\b|`[^`]+`)", re.I)
 
 
 def semantic_signature(body: str) -> tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...]]:
     """Extract only authored machine-relevant signals; never invent semantics."""
     deltas = tuple(DELTA_RE.findall(body))
     tokens = tuple(TOKEN_RE.findall(body))
-    lifecycle = tuple(sorted(set(
-        m.group(0).lower()
+    clauses = tuple(sorted(set(
+        m.group(1).lower()
         for m in re.finditer(
-            r"\b(?:clear|clears|reset|resets|resolve|resolves|cancel|cancels|invalidate|invalidates|revoke|revokes|prevent|prevents|schedule|schedules|unlock|unlocks|delayed|immediate|establish|establishes|produces|sets|marks)\b",
+            r"^\s*-\s*(Immediate|Flag|Unlock|Producer|Delayed|Resolution|Clear|Trigger|Effect|State|History|Meta|Ending|Condition)\s*:",
             body,
-            re.I,
+            re.I | re.M,
         )
     )))
-    return deltas, tokens, lifecycle
+    return deltas, tokens, clauses
 
 
 def fail(msg: str) -> None:
@@ -67,20 +70,24 @@ if missing:
 gaps: list[str] = []
 rows = 0
 for event_id in sorted(EXPECTED, key=lambda x: int(x[1:])):
-    matches = list(CHOICE.finditer(blocks[event_id]))
+    matches = list(CHOICE_HEADING.finditer(blocks[event_id]))
     labels = [m.group(1) for m in matches]
     if len(matches) != 2 or set(labels) != {"A", "B"}:
         gaps.append(f"{event_id}: expected exactly one A and one B choice, found {labels}")
         continue
 
     signatures: dict[str, tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...]]] = {}
-    for match in matches:
+    for index, match in enumerate(matches):
         rows += 1
+        next_start = matches[index + 1].start() if index + 1 < len(matches) else len(blocks[event_id])
+        body = blocks[event_id][match.start():next_start].strip()
         label = match.group(1)
-        body = match.group(2).strip()
         signatures[label] = semantic_signature(body)
+
         if not any(p.search(body) for p in EFFECT_PATTERNS):
-            gaps.append(f"{event_id}-{label}: no explicit authored effect/state token")
+            gaps.append(f"{event_id}-{label}: no explicit authored effect/state clause")
+        if not CLAUSE_RE.search(body) and not DELTA_RE.search(body) and not TOKEN_RE.search(body):
+            gaps.append(f"{event_id}-{label}: no machine-recognizable transition payload")
         elif not STATE_HINT.search(body):
             gaps.append(f"{event_id}-{label}: effect lacks state/evidence marker")
 
@@ -104,4 +111,5 @@ print(f"events={len(blocks)}")
 print(f"choice_rows={rows}")
 print("semantic_gaps=0")
 print("exactly_one_A_and_one_B=true")
+print("explicit_transition_payload=true")
 print("alternative_effect_signatures_distinct=true")
