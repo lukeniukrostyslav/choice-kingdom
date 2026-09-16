@@ -54,6 +54,15 @@ An earlier audit wording described the active producer as open. That wording is 
 
 The unresolved portion is runtime lifecycle semantics only: save/load persistence, ordering with delayed effects, expiry/supersession and exact cycle identity. No additional producer should be invented to resolve that runtime question.
 
+## Frozen unresolved predicate blockers
+
+The following predicates remain explicitly unresolved in the frozen E01–E272 production scope. No E273–E277 expansion event may be used as their producer, and no runtime semantics are inferred from trigger prose alone.
+
+| Canonical predicate | Status | Required closure |
+|---|---|---|
+| `pred.guild_labor_tension` | OPEN | explicit E01–E272 producer and deterministic persistence/clear semantics |
+| `pred.information_pressure_high` | OPEN | explicit E01–E272 producer and deterministic pressure/cardinality semantics |
+
 ## 2. Delayed-consumer producer closure
 
 | Consumer | Authored trigger | Producer closure | Canonical treatment |
