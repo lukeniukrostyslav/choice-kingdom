@@ -14,26 +14,33 @@ const longChoices=[
   {id:'seal-long',kicker:'PROTECT THE CROWN',title:'Seal the ledger until the palace can prepare a controlled inquiry',support:'Keep the accusation contained for now, giving the court time to establish who may safely examine the evidence.'},
   {id:'summon-long',kicker:'TEST THE ACCOUNT',title:'Summon the steward and demand both accounts before making a judgment',support:'Place the competing records in the same room and let the contradiction become visible without naming a culprit.'}
 ];
+const longNarrative='Mara places the book before you without opening it. The figures inside do not match the Crown’s accounts for the grain reserve. If the discrepancy is real, someone has been moving provisions through the winter markets before the court was meant to know. The record is incomplete, the hour is late, and every person who touches it may become part of the story.';
 const query=new URLSearchParams(location.search);
 const mode=query.get('choices');
 const choiceSet=mode==='long'?longChoices:(mode==='3'?threeChoices:twoChoices);
 if(query.get('rtl')==='1')document.documentElement.dir='rtl';
+if(query.get('font')==='large')document.documentElement.classList.add('large-type');
+if(query.get('artwork')==='none')document.documentElement.classList.add('no-artwork');
+if(query.get('narrative')==='long')document.documentElement.classList.add('long-narrative');
 
 function render(){
   resources.forEach(k=>$(k).textContent=state[k]);
   $('turn').textContent=String(state.turn).padStart(3,'0');
+  if(query.get('narrative')==='long')$('narrative').textContent=longNarrative;
   renderChoices();
 }
 
 function renderChoices(){
   const root=$('choices');
   root.classList.toggle('choice-count-3',choiceSet.length===3);
+  root.setAttribute('aria-label',`${choiceSet.length} available decision${choiceSet.length===1?'':'s'}`);
   root.replaceChildren();
   choiceSet.forEach(choice=>{
     const button=document.createElement('button');
     button.className='choice';
     button.dataset.choice=choice.id;
     button.type='button';
+    button.setAttribute('aria-pressed','false');
     button.innerHTML=`<span class="choice-kicker">${choice.kicker}</span><strong>${choice.title}</strong><span class="choice-support">${choice.support}</span><span class="choice-state" aria-hidden="true"></span>`;
     button.addEventListener('click',()=>choose(choice.id));
     root.appendChild(button);
@@ -42,19 +49,34 @@ function renderChoices(){
 
 function choose(id){
   if(state.chosen)return;
-  const selected=document.querySelector(`[data-choice="${id}"]`);
+  const selected=document.querySelector(`[data-choice="${CSS.escape(id)}"]`);
   if(!selected)return;
   state.chosen=true;
-  document.querySelectorAll('.choice').forEach(button=>{
+  const buttons=[...document.querySelectorAll('.choice')];
+  buttons.forEach(button=>{
     button.disabled=true;
     button.classList.add('resolving');
     button.setAttribute('aria-disabled','true');
   });
-  selected.classList.add('resolved');
-  selected.querySelector('.choice-state').textContent='SELECTED';
-  selected.setAttribute('aria-label',`${selected.querySelector('strong').textContent}. Selected.`);
-  $('consequenceText').textContent='Decision recorded in the visual prototype. Gameplay effects belong to GameSession, not this UI layer.';
+  selected.classList.remove('resolving');
+  selected.classList.add('selected');
+  selected.setAttribute('aria-pressed','true');
+  selected.setAttribute('aria-label',`${selected.querySelector('strong').textContent}. Selected. Resolving decision.`);
+  selected.querySelector('.choice-state').textContent='RESOLVING';
+  $('choices').setAttribute('aria-busy','true');
   $('consequence').hidden=false;
+  $('consequence').classList.remove('is-resolved');
+  $('consequenceText').textContent='Recording this decision…';
+
+  window.setTimeout(()=>{
+    selected.classList.remove('selected');
+    selected.classList.add('resolved');
+    selected.querySelector('.choice-state').textContent='SELECTED';
+    selected.setAttribute('aria-label',`${selected.querySelector('strong').textContent}. Selected. Decision recorded.`);
+    $('consequenceText').textContent='Decision recorded in the visual prototype. Gameplay effects belong to GameSession, not this UI layer.';
+    $('consequence').classList.add('is-resolved');
+    $('choices').setAttribute('aria-busy','false');
+  },180);
 }
 
 const panel=$('panel');
@@ -73,7 +95,9 @@ document.querySelectorAll('.nav-item').forEach(button=>button.addEventListener('
   if(name==='event'){panel.hidden=true;return;}
   panel.innerHTML=panels[name];
   panel.hidden=false;
-  panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+  panel.setAttribute('tabindex','-1');
+  panel.focus({preventScroll:true});
+  panel.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'nearest'});
 }));
 
 render();
