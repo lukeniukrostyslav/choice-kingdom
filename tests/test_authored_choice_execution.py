@@ -61,6 +61,28 @@ def test_core_spine_routes_deterministically_through_explicit_prerequisite():
     assert "E02" not in {event.event_id for event in engine.available(state)}
 
 
+def test_representative_authored_chain_executes_e01_to_e02_without_inferred_edges():
+    engine = DecisionEngine(ROOT)
+    state = GameState.fresh("run-authored-chain-e01-e02")
+
+    first = engine.execute(state, "E01", "E01-B")
+    assert first.next_event_ids == ()
+    assert state.current_event_id == "E01"
+    assert state.turn == 2
+
+    assert engine.catalog.authored_prerequisites("E02") == ("E01",)
+    assert tuple(event.event_id for event in engine.available(state)) == ("E02",)
+
+    second = engine.execute(state, "E02", "E02-B")
+    assert second.next_event_ids == ()
+    assert state.current_event_id == "E02"
+    assert state.turn == 3
+    assert state.relationships["mara"] == 1
+    assert state.resources["power"] == 48
+    assert "decree_investigation" in state.flags
+    assert tuple(event.event_id for event in engine.available(state)) != ("E02",)
+
+
 def test_authored_prerequisite_blocks_unrelated_jump_even_when_trigger_is_satisfied():
     engine = DecisionEngine(ROOT)
     state = GameState.fresh("run-route-guard")
