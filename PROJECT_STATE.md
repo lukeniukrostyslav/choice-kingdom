@@ -18,7 +18,7 @@ Production catalog is **E01–E272**. E273–E277 are expansion candidates and a
 No mock/stub gameplay or premature production-readiness claims.
 
 ## Current phase
-**S11 ending source closure final CI verification.** Authored checkpoint E01–E272. Source-level canonical graph, causal closure and S02 choice/state transition closure are green. S11 qualification and precedence contracts are green; the last alias gate exposed a false-positive substring match, which has now been corrected to exact identifier matching and wired into the dedicated S11 workflow. Final CI verification is pending on the new commit.
+**S11 ending source closure is fully CI-verified GREEN; next phase is downstream Decision Engine implementation.** Authored checkpoint E01–E272. Source-level canonical graph, causal closure and S02 choice/state transition closure are green. S11 qualification, precedence and exact alias-boundary validation are green in the dedicated workflow.
 
 ## Current verified S01–S12 scorecard
 - S01 **84%** — authored-event coverage structurally validated; semantic/gameplay reachability remains.
@@ -31,10 +31,10 @@ No mock/stub gameplay or premature production-readiness claims.
 - S08 **100%** — source/producer QA closed and CI-verified.
 - S09 **100%** — canonical graph source closure closed and CI-verified.
 - S10 **83%** — delayed lifecycle source gate green; runtime persistence/cancellation semantics remain.
-- S11 **99% — final CI verification pending**. Ending qualification, exact prerequisite/blocker sets, deterministic precedence and alias boundary are implemented; the prior CI failure was a validator false positive caused by substring matching (`thread.border` matching `thread.border_crisis`, etc.). The validator now uses exact identifier matching and the alias gate is included in the dedicated S11 workflow. Do not mark S11 100% until the new CI run is green.
+- S11 **100%** — final CI verification GREEN. Ending qualification, exact prerequisite/blocker sets, deterministic precedence and exact runtime-identifier alias boundary are implemented and verified by GitHub Actions workflow run #6 on commit `847502b` (run completed successfully in 9s; 1 warning only for actions/checkout Node.js runtime deprecation).
 - S12 **100%** — scope/integrity gates closed.
 
-**Scenario QA aggregate: pending final S11 CI verification.**
+**Scenario QA aggregate: S11 final CI verification GREEN; downstream runtime gates remain.**
 
 ## Latest verified work
 ### S02 — Choice → State Transition: SOURCE-CLOSED 100%
@@ -48,14 +48,14 @@ No mock/stub gameplay or premature production-readiness claims.
 - GitHub Actions S02 run **35100082164**, job **104806986908**, head `3bf2d8f8bbb1fdb75ef2084e9d1ed25a9f598bdc`, completed **success** on 2026-09-16. The job log reports `S02_CHOICE_STATE_TRANSITION_CLOSURE: PASS`.
 - This is source-level closure only. Runtime Decision Engine execution, save/load persistence, replay execution and gameplay reachability remain downstream gates.
 
-### S11 — Ending / Replay QA: final CI verification pending
+### S11 — Ending / Replay QA: SOURCE-CLOSED 100%, CI GREEN
 - Added `docs/MACHINE_ENDING_QUALIFICATION_CONTRACT_01.json` with exact machine-readable positive prerequisite and negative blocker sets for all seven ending families.
 - Added `docs/MACHINE_ENDING_PRECEDENCE_TABLE_01.json` with deterministic evaluation order, explicit positive-ending priority data and pairwise precedence coverage.
 - Preserved the conservative alias boundary: canonical identifiers remain `thread.border_crisis`, `thread.ivo_market`, `pred.coalition_cooperation` and `pred.systemic_explanation_verified`; stale aliases cannot manufacture prerequisites.
 - Added `tools/validate_ending_source_closure.py` as the executable S11 source-closure gate.
 - Added `tools/validate_ending_alias_boundary.py` exact identifier matching so canonical IDs containing an old alias as a prefix are not false positives.
 - Added `.github/workflows/s11-ending-source-closure.yml` and wired both source closure and alias boundary validation into the same S11 gate.
-- Previous canonical-graph run `35100900713` reached the S11 alias step; S02/canonical graph/S07/replay/source-producer/ending prerequisite/source closure/precedence all passed. The only failure was the old substring-based alias validator. This is fixed; final green verification is still required.
+- GitHub Actions manual workflow run **#6**, commit **847502b**, branch **main**, completed **Success** in **9s**. The run verified the S11 ending source closure and alias boundary gate. The only annotation is a non-blocking Node.js 20 deprecation warning for `actions/checkout@v4`.
 - The source contract explicitly keeps runtime execution, fresh-run reachability and replay reachability false until those downstream systems exist; this is not hidden or counted as runtime completion.
 - People's Charter remains explicitly dependent on runtime aggregation of `pred.final_charter_prerequisites`; Second Founder remains explicitly dependent on replay/meta transfer keys and runtime systemic convergence. These are tracked downstream blockers, not invented away.
 
@@ -75,7 +75,7 @@ After source-level S11 closure, the following remain deliberately downstream and
 - Derived Predicates / Machine Contracts: **90%**
 - Delayed Consequences: **98%**
 - Replay / Meta-state: **65%**
-- Endings / precedence: **99% source-level, final CI pending**
+- Endings / precedence: **100% source-level + CI GREEN; runtime ending execution remains**
 - Reachability / Causal Graph: **100% source-level**
 - Production Data Schema: **36%**
 - Decision Engine: **0%**
@@ -89,7 +89,7 @@ After source-level S11 closure, the following remain deliberately downstream and
 Overall project progress remains approximately **60%**. This deliberately does not treat source-level QA closure as runtime/gameplay completion.
 
 ## NEXT ACTION
-**Verify the new S11 CI run. If green, freeze S11 at 100% and move to downstream Decision Engine implementation without reopening S02.**
+**Begin downstream Decision Engine implementation from the frozen E01–E272 contracts. Do not reopen S02 or S11 source closure.**
 
 ## Honest progress rule
 Documentation alone never makes implementation complete. Source edits count only when authoritative evidence is changed/re-read. No block is ready until its applicable verification passes.
