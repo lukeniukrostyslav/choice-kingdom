@@ -12,6 +12,13 @@ from .state import GameState
 # Delayed prose is handled by the canonical delayed lifecycle instead.
 IMMEDIATE_UNLOCK_RE = re.compile(r"^-\s*\*\*Unlocks?\*\*\s+`?(E\d{2,3})", re.I | re.M)
 
+# E148-A is the authored coalition producer. The source text explicitly names
+# the six participating factions; keep that producer mapping explicit rather than
+# inferring participants from relationships, generic coalition flags, or E261.
+AUTHORED_COALITION_PARTICIPANTS = {
+    "E148-A": ("mara", "rowan", "seris", "ivo", "amara", "toma"),
+}
+
 
 @dataclass(frozen=True)
 class ExecutionResult:
@@ -89,6 +96,8 @@ class DecisionEngine:
             else:
                 state.flags.add(token)
         state.history.add(event_id)
+        for participant in AUTHORED_COALITION_PARTICIPANTS.get(choice_id, ()):
+            state.record_coalition_participant(participant)
         state.activated_delayed_targets.discard(event_id)
 
         # Scheduling happens only after the authored choice effects have committed.
