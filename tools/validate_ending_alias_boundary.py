@@ -3,12 +3,19 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = ROOT / "docs" / "MACHINE_ENDING_ALIAS_BOUNDARY_01.json"
 OUT = ROOT / "docs" / "MACHINE_ENDING_ALIAS_BOUNDARY_VALIDATION_01.json"
 EXPECTED_SCOPE = "E01-E272"
+
+
+def _contains_exact_identifier(text: str, identifier: str) -> bool:
+    """Match an identifier as a complete token, not as a prefix of a canonical ID."""
+    pattern = rf"(?<![A-Za-z0-9_.]){re.escape(identifier)}(?![A-Za-z0-9_])"
+    return re.search(pattern, text) is not None
 
 
 def main() -> int:
@@ -45,8 +52,8 @@ def main() -> int:
         text = path.read_text(encoding="utf-8")
         source_texts[rel] = text
         for alias in aliases:
-            if alias in text:
-                errors.append(f"forbidden runtime alias {alias!r} appears in authoritative machine source {rel}")
+            if _contains_exact_identifier(text, alias):
+                errors.append(f"forbidden runtime alias {alias!r} appears as an exact identifier in authoritative machine source {rel}")
 
     combined = "\n".join(source_texts.values())
     for key, value in canonical.items():
@@ -58,7 +65,7 @@ def main() -> int:
             errors.append(f"missing documentation allowlist entry: {path.relative_to(ROOT)}")
 
     result = {
-        "schema_version": "1.2",
+        "schema_version": "1.3",
         "contract": "choice_kingdom.ending_alias_boundary_validation",
         "scope": EXPECTED_SCOPE,
         "readiness": "PASS" if not errors else "FAIL",
@@ -74,6 +81,7 @@ def main() -> int:
             f"canonical identifier {key!r}=" in error and "absent from all" in error
             for error in errors for key in canonical
         ),
+        "exact_identifier_matching": True,
         "errors": errors,
         "runtime_verified": False,
     }
