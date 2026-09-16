@@ -18,7 +18,7 @@ Production catalog is **E01–E272**. E273–E277 are expansion candidates and a
 No mock/stub gameplay or premature production-readiness claims.
 
 ## Current phase
-**Scenario QA remains the active phase. S01–S12 are source/contract closed, including S06 replay/meta-state. The scenario-wide source/contract integration gate is implemented and is the next verification gate. Decision Engine remains intentionally blocked until runtime scenario verification is implemented and verified.** Authored checkpoint E01–E272.
+**Scenario QA remains the active phase, now moving from source/contract integration into runtime scenario verification. S01–S12 are source/contract closed, including S06 replay/meta-state. The scenario-wide source/contract integration gate is GREEN on GitHub. Decision Engine remains intentionally blocked until runtime scenario verification is implemented and verified.** Authored checkpoint E01–E272.
 
 ## Current verified S01–S12 scorecard
 - S01 **100%** — frozen E01–E272 catalog closure, source inventory exhaustiveness and canonical structural reachability gate are GREEN. Source-level only; runtime gameplay reachability remains downstream.
@@ -37,6 +37,18 @@ No mock/stub gameplay or premature production-readiness claims.
 **Scenario QA source/contract status: 100%.** This is not 100% runtime scenario completion. Fresh-run gameplay, replay execution, save/load gameplay equivalence, runtime ending resolution and Decision Engine execution remain hard runtime blocks.
 
 ## Latest verified work
+### Scenario-wide source/contract integration gate — GREEN
+- Commit `51809fddc344c02ad48b48a44a7a4df5f7aea2cf` fixed the workflow so canonical causal reports are rebuilt inside the scenario-wide job instead of relying on a prior workflow artifact.
+- GitHub Actions run `35106595137` (`Choice Kingdom Scenario-Wide Source Contract Gate`, run #3) completed **success** on 2026-09-16.
+- Its job `scenario-wide-gate` completed successfully through: canonical source report rebuild → scenario-wide source/contract gate → runtime-promotion-block assertion.
+- Related canonical graph, S01, predicate parity, open-predicate boundary and delayed-lifecycle checks on the same commit were also GREEN.
+- This is a **source/contract integration GREEN only**. Runtime promotion remains blocked by design.
+
+### Runtime scenario verification — PLAN CREATED
+- Added `docs/RUNTIME_SCENARIO_VERIFICATION_PLAN_01.md`.
+- The plan defines executable gates for fresh-run isolation, authored choice/state execution, delayed consequences, replay/meta transfer, ending resolution/precedence, save/load equivalence and determinism, plus required negative cases.
+- No runtime implementation or Decision Engine promotion is claimed by this plan.
+
 ### S06 — REPLAY / META-STATE SOURCE/CONTRACT CLOSURE: 100%
 - Added `docs/S06_REPLAY_META_STATE_CLOSURE_01.md`.
 - Added `tools/validate_s06_replay_meta_state_closure.py` and `.github/workflows/s06-replay-meta-state-closure.yml`.
@@ -44,12 +56,6 @@ No mock/stub gameplay or premature production-readiness claims.
 - Contract enforces run reset, import only from the immediately completed prior run, exactly-once import, terminal-state isolation and preservation of E186 same-run `warehouse_arson` routing.
 - Dedicated GitHub Actions run `35105326553` completed **success** on 2026-09-16.
 - Runtime replay execution/reset/isolation is deliberately not claimed.
-
-### Scenario-wide integration gate — IMPLEMENTED
-- Added `tools/validate_scenario_wide_gate.py` to cross-check frozen E01–E272 scope, canonical graph boundary, source-level causal reachability, S06 replay/meta-state and frozen S05/S10 delayed lifecycle targets.
-- Added `.github/workflows/scenario-wide-gate.yml` for CI verification.
-- The gate explicitly keeps Decision Engine promotion blocked while runtime blocks remain open.
-- Runtime hard blocks: Decision Engine execution, fresh-run gameplay reachability, replay gameplay reachability, runtime ending resolution and save/load gameplay equivalence.
 
 ### S05 — DELAYED LIFECYCLE SOURCE/CONTRACT CLOSURE: 100%
 - Added `docs/S05_DELAYED_LIFECYCLE_CLOSURE_01.md`, `tools/validate_s05_delayed_lifecycle_closure.py` and `.github/workflows/s05-delayed-lifecycle-closure.yml`.
@@ -98,7 +104,7 @@ No mock/stub gameplay or premature production-readiness claims.
 Overall project progress remains approximately **61%**. Source/contract closure is not runtime/gameplay completion.
 
 ## NEXT ACTION
-**Run and verify the scenario-wide source/contract integration gate on GitHub. If GREEN, begin runtime scenario verification for fresh-run isolation, replay/meta transfer, delayed consequences, ending resolution and save/load equivalence. Do not promote the Decision Engine to production readiness until those runtime gates are GREEN.**
+**Inspect the actual runtime/engine and persistence boundaries in the repository, then implement the first executable runtime scenario harness without introducing mock gameplay. Start with fresh-run isolation and save/load equivalence, then add delayed lifecycle, replay/meta transfer and ending-resolution gates. Do not promote the Decision Engine until all required runtime scenario gates are GREEN.**
 
 ## Honest progress rule
 Documentation alone never makes implementation complete. Source edits count only when authoritative evidence is changed/re-read. No block is ready until its applicable verification passes. Source/contract GREEN must never be reported as runtime gameplay GREEN.
