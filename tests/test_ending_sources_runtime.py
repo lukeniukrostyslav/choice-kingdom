@@ -34,28 +34,39 @@ def test_relationships_and_four_way_bargain_do_not_create_cooperation() -> None:
     assert "pred.coalition_cooperation" not in facts.predicates
 
 
-def test_coalition_requires_three_canonical_participants_and_no_blocker() -> None:
+def test_coalition_requires_authored_positive_outcome_three_participants_and_no_blocker() -> None:
     canonical = {"mara", "rowan", "seris"}
     assert canonical <= CANONICAL_COALITION_PARTICIPANTS
+
     facts = EndingSourceCompiler.compile(
+        flags={"coalition_candidate_package"},
         history={"history.cross_faction_package"},
         coalition_participants=canonical,
     )
     assert "pred.coalition_cooperation" in facts.predicates
 
+    missing_positive_outcome = EndingSourceCompiler.compile(
+        history={"history.cross_faction_package"},
+        coalition_participants=canonical,
+    )
+    assert "pred.coalition_cooperation" not in missing_positive_outcome.predicates
+
     insufficient = EndingSourceCompiler.compile(
+        flags={"coalition_candidate_package"},
         history={"history.cross_faction_package"},
         coalition_participants={"mara", "rowan"},
     )
     assert "pred.coalition_cooperation" not in insufficient.predicates
 
     unknown_only = EndingSourceCompiler.compile(
+        flags={"coalition_candidate_package"},
         history={"history.cross_faction_package"},
         coalition_participants={"commons", "guild", "houses", "border"},
     )
     assert "pred.coalition_cooperation" not in unknown_only.predicates
 
     blocked = EndingSourceCompiler.compile(
+        flags={"coalition_candidate_package"},
         history={"history.cross_faction_package"},
         coalition_participants=canonical,
         unresolved_coalition_blockers={"withdrawal_pending"},
@@ -116,7 +127,13 @@ def test_systemic_explanation_requires_all_evidence_families_and_convergence() -
 
 def test_final_charter_requires_upstream_predicates_and_no_current_blocker() -> None:
     common = dict(
-        flags={"people_charter_endorsed", "crown_audited", "systemic_explanation_convergence", "military_red_line"},
+        flags={
+            "people_charter_endorsed",
+            "crown_audited",
+            "systemic_explanation_convergence",
+            "military_red_line",
+            "coalition_candidate_package",
+        },
         history={
             "history.house_assembly",
             "history.guild_representation",
@@ -141,7 +158,13 @@ def test_final_charter_requires_upstream_predicates_and_no_current_blocker() -> 
 
 def test_live_game_state_is_the_runtime_source_boundary() -> None:
     state = GameState.fresh("ending-runtime")
-    state.flags.update({"people_charter_endorsed", "crown_audited", "systemic_explanation_convergence", "military_red_line"})
+    state.flags.update({
+        "people_charter_endorsed",
+        "crown_audited",
+        "systemic_explanation_convergence",
+        "military_red_line",
+        "coalition_candidate_package",
+    })
     state.history.update({"history.house_assembly", "history.guild_representation", "history.cross_faction_package"})
     state.threads.add("thread.military_constitutional")
     for family in ("warehouse_or_financial", "document_or_language", "witness_or_organizational"):
@@ -191,7 +214,7 @@ def test_ending_resolution_is_repeatable_from_the_same_snapshot() -> None:
 
 def test_ending_source_facts_survive_save_load_without_leaking_to_fresh_run(tmp_path) -> None:
     state = GameState.fresh("ending-save")
-    state.flags.update({"people_charter_endorsed", "crown_audited", "systemic_explanation_convergence"})
+    state.flags.update({"people_charter_endorsed", "crown_audited", "systemic_explanation_convergence", "coalition_candidate_package"})
     state.history.update({"history.house_assembly", "history.guild_representation", "history.cross_faction_package"})
     state.record_ending_evidence("warehouse_or_financial")
     state.record_ending_evidence("document_or_language")
