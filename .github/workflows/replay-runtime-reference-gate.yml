@@ -1,0 +1,22 @@
+name: Choice Kingdom Replay Runtime Reference Gate
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/MACHINE_REPLAY_CONTRACT_01.json'
+      - 'tools/validate_replay_runtime_reference.py'
+      - '.github/workflows/replay-runtime-reference-gate.yml'
+  pull_request:
+    paths:
+      - 'docs/MACHINE_REPLAY_CONTRACT_01.json'
+      - 'tools/validate_replay_runtime_reference.py'
+      - '.github/workflows/replay-runtime-reference-gate.yml'
+
+jobs:
+  replay-runtime-reference:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate replay reset and exactly-once reference contract
+        run: python tools/validate_replay_runtime_reference.py
