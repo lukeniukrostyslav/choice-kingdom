@@ -1,0 +1,19 @@
+name: Choice Kingdom Open Predicate Boundary
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  open-predicate-boundary:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate unresolved predicate boundaries
+        run: python3 tools/validate_open_predicate_boundaries.py
+      - name: Upload boundary ledger
+        uses: actions/upload-artifact@v4
+        with:
+          name: choice-kingdom-open-predicate-boundary-${{ github.sha }}
+          path: docs/MACHINE_OPEN_PREDICATE_BOUNDARY_01.json
+          if-no-files-found: error
