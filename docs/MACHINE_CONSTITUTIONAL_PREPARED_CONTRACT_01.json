@@ -2,18 +2,18 @@
   "schema_version":"1.0",
   "contract":"choice_kingdom.constitutional_prepared_strong",
   "scope":"E01-E272",
-  "status":"SOURCE_CONTRACT_IDENTIFIED",
+  "status":"SOURCE_CONTRACT_CLOSED_RUNTIME_ORDER_OPEN",
   "predicate":"pred.constitutional_prepared_strong",
   "minimum_distinct_domains":3,
   "domains":[
-    {"id":"civic","canonical_sources":["people_charter_endorsed"]},
-    {"id":"institutional","canonical_sources":["crown_audited","full_crown_audit_published"]},
-    {"id":"factional","canonical_sources":["history.house_assembly"]},
-    {"id":"military","canonical_sources":["military_red_line","thread.military_constitutional"]}
+    {"id":"civic","canonical_sources":["people_charter_endorsed"],"producer":"E50-A"},
+    {"id":"institutional","canonical_sources":["crown_audited","full_crown_audit_published"],"producer_family":["E154-A","E155-A"]},
+    {"id":"factional","canonical_sources":["history.house_assembly"],"producer":"E161-A"},
+    {"id":"military","canonical_sources":["military_red_line","thread.military_constitutional"],"producer":"E199-A"}
   ],
   "upstream_of":["E197","pred.final_charter_prerequisites"],
   "consumer_cannot_manufacture":true,
   "anti_double_counting":["one source event cannot count as two domains","relationship values never count as a domain","late E197-E210 outcomes cannot create this predicate retroactively"],
   "runtime_verified":false,
-  "remaining_checks":["producer-before-consumer ordering","reachability of each domain","save-load preservation","replay isolation","contradiction and cycle checks"]
+  "remaining_checks":["producer-before-consumer ordering","reachability of each domain","domain cardinality at runtime","save-load preservation","replay isolation","contradiction and cycle checks"]
 }
