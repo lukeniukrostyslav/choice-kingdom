@@ -5,7 +5,7 @@ from pathlib import Path
 import re
 
 from .catalog import AuthoredCatalog, Event
-from .delays import schedule_authored_delay
+from .delays import due_delays, schedule_authored_delay, spec_for_key
 from .state import GameState
 
 # Only explicit immediate Unlock/Unlocks lines are executable routing signals.
@@ -21,6 +21,13 @@ class ExecutionResult:
     state_snapshot: dict
 
 
+@dataclass(frozen=True)
+class DelayedActivationResult:
+    consequence_key: str
+    target_event_id: str
+    state_snapshot: dict
+
+
 class DecisionEngine:
     """Real authored-content execution boundary with canonical delay scheduling."""
 
@@ -32,6 +39,8 @@ class DecisionEngine:
         return self.catalog.get(event_id)
 
     def _route_allowed(self, state: GameState, event_id: str) -> bool:
+        if event_id in state.activated_delayed_targets and state.current_event_id == event_id:
+            return True
         prerequisites = self.catalog.authored_prerequisites(event_id)
         if not prerequisites:
             return True
@@ -51,7 +60,7 @@ class DecisionEngine:
         if state.terminal:
             raise ValueError("cannot execute a choice after terminal state")
         event = self.catalog.get(event_id)
-        if not self.catalog.trigger_satisfied(event_id, state):
+        if not self.catalog.trigger_satisfied(event_id, state) and event_id not in state.activated_delayed_targets:
             raise ValueError(f"event trigger not satisfied: {event_id}")
         if not self._route_allowed(state, event_id):
             prerequisites = self.catalog.authored_prerequisites(event_id)
@@ -80,6 +89,7 @@ class DecisionEngine:
             else:
                 state.flags.add(token)
         state.history.add(event_id)
+        state.activated_delayed_targets.discard(event_id)
 
         # Scheduling happens only after the authored choice effects have committed.
         # Relative timing is anchored to the source turn; condition-bound delays
@@ -91,3 +101,39 @@ class DecisionEngine:
 
         next_ids = tuple(dict.fromkeys(IMMEDIATE_UNLOCK_RE.findall(choice.body)))
         return ExecutionResult(event_id, choice_id, next_ids, state.snapshot())
+
+    def activate_delayed_target(
+        self,
+        state: GameState,
+        exactly_once_key: str,
+        *,
+        condition_satisfied: bool | None = None,
+    ) -> DelayedActivationResult:
+        """Resolve a canonical delay and hand its authored target to the engine.
+
+        The delay contract owns eligibility timing. The target is not auto-chosen:
+        activation makes the target event the current authored decision, after which
+        its normal choices execute through ``DecisionEngine.execute``. Condition-bound
+        rows require an explicit producer-backed condition result.
+        """
+        delay = state.pending_delays.get(exactly_once_key)
+        if delay is None:
+            raise KeyError(exactly_once_key)
+        self.event(delay.resolution_target)  # reject excluded/out-of-scope targets
+        if delay.condition_bound:
+            if condition_satisfied is not True:
+                raise ValueError(f"condition not satisfied: {exactly_once_key}")
+        elif delay.scheduled_turn is None or state.turn < delay.scheduled_turn:
+            raise ValueError(f"delay is not due: {exactly_once_key}")
+        resolved = state.activate_delayed_target(exactly_once_key)
+        return DelayedActivationResult(
+            consequence_key=resolved.exactly_once_key,
+            target_event_id=resolved.resolution_target,
+            state_snapshot=state.snapshot(),
+        )
+
+    def activate_next_due_delay(self, state: GameState) -> DelayedActivationResult:
+        due = due_delays(state)
+        if not due:
+            raise ValueError("no due delayed consequence")
+        return self.activate_delayed_target(state, due[0].exactly_once_key)
