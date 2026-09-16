@@ -9,6 +9,7 @@ on:
       - 'docs/MACHINE_ENDING_ALIAS_BOUNDARY_01.json'
       - 'docs/ENDING_PRECEDENCE_TEST_MATRIX_01.md'
       - 'tools/validate_ending_source_closure.py'
+      - 'tools/validate_ending_alias_boundary.py'
   pull_request:
     paths:
       - 'docs/MACHINE_ENDING_QUALIFICATION_CONTRACT_01.json'
@@ -16,6 +17,7 @@ on:
       - 'docs/MACHINE_ENDING_ALIAS_BOUNDARY_01.json'
       - 'docs/ENDING_PRECEDENCE_TEST_MATRIX_01.md'
       - 'tools/validate_ending_source_closure.py'
+      - 'tools/validate_ending_alias_boundary.py'
   workflow_dispatch:
 
 jobs:
@@ -25,3 +27,5 @@ jobs:
       - uses: actions/checkout@v4
       - name: Validate S11 ending source closure
         run: python3 tools/validate_ending_source_closure.py
+      - name: Validate S11 ending alias boundary
+        run: python3 tools/validate_ending_alias_boundary.py
