@@ -20,8 +20,6 @@ class DelaySpec:
 
 
 # Frozen from docs/CANONICAL_DELAY_CANCELLATION_MATRIX_01.md.
-# Relative timing is represented as an offset from the successfully committed
-# source choice. E185 is deliberately condition-bound: no invented turn exists.
 CANONICAL_DELAY_SPECS: tuple[DelaySpec, ...] = (
     DelaySpec("E181.second_toll_increase", "E45", "E45-B", "E181", "delay.E45B.E181.second_toll_increase", 5),
     DelaySpec("E182.veteran_promise", "E117", "E117-B", "E182", "delay.E117B.E182.veteran_promise", 4),
@@ -60,6 +58,7 @@ def schedule_authored_delay(state: GameState, event_id: str, choice_id: str) -> 
         scheduled_turn=scheduled_turn,
         condition_bound=spec.condition_bound,
         priority=spec.priority,
+        supersedes=spec.supersedes,
     )
     state.schedule(delay)
     return delay
