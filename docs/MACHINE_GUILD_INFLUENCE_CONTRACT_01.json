@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "contract": "choice_kingdom.guild_influence_strong",
+  "scope": "E01-E272",
+  "status": "SOURCE_CONTRACT_CLOSED_RUNTIME_ORDER_OPEN",
+  "predicate": "pred.guild_influence_strong",
+  "minimum_distinct_domains": 3,
+  "domains": [
+    {
+      "id": "representation",
+      "canonical_sources": ["history.guild_representation"],
+      "producer": "E144-A"
+    },
+    {
+      "id": "tribunal",
+      "canonical_sources": ["guild_tribunal_independent"],
+      "producer": "E168-A"
+    },
+    {
+      "id": "commercial_market",
+      "canonical_sources": ["audited_monopoly", "merchant_charter"],
+      "producer": "E166-A"
+    },
+    {
+      "id": "qualified_logistics",
+      "canonical_sources": ["pred.guild_logistics_cooperation"],
+      "producer": "E194-A"
+    }
+  ],
+  "upstream_of": ["E200", "pred.golden_compact"],
+  "consumer_cannot_manufacture": true,
+  "anti_double_counting": [
+    "E144 representation cannot count as two domains",
+    "history.guild_representation cannot be treated as both representation and tribunal",
+    "relationship values never count as a domain",
+    "pred.guild_logistics_cooperation is one logistics domain even when multiple historical markers support it",
+    "E200 and later ending consumers cannot create this predicate retroactively"
+  ],
+  "forbidden_aliases": ["rel.ivo", "history.guild_logistics_cooperation", "thread.guild"],
+  "runtime_verified": false,
+  "remaining_checks": [
+    "producer-before-consumer ordering",
+    "reachability of each domain",
+    "three-distinct-domain cardinality at runtime",
+    "negative branch invalidation",
+    "save-load preservation",
+    "replay isolation",
+    "contradiction and cycle checks"
+  ]
+}
