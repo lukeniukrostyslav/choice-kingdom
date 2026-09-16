@@ -8,6 +8,8 @@ on:
       - 'docs/MACHINE_CAUSAL_REACHABILITY_01.json'
       - 'docs/MACHINE_REPLAY_CONTRACT_01.json'
       - 'docs/MACHINE_DELAY_CONTRACT_01.json'
+      - 'tools/validate_causal_reachability_contract.py'
+      - 'tools/validate_canonical_graph_closure.py'
       - 'tools/validate_scenario_wide_gate.py'
       - '.github/workflows/scenario-wide-gate.yml'
   workflow_dispatch:
@@ -17,6 +19,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Rebuild canonical source reports
+        run: |
+          python tools/validate_causal_reachability_contract.py
+          python tools/validate_canonical_graph_closure.py
       - name: Run scenario-wide source/contract gate
         run: python tools/validate_scenario_wide_gate.py
       - name: Assert runtime promotion remains blocked
