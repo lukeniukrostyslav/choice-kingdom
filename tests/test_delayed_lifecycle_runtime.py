@@ -156,8 +156,6 @@ def _prime_state_for_authored_source(engine: DecisionEngine, event_id: str) -> G
     if event_id == "E17":
         state.resources["security"] = 60
     if event_id == "E160":
-        # E160's canonical trigger is prose "severe winter"; the machine graph
-        # explicitly binds that trigger to pred.winter_severe from E29-A/B.
         state.flags.add("pred.winter_severe")
     return state
 
@@ -184,8 +182,6 @@ def test_each_canonical_delayed_choice_executes_through_decision_engine(
 
     if delay.condition_bound:
         assert delay.scheduled_turn is None
-        # E185 has no calendar due turn. Its contract requires the exact later
-        # military-crisis qualification; advancing turns alone must never resolve it.
         state.turn += 100
         assert due_delays(state) == ()
         with pytest.raises(ValueError, match="condition not satisfied"):
@@ -232,7 +228,7 @@ def test_duplicate_scheduling_is_rejected_without_duplicate_pending_state():
     state = GameState.fresh("delay-duplicate")
     first = schedule_authored_delay(state, "E45", "E45-B")
     assert first is not None
-    with pytest.raises(ValueError, match="duplicate or consumed delay key"):
+    with pytest.raises(ValueError, match="duplicate pending delay"):
         schedule_authored_delay(state, "E45", "E45-B")
     assert list(state.pending_delays) == [first.exactly_once_key]
 
