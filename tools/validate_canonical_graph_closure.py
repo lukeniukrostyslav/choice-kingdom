@@ -18,6 +18,7 @@ GRAPH = ROOT / "docs" / "EVENT_GRAPH.md"
 HEADING = re.compile(r"^###\s+(E(?:[1-9][0-9]{2}|[1-9][0-9]|0[1-9]))\b")
 TOKEN = re.compile(r"\bE(?:[1-9][0-9]{2}|[1-9][0-9]|0[1-9])(?:-[A-Z])?\b")
 CHAIN = re.compile(r"`([^`]*->[^`]*)`")
+COVERAGE = re.compile(r"^-\s+(E(?:[1-9][0-9]{2}|[1-9][0-9]|0[1-9]))\s+—\s+coverage declaration only\s*$")
 
 
 def canon(token: str) -> str:
@@ -30,6 +31,7 @@ def main() -> int:
     hi = manifest["scope"]["last_event"]
     expected = {f"E{i:02d}" for i in range(lo, hi + 1)}
     excluded = set(manifest["scope"]["excluded_events"])
+    graph_text = GRAPH.read_text(encoding="utf-8")
 
     catalog_ids: set[str] = set()
     for source in manifest["source_of_truth"]["catalog_sources"]:
@@ -43,7 +45,7 @@ def main() -> int:
 
     graph_ids: set[str] = set()
     edges: set[tuple[str, str]] = set()
-    for match in CHAIN.finditer(GRAPH.read_text(encoding="utf-8")):
+    for match in CHAIN.finditer(graph_text):
         ids = [canon(x) for x in TOKEN.findall(match.group(1))]
         for event in ids:
             if event in expected:
@@ -51,6 +53,12 @@ def main() -> int:
             elif event not in excluded:
                 raise SystemExit(f"out-of-scope graph event: {event}")
         edges.update((a, b) for a, b in zip(ids, ids[1:]) if a in expected and b in expected)
+
+    coverage_ids = {m.group(1) for m in map(COVERAGE.match, graph_text.splitlines()) if m}
+    for event in coverage_ids:
+        if event not in expected:
+            raise SystemExit(f"out-of-scope canonical coverage declaration: {event}")
+    graph_ids.update(coverage_ids)
 
     errors: list[str] = []
     missing_catalog = sorted(expected - catalog_ids, key=lambda x: int(x[1:]))
@@ -64,17 +72,18 @@ def main() -> int:
         errors.append(f"excluded expansion nodes leaked into graph: {', '.join(excluded_leaks)}")
 
     report = {
-        "schema_version": "1.0",
+        "schema_version": "1.1",
         "scope": f"E{lo:02d}-E{hi}",
         "catalog_nodes": len(catalog_ids & expected),
         "graph_nodes": len(graph_ids & expected),
+        "explicit_coverage_declarations": len(coverage_ids),
         "unique_in_scope_edges": len(edges),
         "catalog_graph_node_parity_proven": not missing_catalog and not missing_graph,
         "excluded_scope_integrity_proven": not excluded_leaks,
         "source_level_canonical_graph_closed": not errors,
         "runtime_gameplay_reachability_proven": False,
         "runtime_engine_execution_proven": False,
-        "semantic_boundary": "Every graph edge is a frozen design-level causal candidate. No edge is promoted to runtime semantics by this gate.",
+        "semantic_boundary": "Every graph edge is a frozen design-level causal candidate. Explicit coverage declarations prove node presence only; they do not imply causal edges, runtime semantics, or gameplay reachability.",
         "errors": errors,
     }
     out = ROOT / "docs" / "MACHINE_CANONICAL_GRAPH_CLOSURE_01.json"
