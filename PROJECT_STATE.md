@@ -57,12 +57,18 @@ The campaign and trigger audits are diagnostic. Missing/opaque events are **not 
 
 ## Latest runtime closure
 
-The trigger interpreter now evaluates structured boolean combinations of already-canonical atoms without promoting unknown prose to truth. This closure is runtime-verified by the full regression and campaign audit; it does not close the remaining producer/lifecycle semantics.
+Canonical predicate trigger atoms now use the same `EndingSourceCompiler` as ending qualification. This removes the remaining duplicated `pred.food_stable` trigger special case and preserves the authored E192-B producer / E192-A invalidation semantics in one source-closed compiler. New tests cover both positive and invalidated food-stability states plus trigger evaluation through the shared compiler.
+
+The change is **IMPLEMENTED / VERIFICATION PENDING** until the GitHub Actions checks complete. No percentage has been increased from this change alone.
 
 ## Current Block 7 target
 Close authoritative trigger/producer semantics only where authored source and canonical contracts define them; bind verified semantics into the runtime; rerun the full regression and campaign audit; then make E01–E272 executable through one `GameSession` lifecycle.
 
 ## Latest work saved to GitHub
+- `runtime/ending_sources.py` — source-closed predicate compilation including E192 food-stability lifecycle.
+- `runtime/catalog.py` — all canonical `pred.*` trigger atoms now route through `EndingSourceCompiler` instead of maintaining a separate `pred.food_stable` special case.
+- `tests/test_runtime_source_closed_predicates.py` — source-closed predicate, hard-negative, invalidation, and shared-trigger-compiler coverage.
+- `docs/RUNTIME_SOURCE_CLOSED_PREDICATE_CLOSURE_01.md` — implementation checkpoint and verification boundary.
 - `tools/audit_runtime_campaign.py`
 - `tests/test_runtime_campaign_audit.py`
 - `.github/workflows/runtime-campaign-audit.yml`
@@ -70,7 +76,6 @@ Close authoritative trigger/producer semantics only where authored source and ca
 - `tools/audit_runtime_trigger_semantics.py` — refined source classification for explicit prerequisites and safe canonical aliases.
 - `tests/test_runtime_trigger_semantics_audit.py`
 - `.github/workflows/runtime-trigger-semantics-audit.yml`
-- `docs/RUNTIME_TRIGGER_SEMANTICS_CLOSURE_01.md`
 - `docs/MACHINE_RUNTIME_TRIGGER_SEMANTICS_AUDIT_01.json`
 - `docs/RUNTIME_STRUCTURED_BOOLEAN_TRIGGER_CLOSURE_01.md`
 
