@@ -102,3 +102,19 @@ def test_excluded_events_are_rejected():
     payload["current_event_id"] = "E273"
     with pytest.raises(ValueError):
         GameState.from_snapshot(payload)
+
+
+def test_coalition_participant_state_is_canonical_and_rejects_unknown_identities():
+    state = GameState.fresh("run-coalition")
+    for participant in ("mara", "rowan", "seris"):
+        assert state.record_coalition_participant(participant) is True
+    assert state.record_coalition_participant("mara") is False
+    with pytest.raises(ValueError, match="non-canonical coalition participant"):
+        state.record_coalition_participant("commons")
+
+
+def test_save_load_rejects_non_canonical_coalition_participant():
+    payload = GameState.fresh("run-bad-coalition").snapshot()
+    payload["coalition_participants"] = ["mara", "commons", "guild"]
+    with pytest.raises(ValueError, match="non-canonical coalition participant"):
+        GameState.from_snapshot(payload)
