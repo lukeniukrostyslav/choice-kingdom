@@ -18,6 +18,7 @@ def main() -> int:
     sources = [ROOT / path for path in contract.get("authoritative_machine_sources", [])]
     allowlist = {ROOT / path for path in contract.get("documentation_allowlist", [])}
     errors: list[str] = []
+    source_texts: dict[str, str] = {}
 
     if contract.get("scope") != EXPECTED_SCOPE:
         errors.append(f"unexpected contract scope: {contract.get('scope')!r}")
@@ -37,27 +38,27 @@ def main() -> int:
             errors.append(f"canonical identifier {key!r} is not namespace-qualified: {value!r}")
 
     for path in sources:
+        rel = str(path.relative_to(ROOT))
         if not path.exists():
-            errors.append(f"missing authoritative machine source: {path.relative_to(ROOT)}")
+            errors.append(f"missing authoritative machine source: {rel}")
             continue
         text = path.read_text(encoding="utf-8")
+        source_texts[rel] = text
         for alias in aliases:
             if alias in text:
-                errors.append(
-                    f"forbidden runtime alias {alias!r} appears in authoritative machine source {path.relative_to(ROOT)}"
-                )
-        for key, value in canonical.items():
-            if value not in text:
-                errors.append(
-                    f"canonical identifier {key!r}={value!r} is absent from authoritative machine source {path.relative_to(ROOT)}"
-                )
+                errors.append(f"forbidden runtime alias {alias!r} appears in authoritative machine source {rel}")
+
+    combined = "\n".join(source_texts.values())
+    for key, value in canonical.items():
+        if value not in combined:
+            errors.append(f"canonical identifier {key!r}={value!r} is absent from all authoritative machine sources")
 
     for path in allowlist:
         if not path.exists():
             errors.append(f"missing documentation allowlist entry: {path.relative_to(ROOT)}")
 
     result = {
-        "schema_version": "1.1",
+        "schema_version": "1.2",
         "contract": "choice_kingdom.ending_alias_boundary_validation",
         "scope": EXPECTED_SCOPE,
         "readiness": "PASS" if not errors else "FAIL",
@@ -68,6 +69,10 @@ def main() -> int:
         "canonical_namespace_qualified": all(
             isinstance(v, str) and (v.startswith("thread.") or v.startswith("pred."))
             for v in canonical.values()
+        ),
+        "canonical_presence_verified_across_sources": not any(
+            f"canonical identifier {key!r}=" in error and "absent from all" in error
+            for error in errors for key in canonical
         ),
         "errors": errors,
         "runtime_verified": False,
