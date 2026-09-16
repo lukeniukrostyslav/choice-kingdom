@@ -1,0 +1,16 @@
+{
+  "audit_only": true,
+  "counts": {
+    "CANONICAL_TOKEN_OR_THRESHOLD": 75,
+    "EMPTY": 40,
+    "EVENT_REFERENCE": 1,
+    "FIRST_TURN": 1,
+    "OPAQUE_PROSE": 121,
+    "PARTIAL_PROSE": 33,
+    "SEVERE_WINTER": 1
+  },
+  "opaque_or_partial_count": 154,
+  "schema_version": "1.0",
+  "scope": "E01-E272",
+  "semantic_boundary": "Opaque prose is not converted into runtime truth. Each such trigger requires an authoritative canonical producer/predicate/route contract before engine implementation."
+}

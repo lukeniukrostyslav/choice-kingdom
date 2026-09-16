@@ -23,7 +23,6 @@ EXCLUDED = {f"E{i:02d}" for i in range(273, 278)}
 IMMEDIATE = re.compile(r"^-\s*\*\*Unlocks?\*\*\s+`?(E\d{2,3})", re.I | re.M)
 
 
-# Deterministic baseline only: this is a measurement gate, not gameplay policy.
 def choose_event(engine: DecisionEngine, state: GameState):
     """Prefer the lowest event id, matching the stable baseline traversal."""
     candidates = [event for event in engine.available(state) if event.choices]
