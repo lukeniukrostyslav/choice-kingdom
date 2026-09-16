@@ -108,9 +108,6 @@ class AuthoredCatalog:
                 resource_deltas=resource_deltas, relationship_deltas=relationship_deltas,
                 state_tokens=tuple(dict.fromkeys(tokens)), clear_tokens=tuple(dict.fromkeys(clears)),
             ))
-        # Some authored special nodes are intentionally state-producing narrative
-        # boundaries without player choices (for example E32). Preserve them in the
-        # runtime catalog rather than inventing A/B choices that do not exist in source.
         return Event(event_id, title, trigger, tuple(choices), source)
 
     def get(self, event_id: str) -> Event:
@@ -129,6 +126,8 @@ class AuthoredCatalog:
 
     def trigger_satisfied(self, event_id: str, state) -> bool:
         event = self.get(event_id)
+        if event_id in state.history:
+            return False
         trigger = event.trigger
         low = trigger.lower().strip().rstrip(".")
         if not trigger:
