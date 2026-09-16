@@ -20,12 +20,12 @@ Freeze deterministic semantic inputs for contextual conditions before production
 | `pred.market_pressure` | E19-B establishes current market-pressure cycle; E19-A clears active cycle | CLOSED at source level; runtime cycle lifecycle open |
 | `pred.guild_labor_tension` | **No production source by design; formally excluded from frozen E01–E272 predicate semantics. E275-B is expansion-only.** | **EXCLUDED / NOT-A-PRODUCTION-PREDICATE** |
 | `pred.information_pressure_high` | **No production source by design; formally excluded from frozen E01–E272 predicate semantics. E276-B is expansion-only.** | **EXCLUDED / NOT-A-PRODUCTION-PREDICATE** |
-| `pred.guild_influence_strong` | At least two distinct domains from: representation=`guild_political_representation`/`history.guild_representation`; tribunal=`guild_tribunal_independent`; commercial=`official_credit_disclosure`/`audited_monopoly`; qualified logistics=`history.guild_logistics_cooperation` + E194-A qualification | SOURCE CONTRACT CLOSED; executable aggregation/reachability open |
+| `pred.guild_influence_strong` | At least **three** distinct domains from representation=`history.guild_representation`; tribunal=`guild_tribunal_independent`; commercial_market=`audited_monopoly`/`merchant_charter`; qualified_logistics=`history.guild_logistics_cooperation` + `guild_neutral_inspectors`, with immunity risk invalidating logistics | SOURCE CONTRACT CLOSED; executable aggregation/reachability open |
 | `pred.systemic_explanation_verified` | warehouse/financial evidence + document/language evidence + witness/organizational evidence + explicit E270-A convergence decision | SOURCE CONTRACT CLOSED by E270-A; runtime evidence aggregation/reachability open |
 | `pred.coalition_cooperation` | E148-A `history.cross_faction_package` with named participants, positive mutual-concession outcome, and no unresolved coalition-collapse blocker; E261-A is not sufficient by itself | SOURCE CONTRACT CLOSED; runtime blocker evaluation/reachability open |
-| `pred.constitutional_prepared_strong` | Any 3 of 4 independent domains: civic=`people_charter_endorsed` (E50); institutional=`crown_audited` (E154); factional=`house_assembly` (E161); military/law=`army_constitution_oath` (E199) | SOURCE CONTRACT CLOSED; executable aggregation/reachability open |
+| `pred.constitutional_prepared_strong` | Any **3 of 4** independent domains: civic=`people_charter_endorsed`; institutional=`crown_audited`/`full_crown_audit_published`; factional=`history.house_assembly`; military=`military_red_line`/`thread.military_constitutional` | SOURCE CONTRACT CLOSED; executable aggregation/reachability open |
 | `pred.budget_reform` | E142-A `auditor_independence` + E154-A `crown_audited` + E198-A `legislative_budget_lock`; E142-B/E154-B/E198-B negative blockers; E155-A same-domain downstream evidence | SOURCE CONTRACT CLOSED; runtime invalidation/reachability open |
-| `pred.final_charter_prerequisites` | `people_charter_endorsed` + (`crown_audited` OR `full_crown_audit_published`) + (`history.house_assembly` AND `history.guild_representation`) + (`army_constitution_oath` OR `military_red_line`) + information/evidence legitimacy + `pred.coalition_cooperation` + no unresolved mandatory crisis blocker; E209 is consumer-only | SOURCE CONTRACT CLOSED; runtime aggregation/invalidation open |
+| `pred.final_charter_prerequisites` | `people_charter_endorsed` + (`crown_audited` OR `full_crown_audit_published`) + (`history.house_assembly` AND `history.guild_representation`) + (`military_red_line` OR `thread.military_constitutional`) + information/evidence legitimacy + `pred.coalition_cooperation` + no unresolved mandatory crisis blocker; E209 is consumer-only | SOURCE CONTRACT CLOSED; runtime aggregation/invalidation open |
 
 ## Hard derivation rules
 
@@ -48,10 +48,10 @@ Freeze deterministic semantic inputs for contextual conditions before production
 - `pred.border_crisis`: E271-A producer, E272-A/B clear.
 - `pred.food_stable`: E192-B producer for the current food-logistics cycle; E192-A explicitly clears the stability marker while preserving historical food-logistics evidence.
 - `pred.guild_logistics_cooperation`: upstream E136-B cooperation marker + E194-A neutral inspection + no immunity-risk blocker.
-- `pred.guild_influence_strong`: canonical domain set frozen; E49/E144 representation is one domain only.
+- `pred.guild_influence_strong`: canonical **three-domain** set frozen: representation, tribunal, commercial_market, qualified_logistics. Relationship values and generic guild history cannot count as extra domains.
 - `pred.systemic_explanation_verified`: E270-A is the explicit convergence producer; it cannot manufacture missing evidence families.
 - `pred.coalition_cooperation`: E148-A is the authoritative package source; participant identity is explicit; E261-A alone is not qualification.
-- `pred.constitutional_prepared_strong`: any three independent domains from E50/E154/E161/E199; downstream consequences do not silently create a fourth independent domain.
+- `pred.constitutional_prepared_strong`: any three independent domains from the four canonical machine domains: civic, institutional, factional, military. A source event cannot count as two domains.
 - `pred.budget_reform`: E142-A/E154-A/E198-A are the three independent institutional layers; negative blockers are explicit.
 - `pred.final_charter_prerequisites`: exact upstream conjunction is frozen; E209 is consumer-only and cannot satisfy any prerequisite.
 
@@ -80,11 +80,11 @@ Expansion admission requires an explicit scope change and re-running event-ID, t
 
 ### Guild influence
 
-E49's `guild_political_representation` and E144's `history.guild_representation` are one representation domain. Additional independent domains are guild tribunal, commercial/credit evidence, and qualified logistics cooperation. `rel.ivo` alone is forbidden.
+E144's `history.guild_representation` is the canonical representation domain. Additional independent domains are guild tribunal, commercial_market, and qualified logistics cooperation. The machine contract requires **three distinct domains**. `rel.ivo` and `thread.guild` are forbidden aliases.
 
 ### Constitutional preparation
 
-E50 → `people_charter_endorsed`; E154 → `crown_audited`; E161 → `house_assembly`; E199 → `army_constitution_oath`. Any three distinct domains qualify the source-level predicate. E227 `military_red_line` is supporting evidence and is not substituted for E199.
+The machine contract freezes four independent domains: E50 civic=`people_charter_endorsed`; E154/E155 institutional=`crown_audited` or `full_crown_audit_published`; E161 factional=`history.house_assembly`; E199 military=`military_red_line` or `thread.military_constitutional`. Any three distinct domains qualify the source-level predicate. One source event cannot count twice.
 
 ### Budget reform
 
@@ -100,7 +100,7 @@ E148-A records the cross-faction package and named participation from Mara, Rowa
 
 ### Final charter prerequisites
 
-The source-level evaluator is intentionally upstream of E209. Civic legitimacy is `people_charter_endorsed`; institutional legitimacy is `crown_audited` or its published audit result; house/guild representation requires both immutable representation markers; military/security constitutional route is `army_constitution_oath` or the explicitly authored `military_red_line`; information/evidence legitimacy is satisfied only by a canonical evidence marker from the investigation chain; coalition legitimacy is `pred.coalition_cooperation`; and any mandatory active crisis blocker must be resolved before qualification. E209 never manufactures a missing prerequisite.
+The source-level evaluator is intentionally upstream of E209. Civic legitimacy is `people_charter_endorsed`; institutional legitimacy is `crown_audited` or its published audit result; house/guild representation requires both immutable representation markers; military/security constitutional route is `military_red_line` or `thread.military_constitutional`; information/evidence legitimacy is satisfied only by the canonical systemic evidence chain; coalition legitimacy is `pred.coalition_cooperation`; and any mandatory active crisis blocker must be resolved before qualification. E209 never manufactures a missing prerequisite.
 
 ## Gate
 
