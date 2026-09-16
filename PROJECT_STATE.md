@@ -21,7 +21,7 @@ No mock/stub gameplay or premature production-readiness claims.
 **Narrative/content canonicalization and QA.** Authored checkpoint E01–E272. Production schema and Decision Engine remain blocked until canonical contracts and reachability are sufficiently closed.
 
 ## Scenario QA
-Dedicated Scenario QA score is approximately **92.7%**. This is distinct from overall project completion and is not runtime/Android readiness.
+Dedicated Scenario QA score remains approximately **92.7%**. This is distinct from overall project completion and is not runtime/Android readiness.
 
 ### S01–S12 working indicators
 - S01 **80%**
@@ -29,7 +29,7 @@ Dedicated Scenario QA score is approximately **92.7%**. This is distinct from ov
 - S03 **70%**
 - S04 **70%**
 - S05 **60%**
-- S06 **60%** — delayed E181–E185/E242–E246 source identities and hard semantic negatives are frozen in a dedicated lifecycle matrix; runtime scheduler/persistence/replay lifecycle remains open.
+- S06 **60%** — all ten currently enumerated delayed source identities are now explicitly closed against the canonical graph; runtime scheduler/persistence/replay lifecycle remains open for all ten.
 - S07 **80%**
 - S08 **78%**
 - S09 **74%** — replay semantic classification is frozen and machine-validated; E131 is the only explicit previous-run producer candidate found in the inspected authored catalogs (`all_voices_heard`). E186 is only PARTIAL because it does not explicitly bind to that key; E247/E248 remain OPEN. Exact producer/key tuples remain unclosed.
@@ -38,6 +38,9 @@ Dedicated Scenario QA score is approximately **92.7%**. This is distinct from ov
 - S12 **95%** — canonical graph CI gates replay semantic classification and replay producer provenance; all E01–E272 remain structurally reachable in the frozen design graph. Gameplay/runtime reachability remains unverified.
 
 ## Latest QA work
+- **Delayed source identity reconciliation:** updated `docs/SCENARIO_QA_DELAYED_LIFECYCLE_MATRIX_01.md` from the current canonical graph. E184 is explicitly E25-B / `secret_evidence_route`; E242 is explicitly E118-B / `estate_exception`; E245 is explicitly E20-A / `soldier_compensation`. Relative timing remains unconverted to invented absolute turns. Commit `1ba3f11a8b4962141a72cbc5b8be72715ceda867`.
+- **Systemic predicate reconciliation:** current machine graph explicitly recognizes E270-A as the canonical producer of `pred.systemic_explanation_verified` via `systemic_explanation_convergence`; runtime verification remains false. The current graph also records E192-B/E192-A as the source/clear pair for `pred.food_stable`; runtime verification remains false.
+- **Machine predicate dependency gate:** the predicate dependency audit remains conservative and does not promote consumers into producers. Open runtime/reachability gates are preserved.
 - **S11.1 E33/E34 Canonical Closure 01:** added `docs/SCENARIO_QA_S11_1_E33_E34_CANONICAL_CLOSURE_01.md`. Verified authored-source recovery/integration, canonical production status, quarantine removal and final ending-boundary closure. Commit `1bb2e09f61d20d0d12d2b92708351b34bc5350bc`.
 - **E33/E34 ending-boundary closure:** final repository commit `c335d2793e6f24452489de8eb9c4c45026c56b11` changed the canonical ending-boundary contract to explicitly treat E33/E34 as canonical production events and closed the source-level mismatch.
 - **Replay Producer Provenance 01:** added `docs/SCENARIO_QA_REPLAY_PRODUCER_PROVENANCE_01.md`. Re-read the authoritative E131/E186/E247/E248 source boundary and froze the only explicit previous-run producer candidate found: E131 → `all_voices_heard`. E186 remains PARTIAL because its authored trigger does not explicitly name that key; E247/E248 remain OPEN. No inferred replay producer was promoted. Commit `18ee920025199d06685ce76376dee89f30e4b771`.
@@ -45,7 +48,7 @@ Dedicated Scenario QA score is approximately **92.7%**. This is distinct from ov
 - **Replay Producer Provenance Validator:** added `tools/validate_replay_producer_provenance.py`; it rejects invented producers and requires E186 to remain partial and E247/E248 open until authored bindings exist. Commit `d77049823df82f2252f56baedd35b5f8cc84c926`.
 - **Canonical Graph CI wiring:** replay producer provenance is now a blocking canonical-graph stage and its machine report is uploaded with the QA artifact. Commit `bebf61e6557b33f3fa95db25fbd8880238909884`.
 - **Replay Semantic Classification 01:** added `docs/SCENARIO_QA_REPLAY_SEMANTIC_CLASSIFICATION_01.md`. Audited the six previously grouped replay-sensitive nodes and separated genuine replay dependencies (E186/E247/E248) from ordinary authored state (E249/E250/E270). Commit `089e9a43ec15a484b76d28e1eaca2115a62086d4`.
-- **Delayed Lifecycle Matrix 01:** added `docs/SCENARIO_QA_DELAYED_LIFECYCLE_MATRIX_01.md`, freezing source identity, timing language, lifecycle blockers and hard negatives for E181–E185 and E242–E246. Commit `b9a2adcabea8c6705cbcb468dc04b3f7a9df529d`.
+- **Delayed Lifecycle Matrix 01:** added `docs/SCENARIO_QA_DELAYED_LIFECYCLE_MATRIX_01.md`, freezing source identity, timing language, lifecycle blockers and hard negatives for E181–E185 and E242–E246. The matrix is now reconciled with the current canonical graph; lifecycle remains open.
 - **Structural Reachability Closure 01:** added `docs/SCENARIO_QA_STRUCTURAL_REACHABILITY_CLOSURE_01.md`, freezing 272/272 structurally reachable and 0 structurally unreachable while explicitly separating this from gameplay/fresh-run reachability. Commit `bc4d412dfb039391e80810e1695b96005ae4a7da`.
 - **Canonical Graph CI run #158:** SUCCESS. All 18 canonical QA stages passed; this is not gameplay/runtime proof.
 
@@ -62,42 +65,40 @@ Dedicated Scenario QA score is approximately **92.7%**. This is distinct from ov
 - E186 is **PARTIAL_SOURCE_EVIDENCE**: its authored trigger allows an equivalent previous-run informational unlock but does not explicitly bind to `all_voices_heard`.
 - E247 is **OPEN**: no exact producer/key tuple found.
 - E248 is **OPEN**: no exact producer/key tuple found.
-- The provenance contract is now machine-validated and CI-gated.
+- The provenance contract is machine-validated and CI-gated.
 
 ### Delayed lifecycle boundary
-Runtime lifecycle is **0/10 closed** for E181–E185/E242–E246: exactly-once scheduling, due-turn semantics, cancellation/supersession, save/load persistence, replay isolation and fresh-run reachability remain unverified.
+- Source identities for E181–E185/E242–E246 are **10/10 source-closed** against the current canonical graph.
+- Runtime lifecycle remains **0/10 closed**: exactly-once scheduling, due-turn semantics, cancellation/supersession, save/load persistence, replay isolation and fresh-run reachability remain unverified.
 
 ### Predicate dependency status
 - `pred.guild_influence_strong`: OPEN.
-- `pred.systemic_explanation_verified`: OPEN.
-- `pred.coalition_cooperation`: OPEN.
-- `pred.constitutional_prepared_strong`: OPEN.
+- `pred.systemic_explanation_verified`: **SOURCE-CLOSED / RUNTIME OPEN**; canonical producer E270-A → `systemic_explanation_convergence`.
+- `pred.coalition_cooperation`: **SOURCE-CLOSED / RUNTIME OPEN**; canonical producer E148-A with explicit cooperation/participant/blocker requirements.
+- `pred.constitutional_prepared_strong`: **SOURCE-CLOSED / RUNTIME OPEN**; canonical multi-domain evidence contract.
 - `pred.budget_reform`: source-closed; runtime qualification open.
-- `pred.final_charter_prerequisites`: OPEN/BLOCKED; E209 remains consumer-only.
-- `pred.food_stable`: OPEN/BLOCKED.
+- `pred.final_charter_prerequisites`: **SOURCE-CLOSED / RUNTIME OPEN**; E209 remains consumer-only and cannot manufacture the predicate.
+- `pred.food_stable`: **SOURCE-CLOSED / RUNTIME OPEN**; canonical producer E192-B and clear E192-A.
 - `pred.border_crisis`: source-closed lifecycle identity; runtime semantics open.
 
 ### Ending prerequisite status
 - Steward: blockers/precedence/fresh-run reachability OPEN.
 - Iron Crown: blockers/precedence/reachability OPEN.
 - Golden Compact: blockers/precedence/reachability OPEN.
-- People's Charter: **OPEN/BLOCKED** because E209 is consumer-only.
+- People's Charter: **OPEN/BLOCKED** until its complete executable qualification contract and reachability are verified; E209 remains consumer-only.
 - Broken Diadem: deterministic failure precedence OPEN.
 - Quiet Throne: blocker precedence OPEN.
-- Second Founder: **OPEN/BLOCKED** by replay meta producer/key plus systemic convergence and fresh-run/replay separation.
+- Second Founder: **OPEN/BLOCKED** by replay meta producer/key plus fresh-run/replay separation and runtime convergence qualification.
 
 ## Major unresolved gates
-- `pred.food_stable` vs `food_logistics_stabilized`;
-- exact executable producer compilation for `pred.guild_influence_strong`;
-- explicit convergence producer/key for `pred.systemic_explanation_verified`;
-- runtime qualification/invalidation for `pred.coalition_cooperation`;
-- executable ordering for `pred.constitutional_prepared_strong`;
-- `pred.final_charter_prerequisites`;
+- executable producer compilation for `pred.guild_influence_strong`;
+- runtime qualification/invalidation for source-closed composite predicates;
 - replay exact producer/key inventory for E186/E247/E248; E131/`all_voices_heard` is only a partial candidate and must not be silently promoted;
 - delayed cancellation/supersession rules and runtime persistence/isolation;
-- E184 producer closure and E185 crisis resolution;
+- E185 later military-crisis resolution lifecycle;
 - exact ending positive/negative prerequisite sets and deterministic tie-break/terminal order;
 - gameplay/fresh-run reachability beyond structural graph reachability;
+- replay reachability and cross-run isolation proof;
 - machine graph ↔ authoritative catalog semantic equality beyond ID parity.
 
 ## Current honest progress
