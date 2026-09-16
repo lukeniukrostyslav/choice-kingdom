@@ -1,16 +1,29 @@
+import itertools
+
 import pytest
 
+from runtime.ending_precedence import AUTHORED_PRIORITY
 from runtime.endings import (
     END_BROKEN_DIADEM,
     END_GOLDEN_COMPACT,
     END_IRON_CROWN,
     END_PEOPLES_CHARTER,
     END_QUIET_THRONE,
+    END_SECOND_FOUNDER,
     END_STEWARD,
     EndingResolutionError,
     EndingResolver,
 )
 from runtime.state import GameState, SaveStore
+
+
+POSITIVE = (
+    END_SECOND_FOUNDER,
+    END_PEOPLES_CHARTER,
+    END_GOLDEN_COMPACT,
+    END_STEWARD,
+    END_IRON_CROWN,
+)
 
 
 def terminal_state() -> GameState:
@@ -42,14 +55,24 @@ def test_collapse_failure_precedes_positive_ending():
     assert result.ending_id == END_BROKEN_DIADEM
 
 
-def test_multiple_positive_endings_require_authored_pairwise_priority():
-    state = terminal_state()
-    with pytest.raises(EndingResolutionError, match="missing authored priority"):
-        EndingResolver().resolve(
-            state,
-            qualified_endings=[END_STEWARD, END_PEOPLES_CHARTER],
-        )
+def test_machine_authored_priority_covers_every_positive_pair():
+    assert len(AUTHORED_PRIORITY) == 10
+    for left, right in itertools.combinations(POSITIVE, 2):
+        winner = AUTHORED_PRIORITY.get((left, right), AUTHORED_PRIORITY.get((right, left)))
+        assert winner in {left, right}
 
+
+def test_machine_authored_priority_is_used_by_default():
+    state = terminal_state()
+    result = EndingResolver().resolve(
+        state,
+        qualified_endings=[END_SECOND_FOUNDER, END_IRON_CROWN],
+    )
+    assert result.ending_id == END_SECOND_FOUNDER
+
+
+def test_explicit_priority_can_override_only_when_caller_supplies_authored_data():
+    state = terminal_state()
     result = EndingResolver().resolve(
         state,
         qualified_endings=[END_STEWARD, END_PEOPLES_CHARTER],
@@ -58,22 +81,18 @@ def test_multiple_positive_endings_require_authored_pairwise_priority():
     assert result.ending_id == END_STEWARD
 
 
-def test_quiet_throne_does_not_invent_precedence_over_positive_ending():
+def test_quiet_throne_wins_only_when_no_positive_ending_qualifies():
     state = terminal_state()
-    with pytest.raises(EndingResolutionError, match="missing authored priority"):
-        EndingResolver().resolve(
-            state,
-            qualified_endings=[END_GOLDEN_COMPACT],
-            explicit_withdrawal=True,
-        )
+    result = EndingResolver().resolve(state, explicit_withdrawal=True)
+    assert result.ending_id == END_QUIET_THRONE
 
-    result = EndingResolver().resolve(
-        state,
+    positive_state = terminal_state()
+    positive = EndingResolver().resolve(
+        positive_state,
         qualified_endings=[END_GOLDEN_COMPACT],
         explicit_withdrawal=True,
-        authored_priority={(END_GOLDEN_COMPACT, END_QUIET_THRONE): END_GOLDEN_COMPACT},
     )
-    assert result.ending_id == END_GOLDEN_COMPACT
+    assert positive.ending_id == END_GOLDEN_COMPACT
 
 
 def test_unknown_ending_id_cannot_enter_resolver():
