@@ -32,6 +32,8 @@ def test_block14_audio_control_contract():
     assert "AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK" in audio
     assert "AUDIOFOCUS_LOSS" in audio
     assert "abandonAudioFocusRequest" in audio
+    assert "postDelayed({ abandonFocus() }, 100)" in audio
+    assert "removeCallbacksAndMessages(null)" in audio
     assert "setMuted" in audio
     assert "setVolume" in audio
     assert "Slider(" in main
