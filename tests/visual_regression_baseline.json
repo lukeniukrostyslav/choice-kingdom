@@ -36,5 +36,22 @@
     "surfaceVariant",
     "onSurface"
   ],
-  "physicalDeviceValidationBlock": 21
+  "physicalDeviceValidationBlock": 21,
+  "coverage": {
+    "localeVariants": [
+      "en",
+      "ru",
+      "uk",
+      "it",
+      "de",
+      "fr",
+      "es",
+      "pt"
+    ],
+    "fontScales": [
+      1,
+      1.3
+    ],
+    "largeText": true
+  }
 }
