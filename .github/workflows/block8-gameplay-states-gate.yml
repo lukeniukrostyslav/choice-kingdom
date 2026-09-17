@@ -1,0 +1,35 @@
+name: Choice Kingdom Block 8 Gameplay States Gate
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'runtime/gameplay_state.py'
+      - 'runtime/session.py'
+      - 'runtime/state.py'
+      - 'runtime/delays.py'
+      - 'tests/test_block8_gameplay_states.py'
+      - '.github/workflows/block8-gameplay-states-gate.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'runtime/gameplay_state.py'
+      - 'runtime/session.py'
+      - 'runtime/state.py'
+      - 'runtime/delays.py'
+      - 'tests/test_block8_gameplay_states.py'
+      - '.github/workflows/block8-gameplay-states-gate.yml'
+  workflow_dispatch:
+
+jobs:
+  block8-gameplay-states:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install test dependencies
+        run: python -m pip install --upgrade pip pytest
+      - name: Run Block 8 lifecycle tests
+        run: python -m pytest -q tests/test_block8_gameplay_states.py tests/test_game_session_state_boundary.py tests/test_game_session_view_state.py tests/test_runtime_state.py
