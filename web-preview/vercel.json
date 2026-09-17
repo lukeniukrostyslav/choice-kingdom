@@ -24,6 +24,9 @@
     {"source":"/faction-polish","destination":"/design-faction-polish.html"},
     {"source":"/ending-polish","destination":"/design-ending-polish.html"},
     {"source":"/settings-polish","destination":"/design-settings-polish.html"},
+    {"source":"/asset-production","destination":"/design-asset-production.html"},
+    {"source":"/motion-system","destination":"/design-motion-system.html"},
+    {"source":"/visual-release-gate","destination":"/design-visual-release-gate.html"},
     {"source":"/ending","destination":"/ending.html"},
     {"source":"/investigation","destination":"/investigation.html"},
     {"source":"/(.*)","destination":"/index.html"}
