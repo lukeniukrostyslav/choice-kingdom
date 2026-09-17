@@ -36,6 +36,10 @@ class EventChoiceHost:
         self.presenter.focus_choice(choice_id)
         return self.render()
 
+    def select(self, choice_id: str) -> EventChoiceScreen:
+        self.presenter.select_choice(choice_id)
+        return self.render()
+
     def press(self, choice_id: str) -> EventChoiceScreen:
         self.presenter.press_choice(choice_id)
         return self.render()
@@ -49,6 +53,7 @@ class EventChoiceHost:
         for choice in model.choices:
             if choice.state in {
                 InteractionState.FOCUSED,
+                InteractionState.SELECTED,
                 InteractionState.PRESSED,
                 InteractionState.RESOLVING,
             }:
