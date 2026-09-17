@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Kerajaan Pilihan</string>
+    <string name="event">Peristiwa</string><string name="realm">Kerajaan</string><string name="history">Riwayat</string><string name="people">Orang</string><string name="investigation">Penyelidikan</string><string name="ending">Akhir</string><string name="settings">Pengaturan</string>
+    <string name="your_decision">KEPUTUSANMU</string><string name="available">Tersedia</string><string name="selected">Dipilih</string><string name="resolving">Memproses</string><string name="blocked">Diblokir</string>
+    <string name="brand_line">CHOICE KINGDOM · AVELUNE</string><string name="offline_journey">PERJALANAN OFFLINE</string><string name="preparing_journey">Menyiapkan perjalanan</string>
+</resources>
