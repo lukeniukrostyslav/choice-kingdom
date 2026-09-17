@@ -12,7 +12,7 @@ Choice Kingdom should present as a premium narrative mobile game: cohesive art d
 | Block | Name | Current | Target |
 |---|---|---:|---:|
 | P1 | Art Direction | **70%** | 100% |
-| P2 | Character Art System | **10%** | 100% |
+| P2 | Character Art System | **20%** | 100% |
 | P3 | People / Character Codex | 0% | 100% |
 | P4 | Faction Visual Identity | 0% | 100% |
 | P5 | Event Cinematic UI | 0% | 100% |
@@ -52,7 +52,7 @@ Each block requires actual design/implementation work, visual inspection, releva
 - Design Specification V1–V18: closed at their defined boundaries.
 - UI / UX Runtime Implementation: 15% at roadmap approval.
 - P1 Art Direction: **70%** — direction bible, inspectable anchor specifications, visual drift checklist, representative anchor board, Realm/Environment proof, Consequence-State proof, mobile composition proof and an inspection matrix are now saved. Final runtime/rendered inspection and final asset provenance/licensing evidence remain open.
-- P2 Character Art System: **10%** — production character hierarchy, fixed/controlled identity rules, Tier A/B reference-sheet minimum, expression vocabulary, mobile portrait rules, material/costume grammar, lighting lock and consistency QA protocol are now saved. Actual Choice Kingdom character anchor sheets and visual proof remain open.
+- P2 Character Art System: **20%** — character system foundation plus first visual anchor proof: front/three-quarter/profile identity sheet, eight-state expression grid, compact mobile crop proof and P2 QA record. Production-quality authored character art, canonical character assignment, final expression studies, costume/material callouts, Vercel/mobile rendered validation and provenance/licensing remain open.
 - Final artwork: not complete.
 - Android visual runtime: not complete.
 - Physical-device visual QA: not complete.
@@ -69,4 +69,4 @@ Each block requires actual design/implementation work, visual inspection, releva
 
 ## First active block
 
-**P1 → P2.** P1 remains at 70% pending actual runtime/rendered inspection and final provenance/licensing evidence. P2 is now active at 10%; next evidence is the first actual Choice Kingdom Tier A character anchor sheet and its mobile/visual-drift validation. Then proceed through P3 onward without marking a block complete without evidence.
+**P2 — Character Art System.** P1 remains at 70% pending actual runtime/rendered inspection and final provenance/licensing evidence. P2 is now at **20%** after its first visual anchor proof. Next evidence is authored-quality character artwork, canonical People assignment, richer expression studies, costume/material callouts and visual-drift validation. Then proceed through P3 onward without marking a block complete without evidence.
