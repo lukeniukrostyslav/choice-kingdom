@@ -4,7 +4,7 @@
 Original premium offline-first decision-and-consequence mobile game set in Avelune. Android-first, one-time purchase target €2.99–€4.99, no ads/subscription/mandatory backend for core gameplay, 20+ locales including RTL. Frozen production catalog: **E01–E272**.
 
 ## Current phase
-**Blocks 1–9 are closed at their defined boundaries. Block 10 Localization 20+ is the active workstream at 70%.** The project proceeds strictly block-by-block. Percentages reflect implementation and available verification evidence, not documentation volume.
+**Blocks 1–9 are closed at their defined boundaries. Block 10 Localization 20+ is the active workstream at 80%.** The project proceeds strictly block-by-block. Percentages reflect implementation and available verification evidence, not documentation volume.
 
 ## Approved General Plan — 25 Blocks
 1. **Production Data Schema** → 100%
@@ -16,7 +16,7 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 7. **UI/UX Runtime** → 100%
 8. **All Gameplay States** → 100%
 9. **Android Runtime** → 100%
-10. **Localization 20+** → 70%
+10. **Localization 20+** → 80%
 11. **RTL / Large Text / Accessibility** → 0%
 12. **Responsive / Safe Areas / Devices** → 0%
 13. **Premium Design P1–P25** → 62.24%
@@ -56,9 +56,9 @@ Execution order is strictly **1 → 2 → 3 → ... → 25**. A block is not con
 - Added `runtime/localization.py` with a canonical 28-locale registry, English fallback, region normalization, and RTL metadata.
 - Added Android `res/xml/locales_config.xml` declaring all 28 supported locale tags for per-app language settings.
 - Added AndroidX AppCompat per-app locale switching in Settings for representative locales; application locale state is persisted by the AndroidX locale APIs.
-- Added default Android `strings.xml` resource catalog plus 27 localized Android resource overlays and a dedicated Block 10 GitHub Actions gate.
+- Added default Android `strings.xml` resource catalog plus 27 localized Android resource overlays, critical-key coverage tests, a dedicated narrative localization layer, and a dedicated Block 10 GitHub Actions gate.
 - Added `tests/test_block10_localization.py` and `docs/BLOCK10_LOCALIZATION_STATUS.md`.
-- Block 10 is deliberately not marked closed: full narrative translation of E01–E272, complete secondary UI/help copy coverage, and locale-specific runtime smoke tests remain required for 100%.
+- Block 10 is deliberately not marked closed: full verified translation of E01–E272 / 520 choices, generated narrative-key inventory, fallback-fail QA, and locale-specific Android runtime smoke remain required for 100%.
 
 ## Block 9 checkpoint — CLOSED
 - Android now resumes the same canonical GameSession after Activity recreation instead of starting a fresh run.
@@ -110,7 +110,7 @@ Execution order is strictly **1 → 2 → 3 → ... → 25**. A block is not con
 - Decision Engine / Application Runtime: **100% runtime-verified**
 - Design Specification: **100%**
 - UI / UX Runtime Implementation: **100%**
-- Localization 20+ / RTL: **70%**
+- Localization 20+ / RTL: **80%**
 - Android Implementation: **8%**
 - Runtime / Android QA: **28%**
 - APK / AAB: **0%**
