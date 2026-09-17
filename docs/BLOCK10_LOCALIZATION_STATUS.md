@@ -12,13 +12,13 @@ Status: **IN PROGRESS — 89%**.
 - Android player-facing UI copy routed through resources instead of previous hardcoded presentation strings.
 - Localized Android resource overlays for the declared release locales.
 - Automated critical-key coverage tests.
-- Canonical generated narrative-key inventory/locale contract: **272 events, 520 choices, 1,584 narrative keys, 8 release locales**.
+- Canonical generated narrative-key inventory/locale contract: **272 events, 520 choices, 1,064 player-facing narrative keys, 8 release locales**.
 - NarrativeLocalizer separates authored narrative semantics from localized presentation text and exposes missing/fallback keys.
 - Strict JSON narrative-pack repository loader validates schema, locale identity, non-empty fallback and non-empty translation.
 - Block 10 CI now executes the strict narrative-pack repository tests before the Android build.
 
 ## Remaining before 100%
-1. Populate actual narrative translations for **all 1,584 keys in each of the 7 translated release locales** (RU, UK, IT, DE, FR, ES, PT). English is the canonical source language; it is not counted as a translation.
+1. Populate actual player-facing narrative translations for **all 1,064 player-facing keys in each of the 7 translated release locales** (RU, UK, IT, DE, FR, ES, PT). English is the canonical source language; it is not counted as a translation.
 2. Preserve authored gameplay semantics exactly: event IDs, choice IDs, effects, conditions and state tokens must never be translated into gameplay identifiers.
 3. Add a complete translation-pack coverage gate that rejects any locale with fewer than 1,584 translated keys or any translation equal to the English fallback.
 4. Add Android runtime smoke for locale switching, Arabic/Hebrew RTL, long strings and CJK rendering.
