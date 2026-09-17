@@ -1,6 +1,6 @@
 # Block 14 — Motion / Audio / Haptics
 
-Status: **IN PROGRESS — 92%**
+Status: **IN PROGRESS — 95%**
 
 ## Implemented
 - Screen-to-screen Compose transition uses AnimatedContent.
@@ -18,3 +18,10 @@ Status: **IN PROGRESS — 92%**
 - Final device verification remains Block 21.
 
 The block therefore remains partial rather than being closed by documentation.
+
+
+### Media3 music layer — 95% checkpoint
+- AndroidX Media3 ExoPlayer is integrated as the dedicated foreground music channel.
+- Music uses game/music audio attributes, automatic audio-focus handling, repeat-one playback, and audio-output-disconnect handling.
+- Music volume is persisted through the existing mixer settings and mirrored into the player.
+- The current repository still has one authored Avelune atmospheric prototype track; final scene-specific soundtrack assets and crossfades remain open and therefore Block 14 is not marked 100%.
