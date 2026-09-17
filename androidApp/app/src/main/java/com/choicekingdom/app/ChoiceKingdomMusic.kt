@@ -5,6 +5,7 @@ import androidx.media3.common.AudioAttributes
 import androidx.media3.common.C
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
+import androidx.media3.common.PlaybackException
 import androidx.media3.exoplayer.ExoPlayer
 import android.os.Handler
 import android.os.Looper
@@ -34,9 +35,15 @@ class ChoiceKingdomMusic(context: Context) : AutoCloseable {
     private var scene = "Event"
     private val handler = Handler(Looper.getMainLooper())
     private var fadeGeneration = 0L
+    private var lastError: String? = null
 
     init {
         player.setMediaItem(MediaItem.fromUri("android.resource://" + context.packageName + "/" + com.choicekingdom.app.R.raw.ambient_avelune))
+        player.addListener(object : Player.Listener {
+            override fun onPlayerError(error: PlaybackException) {
+                lastError = error.errorCodeName
+            }
+        })
         player.prepare()
         player.volume = sceneGain(scene) * volume
     }
@@ -56,8 +63,11 @@ class ChoiceKingdomMusic(context: Context) : AutoCloseable {
 
     fun setVolume(value: Float) {
         volume = value.coerceIn(0f, 1f)
-        player.volume = volume
+        player.volume = sceneGain(scene) * volume
     }
+
+    val lastPlaybackError: String?
+        get() = lastError
 
     fun setScene(sceneKey: String) {
         if (scene == sceneKey) return
