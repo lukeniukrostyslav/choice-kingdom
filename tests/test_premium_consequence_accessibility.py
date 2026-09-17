@@ -10,12 +10,13 @@ from runtime.session import GameSession
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def _host(run_id: str) -> PremiumConsequenceHost:
-    return PremiumConsequenceHost(SessionPresenter(GameSession.new(ROOT, run_id)))
+def _host(run_id: str) -> tuple[SessionPresenter, PremiumConsequenceHost]:
+    presenter = SessionPresenter(GameSession.new(ROOT, run_id))
+    return presenter, PremiumConsequenceHost(presenter)
 
 
 def test_consequence_surface_preserves_primary_action_across_required_widths() -> None:
-    host = _host("premium-consequence-widths")
+    _, host = _host("premium-consequence-widths")
     host.commit("E01-A", available_width_dp=390)
 
     compact = host.render(state=ScreenState.SUCCESS, available_width_dp=390)
@@ -31,9 +32,9 @@ def test_consequence_surface_preserves_primary_action_across_required_widths() -
 
 
 def test_consequence_surface_pending_state_is_presentation_only() -> None:
-    host = _host("premium-consequence-pending")
+    presenter, host = _host("premium-consequence-pending")
     host.commit("E01-A")
-    before = host._consequence.presenter.session.snapshot_digest()
+    before = presenter.session.snapshot_digest()
 
     pending = host.render(state=ScreenState.PENDING, available_width_dp=720)
 
@@ -41,4 +42,4 @@ def test_consequence_surface_pending_state_is_presentation_only() -> None:
     assert pending.model.event_id == "E01"
     assert pending.model.choice_id == "E01-A"
     assert pending.model.session.event_id == "E02"
-    assert host._consequence.presenter.session.snapshot_digest() == before
+    assert presenter.session.snapshot_digest() == before
