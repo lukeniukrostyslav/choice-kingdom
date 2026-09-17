@@ -15,7 +15,9 @@ class InteractionState(str, Enum):
     PRESSED = "pressed"
     RESOLVING = "resolving"
     RESOLVED = "resolved"
+    DISABLED = "disabled"
     BLOCKED = "blocked"
+    ERROR = "error"
 
 
 @dataclass(frozen=True)
@@ -53,6 +55,7 @@ _DEFAULT_CHOICE_STATE: Final = InteractionState.IDLE
 
 def present(view: SessionView) -> SessionPresentation:
     """Convert a canonical session snapshot into a deterministic UI model."""
+    terminal_state = InteractionState.DISABLED if view.terminal else _DEFAULT_CHOICE_STATE
     return SessionPresentation(
         run_id=view.run_id,
         turn=view.turn,
@@ -60,7 +63,7 @@ def present(view: SessionView) -> SessionPresentation:
         title=view.title,
         trigger=view.trigger,
         choices=tuple(
-            ChoicePresentation(choice_id, label, text, _DEFAULT_CHOICE_STATE)
+            ChoicePresentation(choice_id, label, text, terminal_state)
             for choice_id, label, text in view.choices
         ),
         resources=tuple(ResourcePresentation(key, value) for key, value in view.resources),
@@ -82,6 +85,7 @@ class SessionPresenter:
         self._focused_choice: str | None = None
         self._resolving_choice: str | None = None
         self._resolved_choice: str | None = None
+        self._error_choice: str | None = None
 
     def snapshot(self) -> SessionPresentation:
         base = present(self.session.view())
@@ -90,7 +94,7 @@ class SessionPresenter:
                 choice.choice_id,
                 choice.label,
                 choice.text,
-                self._choice_state(choice.choice_id),
+                self._choice_state(choice.choice_id, base.terminal),
             )
             for choice in base.choices
         )
@@ -112,12 +116,14 @@ class SessionPresenter:
         self._focused_choice = choice_id
         self._resolving_choice = None
         self._resolved_choice = None
+        self._error_choice = None
 
     def press_choice(self, choice_id: str) -> None:
         self._require_available(choice_id)
         self._focused_choice = choice_id
         self._resolving_choice = choice_id
         self._resolved_choice = None
+        self._error_choice = None
 
     def begin_choice(self, choice_id: str) -> None:
         """Alias for the pressed -> resolving transition used by UI hosts."""
@@ -125,16 +131,25 @@ class SessionPresenter:
 
     def choose(self, choice_id: str):
         self.press_choice(choice_id)
-        result = self.session.choose(choice_id)
+        try:
+            result = self.session.choose(choice_id)
+        except Exception:
+            self._error_choice = choice_id
+            self._focused_choice = None
+            self._resolving_choice = None
+            self._resolved_choice = None
+            raise
         self._focused_choice = None
         self._resolving_choice = None
         self._resolved_choice = choice_id
+        self._error_choice = None
         return result
 
     def clear_transient_state(self) -> None:
         self._focused_choice = None
         self._resolving_choice = None
         self._resolved_choice = None
+        self._error_choice = None
 
     def select_event(self, event_id: str) -> None:
         """Move UI focus to an engine-qualified event without mutating gameplay."""
@@ -142,10 +157,16 @@ class SessionPresenter:
         self.clear_transient_state()
 
     def _require_available(self, choice_id: str) -> None:
+        if self.session.view().terminal:
+            raise ValueError("choice is not currently available: terminal session")
         if choice_id not in self.session.available_choices():
             raise ValueError(f"choice is not currently available: {choice_id}")
 
-    def _choice_state(self, choice_id: str) -> InteractionState:
+    def _choice_state(self, choice_id: str, terminal: bool) -> InteractionState:
+        if terminal:
+            return InteractionState.DISABLED
+        if choice_id == self._error_choice:
+            return InteractionState.ERROR
         if choice_id == self._resolving_choice:
             return InteractionState.RESOLVING
         if choice_id == self._resolved_choice:
