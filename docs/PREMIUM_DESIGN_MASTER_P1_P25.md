@@ -30,11 +30,11 @@ This document is the canonical working checklist for the 25-block premium visual
 | P20 | Motion / micro-interactions / feedback | 67% | Purposeful semantic motion + reduced-motion behavior |
 | P21 | Accessibility / touch / keyboard / focus | 75% | Semantic, focus, contrast, touch-target and reduced-motion proof |
 | P22 | Localization / long strings / RTL | 42% | Locale-safe layout and RTL proof across key screens |
-| P23 | Audio / haptics / premium feedback | 16% | Audio/haptic vocabulary mapped to meaningful player actions |
+| P23 | Audio / haptics / premium feedback | 30% | Audio/haptic vocabulary mapped to meaningful player actions |
 | P24 | Android devices / safe areas / resolution adaptation | 27% | Real Android presentation proof on target device classes |
 | P25 | Final premium polish / cross-screen QA | 35% | Full visual regression and no unresolved P1–P24 blockers |
 
-**Aggregate P1–P25 estimate: 57.24% (simple arithmetic mean of block estimates).** This is an engineering/design evidence estimate, not a commercial-readiness score.
+**Aggregate P1–P25 estimate: 57.88% (simple arithmetic mean of block estimates).** This is an engineering/design evidence estimate, not a commercial-readiness score.
 
 ## Evidence added in the current design increment
 
@@ -42,8 +42,11 @@ This document is the canonical working checklist for the 25-block premium visual
 - `runtime/adaptive_navigation.py` remains the single window-width policy source; device identity is not used for layout decisions.
 - `runtime/safe_area.py` is consumed by the Android-facing contract so system bars/cutouts/gesture insets reduce usable content bounds rather than clipping interactive content.
 - `runtime/accessibility_semantics.py` adds explicit action role, accessible label, hint, state, enabled state and 48dp minimum touch-target semantics.
+- `runtime/audio_haptics.py` adds semantic sound/haptic tokens for focus, confirmation, consequence reveal/pending, error, navigation and ending reveal.
 - `tests/test_android_adaptive_contract.py` verifies compact/medium/expanded contracts, safe-content dimensions and invalid dimensions.
 - `tests/test_accessibility_semantics.py` verifies button semantics, disabled-state behavior and non-empty accessible labels.
+- `tests/test_audio_haptics.py` verifies complete semantic coverage and independent audio/haptic disablement.
+- `docs/AUDIO_HAPTICS_DESIGN_CONTRACT_V1.md` defines the premium feedback vocabulary and keeps it presentation-only.
 - `runtime/locale_layout.py` and `design-preview/premium-locale-lab-v1.html` continue to provide LTR/RTL, long-string and large-text evidence.
 - Current Android guidance recommends window-size-class-driven adaptation, state continuity during resize/fold/unfold/multi-window, responsive layouts, and Material 3 Adaptive primitives. citeturn0search0turn0search2turn0search4turn0search9
 - The current Material 3 Adaptive release line also supports adaptive pane/navigation primitives and state-preserving adaptive behavior. citeturn0search0turn0search11
@@ -51,7 +54,7 @@ This document is the canonical working checklist for the 25-block premium visual
 
 ## Production-facing integration evidence
 
-The runtime exposes a presentation-neutral `GameSession` snapshot and a `SessionPresenter` that owns transient interaction state while routing gameplay mutation back through `GameSession`. Visual adaptation, accessibility semantics and locale policy remain presentation-only and do not calculate gameplay outcomes.
+The runtime exposes a presentation-neutral `GameSession` snapshot and a `SessionPresenter` that owns transient interaction state while routing gameplay mutation back through `GameSession`. Visual adaptation, accessibility semantics, audio/haptic tokens and locale policy remain presentation-only and do not calculate gameplay outcomes.
 
 ## Execution order
 
@@ -70,9 +73,10 @@ The runtime exposes a presentation-neutral `GameSession` snapshot and a `Session
 - Every important state needs an explicit visual state: default, focus, pressed, disabled/blocked, selected, success, failure, pending and error where applicable.
 - Mobile readability and touch ergonomics are first-class premium requirements.
 - Reduced motion, large text, RTL and long-string behavior are part of the design, not post-release fixes.
+- Audio/haptic feedback is reinforcing only; visual semantics remain complete when either channel is disabled.
 - Generated machine data remains derived; authored gameplay remains the source of truth.
 - Android/device proof is required before claiming production UI completion.
 
 ## Execution note
 
-The current increment advances Android-facing adaptive contracts and accessibility semantics without introducing a gameplay/UI ownership leak. Next: connect these contracts to the visual preview and production-facing screen hosts, then build audio/haptic semantic feedback and cross-screen regression evidence. Documentation alone will not close P21–P25.
+The current increment advances Android-facing adaptive contracts, accessibility semantics and semantic audio/haptic feedback vocabulary without introducing a gameplay/UI ownership leak. Next: connect these contracts to the visual preview and production-facing screen hosts, then build cross-screen visual regression evidence. Documentation alone will not close P21–P25.
