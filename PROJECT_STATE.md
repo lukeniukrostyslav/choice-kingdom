@@ -4,7 +4,7 @@
 Original premium offline-first decision-and-consequence mobile game set in Avelune. Android-first, one-time purchase target €2.99–€4.99, no ads/subscription/mandatory backend for core gameplay, 20+ locales including RTL. Frozen production catalog: **E01–E272**.
 
 ## Current phase
-**Blocks 1–8 are closed at their defined boundaries. Block 9 Android Runtime is the next active workstream.** The project proceeds strictly block-by-block. Percentages reflect implementation and available verification evidence, not documentation volume.
+**Blocks 1–9 are closed at their defined boundaries. Block 10 Localization 20+ is the next active workstream.** The project proceeds strictly block-by-block. Percentages reflect implementation and available verification evidence, not documentation volume.
 
 ## Approved General Plan — 25 Blocks
 1. **Production Data Schema** → 100%
@@ -15,7 +15,7 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 6. **Real GameSession → Presentation Bridge** → 100%
 7. **UI/UX Runtime** → 100%
 8. **All Gameplay States** → 100%
-9. **Android Runtime** → 0%
+9. **Android Runtime** → 100%
 10. **Localization 20+** → 0%
 11. **RTL / Large Text / Accessibility** → 0%
 12. **Responsive / Safe Areas / Devices** → 0%
@@ -51,6 +51,16 @@ Execution order is strictly **1 → 2 → 3 → ... → 25**. A block is not con
 - Android debug APK production-path build is GREEN on GitHub Actions run **35279790952** (commit `e2da888d324065afd03a0811e0f87c495471547a`).
 - The green gate verified: Python focused runtime tests, Java 17/Gradle 8.9 toolchain, AndroidX configuration, resource merge, Kotlin compilation, debug APK assembly, APK existence and artifact upload.
 - The Android build failures encountered while closing Block 7 were fixed in-repository: missing test dependency path, adaptive-class assertion casing, AndroidX enablement, duplicate theme resource, and Compose context access outside a composable context.
+
+## Block 9 checkpoint — CLOSED
+- Android now resumes the same canonical GameSession after Activity recreation instead of starting a fresh run.
+- The canonical Android adapter persists after every successful choice through the versioned/integrity-checked SaveStore.
+- Corrupt primary saves recover from the canonical .bak backup; a save belonging to another run identity is rejected.
+- SharedPreferences retains the Android run identity; it does not contain gameplay state.
+- Added tests/test_block9_android_runtime.py covering persistence, resume, run identity protection and backup recovery.
+- Added .github/workflows/block9-android-runtime-gate.yml covering Python adapter tests, Android JVM tests, instrumentation APK compilation, debug APK build and artifact verification.
+- Closure evidence is documented in docs/BLOCK9_ANDROID_RUNTIME_CLOSURE.md.
+- Physical Android/device execution is intentionally not claimed; that remains Block 21.
 
 ## Block 8 checkpoint — CLOSED
 - Canonical gameplay lifecycle is implemented in `runtime/gameplay_state.py`.
