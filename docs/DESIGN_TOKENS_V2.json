@@ -1,0 +1,70 @@
+{
+  "version": "2.0",
+  "product": "Choice Kingdom",
+  "source_of_truth": "presentation consumes canonical GameSession; no gameplay semantics are authored here",
+  "window_adaptation": {
+    "basis": "available app window width",
+    "compact_dp": "<600",
+    "medium_dp": "600-839",
+    "expanded_dp": ">=840",
+    "compact_behavior": "single primary pane; stack supporting content below",
+    "medium_behavior": "primary content plus supporting pane when space permits",
+    "expanded_behavior": "two-pane layout; preserve decision focus and reveal supporting context"
+  },
+  "spacing_dp": {"xs": 4, "sm": 8, "md": 16, "lg": 24, "xl": 32},
+  "radii_dp": {"card": 12, "choice": 12, "pill": 999},
+  "touch_target_dp": {"minimum": 48, "preferred_choice": 56},
+  "safe_area": {"top": "system inset", "bottom": "16dp + system inset"},
+  "surfaces": {
+    "surface.canvas": {"light": "#F7F4EE", "dark": "#0B0D12"},
+    "surface.card": {"light": "#FFFDFC", "dark": "#151923"},
+    "surface.elevated": {"light": "#FFFFFF", "dark": "#222735"}
+  },
+  "ink": {
+    "ink.primary": {"light": "#211F1B", "dark": "#F4F0E6"},
+    "ink.secondary": {"light": "#625D54", "dark": "#AEB3C0"},
+    "ink.disabled": {"light": "#918B82", "dark": "#777168"}
+  },
+  "accents": {
+    "accent.authority": {"light": "#4C5D7A", "dark": "#9DAECC"},
+    "accent.warning": {"light": "#9A6A24", "dark": "#D5A85C"},
+    "accent.stability": {"light": "#4D725A", "dark": "#9BC2A4"},
+    "accent.gold": {"light": "#8A6828", "dark": "#D4B56B"}
+  },
+  "states": {
+    "default": "surface.card + ink.primary",
+    "focus": "2dp visible outline + 2dp offset; never color-only",
+    "pressed": "elevated surface + immediate feedback",
+    "selected": "gold semantic emphasis + selected label/icon",
+    "blocked": "reduced emphasis + disabled affordance + reason",
+    "pending": "pending semantic accent + resolving label",
+    "resolved": "stability semantic accent + explicit outcome",
+    "error": "warning/negative semantic treatment + icon + label + recovery",
+    "high_risk": "warning semantic treatment + textual consequence preview"
+  },
+  "typography": {
+    "display": "28sp / 34sp / 700",
+    "section": "20sp / 26sp / 700",
+    "body": "16sp / 24sp / 400",
+    "choice": "16sp / 22sp / 600",
+    "state": "14sp / 20sp / 600",
+    "supporting": "14sp / 20sp / 400",
+    "large_text_scale": 1.25,
+    "minimum_body_sp": 16,
+    "rule": "narrative containers never use fixed height"
+  },
+  "motion": {"default_ms": 180, "emphasis_ms": 240, "reduced_motion": "remove non-essential motion; preserve state clarity"},
+  "screen_families": ["event", "realm", "history", "people", "investigation", "ending", "settings"],
+  "accessibility": {
+    "touch_targets": ">=48dp",
+    "choice_targets": ">=56dp",
+    "visible_focus": true,
+    "state_not_color_only": true,
+    "screen_reader_labels": true,
+    "large_text_reflow": true,
+    "rtl": true,
+    "long_strings": true,
+    "cjk_expansion": true,
+    "reduced_motion": true
+  }
+}
