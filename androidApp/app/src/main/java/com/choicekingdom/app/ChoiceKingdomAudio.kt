@@ -22,8 +22,17 @@ class ChoiceKingdomAudio(private val context: Context) : AutoCloseable {
     private var focusGranted = false
     private var muted = false
     private var volume = 1f
+    private var foreground = true
     private val mainHandler = Handler(Looper.getMainLooper())
     private var tone = ToneGenerator(AudioManager.STREAM_MUSIC, 80)
+
+    fun setForeground(value: Boolean) {
+        foreground = value
+        if (!value) {
+            tone.stopTone()
+            abandonFocus()
+        }
+    }
 
     fun setMuted(value: Boolean) {
         muted = value
@@ -37,7 +46,7 @@ class ChoiceKingdomAudio(private val context: Context) : AutoCloseable {
     }
 
     fun playChoiceFeedback() {
-        if (muted || volume <= 0f || !requestFocus()) return
+        if (!foreground || muted || volume <= 0f || !requestFocus()) return
         tone.startTone(ToneGenerator.TONE_PROP_BEEP, 45)
         mainHandler.postDelayed({ abandonFocus() }, 100)
     }
