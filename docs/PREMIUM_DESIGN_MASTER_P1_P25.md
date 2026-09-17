@@ -14,33 +14,41 @@ Recent 2026 guidance reinforces durable requirements: cohesive visual language, 
 
 | Block | Scope | Current | Exit gate |
 |---|---|---:|---|
-| P1 | Premium vision / art direction | 65% | Signed visual north star + representative screens |
-| P2 | Core visual identity / design language | 65% | Tokenized identity applied across representative surfaces |
-| P3 | Typography / type hierarchy | 58% | Complete type scale, wrapping, accessibility and locale rules |
-| P4 | Color / materials / surfaces | 62% | Semantic color/material tokens + contrast proof |
-| P5 | Layout / grid / spacing / responsive system | 56% | Responsive contracts across target phone widths |
-| P6 | Choice experience / choice cards / choice chamber | 58% | All choice states + proof + accessibility + visual regression |
-| P7 | Event / situation presentation | 45% | Full event surface and state variants |
-| P8 | Character presentation | 38% | Character identity, state, relationship and fallback visuals |
-| P9 | Kingdom / world presentation | 40% | Avelune world surfaces and visual continuity |
-| P10 | Resources / stats / pressure visualization | 35% | Scannable resource language and state transitions |
-| P11 | Consequences / delayed consequences | 40% | Immediate, pending, triggered and cancelled visual states |
-| P12 | History / decision memory | 35% | Timeline/history hierarchy and causal readability |
-| P13 | Relationships / character state | 32% | Relationship states and progression presentation |
-| P14 | Investigation / threads / evidence | 30% | Evidence hierarchy, discovery and unresolved states |
-| P15 | Crisis / high-stakes presentation | 20% | Escalation, urgency and consequence preview without clutter |
-| P16 | Endings / resolution experience | 32% | Ending identity, summary and emotional landing |
-| P17 | Replay / new-run experience | 20% | Replay motivation, continuity and clean reset semantics |
-| P18 | Main menu / launcher | 40% | Premium first impression + navigation + responsive proof |
-| P19 | Navigation / information architecture | 40% | Consistent hierarchy and low-cognitive-load navigation |
-| P20 | Motion / micro-interactions / feedback | 28% | Purposeful motion system + reduced-motion behavior |
-| P21 | Accessibility / touch / keyboard / focus | 52% | Semantic, focus, contrast, touch-target and reduced-motion proof |
-| P22 | Localization / long strings / RTL | 10% | Locale-safe layout and RTL proof across key screens |
-| P23 | Audio / haptics / premium feedback | 10% | Audio/haptic vocabulary mapped to meaningful player actions |
-| P24 | Android devices / safe areas / resolution adaptation | 10% | Real Android presentation proof on target device classes |
-| P25 | Final premium polish / cross-screen QA | 18% | Full visual regression and no unresolved P1–P24 blockers |
+| P1 | Premium vision / art direction | 70% | Signed visual north star + representative screens |
+| P2 | Core visual identity / design language | 72% | Tokenized identity applied across representative surfaces |
+| P3 | Typography / type hierarchy | 66% | Complete type scale, wrapping, accessibility and locale rules |
+| P4 | Color / materials / surfaces | 70% | Semantic color/material tokens + contrast proof |
+| P5 | Layout / grid / spacing / responsive system | 64% | Responsive contracts across target phone widths |
+| P6 | Choice experience / choice cards / choice chamber | 65% | All choice states + proof + accessibility + visual regression |
+| P7 | Event / situation presentation | 52% | Full event surface and state variants |
+| P8 | Character presentation | 46% | Character identity, state, relationship and fallback visuals |
+| P9 | Kingdom / world presentation | 48% | Avelune world surfaces and visual continuity |
+| P10 | Resources / stats / pressure visualization | 43% | Scannable resource language and state transitions |
+| P11 | Consequences / delayed consequences | 48% | Immediate, pending, triggered and cancelled visual states |
+| P12 | History / decision memory | 43% | Timeline/history hierarchy and causal readability |
+| P13 | Relationships / character state | 40% | Relationship states and progression presentation |
+| P14 | Investigation / threads / evidence | 38% | Evidence hierarchy, discovery and unresolved states |
+| P15 | Crisis / high-stakes presentation | 28% | Escalation, urgency and consequence preview without clutter |
+| P16 | Endings / resolution experience | 40% | Ending identity, summary and emotional landing |
+| P17 | Replay / new-run experience | 28% | Replay motivation, continuity and clean reset semantics |
+| P18 | Main menu / launcher | 48% | Premium first impression + navigation + responsive proof |
+| P19 | Navigation / information architecture | 48% | Consistent hierarchy and low-cognitive-load navigation |
+| P20 | Motion / micro-interactions / feedback | 36% | Purposeful motion system + reduced-motion behavior |
+| P21 | Accessibility / touch / keyboard / focus | 62% | Semantic, focus, contrast, touch-target and reduced-motion proof |
+| P22 | Localization / long strings / RTL | 22% | Locale-safe layout and RTL proof across key screens |
+| P23 | Audio / haptics / premium feedback | 16% | Audio/haptic vocabulary mapped to meaningful player actions |
+| P24 | Android devices / safe areas / resolution adaptation | 16% | Real Android presentation proof on target device classes |
+| P25 | Final premium polish / cross-screen QA | 25% | Full visual regression and no unresolved P1–P24 blockers |
+
+**Aggregate P1–P25 estimate after this increment: 45.4% (simple arithmetic mean of block estimates).** This is an engineering/design evidence estimate, not a commercial-readiness score.
 
 ## Evidence added in the current design increment
+
+- `design-preview/premium-design-system-v2.html` unifies the reusable visual system across Event, Realm, History, People/Factions, Investigation, Ending, Settings and the full decision-state matrix.
+- `docs/DESIGN_TOKENS_V2.json` freezes semantic colors, typography, spacing, touch targets, safe-area rules, adaptive window classes and state vocabulary in a machine-readable design contract.
+- `.github/workflows/premium-design-system-gate.yml` adds a Playwright matrix for compact/medium/expanded widths plus RTL, large-text, reduced-motion and light-theme execution.
+- `tools/verify_premium_design_system.py` provides a local static contract check for the same design-system invariants.
+- The new evidence increases the P1–P25 estimates conservatively, but does not close Android runtime, final-art provenance or physical-device gates.
 
 - `design-preview/premium-choice-lab.html` provides a dedicated authored choice-state gallery covering default, focus, selected, blocked, pending, resolved and high-risk states.
 - `design-preview/premium-foundation-lab.html` turns the Avelune direction into reusable P1–P5 visual primitives: semantic surfaces, restrained accent usage, editorial type hierarchy, spacing tokens, touch-safe controls, and explicit decision-state language.
