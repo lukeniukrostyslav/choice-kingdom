@@ -14,7 +14,7 @@ Choice Kingdom should present as a premium narrative mobile game: cohesive art d
 | P1 | Art Direction | **70%** | 100% |
 | P2 | Character Art System | **30%** | 100% |
 | P3 | People / Character Codex | **15%** | 100% |
-| P4 | Faction Visual Identity | 0% | 100% |
+| P4 | Faction Visual Identity | **5%** | 100% |
 | P5 | Event Cinematic UI | 0% | 100% |
 | P6 | Choice Experience | 0% | 100% |
 | P7 | Consequence Experience | 0% | 100% |
@@ -54,6 +54,7 @@ Each block requires actual design/implementation work, visual inspection, releva
 - P1 Art Direction: **70%** — direction bible, inspectable anchor specifications, visual drift checklist, representative anchor board, Realm/Environment proof, Consequence-State proof, mobile composition proof and an inspection matrix are saved. Final runtime/rendered inspection and final asset provenance/licensing evidence remain open.
 - P2 Character Art System: **30%** — character system foundation, first visual anchor sheet, expression grid, mobile crop proof, QA record and second production-anchor visual proof with identity/material/lighting/crop/thumbnail checks are saved. Canonical People assignment, authored-quality final artwork, rendered Vercel/mobile validation and provenance/licensing remain open.
 - P3 People / Character Codex: **15%** — a real portrait-led codex surface is implemented and exposed from the visual launcher, with responsive mobile composition, light/dark behavior, LTR/RTL direction handling and explicit noncanonical candidate labeling. Canonical People binding, final production portraits, provenance/licensing and rendered validation remain open.
+- P4 Faction Visual Identity: **5%** — six neutral symbolic grammars are implemented as a reusable faction-mark system study with monochrome, small-scale, RTL and anti-good/evil constraints. Canonical faction inventory/binding, final marks, provenance/licensing and rendered validation remain open.
 - Final artwork: not complete.
 - Android visual runtime: not complete.
 - Physical-device visual QA: not complete.
@@ -70,4 +71,8 @@ Each block requires actual design/implementation work, visual inspection, releva
 
 ## Active work
 
-**P3 — People / Character Codex.** P1 remains at 70% and P2 remains at 30% pending their explicit gates. P3 is now **15%** after a real inspectable codex implementation. Next P3 evidence is canonical People binding without fabrication, then real relationship/character states, final authored portraits and provenance before rendered validation.
+**P3/P4 — People and faction visual foundations.** P1 remains at 70% and P2 remains at 30% pending their explicit gates. P3 is 15% after a real inspectable codex implementation; its canonical People binding and final production portrait gates remain open. P4 is now 5% after an inspectable six-grammar faction identity system study; canonical faction binding and final marks remain open. The execution chain continues toward canonical binding and final production assets before rendered validation.
+
+## Current average
+
+Verified average across P1–P25: **4.8%**.
