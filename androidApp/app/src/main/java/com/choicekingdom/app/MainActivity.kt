@@ -58,16 +58,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 private enum class WindowMode { COMPACT, MEDIUM, EXPANDED }
-private data class AndroidScreenState(val title: String, val subtitle: String)
+private data class AndroidScreenState(val key: String, val title: String, val subtitle: String)
 
+@Composable
 private fun localizedScreens() = listOf(
-    AndroidScreenState(stringResource(R.string.event), stringResource(R.string.event_subtitle)),
-    AndroidScreenState(stringResource(R.string.realm), stringResource(R.string.realm_subtitle)),
-    AndroidScreenState(stringResource(R.string.history), stringResource(R.string.history_subtitle)),
-    AndroidScreenState(stringResource(R.string.people), stringResource(R.string.people_subtitle)),
-    AndroidScreenState(stringResource(R.string.investigation), stringResource(R.string.investigation_subtitle)),
-    AndroidScreenState(stringResource(R.string.ending), stringResource(R.string.ending_subtitle)),
-    AndroidScreenState(stringResource(R.string.settings), stringResource(R.string.settings_subtitle)),
+    AndroidScreenState("Event", stringResource(R.string.event), stringResource(R.string.event_subtitle)),
+    AndroidScreenState("Realm", stringResource(R.string.realm), stringResource(R.string.realm_subtitle)),
+    AndroidScreenState("History", stringResource(R.string.history), stringResource(R.string.history_subtitle)),
+    AndroidScreenState("People", stringResource(R.string.people), stringResource(R.string.people_subtitle)),
+    AndroidScreenState("Investigation", stringResource(R.string.investigation), stringResource(R.string.investigation_subtitle)),
+    AndroidScreenState("Ending", stringResource(R.string.ending), stringResource(R.string.ending_subtitle)),
+    AndroidScreenState("Settings", stringResource(R.string.settings), stringResource(R.string.settings_subtitle)),
 )
 
 class MainActivity : ComponentActivity() {
@@ -122,13 +123,13 @@ private fun ChoiceKingdomApp() {
                 } else {
                     AdaptiveJourney(
                         mode = mode,
-                        selectedScreen = screens.first { it.title == selectedScreen },
+                        selectedScreen = screens.first { it.key == selectedScreen },
                         snapshot = projection!!,
                         selectedChoiceId = selectedChoiceId,
                         resolvingChoiceId = resolvingChoiceId,
                         errorMessage = errorMessage,
                         onScreenSelected = {
-                            selectedScreen = it
+                            selectedScreen = it.key
                             selectedChoiceId = null
                             resolvingChoiceId = null
                             errorMessage = null
@@ -249,7 +250,7 @@ private fun JourneyContent(
         item { Header(snapshot.turn, titleSize) }
         item { HeroCard(screen, snapshot) }
         if (errorMessage != null) item { ErrorCard(errorMessage) }
-        when (screen.title) {
+        when (screen.key) {
             "Event" -> {
                 item { SectionLabel("YOUR DECISION") }
                 items(snapshot.choices, key = { it.id }) { choice ->
