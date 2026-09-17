@@ -6,7 +6,7 @@ from pathlib import Path
 from .catalog import AuthoredCatalog
 from .localization import SUPPORTED_LOCALES
 
-NARRATIVE_FIELDS = ("title", "trigger", "choice.text", "choice.body")
+NARRATIVE_FIELDS = ("title", "trigger", "choice.text")
 
 
 def build_locale_contract(root: Path) -> dict:
@@ -18,12 +18,7 @@ def build_locale_contract(root: Path) -> dict:
             "keys": [
                 f"{event.event_id}.title",
                 f"{event.event_id}.trigger",
-                *[
-                    f"{choice.choice_id}.text" for choice in event.choices
-                ],
-                *[
-                    f"{choice.choice_id}.body" for choice in event.choices
-                ],
+                *[f"{choice.choice_id}.text" for choice in event.choices],
             ],
         })
     keys = [key for event in events for key in event["keys"]]
