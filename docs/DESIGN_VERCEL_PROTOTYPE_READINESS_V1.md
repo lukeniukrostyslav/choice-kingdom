@@ -35,7 +35,7 @@ The D1–D22 production design contract is closed at 100%. This tracker measures
 
 ## Latest local QA pass
 
-The local design smoke check now validates the eight primary screens, five authored SVG assets, local artwork references, state-continuity markers, accessible skip navigation, navigation labelling, duplicate HTML IDs, reduced-motion support, and explicit interactive target sizing for navigation (48px) and choice controls (56px). The local pass is green. Browser-based visual regression is still a separate gate because the local Playwright/Chromium run has not produced a complete screenshot evidence set yet.
+The local design smoke check validates the eight primary screens, five authored SVG assets, local artwork references, state-continuity markers, accessible skip navigation, navigation labelling, duplicate HTML IDs, reduced-motion support, and explicit interactive target sizing for navigation (48px) and choice controls (56px). The local pass is green. Browser-based visual regression is still a separate gate because the local Playwright/Chromium run has not produced a complete screenshot evidence set yet.
 
 ## Rules
 
