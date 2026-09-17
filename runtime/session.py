@@ -147,6 +147,8 @@ class GameSession:
 
     def execute_next_due_delay(self, choice_id: str) -> ExecutionResult:
         """Execute a due delayed target without consuming it when the choice is invalid."""
+        if self.state.terminal:
+            raise ValueError("cannot execute a choice after terminal state")
         delays = due_delays(self.state)
         if not delays:
             raise ValueError("no due delayed consequence")
