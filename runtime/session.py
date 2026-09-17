@@ -146,7 +146,7 @@ class GameSession:
         return result
 
     def execute_next_due_delay(self, choice_id: str) -> ExecutionResult:
-        """Execute a due delayed target without consuming it when the choice is invalid."""
+        """Execute the first due delayed target atomically through the engine seam."""
         if self.state.terminal:
             raise ValueError("cannot execute a choice after terminal state")
         delays = due_delays(self.state)
@@ -156,8 +156,11 @@ class GameSession:
         target = self.engine.event(delay.resolution_target)
         if not any(choice.choice_id == choice_id for choice in target.choices):
             raise KeyError(choice_id)
-        activated = self.engine.activate_next_due_delay(self.state)
-        result = self.engine.execute(self.state, activated.target_event_id, choice_id)
+        result = self.engine.execute_delayed_target(
+            self.state,
+            delay.exactly_once_key,
+            choice_id,
+        )
         self._selected_event_id = self.state.current_event_id
         return result
 
