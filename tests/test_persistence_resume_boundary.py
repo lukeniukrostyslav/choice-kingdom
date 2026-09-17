@@ -12,6 +12,12 @@ from runtime.state import GameState, SaveStore
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def _continue_from_e01(session: GameSession) -> None:
+    assert "E02" in session.available_events()
+    session.select_event("E02")
+    session.choose("E02-B")
+
+
 def test_game_session_save_load_resume_preserves_presentation_and_runtime(tmp_path):
     session = GameSession.new(ROOT, "resume-boundary")
     session.choose("E01-A")
@@ -23,8 +29,8 @@ def test_game_session_save_load_resume_preserves_presentation_and_runtime(tmp_pa
     assert restored.view() == session.view()
     assert restored.snapshot_digest() == session.snapshot_digest()
 
-    session.choose("E02-B")
-    restored.choose("E02-B")
+    _continue_from_e01(session)
+    _continue_from_e01(restored)
     assert restored.state.snapshot() == session.state.snapshot()
 
 
@@ -34,12 +40,12 @@ def test_game_session_recovery_resumes_from_previous_atomic_checkpoint(tmp_path)
     checkpoint = tmp_path / "resume.json"
     session.save(checkpoint)
 
-    session.choose("E02-B")
+    _continue_from_e01(session)
     session.save(checkpoint)
     checkpoint.write_text("{broken", encoding="utf-8")
 
     recovered = GameSession.load_with_recovery(ROOT, checkpoint)
-    assert recovered.state.turn == 2
+    assert recovered.state.turn == 3
     assert recovered.state.current_event_id == "E02"
     assert recovered.state.snapshot() != session.state.snapshot()
 
