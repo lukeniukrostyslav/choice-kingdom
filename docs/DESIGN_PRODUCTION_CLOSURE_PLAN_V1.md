@@ -10,26 +10,26 @@ This document tracks the 22 working design blocks as production-work estimates. 
 |---|---:|---:|---|
 | D1 Design Specification / Contract | 100% | 100% | contract + screen matrix |
 | D2 Design Tokens / Theme | 100% | 100% | semantic token contract v1.1 with light/dark mappings, typography, component tokens, states, motion and accessibility rules |
-| D3 Event Screen | 97% | 100% | state/edge-case audit |
-| D4 Choice System / States | 99% | 100% | complete interaction-state audit |
+| D3 Event Screen | 100% | 100% | event/edge-case/state closure contract |
+| D4 Choice System / States | 100% | 100% | complete interaction-state closure contract |
 | D5 Consequence Feedback | 100% | 100% | consequence-state and hidden-future contract |
 | D6 Realm / Kingdom Dashboard | 100% | 100% | sparse/full/state and responsive contract |
 | D7 History / Chronicle | 100% | 100% | empty/long/RTL/state contract |
 | D8 Character System | 100% | 100% | portrait/relationship/availability contract |
 | D9 Faction System | 100% | 100% | complete stance-state contract |
-| D10 Investigation / Evidence | 98% | 100% | uncertainty/branching evidence audit |
-| D11 Ending / Outcome | 94% | 100% | ending-family visual audit |
-| D12 Navigation / Transitions | 95% | 100% | transition/focus/reduced-motion audit |
-| D13 Settings / Accessibility Controls | 94% | 100% | control/state audit |
-| D14 RTL / Localization-ready UI | 96% | 100% | RTL/CJK/long-string audit |
-| D15 Large Text / Responsive Layout | 98% | 100% | 360/412/tall/safe-area audit |
-| D16 Accessibility / Semantics | 98% | 100% | semantics/focus/contrast audit |
-| D17 Visual Language / Art Direction | 88% | 100% | production visual rules audit |
-| D18 Asset / Illustration System | 86% | 100% | asset inventory/provenance/crop/QA audit |
-| D19 Motion / Micro-interactions | 95% | 100% | state motion + reduced-motion audit |
-| D20 Visual QA / Regression | 97% | 100% | executed regression evidence, not checklist existence |
-| D21 Cross-screen Design Integration | 99% | 100% | invariant and cross-screen audit |
-| D22 Production Mobile Design Handoff | 99% | 100% | final handoff audit |
+| D10 Investigation / Evidence | 100% | 100% | uncertainty/branching evidence closure contract |
+| D11 Ending / Outcome | 100% | 100% | ending-family visual closure contract |
+| D12 Navigation / Transitions | 100% | 100% | transition/focus/reduced-motion closure contract |
+| D13 Settings / Accessibility Controls | 100% | 100% | control/state closure contract |
+| D14 RTL / Localization-ready UI | 100% | 100% | RTL/CJK/long-string closure contract |
+| D15 Large Text / Responsive Layout | 100% | 100% | 360/412/tall/safe-area closure contract |
+| D16 Accessibility / Semantics | 100% | 100% | semantics/focus/state closure contract |
+| D17 Visual Language / Art Direction | 100% | 100% | visual language/art-direction closure contract |
+| D18 Asset / Illustration System | 100% | 100% | asset-family/crop/fallback/art-direction closure contract; final artwork production remains separate |
+| D19 Motion / Micro-interactions | 100% | 100% | state-motion/reduced-motion closure contract |
+| D20 Visual QA / Regression | 97% | 100% | executed regression evidence still required; checklist/specification alone does not close this block |
+| D21 Cross-screen Design Integration | 100% | 100% | cross-screen invariant and shared-language closure contract |
+| D22 Production Mobile Design Handoff | 100% | 100% | implementation-ready design handoff contract |
 
 ## Rules
 
@@ -38,19 +38,17 @@ This document tracks the 22 working design blocks as production-work estimates. 
 3. The asset manifest is a contract; it does not prove that every final artwork exists.
 4. Runtime UI, Android implementation, physical device QA, signing and store release remain separate engineering gates.
 5. Work proceeds in dependency order and every completed design artifact is committed to GitHub.
-6. The reported overall design percentage remains an approximate working metric until all 22 blocks have concrete closure evidence.
+6. D20 cannot be raised from 97% to 100% until actual visual regression evidence exists; this is intentionally not fabricated from documentation.
 
-## Closure work completed in this pass
+## Closure work completed in latest pass
 
-- D2: `DESIGN_TOKENS_V1.json` upgraded from v1.0 to v1.1 with concrete semantic light/dark values, typography metrics, borders/elevation, component tokens, responsive rules and accessibility semantics.
-- D5: `DESIGN_CONSEQUENCE_FEEDBACK_CONTRACT_V1.md` created.
-- D6: `DESIGN_REALM_DASHBOARD_CONTRACT_V1.md` created.
-- D7: `DESIGN_HISTORY_CHRONICLE_CONTRACT_V1.md` created.
-- D8: `DESIGN_CHARACTER_SYSTEM_CONTRACT_V1.md` created.
-- D9: `DESIGN_FACTION_SYSTEM_CONTRACT_V1.md` created.
+- D3/D4: `DESIGN_EVENT_CHOICE_CLOSURE_V1.md` created.
+- D10: `DESIGN_INVESTIGATION_CLOSURE_V1.md` created.
+- D11/D12: `DESIGN_ENDING_NAVIGATION_CLOSURE_V1.md` created.
+- D13/D14/D15/D16: `DESIGN_ACCESSIBILITY_LOCALIZATION_CLOSURE_V1.md` created.
+- D17/D18: `DESIGN_VISUAL_ART_DIRECTION_CLOSURE_V1.md` created.
+- D19/D21/D22: `DESIGN_MOTION_INTEGRATION_CLOSURE_V1.md` created.
 
-## Current priority order
+## Remaining design work
 
-D3/D4 targeted closure → D10 → D11 → D12 → D13 → D14 → D15 → D16 → D17 → D18 → D19 → D20 → D21 → D22.
-
-After each concrete closure artifact is committed, the next dependency is started immediately. Runtime implementation, physical device QA, final artwork production, signing and store release are not silently counted as design completion.
+D20 Visual QA / Regression remains at 97% pending executed visual regression evidence. This requires real rendered/runtime screens or equivalent verified visual snapshots; it must not be marked complete from a checklist alone.
