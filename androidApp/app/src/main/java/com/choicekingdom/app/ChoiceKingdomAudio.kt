@@ -20,7 +20,7 @@ class ChoiceKingdomAudio(private val context: Context) : AutoCloseable {
     private var focusGranted = false
     private var muted = false
     private var volume = 1f
-    private val tone = ToneGenerator(AudioManager.STREAM_MUSIC, 80)
+    private var tone = ToneGenerator(AudioManager.STREAM_MUSIC, 80)
 
     fun setMuted(value: Boolean) {
         muted = value
@@ -29,6 +29,8 @@ class ChoiceKingdomAudio(private val context: Context) : AutoCloseable {
     fun setVolume(value: Float) {
         volume = value.coerceIn(0f, 1f)
         tone.stopTone()
+        tone.release()
+        tone = ToneGenerator(AudioManager.STREAM_MUSIC, (volume * 100f).toInt().coerceIn(0, 100))
     }
 
     fun playChoiceFeedback() {
