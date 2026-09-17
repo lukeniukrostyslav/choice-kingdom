@@ -37,14 +37,10 @@ jobs:
             'index.html',
             'game-flow.html',
             'artwork-preview.html',
-            'design-event-choice-final.html',
-            'design-realm-history-final.html',
-            'design-character-faction-final.html',
-            'design-investigation-final.html',
-            'ending.html',
-            'design-settings-polish.html',
-            'design-visual-qa-final.html',
-            'design-final-cross-screen-audit.html'
+            'design-art-direction.html',
+            'design-asset-production.html',
+            'design-accessibility-final.html',
+            'design-character-faction-final.html'
           ];
           const viewports = [
             { name: '360x800', width: 360, height: 800 },
@@ -66,8 +62,7 @@ jobs:
             for (const file of pages) {
               for (const vp of viewports) {
                 const page = await context.newPage({ viewport: { width: vp.width, height: vp.height } });
-                const url = `http://127.0.0.1:4173/${file}`;
-                const response = await page.goto(url, { waitUntil: 'networkidle' });
+                const response = await page.goto(`http://127.0.0.1:4173/${file}`, { waitUntil: 'networkidle' });
                 const metrics = await page.evaluate(() => ({
                   title: document.title,
                   bodyScrollWidth: document.body.scrollWidth,
@@ -79,7 +74,7 @@ jobs:
                   text: document.body.innerText.length
                 }));
                 const pass = Boolean(response && response.ok()) && !metrics.horizontalOverflow && metrics.text > 0;
-                await page.screenshot({ path: `artifacts/visual-regression/${file.replace(/\\W/g, '_')}-${vp.name}.png`, fullPage: true });
+                await page.screenshot({ path: `artifacts/visual-regression/${file.replace(/\W/g, '_')}-${vp.name}.png`, fullPage: true });
                 results.push({ file, viewport: vp.name, httpStatus: response ? response.status() : null, ...metrics, pass });
                 await page.close();
               }
