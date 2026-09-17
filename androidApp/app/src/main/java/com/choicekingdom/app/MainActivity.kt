@@ -105,24 +105,28 @@ private fun ChoiceKingdomApp() {
     val context = androidx.compose.ui.platform.LocalContext.current
     val runtime = remember(context) { CanonicalAndroidRuntime(context) }
     val audio = remember(context) { ChoiceKingdomAudio(context) }
+    val music = remember(context) { ChoiceKingdomMusic(context) }
     LaunchedEffect(audio) {
         audio.loadBundledSfx(context.resources, context.packageName)
         audioMuted = audio.isMuted
         audioVolume = audio.currentVolume
         ambientVolume = audio.currentAmbientVolume
         musicVolume = audio.currentMusicVolume
+        music.setVolume(musicVolume)
+        music.setMuted(audioMuted)
+        music.play()
     }
     val lifecycleOwner = androidx.lifecycle.compose.LocalLifecycleOwner.current
-    DisposableEffect(lifecycleOwner, audio) {
+    DisposableEffect(lifecycleOwner, audio, music) {
         val observer = object : androidx.lifecycle.DefaultLifecycleObserver {
-            override fun onStart(owner: androidx.lifecycle.LifecycleOwner) { audio.setForeground(true); audio.startAmbient() }
-            override fun onStop(owner: androidx.lifecycle.LifecycleOwner) { audio.setForeground(false) }
+            override fun onStart(owner: androidx.lifecycle.LifecycleOwner) { audio.setForeground(true); music.setForeground(true); audio.startAmbient(); music.play() }
+            override fun onStop(owner: androidx.lifecycle.LifecycleOwner) { audio.setForeground(false); music.setForeground(false) }
         }
         lifecycleOwner.lifecycle.addObserver(observer)
         onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
     }
 
-    DisposableEffect(runtime, audio) {
+    DisposableEffect(runtime, audio, music) {
         runtime.start(
             runId = "android-production-${System.currentTimeMillis()}",
             onProjection = {
@@ -137,7 +141,7 @@ private fun ChoiceKingdomApp() {
                 audio.playErrorFeedback()
             },
         )
-        onDispose { runtime.close(); audio.close() }
+        onDispose { runtime.close(); audio.close(); music.close() }
     }
 
     ChoiceKingdomTheme {
@@ -162,10 +166,10 @@ private fun ChoiceKingdomApp() {
                         audioVolume = audioVolume,
                         ambientVolume = ambientVolume,
                         musicVolume = musicVolume,
-                        onAudioMutedChanged = { audioMuted = it; audio.setMuted(it) },
+                        onAudioMutedChanged = { audioMuted = it; audio.setMuted(it); music.setMuted(it) },
                         onAudioVolumeChanged = { audioVolume = it; audio.setVolume(it) },
                         onAmbientVolumeChanged = { ambientVolume = it; audio.setAmbientVolume(it) },
-                        onMusicVolumeChanged = { musicVolume = it; audio.setMusicVolume(it) },
+                        onMusicVolumeChanged = { musicVolume = it; audio.setMusicVolume(it); music.setVolume(it) },
                         selectedScreen = screens.first { it.key == selectedScreen },
                         snapshot = projection!!,
                         selectedChoiceId = selectedChoiceId,
@@ -173,6 +177,7 @@ private fun ChoiceKingdomApp() {
                         errorMessage = errorMessage,
                         onScreenSelected = {
                             selectedScreen = it.key
+                            music.setScene(it.key)
                             if (it.key == "Settings") { audio.setMuted(audioMuted); audio.setVolume(audioVolume); audio.setAmbientVolume(ambientVolume); audio.setMusicVolume(musicVolume) }
                             selectedChoiceId = null
                             resolvingChoiceId = null
