@@ -1,11 +1,10 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Choice Kingdom — P5 Event Cinematic</title>
 <style>
-:root{--bg:#0d100d;--paper:#f1eadb;--muted:#b9b09f;--line:rgba(241,234,219,.16);--accent:#d4b46b;--panel:rgba(20,24,19,.92)}
+:root{--bg:#0d100d;--paper:#f1eadb;--muted:#b9b09f;--line:rgba(241,234,219,.16);--accent:#d4b46b;--focus:#f0cf83}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--paper);font:16px/1.55 system-ui,sans-serif}
 body{background:radial-gradient(circle at 50% -10%,rgba(212,180,107,.16),transparent 42%),linear-gradient(180deg,#0d100d,#11150f 55%,#0b0d0b)}
 main{max-width:720px;margin:auto;padding:clamp(16px,5vw,34px) 16px 42px;padding-top:max(clamp(16px,5vw,34px),env(safe-area-inset-top));padding-bottom:max(42px,env(safe-area-inset-bottom))}
@@ -14,9 +13,9 @@ main{max-width:720px;margin:auto;padding:clamp(16px,5vw,34px) 16px 42px;padding-
 .hero img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover}.hero:after{content:"";position:absolute;inset:35% 0 0;background:linear-gradient(transparent,rgba(5,7,5,.82))}
 .hero-copy{position:relative;margin-top:-92px;z-index:2;padding:20px 20px 18px}.hero-copy h1{font:clamp(30px,8vw,54px)/.98 Georgia,serif;margin:5px 0 10px}.hero-copy p{max-width:42ch;color:#ded6c6;margin:0}
 .state{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}.chip{border:1px solid var(--line);border-radius:14px;padding:11px 12px;background:rgba(20,24,19,.72)}.chip small{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.1em}.chip strong{display:block;margin-top:3px}
-.decision{margin-top:18px}.decision h2{font:28px/1.1 Georgia,serif;margin:0 0 10px}.choices{display:grid;gap:10px}.choice{appearance:none;width:100%;text-align:left;color:var(--paper);background:linear-gradient(180deg,#24291f,#1b2019);border:1px solid rgba(241,234,219,.2);border-radius:17px;padding:15px 16px;min-height:56px;font:600 16px/1.35 system-ui,sans-serif;cursor:pointer}.choice:hover,.choice:focus-visible{border-color:var(--accent);outline:2px solid rgba(212,180,107,.28);outline-offset:2px}.choice span{display:block;color:var(--muted);font-size:12px;font-weight:500;margin-top:4px}.note{margin-top:16px;color:var(--muted);font-size:13px}
+.decision{margin-top:18px}.decision h2{font:28px/1.1 Georgia,serif;margin:0 0 10px}.choices{display:grid;gap:10px}.choice{appearance:none;width:100%;text-align:left;color:var(--paper);background:linear-gradient(180deg,#24291f,#1b2019);border:1px solid rgba(241,234,219,.2);border-radius:17px;padding:15px 16px;min-height:56px;font:600 16px/1.35 system-ui,sans-serif;cursor:pointer;transition:border-color .18s,transform .18s,opacity .18s}.choice:hover{border-color:rgba(212,180,107,.75);transform:translateY(-1px)}.choice:focus-visible{border-color:var(--focus);outline:2px solid rgba(240,207,131,.45);outline-offset:3px}.choice[aria-pressed=true]{border-color:var(--accent);background:linear-gradient(180deg,#302d20,#211f18);box-shadow:inset 0 0 0 1px rgba(212,180,107,.2)}.choice:disabled{opacity:.52;cursor:wait;transform:none}.choice span{display:block;color:var(--muted);font-size:12px;font-weight:500;margin-top:4px}.feedback{min-height:24px;margin:12px 2px 0;color:var(--accent);font-size:13px}.note{margin-top:16px;color:var(--muted);font-size:13px}
 @media(min-width:620px){.state{grid-template-columns:repeat(4,1fr)}}
-@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+@media(prefers-reduced-motion:reduce){.choice{transition:none}.choice:hover{transform:none}}
 [dir=rtl]{text-align:right}.rtl-note{display:none}[dir=rtl] .rtl-note{display:block;color:var(--muted)}
 </style>
 </head>
@@ -29,24 +28,23 @@ main{max-width:720px;margin:auto;padding:clamp(16px,5vw,34px) 16px 42px;padding-
     <div class="hero-copy"><div class="eyebrow">THE EMPTY GRANARY</div><h1 id="event-title">The stores are nearly gone.</h1><p>Snow has closed the eastern road. Three villages are waiting for the next convoy, and every hour changes what can still be saved.</p></div>
   </section>
   <section class="state" aria-label="Current situation">
-    <div class="chip"><small>Pressure</small><strong>Food logistics</strong></div>
-    <div class="chip"><small>Place</small><strong>Eastern granary</strong></div>
-    <div class="chip"><small>Time</small><strong>Late winter</strong></div>
-    <div class="chip"><small>Stakes</small><strong>Three villages</strong></div>
+    <div class="chip"><small>Pressure</small><strong>Food logistics</strong></div><div class="chip"><small>Place</small><strong>Eastern granary</strong></div><div class="chip"><small>Time</small><strong>Late winter</strong></div><div class="chip"><small>Stakes</small><strong>Three villages</strong></div>
   </section>
   <section class="decision" aria-labelledby="decision-title">
     <h2 id="decision-title">What will you do?</h2>
     <div class="choices">
-      <button class="choice">Open a public labor effort<span>Spend resources now to reopen the road.</span></button>
-      <button class="choice">Contract guild transport<span>Move faster, accepting institutional conditions.</span></button>
+      <button class="choice" type="button" aria-pressed="false">Open a public labor effort<span>Spend resources now to reopen the road.</span></button>
+      <button class="choice" type="button" aria-pressed="false">Contract guild transport<span>Move faster, accepting institutional conditions.</span></button>
     </div>
+    <div class="feedback" id="feedback" role="status" aria-live="polite"></div>
   </section>
-  <p class="note">Prototype surface only: this screen does not claim final canonical event copy or final production artwork. Choice controls are intentionally dominant, touch-safe and keyboard/focus accessible.</p>
+  <p class="note">Prototype surface only: canonical event/session binding and final production artwork remain open. The interaction layer now proves idle, selected and resolving states without changing gameplay data.</p>
   <p class="rtl-note">RTL proof: the same hierarchy can mirror without changing decision priority.</p>
 </main>
 <script>
-const root=document.documentElement;
-if(new URLSearchParams(location.search).get('rtl')==='1') root.dir='rtl';
+const root=document.documentElement;const params=new URLSearchParams(location.search);if(params.get('rtl')==='1')root.dir='rtl';
+const choices=[...document.querySelectorAll('.choice')];const feedback=document.querySelector('#feedback');
+choices.forEach((button,index)=>button.addEventListener('click',()=>{if(button.disabled)return;choices.forEach(b=>b.setAttribute('aria-pressed','false'));button.setAttribute('aria-pressed','true');feedback.textContent='Decision selected · resolving state preview';choices.forEach(b=>b.disabled=true);setTimeout(()=>{choices.forEach(b=>b.disabled=false);feedback.textContent='Resolving preview complete · gameplay state not modified';},650)}));
 </script>
 </body>
 </html>
