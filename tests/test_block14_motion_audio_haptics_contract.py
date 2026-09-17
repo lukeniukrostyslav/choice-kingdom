@@ -90,3 +90,14 @@ def test_block14_audio_fade_and_focus_recovery_contract():
     assert "AUDIOFOCUS_GAIN" in audio
     assert "autoResume()" in audio
     assert "ambientPausedByFocus" in audio
+
+
+def test_block14_audio_state_is_threaded_to_choice_and_settings():
+    main = (ROOT / "androidApp/app/src/main/java/com/choicekingdom/app/MainActivity.kt").read_text(encoding="utf-8")
+    assert "audio = audio" in main
+    assert "audioMuted = audioMuted" in main
+    assert "audioVolume = audioVolume" in main
+    assert "ambientVolume = ambientVolume" in main
+    assert "onAudioMutedChanged" in main
+    assert "onAudioVolumeChanged" in main
+    assert "onAmbientVolumeChanged" in main
