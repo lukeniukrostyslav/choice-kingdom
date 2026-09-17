@@ -4,7 +4,7 @@
 Original premium offline-first decision-and-consequence mobile game set in Avelune. Android-first, one-time purchase target €2.99–€4.99, no ads/subscription/mandatory backend for core gameplay, 20+ locales including RTL. Frozen production catalog: **E01–E272**.
 
 ## Current phase
-**General execution plan approved; Block 1 is the active workstream.** The project proceeds strictly block-by-block. Design is preserved and intentionally deferred until the real gameplay/runtime exists, then P1–P25 will be taken to real 100% with implementation and evidence.
+**General execution plan approved; Block 2 is the active workstream.** Block 1 Production Data Schema is closed at 100%. The project proceeds strictly block-by-block. Design is preserved and intentionally deferred until the real gameplay/runtime exists, then P1–P25 will be taken to real 100% with implementation and evidence.
 
 ## Approved General Plan — 25 Blocks
 1. **Production Data Schema** → 100%
@@ -45,7 +45,9 @@ Execution order is strictly **1 → 2 → 3 → ... → 25**. A block is not con
 ## Verification baseline
 - Existing canonical runtime checkpoint: **184 passed**.
 - Recent authored-choice / graph / delayed lifecycle gates have successful runs.
-- Android build gate has been added; its Actions result must be checked before claiming Android CI GREEN.
+- Block 1 unified production schema/catalog CI gate is GREEN.
+- Latest runtime work adds atomic validation for invalid next-due delayed choices before delay activation.
+- The latest commit's overall GitHub status is not treated as runtime GREEN because an unrelated Vercel status is failing; runtime CI must be checked independently.
 
 ## Major blocks
 - Foundation / Rules: **100%**
@@ -57,9 +59,9 @@ Execution order is strictly **1 → 2 → 3 → ... → 25**. A block is not con
 - Replay / Meta-state: **100% runtime-verified**
 - Endings / precedence: **100% runtime-verified at executable boundary**
 - Reachability / Causal Graph: **100% source-level; full gameplay reachability remains open**
-- Production Data Schema: **50%**
+- Production Data Schema: **100%**
 - Runtime State / Persistence Foundation: **100% current foundation**
-- Decision Engine / Application Runtime: **42%**
+- Decision Engine / Application Runtime: **88%**
 - Design Specification: **100%**
 - UI / UX Runtime Implementation: **38%**
 - Localization 20+ / RTL: **11%**
