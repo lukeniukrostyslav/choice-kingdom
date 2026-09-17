@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import json
 import re
 import time
@@ -78,19 +79,76 @@ def translate_batch(translator: GoogleTranslator, texts: list[str]) -> list[str]
     return output
 
 
+def _load_partial(path: Path, source: dict[str, str]) -> dict[str, str]:
+    if not path.exists():
+        return {}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        entries = payload.get("entries", {})
+        if not isinstance(entries, dict):
+            return {}
+        return {
+            key: str(entry["translation"]).strip()
+            for key, entry in entries.items()
+            if key in source
+            and isinstance(entry, dict)
+            and isinstance(entry.get("translation"), str)
+            and entry["translation"].strip()
+        }
+    except (OSError, json.JSONDecodeError, KeyError, TypeError):
+        return {}
+
+
+def _write_partial(path: Path, locale: str, source: dict[str, str], translations: dict[str, str]) -> None:
+    payload = {
+        "schema_version": "1.0-partial",
+        "locale": locale,
+        "source_locale": "en",
+        "translation_provider": "Google Translate via deep-translator",
+        "machine_translated": True,
+        "entries": {
+            key: {"fallback": source[key], "translation": translations[key]}
+            for key in source
+            if key in translations
+        },
+    }
+    path.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+
 def write_pack(locale: str, source: dict[str, str]) -> None:
     path = OUT / f"{locale}.json"
-    translator = GoogleTranslator(source="en", target=locale)
+    partial = OUT / f".{locale}.json.partial"
     keys = list(source)
-    translations: dict[str, str] = {}
+    translations = _load_partial(partial, source)
+
+    if path.exists():
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            entries = payload.get("entries", {})
+            if set(entries) == set(keys):
+                print(f"{locale}: already complete")
+                return
+        except (OSError, json.JSONDecodeError, TypeError):
+            pass
+
+    translator = GoogleTranslator(source="en", target=locale)
     for start in range(0, len(keys), 25):
         batch_keys = keys[start:start + 25]
-        values = translate_batch(translator, [source[key] for key in batch_keys])
-        for key, value in zip(batch_keys, values, strict=True):
-            if not value.strip():
-                raise RuntimeError(f"empty translation: {locale}:{key}")
-            translations[key] = value.strip()
-        print(f"{locale}: {min(start + 25, len(keys))}/{len(keys)}")
+        pending = [key for key in batch_keys if key not in translations]
+        if pending:
+            values = translate_batch(translator, [source[key] for key in pending])
+            for key, value in zip(pending, values, strict=True):
+                if not value.strip():
+                    raise RuntimeError(f"empty translation: {locale}:{key}")
+                translations[key] = value.strip()
+            _write_partial(partial, locale, source, translations)
+        print(f"{locale}: {len(translations)}/{len(keys)}")
+
+    if set(translations) != set(keys):
+        raise RuntimeError(f"incomplete translation pack: {locale}")
 
     payload = {
         "schema_version": "1.0",
@@ -103,14 +161,18 @@ def write_pack(locale: str, source: dict[str, str]) -> None:
             for key in keys
         },
     }
-    path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(
         json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
+    partial.unlink(missing_ok=True)
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--locale", choices=TARGETS)
+    args = parser.parse_args()
+
     source = build_source(ROOT)
     if len(source) != 1064:
         raise RuntimeError(f"unexpected source key count: {len(source)}")
@@ -132,7 +194,8 @@ def main() -> None:
         encoding="utf-8",
     )
 
-    for locale in TARGETS:
+    locales = (args.locale,) if args.locale else TARGETS
+    for locale in locales:
         write_pack(locale, source)
 
 
