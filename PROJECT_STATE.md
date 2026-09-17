@@ -4,7 +4,7 @@
 Original premium offline-first decision-and-consequence mobile game set in Avelune. Android-first, one-time purchase target €2.99–€4.99, no ads/subscription/mandatory backend for core gameplay, 20+ locales including RTL. Frozen production catalog: **E01–E272**.
 
 ## Current phase
-**Block 4 Production Content E01–E272 is closed at 100%; Block 5 Persistence / Save / Load / Resume is the next active workstream.** Blocks 1–3 are closed at 100%. The project proceeds strictly block-by-block. Design is preserved and intentionally deferred until the real gameplay/runtime exists, then P1–P25 will be taken to real 100% with implementation and evidence.
+**Blocks 1–6 are closed at their defined boundaries. Block 7 UI/UX Runtime is the active workstream.** The project proceeds strictly block-by-block. Percentages reflect implementation and available verification evidence, not documentation volume.
 
 ## Approved General Plan — 25 Blocks
 1. **Production Data Schema** → 100%
@@ -13,44 +13,48 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 4. **Production Content E01–E272** → 100%
 5. **Persistence / Save / Load / Resume** → 100%
 6. **Real GameSession → Presentation Bridge** → 100%
-7. **UI/UX Runtime** → 100%
-8. **All Gameplay States** → 100%
-9. **Android Runtime** → 100%
-10. **Localization 20+** → 100%
-11. **RTL / Large Text / Accessibility** → 100%
-12. **Responsive / Safe Areas / Devices** → 100%
-13. **Premium Design P1–P25** → 100%
-14. **Motion / Audio / Haptics** → 100%
-15. **Cross-Screen Visual Regression** → 100%
-16. **Automated QA** → 100%
-17. **Performance / Stability / Offline QA** → 100%
-18. **Security / Production Hardening** → 100%
-19. **APK Debug / QA Build** → 100%
-20. **Release APK / AAB** → 100%
-21. **Final Device QA** → 100%
-22. **Store Preparation** → 100%
-23. **Final Release Gate** → 100%
+7. **UI/UX Runtime** → 55%
+8. **All Gameplay States** → 0%
+9. **Android Runtime** → 0%
+10. **Localization 20+** → 0%
+11. **RTL / Large Text / Accessibility** → 0%
+12. **Responsive / Safe Areas / Devices** → 0%
+13. **Premium Design P1–P25** → 62.24%
+14. **Motion / Audio / Haptics** → 0%
+15. **Cross-Screen Visual Regression** → 0%
+16. **Automated QA** → 0%
+17. **Performance / Stability / Offline QA** → 0%
+18. **Security / Production Hardening** → 0%
+19. **APK Debug / QA Build** → 0%
+20. **Release APK / AAB** → 0%
+21. **Final Device QA** → 0%
+22. **Store Preparation** → 0%
+23. **Final Release Gate** → 0%
 24. **GitHub / Documentation / Recovery** → 100%
-25. **RELEASE** → 100%
+25. **RELEASE** → 0%
 
 Execution order is strictly **1 → 2 → 3 → ... → 25**. A block is not considered complete from documentation alone; completion requires implementation, integration and applicable verification/evidence.
 
-## Evidence
-- `androidApp/` contains the first real Android Compose application module.
-- `.github/workflows/android-presentation.yml` adds a Gradle Android build gate.
-- `runtime/premium_screen_states.py`, `runtime/premium_surface_projection.py` and `runtime/premium_regression_matrix.py` remain the canonical platform-neutral presentation contracts.
-- `design-preview/premium-screen-state-matrix-v1.html` provides rendered cross-screen proof for responsive density, RTL, large text, reduced motion, safe-area and focus behavior.
-- No physical Android/device proof is claimed yet.
+## Block 7 checkpoint
+- Android Compose presentation shell exists with Compact / Medium / Expanded layouts.
+- Seven primary surfaces are represented: Event, Realm, History, People, Investigation, Ending, Settings.
+- Safe-drawing insets, semantic choice interaction and minimum touch-target behavior are implemented.
+- Immutable `AndroidPresentationPort` is the Android-facing projection seam.
+- New deterministic UI-only reducer covers navigation and focus/selection/press/resolving/resolved/blocked/error/terminal states.
+- JVM tests cover the reducer's complete transient choice-state lifecycle and all primary surfaces.
+- Existing Android instrumentation covers projection rendering, accessible selection and navigation.
+- `docs/UI_UX_RUNTIME_BLOCK_07.md` records the remaining closure gate.
+
+## Remaining Block 7 gate
+The production launcher still consumes an explicitly named development `sampleProjection`. The canonical `GameSession` is Python-side; a production Android runtime feed/adapter is not yet present. Therefore Block 7 is **55%**, not 100%. The remaining work is to connect the real runtime projection and choice intents without duplicating gameplay semantics in Android, then run the applicable JVM and Android instrumentation verification.
 
 ## Verification baseline
 - Existing canonical runtime checkpoint: **184 passed**.
 - Block 2 authored runtime workflow **GREEN** on PR #15 / run **35271242963**, head commit `1d4f0f5bc4ce28954dcb7b400ff9620931f6aa72`.
-- The GREEN run passed authored source validation, representative authored runtime choices, full decision-engine boundary, GameSession application runtime boundary, delayed lifecycle, delayed target, ending resolver, and immediate-routing isolation gates.
-- Block 2 regression fixtures were aligned with the canonical ending predicate sources, duplicate-delay atomicity contract, and canonical replay-meta contract.
 - Block 1 unified production schema/catalog CI gate is GREEN.
-- Block 4 production content integrity gate is **GREEN** on run **35272313326**, head `fd1227ebf0a596cdbe2623fa9c5e8302553d669d`; the gate passed production catalog validation, frozen content integrity validation, production data schema validation, and all production catalog/content/schema tests.
-- The frozen authored surface is verified as **E01–E272**, with **520 authored choices** and **13 intentional no-choice nodes**; excluded E273–E277 remain outside the production catalog.
-- The unrelated Vercel deployment status is not used as evidence for runtime correctness.
+- Block 4 production content integrity gate is **GREEN** on run **35272313326**, head `fd1227ebf0a596cdbe2623fa9c5e8302553d669d`.
+- Frozen authored surface: **E01–E272**, **520 authored choices**, **13 intentional no-choice nodes**.
+- No physical Android/device proof is claimed.
 
 ## Major blocks
 - Foundation / Rules: **100%**
@@ -66,7 +70,7 @@ Execution order is strictly **1 → 2 → 3 → ... → 25**. A block is not con
 - Runtime State / Persistence Foundation: **100% current foundation**
 - Decision Engine / Application Runtime: **100% runtime-verified**
 - Design Specification: **100%**
-- UI / UX Runtime Implementation: **38%**
+- UI / UX Runtime Implementation: **55%**
 - Localization 20+ / RTL: **11%**
 - Android Implementation: **8%**
 - Runtime / Android QA: **28%**
