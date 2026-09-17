@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
     inputs:
       approve_baseline:
-        description: "Generate and commit updated screenshot references"
+        description: "Regenerate and commit approved screenshot references"
         required: false
         default: false
         type: boolean
@@ -33,22 +33,32 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v4
 
-      - name: Generate screenshot references
-        if: github.event_name == 'workflow_dispatch' && inputs.approve_baseline == true
+      - name: Detect reference set
+        id: refs
+        shell: bash
+        run: |
+          if find androidApp/app/src/screenshotTestDebug/reference -type f -name '*.png' -print -quit 2>/dev/null | grep -q .; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Generate initial or explicitly approved references
+        if: steps.refs.outputs.exists == 'false' || (github.event_name == 'workflow_dispatch' && inputs.approve_baseline == true)
         working-directory: androidApp
         run: ./gradlew updateDebugScreenshotTest --stacktrace
 
-      - name: Commit approved screenshot references
-        if: github.event_name == 'workflow_dispatch' && inputs.approve_baseline == true
+      - name: Commit generated reference set
+        if: steps.refs.outputs.exists == 'false' || (github.event_name == 'workflow_dispatch' && inputs.approve_baseline == true)
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add androidApp/app/src/screenshotTestDebug/reference
-          git diff --cached --quiet || git commit -m "Update approved visual regression references"
+          git diff --cached --quiet || git commit -m "Add approved visual regression references"
           git push
 
-      - name: Validate screenshot references
-        if: github.event_name != 'workflow_dispatch' || inputs.approve_baseline != true
+      - name: Validate existing reference set
+        if: steps.refs.outputs.exists == 'true' && !(github.event_name == 'workflow_dispatch' && inputs.approve_baseline == true)
         working-directory: androidApp
         run: ./gradlew validateDebugScreenshotTest --stacktrace
 
