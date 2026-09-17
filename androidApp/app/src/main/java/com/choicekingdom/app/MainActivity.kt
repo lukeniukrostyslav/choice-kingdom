@@ -100,17 +100,20 @@ private fun ChoiceKingdomApp() {
     var errorMessage by remember { mutableStateOf<String?>(null) }
     var audioMuted by rememberSaveable { mutableStateOf(false) }
     var audioVolume by rememberSaveable { mutableStateOf(1f) }
+    var ambientVolume by rememberSaveable { mutableStateOf(0.35f) }
     val context = androidx.compose.ui.platform.LocalContext.current
     val runtime = remember(context) { CanonicalAndroidRuntime(context) }
     val audio = remember(context) { ChoiceKingdomAudio(context) }
     LaunchedEffect(audio) {
+        audio.loadBundledSfx(context.resources, context.packageName)
         audioMuted = audio.isMuted
         audioVolume = audio.currentVolume
+        ambientVolume = audio.currentAmbientVolume
     }
     val lifecycleOwner = androidx.lifecycle.compose.LocalLifecycleOwner.current
     DisposableEffect(lifecycleOwner, audio) {
         val observer = object : androidx.lifecycle.DefaultLifecycleObserver {
-            override fun onStart(owner: androidx.lifecycle.LifecycleOwner) { audio.setForeground(true) }
+            override fun onStart(owner: androidx.lifecycle.LifecycleOwner) { audio.setForeground(true); audio.startAmbient() }
             override fun onStop(owner: androidx.lifecycle.LifecycleOwner) { audio.setForeground(false) }
         }
         lifecycleOwner.lifecycle.addObserver(observer)
@@ -159,7 +162,7 @@ private fun ChoiceKingdomApp() {
                         errorMessage = errorMessage,
                         onScreenSelected = {
                             selectedScreen = it.key
-                            if (it.key == "Settings") { audio.setMuted(audioMuted); audio.setVolume(audioVolume) }
+                            if (it.key == "Settings") { audio.setMuted(audioMuted); audio.setVolume(audioVolume); audio.setAmbientVolume(ambientVolume) }
                             selectedChoiceId = null
                             resolvingChoiceId = null
                             errorMessage = null
@@ -321,6 +324,7 @@ private fun JourneyContent(
                         resolving = resolvingChoiceId == choice.id,
                         disabledByResolution = resolvingChoiceId != null && resolvingChoiceId != choice.id,
                         onChoiceSelected = onChoiceSelected,
+                        audio = audio,
                     )
                 }
             }
@@ -334,6 +338,8 @@ private fun JourneyContent(
                 volume = audioVolume,
                 onMutedChanged = { audioMuted = it; audio.setMuted(it) },
                 onVolumeChanged = { audioVolume = it; audio.setVolume(it) },
+                ambientVolume = ambientVolume,
+                onAmbientVolumeChanged = { ambientVolume = it; audio.setAmbientVolume(it) },
             ) }
         }
     }
@@ -406,6 +412,7 @@ private fun ChoiceCard(
     resolving: Boolean,
     disabledByResolution: Boolean,
     onChoiceSelected: (String) -> Unit,
+    audio: ChoiceKingdomAudio,
 ) {
     val haptics = LocalHapticFeedback.current
     val enabled = choice.state != "disabled" && !disabledByResolution && !resolving
@@ -490,6 +497,8 @@ private fun SettingsCard(
     volume: Float,
     onMutedChanged: (Boolean) -> Unit,
     onVolumeChanged: (Float) -> Unit,
+    ambientVolume: Float,
+    onAmbientVolumeChanged: (Float) -> Unit,
 ) {
     Card(modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(22.dp), border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)) {
         Column(modifier = Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -512,6 +521,8 @@ private fun SettingsCard(
                 valueRange = 0f..1f,
                 modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
             )
+            Text("Ambient ${(ambientVolume * 100).toInt()}%", fontSize = 13.sp)
+            androidx.compose.material3.Slider(value = ambientVolume, onValueChange = onAmbientVolumeChanged, valueRange = 0f..1f, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp))
             TextButton(onClick = { AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("en")) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("English") }
             TextButton(onClick = { AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("it")) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("Italiano") }
             TextButton(onClick = { AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("uk")) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("Українська") }
