@@ -39,3 +39,10 @@ def test_visual_regression_ci_uses_available_gradle_distribution():
 def test_visual_regression_host_rendering_heap_is_explicit():
     props = (ROOT / "androidApp/gradle.properties").read_text(encoding="utf-8")
     assert "android.compose.screenshot.maxHeapSize=4g" in props
+
+
+def test_visual_regression_covers_core8_and_large_text():
+    test = (ROOT / "androidApp/app/src/screenshotTest/kotlin/com/choicekingdom/app/VisualRegressionScreenshotTest.kt").read_text(encoding="utf-8")
+    for locale in ["ru", "uk", "it", "de", "fr", "es", "pt"]:
+        assert f'locale = "{locale}"' in test
+    assert "fontScale = 1.3f" in test
