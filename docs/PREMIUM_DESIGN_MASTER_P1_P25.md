@@ -12,7 +12,7 @@ This document is the canonical working checklist for the 25-block premium visual
 | P2 | Core visual identity / design language | 74% | Tokenized identity applied across representative surfaces |
 | P3 | Typography / type hierarchy | 66% | Complete type scale, wrapping, accessibility and locale rules |
 | P4 | Color / materials / surfaces | 70% | Semantic color/material tokens + contrast proof |
-| P5 | Layout / grid / spacing / responsive system | 68% | Responsive contracts across target window classes |
+| P5 | Layout / grid / spacing / responsive system | 69% | Responsive contracts across target window classes + safe-content bounds |
 | P6 | Choice experience / choice cards / choice chamber | 70% | All choice states + proof + accessibility + visual regression |
 | P7 | Event / situation presentation | 62% | Full event surface and state variants |
 | P8 | Character presentation | 56% | Character identity, state, relationship and fallback visuals |
@@ -25,40 +25,43 @@ This document is the canonical working checklist for the 25-block premium visual
 | P15 | Crisis / high-stakes presentation | 45% | Escalation, urgency and consequence preview without clutter |
 | P16 | Endings / resolution experience | 54% | Ending identity, summary and emotional landing |
 | P17 | Replay / new-run experience | 47% | Replay motivation, continuity and clean reset semantics |
-| P18 | Main menu / launcher | 64% | Premium first impression + navigation + responsive proof |
-| P19 | Navigation / information architecture | 71% | Consistent hierarchy and low-cognitive-load navigation |
+| P18 | Main menu / launcher | 67% | Premium first impression + navigation + responsive proof |
+| P19 | Navigation / information architecture | 73% | Consistent hierarchy and low-cognitive-load navigation |
 | P20 | Motion / micro-interactions / feedback | 64% | Purposeful semantic motion + reduced-motion behavior |
 | P21 | Accessibility / touch / keyboard / focus | 70% | Semantic, focus, contrast, touch-target and reduced-motion proof |
 | P22 | Localization / long strings / RTL | 34% | Locale-safe layout and RTL proof across key screens |
 | P23 | Audio / haptics / premium feedback | 16% | Audio/haptic vocabulary mapped to meaningful player actions |
-| P24 | Android devices / safe areas / resolution adaptation | 18% | Real Android presentation proof on target device classes |
+| P24 | Android devices / safe areas / resolution adaptation | 20% | Real Android presentation proof on target device classes |
 | P25 | Final premium polish / cross-screen QA | 33% | Full visual regression and no unresolved P1–P24 blockers |
 
-**Aggregate P1–P25 estimate: 55.72% (simple arithmetic mean of block estimates).** This is an engineering/design evidence estimate, not a commercial-readiness score.
+**Aggregate P1–P25 estimate: 55.92% (simple arithmetic mean of block estimates).** This is an engineering/design evidence estimate, not a commercial-readiness score.
 
 ## Evidence added in the current design increment
 
 - `runtime/premium_journey.py` composes Event/Choice, Consequence and the journey screen family behind one navigation-neutral premium journey host.
 - `runtime/adaptive_navigation.py` adds a pure presentation contract based on available window width: Compact → bottom navigation, Medium → navigation rail, Expanded → two-pane presentation.
-- `runtime/main_menu.py` adds the first production-facing premium launcher contract: Continue, New Run, History and Settings, with Continue availability derived only from canonical active-session presence.
+- `runtime/main_menu.py` adds the production-facing premium launcher contract: Continue, New Run, History and Settings, with Continue availability derived only from canonical active-session presence.
+- `runtime/launcher_journey.py` now connects launcher destinations to the composed journey boundary without adding gameplay rules.
 - `runtime/motion.py` adds semantic motion vocabulary for enter, focus, confirm, resolve, pending and error states. Reduced-motion mode preserves semantic feedback while removing decorative motion.
-- `tests/test_motion.py` verifies every semantic state has an explicit policy and that reduced motion does not erase information.
+- `runtime/safe_area.py` adds a platform-neutral safe-content bounds contract for system bars, cutouts and gesture zones.
+- `tests/test_launcher_journey.py` verifies launcher → journey routing as presentation-only.
+- `tests/test_safe_area.py` verifies inset subtraction, non-negative content bounds and invalid window dimensions.
+- `tests/test_motion.py` verifies every semantic state has an explicit policy and reduced motion does not erase information.
 - `tests/test_main_menu.py` verifies active/terminal/no-session launcher states and adaptive navigation composition.
-- `tests/test_adaptive_navigation.py` verifies the width-class boundaries and presentation-only navigation behavior.
-- Adaptive decisions use available app-window space rather than physical device identity. Current Android guidance recommends window-size-class-driven responsive/adaptive layouts and continuity during resize, fold/unfold and multi-window changes. citeturn0search0turn0search1turn0search6
-- Safe insets remain an explicit requirement; adaptive navigation must not place interactive controls under gesture/system-bar insets. citeturn0search4
+- `tests/test_adaptive_navigation.py` verifies width-class boundaries and presentation-only navigation behavior.
+- Current Android guidance reinforces window-size-class-driven responsive/adaptive layouts, state continuity across resize/fold/unfold/multi-window, and safe handling of system UI insets. citeturn0search0turn0search1turn0search4turn0search8
 - The journey screen contracts deliberately do not calculate gameplay effects, route events, invent relationship values, fabricate evidence, or mutate `GameSession`.
-- No new CI-green claim is made for the latest test commits until GitHub Actions reports an actual run.
+- No CI-green claim is made for the newest test commits until GitHub Actions reports an actual run.
 
 ## Production-facing integration evidence
 
 The runtime exposes a presentation-neutral `GameSession` snapshot and a `SessionPresenter` that owns transient interaction state while routing gameplay mutation back through `GameSession`. The design track treats that seam as the authoritative bridge: visual state may describe interaction, but it must not calculate gameplay outcomes or duplicate routing rules.
 
-The production integration contract covers Event/Choice, Consequence, Realm, History, People/Factions, Investigation, Ending, Settings, navigation and the initial Main Menu/launcher projection. Motion is now represented as semantic presentation policy and remains independent of gameplay mutation. Crisis and Replay remain semantic presentation layers and must not duplicate gameplay semantics.
+The production integration contract covers Event/Choice, Consequence, Realm, History, People/Factions, Investigation, Ending, Settings, navigation, Main Menu/launcher and the launcher-to-journey boundary. Motion is represented as semantic presentation policy and remains independent of gameplay mutation. Crisis and Replay remain semantic presentation layers and must not duplicate gameplay semantics.
 
 ## Execution order
 
-1. P1–P5: strengthen the visual foundation and adaptive layout contract.
+1. P1–P5: strengthen the visual foundation and adaptive layout/safe-area contract.
 2. P6–P7: integrate the authored choice/event state language into production-facing surfaces.
 3. P8–P20: extend the same visual language through Realm, History, People, Investigation, Ending, Replay and Main Menu/navigation.
 4. P21–P24: accessibility, localization, Android adaptation, audio/haptics and device proof.
@@ -78,4 +81,4 @@ The production integration contract covers Event/Choice, Consequence, Realm, His
 
 ## Execution note
 
-The current increment moves the project from adaptive navigation and launcher contracts into an explicit semantic motion layer. The next implementation work is to connect Main Menu to the composed journey boundary, add representative visual proof, then build locale-safe and Android platform-facing variants; documentation alone will not close P18–P25.
+The current increment crosses from separate launcher and journey contracts into an explicit launcher-to-journey presentation boundary and safe-content contract. The next implementation work is representative visual proof, locale-safe variants, and Android platform-facing binding; documentation alone will not close P18–P25.
