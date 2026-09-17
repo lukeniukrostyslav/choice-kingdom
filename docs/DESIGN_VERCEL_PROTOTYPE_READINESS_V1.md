@@ -16,26 +16,29 @@ The D1–D22 production design contract is closed at 100%. This tracker measures
 | V6 | Character/faction visual surface | 100% |
 | V7 | Realm/dashboard visual surface | 100% |
 | V8 | History/chronicle visual surface | 100% |
-| V9 | Investigation/evidence visual surface | 75% |
-| V10 | Ending/outcome visual surface | 75% |
+| V9 | Investigation/evidence visual surface | 100% |
+| V10 | Ending/outcome visual surface | 100% |
 | V11 | Settings/accessibility visual surface | 100% |
 | V12 | Theme, responsive, large-text and RTL review | 100% |
 | V13 | Motion/feedback presentation | 90% |
-| V14 | Cross-screen visual integration | 85% |
+| V14 | Cross-screen visual integration | 95% |
 | V15 | Mobile visual QA on the static preview | 85% |
 | V16 | Vercel production build configuration | 100% |
 | V17 | Published Vercel deployment | 0% — deployment action not yet verified |
 | V18 | Published-prototype final visual QA | 0% |
 
+**Prototype tracker average: 81.67%.** This average includes V2, V17 and V18 as real remaining gates; it is intentionally not presented as the D1–D22 design percentage.
+
 ## Current executable surface
 
-`web-preview/game-flow.html` now provides a clickable Event → Choice → Consequence → Realm flow plus Characters, History and Settings. Theme, large-text and RTL controls are interactive.
+`web-preview/game-flow.html` now provides a clickable Event → Choice → Consequence → Investigation/Evidence → Ending flow plus Realm, Characters, History and Settings. Theme, large-text and RTL controls are interactive. Evidence confidence/source presentation and ending-state navigation are now part of the same reviewable surface.
 
 ## Rules
 
-1. D1–D22 percentages are not changed by this tracker.
+1. D1–D22 percentages are not changed by this tracker and remain closed at 100%.
 2. A preview file is not counted as final authored artwork.
 3. V17 is not marked complete until an actual Vercel deployment is verified.
 4. V18 requires checking the published deployment, not only repository files.
 5. Android runtime, physical device QA, signing and store release remain separate engineering gates.
 6. Work proceeds autonomously in dependency order and each meaningful change is committed to GitHub.
+7. Percentages increase only after executable or auditable evidence exists.
