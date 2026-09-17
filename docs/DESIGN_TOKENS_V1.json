@@ -1,19 +1,81 @@
 {
-  "version": "1.0",
+  "version": "1.1",
   "product": "Choice Kingdom",
   "spacing_dp": {"xs": 4, "sm": 8, "md": 16, "lg": 24, "xl": 32},
-  "radii_dp": {"card": 12, "choice": 12},
+  "radii_dp": {"card": 12, "choice": 12, "pill": 999},
   "touch_target_dp": {"minimum": 48, "preferred_choice": 56},
   "content_margin_dp": 16,
   "safe_area_bottom_extra_dp": 16,
-  "motion": {"default_ms": 180, "reduced_motion": true},
-  "surfaces": ["surface.canvas", "surface.card", "surface.elevated"],
-  "ink": ["ink.primary", "ink.secondary", "ink.disabled"],
-  "accents": ["accent.authority", "accent.warning", "accent.stability", "accent.gold"],
-  "states": ["state.positive", "state.negative", "state.neutral", "focus.visible"],
-  "typography_roles": ["display", "section", "body", "choice", "state", "supporting"],
+  "surfaces": {
+    "surface.canvas": {"role": "page_background", "light": "#F7F4EE", "dark": "#171614"},
+    "surface.card": {"role": "primary_container", "light": "#FFFDFC", "dark": "#24211D"},
+    "surface.elevated": {"role": "overlay_or_modal", "light": "#FFFFFF", "dark": "#2D2924"}
+  },
+  "ink": {
+    "ink.primary": {"role": "primary_text", "light": "#211F1B", "dark": "#F4F0E8"},
+    "ink.secondary": {"role": "supporting_text", "light": "#625D54", "dark": "#C9C1B5"},
+    "ink.disabled": {"role": "disabled_text", "light": "#918B82", "dark": "#777168"}
+  },
+  "accents": {
+    "accent.authority": {"role": "authority_and_primary_action", "light": "#4C5D7A", "dark": "#9DAECC"},
+    "accent.warning": {"role": "caution_and_uncertainty", "light": "#9A6A24", "dark": "#D5A85C"},
+    "accent.stability": {"role": "stable_or_confirmed_state", "light": "#4D725A", "dark": "#9BC2A4"},
+    "accent.gold": {"role": "chronicle_and_royal_emphasis", "light": "#8A6828", "dark": "#D4B56B"}
+  },
+  "states": {
+    "state.positive": {"tone": "success", "visual_channels": ["icon", "label", "surface_or_border"]},
+    "state.negative": {"tone": "negative", "visual_channels": ["icon", "label", "surface_or_border"]},
+    "state.neutral": {"tone": "neutral", "visual_channels": ["icon", "label", "surface_or_border"]},
+    "focus.visible": {"outline_dp": 2, "offset_dp": 2, "must_not_depend_on_color_alone": true}
+  },
+  "borders": {"default_dp": 1, "emphasis_dp": 2},
+  "elevation": {"card": 1, "elevated": 3, "modal": 6},
+  "typography": {
+    "font_family": "system_sans",
+    "roles": {
+      "display": {"size_sp": 28, "line_height_sp": 34, "weight": 700},
+      "section": {"size_sp": 20, "line_height_sp": 26, "weight": 700},
+      "body": {"size_sp": 16, "line_height_sp": 24, "weight": 400},
+      "choice": {"size_sp": 16, "line_height_sp": 22, "weight": 600},
+      "state": {"size_sp": 14, "line_height_sp": 20, "weight": 600},
+      "supporting": {"size_sp": 14, "line_height_sp": 20, "weight": 400}
+    },
+    "large_text_scale": 1.25,
+    "minimum_body_size_sp": 16
+  },
+  "motion": {
+    "default_ms": 180,
+    "emphasis_ms": 240,
+    "reduced_motion": true,
+    "reduced_motion_behavior": "remove_nonessential_motion_and_use_instant_or_fade_state_changes"
+  },
+  "component_tokens": {
+    "choice_card": {"radius": "choice", "min_height_dp": 56, "horizontal_padding_dp": 16, "vertical_padding_dp": 12, "gap_dp": 8},
+    "content_card": {"radius": "card", "padding_dp": 16, "border_dp": 1},
+    "screen_section": {"top_gap_dp": 24, "bottom_gap_dp": 16},
+    "resource_strip": {"min_height_dp": 48, "gap_dp": 8},
+    "top_bar": {"min_height_dp": 48, "horizontal_padding_dp": 16},
+    "primary_action": {"min_height_dp": 48, "horizontal_padding_dp": 16, "radius": "choice"}
+  },
+  "layout_rules": {
+    "content_width": "fill_available_space",
+    "horizontal_margin_dp": 16,
+    "minimum_interactive_gap_dp": 8,
+    "safe_area_bottom_extra_dp": 16,
+    "responsive_breakpoint_dp": 360,
+    "small_width_rule": "preserve_touch_targets_and_stack_secondary_content_before_reducing_text"
+  },
   "screens": ["event", "realm", "history", "character", "faction", "investigation", "ending", "settings"],
   "rtl": true,
   "large_text": true,
-  "dark_mode_semantic_mapping": true
+  "dark_mode_semantic_mapping": true,
+  "accessibility": {
+    "state_not_color_only": true,
+    "focus_visible": true,
+    "touch_target_minimum_dp": 48,
+    "choice_target_preferred_dp": 56,
+    "screen_reader_semantics_required": true,
+    "long_text_must_wrap": true,
+    "cjk_expansion_safe": true
+  }
 }
