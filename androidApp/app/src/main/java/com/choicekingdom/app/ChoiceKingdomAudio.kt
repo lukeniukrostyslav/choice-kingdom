@@ -6,6 +6,8 @@ import android.media.AudioFocusRequest
 import android.media.AudioManager
 import android.media.ToneGenerator
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 
 /**
  * Foreground-only offline audio policy.
@@ -20,6 +22,7 @@ class ChoiceKingdomAudio(private val context: Context) : AutoCloseable {
     private var focusGranted = false
     private var muted = false
     private var volume = 1f
+    private val mainHandler = Handler(Looper.getMainLooper())
     private var tone = ToneGenerator(AudioManager.STREAM_MUSIC, 80)
 
     fun setMuted(value: Boolean) {
@@ -36,6 +39,13 @@ class ChoiceKingdomAudio(private val context: Context) : AutoCloseable {
     fun playChoiceFeedback() {
         if (muted || volume <= 0f || !requestFocus()) return
         tone.startTone(ToneGenerator.TONE_PROP_BEEP, 45)
+        mainHandler.postDelayed({ abandonFocus() }, 100)
+    }
+
+    private fun abandonFocus() {
+        if (!focusGranted) return
+        focusRequest?.let(audioManager::abandonAudioFocusRequest)
+        focusGranted = false
     }
 
     private fun requestFocus(): Boolean {
@@ -73,9 +83,9 @@ class ChoiceKingdomAudio(private val context: Context) : AutoCloseable {
     }
 
     override fun close() {
+        mainHandler.removeCallbacksAndMessages(null)
         tone.stopTone()
         tone.release()
-        focusRequest?.let(audioManager::abandonAudioFocusRequest)
-        focusGranted = false
+        abandonFocus()
     }
 }
