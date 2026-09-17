@@ -8,17 +8,17 @@ This document is the canonical working checklist for the 25-block premium visual
 
 The premium bar is informed by current high-quality mobile game design references and award-recognized interaction patterns. The target is not to copy another game: Choice Kingdom must have its own Avelune identity.
 
-Recent 2026 design references reinforce a few durable requirements: distinctive cohesive visual language, platform-native interaction, narrative embedded into interaction, carefully authored environmental detail, clearly exposed accessibility controls, and responsive/touch-first presentation. Apple Design Awards 2026 specifically highlights games such as Is This Seat Taken? and Pine Hearts for distinctive presentation, interaction, surrounding detail, and accessibility options. These references are used as principles only; no competitor art, branding, characters, layouts, or proprietary assets are copied.
+Recent 2026 design references reinforce a few durable requirements: distinctive cohesive visual language, platform-native interaction, narrative embedded into interaction, carefully authored environmental detail, clearly exposed accessibility controls, and responsive/touch-first presentation. Apple Design Awards 2026 specifically highlights games such as Is This Seat Taken? and Pine Hearts for distinctive presentation, interaction, surrounding detail, and accessibility options. Apple’s current design guidance also emphasizes consistency, readability, accessibility, adaptation across screen sizes, and restrained use of brand color. These references are used as principles only; no competitor art, branding, characters, layouts, or proprietary assets are copied.
 
 ## Premium Design P1–P25
 
 | Block | Scope | Current | Exit gate |
 |---|---|---:|---|
 | P1 | Premium vision / art direction | 65% | Signed visual north star + representative screens |
-| P2 | Core visual identity / design language | 60% | Tokenized identity applied across representative surfaces |
-| P3 | Typography / type hierarchy | 55% | Complete type scale, wrapping, accessibility and locale rules |
-| P4 | Color / materials / surfaces | 58% | Semantic color/material tokens + contrast proof |
-| P5 | Layout / grid / spacing / responsive system | 52% | Responsive contracts across target phone widths |
+| P2 | Core visual identity / design language | 65% | Tokenized identity applied across representative surfaces |
+| P3 | Typography / type hierarchy | 58% | Complete type scale, wrapping, accessibility and locale rules |
+| P4 | Color / materials / surfaces | 62% | Semantic color/material tokens + contrast proof |
+| P5 | Layout / grid / spacing / responsive system | 56% | Responsive contracts across target phone widths |
 | P6 | Choice experience / choice cards / choice chamber | 50% | All choice states + proof + accessibility + visual regression |
 | P7 | Event / situation presentation | 35% | Full event surface and state variants |
 | P8 | Character presentation | 30% | Character identity, state, relationship and fallback visuals |
@@ -40,12 +40,13 @@ Recent 2026 design references reinforce a few durable requirements: distinctive 
 | P24 | Android devices / safe areas / resolution adaptation | 10% | Real Android presentation proof on target device classes |
 | P25 | Final premium polish / cross-screen QA | 15% | Full visual regression and no unresolved P1–P24 blockers |
 
-## Evidence added in the current P6 increment
+## Evidence added in the current design increment
 
 - `design-preview/premium-choice-lab.html` provides a dedicated authored choice-state gallery covering default, focus, selected, blocked, pending, resolved and high-risk states.
-- The lab preserves touch-sized controls, keyboard focus, explicit disabled semantics, responsive mobile geometry and reduced-motion behavior.
-- `docs/P6_PREMIUM_CHOICE_STATE_LAB.md` records the visual contract and verification checklist.
+- `design-preview/premium-foundation-lab.html` now turns the existing Avelune direction into reusable P1–P5 visual primitives: semantic surfaces, restrained accent usage, editorial type hierarchy, spacing tokens, touch-safe controls and accessibility/reduced-motion contracts.
+- The choice lab preserves touch-sized controls, keyboard focus, explicit disabled semantics, responsive mobile geometry and reduced-motion behavior.
 - The P6 percentage remains deliberately conservative at 50% because the lab is representative design proof, not yet full cross-screen gameplay integration or Android/device regression evidence.
+- P2/P3/P4/P5 were advanced only where the new foundation lab provides concrete representative implementation evidence; this is not a claim of production completion.
 
 ## Execution order
 
@@ -69,4 +70,4 @@ Recent 2026 design references reinforce a few durable requirements: distinctive 
 
 ## Immediate next execution target
 
-Continue P6 with cross-screen integration of the authored choice language, then harden P1–P5 tokens and responsive contracts before expanding deeply into P7. Internet research should be used selectively when a design decision needs a fresh benchmark; the repository should not accumulate repetitive benchmark documents when the existing evidence is sufficient.
+Continue P6 with cross-screen integration of the authored choice language, while applying the new P1–P5 token foundation to representative event, realm, history, people, investigation and ending surfaces. Internet research should be used selectively when a design decision needs a fresh benchmark; the repository should not accumulate repetitive benchmark documents when the existing evidence is sufficient.
