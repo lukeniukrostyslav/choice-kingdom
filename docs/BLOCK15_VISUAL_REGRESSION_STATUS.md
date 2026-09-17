@@ -1,6 +1,6 @@
 # Block 15 — Cross-Screen Visual Regression
 
-Status: **IN PROGRESS — 35%**
+Status: **IN PROGRESS — 42%**
 
 ## Implemented
 
@@ -35,3 +35,12 @@ Physical-device visual verification remains Block 21.
 - Review rendered references for unintended clipping or overflow.
 - Expand coverage to all production surfaces and Core-8 locale variants.
 - Keep physical device verification in Block 21.
+
+
+## Baseline automation — 42%
+
+- CI now detects whether approved PNG references exist.
+- The first successful main-branch run will generate the initial reference set automatically and commit it through the GitHub Actions bot.
+- Subsequent pushes and pull requests validate against the committed references.
+- Manual `approve_baseline=true` remains available for intentional reference regeneration.
+- This avoids treating a missing baseline as a passing regression test.
