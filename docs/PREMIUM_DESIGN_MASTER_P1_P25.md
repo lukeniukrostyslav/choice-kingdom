@@ -14,13 +14,13 @@ Current platform guidance reinforces cohesive visual language, clear hierarchy, 
 
 | Block | Scope | Current | Exit gate |
 |---|---|---:|---|
-| P1 | Premium vision / art direction | 70% | Signed visual north star + representative screens |
-| P2 | Core visual identity / design language | 72% | Tokenized identity applied across representative surfaces |
+| P1 | Premium vision / art direction | 72% | Signed visual north star + representative screens |
+| P2 | Core visual identity / design language | 74% | Tokenized identity applied across representative surfaces |
 | P3 | Typography / type hierarchy | 66% | Complete type scale, wrapping, accessibility and locale rules |
 | P4 | Color / materials / surfaces | 70% | Semantic color/material tokens + contrast proof |
-| P5 | Layout / grid / spacing / responsive system | 64% | Responsive contracts across target phone widths |
-| P6 | Choice experience / choice cards / choice chamber | 68% | All choice states + proof + accessibility + visual regression |
-| P7 | Event / situation presentation | 58% | Full event surface and state variants |
+| P5 | Layout / grid / spacing / responsive system | 67% | Responsive contracts across target phone widths |
+| P6 | Choice experience / choice cards / choice chamber | 70% | All choice states + proof + accessibility + visual regression |
+| P7 | Event / situation presentation | 62% | Full event surface and state variants |
 | P8 | Character presentation | 52% | Character identity, state, relationship and fallback visuals |
 | P9 | Kingdom / world presentation | 54% | Avelune world surfaces and visual continuity |
 | P10 | Resources / stats / pressure visualization | 52% | Scannable resource language and state transitions |
@@ -31,32 +31,25 @@ Current platform guidance reinforces cohesive visual language, clear hierarchy, 
 | P15 | Crisis / high-stakes presentation | 45% | Escalation, urgency and consequence preview without clutter |
 | P16 | Endings / resolution experience | 50% | Ending identity, summary and emotional landing |
 | P17 | Replay / new-run experience | 45% | Replay motivation, continuity and clean reset semantics |
-| P18 | Main menu / launcher | 52% | Premium first impression + navigation + responsive proof |
-| P19 | Navigation / information architecture | 55% | Consistent hierarchy and low-cognitive-load navigation |
-| P20 | Motion / micro-interactions / feedback | 60% | Purposeful motion system + reduced-motion behavior |
+| P18 | Main menu / launcher | 60% | Premium first impression + navigation + responsive proof |
+| P19 | Navigation / information architecture | 63% | Consistent hierarchy and low-cognitive-load navigation |
+| P20 | Motion / micro-interactions / feedback | 62% | Purposeful motion system + reduced-motion behavior |
 | P21 | Accessibility / touch / keyboard / focus | 70% | Semantic, focus, contrast, touch-target and reduced-motion proof |
 | P22 | Localization / long strings / RTL | 34% | Locale-safe layout and RTL proof across key screens |
 | P23 | Audio / haptics / premium feedback | 16% | Audio/haptic vocabulary mapped to meaningful player actions |
 | P24 | Android devices / safe areas / resolution adaptation | 16% | Real Android presentation proof on target device classes |
 | P25 | Final premium polish / cross-screen QA | 33% | Full visual regression and no unresolved P1–P24 blockers |
 
-**Aggregate P1–P25 estimate after this increment: 52.56% (simple arithmetic mean of block estimates).** This is an engineering/design evidence estimate, not a commercial-readiness score.
+**Aggregate P1–P25 estimate after this increment: 53.88% (simple arithmetic mean of block estimates).** This is an engineering/design evidence estimate, not a commercial-readiness score.
 
 ## Evidence added in the current design increment
 
-- `runtime/session.py` exposes canonical presentation-neutral projections for history, investigation threads, pending delayed consequences and ending evidence families directly from `GameState`.
-- `runtime/presentation.py` converts those canonical fields into typed UI-facing `SessionPresentation` models without duplicating gameplay rules.
-- `runtime/consequence_screen.py` provides a concrete consequence/result host over `SessionPresenter`, preserving the canonical engine as the gameplay mutation boundary.
-- `design-preview/premium-journey-prototype-v1.html` provides a touch-first four-stage journey prototype: Event → Choice → Consequence → Realm → History.
-- `design-preview/premium-journey-prototype-v2.html` extends the interactive journey to eight connected surfaces: Event → Choice → Result → Realm → People → Evidence → Ending → Settings. It includes direct screen navigation, choice-dependent presentation state, relationship state, evidence uncertainty, ending memory and presentation settings in one responsive phone-first flow.
-- `design-preview/premium-journey-prototype-v3.html` adds explicit Crisis, Replay and Motion surfaces. It demonstrates urgency/escalation without gameplay-rule duplication, a clean replay/reset boundary, purposeful transition/confirmation/pending motion semantics, reduced-motion behavior, and touch-first responsive fallbacks.
-- `tools/verify_premium_production_integration.py` gates the narrative projections plus the interaction states, representative screens, adaptive/accessibility modes and `GameSession` mutation boundary.
-- `tests/test_premium_presentation_projection.py` regression-tests the narrative projections and confirms transient choice states do not mutate gameplay turn state. The test now uses the repository canonical root rather than an empty temporary directory, eliminating a false fixture failure.
-- `design-preview/premium-design-system-v2.html` continues to unify the reusable visual system across Event, Realm, History, People/Factions, Investigation, Ending, Settings and the full decision-state matrix.
-- The local hardening pass for the design-system lab adds explicit non-zero interaction transitions, pressed feedback, semantic `aria-pressed` state for presentation-mode controls, and a visible Ukrainian/Russian/CJK/RTL long-string stress probe.
-- `docs/DESIGN_TOKENS_V2.json` freezes semantic colors, typography, spacing, touch targets, safe-area rules, adaptive window classes and state vocabulary in a machine-readable design contract.
-- `.github/workflows/premium-design-system-gate.yml` provides a Playwright matrix for compact/medium/expanded widths plus RTL, large-text, reduced-motion and light-theme execution.
-- This increment raises P20, P21 and P22 conservatively because interaction motion, semantic presentation controls and multilingual stress behavior now have concrete local evidence. It does not close production-art provenance, authored audio/haptic behavior or physical-device gates.
+- `web-preview/premium-game-slice-v1.html` is now a committed five-stage playable premium design slice: Event → Choice → Consequence → Realm → History.
+- The slice adds a coherent first-play route rather than isolated screens, with responsive phone-first layout, safe-area padding, 48dp-class primary controls, keyboard focus visibility, semantic choice selection via `aria-pressed`, reduced-motion behavior, RTL-safe directional styling and large-text support.
+- Choice presentation remains transient until commitment; the slice explicitly separates selection from the consequence presentation and keeps the causal sequence visible.
+- The slice demonstrates the intended premium hierarchy: focal art zone → authored situation → resource snapshot → opposing choices → immediate consequence → delayed consequence → realm pulse → decision memory.
+- The slice is presentation proof, not a replacement for canonical gameplay runtime or physical-device QA.
+- Android guidance was refreshed for this increment: current guidance emphasizes adaptive layouts, safe insets, visible/interactable controls during configuration changes, and preservation of state across window resizing and form-factor changes. citeturn0search1turn0search2turn0search6
 
 ## Production-facing integration evidence
 
@@ -98,6 +91,6 @@ The verifier is intentionally static and deterministic. It is a regression guard
 - Generated machine data remains derived; authored gameplay remains the source of truth.
 - Android/device proof is required before claiming production UI completion.
 
-## Immediate next execution target
+## Execution note
 
-Continue production-facing integration into the actual Event, Realm, History, People, Investigation and Ending surfaces; deepen P15/P17/P20 from prototype proof into production-facing components; then harden P21–P25 with localization/RTL stress, Android adaptation, audio/haptic semantics and cross-screen regression. Use fresh internet research only when a concrete design decision needs a new benchmark; do not add repetitive benchmark documents when existing evidence is sufficient.
+The first premium vertical slice is intentionally being built before mechanically pushing every block toward 100%. This gives the project one coherent route that can be visually reviewed end-to-end. After that route is hardened, the same visual contracts will be integrated into the actual production-facing Event, Realm, History, People, Investigation and Ending surfaces. Physical Android proof, authored audio/haptics and final cross-screen QA remain explicit later gates.
