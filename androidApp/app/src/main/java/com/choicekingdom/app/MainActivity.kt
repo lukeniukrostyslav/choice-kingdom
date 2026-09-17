@@ -27,6 +27,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -394,7 +396,13 @@ private fun SettingsCard() {
         Column(modifier = Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text("Presentation preferences", fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
             Text("Accessibility, RTL, large text and safe-area behavior remain presentation concerns and do not alter gameplay rules.", fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, lineHeight = 21.sp)
-            TextButton(onClick = {}, modifier = Modifier.heightIn(min = 48.dp)) { Text("Accessibility-ready surface") }
+            TextButton(onClick = { AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("en")) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("English") }
+            TextButton(onClick = { AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("it")) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("Italiano") }
+            TextButton(onClick = { AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("uk")) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("Українська") }
+            TextButton(onClick = { AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("ru")) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("Русский") }
+            TextButton(onClick = { AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("ar")) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("العربية") }
+            TextButton(onClick = { AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("ja")) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("日本語") }
+            TextButton(onClick = { AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("zh-CN")) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("简体中文") }
         }
     }
 }
