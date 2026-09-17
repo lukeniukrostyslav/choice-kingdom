@@ -26,6 +26,7 @@ def test_accessibility_semantics_cover_navigation_and_dynamic_feedback():
     assert "stateDescription" in text
     assert "heading()" in text
     assert "liveRegion = LiveRegionMode.Polite" in text
+    assert "error(message)" in text
 
 def test_interactive_targets_have_large_text_safe_minimums():
     text = MAIN.read_text(encoding="utf-8")
