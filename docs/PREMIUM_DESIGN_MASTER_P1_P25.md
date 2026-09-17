@@ -8,7 +8,7 @@ This document is the canonical working checklist for the 25-block premium visual
 
 The premium bar is informed by current high-quality mobile game design references and award-recognized interaction patterns. The target is not to copy another game: Choice Kingdom must have its own Avelune identity.
 
-Current platform guidance reinforces cohesive visual language, clear hierarchy, narrative embedded into interaction, responsive/touch-first presentation, accessible controls and physical-device validation. Apple guidance emphasizes flexible layouts, legibility, safe areas, sufficiently large touch targets, rich feedback and physical-device testing; Android guidance similarly emphasizes adaptive layouts, safe system areas, visible/interactable UI across form factors and testing across devices. These references are used as principles only; no competitor art, branding, characters, layouts or proprietary assets are copied.
+Current platform guidance reinforces cohesive visual language, clear hierarchy, narrative embedded into interaction, responsive/touch-first presentation, accessible controls and physical-device validation. Android guidance specifically reinforces adaptive layouts, safe insets, state preservation across configuration changes, readable line lengths, 48dp touch targets and contrast verification. These references are used as principles only; no competitor art, branding, characters, layouts or proprietary assets are copied.
 
 ## Premium Design P1–P25
 
@@ -21,16 +21,16 @@ Current platform guidance reinforces cohesive visual language, clear hierarchy, 
 | P5 | Layout / grid / spacing / responsive system | 67% | Responsive contracts across target phone widths |
 | P6 | Choice experience / choice cards / choice chamber | 70% | All choice states + proof + accessibility + visual regression |
 | P7 | Event / situation presentation | 62% | Full event surface and state variants |
-| P8 | Character presentation | 52% | Character identity, state, relationship and fallback visuals |
-| P9 | Kingdom / world presentation | 54% | Avelune world surfaces and visual continuity |
-| P10 | Resources / stats / pressure visualization | 52% | Scannable resource language and state transitions |
-| P11 | Consequences / delayed consequences | 58% | Immediate, pending, triggered and cancelled visual states |
-| P12 | History / decision memory | 54% | Timeline/history hierarchy and causal readability |
-| P13 | Relationships / character state | 50% | Relationship states and progression presentation |
-| P14 | Investigation / threads / evidence | 50% | Evidence hierarchy, discovery and unresolved states |
+| P8 | Character presentation | 56% | Character identity, state, relationship and fallback visuals |
+| P9 | Kingdom / world presentation | 58% | Avelune world surfaces and visual continuity |
+| P10 | Resources / stats / pressure visualization | 55% | Scannable resource language and state transitions |
+| P11 | Consequences / delayed consequences | 60% | Immediate, pending, triggered and cancelled visual states |
+| P12 | History / decision memory | 58% | Timeline/history hierarchy and causal readability |
+| P13 | Relationships / character state | 54% | Relationship states and progression presentation |
+| P14 | Investigation / threads / evidence | 54% | Evidence hierarchy, discovery and unresolved states |
 | P15 | Crisis / high-stakes presentation | 45% | Escalation, urgency and consequence preview without clutter |
-| P16 | Endings / resolution experience | 50% | Ending identity, summary and emotional landing |
-| P17 | Replay / new-run experience | 45% | Replay motivation, continuity and clean reset semantics |
+| P16 | Endings / resolution experience | 54% | Ending identity, summary and emotional landing |
+| P17 | Replay / new-run experience | 47% | Replay motivation, continuity and clean reset semantics |
 | P18 | Main menu / launcher | 60% | Premium first impression + navigation + responsive proof |
 | P19 | Navigation / information architecture | 63% | Consistent hierarchy and low-cognitive-load navigation |
 | P20 | Motion / micro-interactions / feedback | 62% | Purposeful motion system + reduced-motion behavior |
@@ -40,16 +40,17 @@ Current platform guidance reinforces cohesive visual language, clear hierarchy, 
 | P24 | Android devices / safe areas / resolution adaptation | 16% | Real Android presentation proof on target device classes |
 | P25 | Final premium polish / cross-screen QA | 33% | Full visual regression and no unresolved P1–P24 blockers |
 
-**Aggregate P1–P25 estimate after this increment: 53.88% (simple arithmetic mean of block estimates).** This is an engineering/design evidence estimate, not a commercial-readiness score.
+**Aggregate P1–P25 estimate after this increment: 55.04% (simple arithmetic mean of block estimates).** This is an engineering/design evidence estimate, not a commercial-readiness score.
 
 ## Evidence added in the current design increment
 
-- `web-preview/premium-game-slice-v1.html` is now a committed five-stage playable premium design slice: Event → Choice → Consequence → Realm → History.
-- The slice adds a coherent first-play route rather than isolated screens, with responsive phone-first layout, safe-area padding, 48dp-class primary controls, keyboard focus visibility, semantic choice selection via `aria-pressed`, reduced-motion behavior, RTL-safe directional styling and large-text support.
-- Choice presentation remains transient until commitment; the slice explicitly separates selection from the consequence presentation and keeps the causal sequence visible.
+- `web-preview/premium-game-slice-v1.html` is a committed five-stage playable premium design slice: Event → Choice → Consequence → Realm → History.
+- `runtime/journey_screens.py` now provides production-facing, presentation-only screen contracts for Realm, History, People/Factions, Investigation, Ending and Settings, all derived from the same canonical `SessionPresenter` snapshot.
+- `tests/test_journey_screens.py` locks the new screen-family projections to canonical session data and verifies Settings flags remain presentation-only.
+- The journey screen contracts deliberately do not calculate gameplay effects, route events, invent relationship values, fabricate evidence, or mutate `GameSession`.
+- The slice and runtime contracts use responsive phone-first composition, safe-area padding, 48dp-class primary controls, keyboard focus visibility, semantic choice selection, reduced-motion behavior and RTL-safe directional styling.
 - The slice demonstrates the intended premium hierarchy: focal art zone → authored situation → resource snapshot → opposing choices → immediate consequence → delayed consequence → realm pulse → decision memory.
-- The slice is presentation proof, not a replacement for canonical gameplay runtime or physical-device QA.
-- Android guidance was refreshed for this increment: current guidance emphasizes adaptive layouts, safe insets, visible/interactable controls during configuration changes, and preservation of state across window resizing and form-factor changes. Source: Android Developers adaptive-app and system-bar guidance, reviewed 17 September 2026.
+- Android guidance is treated as a design constraint: adaptive layouts, safe insets, state preservation across resizing/configuration changes, readable line lengths, accessible touch targets and contrast remain required before P24/P25 closure.
 
 ## Production-facing integration evidence
 
@@ -74,8 +75,8 @@ The verifier is intentionally static and deterministic. It is a regression guard
 ## Execution order
 
 1. P1–P5: strengthen the visual foundation before adding more screens.
-2. P6: integrate the authored choice state language into production-facing choice surfaces.
-3. P7–P20: extend the same visual language through the full player journey, with production-facing integration rather than preview-only duplication.
+2. P6–P7: integrate the authored choice/event state language into production-facing surfaces.
+3. P8–P20: extend the same visual language through Realm, History, People, Investigation, Ending, Replay and Main Menu, with production-facing integration rather than preview-only duplication.
 4. P21–P24: accessibility, localization, Android adaptation, audio/haptics and device proof.
 5. P25: final cross-screen polish and regression gate.
 
@@ -93,4 +94,4 @@ The verifier is intentionally static and deterministic. It is a regression guard
 
 ## Execution note
 
-The first premium vertical slice is intentionally being built before mechanically pushing every block toward 100%. This gives the project one coherent route that can be visually reviewed end-to-end. After that route is hardened, the same visual contracts will be integrated into the actual production-facing Event, Realm, History, People, Investigation and Ending surfaces. Physical Android proof, authored audio/haptics and final cross-screen QA remain explicit later gates.
+The first premium vertical slice is intentionally being built before mechanically pushing every block toward 100%. The latest increment crosses from preview-only composition into production-facing runtime screen contracts for the core journey surfaces. The same visual contracts will continue into the actual platform UI host, followed by localization, Android/device proof, authored audio/haptics and final cross-screen QA.
