@@ -24,6 +24,7 @@ class ChoiceKingdomAudio(private val context: Context) : AutoCloseable {
     private var focusGranted = false
     private var muted = prefs.getBoolean("muted", false)
     private var volume = prefs.getFloat("volume", 1f)
+    private var musicVolume = prefs.getFloat("music_volume", 0.55f)
     private var ambientVolume = prefs.getFloat("ambient_volume", 0.35f)
     private var foreground = true
     private val soundIds = mutableMapOf<String, Int>()
@@ -51,6 +52,7 @@ class ChoiceKingdomAudio(private val context: Context) : AutoCloseable {
     val isMuted: Boolean get() = muted
     val currentVolume: Float get() = volume
     val currentAmbientVolume: Float get() = ambientVolume
+    val currentMusicVolume: Float get() = musicVolume
 
     fun setMuted(value: Boolean) {
         muted = value
@@ -75,6 +77,11 @@ class ChoiceKingdomAudio(private val context: Context) : AutoCloseable {
             if (id != 0) soundIds[name] = soundPool.load(context, id, 1)
         }
         soundPool.setOnLoadCompleteListener { _, _, status -> if (status == 0) { pendingLoads -= 1; if (pendingLoads <= 0) { soundsReady = true; startAmbient() } } }
+    }
+
+    fun setMusicVolume(value: Float) {
+        musicVolume = value.coerceIn(0f, 1f)
+        prefs.edit().putFloat("music_volume", musicVolume).apply()
     }
 
     fun setAmbientVolume(value: Float) {
