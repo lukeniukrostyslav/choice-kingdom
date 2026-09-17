@@ -8,7 +8,7 @@ This document is the canonical working checklist for the 25-block premium visual
 
 The premium bar is informed by current high-quality mobile game design references and award-recognized interaction patterns. The target is not to copy another game: Choice Kingdom must have its own Avelune identity.
 
-Recent 2026 design references reinforce a few durable requirements: distinctive cohesive visual language, platform-native interaction, narrative embedded into interaction, carefully authored environmental detail, clearly exposed accessibility controls, and responsive/touch-first presentation. Apple Design Awards 2026 specifically highlights games such as Is This Seat Taken? and Pine Hearts for distinctive presentation, interaction, surrounding detail, and accessibility options. Apple’s current design guidance also emphasizes consistency, readability, accessibility, adaptation across screen sizes, and restrained use of brand color. These references are used as principles only; no competitor art, branding, characters, layouts, or proprietary assets are copied.
+Recent 2026 design references reinforce durable requirements: distinctive cohesive visual language, platform-native interaction, narrative embedded into interaction, authored environmental detail, clearly exposed accessibility controls, and responsive/touch-first presentation. Apple’s 2026 design coverage highlights games such as Is This Seat Taken? and Pine Hearts for distinctive presentation, interaction, surrounding detail, and accessibility options. Apple’s current game-interface guidance also emphasizes legibility on smaller screens, appropriately sized controls, multiple interaction methods, accessibility support, and physical-device testing. These references are used as principles only; no competitor art, branding, characters, layouts, or proprietary assets are copied.
 
 ## Premium Design P1–P25
 
@@ -43,10 +43,10 @@ Recent 2026 design references reinforce a few durable requirements: distinctive 
 ## Evidence added in the current design increment
 
 - `design-preview/premium-choice-lab.html` provides a dedicated authored choice-state gallery covering default, focus, selected, blocked, pending, resolved and high-risk states.
-- `design-preview/premium-foundation-lab.html` now turns the existing Avelune direction into reusable P1–P5 visual primitives: semantic surfaces, restrained accent usage, editorial type hierarchy, spacing tokens, touch-safe controls and accessibility/reduced-motion contracts.
+- `design-preview/premium-foundation-lab.html` now turns the Avelune direction into reusable P1–P5 visual primitives: semantic surfaces, restrained accent usage, editorial type hierarchy, spacing tokens, touch-safe controls, and explicit default/selected/blocked/pending/resolved/risk state language.
 - The choice lab preserves touch-sized controls, keyboard focus, explicit disabled semantics, responsive mobile geometry and reduced-motion behavior.
-- The P6 percentage remains deliberately conservative at 50% because the lab is representative design proof, not yet full cross-screen gameplay integration or Android/device regression evidence.
-- P2/P3/P4/P5 were advanced only where the new foundation lab provides concrete representative implementation evidence; this is not a claim of production completion.
+- The P6 percentage remains deliberately conservative at 50% because these labs are representative design proof, not yet full cross-screen gameplay integration or Android/device regression evidence.
+- P2/P3/P4/P5 remain at their current levels until the same foundation is applied to representative production-facing surfaces; the lab alone does not justify another percentage increase.
 
 ## Execution order
 
@@ -70,4 +70,4 @@ Recent 2026 design references reinforce a few durable requirements: distinctive 
 
 ## Immediate next execution target
 
-Continue P6 with cross-screen integration of the authored choice language, while applying the new P1–P5 token foundation to representative event, realm, history, people, investigation and ending surfaces. Internet research should be used selectively when a design decision needs a fresh benchmark; the repository should not accumulate repetitive benchmark documents when the existing evidence is sufficient.
+Continue P6 with cross-screen integration of the authored choice language, while applying the P1–P5 foundation to representative event, realm, history, people, investigation and ending surfaces. Fresh internet research should be used selectively when a concrete design decision needs a new benchmark; the repository should not accumulate repetitive benchmark documents when existing evidence is sufficient.
