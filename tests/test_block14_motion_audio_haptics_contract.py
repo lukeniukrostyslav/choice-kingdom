@@ -14,14 +14,25 @@ def test_block14_motion_and_feedback_contract():
     assert "scaleIn(initialScale = 0.98f)" in main
     assert "LocalHapticFeedback.current" in main
     assert "HapticFeedbackType.LongPress" in main
-    assert "SoundEffectConstants.CLICK" in main
     assert "class ChoiceKingdomFeedback" in feedback
     assert "no network" in feedback
-    assert "playSoundEffect" in feedback
-    assert "performHapticFeedback" in feedback
 
 
 def test_block14_does_not_claim_authored_audio_assets():
     feedback = FEEDBACK.read_text(encoding="utf-8")
     assert "authored audio" in feedback
     assert "later asset/content concern" in feedback
+
+
+def test_block14_audio_control_contract():
+    audio = (ROOT / "androidApp/app/src/main/java/com/choicekingdom/app/ChoiceKingdomAudio.kt").read_text(encoding="utf-8")
+    main = MAIN.read_text(encoding="utf-8")
+    assert "AudioFocusRequest" in audio
+    assert "USAGE_GAME" in audio
+    assert "AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK" in audio
+    assert "AUDIOFOCUS_LOSS" in audio
+    assert "abandonAudioFocusRequest" in audio
+    assert "setMuted" in audio
+    assert "setVolume" in audio
+    assert "Slider(" in main
+    assert "Mute sound" in main
