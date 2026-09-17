@@ -13,24 +13,24 @@ The visual direction is a premium illustrated political chronicle: restrained pa
 | 1 | Overall concept / Art Direction | 100% |
 | 2 | Design System / visual language | 100% |
 | 3 | Typography | 97% |
-| 4 | Spacing / Grid / Composition | 96% |
+| 4 | Spacing / Grid / Composition | 97% |
 | 5 | Event Screen — concept | 100% |
-| 6 | Event Screen — production visual implementation | 80% |
-| 7 | A/B Choice System | 89% |
-| 8 | A/B/C Choice System | 90% |
-| 9 | Choice — idle | 87% |
-| 10 | Choice — focus | 88% |
-| 11 | Choice — pressed | 84% |
+| 6 | Event Screen — production visual implementation | 83% |
+| 7 | A/B Choice System | 91% |
+| 8 | A/B/C Choice System | 92% |
+| 9 | Choice — idle | 89% |
+| 10 | Choice — focus | 90% |
+| 11 | Choice — pressed | 86% |
 | 12 | Choice — resolving | 87% |
-| 13 | Choice — disabled | 85% |
-| 14 | Choice — resolved | 89% |
+| 13 | Choice — disabled | 86% |
+| 14 | Choice — resolved | 90% |
 | 15 | Double-submit / interaction safety | 85% |
-| 16 | Long choice titles | 86% |
-| 17 | Long supporting text | 86% |
-| 18 | Long narrative | 76% |
-| 19 | Human stakes / character context | 43% |
+| 16 | Long choice titles | 87% |
+| 17 | Long supporting text | 87% |
+| 18 | Long narrative | 77% |
+| 19 | Human stakes / character context | 45% |
 | 20 | Artwork / illustration system | 35% |
-| 21 | No-artwork state | 64% |
+| 21 | No-artwork state | 66% |
 | 22 | Realm | 25% |
 | 23 | History | 20% |
 | 24 | Characters / People | 20% |
@@ -38,42 +38,44 @@ The visual direction is a premium illustrated political chronicle: restrained pa
 | 26 | Investigation | 5% |
 | 27 | Consequence presentation | 47% |
 | 28 | Ending presentation | 5% |
-| 29 | Navigation | 58% |
-| 30 | Responsive Android portrait | 65% |
-| 31 | Small-screen adaptation | 66% |
+| 29 | Navigation | 63% |
+| 30 | Responsive Android portrait | 67% |
+| 31 | Small-screen adaptation | 68% |
 | 32 | Tall-screen adaptation | 40% |
-| 33 | Large-font accessibility | 62% |
+| 33 | Large-font accessibility | 63% |
 | 34 | Screen-reader semantics | 52% |
-| 35 | Focus / keyboard accessibility | 64% |
-| 36 | RTL | 57% |
+| 35 | Focus / keyboard accessibility | 65% |
+| 36 | RTL | 59% |
 | 37 | Localization / long translations | 35% |
 | 38 | Font fallback | 20% |
-| 39 | Reduced Motion | 72% |
+| 39 | Reduced Motion | 73% |
 | 40 | Safe areas / gesture navigation | 30% |
-| 41 | Contrast / non-color state communication | 65% |
+| 41 | Contrast / non-color state communication | 66% |
 | 42 | Touch-target quality | 69% |
-| 43 | Visual interaction polish | 75% |
-| 44 | Cross-screen visual consistency | 32% |
+| 43 | Visual interaction polish | 78% |
+| 44 | Cross-screen visual consistency | 38% |
 | 45 | Vercel interactive prototype | 22% |
 | 46 | Real GameSession visual integration | 5% |
 | 47 | Visual regression / screenshot QA | 20% |
 | 48 | Physical Android visual QA | 0% |
 
-Overall design pass: approximately **52%**.
+Overall design pass: approximately **54%**.
 
 ## Latest verified design work
 
-- Refined the Event Screen as the current gold-standard surface: stronger editorial hierarchy, restrained brass divider, clearer decision-heading separation, and more deliberate vertical rhythm.
-- Hardened choice affordances: long labels/support remain wrap-safe, focus/selection/resolution receive non-color visual cues, and the selected/resolved accent is mirrored for RTL.
+- Inspected the supplied repository ZIP locally: it contains the runtime/content/test foundation and `docs/UI_DESIGN_SYSTEM.md`, but does not contain the `web-prototype` implementation present on the active design branch. Therefore the ZIP was treated as source/reference material, not as evidence that the active visual prototype was physically verified.
+- Added `docs/UI_VISUAL_SPEC_V3.md` as the implementation-oriented visual contract covering the Event Screen, A/B/A/B/C choices, all interaction states, responsive Android portrait, large text, RTL, accessibility, artwork/no-artwork, secondary screens, consequences and ending presentation.
+- Added a dedicated `web-prototype/premium-pass.css` layer for the active design branch, with restrained editorial depth, brass hierarchy rails, stronger event separation, improved choice tactile hierarchy, panel depth and RTL-safe logical positioning.
+- Wired the premium pass into the prototype after the existing hardening layer, preserving the strict presentation-only boundary.
 - Preserved equal A/B/C hierarchy and the responsive 3-choice rule: stacked on compact phones and balanced columns on wider layouts.
-- Added a subtle directional choice rail that mirrors in RTL, while keeping the interaction states readable in forced-colors mode.
-- Preserved reduced-motion behavior by disabling the new choice transitions and hover lift when `prefers-reduced-motion: reduce` is active.
-- Kept the strict UI boundary: CSS remains presentation-only and does not calculate gameplay semantics.
+- Preserved reduced-motion and forced-colors behavior for the new visual treatment.
 - No claims have been added for Vercel deployment, screenshot regression execution, or physical Android QA; physical-device visual QA remains 0%.
 
 ## Important verification boundary
 
 The current percentages credit repository implementation and static design verification only. They do not claim screenshot-regression execution, Vercel deployment verification, or physical-device QA that has not yet occurred.
+
+The supplied ZIP and the active design branch are not identical snapshots: the ZIP has no `web-prototype/` directory, while the active design branch does. The active branch remains the GitHub source of truth for the visual prototype work.
 
 ## Current execution order
 
