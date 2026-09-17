@@ -1,6 +1,6 @@
 # Block 14 — Motion / Audio / Haptics
 
-Status: **IN PROGRESS — 98%**
+Status: **IN PROGRESS — 99%**
 
 ## Implemented
 - Screen-to-screen Compose transition uses AnimatedContent.
@@ -25,3 +25,10 @@ The block therefore remains partial rather than being closed by documentation.
 - Music uses game/music audio attributes, automatic audio-focus handling, repeat-one playback, and audio-output-disconnect handling.
 - Music volume is persisted through the existing mixer settings and mirrored into the player.
 - The current repository still has one authored Avelune atmospheric prototype track; scene-aware gain fades are now integrated; final authored scene-specific soundtrack assets and true multi-track crossfades remain open and therefore Block 14 is not marked 100%.
+
+
+### Final technical hardening — 99%
+- Music playback now reports Media3 player errors instead of silently swallowing them.
+- Music mixer changes preserve the active scene gain profile.
+- The player remains foreground-scoped and is released with the Activity lifecycle.
+- 100% is intentionally reserved for final authored scene-specific audio assets, true multi-track crossfades, and physical device verification.
