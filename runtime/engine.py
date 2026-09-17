@@ -53,6 +53,8 @@ class DecisionEngine:
         return state.current_event_id in prerequisites
 
     def available(self, state: GameState) -> tuple[Event, ...]:
+        if state.terminal:
+            return ()
         return tuple(
             event
             for event in self.catalog.events.values()
