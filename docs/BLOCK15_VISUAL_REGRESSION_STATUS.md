@@ -1,6 +1,6 @@
 # Block 15 — Cross-Screen Visual Regression
 
-Status: **IN PROGRESS — 44%**
+Status: **IN PROGRESS — 46%**
 
 ## Implemented
 
@@ -51,3 +51,10 @@ Physical-device visual verification remains Block 21.
 - The repository does not contain a Gradle wrapper, so the screenshot workflow now provisions Gradle 8.9 explicitly instead of assuming `./gradlew` exists.
 - A contract test prevents regression to a missing-wrapper invocation.
 - The first completed screenshot workflow is still required before claiming reference PNG generation is verified.
+
+
+## Host-rendering hardening — 46%
+
+- Screenshot JVM heap is explicitly set to 4 GB for host-side rendering, matching Android's documented troubleshooting guidance for memory-intensive screenshot tests.
+- The new contract test protects this setting.
+- GitHub Actions runs for Block 15 are currently queued; no PNG baseline or validation result is counted until a run completes.
