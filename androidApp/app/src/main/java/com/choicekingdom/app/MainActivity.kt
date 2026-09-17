@@ -49,6 +49,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.error
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.role
@@ -329,7 +330,10 @@ private fun ErrorCard(message: String) {
         stringResource(R.string.runtime_error),
         stringResource(R.string.journey_safe),
         message,
-        modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite },
+        modifier = Modifier.semantics {
+            liveRegion = LiveRegionMode.Polite
+            error(message)
+        },
     )
 }
 
