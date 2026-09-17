@@ -54,7 +54,7 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 12. **Responsive / Safe Areas / Devices** → 100%
 13. **Premium Design P1–P25** → 62.24%
 14. **Motion / Audio / Haptics** → 99%
-15. **Cross-Screen Visual Regression** → 15%
+15. **Cross-Screen Visual Regression** → 35%
 16. **Automated QA** → 0%
 17. **Performance / Stability / Offline QA** → 0%
 18. **Security / Production Hardening** → 0%
@@ -166,3 +166,6 @@ Block 14 latest: Media3 music error reporting and scene-aware mixer preservation
 
 
 Block 15 latest: versioned visual-regression baseline manifest, production surface inventory, theme contract, and dedicated CI contract gate added. Pixel-level reference rendering/validation is intentionally still open.
+
+
+Block 15 latest: real Compose screenshot-test engine configured, deterministic preview surfaces added, and CI now supports explicit baseline generation plus normal validation. First approved reference-image generation remains pending.
