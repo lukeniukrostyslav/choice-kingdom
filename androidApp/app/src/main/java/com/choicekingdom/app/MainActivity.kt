@@ -286,6 +286,7 @@ private fun AdaptiveJourney(
                 onAudioMutedChanged,
                 onAudioVolumeChanged,
                 onAmbientVolumeChanged,
+                onMusicVolumeChanged,
                 onChoiceSelected,
             )
             ScreenNavigation(screens = localizedScreens(), onSelect = onScreenSelected, modifier = Modifier.fillMaxWidth())
