@@ -32,6 +32,8 @@ jobs:
           java-version: "17"
 
       - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.9"
 
       - name: Detect reference set
         id: refs
@@ -46,7 +48,7 @@ jobs:
       - name: Generate initial or explicitly approved references
         if: steps.refs.outputs.exists == 'false' || (github.event_name == 'workflow_dispatch' && inputs.approve_baseline == true)
         working-directory: androidApp
-        run: ./gradlew updateDebugScreenshotTest --stacktrace
+        run: gradle updateDebugScreenshotTest --stacktrace
 
       - name: Commit generated reference set
         if: steps.refs.outputs.exists == 'false' || (github.event_name == 'workflow_dispatch' && inputs.approve_baseline == true)
@@ -60,7 +62,7 @@ jobs:
       - name: Validate existing reference set
         if: steps.refs.outputs.exists == 'true' && !(github.event_name == 'workflow_dispatch' && inputs.approve_baseline == true)
         working-directory: androidApp
-        run: ./gradlew validateDebugScreenshotTest --stacktrace
+        run: gradle validateDebugScreenshotTest --stacktrace
 
       - name: Upload screenshot report
         if: always()
