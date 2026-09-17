@@ -32,6 +32,7 @@ chaquopy {
     sourceSets {
         getByName("main") {
             srcDir("../..")
+            include("runtime/**/*.py")
         }
     }
 }
