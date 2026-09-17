@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600">
+<defs>
+  <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7f4ee"/><stop offset="1" stop-color="#e9e1d4"/></linearGradient>
+  <linearGradient id="night" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#242a38"/><stop offset="1" stop-color="#11151e"/></linearGradient>
+  <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#657594"/><stop offset="1" stop-color="#343e56"/></linearGradient>
+  <filter id="shadow"><feDropShadow dx="0" dy="10" stdDeviation="14" flood-opacity=".16"/></filter>
+</defs>
+<rect width="1200" height="1600" fill="#d8d0c3"/>
+<text x="70" y="78" font-family="Georgia,serif" font-size="42" font-weight="700" fill="#211f1b">CHOICE KINGDOM · AVELUNE</text>
+<text x="70" y="116" font-family="Arial,sans-serif" font-size="18" letter-spacing="3" fill="#625d54">PREMIUM VISUAL ANCHOR BOARD · V1</text>
+
+<!-- Character anchor -->
+<g filter="url(#shadow)">
+<rect x="70" y="165" width="500" height="610" rx="18" fill="url(#paper)"/>
+<rect x="95" y="190" width="450" height="390" rx="12" fill="#3a4050"/>
+<!-- shoulders -->
+<path d="M150 580 Q175 475 320 455 Q465 475 490 580 Z" fill="url(#cloth)"/>
+<path d="M225 475 Q320 425 415 475 L395 610 L245 610 Z" fill="#4f596f"/>
+<!-- neck --> <path d="M285 420 L355 420 L365 485 Q320 510 275 485 Z" fill="#b78366"/>
+<!-- face --> <ellipse cx="320" cy="335" rx="105" ry="132" fill="#b98769"/>
+<!-- hair --> <path d="M220 330 Q205 190 320 180 Q435 190 420 330 Q390 265 320 265 Q250 265 220 330Z" fill="#302b2a"/>
+<!-- eyes --> <ellipse cx="280" cy="338" rx="9" ry="6" fill="#211f1b"/><ellipse cx="360" cy="338" rx="9" ry="6" fill="#211f1b"/>
+<path d="M280 390 Q320 410 360 390" fill="none" stroke="#6d493d" stroke-width="5" stroke-linecap="round"/>
+<!-- brooch --> <circle cx="320" cy="510" r="15" fill="#8a6828"/><path d="M320 496 l7 14 -7 14 -7 -14z" fill="#f1dfae"/>
+</g>
+<text x="95" y="625" font-family="Arial,sans-serif" font-size="16" letter-spacing="2" fill="#8a6828">ANCHOR A · PRIMARY CHARACTER</text>
+<text x="95" y="662" font-family="Georgia,serif" font-size="27" font-weight="700" fill="#211f1b">Face + silhouette + material identity</text>
+<text x="95" y="704" font-family="Arial,sans-serif" font-size="17" fill="#625d54">One dominant light. Quiet background. Recognizable at thumbnail size.</text>
+
+<!-- Faction anchor -->
+<g filter="url(#shadow)"><rect x="610" y="165" width="520" height="610" rx="18" fill="#24211d"/></g>
+<text x="650" y="220" font-family="Arial,sans-serif" font-size="16" letter-spacing="2" fill="#d4b56b">ANCHOR C · FACTION IDENTITY</text>
+<circle cx="870" cy="405" r="150" fill="#2d2924" stroke="#8a6828" stroke-width="3"/>
+<path d="M870 295 L910 370 L980 395 L910 420 L870 510 L830 420 L760 395 L830 370 Z" fill="none" stroke="#d4b56b" stroke-width="9"/>
+<circle cx="870" cy="395" r="28" fill="#4c5d7a"/>
+<text x="650" y="610" font-family="Georgia,serif" font-size="31" font-weight="700" fill="#f4f0e8">Institution, not morality</text>
+<text x="650" y="652" font-family="Arial,sans-serif" font-size="17" fill="#c9c1b5">Works in icon scale, monochrome,</text>
+<text x="650" y="680" font-family="Arial,sans-serif" font-size="17" fill="#c9c1b5">history cards and investigation surfaces.</text>
+
+<!-- Event anchor -->
+<g filter="url(#shadow)"><rect x="70" y="830" width="1060" height="540" rx="20" fill="#171614"/></g>
+<rect x="95" y="855" width="1010" height="250" rx="14" fill="url(#night)"/>
+<!-- event scene -->
+<path d="M110 1060 L300 930 L430 1035 L590 900 L770 1030 L930 920 L1090 1040 L1090 1105 L110 1105Z" fill="#303746"/>
+<circle cx="760" cy="940" r="45" fill="#d4b56b" opacity=".7"/>
+<path d="M580 1060 Q620 970 700 965 Q780 970 820 1060Z" fill="#657594"/>
+<ellipse cx="700" cy="945" rx="58" ry="70" fill="#b98769"/>
+<path d="M642 945 Q635 875 700 870 Q765 875 758 945 Q735 910 700 910 Q665 910 642 945Z" fill="#302b2a"/>
+<rect x="95" y="1130" width="1010" height="205" rx="14" fill="#fffdfc"/>
+<text x="125" y="1170" font-family="Arial,sans-serif" font-size="15" letter-spacing="2" fill="#4c5d7a">THE COUNCIL WAITS</text>
+<text x="125" y="1208" font-family="Georgia,serif" font-size="30" font-weight="700" fill="#211f1b">A decision can preserve the crown — or the people.</text>
+<rect x="125" y="1240" width="450" height="62" rx="12" fill="#4c5d7a"/>
+<text x="155" y="1280" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#ffffff">Hear the Commons first</text>
+<rect x="595" y="1240" width="480" height="62" rx="12" fill="#f7f4ee" stroke="#8a6828" stroke-width="2"/>
+<text x="625" y="1280" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#211f1b">Protect the Crown's authority</text>
+
+<!-- ending anchor -->
+<g filter="url(#shadow)"><rect x="70" y="1420" width="1060" height="120" rx="18" fill="#211f1b"/></g>
+<text x="100" y="1462" font-family="Arial,sans-serif" font-size="15" letter-spacing="2" fill="#d4b56b">ANCHOR G · ENDING</text>
+<text x="100" y="1502" font-family="Georgia,serif" font-size="29" font-weight="700" fill="#f4f0e8">The kingdom remembers what the ruler chose.</text>
+<text x="100" y="1530" font-family="Arial,sans-serif" font-size="15" fill="#c9c1b5">Cinematic negative space · restrained interface · final focal symbol</text>
+</svg>
