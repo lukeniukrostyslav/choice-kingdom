@@ -137,3 +137,11 @@ def test_block14_media3_music_contract():
     assert "music.setForeground(true)" in main
     assert "music.setForeground(false)" in main
     assert "music.close()" in main
+
+def test_block14_scene_music_fade_contract():
+    music = (ROOT / "androidApp/app/src/main/java/com/choicekingdom/app/ChoiceKingdomMusic.kt").read_text(encoding="utf-8")
+    assert "sceneGain" in music
+    assert "fadeTo" in music
+    assert "650L" in music
+    assert '"Investigation" -> 0.58f' in music
+    assert "fadeGeneration" in music
