@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Choice Kingdom — Premium Journey Prototype v1</title>
+<style>
+:root{--bg:#0b0d12;--surface:#151923;--surface2:#1c222d;--ink:#f4f0e6;--muted:#aeb3c0;--line:#343a48;--gold:#d4b56b;--focus:#f0cf7a;--positive:#9bc2a4;--pending:#7e9fca;--warning:#d5a85c;--danger:#c97872;--radius:16px;--shadow:0 14px 34px rgba(0,0,0,.28)}
+*{box-sizing:border-box}html{font-size:16px}body{margin:0;background:radial-gradient(circle at 50% -15%,#2a3343 0,#11151d 48%,var(--bg) 100%);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}.shell{width:min(100%,760px);margin:auto;padding:max(16px,env(safe-area-inset-top)) 16px calc(28px + env(safe-area-inset-bottom))}.brand{font:700 .7rem/1.2 system-ui;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}h1{font:700 clamp(1.8rem,7vw,2.7rem)/1.04 Georgia,serif;margin:8px 0}h2{font:700 clamp(1.25rem,5vw,1.7rem)/1.12 Georgia,serif;margin:6px 0 10px}p{line-height:1.52;color:#d5d8df;margin:0}.top{display:flex;justify-content:space-between;gap:14px;align-items:end;padding-bottom:16px}.status{font:.68rem system-ui;color:var(--muted);text-align:right}.progress{height:4px;background:#0e1117;border-radius:99px;overflow:hidden;margin:0 0 16px}.progress i{display:block;height:100%;background:var(--gold);width:25%;transition:width .28s ease}.screen{display:none}.screen.active{display:block}.panel{background:rgba(21,25,35,.96);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}.eyebrow{font:700 .66rem/1.2 system-ui;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}.art{min-height:154px;border:1px solid #4b5362;border-radius:13px;background:linear-gradient(145deg,#384154,#1b202b 58%,#11141a);display:flex;align-items:end;padding:15px;margin:14px 0;position:relative;overflow:hidden}.art:after{content:"AVELUNE";position:absolute;right:13px;top:11px;color:#ffffff44;font:10px system-ui;letter-spacing:.2em}.resources{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:12px 0}.resource{border:1px solid var(--line);border-radius:10px;background:var(--surface2);padding:8px 4px;text-align:center}.resource b{display:block;font:700 .95rem system-ui}.resource span{font:.58rem system-ui;color:var(--muted)}.choices{display:grid;gap:10px;margin-top:16px}.choice,.nav,.restart{min-height:52px;border:1px solid var(--line);border-radius:13px;background:linear-gradient(180deg,#222735,#171b24);color:var(--ink);padding:12px 14px;text-align:left;font:inherit;cursor:pointer}.choice{display:flex;justify-content:space-between;align-items:center;gap:12px}.choice small{display:block;color:var(--muted);font:.67rem/1.35 system-ui;margin-top:4px}.choice:hover{border-color:#60697b}.choice:focus-visible,.nav:focus-visible,.restart:focus-visible{outline:2px solid var(--focus);outline-offset:3px}.choice.selected{border-color:var(--gold);background:linear-gradient(180deg,#302d23,#1a1e27)}.choice:disabled{cursor:not-allowed;opacity:.58}.state{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;background:var(--surface2);padding:12px;margin-top:12px;font:.74rem/1.45 system-ui}.state.positive{border-color:#486b56}.state.pending{border-color:#526d91}.state.warning{border-color:#7b6339}.icon{width:28px;height:28px;flex:0 0 28px;border:1px solid currentColor;border-radius:50%;display:grid;place-items:center}.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:13px}.chip{font:.64rem system-ui;border:1px solid var(--line);border-radius:99px;padding:7px 9px;color:var(--muted);background:#12161e}.timeline{display:grid;gap:10px;margin-top:14px}.entry{border-inline-start:3px solid var(--gold);padding-inline-start:12px}.entry .meta{font:700 .62rem system-ui;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}.navrow{display:flex;justify-content:space-between;gap:10px;margin-top:16px}.nav{flex:1;text-align:center}.nav.primary{border-color:var(--gold);color:var(--gold)}.hidden{display:none!important}@media(max-width:430px){.resources{gap:3px}.resource{padding-inline:2px}.shell{padding-inline:12px}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main class="shell" id="app">
+<header class="top"><div><div class="brand">Choice Kingdom · Avelune</div><h1>Premium Journey Prototype</h1></div><div class="status" id="status" aria-live="polite">Event · 1 / 4</div></header>
+<div class="progress" aria-hidden="true"><i id="bar"></i></div>
+<section class="screen active" data-step="0"><div class="panel"><div class="eyebrow">Event · E01</div><h2>The Gate That Must Stay Open</h2><div class="art" role="img" aria-label="Premium art composition placeholder for the eastern gate">Rain at the eastern gate · focal art zone</div><div class="resources"><div class="resource"><b>62</b><span>Gold</span></div><div class="resource"><b>54</b><span>Trust</span></div><div class="resource"><b>48</b><span>Security</span></div><div class="resource"><b>57</b><span>Power</span></div><div class="resource"><b>66</b><span>Reputation</span></div></div><p>The border captains report a growing line of hungry families outside the eastern gate. Opening the gate protects them, but creates a security risk.</p><div class="choices" role="group" aria-label="Choices"><button class="choice" data-choice="open"><span><b>Open the gate under guard</b><small>Immediate: −8 gold · +6 trust</small></span><span>→</span></button><button class="choice" data-choice="close"><span><b>Keep the gate closed</b><small>Immediate: +5 security · −7 reputation</small></span><span>→</span></button></div><div class="state hidden" id="choiceState" aria-live="polite"><span class="icon">✓</span><div><strong>Choice locked</strong><br><span id="choiceText"></span></div></div></div></section>
+<section class="screen" data-step="1"><div class="panel"><div class="eyebrow">Consequence · C01</div><h2 id="consequenceTitle">The crown acts</h2><div class="art" role="img" aria-label="Premium consequence art composition">Consequences · focal art zone</div><div class="state positive"><span class="icon">✓</span><div><strong>Immediate outcome</strong><br><span id="outcome">The gate decision has changed the realm.</span></div></div><div class="state pending"><span class="icon">◷</span><div><strong>Delayed consequence</strong><br>A future event remains pending. The UI reveals its existence without inventing its outcome.</div></div><div class="chips"><span class="chip" id="chip1">Trust +6</span><span class="chip" id="chip2">Gold −8</span><span class="chip">1 pending thread</span></div><div class="navrow"><button class="nav primary" data-next>Continue to Realm</button></div></div></section>
+<section class="screen" data-step="2"><div class="panel"><div class="eyebrow">Realm · Avelune</div><h2>The kingdom carries the decision</h2><div class="resources"><div class="resource"><b id="gold">54</b><span>Gold</span></div><div class="resource"><b id="trust">60</b><span>Trust</span></div><div class="resource"><b>48</b><span>Security</span></div><div class="resource"><b>57</b><span>Power</span></div><div class="resource"><b>66</b><span>Reputation</span></div></div><div class="state pending"><span class="icon">◷</span><div><strong>Pressure horizon</strong><br>One delayed consequence is now part of the visible state.</div></div><div class="navrow"><button class="nav primary" data-next>Open History</button></div></div></section>
+<section class="screen" data-step="3"><div class="panel"><div class="eyebrow">History · Decision memory</div><h2>The chronicle remembers</h2><div class="timeline"><div class="entry"><div class="meta">Turn 12 · Eastern Gate</div><h3 id="historyChoice">Families admitted under guard</h3><p id="historyEffect">Trust +6 · Gold −8 · Border tension recorded.</p></div><div class="entry"><div class="meta">Turn 9 · Guild Hall</div><h3>House Assembly opened</h3><p>A prior decision remains readable as causal context.</p></div></div><div class="state positive"><span class="icon">A</span><div><strong>Prototype complete</strong><br>This journey connects event, choice, consequence, realm state and history in one touch-first flow.</div></div><div class="navrow"><button class="restart" id="restart">Restart journey</button></div></div></section>
+</main>
+<script>
+(() => {
+ const root=document.getElementById('app');
+ const screens=[...root.querySelectorAll('.screen')];
+ const status=document.getElementById('status');
+ const bar=document.getElementById('bar');
+ const choiceState=document.getElementById('choiceState');
+ const choiceText=document.getElementById('choiceText');
+ const outcome=document.getElementById('outcome');
+ const chip1=document.getElementById('chip1');
+ const chip2=document.getElementById('chip2');
+ const gold=document.getElementById('gold');
+ const trust=document.getElementById('trust');
+ const historyChoice=document.getElementById('historyChoice');
+ const historyEffect=document.getElementById('historyEffect');
+ let step=0;
+ let choice=null;
+ function render(){screens.forEach((s,i)=>s.classList.toggle('active',i===step));status.textContent=['Event','Consequence','Realm','History'][step]+' · '+(step+1)+' / 4';bar.style.width=((step+1)/4*100)+'%';}
+ function applyChoice(value){
+  choice=value;
+  const open=value==='open';
+  choiceState.classList.remove('hidden');
+  choiceText.textContent=open?'Open the gate under guard — selected':'Keep the gate closed — selected';
+  outcome.textContent=open?'Families enter safely; the treasury absorbs the immediate cost.':'The gate remains secured; reputation absorbs the immediate social cost.';
+  chip1.textContent=open?'Trust +6':'Security +5';
+  chip2.textContent=open?'Gold −8':'Reputation −7';
+  gold.textContent=open?'54':'62';
+  trust.textContent=open?'60':'54';
+  historyChoice.textContent=open?'Families admitted under guard':'Eastern gate remained closed';
+  historyEffect.textContent=open?'Trust +6 · Gold −8 · Border tension recorded.':'Security +5 · Reputation −7 · Border tension recorded.';
+  root.querySelectorAll('[data-choice]').forEach(b=>b.disabled=true);
+  root.querySelector('[data-choice="'+value+'"]')?.classList.add('selected');
+  step=1;render();
+ }
+ root.addEventListener('click',e=>{
+  const choiceButton=e.target.closest('[data-choice]');
+  if(choiceButton && !choiceButton.disabled){applyChoice(choiceButton.dataset.choice);return;}
+  if(e.target.closest('[data-next]')){step=Math.min(3,step+1);render();return;}
+  if(e.target.closest('#restart')){choice=null;root.querySelectorAll('[data-choice]').forEach(b=>{b.disabled=false;b.classList.remove('selected')});choiceState.classList.add('hidden');step=0;render();}
+ });
+ render();
+})();
+</script>
+</body>
+</html>
