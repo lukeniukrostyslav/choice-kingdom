@@ -11,7 +11,7 @@ Status: **APPROVED**
 | P3 | People / Character Codex | **15%** | 100% |
 | P4 | Faction Visual Identity | **5%** | 100% |
 | P5 | Event Cinematic UI | **15%** | 100% |
-| P6 | Choice Experience | **44%** | 100% |
+| P6 | Choice Experience | **46%** | 100% |
 | P7 | Consequence Experience | 0% | 100% |
 | P8 | Realm | 0% | 100% |
 | P9 | History / Chronicle | 0% | 100% |
@@ -47,7 +47,7 @@ Each block requires actual design/implementation work, visual inspection, releva
 - P3 People / Character Codex: **15%** — inspectable portrait-led codex with responsive mobile, light/dark, LTR/RTL and explicit candidate labeling. Canonical People binding, final production portraits, provenance/licensing and rendered validation remain open.
 - P4 Faction Visual Identity: **5%** — six neutral symbolic grammars with monochrome, small-scale, RTL and anti-good/evil constraints. Canonical faction binding, final marks, provenance/licensing and rendered validation remain open.
 - P5 Event Cinematic UI: **15%** — inspectable decision-first cinematic event surface with responsive hero art, narrative stakes, situation state, dominant choice controls, safe areas, RTL, reduced-motion behavior, focus treatment, plus idle/selected/resolving interaction states and live feedback. Canonical event/session binding, complete event-family coverage, final artwork, motion, localization, Android integration and final rendered QA remain open.
-- P6 Choice Experience: **44%** — explicit visual/runtime state-family proof for idle, focused, selected, pressed, blocked, resolving, disabled, resolved and error/fallback behavior; runtime presentation exposes selected and blocked as first-class non-mutating states and separates review, tactile press, temporary lock and resolution; event host and regression coverage verify the review/press/block/resolve boundary without gameplay mutation. Complete catalog coverage, full rendered state verification, consequence handoff, final artwork, localization, Android integration and final rendered/device QA remain open.
+- P6 Choice Experience: **46%** — explicit visual/runtime state-family proof for idle, focused, selected, pressed, blocked, resolving, disabled, resolved and error/fallback behavior; runtime presentation exposes selected and blocked as first-class non-mutating states and separates review, press, temporary lock and resolution. The visual proof now exposes blocked state with explicit `aria-disabled` and live status semantics. Event host and regression coverage verify the review/press/block/resolve boundary without gameplay mutation. Complete catalog coverage, full rendered state verification, consequence handoff, final artwork, localization, Android integration and final rendered/device QA remain open.
 - Final artwork: not complete.
 - Android visual runtime: not complete.
 - Physical-device visual QA: not complete.
@@ -58,4 +58,4 @@ Each block requires actual design/implementation work, visual inspection, releva
 
 ## Current average
 
-Verified average across P1–P25: **7.2%**.
+Verified average across P1–P25: **7.3%**.
