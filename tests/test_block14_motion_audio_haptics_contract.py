@@ -106,3 +106,11 @@ def test_block14_audio_state_is_threaded_to_choice_and_settings():
 def test_block14_resolution_confirmation_feedback_is_wired():
     main = MAIN.read_text(encoding="utf-8")
     assert "audio.playConfirmFeedback()" in main
+
+
+def test_block14_audio_ducking_contract():
+    audio = (ROOT / "androidApp/app/src/main/java/com/choicekingdom/app/ChoiceKingdomAudio.kt").read_text(encoding="utf-8")
+    assert "AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK" in audio
+    assert "ambientDuckedByFocus" in audio
+    assert "0.35f" in audio
+    assert "autoResume()" in audio
