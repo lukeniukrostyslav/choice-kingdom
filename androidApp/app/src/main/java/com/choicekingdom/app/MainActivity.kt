@@ -63,7 +63,6 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
-import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
@@ -395,7 +394,6 @@ private fun ChoiceCard(
     onChoiceSelected: (String) -> Unit,
 ) {
     val haptics = LocalHapticFeedback.current
-    val view = LocalView.current
     val enabled = choice.state != "disabled" && !disabledByResolution && !resolving
     val state = when {
         resolving -> stringResource(R.string.resolving)
@@ -406,7 +404,6 @@ private fun ChoiceCard(
     Button(
         onClick = {
             haptics.performHapticFeedback(HapticFeedbackType.LongPress)
-            view.playSoundEffect(android.view.SoundEffectConstants.CLICK)
             audio.playChoiceFeedback()
             onChoiceSelected(choice.id)
         },
