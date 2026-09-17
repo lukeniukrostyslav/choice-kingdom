@@ -34,45 +34,26 @@ This document is the canonical working checklist for the 25-block premium visual
 | P24 | Android devices / safe areas / resolution adaptation | 38% | Real Android presentation proof on target device classes |
 | P25 | Final premium polish / cross-screen QA | 58% | Full visual regression and no unresolved P1–P24 blockers |
 
-**Aggregate P1–P25 estimate: 62.12% (simple arithmetic mean of block estimates).** This is an engineering/design evidence estimate, not a commercial-readiness score.
+**Aggregate P1–P25 estimate: 62.12% (simple arithmetic mean of block estimates).**
 
-## Evidence added in the current design increment
+## Current evidence
 
-- `androidApp/` is now a real Android application module using Jetpack Compose and Material 3, with a launcher Activity, adaptive Compact/Medium/Expanded presentation, safe-drawing insets and semantic state controls.
-- The Android surface preserves the canonical premium state vocabulary across Event, Realm, History, People, Investigation, Ending and Settings; it is presentation-only and does not mutate gameplay.
+- `androidApp/` is the first real Android Compose application module, with launcher Activity, adaptive Compact/Medium/Expanded presentation, safe-drawing insets and semantic interaction states.
 - `.github/workflows/android-presentation.yml` adds an Android build gate using Java 17, Android SDK setup and Gradle 8.7.3.
-- `runtime/premium_screen_states.py` remains the canonical cross-screen state vocabulary for the platform-neutral presentation contract.
-- `runtime/premium_surface_projection.py` remains the canonical platform-neutral width/density projection; Android implementation mirrors its boundaries rather than replacing it.
-- Existing rendered preview and cross-screen regression evidence remains required; Android source implementation does not by itself constitute physical device proof.
-- `tests/test_design_preview_contract.py` validates the rendered preview contract for all seven screens, shared interaction states, safe-area handling, RTL, large-text and reduced-motion controls.
-- `design-preview/premium-screen-state-matrix-v1.html` provides interactive rendered proof for seven key screens across Compact/Medium/Expanded density, RTL, large text, reduced motion, safe-area and focus-visible behavior.
-- `design-preview/premium-consequence-lab-v1.html` provides dedicated rendered consequence proof for resolved/pending states with compact layout, RTL, large-text, focus-visible, safe-area and reduced-motion behavior.
-- No physical Android/device screenshot or interaction session is claimed yet. P24 remains below completion until that evidence exists.
-
-## Production-facing integration evidence
-
-The runtime exposes a presentation-neutral `GameSession` snapshot and a `SessionPresenter` that owns transient interaction state while routing gameplay mutation back through `GameSession`. Visual adaptation, accessibility semantics, locale policy, premium feedback and screen-state vocabulary remain presentation-only and do not calculate gameplay outcomes.
-
-## Execution order
-
-1. P1–P5: visual foundation and adaptive layout/safe-area contract.
-2. P6–P7: authored choice/event state language in production-facing surfaces.
-3. P8–P20: Realm, History, People, Investigation, Ending, Replay, Main Menu and navigation.
-4. P21–P24: accessibility, localization, Android adaptation, audio/haptics and device proof.
-5. P25: final cross-screen polish and regression gate.
+- The Android layer is presentation-only; canonical gameplay remains owned by the existing runtime seam.
+- `runtime/premium_screen_states.py`, `runtime/premium_surface_projection.py` and `runtime/premium_regression_matrix.py` remain the canonical platform-neutral presentation contracts.
+- Existing rendered preview evidence covers responsive density, RTL, large text, reduced motion, safe area and focus-visible behavior.
+- Physical Android/device proof is not claimed yet.
 
 ## Quality rules
 
 - Do not copy competitor art, branding or proprietary UI.
 - Use competitors and award-winning games for interaction principles, not imitation.
 - Never mark a block 100% because a document exists.
-- Never invent gameplay semantics to make a visual demo look complete.
-- Every important state needs an explicit visual state: default, focus, pressed, disabled/blocked, selected, success, failure, pending and error where applicable.
-- Mobile readability and touch ergonomics are first-class premium requirements.
-- Reduced motion, large text, RTL and long-string behavior are part of the design, not post-release fixes.
-- Generated machine data remains derived; authored gameplay remains the source of truth.
+- Every important state needs an explicit visual state where applicable.
+- Reduced motion, large text, RTL and long-string behavior are part of the design.
 - Android/device proof is required before claiming production UI completion.
 
-## Execution note
+## Next bottleneck
 
-The current increment establishes the first real Android presentation module and a CI build gate while preserving the platform-neutral presentation/gameplay boundary. Percentages were raised only where the new Android implementation and its adaptive/accessibility structure provide additional evidence. P24 is still explicitly below completion because no physical Android/device proof exists. Next bottleneck: make the Android surface consume the canonical runtime presentation projection through a narrow adapter, then add device/emulator interaction evidence and cross-screen visual regression.
+Make the Android surface consume the canonical runtime presentation projection through a narrow adapter, then add emulator/device interaction evidence and cross-screen visual regression. No physical Android proof is claimed until it exists.
