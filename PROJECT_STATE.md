@@ -4,7 +4,7 @@
 Original premium offline-first decision-and-consequence mobile game set in Avelune. Android-first, one-time purchase target €2.99–€4.99, no ads/subscription/mandatory backend for core gameplay, 20+ locales including RTL. Frozen production catalog: **E01–E272**.
 
 ## Current phase
-**Blocks 1–9 are closed at their defined boundaries. Block 10 Localization 20+ is the active workstream at 88%.** The project proceeds strictly block-by-block. Percentages reflect implementation and available verification evidence, not documentation volume.
+**Blocks 1–9 are closed at their defined boundaries. Block 10 Localization 20+ is the active workstream at 88%.** The project proceeds strictly block-by-block. Percentages reflect implementation and available verification evidence, not documentation volume. Block 10 now has a strict narrative-pack loader and CI coverage for the pack repository seam; actual translated narrative data remains the material completion gap.
 
 ## Approved General Plan — 25 Blocks
 1. **Production Data Schema** → 100%
