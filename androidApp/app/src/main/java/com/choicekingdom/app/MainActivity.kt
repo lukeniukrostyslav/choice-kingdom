@@ -185,6 +185,7 @@ private fun ChoiceKingdomApp() {
                                         selectedChoiceId = null
                                         resolvingChoiceId = null
                                         errorMessage = null
+                                        audio.playConfirmFeedback()
                                     },
                                     onError = {
                                         resolvingChoiceId = null
