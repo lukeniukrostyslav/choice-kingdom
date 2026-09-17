@@ -31,6 +31,7 @@ class ChoiceKingdomAudio(private val context: Context) : AutoCloseable {
     private var soundsReady = false
     private var ambientStreamId = 0
     private var ambientPausedByFocus = false
+    private var ambientDuckedByFocus = false
     private val mainHandler = Handler(Looper.getMainLooper())
     private var tone = ToneGenerator(AudioManager.STREAM_MUSIC, 80)
     private val soundPool = SoundPool.Builder().setMaxStreams(4).setAudioAttributes(
@@ -110,6 +111,7 @@ class ChoiceKingdomAudio(private val context: Context) : AutoCloseable {
             soundPool.stop(ambientStreamId)
             ambientStreamId = 0
             ambientPausedByFocus = false
+            ambientDuckedByFocus = false
         }
     }
 
@@ -161,14 +163,38 @@ class ChoiceKingdomAudio(private val context: Context) : AutoCloseable {
             val request = AudioFocusRequest.Builder(if (permanent) AudioManager.AUDIOFOCUS_GAIN else AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
                 .setAudioAttributes(attributes)
                 .setOnAudioFocusChangeListener { change ->
-                    if (change == AudioManager.AUDIOFOCUS_LOSS || change == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT) {
-                        tone.stopTone()
-                        if (change == AudioManager.AUDIOFOCUS_LOSS) stopAmbient() else soundPool.autoPause()
-                        ambientPausedByFocus = change == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT && ambientStreamId != 0
-                        focusGranted = false
-                    } else if (change == AudioManager.AUDIOFOCUS_GAIN && foreground && !muted && ambientPausedByFocus && ambientStreamId != 0) {
-                        soundPool.autoResume()
-                        ambientPausedByFocus = false
+                    when (change) {
+                        AudioManager.AUDIOFOCUS_LOSS -> {
+                            tone.stopTone()
+                            stopAmbient()
+                            focusGranted = false
+                        }
+                        AudioManager.AUDIOFOCUS_LOSS_TRANSIENT -> {
+                            tone.stopTone()
+                            if (ambientStreamId != 0) {
+                                soundPool.autoPause()
+                                ambientPausedByFocus = true
+                            }
+                            focusGranted = false
+                        }
+                        AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK -> {
+                            if (ambientStreamId != 0 && !ambientDuckedByFocus) {
+                                soundPool.setVolume(ambientStreamId, ambientVolume * volume * 0.35f, ambientVolume * volume * 0.35f)
+                                ambientDuckedByFocus = true
+                            }
+                        }
+                        AudioManager.AUDIOFOCUS_GAIN -> {
+                            if (foreground && !muted) {
+                                if (ambientPausedByFocus && ambientStreamId != 0) {
+                                    soundPool.autoResume()
+                                    ambientPausedByFocus = false
+                                }
+                                if (ambientDuckedByFocus && ambientStreamId != 0) {
+                                    soundPool.setVolume(ambientStreamId, ambientVolume * volume, ambientVolume * volume)
+                                    ambientDuckedByFocus = false
+                                }
+                            }
+                        }
                     }
                 }
                 .build()
