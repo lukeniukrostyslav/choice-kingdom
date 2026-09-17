@@ -25,7 +25,7 @@ jobs:
       - name: Execute delayed lifecycle runtime gate
         run: python -m pytest -q tests/test_delayed_lifecycle_runtime.py tests/test_runtime_state.py
       - name: Execute delayed target runtime gate
-        run: python -m pytest -q tests/test_delayed_target_execution.py
+        run: python -m pytest -q tests/test_delayed_target_execution.py tests/test_delayed_terminal_boundary.py
       - name: Execute ending resolver runtime gate
         run: python -m pytest -q tests/test_ending_resolver.py tests/test_runtime_state.py
       - name: Verify immediate routing does not leak delayed unlocks
