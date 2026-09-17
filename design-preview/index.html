@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Choice Kingdom — V2 Design Preview</title>
+<style>
+:root{--bg:#0f1117;--card:#191d27;--card2:#222735;--ink:#f4f0e6;--muted:#aeb3c0;--gold:#d8b56a;--red:#c97872;--blue:#7e9fca;--line:#343a48;--focus:#f0cf7a}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -10%,#283041 0,#11141c 42%,#0b0d12 100%);color:var(--ink);font-family:Georgia,'Times New Roman',serif;min-height:100vh}.shell{width:min(100%,480px);margin:auto;min-height:100vh;padding:12px 16px 28px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0 14px}.brand{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}.turn{font-size:12px;color:var(--muted)}.resources{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-bottom:14px}.resource{background:rgba(25,29,39,.92);border:1px solid var(--line);border-radius:10px;padding:8px 4px;text-align:center}.resource b{display:block;font-size:15px}.resource span{display:block;font:10px system-ui;color:var(--muted);margin-top:2px}.art{height:178px;border:1px solid #444b5a;border-radius:14px;background:linear-gradient(145deg,#384154,#1b202b 58%,#11141a);display:flex;align-items:end;padding:18px;box-shadow:0 12px 30px #0008;position:relative;overflow:hidden}.art:before{content:'AVELUNE';position:absolute;right:14px;top:12px;font:10px system-ui;letter-spacing:.2em;color:#ffffff55}.art .caption{font-size:13px;color:#d8dbe2}.eyebrow{font:11px system-ui;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin:18px 0 7px}.title{font-size:29px;line-height:1.08;margin:0 0 12px}.narrative{font-size:17px;line-height:1.55;color:#e6e2d9;margin:0}.choice-list{display:grid;gap:10px;margin-top:18px}.choice{display:block;width:100%;min-height:56px;text-align:left;border:1px solid #4a5261;border-radius:12px;background:linear-gradient(180deg,#252b38,#1b202a);color:var(--ink);padding:14px 15px;font:16px/1.3 Georgia,'Times New Roman',serif;cursor:pointer}.choice:hover,.choice:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-color:var(--focus)}.choice small{display:block;font:11px system-ui;color:var(--muted);margin-top:5px}.bottom{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:18px}.nav{min-height:48px;border:1px solid var(--line);border-radius:10px;background:#151923;color:#d8dbe2;font:12px system-ui}.notice{margin-top:15px;border-left:3px solid var(--gold);padding:10px 12px;background:#171a22;color:var(--muted);font:12px/1.45 system-ui;border-radius:0 8px 8px 0}.state{display:none;margin-top:12px;padding:12px;border-radius:10px;background:#1d2a25;border:1px solid #3d6556;color:#dcece3;font:13px system-ui}.state.show{display:block}@media(min-width:700px){body{padding:24px}.shell{background:#10131a;border:1px solid #2f3541;border-radius:20px;box-shadow:0 20px 70px #0009}.art{height:210px}}
+</style>
+</head>
+<body>
+<main class="shell" aria-label="Choice Kingdom V2 design preview">
+<header class="top"><div class="brand">Choice Kingdom</div><div class="turn">The Fifth Month · Turn 12</div></header>
+<section class="resources" aria-label="Kingdom resources">
+<div class="resource"><b>62</b><span>Gold</span></div><div class="resource"><b>54</b><span>Trust</span></div><div class="resource"><b>48</b><span>Security</span></div><div class="resource"><b>57</b><span>Power</span></div><div class="resource"><b>66</b><span>Reputation</span></div>
+</section>
+<section class="art" aria-label="Event artwork"><div class="caption">Council chamber · rain against the eastern windows</div></section>
+<div class="eyebrow">A letter from the Border</div>
+<h1 class="title">The Gate That Must Stay Open</h1>
+<p class="narrative">The border captains report a growing line of hungry families outside the eastern gate. The treasury can feed them for a week. The captains warn that opening the gate may also let smugglers through.</p>
+<section class="choice-list" aria-label="Choices">
+<button class="choice" onclick="resolve(this,'The gate opens under guard. Food stores fall, but the families enter safely.')">Open the gate under guard<small>Immediate: −8 gold · +6 trust</small></button>
+<button class="choice" onclick="resolve(this,'The gate remains closed. The captains reinforce the walls while the crowd waits outside.')">Keep the gate closed<small>Immediate: +5 security · −7 reputation</small></button>
+</section>
+<div id="state" class="state" role="status"></div>
+<nav class="bottom" aria-label="Secondary navigation"><button class="nav">Realm</button><button class="nav">History</button><button class="nav">People</button></nav>
+<div class="notice">V2 visual slice: real responsive layout, semantic states, 48dp-class controls, safe-area-aware spacing and no gameplay rules duplicated in presentation.</div>
+</main>
+<script>function resolve(button,text){document.querySelectorAll('.choice').forEach(b=>b.disabled=true);button.style.borderColor='var(--gold)';const s=document.getElementById('state');s.textContent=text;s.classList.add('show')}</script>
+</body></html>
