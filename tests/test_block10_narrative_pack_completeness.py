@@ -32,6 +32,17 @@ def test_every_declared_locale_has_a_complete_narrative_pack(repo_root: Path):
             failures.append(f"{locale}:missing={len(missing)}")
         if fallback:
             failures.append(f"{locale}:fallback={len(fallback)}")
+        if locale != "en":
+            payload_entries = json.loads(path.read_text(encoding="utf-8")).get("entries", {})
+            identical = tuple(
+                sorted(
+                    key for key in required
+                    if payload_entries.get(key, {}).get("translation")
+                    == payload_entries.get(key, {}).get("fallback")
+                )
+            )
+            if identical:
+                failures.append(f"{locale}:identical-to-fallback={len(identical)}")
         payload = json.loads(path.read_text(encoding="utf-8"))
         if len(payload.get("entries", {})) != len(required):
             failures.append(f"{locale}:count={len(payload.get('entries', {}))}/{len(required)}")
