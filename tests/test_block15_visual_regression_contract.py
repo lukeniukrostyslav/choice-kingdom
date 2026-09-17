@@ -26,3 +26,11 @@ def test_visual_regression_baseline_requires_approved_references():
     data = json.loads(MANIFEST.read_text(encoding="utf-8"))
     assert data["baselinePolicy"] == "approved-reference-required"
     assert data["physicalDeviceValidationBlock"] == 21
+
+
+def test_visual_regression_ci_uses_available_gradle_distribution():
+    workflow = (ROOT / ".github/workflows/block15-visual-regression-gate.yml").read_text(encoding="utf-8")
+    assert 'gradle-version: "8.9"' in workflow
+    assert "./gradlew" not in workflow
+    assert "updateDebugScreenshotTest" in workflow
+    assert "validateDebugScreenshotTest" in workflow
