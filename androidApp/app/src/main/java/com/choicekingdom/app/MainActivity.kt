@@ -167,7 +167,7 @@ private fun LoadingScreen(errorMessage: String?) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text("AVELUNE", color = MaterialTheme.colorScheme.primary, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+        Text(stringResource(R.string.avelune), color = MaterialTheme.colorScheme.primary, fontSize = 12.sp, fontWeight = FontWeight.Bold)
         Text(stringResource(R.string.preparing_journey), fontSize = 28.sp, fontWeight = FontWeight.SemiBold)
         Text(
             errorMessage ?: stringResource(R.string.starting_runtime),
@@ -298,7 +298,7 @@ private fun HeroCard(screen: AndroidScreenState, snapshot: AndroidEventProjectio
             Text(screen.title.uppercase(), color = MaterialTheme.colorScheme.primary, fontSize = 11.sp, fontWeight = FontWeight.Bold)
             Text(snapshot.title, color = MaterialTheme.colorScheme.onSurface, fontSize = 25.sp, fontWeight = FontWeight.SemiBold)
             Text(screen.subtitle, color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 15.sp, lineHeight = 22.sp)
-            Text("${snapshot.eventId}  ·  Turn ${snapshot.turn}", color = MaterialTheme.colorScheme.secondary, fontSize = 12.sp)
+            Text(stringResource(R.string.turn_event_format, snapshot.eventId, snapshot.turn), color = MaterialTheme.colorScheme.secondary, fontSize = 12.sp)
         }
     }
 }
@@ -428,7 +428,7 @@ private fun ScreenNavigation(onSelect: (String) -> Unit, modifier: Modifier) {
 private fun NavigationRail(onSelect: (String) -> Unit, modifier: Modifier) {
     Card(modifier = modifier.padding(vertical = 18.dp), shape = RoundedCornerShape(26.dp), border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)) {
         Column(modifier = Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text("Avelune", fontSize = 20.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(10.dp))
+            Text(stringResource(R.string.avelune), fontSize = 20.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(10.dp))
             screens.forEach { screen ->
                 TextButton(onClick = { onSelect(screen.title) }, modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp)) {
                     Text(screen.title, modifier = Modifier.fillMaxWidth())
