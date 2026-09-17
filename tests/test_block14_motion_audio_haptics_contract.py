@@ -1,0 +1,27 @@
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+MAIN = ROOT / "androidApp/app/src/main/java/com/choicekingdom/app/MainActivity.kt"
+FEEDBACK = ROOT / "androidApp/app/src/main/java/com/choicekingdom/app/ChoiceKingdomFeedback.kt"
+
+
+def test_block14_motion_and_feedback_contract():
+    main = MAIN.read_text(encoding="utf-8")
+    feedback = FEEDBACK.read_text(encoding="utf-8")
+    assert "AnimatedContent(" in main
+    assert 'label = "journey-screen-transition"' in main
+    assert "fadeIn()" in main and "fadeOut()" in main
+    assert "scaleIn(initialScale = 0.98f)" in main
+    assert "LocalHapticFeedback.current" in main
+    assert "HapticFeedbackType.LongPress" in main
+    assert "SoundEffectConstants.CLICK" in main
+    assert "class ChoiceKingdomFeedback" in feedback
+    assert "no network" in feedback
+    assert "playSoundEffect" in feedback
+    assert "performHapticFeedback" in feedback
+
+
+def test_block14_does_not_claim_authored_audio_assets():
+    feedback = FEEDBACK.read_text(encoding="utf-8")
+    assert "authored audio" in feedback
+    assert "later asset/content concern" in feedback
