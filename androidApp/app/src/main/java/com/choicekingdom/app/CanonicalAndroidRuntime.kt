@@ -17,10 +17,12 @@ import java.util.concurrent.atomic.AtomicBoolean
  * Gameplay rules remain in the Python runtime and are never reimplemented here.
  */
 class CanonicalAndroidRuntime(private val context: Context) {
+    companion object { private const val KEY_RUN_ID = "run_id" }
     private val executor = Executors.newSingleThreadExecutor()
     private val main = Handler(Looper.getMainLooper())
     private val started = AtomicBoolean(false)
     private var runtime: com.chaquo.python.PyObject? = null
+    private val preferences = context.getSharedPreferences("choice_kingdom_runtime", Context.MODE_PRIVATE)
 
     fun start(
         runId: String,
@@ -32,7 +34,10 @@ class CanonicalAndroidRuntime(private val context: Context) {
                 val root = installCanonicalDocs()
                 ensurePython()
                 val module = Python.getInstance().getModule("runtime.android_runtime")
-                runtime = module.callAttr("start", root.absolutePath, runId)
+                val persistedRunId = preferences.getString(KEY_RUN_ID, null)
+                val activeRunId = persistedRunId ?: runId
+                runtime = module.callAttr("start", root.absolutePath, activeRunId)
+                preferences.edit().putString(KEY_RUN_ID, activeRunId).apply()
                 emitProjection(runtime!!.callAttr("snapshot_json").toString(), onProjection)
             } catch (error: Throwable) {
                 main.post { onError(error) }
