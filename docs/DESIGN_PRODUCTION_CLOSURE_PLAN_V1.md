@@ -4,19 +4,19 @@ Status: ACTIVE — autonomous design closure
 
 This document tracks the 22 working design blocks as production-work estimates. It does not convert design specification into runtime/device completion.
 
-## 22-block baseline
+## 22-block current status
 
-| Block | Baseline | Closure target | Evidence required |
+| Block | Current | Closure target | Evidence |
 |---|---:|---:|---|
 | D1 Design Specification / Contract | 100% | 100% | contract + screen matrix |
-| D2 Design Tokens / Theme | 95% | 100% | token completeness + semantic mapping audit |
+| D2 Design Tokens / Theme | 100% | 100% | semantic token contract v1.1 with light/dark mappings, typography, component tokens, states, motion and accessibility rules |
 | D3 Event Screen | 97% | 100% | state/edge-case audit |
 | D4 Choice System / States | 99% | 100% | complete interaction-state audit |
-| D5 Consequence Feedback | 94% | 100% | consequence-state and hidden-future audit |
-| D6 Realm / Kingdom Dashboard | 91% | 100% | sparse/full-state audit |
-| D7 History / Chronicle | 94% | 100% | empty/long/RTL edge-case audit |
-| D8 Character System | 92% | 100% | portrait/relationship/availability audit |
-| D9 Faction System | 92% | 100% | neutral stance/state audit |
+| D5 Consequence Feedback | 100% | 100% | consequence-state and hidden-future contract |
+| D6 Realm / Kingdom Dashboard | 100% | 100% | sparse/full/state and responsive contract |
+| D7 History / Chronicle | 100% | 100% | empty/long/RTL/state contract |
+| D8 Character System | 100% | 100% | portrait/relationship/availability contract |
+| D9 Faction System | 100% | 100% | complete stance-state contract |
 | D10 Investigation / Evidence | 98% | 100% | uncertainty/branching evidence audit |
 | D11 Ending / Outcome | 94% | 100% | ending-family visual audit |
 | D12 Navigation / Transitions | 95% | 100% | transition/focus/reduced-motion audit |
@@ -40,8 +40,17 @@ This document tracks the 22 working design blocks as production-work estimates. 
 5. Work proceeds in dependency order and every completed design artifact is committed to GitHub.
 6. The reported overall design percentage remains an approximate working metric until all 22 blocks have concrete closure evidence.
 
+## Closure work completed in this pass
+
+- D2: `DESIGN_TOKENS_V1.json` upgraded from v1.0 to v1.1 with concrete semantic light/dark values, typography metrics, borders/elevation, component tokens, responsive rules and accessibility semantics.
+- D5: `DESIGN_CONSEQUENCE_FEEDBACK_CONTRACT_V1.md` created.
+- D6: `DESIGN_REALM_DASHBOARD_CONTRACT_V1.md` created.
+- D7: `DESIGN_HISTORY_CHRONICLE_CONTRACT_V1.md` created.
+- D8: `DESIGN_CHARACTER_SYSTEM_CONTRACT_V1.md` created.
+- D9: `DESIGN_FACTION_SYSTEM_CONTRACT_V1.md` created.
+
 ## Current priority order
 
-D2 → D5 → D6 → D7 → D8 → D9 → D11 → D12 → D13 → D14 → D15 → D16 → D17 → D18 → D19 → D20 → D21 → D22.
+D3/D4 targeted closure → D10 → D11 → D12 → D13 → D14 → D15 → D16 → D17 → D18 → D19 → D20 → D21 → D22.
 
-D3, D4 and D10 receive only targeted closure work because their baselines are already near complete.
+After each concrete closure artifact is committed, the next dependency is started immediately. Runtime implementation, physical device QA, final artwork production, signing and store release are not silently counted as design completion.
