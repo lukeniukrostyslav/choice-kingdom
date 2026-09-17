@@ -7,7 +7,7 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 **Content → canonical QA → machine-readable contracts → Decision Engine → UI → localization/tests → Android QA → APK → release.** No mock/stub gameplay and no premature readiness claims.
 
 ## Current phase
-**Production runtime integration / Block 7 + first UI runtime binding slice.** Blocks 1–6 have implementation/verification closure at their defined boundaries. `GameSession` is the application-facing presentation-neutral seam. Deterministic full-campaign and trigger-semantics audits are in place. The presentation-layer runtime adapter now covers deterministic projection, explicit focus/press/resolve interaction states, engine-qualified event selection, a concrete Event + Choice screen host, and a concrete Consequence screen host. Android UI, localization, device QA, APK/AAB and store release remain open.
+**Production runtime integration / Block 7 + first composed premium journey UI binding.** Blocks 1–6 have implementation/verification closure at their defined boundaries. `GameSession` is the application-facing presentation-neutral seam. Deterministic full-campaign and trigger-semantics audits are in place. The presentation-layer runtime adapter now covers deterministic projection, explicit focus/press/resolve interaction states, engine-qualified event selection, concrete Event + Choice and Consequence hosts, the non-mutating journey screen family, and a composed premium journey/navigation host. Android UI, localization, device QA, APK/AAB and store release remain open.
 
 ## Closed source/contract gates
 - S01 **100%** — frozen E01–E272 catalog and source inventory.
@@ -35,8 +35,12 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 - `tests/test_presentation_runtime.py` verifies E01 presentation, explicit interaction states, and rejection of unavailable choice intent before mutation.
 - `runtime/event_screen.py` provides a concrete Event + Choice screen host over `SessionPresenter`, including render/focus/press/choose intent mapping while keeping gameplay mutation inside `GameSession`.
 - `tests/test_event_screen_runtime.py` covers Event + Choice rendering, non-mutating focus/press states, E01 → E02 choice commit, and invalid-choice rejection.
-- `runtime/consequence_screen.py` now provides a concrete consequence/result screen host over `SessionPresenter`; it exposes the canonical `ExecutionResult` together with the post-resolution presentation projection and keeps dismiss behavior presentation-only.
+- `runtime/consequence_screen.py` provides a concrete consequence/result screen host over `SessionPresenter`; it exposes the canonical `ExecutionResult` together with the post-resolution presentation projection and keeps dismiss behavior presentation-only.
 - `tests/test_consequence_screen_runtime.py` covers E01-A result projection, post-choice state, non-fabrication, and presentation-only dismissal. The newest consequence-screen commits are saved to GitHub; CI confirmation has not yet been reported.
+- `runtime/journey_screens.py` provides Realm, History, People/Factions, Investigation, Ending and Settings projections from the same canonical presenter snapshot.
+- `tests/test_journey_screens.py` locks those screen-family projections and Settings presentation flags.
+- `runtime/premium_journey.py` composes Event/Choice, Consequence and journey surfaces behind one navigation boundary; `tests/test_premium_journey.py` verifies surface switching without mutating canonical session state.
+- The latest test commit `b1b2e3c6f38a8cd336a3157d3ff48e67ea9d7674` currently has **no reported GitHub Actions workflow run**, so the new tests are committed but are not claimed as CI-green.
 
 ## Existing runtime verification baseline
 - Full regression: **184 passed**.
@@ -63,7 +67,7 @@ The campaign and trigger audits are diagnostic. Missing/opaque events are **not 
 - Runtime State / Persistence Foundation: **100% current foundation**
 - Decision Engine / Application Runtime: **42%** — core authored effects, routing, delayed execution, ending boundary, persistence, replay transfer, session lifecycle, canonical predicate evaluation, verified E199 producer semantics, and an authored E01→E02 GameSession lifecycle/save-load verification are implemented; exhaustive production trigger/semantic execution remains open.
 - **Design Specification: 100%** — production visual language, semantic tokens, typography, screen/component contracts, interaction states, accessibility, RTL, localization design constraints, asset contract, screen matrix and visual-QA acceptance are closed in `docs/DESIGN_COMPLETION_V1.md`, `docs/DESIGN_TOKENS_V1.json`, `docs/DESIGN_SCREEN_MATRIX_V1.md`, `docs/DESIGN_ASSET_MANIFEST_V1.md` and `docs/DESIGN_VISUAL_QA_CHECKLIST_V1.md`.
-- **UI / UX Runtime Implementation: 18%** — presentation projection, explicit focus/press/resolving/resolved interaction states, GameSession-only mutation path, engine-qualified event selection, a concrete Event + Choice screen host, and a concrete Consequence screen host with regression coverage are implemented. Android UI screens and full screen-family binding remain open. Newest CI verification is still pending.
+- **UI / UX Runtime Implementation: 22%** — presentation projection, explicit focus/press/resolving/resolved interaction states, GameSession-only mutation path, engine-qualified event selection, concrete Event + Choice and Consequence hosts, the non-mutating Realm/History/People/Investigation/Ending/Settings screen family, and a composed premium journey/navigation boundary are implemented. Android UI screens and full screen-family binding remain open. Newest tests are committed but CI verification is still pending.
 - Localization 20+ / RTL: **5%**
 - Android Implementation: **0%**
 - Runtime / Android QA: **22%** — headless runtime and deterministic audits verified; Android/device gameplay remains open.
@@ -84,8 +88,10 @@ The first UI runtime increment is implemented: `SessionPresenter` projects the c
 
 The next UI increment adds a Consequence host. It records the real `ExecutionResult` returned by the canonical presenter, then renders the post-resolution `SessionPresentation` without calculating or inventing effects. Dismissal clears only the transient consequence surface and leaves the canonical session digest unchanged. Regression coverage locks E01-A → E02, authored history mutation, and the no-fabrication boundary.
 
+The following UI increment adds `JourneyScreenHost` for Realm, History, People/Factions, Investigation, Ending and Settings, then `PremiumJourneyHost` composes those surfaces with Event/Choice and Consequence behind one navigation boundary. Surface changes are presentation-only; the canonical `SessionPresenter` remains the sole gameplay mutation seam.
+
 ## Current Block 7 target
-Close authoritative trigger/producer semantics only where authored source and canonical contracts define them; bind verified semantics into the runtime; rerun the full regression and campaign audit; then make E01–E272 executable through one `GameSession` lifecycle. In parallel, continue UI / UX Runtime Implementation from the verified Event + Choice and Consequence hosts into History, Realm, People/Factions, Investigation, Ending and Settings screen-family hosts.
+Close authoritative trigger/producer semantics only where authored source and canonical contracts define them; bind verified semantics into the runtime; rerun the full regression and campaign audit; then make E01–E272 executable through one `GameSession` lifecycle. In parallel, continue UI / UX Runtime Implementation from the composed journey boundary into the actual platform UI host, Main Menu/launcher, adaptive layout implementation, localization/RTL verification, motion semantics, and eventually Android/device proof.
 
 ## Honest progress rule
 Documentation never makes implementation complete. Every percentage requires authoritative evidence and applicable verification. Source/contract GREEN must never be reported as runtime gameplay GREEN. Owner-controlled physical Android QA, production signing and store publication remain open until actually performed.
