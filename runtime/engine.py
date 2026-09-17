@@ -12,9 +12,6 @@ from .state import GameState
 # Delayed prose is handled by the canonical delayed lifecycle instead.
 IMMEDIATE_UNLOCK_RE = re.compile(r"^-\s*\*\*Unlocks?\*\*\s+`?(E\d{2,3})", re.I | re.M)
 
-# E148-A is the authored coalition producer. The source text explicitly names the
-# six participating factions; keep that producer mapping explicit rather than
-# inferring participants from relationships, generic coalition flags, or E261.
 AUTHORED_COALITION_PARTICIPANTS = {
     "E148-A": ("mara", "rowan", "seris", "ivo", "amara", "toma"),
 }
@@ -65,7 +62,6 @@ class DecisionEngine:
 
     @staticmethod
     def _apply_authored_participant_effects(state: GameState, choice_id: str) -> None:
-        """Apply only the explicitly authored E148-A coalition participant effect."""
         for participant in AUTHORED_COALITION_PARTICIPANTS.get(choice_id, ()):
             state.record_coalition_participant(participant)
 
@@ -102,9 +98,6 @@ class DecisionEngine:
             else:
                 state.flags.add(token)
 
-        # Authored effects with typed runtime lifecycle are represented explicitly
-        # here. Derived predicates themselves are compiled centrally by the
-        # source-closed predicate compiler used by trigger evaluation and endings.
         if choice_id == "E192-A":
             state.flags.discard("food_logistics_stabilized")
             state.flags.add("food_logistics_unstable")
@@ -112,8 +105,6 @@ class DecisionEngine:
             state.flags.discard("food_logistics_unstable")
             state.flags.add("food_logistics_stabilized")
         elif choice_id == "E270-A":
-            # The convergence marker is already parsed from the authored choice.
-            # Evidence-family qualification is intentionally not manufactured here.
             pass
         elif choice_id == "E271-A":
             state.flags.add("border_crisis_declared")
@@ -132,12 +123,7 @@ class DecisionEngine:
         state.history.add(event_id)
         self._apply_authored_participant_effects(state, choice_id)
         state.activated_delayed_targets.discard(event_id)
-
-        # Scheduling happens only after the authored choice effects have committed.
-        # Relative timing is anchored to the source turn; condition-bound delays
-        # intentionally carry no invented due turn.
         schedule_authored_delay(state, event_id, choice_id)
-
         state.current_event_id = event_id
         state.turn += 1
 
@@ -151,7 +137,8 @@ class DecisionEngine:
         *,
         condition_satisfied: bool | None = None,
     ) -> DelayedActivationResult:
-        """Resolve a canonical delay and hand its authored target to the engine."""
+        if state.terminal:
+            raise ValueError("cannot activate a delayed consequence after terminal state")
         delay = state.pending_delays.get(exactly_once_key)
         if delay is None:
             raise KeyError(exactly_once_key)
@@ -176,7 +163,8 @@ class DecisionEngine:
         *,
         condition_satisfied: bool | None = None,
     ) -> ExecutionResult:
-        """Activate a due delayed target and execute its authored choice through the same engine."""
+        if state.terminal:
+            raise ValueError("cannot execute a choice after terminal state")
         delay = state.pending_delays.get(exactly_once_key)
         if delay is None:
             raise KeyError(exactly_once_key)
@@ -185,14 +173,12 @@ class DecisionEngine:
         target = self.event(delay.resolution_target)
         if not any(choice.choice_id == choice_id for choice in target.choices):
             raise KeyError(choice_id)
-        self.activate_delayed_target(
-            state,
-            exactly_once_key,
-            condition_satisfied=condition_satisfied,
-        )
+        self.activate_delayed_target(state, exactly_once_key, condition_satisfied=condition_satisfied)
         return self.execute(state, target.event_id, choice_id)
 
     def activate_next_due_delay(self, state: GameState) -> DelayedActivationResult:
+        if state.terminal:
+            raise ValueError("cannot activate a delayed consequence after terminal state")
         due = due_delays(state)
         if not due:
             raise ValueError("no due delayed consequence")
