@@ -19,7 +19,7 @@ def test_event_choice_host_renders_authored_event_and_choices() -> None:
     assert screen.can_interact is True
 
 
-def test_event_choice_host_maps_focus_selection_press_and_resolving_without_mutation() -> None:
+def test_event_choice_host_maps_focus_selection_press_resolving_and_blocked_without_mutation() -> None:
     presenter = SessionPresenter(GameSession.new(ROOT, "event-screen-interaction"))
     host = EventChoiceHost(presenter)
     before = presenter.session.snapshot_digest()
@@ -39,6 +39,10 @@ def test_event_choice_host_maps_focus_selection_press_and_resolving_without_muta
     resolving = host.render()
     assert resolving.session.choices[0].state is InteractionState.RESOLVING
     assert resolving.selected_choice_id == "E01-A"
+    assert presenter.session.snapshot_digest() == before
+    blocked = host.block("E01-A")
+    assert blocked.session.choices[0].state is InteractionState.BLOCKED
+    assert blocked.selected_choice_id == "E01-A"
     assert presenter.session.snapshot_digest() == before
 
 
