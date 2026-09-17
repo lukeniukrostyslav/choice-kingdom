@@ -4,7 +4,36 @@
 Original premium offline-first decision-and-consequence mobile game set in Avelune. Android-first, one-time purchase target €2.99–€4.99, no ads/subscription/mandatory backend for core gameplay, 20+ locales including RTL. Frozen production catalog: **E01–E272**.
 
 ## Current phase
-**Android presentation foundation / premium runtime integration.** A real Android Compose module now provides the first production-facing premium presentation surface with adaptive Compact/Medium/Expanded layouts, safe-drawing insets and semantic interaction states. Canonical gameplay remains separate. Android runtime integration with the real `SessionPresenter`, physical device QA, production locale coverage, APK/AAB and store release remain open.
+**General execution plan approved; Block 1 is the active workstream.** The project proceeds strictly block-by-block. Design is preserved and intentionally deferred until the real gameplay/runtime exists, then P1–P25 will be taken to real 100% with implementation and evidence.
+
+## Approved General Plan — 25 Blocks
+1. **Production Data Schema** → 100%
+2. **Decision Engine / Application Runtime** → 100%
+3. **Real Reachability / Causal Graph QA** → 100%
+4. **Production Content E01–E272** → 100%
+5. **Persistence / Save / Load / Resume** → 100%
+6. **Real GameSession → Presentation Bridge** → 100%
+7. **UI/UX Runtime** → 100%
+8. **All Gameplay States** → 100%
+9. **Android Runtime** → 100%
+10. **Localization 20+** → 100%
+11. **RTL / Large Text / Accessibility** → 100%
+12. **Responsive / Safe Areas / Devices** → 100%
+13. **Premium Design P1–P25** → 100%
+14. **Motion / Audio / Haptics** → 100%
+15. **Cross-Screen Visual Regression** → 100%
+16. **Automated QA** → 100%
+17. **Performance / Stability / Offline QA** → 100%
+18. **Security / Production Hardening** → 100%
+19. **APK Debug / QA Build** → 100%
+20. **Release APK / AAB** → 100%
+21. **Final Device QA** → 100%
+22. **Store Preparation** → 100%
+23. **Final Release Gate** → 100%
+24. **GitHub / Documentation / Recovery** → 100%
+25. **RELEASE** → 100%
+
+Execution order is strictly **1 → 2 → 3 → ... → 25**. A block is not considered complete from documentation alone; completion requires implementation, integration and applicable verification/evidence.
 
 ## Evidence
 - `androidApp/` contains the first real Android Compose application module.
