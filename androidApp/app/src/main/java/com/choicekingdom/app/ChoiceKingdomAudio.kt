@@ -72,7 +72,7 @@ class ChoiceKingdomAudio(private val context: Context) : AutoCloseable {
             val id = resources.getIdentifier(name, "raw", packageName)
             if (id != 0) soundIds[name] = soundPool.load(context, id, 1)
         }
-        soundPool.setOnLoadCompleteListener { _, _, status -> if (status == 0) { pendingLoads -= 1; if (pendingLoads <= 0) soundsReady = true } }
+        soundPool.setOnLoadCompleteListener { _, _, status -> if (status == 0) { pendingLoads -= 1; if (pendingLoads <= 0) { soundsReady = true; startAmbient() } } }
     }
 
     fun setAmbientVolume(value: Float) {
@@ -84,7 +84,7 @@ class ChoiceKingdomAudio(private val context: Context) : AutoCloseable {
     fun startAmbient() {
         if (!foreground || muted || ambientVolume <= 0f || !soundsReady || ambientStreamId != 0) return
         val id = soundIds["ambient_avelune"] ?: return
-        if (!requestFocus()) return
+        if (!requestFocus(permanent = true)) return
         ambientStreamId = soundPool.play(id, ambientVolume * volume, ambientVolume * volume, 0, -1, 1f)
     }
 
@@ -111,7 +111,10 @@ class ChoiceKingdomAudio(private val context: Context) : AutoCloseable {
         if (foreground && !muted && volume > 0f && soundsReady) {
             val id = soundIds[name]
             if (id != null) {
-                if (requestFocus()) soundPool.play(id, volume, volume, 1, 0, 1f)
+                if (requestFocus()) {
+                    soundPool.play(id, volume, volume, 1, 0, 1f)
+                    mainHandler.postDelayed({ abandonFocus() }, durationMs.toLong() + 40L)
+                }
                 return
             }
         }
@@ -130,14 +133,14 @@ class ChoiceKingdomAudio(private val context: Context) : AutoCloseable {
         focusGranted = false
     }
 
-    private fun requestFocus(): Boolean {
+    private fun requestFocus(permanent: Boolean = false): Boolean {
         if (focusGranted) return true
         val attributes = AudioAttributes.Builder()
             .setUsage(AudioAttributes.USAGE_GAME)
             .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
             .build()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val request = AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
+            val request = AudioFocusRequest.Builder(if (permanent) AudioManager.AUDIOFOCUS_GAIN else AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
                 .setAudioAttributes(attributes)
                 .setOnAudioFocusChangeListener { change ->
                     if (change == AudioManager.AUDIOFOCUS_LOSS || change == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT) {
@@ -161,7 +164,7 @@ class ChoiceKingdomAudio(private val context: Context) : AutoCloseable {
                 }
             },
             AudioManager.STREAM_MUSIC,
-            AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK,
+            if (permanent) AudioManager.AUDIOFOCUS_GAIN else AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK,
         ) == AudioManager.AUDIOFOCUS_REQUEST_GRANTED
         return focusGranted
     }
