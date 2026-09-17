@@ -1,6 +1,6 @@
 # Choice Kingdom — Design Vercel Prototype Progress V1
 
-Updated after autonomous authored-art integration and regression-gate hardening on 2026-09-17.
+Updated after autonomous runtime QA hardening on 2026-09-17.
 
 ## D1–D22 design contract
 
@@ -24,12 +24,12 @@ Updated after autonomous authored-art integration and regression-gate hardening 
 | V12 Responsive / RTL / Large text | 100% | mobile-first CSS and state controls |
 | V13 Motion / Feedback | 100% | screen entrance, hover/selection, focus-visible, reduced-motion handling |
 | V14 Cross-screen Integration | 100% | event → consequence → evidence → ending carries the selected decision into Realm, People, History and Ending; state persists locally |
-| V15 Mobile Visual QA | 85% | regression matrix covers 360x800, 412x915, 412x1000 and 1440x900; workflow was hardened to reference only repository-existing preview surfaces |
+| V15 Mobile Visual QA | 85% | four required viewport sizes are registered; executable regression is still awaiting a verified GREEN run |
 | V16 Vercel Build Configuration | 100% | static prototype structure plus explicit `vercel.json` asset delivery policy |
 | V17 Actual Vercel Deployment | 0% | no verified published deployment yet |
 | V18 Published Prototype QA | 0% | blocked until V17 is verified |
 
-**Executable prototype tracker: ~82.8% by the current block-weighted arithmetic average.** V2 is intentionally not inflated until the regression gate passes.
+**Executable prototype tracker: ~82.8% by the current block-weighted arithmetic average.** V2 and V15 are intentionally not inflated until executable regression evidence exists.
 
 ## Latest autonomous implementation
 
@@ -45,11 +45,13 @@ Five project-authored SVG assets are wired into the executable main flow and hav
 
 ### Regression gate hardening
 
-The first matrix definition referenced several historical preview filenames that are not present in the current `web-preview` tree. The workflow has now been corrected to test only repository-existing surfaces: `index.html`, `game-flow.html`, `artwork-preview.html`, `design-art-direction.html`, `design-asset-production.html`, `design-accessibility-final.html`, and `design-character-faction-final.html`. This prevents false failures caused by stale test inventory.
+The visual regression workflow tests only repository-existing preview surfaces, four required viewport sizes, and all five authored SVG assets. It now also waits for the preview HTTP server to become reachable before starting Playwright. 
 
-The gate still checks four viewport sizes and verifies all five authored SVG assets return successfully. It records screenshots and a machine-readable manifest as workflow artifacts. fileciteturn62file0L2-L6
+The runtime gate additionally records and fails on uncaught page errors, browser `console.error` events, failed network requests, and broken images. Screenshots and a machine-readable `manifest.json` remain workflow artifacts.
 
-The repository's canonical graph workflow for checkpoint `306985272df9eb30c0e4667c3fbde50908941677` completed successfully; this validates the repository's existing architecture contracts, but it is **not** being treated as the visual regression result. fileciteturn64file0L2-L2
+### Runtime QA contract
+
+`docs/DESIGN_RUNTIME_QA_CONTRACT_V1.md` now defines the auditable rules for document integrity, browser runtime integrity, authored artwork integrity, responsive evidence, accessibility presentation, and state continuity. This prevents visual completeness from being counted while browser runtime defects remain.
 
 ### Vercel delivery preparation
 
@@ -66,9 +68,9 @@ The repository's canonical graph workflow for checkpoint `306985272df9eb30c0e466
 
 ## Next autonomous sequence
 
-1. Let the corrected regression workflow execute from the latest push.
-2. Inspect its jobs and artifacts; if any concrete failure appears, fix it immediately and commit the next checkpoint.
-3. If the visual gate is GREEN, close V2 and recalculate the tracker.
-4. Continue V15 hardening and deployment readiness.
+1. Inspect the latest visual regression execution/status.
+2. If RED, fix the concrete browser/design defect and commit a new checkpoint.
+3. If GREEN, close V2 and V15 using the recorded evidence and recalculate the tracker.
+4. Continue visual polish and deployment readiness checks.
 5. Verify actual Vercel deployment when a deployment mechanism produces a real URL.
 6. Run published-deployment QA and close V18 only with evidence.
