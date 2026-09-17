@@ -1,0 +1,28 @@
+from pathlib import Path
+import json
+
+ROOT = Path(__file__).resolve().parents[1]
+MAIN = ROOT / "androidApp/app/src/main/java/com/choicekingdom/app/MainActivity.kt"
+THEME = ROOT / "androidApp/app/src/main/java/com/choicekingdom/app/PremiumTheme.kt"
+MANIFEST = ROOT / "tests/visual_regression_baseline.json"
+
+def test_visual_regression_manifest_matches_runtime_surfaces():
+    data = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    main = MAIN.read_text(encoding="utf-8")
+    for surface in data["surfaces"]:
+        assert f"private fun {surface}(" in main
+    assert "WindowMode.COMPACT" in main
+    assert "WindowMode.MEDIUM" in main
+    assert "WindowMode.EXPANDED" in main
+
+def test_visual_regression_manifest_matches_theme_contract():
+    data = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    theme = THEME.read_text(encoding="utf-8")
+    for token in data["requiredTheme"]:
+        assert f"{token} =" in theme
+    assert "darkColorScheme" in theme
+
+def test_visual_regression_baseline_requires_approved_references():
+    data = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    assert data["baselinePolicy"] == "approved-reference-required"
+    assert data["physicalDeviceValidationBlock"] == 21
