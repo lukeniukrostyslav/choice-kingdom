@@ -1,6 +1,7 @@
 name: Android production runtime
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - "androidApp/**"
