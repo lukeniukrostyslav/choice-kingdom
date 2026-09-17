@@ -79,3 +79,40 @@ def test_ending_source_facts_are_derived_from_live_state():
     assert "pred.constitutional_prepared_strong" in facts.predicates
     assert "pred.systemic_explanation_verified" in facts.predicates
     assert "pred.coalition_cooperation" in facts.predicates
+
+
+def test_session_delayed_target_seam_updates_view_and_preserves_canonical_lifecycle():
+    session = GameSession.new(ROOT, "session-delay")
+    session.state.resources.update({name: 100 for name in session.state.resources})
+    session.state.relationships.update({name: 3 for name in session.state.relationships})
+    session.state.flags.update({"merchant_charter", "competitive_market"})
+    session.state.current_event_id = "E18"
+    session.select_event("E18")
+    session.choose("E18-B")
+
+    key = "delay.E18B.E243.old_bridge"
+    delay = session.state.pending_delays[key]
+    session.state.turn = delay.scheduled_turn
+    result = session.execute_delayed_target(key, "E243-A")
+
+    assert result.event_id == "E243"
+    assert session.view().event_id == "E243"
+    assert session.state.pending_delays[key].status == "resolved"
+    assert "E243" in session.state.history
+
+
+def test_session_replay_boundary_starts_clean_run_with_only_canonical_meta():
+    completed = GameSession.new(ROOT, "completed-run")
+    completed.state.terminal = True
+    completed.state.flags.add("crown_audited")
+    export = completed.export_replay()
+
+    replay = GameSession.new_replay(ROOT, "replay-run", export)
+
+    assert replay.state.run_id == "replay-run"
+    assert replay.state.terminal is False
+    assert replay.state.current_event_id == "E01"
+    assert replay.state.turn == 1
+    assert replay.state.history == set()
+    assert replay.state.flags == {"crown_audited"}
+    assert replay.view().event_id == "E01"
