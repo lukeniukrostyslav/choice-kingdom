@@ -87,9 +87,13 @@ class GameSession:
         )
 
     def available_events(self) -> tuple[str, ...]:
+        if self.state.terminal:
+            return ()
         return tuple(event.event_id for event in self.engine.available(self.state))
 
     def available_choices(self) -> tuple[str, ...]:
+        if self.state.terminal:
+            return ()
         return tuple(choice.choice_id for choice in self.engine.event(self._selected_event_id).choices)
 
     def choose(self, choice_id: str) -> ExecutionResult:
