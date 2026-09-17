@@ -1,6 +1,6 @@
 # Choice Kingdom — Premium Design P6 Choice Experience QA v1
 
-Status: **P6 VISUAL + RUNTIME STATE PROOF — 30%**
+Status: **P6 VISUAL + RUNTIME STATE PROOF — 35%**
 
 Date: 2026-09-17
 
@@ -16,8 +16,9 @@ Date: 2026-09-17
 - Choice is the dominant visual action surface.
 - Two decision options have distinct action labels and trade-off descriptions.
 - Choice targets are comfortably above the project minimum interactive target and use a preferred large decision surface.
-- Idle and selected states are explicit through semantic selection state and visible structural treatment.
-- Focused and resolving interaction states are represented by the canonical presentation layer.
+- Idle, focused, selected, and pressed states are explicit visual states.
+- Runtime `FOCUSED`, `PRESSED`, and `RESOLVING` states are now distinct rather than collapsing press directly into resolving.
+- Focus/press/begin transitions do not mutate the gameplay snapshot.
 - Terminal-session choices are explicitly projected as disabled rather than silently disappearing.
 - Resolved state is represented after canonical `GameSession.choose()` returns successfully.
 - Error state is represented at the presentation boundary without converting an engine exception into a gameplay outcome; the original failure remains raised to the caller.
@@ -30,7 +31,7 @@ Date: 2026-09-17
 - Reduced-motion preview removes transition behavior.
 - Small-width layout collapses detail panels and preserves choice hierarchy.
 - The runtime presenter remains a presentation layer over `GameSession`; it does not calculate gameplay effects or routing.
-- Regression coverage verifies focus/press do not mutate the gameplay snapshot and verifies the disabled terminal projection.
+- Regression coverage verifies focus/press/begin do not mutate the gameplay snapshot and verifies the disabled terminal projection.
 - No canonical IDs, factions, relationships, or gameplay effects are invented by the visual proof.
 
 ## Remaining P6 gates
@@ -45,4 +46,4 @@ Date: 2026-09-17
 
 ## Percentage rule
 
-P6 is **30%**: the choice surface now has a broader visual state-family proof and the presentation layer exposes focused, resolving, resolved, disabled and error states against the canonical `GameSession` boundary, with regression coverage. Full catalog coverage, final artwork, localization, Android and rendered/device validation remain open.
+P6 is **35%**: the choice surface now has an explicit visual state family and the runtime presentation layer distinguishes focused, pressed and resolving states without gameplay mutation, with regression coverage. Full catalog coverage, final artwork, localization, Android and rendered/device validation remain open.
