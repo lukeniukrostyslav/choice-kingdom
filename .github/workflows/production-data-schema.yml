@@ -11,8 +11,10 @@ on:
       - 'runtime/state.py'
       - 'tools/validate_production_data_schema.py'
       - 'tools/validate_production_catalog.py'
+      - 'tools/validate_production_content.py'
       - 'tests/test_production_data_schema.py'
       - 'tests/test_production_catalog.py'
+      - 'tests/test_production_content.py'
       - '.github/workflows/production-data-schema.yml'
   pull_request:
     paths:
@@ -23,8 +25,10 @@ on:
       - 'runtime/state.py'
       - 'tools/validate_production_data_schema.py'
       - 'tools/validate_production_catalog.py'
+      - 'tools/validate_production_content.py'
       - 'tests/test_production_data_schema.py'
       - 'tests/test_production_catalog.py'
+      - 'tests/test_production_content.py'
       - '.github/workflows/production-data-schema.yml'
 
 jobs:
@@ -38,7 +42,9 @@ jobs:
       - run: python -m pip install --upgrade pip pytest
       - name: Validate production catalog
         run: python tools/validate_production_catalog.py
+      - name: Validate production content integrity
+        run: python tools/validate_production_content.py
       - name: Validate production data schema
         run: python tools/validate_production_data_schema.py
-      - name: Run production catalog and schema tests
-        run: python -m pytest -q tests/test_production_catalog.py tests/test_production_data_schema.py
+      - name: Run production catalog/content/schema tests
+        run: python -m pytest -q tests/test_production_catalog.py tests/test_production_content.py tests/test_production_data_schema.py
