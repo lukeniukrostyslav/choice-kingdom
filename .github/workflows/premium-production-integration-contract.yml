@@ -1,0 +1,31 @@
+name: Premium Production Integration Contract
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'runtime/presentation.py'
+      - 'runtime/session.py'
+      - 'design-preview/premium-design-system-v2.html'
+      - 'docs/DESIGN_TOKENS_V2.json'
+      - 'tools/verify_premium_production_integration.py'
+      - '.github/workflows/premium-production-integration-contract.yml'
+  pull_request:
+    paths:
+      - 'runtime/presentation.py'
+      - 'runtime/session.py'
+      - 'design-preview/premium-design-system-v2.html'
+      - 'docs/DESIGN_TOKENS_V2.json'
+      - 'tools/verify_premium_production_integration.py'
+      - '.github/workflows/premium-production-integration-contract.yml'
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Verify production-facing design contract
+        run: python tools/verify_premium_production_integration.py
