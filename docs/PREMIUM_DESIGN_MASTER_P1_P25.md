@@ -49,7 +49,7 @@ Current platform guidance reinforces cohesive visual language, clear hierarchy, 
 - Choice presentation remains transient until commitment; the slice explicitly separates selection from the consequence presentation and keeps the causal sequence visible.
 - The slice demonstrates the intended premium hierarchy: focal art zone → authored situation → resource snapshot → opposing choices → immediate consequence → delayed consequence → realm pulse → decision memory.
 - The slice is presentation proof, not a replacement for canonical gameplay runtime or physical-device QA.
-- Android guidance was refreshed for this increment: current guidance emphasizes adaptive layouts, safe insets, visible/interactable controls during configuration changes, and preservation of state across window resizing and form-factor changes. citeturn0search1turn0search2turn0search6
+- Android guidance was refreshed for this increment: current guidance emphasizes adaptive layouts, safe insets, visible/interactable controls during configuration changes, and preservation of state across window resizing and form-factor changes. Source: Android Developers adaptive-app and system-bar guidance, reviewed 17 September 2026.
 
 ## Production-facing integration evidence
 
