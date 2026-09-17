@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -24,7 +25,6 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -35,9 +35,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -54,6 +56,7 @@ import androidx.compose.ui.unit.sp
 
 private enum class WindowMode { COMPACT, MEDIUM, EXPANDED }
 private data class AndroidScreenState(val title: String, val subtitle: String)
+
 private val screens = listOf(
     AndroidScreenState("Event", "Make the choice that shapes Avelune"),
     AndroidScreenState("Realm", "See the kingdom at a glance"),
@@ -73,9 +76,30 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun ChoiceKingdomApp() {
-    var selectedScreen by remember { mutableStateOf("Event") }
+    var selectedScreen by rememberSaveable { mutableStateOf("Event") }
     var selectedChoiceId by remember { mutableStateOf<String?>(null) }
-    val presentation = remember { AndroidPresentationPort.fromSnapshot(sampleProjection()) }
+    var resolvingChoiceId by remember { mutableStateOf<String?>(null) }
+    var projection by remember { mutableStateOf<AndroidEventProjection?>(null) }
+    var errorMessage by remember { mutableStateOf<String?>(null) }
+    val runtime = remember { CanonicalAndroidRuntime(androidx.compose.ui.platform.LocalContext.current) }
+
+    DisposableEffect(runtime) {
+        runtime.start(
+            runId = "android-production-${System.currentTimeMillis()}",
+            onProjection = {
+                projection = it
+                selectedChoiceId = null
+                resolvingChoiceId = null
+                errorMessage = null
+            },
+            onError = {
+                resolvingChoiceId = null
+                errorMessage = it.message ?: it.javaClass.simpleName
+            },
+        )
+        onDispose { runtime.close() }
+    }
+
     ChoiceKingdomTheme {
         Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
             BoxWithConstraints(
@@ -88,40 +112,74 @@ private fun ChoiceKingdomApp() {
                     maxWidth < 840.dp -> WindowMode.MEDIUM
                     else -> WindowMode.EXPANDED
                 }
-                AdaptiveJourney(
-                    mode = mode,
-                    selectedScreen = screens.first { it.title == selectedScreen },
-                    selectedChoiceId = selectedChoiceId,
-                    presentation = presentation,
-                    onScreenSelected = {
-                        selectedScreen = it
-                        selectedChoiceId = null
-                    },
-                    onChoiceSelected = { selectedChoiceId = it },
-                )
+                if (projection == null) {
+                    LoadingScreen(errorMessage)
+                } else {
+                    AdaptiveJourney(
+                        mode = mode,
+                        selectedScreen = screens.first { it.title == selectedScreen },
+                        snapshot = projection!!,
+                        selectedChoiceId = selectedChoiceId,
+                        resolvingChoiceId = resolvingChoiceId,
+                        errorMessage = errorMessage,
+                        onScreenSelected = {
+                            selectedScreen = it
+                            selectedChoiceId = null
+                            resolvingChoiceId = null
+                            errorMessage = null
+                        },
+                        onChoiceSelected = { choiceId ->
+                            if (resolvingChoiceId == null) {
+                                selectedChoiceId = choiceId
+                                resolvingChoiceId = choiceId
+                                runtime.choose(
+                                    choiceId = choiceId,
+                                    onProjection = {
+                                        projection = it
+                                        selectedChoiceId = null
+                                        resolvingChoiceId = null
+                                        errorMessage = null
+                                    },
+                                    onError = {
+                                        resolvingChoiceId = null
+                                        errorMessage = it.message ?: it.javaClass.simpleName
+                                    },
+                                )
+                            }
+                        },
+                    )
+                }
             }
         }
     }
 }
 
-private fun sampleProjection(): AndroidEventProjection = AndroidEventProjection(
-    eventId = "E01-A",
-    title = "The First Choice",
-    turn = 1,
-    choices = listOf(
-        AndroidChoice("E01-A-C1", "Approach", "Step toward the stranger.", "idle"),
-        AndroidChoice("E01-A-C2", "Wait", "Watch before revealing your intent.", "idle"),
-        AndroidChoice("E01-A-C3", "Leave", "Walk away while the road is clear.", "idle"),
-    ),
-    terminal = false,
-)
+@Composable
+private fun LoadingScreen(errorMessage: String?) {
+    Column(
+        modifier = Modifier.fillMaxSize().padding(24.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Text("AVELUNE", color = MaterialTheme.colorScheme.primary, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+        Text("Preparing your journey", fontSize = 28.sp, fontWeight = FontWeight.SemiBold)
+        Text(
+            errorMessage ?: "Starting the canonical offline runtime…",
+            modifier = Modifier.padding(top = 10.dp),
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center,
+        )
+    }
+}
 
 @Composable
 private fun AdaptiveJourney(
     mode: WindowMode,
     selectedScreen: AndroidScreenState,
+    snapshot: AndroidEventProjection,
     selectedChoiceId: String?,
-    presentation: AndroidPresentationPort,
+    resolvingChoiceId: String?,
+    errorMessage: String?,
     onScreenSelected: (String) -> Unit,
     onChoiceSelected: (String) -> Unit,
 ) {
@@ -147,15 +205,17 @@ private fun AdaptiveJourney(
         ) {
             NavigationRail(onScreenSelected, Modifier.width(220.dp))
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.TopCenter) {
-                JourneyContent(selectedScreen, selectedChoiceId, presentation, titleSize, contentWidth, onChoiceSelected)
+                JourneyContent(selectedScreen, snapshot, selectedChoiceId, resolvingChoiceId, errorMessage, titleSize, contentWidth, onChoiceSelected)
             }
         }
     } else {
         Column(modifier = Modifier.fillMaxSize()) {
             JourneyContent(
                 selectedScreen,
+                snapshot,
                 selectedChoiceId,
-                presentation,
+                resolvingChoiceId,
+                errorMessage,
                 titleSize,
                 Modifier.weight(1f).padding(horizontal = horizontal),
                 onChoiceSelected,
@@ -168,13 +228,14 @@ private fun AdaptiveJourney(
 @Composable
 private fun JourneyContent(
     screen: AndroidScreenState,
+    snapshot: AndroidEventProjection,
     selectedChoiceId: String?,
-    presentation: AndroidPresentationPort,
+    resolvingChoiceId: String?,
+    errorMessage: String?,
     titleSize: TextUnit,
     modifier: Modifier,
     onChoiceSelected: (String) -> Unit,
 ) {
-    val snapshot = presentation.snapshot()
     LazyColumn(
         modifier = modifier,
         contentPadding = PaddingValues(top = 18.dp, bottom = 32.dp),
@@ -182,17 +243,24 @@ private fun JourneyContent(
     ) {
         item { Header(snapshot.turn, titleSize) }
         item { HeroCard(screen, snapshot) }
+        if (errorMessage != null) item { ErrorCard(errorMessage) }
         when (screen.title) {
             "Event" -> {
                 item { SectionLabel("YOUR DECISION") }
                 items(snapshot.choices, key = { it.id }) { choice ->
-                    ChoiceCard(choice, selectedChoiceId == choice.id, onChoiceSelected)
+                    ChoiceCard(
+                        choice = choice,
+                        selected = selectedChoiceId == choice.id,
+                        resolving = resolvingChoiceId == choice.id,
+                        disabledByResolution = resolvingChoiceId != null && resolvingChoiceId != choice.id,
+                        onChoiceSelected = onChoiceSelected,
+                    )
                 }
             }
             "Realm" -> item { InfoGrid(listOf("Gold" to "120", "Trust" to "64", "Security" to "51", "Power" to "43")) }
-            "History" -> item { TimelineCard(snapshot.eventId, "The journey begins", "Turn ${snapshot.turn} · ${snapshot.title}") }
+            "History" -> item { TimelineCard(snapshot.eventId, "The journey continues", "Turn ${snapshot.turn} · ${snapshot.title}") }
             "People" -> item { InfoGrid(listOf("Mara" to "Known", "Rowan" to "Unknown", "Seris" to "Unknown", "Ivo" to "Unknown")) }
-            "Investigation" -> item { TimelineCard("THREAD 01", "The stranger on the road", "No conclusion yet · keep watching") }
+            "Investigation" -> item { TimelineCard("THREAD 01", "The stranger on the road", "Follow the evidence through the canonical session.") }
             "Ending" -> item { EndingCard(snapshot.terminal) }
             "Settings" -> item { SettingsCard() }
         }
@@ -235,9 +303,25 @@ private fun SectionLabel(text: String) {
 }
 
 @Composable
-private fun ChoiceCard(choice: AndroidChoice, selected: Boolean, onChoiceSelected: (String) -> Unit) {
-    val enabled = choice.state != "disabled"
-    val state = if (selected) "Selected" else "Available"
+private fun ErrorCard(message: String) {
+    TimelineCard("RUNTIME ERROR", "The journey is safe", message)
+}
+
+@Composable
+private fun ChoiceCard(
+    choice: AndroidChoice,
+    selected: Boolean,
+    resolving: Boolean,
+    disabledByResolution: Boolean,
+    onChoiceSelected: (String) -> Unit,
+) {
+    val enabled = choice.state != "disabled" && !disabledByResolution && !resolving
+    val state = when {
+        resolving -> "Resolving"
+        selected -> "Selected"
+        !enabled -> "Blocked"
+        else -> "Available"
+    }
     Button(
         onClick = { onChoiceSelected(choice.id) },
         enabled = enabled,
@@ -250,9 +334,9 @@ private fun ChoiceCard(choice: AndroidChoice, selected: Boolean, onChoiceSelecte
                 stateDescription = state
             },
         shape = RoundedCornerShape(22.dp),
-        border = BorderStroke(1.dp, if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant),
+        border = BorderStroke(1.dp, if (selected || resolving) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant),
         colors = ButtonDefaults.buttonColors(
-            containerColor = if (selected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface,
+            containerColor = if (selected || resolving) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface,
             contentColor = MaterialTheme.colorScheme.onSurface,
             disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant,
         ),
@@ -261,7 +345,7 @@ private fun ChoiceCard(choice: AndroidChoice, selected: Boolean, onChoiceSelecte
         Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                 Text(choice.label, fontWeight = FontWeight.SemiBold, fontSize = 16.sp)
-                Text(if (selected) "SELECTED" else "CHOOSE", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
+                Text(state.uppercase(), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
             }
             Text(choice.text, textAlign = TextAlign.Start, modifier = Modifier.fillMaxWidth(), fontSize = 14.sp, lineHeight = 20.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
@@ -300,7 +384,7 @@ private fun TimelineCard(kicker: String, title: String, detail: String) {
 
 @Composable
 private fun EndingCard(terminal: Boolean) {
-    TimelineCard(if (terminal) "RESOLVED" else "IN PROGRESS", if (terminal) "This journey has ended" else "Your ending is still ahead", "The final resolution will be presented from the canonical session state.")
+    TimelineCard(if (terminal) "RESOLVED" else "IN PROGRESS", if (terminal) "This journey has ended" else "Your ending is still ahead", "The ending state is supplied by the canonical session.")
 }
 
 @Composable
@@ -308,7 +392,7 @@ private fun SettingsCard() {
     Card(modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(22.dp), border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)) {
         Column(modifier = Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text("Presentation preferences", fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
-            Text("Large text, RTL, reduced motion and safe-area behavior are presentation concerns and remain independent from gameplay state.", fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, lineHeight = 21.sp)
+            Text("Accessibility, RTL, large text and safe-area behavior remain presentation concerns and do not alter gameplay rules.", fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, lineHeight = 21.sp)
             TextButton(onClick = {}, modifier = Modifier.heightIn(min = 48.dp)) { Text("Accessibility-ready surface") }
         }
     }
