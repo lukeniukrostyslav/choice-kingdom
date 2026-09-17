@@ -145,8 +145,18 @@ class GameSession:
         return result
 
     def execute_next_due_delay(self, choice_id: str) -> ExecutionResult:
-        due = self.engine.activate_next_due_delay(self.state)
-        result = self.engine.execute(self.state, due.target_event_id, choice_id)
+        """Execute a due delayed target without consuming it when the choice is invalid."""
+        due = self.engine.activate_next_due_delay
+        pending = self.engine.catalog
+        delays = __import__("runtime.delays", fromlist=["due_delays"]).due_delays(self.state)
+        if not delays:
+            raise ValueError("no due delayed consequence")
+        delay = delays[0]
+        target = pending.get(delay.resolution_target)
+        if not any(choice.choice_id == choice_id for choice in target.choices):
+            raise KeyError(choice_id)
+        activated = due(self.state)
+        result = self.engine.execute(self.state, activated.target_event_id, choice_id)
         self._selected_event_id = self.state.current_event_id
         return result
 
