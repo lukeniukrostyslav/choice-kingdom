@@ -43,8 +43,8 @@ broken_refs = sorted(set(r for r in refs if not (ROOT / 'web-preview' / r).is_fi
 if broken_refs:
     raise SystemExit("Broken local artwork references:\n- " + "\n- ".join(broken_refs))
 
-if 'min-width:48px' not in text and 'min-height:48px' not in text:
-    raise SystemExit("Interactive target sizing contract is not explicit")
+if 'min-height:48px' not in text or 'min-height:56px' not in text:
+    raise SystemExit("Interactive target sizing contract is not explicit for navigation/choices")
 
 if 'aria-label="Prototype navigation"' not in text:
     raise SystemExit("Primary navigation accessibility label missing")
