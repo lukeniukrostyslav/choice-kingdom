@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Choice Kingdom — Premium Choice Lab</title>
+<style>
+:root{--bg:#0b0d12;--panel:#151923;--panel-hi:#1b202b;--ink:#f4f0e6;--muted:#aeb3c0;--gold:#d8b56a;--focus:#f0cf7a;--danger:#c97872;--success:#79b596;--line:#343a48;--radius:16px;--pad:clamp(16px,4vw,28px)}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% -15%,#2b3343 0,#11141c 44%,#090b10 100%);color:var(--ink);font-family:Georgia,'Times New Roman',serif}.shell{width:min(100%,820px);margin:auto;padding:max(18px,env(safe-area-inset-top)) var(--pad) calc(34px + env(safe-area-inset-bottom))}.kicker{font:600 .68rem system-ui;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}h1{font-size:clamp(2rem,7vw,3rem);line-height:1.03;margin:.45rem 0 .8rem}.lede{max-width:62ch;color:#d8dbe2;line-height:1.55;margin:0}.legend{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0}.legend span{border:1px solid var(--line);border-radius:999px;padding:6px 9px;color:var(--muted);font:600 .68rem system-ui}.grid{display:grid;gap:12px}.choice{position:relative;min-height:104px;width:100%;padding:17px 18px;border:1px solid #465061;border-radius:var(--radius);background:linear-gradient(180deg,var(--panel-hi),var(--panel));color:var(--ink);text-align:left;cursor:pointer;box-shadow:0 10px 26px #0005}.choice:focus-visible{outline:3px solid var(--focus);outline-offset:3px}.choice .state{display:block;font:700 .63rem system-ui;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}.choice strong{display:block;font-size:1.05rem;line-height:1.3}.choice small{display:block;color:#bfc4cf;font:.78rem/1.45 system-ui;margin-top:7px}.choice:hover{border-color:#697487;transform:translateY(-1px)}.choice:active{transform:translateY(1px)}.choice.selected{border-color:var(--gold);box-shadow:0 0 0 1px #d8b56a44,0 12px 30px #0007}.choice.selected:after{content:'✓';position:absolute;right:16px;top:15px;color:var(--gold);font:700 1rem system-ui}.choice.blocked{opacity:.58;cursor:not-allowed;background:#14171e}.choice.blocked:after{content:'Blocked';position:absolute;right:15px;top:15px;color:#d8a39e;font:700 .63rem system-ui;letter-spacing:.08em;text-transform:uppercase}.choice.pending{border-color:#6a5e3c;background:linear-gradient(180deg,#27261f,#191a18)}.choice.pending .state{color:var(--gold)}.choice.resolved{border-color:#4b705e;background:linear-gradient(180deg,#1d2a25,#171f1c)}.choice.resolved .state{color:var(--success)}.choice.danger{border-color:#65413f}.choice.danger .state{color:var(--danger)}.proof{margin-top:22px;padding:14px;border:1px solid var(--line);border-radius:14px;background:#11141a}.proof strong{display:block;margin-bottom:6px}.proof p{margin:0;color:var(--muted);font:.78rem/1.5 system-ui}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@media(min-width:680px){.grid{grid-template-columns:1fr 1fr}.grid .choice:first-child{grid-column:1/-1}}
+@media(prefers-reduced-motion:reduce){.choice{transition:none!important}.choice:hover,.choice:active{transform:none}}
+@media(max-width:430px){.choice{min-height:96px;padding:15px}.choice small{max-width:34ch}}
+</style>
+</head>
+<body>
+<main class="shell">
+<div class="kicker">Choice Kingdom · P6 visual contract</div>
+<h1>The Gate at Dawn</h1>
+<p class="lede">A focused proof surface for the decision moment. The choice itself is the hero; metadata explains consequence without competing with the narrative.</p>
+<div class="legend" aria-label="States covered"><span>DEFAULT</span><span>FOCUS</span><span>SELECTED</span><span>BLOCKED</span><span>PENDING</span><span>RESOLVED</span><span>RISK</span></div>
+<section class="grid" aria-label="Choice state gallery">
+<button class="choice" type="button"><span class="state">Default</span><strong>Open the eastern gate under guard</strong><small>Immediate · −8 gold · +6 trust</small></button>
+<button class="choice selected" type="button" aria-pressed="true"><span class="state">Selected</span><strong>Open the eastern gate under guard</strong><small>Selected · awaiting confirmation</small></button>
+<button class="choice blocked" type="button" disabled aria-disabled="true"><span class="state">Blocked</span><strong>Open the gate without guards</strong><small>Requires Security 60 · current 48</small></button>
+<button class="choice pending" type="button" aria-busy="true"><span class="state">Pending consequence</span><strong>Ask the guild to supply the escort</strong><small>Resolves after the next council turn</small></button>
+<button class="choice resolved" type="button"><span class="state">Resolved</span><strong>Open the gate under guard</strong><small>Applied · −8 gold · +6 trust</small></button>
+<button class="choice danger" type="button"><span class="state">High risk</span><strong>Open the gate without inspection</strong><small>Potential · +12 trade · elevated smuggling risk</small></button>
+</section>
+<section class="proof" aria-label="Accessibility proof"><strong>Accessibility contract</strong><p>All states remain keyboard-focusable when actionable, blocked actions expose disabled semantics, focus uses a high-contrast outline, labels use text in addition to color, targets exceed the 48px minimum height, and reduced-motion users receive no transform-based interaction cue.</p></section>
+<section class="proof"><strong>Premium composition rule</strong><p>One dominant action surface, restrained ornament, semantic state language, consequence preview below the action label, and no competitor-specific art, branding, or proprietary layout.</p></section>
+</main>
+</body>
+</html>
