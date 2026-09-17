@@ -19,13 +19,17 @@ def test_event_choice_host_renders_authored_event_and_choices() -> None:
     assert screen.can_interact is True
 
 
-def test_event_choice_host_maps_focus_and_press_without_mutating_gameplay() -> None:
+def test_event_choice_host_maps_focus_selection_press_and_resolving_without_mutation() -> None:
     presenter = SessionPresenter(GameSession.new(ROOT, "event-screen-interaction"))
     host = EventChoiceHost(presenter)
     before = presenter.session.snapshot_digest()
     focused = host.focus("E01-A")
     assert focused.session.choices[0].state is InteractionState.FOCUSED
     assert focused.selected_choice_id == "E01-A"
+    assert presenter.session.snapshot_digest() == before
+    selected = host.select("E01-A")
+    assert selected.session.choices[0].state is InteractionState.SELECTED
+    assert selected.selected_choice_id == "E01-A"
     assert presenter.session.snapshot_digest() == before
     pressed = host.press("E01-A")
     assert pressed.session.choices[0].state is InteractionState.PRESSED
