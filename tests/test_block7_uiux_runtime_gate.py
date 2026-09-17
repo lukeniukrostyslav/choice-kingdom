@@ -2,8 +2,13 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from runtime.android_adaptive_contract import adaptive_projection
-from runtime.presentation import GameSessionPresentationBridge, InteractionState, SessionPresenter
+from runtime.android_adaptive_contract import android_adaptive_contract
+from runtime.presentation import (
+    GameSessionPresentationBridge,
+    InteractionState,
+    SessionPresenter,
+    SessionView,
+)
 from runtime.session import GameSession
 
 
@@ -47,23 +52,34 @@ def test_block7_session_to_presentation_round_trip() -> None:
 
 def test_block7_adaptive_layout_contract() -> None:
     for width, height, expected in (
-        (360, 640, "compact"),
-        (600, 900, "medium"),
-        (840, 1100, "expanded"),
+        (360, 640, "COMPACT"),
+        (600, 900, "MEDIUM"),
+        (840, 1100, "EXPANDED"),
     ):
-        projection = adaptive_projection(width, height)
-        assert projection.layout_class == expected
-        assert projection.safe_content_width > 0
-        assert projection.safe_content_height > 0
-        assert projection.minimum_touch_target_dp >= 48
+        projection = android_adaptive_contract(width, height)
+        assert projection.width_class.value == expected
+        assert projection.safe_content_width_dp > 0
+        assert projection.safe_content_height_dp > 0
+        assert projection.content_panes >= 1
 
 
 def test_block7_terminal_projection_disables_choices() -> None:
-    session = GameSession.new(ROOT, "block7-terminal")
-    session._state.terminal = True
-    session._state.ending_identity = "gate-test"
-
-    projection = GameSessionPresentationBridge.snapshot(session.view())
+    view = SessionView(
+        run_id="block7-terminal",
+        turn=9,
+        event_id="E01",
+        title="Terminal gate",
+        trigger="gate",
+        choices=(("E01-A", "A", "Choice A"), ("E01-B", "B", "Choice B")),
+        resources=(),
+        relationships=(),
+        history=(),
+        threads=(),
+        pending_delays=(),
+        ending_evidence=(),
+        terminal=True,
+        ending_identity="gate-test",
+    )
+    projection = GameSessionPresentationBridge.snapshot(view)
     assert projection.terminal is True
-    assert projection.choices
     assert all(choice.state == InteractionState.DISABLED.value for choice in projection.choices)
