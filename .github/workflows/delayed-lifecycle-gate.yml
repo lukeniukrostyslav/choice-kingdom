@@ -15,6 +15,27 @@ jobs:
         run: python3 -m pip install --upgrade pytest
       - name: Execute delayed lifecycle runtime tests
         run: python3 -m pytest -q tests/test_delayed_lifecycle_runtime.py tests/test_runtime_state.py
+      - name: Verify canonical Android adapter
+        run: python3 -m pytest -q tests/test_android_runtime.py
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Set up Gradle 8.9
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.9"
+      - name: Assemble production Android debug APK
+        working-directory: androidApp
+        run: gradle :app:assembleDebug --stacktrace
+      - name: Verify APK was produced
+        working-directory: androidApp
+        run: test -s app/build/outputs/apk/debug/app-debug.apk
       - name: Upload delayed lifecycle ledger
         uses: actions/upload-artifact@v4
         with:
