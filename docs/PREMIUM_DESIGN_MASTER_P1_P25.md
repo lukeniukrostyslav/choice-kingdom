@@ -23,13 +23,13 @@ Current platform guidance reinforces cohesive visual language, clear hierarchy, 
 | P7 | Event / situation presentation | 55% | Full event surface and state variants |
 | P8 | Character presentation | 49% | Character identity, state, relationship and fallback visuals |
 | P9 | Kingdom / world presentation | 51% | Avelune world surfaces and visual continuity |
-| P10 | Resources / stats / pressure visualization | 46% | Scannable resource language and state transitions |
-| P11 | Consequences / delayed consequences | 51% | Immediate, pending, triggered and cancelled visual states |
-| P12 | History / decision memory | 46% | Timeline/history hierarchy and causal readability |
-| P13 | Relationships / character state | 43% | Relationship states and progression presentation |
-| P14 | Investigation / threads / evidence | 41% | Evidence hierarchy, discovery and unresolved states |
+| P10 | Resources / stats / pressure visualization | 49% | Scannable resource language and state transitions |
+| P11 | Consequences / delayed consequences | 54% | Immediate, pending, triggered and cancelled visual states |
+| P12 | History / decision memory | 50% | Timeline/history hierarchy and causal readability |
+| P13 | Relationships / character state | 46% | Relationship states and progression presentation |
+| P14 | Investigation / threads / evidence | 45% | Evidence hierarchy, discovery and unresolved states |
 | P15 | Crisis / high-stakes presentation | 28% | Escalation, urgency and consequence preview without clutter |
-| P16 | Endings / resolution experience | 43% | Ending identity, summary and emotional landing |
+| P16 | Endings / resolution experience | 46% | Ending identity, summary and emotional landing |
 | P17 | Replay / new-run experience | 28% | Replay motivation, continuity and clean reset semantics |
 | P18 | Main menu / launcher | 48% | Premium first impression + navigation + responsive proof |
 | P19 | Navigation / information architecture | 51% | Consistent hierarchy and low-cognitive-load navigation |
@@ -40,33 +40,35 @@ Current platform guidance reinforces cohesive visual language, clear hierarchy, 
 | P24 | Android devices / safe areas / resolution adaptation | 16% | Real Android presentation proof on target device classes |
 | P25 | Final premium polish / cross-screen QA | 27% | Full visual regression and no unresolved P1–P24 blockers |
 
-**Aggregate P1–P25 estimate after this increment: 46.84% (simple arithmetic mean of block estimates).** This is an engineering/design evidence estimate, not a commercial-readiness score.
+**Aggregate P1–P25 estimate after this increment: 47.64% (simple arithmetic mean of block estimates).** This is an engineering/design evidence estimate, not a commercial-readiness score.
 
 ## Evidence added in the current design increment
 
-- `design-preview/premium-design-system-v2.html` unifies the reusable visual system across Event, Realm, History, People/Factions, Investigation, Ending, Settings and the full decision-state matrix.
+- `runtime/session.py` now exposes canonical presentation-neutral projections for history, investigation threads, pending delayed consequences and ending evidence families directly from `GameState`.
+- `runtime/presentation.py` now converts those canonical fields into typed UI-facing `SessionPresentation` models without duplicating gameplay rules.
+- `tools/verify_premium_production_integration.py` now gates the four narrative projections in addition to the nine interaction states, seven representative screens, adaptive/accessibility modes and `GameSession` mutation boundary.
+- `tests/test_premium_presentation_projection.py` adds regression coverage for the new narrative projections and confirms transient choice states do not mutate gameplay turn state.
+- `design-preview/premium-design-system-v2.html` continues to unify the reusable visual system across Event, Realm, History, People/Factions, Investigation, Ending, Settings and the full decision-state matrix.
 - `docs/DESIGN_TOKENS_V2.json` freezes semantic colors, typography, spacing, touch targets, safe-area rules, adaptive window classes and state vocabulary in a machine-readable design contract.
-- `.github/workflows/premium-design-system-gate.yml` adds a Playwright matrix for compact/medium/expanded widths plus RTL, large-text, reduced-motion and light-theme execution.
-- `tools/verify_premium_design_system.py` provides a local static contract check for the same design-system invariants.
-- `tools/verify_premium_production_integration.py` adds a production-facing contract verifier tying the runtime presentation state vocabulary to the design-system tokens and representative screens.
-- The production integration verifier checks nine runtime interaction states, seven representative screens, adaptive/accessibility modes and the `GameSession` mutation boundary.
-- The new evidence raises P6–P14, P16, P19, P21 and P25 conservatively because the visual contract is now explicitly connected to the runtime presentation boundary; this does not close Android runtime, final-art provenance or physical-device gates.
+- `.github/workflows/premium-design-system-gate.yml` provides a Playwright matrix for compact/medium/expanded widths plus RTL, large-text, reduced-motion and light-theme execution.
+- The new evidence raises P10–P14 and P16 conservatively because those runtime narrative domains now have an explicit typed presentation bridge; this does not close Android runtime, final-art provenance or physical-device gates.
 
 ## Production-facing integration evidence
 
-The runtime already exposes a presentation-neutral `GameSession` snapshot and a `SessionPresenter` that owns transient interaction state while routing gameplay mutation back through `GameSession`. The design track now treats that seam as the authoritative bridge: visual state may describe interaction, but it must not calculate gameplay outcomes or duplicate routing rules.
+The runtime exposes a presentation-neutral `GameSession` snapshot and a `SessionPresenter` that owns transient interaction state while routing gameplay mutation back through `GameSession`. The design track treats that seam as the authoritative bridge: visual state may describe interaction, but it must not calculate gameplay outcomes or duplicate routing rules.
 
 The production integration contract covers:
 
 - Event/Choice: idle, focused, selected, pressed, resolving, resolved, disabled, blocked and error states.
 - Realm: resource presentation and pressure indicators derived from the session snapshot.
-- History: causal decision memory and consequence presentation derived from runtime state.
-- People/Factions: relationship presentation derived from runtime relationships.
-- Investigation: evidence hierarchy as a presentation concern, without inventing gameplay facts.
-- Ending: terminal/ending identity presentation derived from the session boundary.
+- History: canonical decision-memory identifiers projected from runtime history.
+- People/Factions: relationship values projected from canonical runtime relationships.
+- Investigation: canonical thread identifiers and ending-evidence families projected without inventing gameplay facts.
+- Consequences: pending delayed-consequence identity, target, status, schedule and source event are projected from runtime delay records.
+- Ending: terminal/ending identity and source-closed evidence presentation derived from the session boundary.
 - Settings: large text, reduced motion and RTL presentation modes.
 
-The new verifier is intentionally static and deterministic. It is a regression guard, not a substitute for real-device visual QA.
+The verifier is intentionally static and deterministic. It is a regression guard, not a substitute for real-device visual QA.
 
 ## Execution order
 
@@ -90,4 +92,4 @@ The new verifier is intentionally static and deterministic. It is a regression g
 
 ## Immediate next execution target
 
-Continue production-facing integration from Event/Choice into Realm, History, People, Investigation and Ending; then harden P20–P25 with motion semantics, localization/RTL stress, Android adaptation and cross-screen regression. Use fresh internet research only when a concrete design decision needs a new benchmark; do not add repetitive benchmark documents when existing evidence is sufficient.
+Continue production-facing integration from the new narrative projection bridge into actual Event, Realm, History, People, Investigation and Ending surfaces; then harden P20–P25 with motion semantics, localization/RTL stress, Android adaptation and cross-screen regression. Use fresh internet research only when a concrete design decision needs a new benchmark; do not add repetitive benchmark documents when existing evidence is sufficient.
