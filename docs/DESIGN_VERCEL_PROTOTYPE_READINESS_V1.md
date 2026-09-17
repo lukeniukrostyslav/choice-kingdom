@@ -20,18 +20,22 @@ The D1–D22 production design contract is closed at 100%. This tracker measures
 | V10 | Ending/outcome visual surface | 100% |
 | V11 | Settings/accessibility visual surface | 100% |
 | V12 | Theme, responsive, large-text and RTL review | 100% |
-| V13 | Motion/feedback presentation | 90% |
-| V14 | Cross-screen visual integration | 95% |
-| V15 | Mobile visual QA on the static preview | 85% |
+| V13 | Motion/feedback presentation | 95% |
+| V14 | Cross-screen visual integration | 97% |
+| V15 | Mobile visual QA on the static preview | 90% |
 | V16 | Vercel production build configuration | 100% |
 | V17 | Published Vercel deployment | 0% — deployment action not yet verified |
 | V18 | Published-prototype final visual QA | 0% |
 
-**Prototype tracker average: 81.67%.** This average includes V2, V17 and V18 as real remaining gates; it is intentionally not presented as the D1–D22 design percentage.
+**Prototype tracker average: 82.50%.** This average includes V2, V17 and V18 as real remaining gates; it is intentionally not presented as the D1–D22 design percentage.
 
 ## Current executable surface
 
-`web-preview/game-flow.html` now provides a clickable Event → Choice → Consequence → Investigation/Evidence → Ending flow plus Realm, Characters, History and Settings. Theme, large-text and RTL controls are interactive. Evidence confidence/source presentation and ending-state navigation are now part of the same reviewable surface.
+`web-preview/game-flow.html` provides a clickable Event → Choice → Consequence → Investigation/Evidence → Ending flow plus Realm, Characters, History and Settings. Theme, large-text and RTL controls are interactive. Evidence confidence/source presentation and ending-state navigation are part of the same reviewable surface.
+
+## Latest local QA pass
+
+The local design smoke check now validates the eight primary screens, five authored SVG assets, local artwork references, state-continuity markers, accessible skip navigation, navigation labelling, duplicate HTML IDs, reduced-motion support, and explicit interactive target sizing for navigation (48px) and choice controls (56px). The local pass is green. Browser-based visual regression is still a separate gate because the local Playwright/Chromium run has not produced a complete screenshot evidence set yet.
 
 ## Rules
 
