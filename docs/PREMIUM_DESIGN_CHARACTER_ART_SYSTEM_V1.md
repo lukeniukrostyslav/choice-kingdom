@@ -130,26 +130,32 @@ Saved:
 - eight-state expression grid;
 - compact mobile crop proof;
 - P2 character-anchor QA record;
-- **second production-anchor visual proof with explicit identity, material, lighting, crop and thumbnail checks.**
+- second production-anchor visual proof with explicit identity, material, lighting, crop and thumbnail checks;
+- **authored facial-expression study board with six controlled expression states**;
+- **authored costume/material study board covering royal silhouette and Avelune material grammar**;
+- **web-preview exposure of both new study artifacts**;
+- **P2 authored-studies QA gate with explicit blockers recorded**.
 
 Visual artifacts:
 - `docs/visual/premium-character-anchor-sheet-v1.svg`
 - `docs/visual/premium-character-production-anchor-v1.svg`
+- `docs/visual/premium-character-facial-studies-elira-v1.svg`
+- `docs/visual/premium-character-material-costume-study-elira-v1.svg`
 
 QA artifacts:
 - `docs/PREMIUM_DESIGN_P2_CHARACTER_ANCHOR_QA_V1.md`
 - `docs/PREMIUM_DESIGN_P2_PRODUCTION_ANCHOR_QA_V1.md`
+- `docs/PREMIUM_DESIGN_P2_AUTHORED_STUDIES_QA_V1.md`
 
 ## Remaining P2 work
 
-- bind the anchor to an existing canonical People character;
-- replace vector proof with authored-quality production character artwork;
-- expand expression proof to authored facial studies;
-- create costume/material closeups;
+- bind the visual anchor to a **verified existing canonical People character**; no character ID/name is to be invented;
+- replace vector proof with authored-quality final production character artwork;
 - run final visual-drift QA against the Art Bible;
-- validate actual Vercel/mobile rendering and later Android screenshots;
+- validate actual Vercel/mobile rendering at 360dp/412dp and large-text/RTL states;
+- validate later Android screenshots;
 - record production artwork provenance/licensing.
 
 ## Gate impact
 
-The second visual-proof milestone is complete. P2 advances from 20% to **30%**. No further percentage increase is allowed until the next listed evidence exists.
+The authored facial and costume/material evidence is now saved and exposed in the review surface. **P2 remains at 30%** because canonical People binding and actual rendered Vercel/mobile validation are still open, as is final production artwork/provenance. No percentage increase is claimed from documentation alone.
