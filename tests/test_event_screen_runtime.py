@@ -28,8 +28,13 @@ def test_event_choice_host_maps_focus_and_press_without_mutating_gameplay() -> N
     assert focused.selected_choice_id == "E01-A"
     assert presenter.session.snapshot_digest() == before
     pressed = host.press("E01-A")
-    assert pressed.session.choices[0].state is InteractionState.RESOLVING
+    assert pressed.session.choices[0].state is InteractionState.PRESSED
     assert pressed.selected_choice_id == "E01-A"
+    assert presenter.session.snapshot_digest() == before
+    presenter.begin_choice("E01-A")
+    resolving = host.render()
+    assert resolving.session.choices[0].state is InteractionState.RESOLVING
+    assert resolving.selected_choice_id == "E01-A"
     assert presenter.session.snapshot_digest() == before
 
 
