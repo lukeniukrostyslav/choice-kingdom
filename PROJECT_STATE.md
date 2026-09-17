@@ -4,7 +4,7 @@
 Original premium offline-first decision-and-consequence mobile game set in Avelune. Android-first, one-time purchase target €2.99–€4.99, no ads/subscription/mandatory backend for core gameplay, 20+ locales including RTL. Frozen production catalog: **E01–E272**.
 
 ## Current phase
-**Blocks 1–9 are closed at their defined boundaries. Block 10 Localization 20+ is the next active workstream.** The project proceeds strictly block-by-block. Percentages reflect implementation and available verification evidence, not documentation volume.
+**Blocks 1–9 are closed at their defined boundaries. Block 10 Localization 20+ is the active workstream at 55%.** The project proceeds strictly block-by-block. Percentages reflect implementation and available verification evidence, not documentation volume.
 
 ## Approved General Plan — 25 Blocks
 1. **Production Data Schema** → 100%
@@ -16,7 +16,7 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 7. **UI/UX Runtime** → 100%
 8. **All Gameplay States** → 100%
 9. **Android Runtime** → 100%
-10. **Localization 20+** → 0%
+10. **Localization 20+** → 55%
 11. **RTL / Large Text / Accessibility** → 0%
 12. **Responsive / Safe Areas / Devices** → 0%
 13. **Premium Design P1–P25** → 62.24%
@@ -51,6 +51,14 @@ Execution order is strictly **1 → 2 → 3 → ... → 25**. A block is not con
 - Android debug APK production-path build is GREEN on GitHub Actions run **35279790952** (commit `e2da888d324065afd03a0811e0f87c495471547a`).
 - The green gate verified: Python focused runtime tests, Java 17/Gradle 8.9 toolchain, AndroidX configuration, resource merge, Kotlin compilation, debug APK assembly, APK existence and artifact upload.
 - The Android build failures encountered while closing Block 7 were fixed in-repository: missing test dependency path, adaptive-class assertion casing, AndroidX enablement, duplicate theme resource, and Compose context access outside a composable context.
+
+## Block 10 checkpoint — IN PROGRESS
+- Added `runtime/localization.py` with a canonical 28-locale registry, English fallback, region normalization, and RTL metadata.
+- Added Android `res/xml/locales_config.xml` declaring all 28 supported locale tags for per-app language settings.
+- Added AndroidX AppCompat per-app locale switching in Settings for representative locales; application locale state is persisted by the AndroidX locale APIs.
+- Added default Android `strings.xml` resource catalog and a dedicated Block 10 GitHub Actions gate.
+- Added `tests/test_block10_localization.py` and `docs/BLOCK10_LOCALIZATION_STATUS.md`.
+- Block 10 is deliberately not marked closed: full narrative translation of E01–E272 and complete per-locale key coverage/runtime smoke tests remain required for 100%.
 
 ## Block 9 checkpoint — CLOSED
 - Android now resumes the same canonical GameSession after Activity recreation instead of starting a fresh run.
