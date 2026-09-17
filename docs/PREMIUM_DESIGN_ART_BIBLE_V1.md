@@ -1,6 +1,6 @@
 # Choice Kingdom — Avelune Premium Art Bible v1
 
-Status: **P1 IN PROGRESS — DIRECTION LOCK DRAFT**
+Status: **P1 IN PROGRESS — DIRECTION LOCK**
 
 This is the visual source of truth for the Premium Design phase. It extends the closed V1–V18 design specification; it does not replace it.
 
@@ -153,7 +153,7 @@ Therefore:
 - choice cards receive the strongest interactive emphasis;
 - decorative frames are subordinate to narrative content.
 
-This follows the project rule that UI complements rather than duplicates the game-art rendering language. Industry guidance likewise recommends separating UI visual treatment enough to preserve interaction clarity while keeping it coherent with the underlying art direction. citeturn0search0
+This follows the project rule that UI complements rather than duplicates the game-art rendering language.
 
 ## 11. Detail budget
 
@@ -181,8 +181,6 @@ QA should test:
 - silhouette readability;
 - text hierarchy;
 - crop safety.
-
-This is consistent with current game-art practice emphasizing readable focal hierarchy and testing assets at actual target size rather than only at full-resolution artwork size. citeturn0search11
 
 ## 13. Motion language
 
@@ -248,4 +246,4 @@ Required evidence before P1 = 100%:
 - visual drift checklist passes;
 - evidence is saved to GitHub.
 
-Current P1 status: **35% — direction system drafted and anchored to existing design tokens/contracts; representative visual application and inspection remain open.**
+Current P1 status: **70% — direction bible, inspectable anchor specifications, visual drift checklist, representative anchor board, Realm/Environment proof, Consequence-State proof, mobile composition proof and inspection matrix are saved. Final runtime/rendered inspection and final provenance/licensing evidence remain open.**
