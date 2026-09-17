@@ -4,6 +4,7 @@ import pytest
 
 from runtime.ending_contract import EndingQualification
 from runtime.session import GameSession
+from runtime.state import PendingDelay
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -67,7 +68,13 @@ def test_ending_boundary_is_atomic_on_invalid_qualification():
 
 def test_ending_source_facts_are_derived_from_live_state():
     session = GameSession.new(ROOT, "ending-facts")
-    session.state.flags.update({"crown_audited", "systemic_explanation_convergence", "military_red_line", "coalition_candidate_package"})
+    session.state.flags.update({
+        "crown_audited",
+        "people_charter_endorsed",
+        "army_constitution_oath",
+        "systemic_explanation_convergence",
+        "coalition_candidate_package",
+    })
     session.state.history.update({"history.house_assembly", "history.cross_faction_package", "history.guild_representation"})
     session.state.threads.add("thread.military_constitutional")
     for family in ("warehouse_or_financial", "document_or_language", "witness_or_organizational"):
@@ -138,9 +145,19 @@ def test_repeated_delayed_choice_is_atomic_when_its_key_is_already_pending():
     session.select_event("E18")
     session.choose("E18-B")
     before = session.state.snapshot()
+    delay = session.state.pending_delays["delay.E18B.E243.old_bridge"]
 
+    duplicate = PendingDelay(
+        exactly_once_key=delay.exactly_once_key,
+        source_event_id=delay.source_event_id,
+        source_choice_id=delay.source_choice_id,
+        resolution_target=delay.resolution_target,
+        scheduled_turn=delay.scheduled_turn,
+        condition_bound=delay.condition_bound,
+        priority=delay.priority,
+    )
     with pytest.raises(ValueError, match="duplicate pending delay"):
-        session.choose("E18-B")
+        session.state.schedule(duplicate)
 
     assert session.state.snapshot() == before
 
@@ -148,7 +165,7 @@ def test_repeated_delayed_choice_is_atomic_when_its_key_is_already_pending():
 def test_session_replay_boundary_starts_clean_run_with_only_canonical_meta():
     completed = GameSession.new(ROOT, "completed-run")
     completed.state.terminal = True
-    completed.state.flags.add("crown_audited")
+    completed.state.record_replay_meta("meta.replay.warehouse_investigation_unlock")
     export = completed.export_replay()
 
     replay = GameSession.new_replay(ROOT, "replay-run", export)
@@ -158,5 +175,6 @@ def test_session_replay_boundary_starts_clean_run_with_only_canonical_meta():
     assert replay.state.current_event_id == "E01"
     assert replay.state.turn == 1
     assert replay.state.history == set()
-    assert replay.state.flags == {"crown_audited"}
+    assert replay.state.flags == set()
+    assert replay.state.imported_meta_keys == {"meta.replay.warehouse_investigation_unlock"}
     assert replay.view().event_id == "E01"
