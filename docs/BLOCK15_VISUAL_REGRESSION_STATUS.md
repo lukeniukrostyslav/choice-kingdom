@@ -1,6 +1,6 @@
 # Block 15 — Cross-Screen Visual Regression
 
-Status: **IN PROGRESS — 15%**
+Status: **IN PROGRESS — 35%**
 
 ## Implemented
 
@@ -18,3 +18,20 @@ This is **not yet pixel-level screenshot validation**. No reference images are b
 The next implementation step is to introduce a supported Compose screenshot-test runner, generate real reference images, and validate diffs. Android's current documentation describes screenshot tests as rendered output compared against approved reference images and notes that the current AGP test-suite integration is experimental. citeturn0search0turn0search1
 
 Physical-device visual verification remains Block 21.
+
+
+## Screenshot engine integration — 35%
+
+- Compose screenshot testing engine 0.0.1-alpha16 is configured.
+- The Android module now has a dedicated screenshotTest source set.
+- Six deterministic visual surfaces are registered across compact, medium, and expanded widths.
+- CI can generate approved references through an explicit manual approval input.
+- Normal pushes and pull requests validate the committed references.
+- Reference generation and validation follow the Android-documented Gradle tasks.
+
+## Remaining
+
+- Generate the first real reference-image set in CI.
+- Review rendered references for unintended clipping or overflow.
+- Expand coverage to all production surfaces and Core-8 locale variants.
+- Keep physical device verification in Block 21.
