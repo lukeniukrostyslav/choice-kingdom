@@ -3,9 +3,7 @@ package com.choicekingdom.app
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -13,7 +11,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
@@ -28,9 +26,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.role
@@ -43,9 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 private enum class WindowMode { COMPACT, MEDIUM, EXPANDED }
-
 private data class AndroidScreenState(val title: String, val states: List<String>)
-
 private val screens = listOf(
     AndroidScreenState("Event", listOf("Default", "Focused", "Pressed", "Selected", "Pending", "Error")),
     AndroidScreenState("Realm", listOf("Default", "Focused", "Pressed", "Disabled", "Selected")),
@@ -65,40 +61,32 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun ChoiceKingdomApp() {
-    var selectedScreen by mutableStateOf("Event")
-    var selectedState by mutableStateOf("Default")
+    var selectedScreen by remember { mutableStateOf("Event") }
+    var selectedState by remember { mutableStateOf("Default") }
     val screen = screens.first { it.title == selectedScreen }
-
-    MaterialTheme {
-        Surface(modifier = Modifier.fillMaxSize(), color = Color(0xFF090C12)) {
-            Box(modifier = Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing).background(Color(0xFF090C12))) {
-                AdaptiveJourney(screen, selectedState, { selectedScreen = it; selectedState = "Default" }, { selectedState = it })
+    ChoiceKingdomTheme {
+        Surface(modifier = Modifier.fillMaxSize()) {
+            BoxWithConstraints(modifier = Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing)) {
+                val mode = when { maxWidth < 600.dp -> WindowMode.COMPACT; maxWidth < 840.dp -> WindowMode.MEDIUM; else -> WindowMode.EXPANDED }
+                AdaptiveJourney(mode, screen, selectedState, { name -> selectedScreen = name; selectedState = "Default" }, { selectedState = it })
             }
         }
     }
 }
 
 @Composable
-private fun AdaptiveJourney(
-    selectedScreen: AndroidScreenState,
-    selectedState: String,
-    onScreenSelected: (String) -> Unit,
-    onStateSelected: (String) -> Unit,
-) {
-    BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
-        val mode = when { maxWidth < 600.dp -> WindowMode.COMPACT; maxWidth < 840.dp -> WindowMode.MEDIUM; else -> WindowMode.EXPANDED }
-        val horizontal = when (mode) { WindowMode.COMPACT -> 16.dp; WindowMode.MEDIUM -> 28.dp; WindowMode.EXPANDED -> 48.dp }
-        val titleSize = when (mode) { WindowMode.COMPACT -> 30.sp; WindowMode.MEDIUM -> 36.sp; WindowMode.EXPANDED -> 42.sp }
-        if (mode == WindowMode.EXPANDED) {
-            Row(modifier = Modifier.fillMaxSize().padding(horizontal = horizontal), horizontalArrangement = Arrangement.spacedBy(24.dp)) {
-                NavigationRailLike(selectedScreen.title, onScreenSelected, Modifier.weight(0.34f))
-                JourneyContent(selectedScreen, selectedState, onStateSelected, titleSize, Modifier.weight(0.66f))
-            }
-        } else {
-            Column(modifier = Modifier.fillMaxSize()) {
-                JourneyContent(selectedScreen, selectedState, onStateSelected, titleSize, Modifier.weight(1f).padding(horizontal = horizontal))
-                ScreenNavigation(selectedScreen.title, onScreenSelected, Modifier.fillMaxWidth())
-            }
+private fun AdaptiveJourney(mode: WindowMode, selectedScreen: AndroidScreenState, selectedState: String, onScreenSelected: (String) -> Unit, onStateSelected: (String) -> Unit) {
+    val horizontal = when (mode) { WindowMode.COMPACT -> 16.dp; WindowMode.MEDIUM -> 28.dp; WindowMode.EXPANDED -> 48.dp }
+    val titleSize = when (mode) { WindowMode.COMPACT -> 30.sp; WindowMode.MEDIUM -> 36.sp; WindowMode.EXPANDED -> 42.sp }
+    if (mode == WindowMode.EXPANDED) {
+        Row(modifier = Modifier.fillMaxSize().padding(horizontal = horizontal), horizontalArrangement = Arrangement.spacedBy(24.dp)) {
+            NavigationRailLike(onScreenSelected, Modifier.weight(0.34f))
+            JourneyContent(selectedScreen, selectedState, onStateSelected, titleSize, Modifier.weight(0.66f))
+        }
+    } else {
+        Column(modifier = Modifier.fillMaxSize()) {
+            JourneyContent(selectedScreen, selectedState, onStateSelected, titleSize, Modifier.weight(1f).padding(horizontal = horizontal))
+            ScreenNavigation(onScreenSelected, Modifier.fillMaxWidth())
         }
     }
 }
@@ -107,40 +95,38 @@ private fun AdaptiveJourney(
 private fun JourneyContent(screen: AndroidScreenState, selectedState: String, onStateSelected: (String) -> Unit, titleSize: TextUnit, modifier: Modifier) {
     LazyColumn(modifier = modifier, contentPadding = PaddingValues(top = 24.dp, bottom = 28.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         item {
-            Text("CHOICE KINGDOM · AVELUNE", color = Color(0xFFD6B46A), fontSize = 12.sp, fontWeight = FontWeight.Bold)
-            Text(screen.title, color = Color(0xFFF4F0E7), fontSize = titleSize, fontWeight = FontWeight.SemiBold)
-            Text("Premium presentation · $selectedState", color = Color(0xFFAEB6C4), fontSize = 14.sp)
+            Text("CHOICE KINGDOM · AVELUNE", color = MaterialTheme.colorScheme.primary, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+            Text(screen.title, color = MaterialTheme.colorScheme.onSurface, fontSize = titleSize, fontWeight = FontWeight.SemiBold)
+            Text("Premium presentation · $selectedState", color = MaterialTheme.colorScheme.secondary, fontSize = 14.sp)
         }
         items(screen.states) { state ->
             val selected = state == selectedState
-            Button(
-                onClick = { onStateSelected(state) },
-                modifier = Modifier.fillMaxWidth().height(56.dp).semantics {
-                    role = Role.Button
-                    contentDescription = "$state state"
-                    stateDescription = if (selected) "Selected" else "Available"
-                },
-                colors = ButtonDefaults.buttonColors(containerColor = if (selected) Color(0xFF242D3A) else Color(0xFF151B25), contentColor = Color(0xFFF4F0E7)),
-            ) { Text(state, textAlign = TextAlign.Start, modifier = Modifier.fillMaxWidth()) }
+            Button(onClick = { onStateSelected(state) }, modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp).semantics {
+                role = Role.Button
+                contentDescription = "$state state"
+                stateDescription = if (selected) "Selected" else "Available"
+            }, colors = ButtonDefaults.buttonColors(containerColor = if (selected) MaterialTheme.colorScheme.surfaceVariant else MaterialTheme.colorScheme.surface)) {
+                Text(state, textAlign = TextAlign.Start, modifier = Modifier.fillMaxWidth())
+            }
         }
     }
 }
 
 @Composable
-private fun ScreenNavigation(current: String, onSelect: (String) -> Unit, modifier: Modifier) {
+private fun ScreenNavigation(onSelect: (String) -> Unit, modifier: Modifier) {
     Row(modifier = modifier.padding(12.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         screens.take(4).forEach { screen ->
-            Button(onClick = { onSelect(screen.title) }, modifier = Modifier.weight(1f).height(52.dp), contentPadding = PaddingValues(horizontal = 4.dp)) { Text(screen.title, fontSize = 11.sp, maxLines = 1) }
+            Button(onClick = { onSelect(screen.title) }, modifier = Modifier.weight(1f).heightIn(min = 52.dp), contentPadding = PaddingValues(horizontal = 4.dp)) { Text(screen.title, fontSize = 11.sp, maxLines = 1) }
         }
     }
 }
 
 @Composable
-private fun NavigationRailLike(current: String, onSelect: (String) -> Unit, modifier: Modifier) {
+private fun NavigationRailLike(onSelect: (String) -> Unit, modifier: Modifier) {
     Card(modifier = modifier.padding(vertical = 24.dp)) {
         Column(modifier = Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text("Avelune", fontWeight = FontWeight.Bold, modifier = Modifier.padding(8.dp))
-            screens.forEach { screen -> Button(onClick = { onSelect(screen.title) }, modifier = Modifier.fillMaxWidth().height(52.dp)) { Text(screen.title) } }
+            screens.forEach { screen -> Button(onClick = { onSelect(screen.title) }, modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp)) { Text(screen.title) } }
         }
     }
 }
