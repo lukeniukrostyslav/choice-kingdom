@@ -67,3 +67,17 @@ def test_block14_bundled_sfx_assets_exist():
         path = ROOT / "androidApp/app/src/main/res/raw" / name
         assert path.exists()
         assert path.stat().st_size > 44
+
+
+def test_block14_ambient_audio_contract():
+    audio = (ROOT / "androidApp/app/src/main/java/com/choicekingdom/app/ChoiceKingdomAudio.kt").read_text(encoding="utf-8")
+    main = MAIN.read_text(encoding="utf-8")
+    assert '"ambient_avelune"' in audio
+    assert "startAmbient" in audio
+    assert "stopAmbient" in audio
+    assert "ambientVolume" in audio
+    assert "AUDIOFOCUS_GAIN" in audio
+    assert "play(id, ambientVolume * volume" in audio
+    assert "audio.startAmbient()" in main
+    ambient = ROOT / "androidApp/app/src/main/res/raw/ambient_avelune.wav"
+    assert ambient.exists() and ambient.stat().st_size > 44
