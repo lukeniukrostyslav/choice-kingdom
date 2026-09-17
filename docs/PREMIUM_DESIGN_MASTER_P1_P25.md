@@ -32,7 +32,7 @@ Current platform guidance reinforces cohesive visual language, clear hierarchy, 
 | P16 | Endings / resolution experience | 54% | Ending identity, summary and emotional landing |
 | P17 | Replay / new-run experience | 47% | Replay motivation, continuity and clean reset semantics |
 | P18 | Main menu / launcher | 60% | Premium first impression + navigation + responsive proof |
-| P19 | Navigation / information architecture | 63% | Consistent hierarchy and low-cognitive-load navigation |
+| P19 | Navigation / information architecture | 68% | Consistent hierarchy and low-cognitive-load navigation |
 | P20 | Motion / micro-interactions / feedback | 62% | Purposeful motion system + reduced-motion behavior |
 | P21 | Accessibility / touch / keyboard / focus | 70% | Semantic, focus, contrast, touch-target and reduced-motion proof |
 | P22 | Localization / long strings / RTL | 34% | Locale-safe layout and RTL proof across key screens |
@@ -40,13 +40,15 @@ Current platform guidance reinforces cohesive visual language, clear hierarchy, 
 | P24 | Android devices / safe areas / resolution adaptation | 16% | Real Android presentation proof on target device classes |
 | P25 | Final premium polish / cross-screen QA | 33% | Full visual regression and no unresolved P1–P24 blockers |
 
-**Aggregate P1–P25 estimate after this increment: 55.04% (simple arithmetic mean of block estimates).** This is an engineering/design evidence estimate, not a commercial-readiness score.
+**Aggregate P1–P25 estimate after this increment: 55.24% (simple arithmetic mean of block estimates).** This is an engineering/design evidence estimate, not a commercial-readiness score.
 
 ## Evidence added in the current design increment
 
 - `web-preview/premium-game-slice-v1.html` is a committed five-stage playable premium design slice: Event → Choice → Consequence → Realm → History.
-- `runtime/journey_screens.py` now provides production-facing, presentation-only screen contracts for Realm, History, People/Factions, Investigation, Ending and Settings, all derived from the same canonical `SessionPresenter` snapshot.
-- `tests/test_journey_screens.py` locks the new screen-family projections to canonical session data and verifies Settings flags remain presentation-only.
+- `runtime/journey_screens.py` provides production-facing, presentation-only screen contracts for Realm, History, People/Factions, Investigation, Ending and Settings, all derived from the same canonical `SessionPresenter` snapshot.
+- `runtime/premium_journey.py` now composes Event/Choice, Consequence and the journey screen family behind one navigation-neutral premium journey host. Navigation changes only the visible projection; gameplay mutation remains behind `SessionPresenter`.
+- `tests/test_journey_screens.py` locks the screen-family projections to canonical session data and verifies Settings flags remain presentation-only.
+- `tests/test_premium_journey.py` verifies navigation projection, surface switching and presentation-only Settings behavior without inventing gameplay state.
 - The journey screen contracts deliberately do not calculate gameplay effects, route events, invent relationship values, fabricate evidence, or mutate `GameSession`.
 - The slice and runtime contracts use responsive phone-first composition, safe-area padding, 48dp-class primary controls, keyboard focus visibility, semantic choice selection, reduced-motion behavior and RTL-safe directional styling.
 - The slice demonstrates the intended premium hierarchy: focal art zone → authored situation → resource snapshot → opposing choices → immediate consequence → delayed consequence → realm pulse → decision memory.
@@ -69,8 +71,9 @@ The production integration contract covers:
 - Crisis: urgency, escalation and consequence-preview states are presentation-only and remain separate from gameplay mutation.
 - Replay: prior-run memory and new-run presentation are explicitly separated so replay cannot silently reuse gameplay state.
 - Motion: enter, confirm and pending feedback are semantic states; reduced-motion mode removes decoration without removing information.
+- Navigation: `PremiumJourneyHost` provides a single surface-selection boundary while preserving the canonical session snapshot across surface changes.
 
-The verifier is intentionally static and deterministic. It is a regression guard, not a substitute for real-device visual QA.
+The verifier is intentionally static and deterministic. It is a regression guard, not a substitute for real-device visual QA. No GitHub Actions run was reported for the latest test commit yet, so the new tests are committed evidence but are not claimed as CI-green.
 
 ## Execution order
 
@@ -94,4 +97,4 @@ The verifier is intentionally static and deterministic. It is a regression guard
 
 ## Execution note
 
-The first premium vertical slice is intentionally being built before mechanically pushing every block toward 100%. The latest increment crosses from preview-only composition into production-facing runtime screen contracts for the core journey surfaces. The same visual contracts will continue into the actual platform UI host, followed by localization, Android/device proof, authored audio/haptics and final cross-screen QA.
+The first premium vertical slice is intentionally being built before mechanically pushing every block toward 100%. The latest increment crosses from separate production-facing screen contracts into a composed journey/navigation boundary. The same visual contracts will continue into the actual platform UI host, followed by localization, Android/device proof, authored audio/haptics and final cross-screen QA.
