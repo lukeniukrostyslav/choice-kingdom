@@ -54,7 +54,7 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 12. **Responsive / Safe Areas / Devices** → 100%
 13. **Premium Design P1–P25** → 62.24%
 14. **Motion / Audio / Haptics** → 99%
-15. **Cross-Screen Visual Regression** → 46%
+15. **Cross-Screen Visual Regression** → 54%
 16. **Automated QA** → 0%
 17. **Performance / Stability / Offline QA** → 0%
 18. **Security / Production Hardening** → 0%
@@ -178,3 +178,6 @@ Block 15 latest: screenshot CI execution hardened to provision Gradle 8.9 becaus
 
 
 Block 15 latest: host-side screenshot rendering has an explicit 4 GB JVM heap. Current Block 15 GitHub Actions runs remain queued; reference PNG generation and validation are still unverified.
+
+
+Block 15 latest: Core-8 locale variants and large-text screenshot previews added. Actual reference PNG generation and validation remain pending on GitHub Actions.
