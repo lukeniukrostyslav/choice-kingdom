@@ -9,33 +9,33 @@ Choice Kingdom should present as a premium narrative mobile game: cohesive art d
 
 ## Approved blocks
 
-| Block | Name | Target |
-|---|---|---:|
-| P1 | Art Direction | 100% |
-| P2 | Character Art System | 100% |
-| P3 | People / Character Codex | 100% |
-| P4 | Faction Visual Identity | 100% |
-| P5 | Event Cinematic UI | 100% |
-| P6 | Choice Experience | 100% |
-| P7 | Consequence Experience | 100% |
-| P8 | Realm | 100% |
-| P9 | History / Chronicle | 100% |
-| P10 | Investigation | 100% |
-| P11 | Ending Experience | 100% |
-| P12 | Component Polish | 100% |
-| P13 | Typography | 100% |
-| P14 | Iconography | 100% |
-| P15 | Motion Design | 100% |
-| P16 | Theme / Atmosphere | 100% |
-| P17 | Mobile Composition | 100% |
-| P18 | RTL / Localization Visual Polish | 100% |
-| P19 | Accessibility Visual Polish | 100% |
-| P20 | Final Asset Production | 100% |
-| P21 | Asset Integration | 100% |
-| P22 | Android Visual Runtime | 100% |
-| P23 | Visual QA | 100% |
-| P24 | Physical Device Polish | 100% |
-| P25 | Final Premium Gate | 100% |
+| Block | Name | Current | Target |
+|---|---|---:|---:|
+| P1 | Art Direction | **35%** | 100% |
+| P2 | Character Art System | 0% | 100% |
+| P3 | People / Character Codex | 0% | 100% |
+| P4 | Faction Visual Identity | 0% | 100% |
+| P5 | Event Cinematic UI | 0% | 100% |
+| P6 | Choice Experience | 0% | 100% |
+| P7 | Consequence Experience | 0% | 100% |
+| P8 | Realm | 0% | 100% |
+| P9 | History / Chronicle | 0% | 100% |
+| P10 | Investigation | 0% | 100% |
+| P11 | Ending Experience | 0% | 100% |
+| P12 | Component Polish | 0% | 100% |
+| P13 | Typography | 0% | 100% |
+| P14 | Iconography | 0% | 100% |
+| P15 | Motion Design | 0% | 100% |
+| P16 | Theme / Atmosphere | 0% | 100% |
+| P17 | Mobile Composition | 0% | 100% |
+| P18 | RTL / Localization Visual Polish | 0% | 100% |
+| P19 | Accessibility Visual Polish | 0% | 100% |
+| P20 | Final Asset Production | 0% | 100% |
+| P21 | Asset Integration | 0% | 100% |
+| P22 | Android Visual Runtime | 0% | 100% |
+| P23 | Visual QA | 0% | 100% |
+| P24 | Physical Device Polish | 0% | 100% |
+| P25 | Final Premium Gate | 0% | 100% |
 
 ## Execution order
 
@@ -51,6 +51,7 @@ Each block requires actual design/implementation work, visual inspection, releva
 
 - Design Specification V1–V18: closed at their defined boundaries.
 - UI / UX Runtime Implementation: 15% at roadmap approval.
+- P1 Art Direction: **35%** — concrete Avelune premium art-direction bible drafted and anchored to the existing design-token/component contracts; representative visual application and inspection remain open.
 - Final artwork: not complete.
 - Android visual runtime: not complete.
 - Physical-device visual QA: not complete.
@@ -67,4 +68,4 @@ Each block requires actual design/implementation work, visual inspection, releva
 
 ## First active block
 
-**P1 — Art Direction.** The first deliverable is a concrete Avelune visual direction/bible that can govern characters, environments, illustrations, factions and UI polish consistently.
+**P1 — Art Direction.** Direction is now concretely drafted in `docs/PREMIUM_DESIGN_ART_BIBLE_V1.md`. The remaining P1 work is representative visual application, inspection and evidence. Then proceed immediately to P2 — Character Art System.
