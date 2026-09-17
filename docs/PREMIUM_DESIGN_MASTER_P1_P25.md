@@ -33,14 +33,14 @@ Current platform guidance reinforces cohesive visual language, clear hierarchy, 
 | P17 | Replay / new-run experience | 45% | Replay motivation, continuity and clean reset semantics |
 | P18 | Main menu / launcher | 52% | Premium first impression + navigation + responsive proof |
 | P19 | Navigation / information architecture | 55% | Consistent hierarchy and low-cognitive-load navigation |
-| P20 | Motion / micro-interactions / feedback | 55% | Purposeful motion system + reduced-motion behavior |
-| P21 | Accessibility / touch / keyboard / focus | 67% | Semantic, focus, contrast, touch-target and reduced-motion proof |
-| P22 | Localization / long strings / RTL | 28% | Locale-safe layout and RTL proof across key screens |
+| P20 | Motion / micro-interactions / feedback | 60% | Purposeful motion system + reduced-motion behavior |
+| P21 | Accessibility / touch / keyboard / focus | 70% | Semantic, focus, contrast, touch-target and reduced-motion proof |
+| P22 | Localization / long strings / RTL | 34% | Locale-safe layout and RTL proof across key screens |
 | P23 | Audio / haptics / premium feedback | 16% | Audio/haptic vocabulary mapped to meaningful player actions |
 | P24 | Android devices / safe areas / resolution adaptation | 16% | Real Android presentation proof on target device classes |
 | P25 | Final premium polish / cross-screen QA | 33% | Full visual regression and no unresolved P1–P24 blockers |
 
-**Aggregate P1–P25 estimate after this increment: 52.00% (simple arithmetic mean of block estimates).** This is an engineering/design evidence estimate, not a commercial-readiness score.
+**Aggregate P1–P25 estimate after this increment: 52.56% (simple arithmetic mean of block estimates).** This is an engineering/design evidence estimate, not a commercial-readiness score.
 
 ## Evidence added in the current design increment
 
@@ -51,11 +51,12 @@ Current platform guidance reinforces cohesive visual language, clear hierarchy, 
 - `design-preview/premium-journey-prototype-v2.html` extends the interactive journey to eight connected surfaces: Event → Choice → Result → Realm → People → Evidence → Ending → Settings. It includes direct screen navigation, choice-dependent presentation state, relationship state, evidence uncertainty, ending memory and presentation settings in one responsive phone-first flow.
 - `design-preview/premium-journey-prototype-v3.html` adds explicit Crisis, Replay and Motion surfaces. It demonstrates urgency/escalation without gameplay-rule duplication, a clean replay/reset boundary, purposeful transition/confirmation/pending motion semantics, reduced-motion behavior, and touch-first responsive fallbacks.
 - `tools/verify_premium_production_integration.py` gates the narrative projections plus the interaction states, representative screens, adaptive/accessibility modes and `GameSession` mutation boundary.
-- `tests/test_premium_presentation_projection.py` regression-tests the narrative projections and confirms transient choice states do not mutate gameplay turn state.
+- `tests/test_premium_presentation_projection.py` regression-tests the narrative projections and confirms transient choice states do not mutate gameplay turn state. The test now uses the repository canonical root rather than an empty temporary directory, eliminating a false fixture failure.
 - `design-preview/premium-design-system-v2.html` continues to unify the reusable visual system across Event, Realm, History, People/Factions, Investigation, Ending, Settings and the full decision-state matrix.
+- The local hardening pass for the design-system lab adds explicit non-zero interaction transitions, pressed feedback, semantic `aria-pressed` state for presentation-mode controls, and a visible Ukrainian/Russian/CJK/RTL long-string stress probe.
 - `docs/DESIGN_TOKENS_V2.json` freezes semantic colors, typography, spacing, touch targets, safe-area rules, adaptive window classes and state vocabulary in a machine-readable design contract.
 - `.github/workflows/premium-design-system-gate.yml` provides a Playwright matrix for compact/medium/expanded widths plus RTL, large-text, reduced-motion and light-theme execution.
-- The new journey prototype raises P15, P17 and P20 conservatively because these three areas now have connected representative visual proof. It does not close production-art provenance, authored audio/haptic behavior or physical-device gates.
+- This increment raises P20, P21 and P22 conservatively because interaction motion, semantic presentation controls and multilingual stress behavior now have concrete local evidence. It does not close production-art provenance, authored audio/haptic behavior or physical-device gates.
 
 ## Production-facing integration evidence
 
