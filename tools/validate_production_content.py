@@ -47,10 +47,9 @@ def validate() -> list[str]:
             continue
 
         labels = [choice.label for choice in event.choices]
-        if labels != sorted(labels):
-            errors.append(f"{event_id}: choices are not canonically ordered")
-        if set(labels) != {"A", "B"}:
-            errors.append(f"{event_id}: playable event must contain exactly A/B choices, got {labels}")
+        expected_labels = [chr(ord("A") + index) for index in range(len(labels))]
+        if labels != expected_labels:
+            errors.append(f"{event_id}: choice labels must be contiguous A..N, got {labels}")
 
         for choice in event.choices:
             choice_count += 1
