@@ -1,0 +1,95 @@
+name: Design Preview V16 Regression Gate
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'design-preview/**'
+      - '.github/workflows/design-preview-v16.yml'
+  pull_request:
+    paths:
+      - 'design-preview/**'
+      - '.github/workflows/design-preview-v16.yml'
+  workflow_dispatch:
+
+jobs:
+  v16:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install Playwright
+        run: npm install --no-save playwright@1.55.0
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Serve V2 preview
+        run: |
+          python3 -m http.server 4173 --directory design-preview >/tmp/choice-kingdom-v16.log 2>&1 &
+          for attempt in $(seq 1 20); do
+            if curl --fail --silent --show-error http://127.0.0.1:4173/index.html >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/choice-kingdom-v16.log
+          exit 1
+      - name: Run V16 viewport and state matrix
+        run: |
+          node <<'NODE'
+          const { chromium } = require('playwright');
+          const fs = require('fs');
+          const pages = ['index.html'];
+          const views = ['event','realm','history','people','investigation','ending','settings'];
+          const viewports = [
+            {name:'360x800',width:360,height:800},
+            {name:'412x915',width:412,height:915},
+            {name:'412x1000',width:412,height:1000},
+            {name:'1440x900',width:1440,height:900}
+          ];
+          (async()=>{
+            const browser=await chromium.launch({headless:true});
+            const evidence=[];
+            for(const file of pages) for(const vp of viewports){
+              const context=await browser.newContext({viewport:{width:vp.width,height:vp.height}});
+              const page=await context.newPage();
+              const errors=[]; const pageErrors=[]; const failed=[];
+              page.on('console',m=>{if(m.type()==='error')errors.push(m.text())});
+              page.on('pageerror',e=>pageErrors.push(String(e)));
+              page.on('requestfailed',r=>failed.push(r.url()));
+              const response=await page.goto(`http://127.0.0.1:4173/${file}`,{waitUntil:'networkidle'});
+              const base=await page.evaluate(()=>({
+                overflow:document.documentElement.scrollWidth>window.innerWidth+1,
+                viewport:!!document.querySelector('meta[name="viewport"][content*="viewport-fit=cover"]'),
+                text:document.body.innerText.length,
+                broken:[...document.images].filter(i=>!i.complete||i.naturalWidth===0).length,
+                controls:[...document.querySelectorAll('button,a,input,select,textarea')].filter(el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el);return r.width>0&&r.height>0&&s.display!=='none'&&s.visibility!=='hidden'&&r.bottom>=0&&r.top<=innerHeight}).map(el=>{const r=el.getBoundingClientRect();return {label:(el.innerText||el.getAttribute('aria-label')||'').trim(),w:r.width,h:r.height}}),
+                focusVisible:document.documentElement.outerHTML.includes(':focus-visible'),
+                reducedMotion:document.documentElement.outerHTML.includes('prefers-reduced-motion'),
+                rtlCSS:document.documentElement.outerHTML.includes('[dir=rtl]')
+              }));
+              const small=base.controls.filter(c=>c.w<48||c.h<48);
+              const basic=Boolean(response&&response.ok())&&!base.overflow&&base.viewport&&base.text>0&&base.broken===0&&small.length===0&&errors.length===0&&pageErrors.length===0&&failed.length===0&&base.focusVisible&&base.reducedMotion&&base.rtlCSS;
+              evidence.push({file,viewport:vp.name,basic,errors,pageErrors,failed,small,base});
+              for(const id of views){
+                await page.evaluate(id=>window.showView&&window.showView(id),id);
+                const visible=await page.evaluate(id=>{const v=document.getElementById(id);return !!v&&v.classList.contains('active')},id);
+                evidence.push({file,viewport:vp.name,view:id,visible});
+              }
+              await context.close();
+            }
+            const failures=evidence.filter(x=>x.basic===false||x.visible===false);
+            fs.writeFileSync('v16-evidence.json',JSON.stringify({pages,views,viewports,evidence,failures},null,2));
+            await browser.close();
+            if(failures.length) {console.error(`V16 failures: ${failures.length}`);process.exit(1)}
+            console.log(`V16 PASS: ${pages.length*viewports.length} viewport runs + ${pages.length*viewports.length*views.length} view switches`);
+          })().catch(e=>{console.error(e);process.exit(1)});
+          NODE
+      - name: Upload V16 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: choice-kingdom-v16-design-evidence
+          path: v16-evidence.json
+          if-no-files-found: error
+          retention-days: 14
