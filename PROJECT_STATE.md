@@ -54,7 +54,7 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 12. **Responsive / Safe Areas / Devices** → 100%
 13. **Premium Design P1–P25** → 62.24%
 14. **Motion / Audio / Haptics** → 99%
-15. **Cross-Screen Visual Regression** → 0%
+15. **Cross-Screen Visual Regression** → 15%
 16. **Automated QA** → 0%
 17. **Performance / Stability / Offline QA** → 0%
 18. **Security / Production Hardening** → 0%
@@ -163,3 +163,6 @@ Block 14 latest: scene-aware music gain profiles and 650ms fade transitions are 
 
 
 Block 14 latest: Media3 music error reporting and scene-aware mixer preservation are hardened. 100% remains reserved for final authored scene-specific assets, true multi-track crossfades, and physical device verification.
+
+
+Block 15 latest: versioned visual-regression baseline manifest, production surface inventory, theme contract, and dedicated CI contract gate added. Pixel-level reference rendering/validation is intentionally still open.
