@@ -1,6 +1,6 @@
 # Block 14 — Motion / Audio / Haptics
 
-Status: **IN PROGRESS — 60%**
+Status: **IN PROGRESS — 65%**
 
 ## Implemented
 - Screen-to-screen Compose transition uses AnimatedContent.
