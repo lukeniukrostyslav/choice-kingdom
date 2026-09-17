@@ -1,0 +1,35 @@
+name: Choice Kingdom Block 10 Localization Gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  block10-localization:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install test dependencies
+        run: python -m pip install --upgrade pip pytest
+      - name: Validate locale registry
+        run: python -m pytest -q tests/test_block10_localization.py tests/test_locale_layout.py
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Set up Gradle 8.9
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Compile Android localization configuration
+        working-directory: androidApp
+        run: gradle :app:assembleDebug --stacktrace
