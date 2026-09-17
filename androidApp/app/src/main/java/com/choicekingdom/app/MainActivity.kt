@@ -99,10 +99,13 @@ private fun ChoiceKingdomApp() {
     var resolvingChoiceId by remember { mutableStateOf<String?>(null) }
     var projection by remember { mutableStateOf<AndroidEventProjection?>(null) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
+    var audioMuted by rememberSaveable { mutableStateOf(false) }
+    var audioVolume by rememberSaveable { mutableStateOf(1f) }
     val context = androidx.compose.ui.platform.LocalContext.current
     val runtime = remember(context) { CanonicalAndroidRuntime(context) }
+    val audio = remember(context) { ChoiceKingdomAudio(context) }
 
-    DisposableEffect(runtime) {
+    DisposableEffect(runtime, audio) {
         runtime.start(
             runId = "android-production-${System.currentTimeMillis()}",
             onProjection = {
@@ -116,7 +119,7 @@ private fun ChoiceKingdomApp() {
                 errorMessage = it.message ?: it.javaClass.simpleName
             },
         )
-        onDispose { runtime.close() }
+        onDispose { runtime.close(); audio.close() }
     }
 
     ChoiceKingdomTheme {
@@ -143,6 +146,7 @@ private fun ChoiceKingdomApp() {
                         errorMessage = errorMessage,
                         onScreenSelected = {
                             selectedScreen = it.key
+                            if (it.key == "Settings") { audio.setMuted(audioMuted); audio.setVolume(audioVolume) }
                             selectedChoiceId = null
                             resolvingChoiceId = null
                             errorMessage = null
@@ -312,7 +316,12 @@ private fun JourneyContent(
             "People" -> item { InfoGrid(listOf("Mara" to stringResource(R.string.known), "Rowan" to stringResource(R.string.unknown), "Seris" to "Unknown", "Ivo" to "Unknown")) }
             "Investigation" -> item { TimelineCard(stringResource(R.string.thread_01), stringResource(R.string.thread_title), stringResource(R.string.thread_detail)) }
             "Ending" -> item { EndingCard(snapshot.terminal) }
-            "Settings" -> item { SettingsCard() }
+            "Settings" -> item { SettingsCard(
+                muted = audioMuted,
+                volume = audioVolume,
+                onMutedChanged = { audioMuted = it; audio.setMuted(it) },
+                onVolumeChanged = { audioVolume = it; audio.setVolume(it) },
+            ) }
         }
     }
 }
@@ -398,6 +407,7 @@ private fun ChoiceCard(
         onClick = {
             haptics.performHapticFeedback(HapticFeedbackType.LongPress)
             view.playSoundEffect(android.view.SoundEffectConstants.CLICK)
+            audio.playChoiceFeedback()
             onChoiceSelected(choice.id)
         },
         enabled = enabled,
@@ -464,7 +474,12 @@ private fun EndingCard(terminal: Boolean) {
 }
 
 @Composable
-private fun SettingsCard() {
+private fun SettingsCard(
+    muted: Boolean,
+    volume: Float,
+    onMutedChanged: (Boolean) -> Unit,
+    onVolumeChanged: (Float) -> Unit,
+) {
     Card(modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(22.dp), border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)) {
         Column(modifier = Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(stringResource(R.string.presentation_preferences), fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
