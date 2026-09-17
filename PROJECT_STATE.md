@@ -1,3 +1,13 @@
+## Block 12 checkpoint — CLOSED
+- Root Compose layout uses BoxWithConstraints and explicit compact/medium/expanded width modes at 600dp and 840dp boundaries.
+- Expanded content now uses fillMaxWidth with a 720dp maximum instead of a fixed 720dp width, preventing overflow in smaller expanded windows.
+- Compact/medium layouts remain full-width and use adaptive horizontal spacing.
+- Expanded windows use a navigation rail plus centered content.
+- WindowInsets.safeDrawing protects content from system bars and display cutouts.
+- Navigation callbacks use stable screen keys instead of localized labels, fixing locale-dependent navigation while closing the responsive seam.
+- Added tests/test_block12_responsive_contract.py and .github/workflows/block12-responsive-gate.yml.
+- Physical device, foldable, tablet, orientation and split-screen execution remains Block 21.
+
 ## Block 11 checkpoint — CLOSED
 - Added `tests/test_block11_accessibility_contract.py` covering RTL manifest support, scalable text, semantics, target sizes and direction-agnostic source layout.
 - Added `.github/workflows/block11-accessibility-gate.yml` to run the contract tests and assemble the Android debug build.
@@ -14,7 +24,7 @@
 Original premium offline-first decision-and-consequence mobile game set in Avelune. Android-first, one-time purchase target €2.99–€4.99, no ads/subscription/mandatory backend for core gameplay, 20+ locales including RTL. Frozen production catalog: **E01–E272**.
 
 ## Current phase
-**Blocks 1–9 are closed at their defined boundaries. Block 10 Core-8 localization remains in progress at 90%; its translation automation runs in the background while Block 11 is closed.** The project proceeds strictly block-by-block. Percentages reflect implementation and available verification evidence, not documentation volume. Block 10 now has a strict narrative-pack loader and CI coverage for the pack repository seam; actual translated narrative data remains the material completion gap.
+**Blocks 1–9 are closed at their defined boundaries. Block 10 Core-8 localization remains in progress at 90%; its translation automation runs in the background while Blocks 11–12 are closed.** The project proceeds strictly block-by-block. Percentages reflect implementation and available verification evidence, not documentation volume. Block 10 now has a strict narrative-pack loader and CI coverage for the pack repository seam; actual translated narrative data remains the material completion gap.
 
 ## Approved General Plan — 25 Blocks
 1. **Production Data Schema** → 100%
@@ -28,7 +38,7 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 9. **Android Runtime** → 100%
 10. **Localization Core-8** → 90%
 11. **RTL / Large Text / Accessibility** → 100%
-12. **Responsive / Safe Areas / Devices** → 0%
+12. **Responsive / Safe Areas / Devices** → 100%
 13. **Premium Design P1–P25** → 62.24%
 14. **Motion / Audio / Haptics** → 0%
 15. **Cross-Screen Visual Regression** → 0%
