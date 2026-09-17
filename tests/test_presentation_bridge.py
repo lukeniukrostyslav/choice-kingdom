@@ -45,6 +45,7 @@ def test_bridge_json_is_deterministic_and_ui_safe():
 
     assert first == second
     assert '"schema_version":1' in first
-    assert '"event_id":"E01-A"' in first
+    assert '"event_id":"E01"' in first
+    assert '"choices":[{"id":"E01-A"' in first
     assert "GameState" not in first
     assert "DecisionEngine" not in first
