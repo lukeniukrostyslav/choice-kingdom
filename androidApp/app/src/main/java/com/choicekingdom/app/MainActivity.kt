@@ -103,6 +103,10 @@ private fun ChoiceKingdomApp() {
     val context = androidx.compose.ui.platform.LocalContext.current
     val runtime = remember(context) { CanonicalAndroidRuntime(context) }
     val audio = remember(context) { ChoiceKingdomAudio(context) }
+    LaunchedEffect(audio) {
+        audioMuted = audio.isMuted
+        audioVolume = audio.currentVolume
+    }
     val lifecycleOwner = androidx.lifecycle.compose.LocalLifecycleOwner.current
     DisposableEffect(lifecycleOwner, audio) {
         val observer = object : androidx.lifecycle.DefaultLifecycleObserver {
@@ -125,6 +129,7 @@ private fun ChoiceKingdomApp() {
             onError = {
                 resolvingChoiceId = null
                 errorMessage = it.message ?: it.javaClass.simpleName
+                audio.playErrorFeedback()
             },
         )
         onDispose { runtime.close(); audio.close() }
