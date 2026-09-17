@@ -1,6 +1,6 @@
 # Block 10 — Localization 20+ Gate
 
-Status: **IN PROGRESS — 80%**.
+Status: **IN PROGRESS — 84%**.
 
 ## Verified implementation
 - Canonical registry for 28 locale tags.
@@ -18,7 +18,7 @@ Status: **IN PROGRESS — 80%**.
 1. Populate narrative localization for E01–E272: titles, triggers, choice labels/text/body, consequence copy and ending presentation.
 2. Provide verified translations for every declared locale rather than counting English fallback as translation.
 3. Add an authoritative generated inventory for all 520 authored choices and all narrative keys.
-4. Make the locale gate fail when a release locale silently falls back on a required narrative key.
+4. Use the authoritative inventory as the locale translation contract and make the locale gate fail when a release locale silently falls back on a required narrative key.
 5. Add Android runtime smoke for locale switching, Arabic/Hebrew RTL, long strings and CJK rendering.
 6. Run and verify the complete Block 10 GitHub Actions gate.
 
