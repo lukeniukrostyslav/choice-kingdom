@@ -1,4 +1,4 @@
-## Block 14 checkpoint — IN PROGRESS — 98%
+## Block 14 checkpoint — IN PROGRESS — 99%
 - Added Compose screen transition using AnimatedContent with fade + scale settle motion.
 - Added offline haptic and platform tone feedback for choice interaction with Android audio-focus handling.
 - Added foreground-only mute/volume controls and wired them into Settings.
@@ -53,7 +53,7 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 11. **RTL / Large Text / Accessibility** → 100%
 12. **Responsive / Safe Areas / Devices** → 100%
 13. **Premium Design P1–P25** → 62.24%
-14. **Motion / Audio / Haptics** → 98%
+14. **Motion / Audio / Haptics** → 99%
 15. **Cross-Screen Visual Regression** → 0%
 16. **Automated QA** → 0%
 17. **Performance / Stability / Offline QA** → 0%
@@ -160,3 +160,6 @@ Block 14 latest: Media3 ExoPlayer is now the dedicated foreground music channel 
 
 
 Block 14 latest: scene-aware music gain profiles and 650ms fade transitions are integrated. Final authored scene-specific soundtrack assets and true multi-track crossfades remain open.
+
+
+Block 14 latest: Media3 music error reporting and scene-aware mixer preservation are hardened. 100% remains reserved for final authored scene-specific assets, true multi-track crossfades, and physical device verification.
