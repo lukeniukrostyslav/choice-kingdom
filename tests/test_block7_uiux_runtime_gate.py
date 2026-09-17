@@ -52,15 +52,16 @@ def test_block7_session_to_presentation_round_trip() -> None:
 
 def test_block7_adaptive_layout_contract() -> None:
     for width, height, expected in (
-        (360, 640, "COMPACT"),
-        (600, 900, "MEDIUM"),
-        (840, 1100, "EXPANDED"),
+        (360, 640, "compact"),
+        (600, 900, "medium"),
+        (840, 1100, "expanded"),
     ):
         projection = android_adaptive_contract(width, height)
         assert projection.width_class.value == expected
         assert projection.safe_content_width_dp > 0
         assert projection.safe_content_height_dp > 0
         assert projection.content_panes >= 1
+        assert projection.preserve_session_on_resize is True
 
 
 def test_block7_terminal_projection_disables_choices() -> None:
