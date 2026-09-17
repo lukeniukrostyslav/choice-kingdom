@@ -155,6 +155,7 @@ private fun ChoiceKingdomApp() {
                 } else {
                     AdaptiveJourney(
                         mode = mode,
+                        audio = audio,
                         selectedScreen = screens.first { it.key == selectedScreen },
                         snapshot = projection!!,
                         selectedChoiceId = selectedChoiceId,
@@ -214,6 +215,7 @@ private fun LoadingScreen(errorMessage: String?) {
 @Composable
 private fun AdaptiveJourney(
     mode: WindowMode,
+    audio: ChoiceKingdomAudio,
     selectedScreen: AndroidScreenState,
     snapshot: AndroidEventProjection,
     selectedChoiceId: String?,
@@ -244,7 +246,7 @@ private fun AdaptiveJourney(
         ) {
             NavigationRail(screens = localizedScreens(), onSelect = onScreenSelected, modifier = Modifier.width(220.dp))
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.TopCenter) {
-                TransitionedJourneyContent(selectedScreen, snapshot, selectedChoiceId, resolvingChoiceId, errorMessage, titleSize, contentWidth, onChoiceSelected)
+                TransitionedJourneyContent(selectedScreen, snapshot, selectedChoiceId, resolvingChoiceId, errorMessage, titleSize, contentWidth, audio, onChoiceSelected)
             }
         }
     } else {
@@ -257,6 +259,7 @@ private fun AdaptiveJourney(
                 errorMessage,
                 titleSize,
                 Modifier.weight(1f).padding(horizontal = horizontal),
+                audio,
                 onChoiceSelected,
             )
             ScreenNavigation(screens = localizedScreens(), onSelect = onScreenSelected, modifier = Modifier.fillMaxWidth())
@@ -273,6 +276,7 @@ private fun TransitionedJourneyContent(
     errorMessage: String?,
     titleSize: TextUnit,
     modifier: Modifier,
+    audio: ChoiceKingdomAudio,
     onChoiceSelected: (String) -> Unit,
 ) {
     AnimatedContent(
@@ -290,6 +294,7 @@ private fun TransitionedJourneyContent(
             errorMessage = errorMessage,
             titleSize = titleSize,
             modifier = modifier,
+            audio = audio,
             onChoiceSelected = onChoiceSelected,
         )
     }
@@ -304,6 +309,7 @@ private fun JourneyContent(
     errorMessage: String?,
     titleSize: TextUnit,
     modifier: Modifier,
+    audio: ChoiceKingdomAudio,
     onChoiceSelected: (String) -> Unit,
 ) {
     LazyColumn(
