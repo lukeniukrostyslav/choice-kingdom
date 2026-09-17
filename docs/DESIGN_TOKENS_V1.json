@@ -1,0 +1,19 @@
+{
+  "version": "1.0",
+  "product": "Choice Kingdom",
+  "spacing_dp": {"xs": 4, "sm": 8, "md": 16, "lg": 24, "xl": 32},
+  "radii_dp": {"card": 12, "choice": 12},
+  "touch_target_dp": {"minimum": 48, "preferred_choice": 56},
+  "content_margin_dp": 16,
+  "safe_area_bottom_extra_dp": 16,
+  "motion": {"default_ms": 180, "reduced_motion": true},
+  "surfaces": ["surface.canvas", "surface.card", "surface.elevated"],
+  "ink": ["ink.primary", "ink.secondary", "ink.disabled"],
+  "accents": ["accent.authority", "accent.warning", "accent.stability", "accent.gold"],
+  "states": ["state.positive", "state.negative", "state.neutral", "focus.visible"],
+  "typography_roles": ["display", "section", "body", "choice", "state", "supporting"],
+  "screens": ["event", "realm", "history", "character", "faction", "investigation", "ending", "settings"],
+  "rtl": true,
+  "large_text": true,
+  "dark_mode_semantic_mapping": true
+}
