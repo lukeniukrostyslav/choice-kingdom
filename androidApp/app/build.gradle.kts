@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.compose")
+    id("com.chaquo.python")
 }
 
 android {
@@ -14,8 +15,25 @@ android {
         versionCode = 1
         versionName = "0.1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilters += listOf("arm64-v8a", "x86_64")
+        }
     }
     buildFeatures { compose = true }
+    sourceSets.getByName("main") {
+        assets.srcDirs("../../docs")
+    }
+}
+
+chaquopy {
+    defaultConfig {
+        version = "3.13"
+    }
+    sourceSets {
+        getByName("main") {
+            srcDir("../..")
+        }
+    }
 }
 
 kotlin { jvmToolchain(17) }
