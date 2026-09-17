@@ -1,0 +1,20 @@
+name: Choice Kingdom Persistence Resume Gate
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  persistence-resume:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install test dependencies
+        run: python -m pip install --upgrade pip pytest
+      - name: Run persistence and resume boundary tests
+        run: python -m pytest -q tests/test_runtime_state.py tests/test_persistence_resume_boundary.py
+      - name: Run canonical runtime regression suite
+        run: python -m pytest -q tests
