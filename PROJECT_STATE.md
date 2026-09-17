@@ -13,7 +13,7 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 4. **Production Content E01–E272** → 100%
 5. **Persistence / Save / Load / Resume** → 100%
 6. **Real GameSession → Presentation Bridge** → 100%
-7. **UI/UX Runtime** → 65%
+7. **UI/UX Runtime** → 90%
 8. **All Gameplay States** → 0%
 9. **Android Runtime** → 0%
 10. **Localization 20+** → 0%
@@ -39,15 +39,18 @@ Execution order is strictly **1 → 2 → 3 → ... → 25**. A block is not con
 - Android Compose presentation shell exists with Compact / Medium / Expanded layouts.
 - Seven primary surfaces are represented: Event, Realm, History, People, Investigation, Ending, Settings.
 - Safe-drawing insets, semantic choice interaction and minimum touch-target behavior are implemented.
-- Immutable `AndroidPresentationPort` is the Android-facing projection seam.
-- Choice selection is now owned by the screen-level state holder and passed down as immutable state/events; `ChoiceCard` no longer owns duplicated selection state.
-- New deterministic UI-only reducer covers navigation and focus/selection/press/resolving/resolved/blocked/error/terminal states.
-- JVM tests cover the reducer's complete transient choice-state lifecycle and all primary surfaces.
-- Existing Android instrumentation covers projection rendering, accessible selection and navigation.
-- `docs/BLOCK_07_CHECKPOINT_02.md` records the state-hoisting checkpoint and remaining closure gate.
+- Immutable `AndroidPresentationPort` remains the presentation contract for projection data.
+- Choice selection is owned by the screen-level state holder and passed down as immutable state/events.
+- Deterministic UI-only reducer covers navigation and transient choice states.
+- JVM tests cover the reducer lifecycle and primary surfaces.
+- A real Android embedding adapter now starts the canonical Python `GameSession` and consumes its serialized `GameSessionPresentationBridge` projection.
+- Android choice intents now call the canonical runtime `GameSession.choose()` and render the returned projection; gameplay semantics are not duplicated in Kotlin.
+- The production launcher no longer calls `sampleProjection()`.
+- Chaquopy 17.0 embeds Python 3.13 in the Android app; canonical `runtime/**/*.py` is packaged from the repository and the authored `docs/` content is packaged as Android assets.
+- A GitHub Actions Android production-runtime build gate was added for the integrated path.
 
 ## Remaining Block 7 gate
-The production launcher still consumes an explicitly named development `sampleProjection`. The canonical `GameSession` is Python-side; a production Android runtime feed/adapter is not yet present. The Android module currently has no embedded/runtime transport capable of executing the canonical Python GameSession, and its Gradle configuration contains only the Compose/UI stack. Therefore Block 7 is **65%**, not 100%. The remaining work is to establish a real offline Android runtime boundary that can consume canonical runtime projections and return choice intents without duplicating gameplay semantics in Android, remove `sampleProjection` from the production launch path, and then run applicable JVM and Android instrumentation verification on that production path.
+The production runtime boundary is now implemented, including projection-in and choice-intent-out. The remaining closure evidence is build/instrumentation verification of the integrated Android production path. GitHub currently exposes no completed Actions run for the new gate, so **90%** is the highest honest percentage until that verification is green. No physical Android/device proof is claimed.
 
 ## Verification baseline
 - Existing canonical runtime checkpoint: **184 passed**.
@@ -71,7 +74,7 @@ The production launcher still consumes an explicitly named development `samplePr
 - Runtime State / Persistence Foundation: **100% current foundation**
 - Decision Engine / Application Runtime: **100% runtime-verified**
 - Design Specification: **100%**
-- UI / UX Runtime Implementation: **65%**
+- UI / UX Runtime Implementation: **90%**
 - Localization 20+ / RTL: **11%**
 - Android Implementation: **8%**
 - Runtime / Android QA: **28%**
