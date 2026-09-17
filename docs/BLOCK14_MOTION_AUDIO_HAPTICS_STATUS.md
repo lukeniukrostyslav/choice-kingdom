@@ -1,6 +1,6 @@
 # Block 14 — Motion / Audio / Haptics
 
-Status: **IN PROGRESS — 80%**
+Status: **IN PROGRESS — 85%**
 
 ## Implemented
 - Screen-to-screen Compose transition uses AnimatedContent.
@@ -12,7 +12,7 @@ Status: **IN PROGRESS — 80%**
 
 ## Deliberately not claimed complete
 - No authored premium audio asset pack exists yet.
-- No music/ambient system exists yet.
+- No authored premium music soundtrack exists yet; the current ambient loop is a functional atmospheric prototype, not final sound design.
 - Mute and volume controls are wired into Settings.
 - No physical-device haptic/audio verification is claimed.
 - Final device verification remains Block 21.
