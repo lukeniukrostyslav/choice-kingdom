@@ -35,6 +35,8 @@ jobs:
           const fs = require('fs');
           const pages = [
             'index.html',
+            'game-flow.html',
+            'artwork-preview.html',
             'design-event-choice-final.html',
             'design-realm-history-final.html',
             'design-character-faction-final.html',
@@ -47,7 +49,15 @@ jobs:
           const viewports = [
             { name: '360x800', width: 360, height: 800 },
             { name: '412x915', width: 412, height: 915 },
-            { name: '412x1000', width: 412, height: 1000 }
+            { name: '412x1000', width: 412, height: 1000 },
+            { name: '1440x900', width: 1440, height: 900 }
+          ];
+          const requiredArtwork = [
+            'artwork/event-empty-granary.svg',
+            'artwork/queen-elira.svg',
+            'artwork/lord-cael.svg',
+            'artwork/river-compact.svg',
+            'artwork/ending-chronicle.svg'
           ];
           (async () => {
             const browser = await chromium.launch({ headless: true });
@@ -57,8 +67,7 @@ jobs:
               for (const vp of viewports) {
                 const page = await context.newPage({ viewport: { width: vp.width, height: vp.height } });
                 const url = `http://127.0.0.1:4173/${file}`;
-                await page.goto(url, { waitUntil: 'networkidle' });
-                await page.screenshot({ path: `artifacts/visual-regression/${file.replace(/\\W/g, '_')}-${vp.name}.png`, fullPage: true });
+                const response = await page.goto(url, { waitUntil: 'networkidle' });
                 const metrics = await page.evaluate(() => ({
                   title: document.title,
                   bodyScrollWidth: document.body.scrollWidth,
@@ -69,12 +78,21 @@ jobs:
                   horizontalOverflow: document.documentElement.scrollWidth > window.innerWidth + 1,
                   text: document.body.innerText.length
                 }));
-                results.push({ file, viewport: vp.name, ...metrics, pass: !metrics.horizontalOverflow && metrics.text > 0 });
+                const pass = Boolean(response && response.ok()) && !metrics.horizontalOverflow && metrics.text > 0;
+                await page.screenshot({ path: `artifacts/visual-regression/${file.replace(/\\W/g, '_')}-${vp.name}.png`, fullPage: true });
+                results.push({ file, viewport: vp.name, httpStatus: response ? response.status() : null, ...metrics, pass });
                 await page.close();
               }
             }
-            fs.writeFileSync('artifacts/visual-regression/manifest.json', JSON.stringify({ generatedAt: new Date().toISOString(), pages, viewports, results }, null, 2));
-            if (results.some(r => !r.pass)) process.exitCode = 1;
+            const artworkResults = [];
+            for (const asset of requiredArtwork) {
+              const page = await context.newPage({ viewport: { width: 360, height: 800 } });
+              const response = await page.goto(`http://127.0.0.1:4173/${asset}`, { waitUntil: 'networkidle' });
+              artworkResults.push({ asset, httpStatus: response ? response.status() : null, pass: Boolean(response && response.ok()) });
+              await page.close();
+            }
+            fs.writeFileSync('artifacts/visual-regression/manifest.json', JSON.stringify({ generatedAt: new Date().toISOString(), pages, viewports, requiredArtwork, results, artworkResults }, null, 2));
+            if (results.some(r => !r.pass) || artworkResults.some(r => !r.pass)) process.exitCode = 1;
             await browser.close();
           })();
           NODE
