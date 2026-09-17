@@ -89,3 +89,31 @@ def test_delayed_target_success_still_resolves_exactly_once():
     assert result.choice_id == "E02-A"
     assert session.state.pending_delays[key].status == "resolved"
     assert session.state.current_event_id == "E02"
+
+
+def test_next_due_delayed_execution_rolls_back_activation_on_execution_failure(monkeypatch):
+    session = GameSession.new(ROOT, "atomic-next-due-execution")
+    key = _seed_pending_delay(session)
+    before = session.state.snapshot()
+
+    def fail_after_activation(*_args, **_kwargs):
+        raise RuntimeError("synthetic execution failure")
+
+    monkeypatch.setattr(session.engine, "execute", fail_after_activation)
+    with pytest.raises(RuntimeError, match="synthetic execution failure"):
+        session.execute_next_due_delay("E02-A")
+
+    assert session.state.snapshot() == before
+    assert session.state.pending_delays[key].status == "pending"
+    assert session.state.current_event_id == "E01"
+    assert "E02" not in session.state.activated_delayed_targets
+
+
+def test_next_due_delayed_success_still_resolves_exactly_once():
+    session = GameSession.new(ROOT, "atomic-next-due-success")
+    key = _seed_pending_delay(session)
+    result = session.execute_next_due_delay("E02-A")
+    assert result.event_id == "E02"
+    assert result.choice_id == "E02-A"
+    assert session.state.pending_delays[key].status == "resolved"
+    assert session.state.current_event_id == "E02"
