@@ -145,3 +145,10 @@ def test_block14_scene_music_fade_contract():
     assert "650L" in music
     assert '"Investigation" -> 0.58f' in music
     assert "fadeGeneration" in music
+
+def test_block14_music_error_and_scene_volume_contract():
+    music = (ROOT / "androidApp/app/src/main/java/com/choicekingdom/app/ChoiceKingdomMusic.kt").read_text(encoding="utf-8")
+    assert "PlaybackException" in music
+    assert "onPlayerError" in music
+    assert "lastPlaybackError" in music
+    assert "sceneGain(scene) * volume" in music
