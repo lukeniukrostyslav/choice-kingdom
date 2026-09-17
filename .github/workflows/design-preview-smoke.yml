@@ -1,0 +1,21 @@
+name: Design Preview Smoke
+
+on:
+  push:
+    paths:
+      - 'web-preview/game-flow.html'
+      - 'tools/verify_design_preview.py'
+      - '.github/workflows/design-preview-smoke.yml'
+  pull_request:
+    paths:
+      - 'web-preview/game-flow.html'
+      - 'tools/verify_design_preview.py'
+      - '.github/workflows/design-preview-smoke.yml'
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify executable design preview contract
+        run: python tools/verify_design_preview.py
