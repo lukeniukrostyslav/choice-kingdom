@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 
+from .delays import due_delays
 from .ending_contract import EndingQualification
 from .endings import EndingResolution, EndingResolver
 from .ending_sources import EndingSourceCompiler, SourceClosedEndingFacts
@@ -146,16 +147,14 @@ class GameSession:
 
     def execute_next_due_delay(self, choice_id: str) -> ExecutionResult:
         """Execute a due delayed target without consuming it when the choice is invalid."""
-        due = self.engine.activate_next_due_delay
-        pending = self.engine.catalog
-        delays = __import__("runtime.delays", fromlist=["due_delays"]).due_delays(self.state)
+        delays = due_delays(self.state)
         if not delays:
             raise ValueError("no due delayed consequence")
         delay = delays[0]
-        target = pending.get(delay.resolution_target)
+        target = self.engine.event(delay.resolution_target)
         if not any(choice.choice_id == choice_id for choice in target.choices):
             raise KeyError(choice_id)
-        activated = due(self.state)
+        activated = self.engine.activate_next_due_delay(self.state)
         result = self.engine.execute(self.state, activated.target_event_id, choice_id)
         self._selected_event_id = self.state.current_event_id
         return result
