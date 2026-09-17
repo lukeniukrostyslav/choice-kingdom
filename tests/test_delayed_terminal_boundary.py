@@ -3,44 +3,55 @@ from pathlib import Path
 import pytest
 
 from runtime.session import GameSession
+from runtime.state import PendingDelay
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def _pending_delay(session: GameSession) -> str:
-    for key, delay in session.state.pending_delays.items():
-        if delay.status == "pending":
-            return key
-    pytest.fail("expected a pending delayed consequence")
+def _seed_pending_delay(session: GameSession) -> str:
+    key = "test.delay.terminal"
+    session.state.pending_delays[key] = PendingDelay(
+        exactly_once_key=key,
+        source_event_id="E01",
+        source_choice_id="E01-A",
+        resolution_target="E02",
+        scheduled_turn=session.state.turn,
+    )
+    return key
 
 
 def test_terminal_session_cannot_activate_pending_delay():
     session = GameSession.new(ROOT, "terminal-delay-activation")
+    key = _seed_pending_delay(session)
     session.state.terminal = True
-    key = _pending_delay(session) if session.state.pending_delays else None
-
-    if key is None:
-        pytest.skip("fresh state has no authored pending delay")
-
     before = session.state.snapshot()
+
     with pytest.raises(ValueError, match="after terminal state"):
-        session.activate_delayed_target(key, condition_satisfied=True)
+        session.activate_delayed_target(key)
+
     assert session.state.snapshot() == before
 
 
 def test_terminal_session_cannot_execute_delayed_target():
     session = GameSession.new(ROOT, "terminal-delay-execution")
+    key = _seed_pending_delay(session)
     session.state.terminal = True
-    key = _pending_delay(session) if session.state.pending_delays else None
-
-    if key is None:
-        pytest.skip("fresh state has no authored pending delay")
-
-    delay = session.state.pending_delays[key]
-    target = session.engine.event(delay.resolution_target)
+    target = session.engine.event("E02")
     choice_id = target.choices[0].choice_id
     before = session.state.snapshot()
 
     with pytest.raises(ValueError, match="after terminal state"):
-        session.execute_delayed_target(key, choice_id, condition_satisfied=True)
+        session.execute_delayed_target(key, choice_id)
+
+    assert session.state.snapshot() == before
+
+
+def test_invalid_delayed_choice_does_not_consume_pending_delay():
+    session = GameSession.new(ROOT, "invalid-delay-choice")
+    key = _seed_pending_delay(session)
+    before = session.state.snapshot()
+
+    with pytest.raises(KeyError, match="E02-NOT-A-CHOICE"):
+        session.execute_delayed_target(key, "E02-NOT-A-CHOICE")
+
     assert session.state.snapshot() == before
