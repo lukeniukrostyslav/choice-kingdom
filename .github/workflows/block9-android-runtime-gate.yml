@@ -1,0 +1,60 @@
+name: Choice Kingdom Block 9 Android Runtime Gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  block9-android-runtime:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install Python test dependencies
+        run: python -m pip install --upgrade pip pytest
+
+      - name: Verify canonical Android adapter persistence
+        run: python -m pytest -q tests/test_block9_android_runtime.py tests/test_android_runtime.py
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle 8.9
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: Run Android JVM tests and compile instrumentation tests
+        working-directory: androidApp
+        run: |
+          gradle :app:testDebugUnitTest :app:assembleDebugAndroidTest --stacktrace
+
+      - name: Build production-connected debug APK
+        working-directory: androidApp
+        run: gradle :app:assembleDebug --stacktrace
+
+      - name: Verify APK and instrumentation APK
+        run: |
+          test -s androidApp/app/build/outputs/apk/debug/app-debug.apk
+          test -s androidApp/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+
+      - name: Upload Android runtime artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: choice-kingdom-block9-android-runtime
+          path: |
+            androidApp/app/build/outputs/apk/debug/app-debug.apk
+            androidApp/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+          if-no-files-found: error
