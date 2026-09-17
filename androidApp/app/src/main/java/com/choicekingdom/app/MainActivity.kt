@@ -156,6 +156,12 @@ private fun ChoiceKingdomApp() {
                     AdaptiveJourney(
                         mode = mode,
                         audio = audio,
+                        audioMuted = audioMuted,
+                        audioVolume = audioVolume,
+                        ambientVolume = ambientVolume,
+                        onAudioMutedChanged = { audioMuted = it; audio.setMuted(it) },
+                        onAudioVolumeChanged = { audioVolume = it; audio.setVolume(it) },
+                        onAmbientVolumeChanged = { ambientVolume = it; audio.setAmbientVolume(it) },
                         selectedScreen = screens.first { it.key == selectedScreen },
                         snapshot = projection!!,
                         selectedChoiceId = selectedChoiceId,
@@ -216,6 +222,12 @@ private fun LoadingScreen(errorMessage: String?) {
 private fun AdaptiveJourney(
     mode: WindowMode,
     audio: ChoiceKingdomAudio,
+    audioMuted: Boolean,
+    audioVolume: Float,
+    ambientVolume: Float,
+    onAudioMutedChanged: (Boolean) -> Unit,
+    onAudioVolumeChanged: (Float) -> Unit,
+    onAmbientVolumeChanged: (Float) -> Unit,
     selectedScreen: AndroidScreenState,
     snapshot: AndroidEventProjection,
     selectedChoiceId: String?,
@@ -246,7 +258,7 @@ private fun AdaptiveJourney(
         ) {
             NavigationRail(screens = localizedScreens(), onSelect = onScreenSelected, modifier = Modifier.width(220.dp))
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.TopCenter) {
-                TransitionedJourneyContent(selectedScreen, snapshot, selectedChoiceId, resolvingChoiceId, errorMessage, titleSize, contentWidth, audio, onChoiceSelected)
+                TransitionedJourneyContent(selectedScreen, snapshot, selectedChoiceId, resolvingChoiceId, errorMessage, titleSize, contentWidth, audio, audioMuted, audioVolume, ambientVolume, onAudioMutedChanged, onAudioVolumeChanged, onAmbientVolumeChanged, onChoiceSelected)
             }
         }
     } else {
@@ -260,6 +272,12 @@ private fun AdaptiveJourney(
                 titleSize,
                 Modifier.weight(1f).padding(horizontal = horizontal),
                 audio,
+                audioMuted,
+                audioVolume,
+                ambientVolume,
+                onAudioMutedChanged,
+                onAudioVolumeChanged,
+                onAmbientVolumeChanged,
                 onChoiceSelected,
             )
             ScreenNavigation(screens = localizedScreens(), onSelect = onScreenSelected, modifier = Modifier.fillMaxWidth())
@@ -277,6 +295,12 @@ private fun TransitionedJourneyContent(
     titleSize: TextUnit,
     modifier: Modifier,
     audio: ChoiceKingdomAudio,
+    audioMuted: Boolean,
+    audioVolume: Float,
+    ambientVolume: Float,
+    onAudioMutedChanged: (Boolean) -> Unit,
+    onAudioVolumeChanged: (Float) -> Unit,
+    onAmbientVolumeChanged: (Float) -> Unit,
     onChoiceSelected: (String) -> Unit,
 ) {
     AnimatedContent(
@@ -295,6 +319,12 @@ private fun TransitionedJourneyContent(
             titleSize = titleSize,
             modifier = modifier,
             audio = audio,
+            audioMuted = audioMuted,
+            audioVolume = audioVolume,
+            ambientVolume = ambientVolume,
+            onAudioMutedChanged = onAudioMutedChanged,
+            onAudioVolumeChanged = onAudioVolumeChanged,
+            onAmbientVolumeChanged = onAmbientVolumeChanged,
             onChoiceSelected = onChoiceSelected,
         )
     }
@@ -310,6 +340,12 @@ private fun JourneyContent(
     titleSize: TextUnit,
     modifier: Modifier,
     audio: ChoiceKingdomAudio,
+    audioMuted: Boolean,
+    audioVolume: Float,
+    ambientVolume: Float,
+    onAudioMutedChanged: (Boolean) -> Unit,
+    onAudioVolumeChanged: (Float) -> Unit,
+    onAmbientVolumeChanged: (Float) -> Unit,
     onChoiceSelected: (String) -> Unit,
 ) {
     LazyColumn(
@@ -342,10 +378,10 @@ private fun JourneyContent(
             "Settings" -> item { SettingsCard(
                 muted = audioMuted,
                 volume = audioVolume,
-                onMutedChanged = { audioMuted = it; audio.setMuted(it) },
-                onVolumeChanged = { audioVolume = it; audio.setVolume(it) },
+                onMutedChanged = onAudioMutedChanged,
+                onVolumeChanged = onAudioVolumeChanged,
                 ambientVolume = ambientVolume,
-                onAmbientVolumeChanged = { ambientVolume = it; audio.setAmbientVolume(it) },
+                onAmbientVolumeChanged = onAmbientVolumeChanged,
             ) }
         }
     }
