@@ -39,11 +39,14 @@ This document is the canonical working checklist for the 25-block premium visual
 ## Current evidence
 
 - `androidApp/` is the first real Android Compose application module, with launcher Activity, adaptive Compact/Medium/Expanded presentation, safe-drawing insets and semantic interaction states.
-- `.github/workflows/android-presentation.yml` adds an Android build gate using Java 17, Android SDK setup and Gradle 8.7.3.
+- The Android event surface now consumes an immutable `AndroidPresentationPort` projection through a narrow presentation-only adapter; the current launcher uses an explicitly named sample projection until the production runtime bridge is available.
+- Event title, event id, turn and authored choice id/label/text are rendered from the projection rather than from a parallel Android gameplay model. Choice interaction is UI-local and does not mutate canonical gameplay.
+- Android instrumentation coverage now includes projection rendering and accessible selected-state interaction; the workflow runs build, JVM tests and emulator instrumentation tests.
+- `.github/workflows/android-presentation.yml` uses Java 17, Android SDK setup and pinned Gradle 8.7.3.
 - The Android layer is presentation-only; canonical gameplay remains owned by the existing runtime seam.
 - `runtime/premium_screen_states.py`, `runtime/premium_surface_projection.py` and `runtime/premium_regression_matrix.py` remain the canonical platform-neutral presentation contracts.
 - Existing rendered preview evidence covers responsive density, RTL, large text, reduced motion, safe area and focus-visible behavior.
-- Physical Android/device proof is not claimed yet.
+- Physical Android/device proof is not claimed yet; emulator CI is verification infrastructure, not a substitute for final target-device evidence.
 
 ## Quality rules
 
@@ -56,4 +59,4 @@ This document is the canonical working checklist for the 25-block premium visual
 
 ## Next bottleneck
 
-Make the Android surface consume the canonical runtime presentation projection through a narrow adapter, then add emulator/device interaction evidence and cross-screen visual regression. No physical Android proof is claimed until it exists.
+Replace the explicitly named Android sample projection with the production runtime presentation bridge without moving gameplay semantics into Android, then verify real Event/Choice interaction through emulator CI and target-device evidence. Continue cross-screen visual regression and accessibility proof. No physical Android proof is claimed until it exists.
