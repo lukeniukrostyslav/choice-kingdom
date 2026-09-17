@@ -35,3 +35,25 @@ fun NavigationExpandedScreenshot() = VisualRegressionNavigationPreview()
 @Preview(name = "settings-medium", widthDp = 600, heightDp = 900, showBackground = true)
 @Composable
 fun SettingsMediumScreenshot() = VisualRegressionSettingsPreview()
+
+
+@PreviewTest
+@Preview(name = "event-ru", widthDp = 360, heightDp = 760, locale = "ru", showBackground = true)
+@Preview(name = "event-uk", widthDp = 360, heightDp = 760, locale = "uk", showBackground = true)
+@Preview(name = "event-it", widthDp = 360, heightDp = 760, locale = "it", showBackground = true)
+@Preview(name = "event-de", widthDp = 360, heightDp = 760, locale = "de", showBackground = true)
+@Preview(name = "event-fr", widthDp = 360, heightDp = 760, locale = "fr", showBackground = true)
+@Preview(name = "event-es", widthDp = 360, heightDp = 760, locale = "es", showBackground = true)
+@Preview(name = "event-pt", widthDp = 360, heightDp = 760, locale = "pt", showBackground = true)
+@Composable
+fun EventCoreLocalesScreenshot() = VisualRegressionEventPreview()
+
+@PreviewTest
+@Preview(name = "event-font-large", widthDp = 360, heightDp = 760, fontScale = 1.3f, showBackground = true)
+@Composable
+fun EventLargeTextScreenshot() = VisualRegressionEventPreview()
+
+@PreviewTest
+@Preview(name = "settings-font-large", widthDp = 600, heightDp = 900, fontScale = 1.3f, showBackground = true)
+@Composable
+fun SettingsLargeTextScreenshot() = VisualRegressionSettingsPreview()
