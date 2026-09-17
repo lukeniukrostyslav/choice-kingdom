@@ -2,6 +2,7 @@ from pathlib import Path
 
 import pytest
 
+from runtime.engine import DecisionEngine
 from runtime.session import GameSession
 from runtime.state import PendingDelay
 
@@ -25,10 +26,8 @@ def test_terminal_session_cannot_activate_pending_delay():
     key = _seed_pending_delay(session)
     session.state.terminal = True
     before = session.state.snapshot()
-
     with pytest.raises(ValueError, match="after terminal state"):
         session.activate_delayed_target(key)
-
     assert session.state.snapshot() == before
 
 
@@ -39,10 +38,8 @@ def test_terminal_session_cannot_execute_delayed_target():
     target = session.engine.event("E02")
     choice_id = target.choices[0].choice_id
     before = session.state.snapshot()
-
     with pytest.raises(ValueError, match="after terminal state"):
         session.execute_delayed_target(key, choice_id)
-
     assert session.state.snapshot() == before
 
 
@@ -50,10 +47,8 @@ def test_invalid_delayed_choice_does_not_consume_pending_delay():
     session = GameSession.new(ROOT, "invalid-delay-choice")
     key = _seed_pending_delay(session)
     before = session.state.snapshot()
-
     with pytest.raises(KeyError, match="E02-NOT-A-CHOICE"):
         session.execute_delayed_target(key, "E02-NOT-A-CHOICE")
-
     assert session.state.snapshot() == before
 
 
@@ -61,10 +56,36 @@ def test_invalid_next_due_delayed_choice_does_not_consume_pending_delay():
     session = GameSession.new(ROOT, "invalid-next-due-delay-choice")
     key = _seed_pending_delay(session)
     before = session.state.snapshot()
-
     with pytest.raises(KeyError, match="E02-NOT-A-CHOICE"):
         session.execute_next_due_delay("E02-NOT-A-CHOICE")
+    assert session.state.snapshot() == before
+    assert session.state.pending_delays[key].status == "pending"
+    assert session.state.current_event_id == "E01"
+
+
+def test_delayed_target_execution_rolls_back_activation_on_execution_failure(monkeypatch):
+    session = GameSession.new(ROOT, "atomic-delayed-execution")
+    key = _seed_pending_delay(session)
+    before = session.state.snapshot()
+
+    def fail_after_activation(*_args, **_kwargs):
+        raise RuntimeError("synthetic execution failure")
+
+    monkeypatch.setattr(session.engine, "execute", fail_after_activation)
+    with pytest.raises(RuntimeError, match="synthetic execution failure"):
+        session.execute_delayed_target(key, "E02-A")
 
     assert session.state.snapshot() == before
     assert session.state.pending_delays[key].status == "pending"
     assert session.state.current_event_id == "E01"
+    assert "E02" not in session.state.activated_delayed_targets
+
+
+def test_delayed_target_success_still_resolves_exactly_once():
+    session = GameSession.new(ROOT, "atomic-delayed-success")
+    key = _seed_pending_delay(session)
+    result = session.execute_delayed_target(key, "E02-A")
+    assert result.event_id == "E02"
+    assert result.choice_id == "E02-A"
+    assert session.state.pending_delays[key].status == "resolved"
+    assert session.state.current_event_id == "E02"
