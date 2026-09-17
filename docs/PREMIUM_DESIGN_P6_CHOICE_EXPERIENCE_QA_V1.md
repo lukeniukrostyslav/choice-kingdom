@@ -1,6 +1,6 @@
 # Choice Kingdom — Premium Design P6 Choice Experience QA v1
 
-Status: **P6 VISUAL + RUNTIME STATE PROOF — 42%**
+Status: **P6 VISUAL + RUNTIME STATE PROOF — 44%**
 
 Date: 2026-09-17
 
@@ -18,6 +18,8 @@ Date: 2026-09-17
 - Choice targets are comfortably above the project minimum interactive target and use a preferred large decision surface.
 - Idle, focused, selected, pressed, blocked and resolving states are explicit visual/runtime interaction concepts.
 - Runtime `FOCUSED`, `SELECTED`, `PRESSED`, `BLOCKED`, and `RESOLVING` states are distinct rather than collapsing review, press, temporary lock and resolution into one state.
+- The visual proof now exposes the `BLOCKED` state as a first-class inspection state rather than only documenting it in runtime code.
+- Blocked presentation keeps the action visible and understandable while clearly communicating temporary unavailability without inventing a gameplay outcome.
 - Selection is a non-mutating review state; gameplay is not changed until the canonical choose operation.
 - Focus/selection/press/begin/block transitions do not mutate the gameplay snapshot.
 - A temporary `BLOCKED` state is available to the host for transition locks without inventing gameplay outcomes.
@@ -48,4 +50,4 @@ Date: 2026-09-17
 
 ## Percentage rule
 
-P6 is **42%**: the choice surface now has explicit review, tactile, temporary-lock and resolution state semantics, with a non-mutating blocked state and regression coverage. Full authored catalog coverage, final artwork, localization, Android and rendered/device validation remain open.
+P6 is **44%**: the choice surface has explicit visual and runtime review, tactile, temporary-lock and resolution semantics, and the blocked state is now directly inspectable in the visual proof. Full authored catalog coverage, final artwork, localization, Android and rendered/device validation remain open.
