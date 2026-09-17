@@ -1,10 +1,20 @@
+## Block 11 checkpoint — IN PROGRESS
+- Added `tests/test_block11_accessibility_contract.py` covering RTL manifest support, scalable text, semantics, target sizes and direction-agnostic source layout.
+- Added `.github/workflows/block11-accessibility-gate.yml` to run the contract tests and assemble the Android debug build.
+- Android application already declares `android:supportsRtl="true"` and the Compose root uses `WindowInsets.safeDrawing`.
+- Hardened choice semantics with role, content description and dynamic state description.
+- Added heading semantics for major content headings and a polite live region for runtime errors.
+- Removed non-Core-8 Arabic/Japanese/Chinese locale switches from Settings.
+- Navigation labels no longer force a single line, preserving usability under large font scales.
+- Source-level Block 11 contract checks all pass; the GitHub Actions Android build is queued and therefore Block 11 remains 95% until that integration gate is green.
+
 # Choice Kingdom — Project State
 
 ## Product
 Original premium offline-first decision-and-consequence mobile game set in Avelune. Android-first, one-time purchase target €2.99–€4.99, no ads/subscription/mandatory backend for core gameplay, 20+ locales including RTL. Frozen production catalog: **E01–E272**.
 
 ## Current phase
-**Blocks 1–9 are closed at their defined boundaries. Block 10 Localization 20+ is the active workstream at 88%.** The project proceeds strictly block-by-block. Percentages reflect implementation and available verification evidence, not documentation volume. Block 10 now has a strict narrative-pack loader and CI coverage for the pack repository seam; actual translated narrative data remains the material completion gap.
+**Blocks 1–9 are closed at their defined boundaries. Block 10 Core-8 localization remains in progress at 90%; its translation automation runs in the background while Block 11 is being closed.** The project proceeds strictly block-by-block. Percentages reflect implementation and available verification evidence, not documentation volume. Block 10 now has a strict narrative-pack loader and CI coverage for the pack repository seam; actual translated narrative data remains the material completion gap.
 
 ## Approved General Plan — 25 Blocks
 1. **Production Data Schema** → 100%
@@ -16,8 +26,8 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 7. **UI/UX Runtime** → 100%
 8. **All Gameplay States** → 100%
 9. **Android Runtime** → 100%
-10. **Localization 20+** → 88%
-11. **RTL / Large Text / Accessibility** → 0%
+10. **Localization Core-8** → 90%
+11. **RTL / Large Text / Accessibility** → 95%
 12. **Responsive / Safe Areas / Devices** → 0%
 13. **Premium Design P1–P25** → 62.24%
 14. **Motion / Audio / Haptics** → 0%
@@ -53,12 +63,12 @@ Execution order is strictly **1 → 2 → 3 → ... → 25**. A block is not con
 - The Android build failures encountered while closing Block 7 were fixed in-repository: missing test dependency path, adaptive-class assertion casing, AndroidX enablement, duplicate theme resource, and Compose context access outside a composable context.
 
 ## Block 10 checkpoint — IN PROGRESS
-- Added `runtime/localization.py` with a canonical 28-locale registry, English fallback, region normalization, and RTL metadata.
-- Added Android `res/xml/locales_config.xml` declaring all 28 supported locale tags for per-app language settings.
-- Added AndroidX AppCompat per-app locale switching in Settings for representative locales; application locale state is persisted by the AndroidX locale APIs.
-- Added default Android `strings.xml` resource catalog plus 27 localized Android resource overlays, critical-key coverage tests, a dedicated narrative localization layer, and a dedicated Block 10 GitHub Actions gate.
-- Added `tests/test_block10_localization.py` and `docs/BLOCK10_LOCALIZATION_STATUS.md`.
-- Block 10 is deliberately not marked closed: the canonical narrative-key inventory/locale contract is now implemented; verified translation of E01–E272 / 520 choices across all 28 locales, fallback-fail QA, and locale-specific Android runtime smoke remain required for 100%.
+- Release localization scope is Core-8: EN, RU, UK, IT, DE, FR, ES, PT.
+- The player-facing narrative contract contains 1,064 keys: event title, event trigger and choice text across E01–E272 / 520 choices.
+- The actual translation target is 7,448 translated values across the seven non-English Core-8 locales.
+- Strict narrative-pack repository loading/completeness tests are implemented; non-English entries identical to the English fallback are rejected.
+- Resumable GitHub Actions translation generation is configured and commits completed locale packs incrementally.
+- Block 10 remains at 90% until all seven populated packs exist in GitHub and the runtime/localization gate passes.
 
 ## Block 9 checkpoint — CLOSED
 - Android now resumes the same canonical GameSession after Activity recreation instead of starting a fresh run.
