@@ -5,7 +5,7 @@ from pathlib import Path
 import re
 
 from .catalog import AuthoredCatalog, Event
-from .delays import due_delays, schedule_authored_delay
+from .delays import due_delays, schedule_authored_delay, specs_for_choice
 from .state import GameState
 
 # Only explicit immediate Unlock/Unlocks lines are executable routing signals.
@@ -67,6 +67,16 @@ class DecisionEngine:
         for participant in AUTHORED_COALITION_PARTICIPANTS.get(choice_id, ()):
             state.record_coalition_participant(participant)
 
+    @staticmethod
+    def _preflight_delay_schedule(state: GameState, event_id: str, choice_id: str) -> None:
+        """Reject duplicate canonical delay keys before any gameplay mutation occurs."""
+        for spec in specs_for_choice(event_id, choice_id):
+            existing = state.pending_delays.get(spec.exactly_once_key)
+            if existing is not None:
+                if existing.status == "pending":
+                    raise ValueError(f"duplicate pending delay: {spec.exactly_once_key}")
+                raise ValueError(f"delay key already consumed: {spec.exactly_once_key}")
+
     def execute(self, state: GameState, event_id: str, choice_id: str) -> ExecutionResult:
         if state.terminal:
             raise ValueError("cannot execute a choice after terminal state")
@@ -83,6 +93,10 @@ class DecisionEngine:
             choice = next(choice for choice in event.choices if choice.choice_id == choice_id)
         except StopIteration as exc:
             raise KeyError(choice_id) from exc
+
+        # Every canonical lifecycle conflict is rejected before resource,
+        # history, relationship, or token mutation so execution is atomic.
+        self._preflight_delay_schedule(state, event_id, choice_id)
 
         for resource, delta in choice.resource_deltas.items():
             state.apply_delta(resource, delta)
