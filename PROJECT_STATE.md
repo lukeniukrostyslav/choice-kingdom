@@ -7,7 +7,7 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 **Content → canonical QA → machine-readable contracts → Decision Engine → UI → localization/tests → Android QA → APK → release.** No mock/stub gameplay and no premature readiness claims.
 
 ## Current phase
-**Production runtime integration / Block 7 + premium presentation shell.** `GameSession` is the presentation-neutral gameplay seam. The runtime presentation layer now covers deterministic projection, explicit interaction states, engine-qualified event selection, Event + Choice, Consequence, Realm/History/People/Investigation/Ending/Settings, composed premium journey, adaptive navigation, Main Menu, semantic motion, safe-content bounds, launcher-to-journey navigation, locale/RTL policy, Android adaptive contract and accessibility semantics. Android UI binding, production locale coverage, device QA, APK/AAB and store release remain open.
+**Production runtime integration / Block 7 + premium presentation shell.** `GameSession` is the presentation-neutral gameplay seam. The runtime presentation layer now covers deterministic projection, explicit interaction states, engine-qualified event selection, Event + Choice, Consequence, Realm/History/People/Investigation/Ending/Settings, composed premium journey, adaptive navigation, Main Menu, semantic motion, safe-content bounds, launcher-to-journey navigation, locale/RTL policy, Android adaptive contract, accessibility semantics and semantic audio/haptic feedback vocabulary. Android UI binding, production locale coverage, device QA, APK/AAB and store release remain open.
 
 ## Latest design/runtime evidence
 - `runtime/premium_journey.py` composes Event/Choice, Consequence and the journey screen family behind one navigation boundary.
@@ -18,10 +18,12 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 - `runtime/motion.py` provides semantic enter/focus/confirm/resolve/pending/error motion policy with reduced-motion support.
 - `runtime/safe_area.py` provides a platform-neutral safe-content bounds contract for system bars, cutouts and gesture zones.
 - `runtime/accessibility_semantics.py` provides explicit action role/label/hint/state/enabled semantics and a 48dp minimum touch-target contract.
+- `runtime/audio_haptics.py` provides presentation-only sound/haptic tokens for choice focus/confirm, consequence reveal/pending, error, navigation and ending reveal.
 - `runtime/locale_layout.py` provides presentation-only LTR/RTL direction, navigation mirroring, wrapping and large-text reflow policy.
-- `tests/test_android_adaptive_contract.py` and `tests/test_accessibility_semantics.py` cover the new Android/accessibility contracts.
+- `tests/test_android_adaptive_contract.py`, `tests/test_accessibility_semantics.py` and `tests/test_audio_haptics.py` cover the latest presentation contracts.
 - `design-preview/premium-locale-lab-v1.html` provides representative visual proof for LTR, RTL, large text and long strings.
 - `docs/ANDROID_ADAPTIVE_DESIGN_CONTRACT_V1.md` defines the Android window/pane/safe-content strategy without introducing gameplay semantics.
+- `docs/AUDIO_HAPTICS_DESIGN_CONTRACT_V1.md` defines the semantic feedback vocabulary and independent sound/haptic disablement.
 - Current Android guidance confirms window-size-class-driven adaptation, state continuity during resize/fold/unfold/multi-window, responsive layouts and Material 3 Adaptive primitives. citeturn0search0turn0search2turn0search4turn0search9
 
 ## Existing runtime verification baseline
@@ -54,7 +56,7 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 - Release / Store: **0%**
 
 ## Premium Design P1–P25
-Canonical percentages are tracked in `docs/PREMIUM_DESIGN_MASTER_P1_P25.md`. Current aggregate: **57.24%**. The latest evidence advances P5/P6/P21/P24, but no block is treated as 100% without representative visual proof, responsive behavior, accessibility requirements and regression evidence.
+Canonical percentages are tracked in `docs/PREMIUM_DESIGN_MASTER_P1_P25.md`. Current aggregate: **57.88%**. The latest evidence advances P23 with semantic audio/haptic vocabulary and tests; no block is treated as 100% without representative visual proof, responsive behavior, accessibility requirements and regression evidence.
 
 ## Honest progress rule
 Documentation never makes implementation complete. Every percentage requires authoritative evidence and applicable verification. Source/contract GREEN must never be reported as runtime gameplay GREEN. Owner-controlled physical Android QA, production signing and store publication remain open until actually performed.
