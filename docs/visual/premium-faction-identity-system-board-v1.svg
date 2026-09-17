@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <title>Choice Kingdom — Premium Faction Identity System Board v1</title>
+  <desc>Non-canonical faction identity studies. Six neutral symbolic grammars are shown for shape, material, rhythm, and mobile legibility. These are system studies only and do not assert canonical faction names, IDs, or affiliations.</desc>
+  <rect width="1600" height="1000" fill="#111317"/>
+  <text x="90" y="90" fill="#f3ead8" font-family="Georgia,serif" font-size="42" font-weight="700">FACTION IDENTITY — SYSTEM BOARD</text>
+  <text x="90" y="130" fill="#aaa69d" font-family="Arial,sans-serif" font-size="18">Premium symbolic grammar • neutral constituency coding • mobile-first recognition</text>
+  <g font-family="Arial,sans-serif">
+    <g transform="translate(90,190)">
+      <rect width="440" height="300" rx="24" fill="#1b1e23" stroke="#6f756f"/>
+      <circle cx="100" cy="100" r="58" fill="none" stroke="#d4c19a" stroke-width="8"/><path d="M70 145 L100 48 L130 145" fill="none" stroke="#d4c19a" stroke-width="8"/><path d="M72 118 H128" stroke="#d4c19a" stroke-width="8"/>
+      <text x="180" y="85" fill="#eee5d5" font-size="24" font-weight="700">A — CIVIC</text><text x="180" y="118" fill="#aaa69d" font-size="17">open geometry</text><text x="180" y="145" fill="#aaa69d" font-size="17">balanced weight</text><text x="180" y="172" fill="#aaa69d" font-size="17">public-facing</text>
+      <text x="32" y="255" fill="#8e918c" font-size="15">Recognition: silhouette + horizontal baseline</text>
+    </g>
+    <g transform="translate(580,190)">
+      <rect width="440" height="300" rx="24" fill="#1b1e23" stroke="#6f756f"/>
+      <path d="M75 145 Q100 55 125 145 L100 165 Z" fill="none" stroke="#d4c19a" stroke-width="8"/><path d="M72 170 H128" stroke="#d4c19a" stroke-width="8"/><circle cx="100" cy="100" r="18" fill="none" stroke="#d4c19a" stroke-width="6"/>
+      <text x="180" y="85" fill="#eee5d5" font-size="24" font-weight="700">B — MERCHANT</text><text x="180" y="118" fill="#aaa69d" font-size="17">contained geometry</text><text x="180" y="145" fill="#aaa69d" font-size="17">measured rhythm</text><text x="180" y="172" fill="#aaa69d" font-size="17">material detail</text>
+      <text x="32" y="255" fill="#8e918c" font-size="15">Recognition: central seal + compact frame</text>
+    </g>
+    <g transform="translate(1070,190)">
+      <rect width="440" height="300" rx="24" fill="#1b1e23" stroke="#6f756f"/>
+      <path d="M100 45 L145 100 L100 155 L55 100 Z" fill="none" stroke="#d4c19a" stroke-width="8"/><path d="M100 72 L118 100 L100 128 L82 100 Z" fill="none" stroke="#d4c19a" stroke-width="6"/>
+      <text x="180" y="85" fill="#eee5d5" font-size="24" font-weight="700">C — MILITARY</text><text x="180" y="118" fill="#aaa69d" font-size="17">angular rhythm</text><text x="180" y="145" fill="#aaa69d" font-size="17">controlled tension</text><text x="180" y="172" fill="#aaa69d" font-size="17">no heroic coding</text>
+      <text x="32" y="255" fill="#8e918c" font-size="15">Recognition: diamond silhouette + inset mark</text>
+    </g>
+    <g transform="translate(90,540)">
+      <rect width="440" height="300" rx="24" fill="#1b1e23" stroke="#6f756f"/>
+      <path d="M55 135 Q100 55 145 135" fill="none" stroke="#d4c19a" stroke-width="8"/><path d="M62 150 Q100 105 138 150" fill="none" stroke="#d4c19a" stroke-width="6"/><path d="M78 168 H122" stroke="#d4c19a" stroke-width="7"/>
+      <text x="180" y="85" fill="#eee5d5" font-size="24" font-weight="700">D — KNOWLEDGE</text><text x="180" y="118" fill="#aaa69d" font-size="17">layered arcs</text><text x="180" y="145" fill="#aaa69d" font-size="17">quiet density</text><text x="180" y="172" fill="#aaa69d" font-size="17">archival feel</text>
+      <text x="32" y="255" fill="#8e918c" font-size="15">Recognition: layered arc + low center</text>
+    </g>
+    <g transform="translate(580,540)">
+      <rect width="440" height="300" rx="24" fill="#1b1e23" stroke="#6f756f"/>
+      <path d="M100 48 C145 75 145 125 100 155 C55 125 55 75 100 48 Z" fill="none" stroke="#d4c19a" stroke-width="8"/><path d="M100 65 V140" stroke="#d4c19a" stroke-width="6"/>
+      <text x="180" y="85" fill="#eee5d5" font-size="24" font-weight="700">E — LAND</text><text x="180" y="118" fill="#aaa69d" font-size="17">organic contour</text><text x="180" y="145" fill="#aaa69d" font-size="17">asymmetric balance</text><text x="180" y="172" fill="#aaa69d" font-size="17">place-linked</text>
+      <text x="32" y="255" fill="#8e918c" font-size="15">Recognition: organic shield + axis</text>
+    </g>
+    <g transform="translate(1070,540)">
+      <rect width="440" height="300" rx="24" fill="#1b1e23" stroke="#6f756f"/>
+      <path d="M58 145 L100 55 L142 145" fill="none" stroke="#d4c19a" stroke-width="8"/><path d="M70 145 L100 100 L130 145" fill="none" stroke="#d4c19a" stroke-width="6"/><circle cx="100" cy="74" r="7" fill="#d4c19a"/>
+      <text x="180" y="85" fill="#eee5d5" font-size="24" font-weight="700">F — HOUSE</text><text x="180" y="118" fill="#aaa69d" font-size="17">nested geometry</text><text x="180" y="145" fill="#aaa69d" font-size="17">ancestral motif</text><text x="180" y="172" fill="#aaa69d" font-size="17">formal restraint</text>
+      <text x="32" y="255" fill="#8e918c" font-size="15">Recognition: peak + nested inner mark</text>
+    </g>
+  </g>
+  <text x="90" y="920" fill="#aaa69d" font-family="Arial,sans-serif" font-size="17">QA boundary: symbols are deliberately non-canonical until authoritative faction IDs, names, and provenance are verified.</text>
+  <text x="90" y="950" fill="#aaa69d" font-family="Arial,sans-serif" font-size="17">Color is supplementary only; identity must survive monochrome, 24dp scale, RTL mirroring, and large-text layouts.</text>
+</svg>
