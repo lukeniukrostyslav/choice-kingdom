@@ -1,6 +1,6 @@
 # Block 10 — Localization 20+ Gate
 
-Status: **IN PROGRESS — 88%**.
+Status: **IN PROGRESS — 89%**.
 
 ## Verified implementation
 - Canonical registry for 8 release locale tags.
@@ -18,7 +18,7 @@ Status: **IN PROGRESS — 88%**.
 - Block 10 CI now executes the strict narrative-pack repository tests before the Android build.
 
 ## Remaining before 100%
-1. Populate actual narrative translations for **all 1,584 keys in each of the 8 release locales**. English fallback is not accepted as translation.
+1. Populate actual narrative translations for **all 1,584 keys in each of the 7 translated release locales** (RU, UK, IT, DE, FR, ES, PT). English is the canonical source language; it is not counted as a translation.
 2. Preserve authored gameplay semantics exactly: event IDs, choice IDs, effects, conditions and state tokens must never be translated into gameplay identifiers.
 3. Add a complete translation-pack coverage gate that rejects any locale with fewer than 1,584 translated keys or any translation equal to the English fallback.
 4. Add Android runtime smoke for locale switching, Arabic/Hebrew RTL, long strings and CJK rendering.
