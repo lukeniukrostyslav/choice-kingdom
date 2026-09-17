@@ -1,0 +1,60 @@
+name: Choice Kingdom Block 7 UIUX Gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  block7-uiux:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install Python test dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Run focused Block 7 runtime gate
+        run: python -m pytest -q tests/test_block7_uiux_runtime_gate.py tests/test_android_runtime.py tests/test_android_adaptive_contract.py
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle 8.9
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: Verify Android toolchain
+        run: |
+          java -version
+          python3 --version
+          gradle --version
+
+      - name: Build Android debug APK
+        working-directory: androidApp
+        run: gradle :app:assembleDebug --stacktrace
+
+      - name: Verify debug APK exists
+        run: test -s androidApp/app/build/outputs/apk/debug/app-debug.apk
+
+      - name: Upload debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: choice-kingdom-block7-debug-apk
+          path: androidApp/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
