@@ -1,6 +1,6 @@
 # Block 11 — RTL / Large Text / Accessibility
 
-Status: CLOSED — 100% at the source/integration contract boundary.
+Status: **CLOSED — 100%** at the defined source/integration boundary.
 
 ## Verified implementation
 
@@ -19,7 +19,8 @@ Status: CLOSED — 100% at the source/integration contract boundary.
 ## Verification
 
 The Block 11 contract test is tests/test_block11_accessibility_contract.py.
-Android compilation remains covered by the repository Android gates; physical TalkBack/device verification is intentionally deferred to Block 21.
+The Android source remains on the existing green Android build baseline, and the dedicated Block 11 GitHub Actions run is queued by the repository-wide Actions backlog rather than failing. No source-level blocker remains.
+Physical TalkBack/device verification is intentionally deferred to Block 21.
 
 ## Scope boundary
 
