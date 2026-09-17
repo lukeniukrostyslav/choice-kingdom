@@ -19,7 +19,7 @@ Reference principles observed in recent Apple Design Award game selections inclu
 | P3 | Typography / type hierarchy | 55% | Complete type scale, wrapping, accessibility and locale rules |
 | P4 | Color / materials / surfaces | 58% | Semantic color/material tokens + contrast proof |
 | P5 | Layout / grid / spacing / responsive system | 52% | Responsive contracts across target phone widths |
-| P6 | Choice experience / choice cards / choice chamber | 46% | All choice states + proof + accessibility + visual regression |
+| P6 | Choice experience / choice cards / choice chamber | 50% | All choice states + proof + accessibility + visual regression |
 | P7 | Event / situation presentation | 35% | Full event surface and state variants |
 | P8 | Character presentation | 30% | Character identity, state, relationship and fallback visuals |
 | P9 | Kingdom / world presentation | 30% | Avelune world surfaces and visual continuity |
@@ -50,7 +50,7 @@ Reference principles observed in recent Apple Design Award game selections inclu
 
 ## Current evidence
 
-The latest main-branch design work is concentrated on P6. Recent commits add the choice-family matrix, visual gallery, launcher exposure, benchmark-informed choice surface/chamber, accessibility regression evidence, and 2026 premium mobile benchmark principles. This confirms P6 as the active design execution frontier.
+The latest main-branch design work is concentrated on P6. Recent commits add the choice-family matrix, visual gallery, launcher exposure, benchmark-informed choice surface/chamber, accessibility regression evidence, 2026 premium mobile benchmark principles, and now a standalone premium choice-state lab covering default, selected, blocked, pending, resolved and high-risk states. This confirms P6 as the active design execution frontier and supports a conservative increase from 46% to 50%.
 
 The existing design preview already contains event, realm, history, people/faction, investigation, ending and settings surfaces plus responsive, RTL, large-text, reduced-motion and safe-area-aware presentation behavior. The preview remains presentation-only and must not become a second gameplay source of truth.
 
@@ -68,4 +68,4 @@ The existing design preview already contains event, realm, history, people/facti
 
 ## Immediate next execution target
 
-P1–P5 foundation hardening and P6 continuation are the highest-leverage design work. The next implementation increments should convert the benchmark principles into reusable visual tokens and representative screen states, then record proof and update this document only when evidence exists.
+P1–P5 foundation hardening and P6 continuation are the highest-leverage design work. The next implementation increments should integrate the premium choice-state lab into the primary preview/runtime surface, expand family coverage, add visual regression evidence, and then move to the next foundation or journey block only when evidence exists.
