@@ -1,6 +1,7 @@
-## Block 14 checkpoint — IN PROGRESS — 35%
+## Block 14 checkpoint — IN PROGRESS — 60%
 - Added Compose screen transition using AnimatedContent with fade + scale settle motion.
-- Added offline haptic and platform click feedback for choice interaction.
+- Added offline haptic and platform tone feedback for choice interaction with Android audio-focus handling.
+- Added foreground-only mute/volume controls and wired them into Settings.
 - Added ChoiceKingdomFeedback abstraction for interaction feedback.
 - Added tests/test_block14_motion_audio_haptics_contract.py and .github/workflows/block14-motion-audio-haptics-gate.yml.
 - Authored premium audio assets, music/ambient system, mute/volume preference wiring and physical device verification remain open; physical verification belongs to Block 21.
@@ -47,7 +48,7 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 11. **RTL / Large Text / Accessibility** → 100%
 12. **Responsive / Safe Areas / Devices** → 100%
 13. **Premium Design P1–P25** → 62.24%
-14. **Motion / Audio / Haptics** → 35%
+14. **Motion / Audio / Haptics** → 60%
 15. **Cross-Screen Visual Regression** → 0%
 16. **Automated QA** → 0%
 17. **Performance / Stability / Offline QA** → 0%
