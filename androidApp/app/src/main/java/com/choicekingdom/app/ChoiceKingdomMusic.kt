@@ -6,6 +6,8 @@ import androidx.media3.common.C
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
+import android.os.Handler
+import android.os.Looper
 
 /**
  * Foreground-only authored music channel.
@@ -30,6 +32,8 @@ class ChoiceKingdomMusic(context: Context) : AutoCloseable {
     private var foreground = true
     private var volume = 0.55f
     private var scene = "Event"
+    private val handler = Handler(Looper.getMainLooper())
+    private var fadeGeneration = 0L
 
     init {
         player.setMediaItem(MediaItem.fromUri("android.resource://" + context.packageName + "/" + com.choicekingdom.app.R.raw.ambient_avelune))
@@ -56,7 +60,33 @@ class ChoiceKingdomMusic(context: Context) : AutoCloseable {
     }
 
     fun setScene(sceneKey: String) {
+        if (scene == sceneKey) return
         scene = sceneKey
+        fadeTo(sceneGain(sceneKey) * volume, 650L)
+    }
+
+    private fun sceneGain(sceneKey: String): Float = when (sceneKey) {
+        "Event" -> 1.0f
+        "Realm" -> 0.78f
+        "History" -> 0.68f
+        "People" -> 0.72f
+        "Investigation" -> 0.58f
+        "Ending" -> 0.88f
+        "Settings" -> 0.45f
+        else -> 0.70f
+    }
+
+    private fun fadeTo(target: Float, durationMs: Long) {
+        val generation = ++fadeGeneration
+        val start = player.volume
+        val steps = 13
+        for (step in 1..steps) {
+            handler.postDelayed({
+                if (generation != fadeGeneration) return@postDelayed
+                val progress = step / steps.toFloat()
+                player.volume = start + (target - start) * progress
+            }, durationMs * step / steps)
+        }
     }
 
     val currentScene: String
@@ -71,6 +101,8 @@ class ChoiceKingdomMusic(context: Context) : AutoCloseable {
     }
 
     override fun close() {
+        ++fadeGeneration
+        handler.removeCallbacksAndMessages(null)
         player.release()
     }
 }
