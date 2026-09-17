@@ -58,7 +58,7 @@ def test_session_rejects_selecting_an_unqualified_event():
         session.select_event("E272")
 
 
-def test_session_ending_boundary_is_atomic_on_invalid_qualification():
+def test_ending_boundary_is_atomic_on_invalid_qualification():
     session = GameSession.new(ROOT, "session-6")
     with pytest.raises(Exception):
         session.resolve_ending(EndingQualification.build())
@@ -99,6 +99,34 @@ def test_session_delayed_target_seam_updates_view_and_preserves_canonical_lifecy
     assert session.view().event_id == "E243"
     assert session.state.pending_delays[key].status == "resolved"
     assert "E243" in session.state.history
+
+
+def test_session_next_due_delay_executes_through_same_application_seam():
+    session = GameSession.new(ROOT, "session-next-due-delay")
+    session.state.resources.update({name: 100 for name in session.state.resources})
+    session.state.relationships.update({name: 3 for name in session.state.relationships})
+    session.state.flags.update({"merchant_charter", "competitive_market"})
+    session.state.current_event_id = "E18"
+    session.select_event("E18")
+    session.choose("E18-B")
+
+    key = "delay.E18B.E243.old_bridge"
+    session.state.turn = session.state.pending_delays[key].scheduled_turn
+    result = session.execute_next_due_delay("E243-A")
+
+    assert result.event_id == "E243"
+    assert result.choice_id == "E243-A"
+    assert session.state.pending_delays[key].status == "resolved"
+    assert session.state.current_event_id == "E243"
+    assert session.view().event_id == "E243"
+
+
+def test_session_next_due_delay_rejects_when_no_delay_is_due():
+    session = GameSession.new(ROOT, "session-no-due-delay")
+    with pytest.raises(ValueError, match="no due delayed consequence"):
+        session.execute_next_due_delay("E243-A")
+    assert session.state.current_event_id == "E01"
+    assert session.state.turn == 1
 
 
 def test_session_replay_boundary_starts_clean_run_with_only_canonical_meta():
