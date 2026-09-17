@@ -1,6 +1,6 @@
 # Block 15 — Cross-Screen Visual Regression
 
-Status: **IN PROGRESS — 42%**
+Status: **IN PROGRESS — 44%**
 
 ## Implemented
 
@@ -44,3 +44,10 @@ Physical-device visual verification remains Block 21.
 - Subsequent pushes and pull requests validate against the committed references.
 - Manual `approve_baseline=true` remains available for intentional reference regeneration.
 - This avoids treating a missing baseline as a passing regression test.
+
+
+## CI execution hardening — 44%
+
+- The repository does not contain a Gradle wrapper, so the screenshot workflow now provisions Gradle 8.9 explicitly instead of assuming `./gradlew` exists.
+- A contract test prevents regression to a missing-wrapper invocation.
+- The first completed screenshot workflow is still required before claiming reference PNG generation is verified.
