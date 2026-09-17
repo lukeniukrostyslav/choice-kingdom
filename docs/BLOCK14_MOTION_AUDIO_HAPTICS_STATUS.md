@@ -1,19 +1,19 @@
 # Block 14 — Motion / Audio / Haptics
 
-Status: **IN PROGRESS — 35%**
+Status: **IN PROGRESS — 60%**
 
 ## Implemented
 - Screen-to-screen Compose transition uses AnimatedContent.
 - Transition is a short fade + 0.98 scale settle effect.
 - Choice interaction has explicit haptic feedback.
-- Choice interaction has offline platform click feedback.
+- Choice interaction has an offline platform tone feedback layer with Android audio-focus handling.
 - Feedback is encapsulated in ChoiceKingdomFeedback.
 - No network or backend dependency is introduced.
 
 ## Deliberately not claimed complete
 - No authored premium audio asset pack exists yet.
 - No music/ambient system exists yet.
-- No volume/mute preference UI is wired yet.
+- Mute and volume controls are wired into Settings.
 - No physical-device haptic/audio verification is claimed.
 - Final device verification remains Block 21.
 
