@@ -49,3 +49,14 @@ def test_block14_audio_foreground_lifecycle_contract():
     assert "DefaultLifecycleObserver" in main
     assert "audio.setForeground(true)" in main
     assert "audio.setForeground(false)" in main
+
+
+def test_block14_persistent_audio_preferences_and_feedback_variants():
+    audio = (ROOT / "androidApp/app/src/main/java/com/choicekingdom/app/ChoiceKingdomAudio.kt").read_text(encoding="utf-8")
+    main = MAIN.read_text(encoding="utf-8")
+    assert "getSharedPreferences" in audio
+    assert '"muted"' in audio and '"volume"' in audio
+    assert "playConfirmFeedback" in audio
+    assert "playErrorFeedback" in audio
+    assert "audio.playErrorFeedback()" in main
+    assert "LaunchedEffect(audio)" in main
