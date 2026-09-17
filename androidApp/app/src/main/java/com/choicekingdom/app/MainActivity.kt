@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -201,7 +202,7 @@ private fun AdaptiveJourney(
     val contentWidth = when (mode) {
         WindowMode.COMPACT -> Modifier.fillMaxWidth()
         WindowMode.MEDIUM -> Modifier.fillMaxWidth().padding(horizontal = 4.dp)
-        WindowMode.EXPANDED -> Modifier.width(720.dp)
+        WindowMode.EXPANDED -> Modifier.fillMaxWidth().widthIn(max = 720.dp)
     }
     val titleSize = when (mode) {
         WindowMode.COMPACT -> 30.sp
@@ -440,7 +441,7 @@ private fun ScreenNavigation(onSelect: (String) -> Unit, modifier: Modifier) {
     ) {
         screens.forEach { screen ->
             Button(
-                onClick = { onSelect(screen.title) },
+                onClick = { onSelect(screen.key) },
                 modifier = Modifier
                     .heightIn(min = 52.dp)
                     .semantics {
@@ -462,7 +463,7 @@ private fun NavigationRail(onSelect: (String) -> Unit, modifier: Modifier) {
             Text(stringResource(R.string.avelune), fontSize = 20.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(10.dp))
             screens.forEach { screen ->
                 TextButton(
-                    onClick = { onSelect(screen.title) },
+                    onClick = { onSelect(screen.key) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .heightIn(min = 52.dp)
