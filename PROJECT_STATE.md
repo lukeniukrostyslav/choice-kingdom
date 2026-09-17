@@ -56,7 +56,8 @@ The campaign and trigger audits are diagnostic. Missing/opaque events are **not 
 - Production Data Schema: **50%**
 - Runtime State / Persistence Foundation: **100% current foundation**
 - Decision Engine / Application Runtime: **42%** — core authored effects, routing, delayed execution, ending boundary, persistence, replay transfer, session lifecycle, canonical predicate evaluation, verified E199 producer semantics, and an authored E01→E02 GameSession lifecycle/save-load verification are implemented; exhaustive production trigger/semantic execution remains open.
-- UI / UX: **0%**
+- **Design Specification: 100%** — production visual language, semantic tokens, typography, screen/component contracts, interaction states, accessibility, RTL, localization design constraints, asset contract, screen matrix and visual-QA acceptance are closed in `docs/DESIGN_COMPLETION_V1.md`, `docs/DESIGN_TOKENS_V1.json`, `docs/DESIGN_SCREEN_MATRIX_V1.md`, `docs/DESIGN_ASSET_MANIFEST_V1.md` and `docs/DESIGN_VISUAL_QA_CHECKLIST_V1.md`.
+- UI / UX Runtime Implementation: **0%** — separate from the now-closed design specification.
 - Localization 20+ / RTL: **5%**
 - Android Implementation: **0%**
 - Runtime / Android QA: **22%** — headless runtime and deterministic audits verified; Android/device gameplay remains open.
