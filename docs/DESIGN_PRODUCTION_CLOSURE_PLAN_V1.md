@@ -27,9 +27,11 @@ This document tracks the 22 working design blocks as production-work estimates. 
 | D17 Visual Language / Art Direction | 100% | 100% | visual language/art-direction closure contract |
 | D18 Asset / Illustration System | 100% | 100% | asset-family/crop/fallback/art-direction closure contract; final artwork production remains separate |
 | D19 Motion / Micro-interactions | 100% | 100% | state-motion/reduced-motion closure contract |
-| D20 Visual QA / Regression | 97% | 100% | executed regression evidence still required; checklist/specification alone does not close this block |
+| D20 Visual QA / Regression | 98% | 100% | executable Playwright regression gate committed; actual Actions execution evidence still required for final 2% |
 | D21 Cross-screen Design Integration | 100% | 100% | cross-screen invariant and shared-language closure contract |
 | D22 Production Mobile Design Handoff | 100% | 100% | implementation-ready design handoff contract |
+
+**Current design-production average: 99.91%** (21 blocks at 100%, D20 at 98%).
 
 ## Rules
 
@@ -38,17 +40,15 @@ This document tracks the 22 working design blocks as production-work estimates. 
 3. The asset manifest is a contract; it does not prove that every final artwork exists.
 4. Runtime UI, Android implementation, physical device QA, signing and store release remain separate engineering gates.
 5. Work proceeds in dependency order and every completed design artifact is committed to GitHub.
-6. D20 cannot be raised from 97% to 100% until actual visual regression evidence exists; this is intentionally not fabricated from documentation.
+6. D20 cannot be raised from 98% to 100% until actual visual regression evidence exists; this is intentionally not fabricated from documentation.
 
-## Closure work completed in latest pass
+## Latest autonomous closure pass
 
-- D3/D4: `DESIGN_EVENT_CHOICE_CLOSURE_V1.md` created.
-- D10: `DESIGN_INVESTIGATION_CLOSURE_V1.md` created.
-- D11/D12: `DESIGN_ENDING_NAVIGATION_CLOSURE_V1.md` created.
-- D13/D14/D15/D16: `DESIGN_ACCESSIBILITY_LOCALIZATION_CLOSURE_V1.md` created.
-- D17/D18: `DESIGN_VISUAL_ART_DIRECTION_CLOSURE_V1.md` created.
-- D19/D21/D22: `DESIGN_MOTION_INTEGRATION_CLOSURE_V1.md` created.
+- Added `.github/workflows/design-visual-regression.yml`.
+- The gate serves `web-preview`, launches Chromium through Playwright, captures 9 critical design screens at 360x800, 412x915 and 412x1000, records overflow/text metrics, and uploads the visual evidence artifact.
+- This converts D20 from a documentation-only checkpoint into an executable verification gate.
+- The workflow is intentionally not treated as executed evidence until GitHub Actions produces a completed run and artifact.
 
 ## Remaining design work
 
-D20 Visual QA / Regression remains at 97% pending executed visual regression evidence. This requires real rendered/runtime screens or equivalent verified visual snapshots; it must not be marked complete from a checklist alone.
+D20 Visual QA / Regression remains at 98% pending the first successful executed visual regression run. Once the run produces a valid artifact with all required matrix entries passing, D20 can move to 100% and the design-production average becomes 100%.
