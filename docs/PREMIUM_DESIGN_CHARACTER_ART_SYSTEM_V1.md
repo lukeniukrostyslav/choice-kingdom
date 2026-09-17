@@ -1,12 +1,12 @@
 # Choice Kingdom — Premium Character Art System v1
 
-Status: **P2 IN PROGRESS — FOUNDATION LOCK 10%**
+Status: **P2 IN PROGRESS — VISUAL PROOF 20%**
 
 ## Purpose
 
 This document turns the premium Art Bible into a production-facing character system. Character quality is treated as a repeatable identity system, not a collection of attractive one-off portraits.
 
-The system follows a reference-first workflow: fixed identity anchors must survive pose, expression, costume, lighting and scene variation. Mobile readability is a first-class constraint; silhouette and proportion must remain legible at small portrait sizes. This is consistent with current mobile character-art practice, where proportion and silhouette have disproportionate impact on perceived quality.
+The system follows a reference-first workflow: fixed identity anchors must survive pose, expression, costume, lighting and scene variation. Mobile readability is a first-class constraint; silhouette and proportion must remain legible at small portrait sizes.
 
 ## 1. Character hierarchy
 
@@ -42,7 +42,7 @@ Every Tier A/B character must define:
 7. Age-range and social-status visual cues.
 8. Faction/cultural construction logic.
 
-These are **fixed**. A new pose or illustration must not silently redesign them.
+These are fixed. A new pose or illustration must not silently redesign them.
 
 ## 3. Controlled variables
 
@@ -58,7 +58,7 @@ The following may vary when explicitly requested:
 - controlled damage/weathering;
 - scene lighting within the Art Bible lighting grammar.
 
-Only a small number of variables should change per iteration. This makes visual drift observable and reversible.
+Only a small number of variables should change per iteration so visual drift remains observable and reversible.
 
 ## 4. Character sheet minimum
 
@@ -91,7 +91,7 @@ Required baseline expression vocabulary:
 - guarded suspicion;
 - relief / resolution.
 
-Expressions must modify eyes, brows, mouth and body tension together. Avoid changing only the mouth while leaving the rest of the face neutral.
+Expressions must modify eyes, brows, mouth and body tension together.
 
 ## 6. Portrait composition
 
@@ -109,65 +109,25 @@ At 360dp and 412dp, the character must remain identifiable without zooming.
 
 ## 7. Material and costume logic
 
-Character materials inherit Avelune's world grammar:
-
-- worn wood;
-- aged metal;
-- stone;
-- woven cloth;
-- leather;
-- wax/seal materials;
-- parchment/paper;
-- restrained precious-metal accents for status.
+Character materials inherit Avelune's world grammar: worn wood, aged metal, stone, woven cloth, leather, wax/seal materials, parchment/paper, and restrained precious-metal accents for status.
 
 Avoid universal glossy surfaces, generic fantasy armor, arbitrary neon accents and faction-coded good/evil visual shortcuts.
 
 ## 8. Lighting lock
 
-Default lighting follows the Art Bible:
-
-- one dominant key direction;
-- soft environmental fill;
-- restrained rim light;
-- face remains the primary readability zone;
-- background is quieter than the character;
-- dramatic lighting may vary by narrative state but must preserve identity anchors.
+Default lighting follows the Art Bible: one dominant key direction, soft environmental fill, restrained rim light, face-first readability, and quieter backgrounds. Dramatic lighting may vary by narrative state but must preserve identity anchors.
 
 ## 9. Mobile quality gates
 
-A character variant is rejected when any of these occur:
-
-- silhouette becomes generic;
-- facial landmarks visibly drift;
-- signature hair/costume/accessory disappears without narrative reason;
-- faction/cultural construction contradicts the world bible;
-- face loses readability at thumbnail size;
-- lighting makes expression unreadable;
-- localization or UI overlays obscure the character's focal area;
-- the character becomes visually louder than the decision surface without narrative justification.
+Reject a variant when silhouette becomes generic, facial landmarks drift, signature identity cues disappear without narrative reason, faction/cultural construction contradicts the world bible, face loses thumbnail readability, lighting obscures expression, localization/UI overlays obscure the focal area, or the character becomes visually louder than the decision surface without narrative justification.
 
 ## 10. Consistency test protocol
 
-For each important character, compare variants side by side at identical display size.
-
-Check:
-
-- silhouette;
-- face geometry;
-- hairline/hair mass;
-- eye spacing and color;
-- costume seams and layers;
-- accessory placement;
-- body proportions;
-- palette;
-- lighting direction;
-- expression readability.
-
-Two or more material identity failures block the variant from becoming an approved reference.
+For each important character, compare variants side by side at identical display size. Check silhouette, face geometry, hair mass, eye spacing, costume layers, accessory placement, body proportions, palette, lighting direction and expression readability. Two or more material identity failures block approval.
 
 ## 11. Design-system relationship
 
-Character art must plug into the existing Choice Kingdom component grammar:
+Character art plugs into:
 
 `Character Identity → Portrait Crop → Narrative Context → Decision Surface → State Feedback`
 
@@ -175,7 +135,7 @@ The character is never decorative filler. In Event and Consequence surfaces, art
 
 ## 12. Current P2 evidence
 
-Saved in this milestone:
+Saved:
 
 - production character hierarchy;
 - fixed vs controlled identity rules;
@@ -185,18 +145,26 @@ Saved in this milestone:
 - material/costume grammar;
 - lighting lock;
 - rejection criteria;
-- repeatable consistency QA protocol.
+- repeatable consistency QA protocol;
+- **first visual anchor sheet with front / three-quarter / profile proof;**
+- **eight-state expression grid;**
+- **compact mobile crop proof;**
+- **P2 character-anchor QA record.**
+
+Visual artifact: `docs/visual/premium-character-anchor-sheet-v1.svg`
+
+QA artifact: `docs/PREMIUM_DESIGN_P2_CHARACTER_ANCHOR_QA_V1.md`
 
 ## Remaining P2 work
 
-- build the first actual Choice Kingdom Tier A character anchor sheet;
-- create front / three-quarter / profile visual proof;
-- create expression-sheet proof;
+- replace the vector proof with authored-quality production character artwork;
+- assign the production anchor to a canonical People character;
+- expand expression proof from system glyphs to authored facial studies;
 - create costume/material callouts;
-- create mobile thumbnail comparison;
-- run visual-drift QA against the Art Bible;
-- save evidence and update P2 percentage only when those artifacts exist.
+- run final visual-drift QA against the Art Bible;
+- validate actual Vercel/mobile rendering and later Android screenshots;
+- record production artwork provenance/licensing.
 
-## External quality reference
+## Gate impact
 
-Current mobile character-art guidance emphasizes proportion and silhouette as major contributors to perceived quality, while contemporary consistency workflows recommend approved multi-view references, fixed/variable rules and side-by-side QA rather than relying on one-off generation.
+The first visual-proof milestone is complete. P2 advances from 10% to **20%**. No further percentage increase is allowed until the next listed evidence exists.
