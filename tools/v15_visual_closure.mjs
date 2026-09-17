@@ -41,7 +41,11 @@ for (const file of pages) {
     const response = await page.goto(`http://127.0.0.1:4173/${file}`, { waitUntil: 'networkidle' });
     const metrics = await page.evaluate(() => {
       const interactive = [...document.querySelectorAll('a,button,input,select,textarea,[role="button"]')];
-      const visible = interactive.filter(el => { const r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0; });
+      const visible = interactive.filter(el => {
+        const r = el.getBoundingClientRect();
+        const style = getComputedStyle(el);
+        return r.width > 0 && r.height > 0 && style.visibility !== 'hidden' && style.display !== 'none' && r.bottom >= 0 && r.right >= 0 && r.top <= window.innerHeight && r.left <= window.innerWidth;
+      });
       const smallTargets = visible.filter(el => { const r = el.getBoundingClientRect(); return r.width < 48 || r.height < 48; });
       const unlabeled = interactive.filter(el => !((el.innerText || '').trim() || el.getAttribute('aria-label') || el.getAttribute('aria-labelledby') || el.getAttribute('title')));
       const textNodes = [...document.querySelectorAll('p,h1,h2,h3,button,.choice,.panel')];
