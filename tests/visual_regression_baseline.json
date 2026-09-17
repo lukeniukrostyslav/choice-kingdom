@@ -1,0 +1,40 @@
+{
+  "schema": "choice-kingdom.visual-regression.v1",
+  "baselinePolicy": "approved-reference-required",
+  "surfaces": [
+    "LoadingScreen",
+    "Header",
+    "HeroCard",
+    "ChoiceCard",
+    "InfoGrid",
+    "TimelineCard",
+    "EndingCard",
+    "SettingsCard",
+    "ScreenNavigation",
+    "NavigationRail"
+  ],
+  "responsiveModes": [
+    "COMPACT",
+    "MEDIUM",
+    "EXPANDED"
+  ],
+  "criticalLocales": [
+    "en",
+    "ru",
+    "uk",
+    "it",
+    "de",
+    "fr",
+    "es",
+    "pt"
+  ],
+  "requiredTheme": [
+    "primary",
+    "secondary",
+    "background",
+    "surface",
+    "surfaceVariant",
+    "onSurface"
+  ],
+  "physicalDeviceValidationBlock": 21
+}
