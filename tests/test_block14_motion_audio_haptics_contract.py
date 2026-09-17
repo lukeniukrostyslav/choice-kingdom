@@ -122,3 +122,18 @@ def test_block14_music_mixer_channel_contract():
     assert "currentMusicVolume" in audio
     assert "setMusicVolume" in audio
     assert "Music " in main
+
+def test_block14_media3_music_contract():
+    gradle = (ROOT / "androidApp/app/build.gradle.kts").read_text(encoding="utf-8")
+    main = MAIN.read_text(encoding="utf-8")
+    music = (ROOT / "androidApp/app/src/main/java/com/choicekingdom/app/ChoiceKingdomMusic.kt").read_text(encoding="utf-8")
+    assert "androidx.media3:media3-exoplayer:1.11.1" in gradle
+    assert "ExoPlayer" in music
+    assert "setAudioAttributes" in music
+    assert "setHandleAudioBecomingNoisy(true)" in music
+    assert "CONTENT_TYPE_MUSIC" in music
+    assert "REPEAT_MODE_ONE" in music
+    assert "setScene" in music
+    assert "music.setForeground(true)" in main
+    assert "music.setForeground(false)" in main
+    assert "music.close()" in main
