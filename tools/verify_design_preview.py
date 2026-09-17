@@ -9,12 +9,15 @@ required = [
     'id="event"', 'id="consequence"', 'id="investigation"', 'id="realm"',
     'id="characters"', 'id="history"', 'id="ending"', 'id="settings"',
     'localStorage.getItem(\'ck-state\')', 'prefers-reduced-motion',
-    'skip-to-content', 'aria-live', 'data-theme', 'data-choice="granary"',
+    'aria-live', 'data-theme', 'data-choice="granary"',
     'data-choice="guild"', 'data-choice="ration"',
 ]
 missing = [item for item in required if item not in text]
 if missing:
     raise SystemExit("Missing design-preview contract markers:\n- " + "\n- ".join(missing))
+
+if not re.search(r'<a[^>]+class=["\'][^"\']*\bskip\b[^"\']*["\'][^>]+href=["\']#main["\']', text):
+    raise SystemExit("Missing accessible skip-to-content link")
 
 ids = re.findall(r'\bid=["\']([^"\']+)["\']', text)
 duplicates = sorted({x for x in ids if ids.count(x) > 1})
