@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
@@ -75,6 +74,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 private fun ChoiceKingdomApp() {
     var selectedScreen by remember { mutableStateOf("Event") }
+    var selectedChoiceId by remember { mutableStateOf<String?>(null) }
     val presentation = remember { AndroidPresentationPort.fromSnapshot(sampleProjection()) }
     ChoiceKingdomTheme {
         Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
@@ -91,8 +91,13 @@ private fun ChoiceKingdomApp() {
                 AdaptiveJourney(
                     mode = mode,
                     selectedScreen = screens.first { it.title == selectedScreen },
+                    selectedChoiceId = selectedChoiceId,
                     presentation = presentation,
-                    onScreenSelected = { selectedScreen = it },
+                    onScreenSelected = {
+                        selectedScreen = it
+                        selectedChoiceId = null
+                    },
+                    onChoiceSelected = { selectedChoiceId = it },
                 )
             }
         }
@@ -115,8 +120,10 @@ private fun sampleProjection(): AndroidEventProjection = AndroidEventProjection(
 private fun AdaptiveJourney(
     mode: WindowMode,
     selectedScreen: AndroidScreenState,
+    selectedChoiceId: String?,
     presentation: AndroidPresentationPort,
     onScreenSelected: (String) -> Unit,
+    onChoiceSelected: (String) -> Unit,
 ) {
     val horizontal = when (mode) {
         WindowMode.COMPACT -> 16.dp
@@ -140,16 +147,18 @@ private fun AdaptiveJourney(
         ) {
             NavigationRail(onScreenSelected, Modifier.width(220.dp))
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.TopCenter) {
-                JourneyContent(selectedScreen, presentation, titleSize, contentWidth)
+                JourneyContent(selectedScreen, selectedChoiceId, presentation, titleSize, contentWidth, onChoiceSelected)
             }
         }
     } else {
         Column(modifier = Modifier.fillMaxSize()) {
             JourneyContent(
                 selectedScreen,
+                selectedChoiceId,
                 presentation,
                 titleSize,
                 Modifier.weight(1f).padding(horizontal = horizontal),
+                onChoiceSelected,
             )
             ScreenNavigation(onScreenSelected, Modifier.fillMaxWidth())
         }
@@ -159,9 +168,11 @@ private fun AdaptiveJourney(
 @Composable
 private fun JourneyContent(
     screen: AndroidScreenState,
+    selectedChoiceId: String?,
     presentation: AndroidPresentationPort,
     titleSize: TextUnit,
     modifier: Modifier,
+    onChoiceSelected: (String) -> Unit,
 ) {
     val snapshot = presentation.snapshot()
     LazyColumn(
@@ -169,16 +180,14 @@ private fun JourneyContent(
         contentPadding = PaddingValues(top = 18.dp, bottom = 32.dp),
         verticalArrangement = Arrangement.spacedBy(14.dp),
     ) {
-        item {
-            Header(snapshot.turn, titleSize)
-        }
-        item {
-            HeroCard(screen, snapshot)
-        }
+        item { Header(snapshot.turn, titleSize) }
+        item { HeroCard(screen, snapshot) }
         when (screen.title) {
             "Event" -> {
                 item { SectionLabel("YOUR DECISION") }
-                items(snapshot.choices, key = { it.id }) { choice -> ChoiceCard(choice) }
+                items(snapshot.choices, key = { it.id }) { choice ->
+                    ChoiceCard(choice, selectedChoiceId == choice.id, onChoiceSelected)
+                }
             }
             "Realm" -> item { InfoGrid(listOf("Gold" to "120", "Trust" to "64", "Security" to "51", "Power" to "43")) }
             "History" -> item { TimelineCard(snapshot.eventId, "The journey begins", "Turn ${snapshot.turn} · ${snapshot.title}") }
@@ -226,12 +235,11 @@ private fun SectionLabel(text: String) {
 }
 
 @Composable
-private fun ChoiceCard(choice: AndroidChoice) {
-    var selected by remember(choice.id) { mutableStateOf(choice.state == "selected") }
+private fun ChoiceCard(choice: AndroidChoice, selected: Boolean, onChoiceSelected: (String) -> Unit) {
     val enabled = choice.state != "disabled"
     val state = if (selected) "Selected" else "Available"
     Button(
-        onClick = { selected = true },
+        onClick = { onChoiceSelected(choice.id) },
         enabled = enabled,
         modifier = Modifier
             .fillMaxWidth()
