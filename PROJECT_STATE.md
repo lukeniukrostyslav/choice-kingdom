@@ -4,7 +4,7 @@
 Original premium offline-first decision-and-consequence mobile game set in Avelune. Android-first, one-time purchase target €2.99–€4.99, no ads/subscription/mandatory backend for core gameplay, 20+ locales including RTL. Frozen production catalog: **E01–E272**.
 
 ## Current phase
-**Blocks 1–6 are closed at their defined boundaries. Block 7 UI/UX Runtime is the active workstream.** The project proceeds strictly block-by-block. Percentages reflect implementation and available verification evidence, not documentation volume.
+**Blocks 1–7 are closed at their defined boundaries. Block 8 Gameplay States is the next active workstream.** The project proceeds strictly block-by-block. Percentages reflect implementation and available verification evidence, not documentation volume.
 
 ## Approved General Plan — 25 Blocks
 1. **Production Data Schema** → 100%
@@ -13,7 +13,7 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 4. **Production Content E01–E272** → 100%
 5. **Persistence / Save / Load / Resume** → 100%
 6. **Real GameSession → Presentation Bridge** → 100%
-7. **UI/UX Runtime** → 90%
+7. **UI/UX Runtime** → 100%
 8. **All Gameplay States** → 0%
 9. **Android Runtime** → 0%
 10. **Localization 20+** → 0%
@@ -35,7 +35,7 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 
 Execution order is strictly **1 → 2 → 3 → ... → 25**. A block is not considered complete from documentation alone; completion requires implementation, integration and applicable verification/evidence.
 
-## Block 7 checkpoint
+## Block 7 checkpoint — CLOSED
 - Android Compose presentation shell exists with Compact / Medium / Expanded layouts.
 - Seven primary surfaces are represented: Event, Realm, History, People, Investigation, Ending, Settings.
 - Safe-drawing insets, semantic choice interaction and minimum touch-target behavior are implemented.
@@ -43,14 +43,22 @@ Execution order is strictly **1 → 2 → 3 → ... → 25**. A block is not con
 - Choice selection is owned by the screen-level state holder and passed down as immutable state/events.
 - Deterministic UI-only reducer covers navigation and transient choice states.
 - JVM tests cover the reducer lifecycle and primary surfaces.
-- A real Android embedding adapter now starts the canonical Python `GameSession` and consumes its serialized `GameSessionPresentationBridge` projection.
-- Android choice intents now call the canonical runtime `GameSession.choose()` and render the returned projection; gameplay semantics are not duplicated in Kotlin.
+- A real Android embedding adapter starts the canonical Python `GameSession` and consumes its serialized `GameSessionPresentationBridge` projection.
+- Android choice intents call the canonical runtime `GameSession.choose()` and render the returned projection; gameplay semantics are not duplicated in Kotlin.
 - The production launcher no longer calls `sampleProjection()`.
-- Chaquopy 17.0 embeds Python 3.13 in the Android app; canonical `runtime/**/*.py` is packaged from the repository and the authored `docs/` content is packaged as Android assets.
-- A GitHub Actions Android production-runtime build gate was added for the integrated path.
+- Chaquopy 17.0 embeds Python 3.13 in the Android app; canonical `runtime/**/*.py` is packaged from the repository and authored `docs/` content is packaged as Android assets.
+- Focused Block 7 runtime/adaptive tests are GREEN.
+- Android debug APK production-path build is GREEN on GitHub Actions run **35279790952** (commit `e2da888d324065afd03a0811e0f87c495471547a`).
+- The green gate verified: Python focused runtime tests, Java 17/Gradle 8.9 toolchain, AndroidX configuration, resource merge, Kotlin compilation, debug APK assembly, APK existence and artifact upload.
+- The Android build failures encountered while closing Block 7 were fixed in-repository: missing test dependency path, adaptive-class assertion casing, AndroidX enablement, duplicate theme resource, and Compose context access outside a composable context.
 
-## Remaining Block 7 gate
-The production runtime boundary is now implemented, including projection-in and choice-intent-out. The remaining closure evidence is build/instrumentation verification of the integrated Android production path. GitHub currently exposes no completed Actions run for the new gate, so **90%** is the highest honest percentage until that verification is green. No physical Android/device proof is claimed.
+## Block 7 closure evidence
+- GitHub Actions workflow: **Choice Kingdom Block 7 UIUX Gate**
+- Green run: **35279790952**
+- Head commit: **e2da888d324065afd03a0811e0f87c495471547a**
+- Focused tests: **all passed**
+- Android debug APK: **assembled and uploaded successfully**
+- Physical Android/device QA is intentionally not claimed here; it remains in later Block 21.
 
 ## Verification baseline
 - Existing canonical runtime checkpoint: **184 passed**.
@@ -74,7 +82,7 @@ The production runtime boundary is now implemented, including projection-in and 
 - Runtime State / Persistence Foundation: **100% current foundation**
 - Decision Engine / Application Runtime: **100% runtime-verified**
 - Design Specification: **100%**
-- UI / UX Runtime Implementation: **90%**
+- UI / UX Runtime Implementation: **100%**
 - Localization 20+ / RTL: **11%**
 - Android Implementation: **8%**
 - Runtime / Android QA: **28%**
