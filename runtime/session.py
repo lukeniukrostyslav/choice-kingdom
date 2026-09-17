@@ -23,6 +23,10 @@ class SessionView:
     choices: tuple[tuple[str, str, str], ...]
     resources: tuple[tuple[str, int], ...]
     relationships: tuple[tuple[str, int], ...]
+    history: tuple[str, ...]
+    threads: tuple[str, ...]
+    pending_delays: tuple[tuple[str, str, str, int | None, str], ...]
+    ending_evidence: tuple[str, ...]
     terminal: bool
     ending_identity: str | None
 
@@ -65,6 +69,19 @@ class GameSession:
             choices=tuple((choice.choice_id, choice.label, choice.text) for choice in event.choices),
             resources=tuple(sorted(self.state.resources.items())),
             relationships=tuple(sorted(self.state.relationships.items())),
+            history=tuple(sorted(self.state.history)),
+            threads=tuple(sorted(self.state.threads)),
+            pending_delays=tuple(
+                (
+                    key,
+                    delay.resolution_target,
+                    delay.status,
+                    delay.scheduled_turn,
+                    delay.source_event_id,
+                )
+                for key, delay in sorted(self.state.pending_delays.items())
+            ),
+            ending_evidence=tuple(sorted(self.state.ending_evidence_families)),
             terminal=self.state.terminal,
             ending_identity=self.state.ending_identity,
         )
