@@ -1,6 +1,6 @@
 # Choice Kingdom — Premium Character Art System v1
 
-Status: **P2 IN PROGRESS — VISUAL PROOF 20%**
+Status: **P2 IN PROGRESS — VISUAL PROOF 30%**
 
 ## Purpose
 
@@ -62,19 +62,7 @@ Only a small number of variables should change per iteration so visual drift rem
 
 ## 4. Character sheet minimum
 
-A production-ready Tier A/B reference sheet should contain:
-
-- front neutral;
-- three-quarter neutral;
-- side/profile;
-- full-body proportion reference;
-- close face crop;
-- minimum six expressions;
-- default costume layers;
-- signature accessory callouts;
-- palette/material callouts;
-- crop-safe portrait framing;
-- prohibited drift examples.
+A production-ready Tier A/B reference sheet should contain front neutral, three-quarter neutral, side/profile, full-body proportion reference, close face crop, minimum six expressions, default costume layers, signature accessory callouts, palette/material callouts, crop-safe portrait framing and prohibited drift examples.
 
 A turnaround is the reference source, not automatically final in-game art.
 
@@ -95,15 +83,7 @@ Expressions must modify eyes, brows, mouth and body tension together.
 
 ## 6. Portrait composition
 
-Default mobile portrait:
-
-- eyes/facial landmarks remain inside the crop-safe zone;
-- head and shoulders dominate the frame for narrative portraits;
-- hands enter frame only when they communicate story information;
-- background contrast remains below the face;
-- one dominant light direction;
-- controlled rim light only where it improves separation;
-- no decorative effects crossing eyes, mouth or critical costume anchors.
+Default mobile portrait keeps eyes/facial landmarks inside the crop-safe zone, makes head and shoulders dominant, uses hands only when they communicate story information, keeps background contrast below the face, uses one dominant light direction and avoids effects crossing critical identity anchors.
 
 At 360dp and 412dp, the character must remain identifiable without zooming.
 
@@ -146,25 +126,30 @@ Saved:
 - lighting lock;
 - rejection criteria;
 - repeatable consistency QA protocol;
-- **first visual anchor sheet with front / three-quarter / profile proof;**
-- **eight-state expression grid;**
-- **compact mobile crop proof;**
-- **P2 character-anchor QA record.**
+- first visual anchor sheet with front / three-quarter / profile proof;
+- eight-state expression grid;
+- compact mobile crop proof;
+- P2 character-anchor QA record;
+- **second production-anchor visual proof with explicit identity, material, lighting, crop and thumbnail checks.**
 
-Visual artifact: `docs/visual/premium-character-anchor-sheet-v1.svg`
+Visual artifacts:
+- `docs/visual/premium-character-anchor-sheet-v1.svg`
+- `docs/visual/premium-character-production-anchor-v1.svg`
 
-QA artifact: `docs/PREMIUM_DESIGN_P2_CHARACTER_ANCHOR_QA_V1.md`
+QA artifacts:
+- `docs/PREMIUM_DESIGN_P2_CHARACTER_ANCHOR_QA_V1.md`
+- `docs/PREMIUM_DESIGN_P2_PRODUCTION_ANCHOR_QA_V1.md`
 
 ## Remaining P2 work
 
-- replace the vector proof with authored-quality production character artwork;
-- assign the production anchor to a canonical People character;
-- expand expression proof from system glyphs to authored facial studies;
-- create costume/material callouts;
+- bind the anchor to an existing canonical People character;
+- replace vector proof with authored-quality production character artwork;
+- expand expression proof to authored facial studies;
+- create costume/material closeups;
 - run final visual-drift QA against the Art Bible;
 - validate actual Vercel/mobile rendering and later Android screenshots;
 - record production artwork provenance/licensing.
 
 ## Gate impact
 
-The first visual-proof milestone is complete. P2 advances from 10% to **20%**. No further percentage increase is allowed until the next listed evidence exists.
+The second visual-proof milestone is complete. P2 advances from 20% to **30%**. No further percentage increase is allowed until the next listed evidence exists.
