@@ -24,3 +24,8 @@ data class AndroidEventProjection(
 fun interface AndroidPresentationPort {
     fun snapshot(): AndroidEventProjection
 }
+
+/** Pure adapter from an already-produced runtime projection into Android data.
+ * No gameplay computation or mutation is permitted here.
+ */
+fun AndroidPresentationPort.fromSnapshot(snapshot: AndroidEventProjection): AndroidPresentationPort = AndroidPresentationPort { snapshot }
