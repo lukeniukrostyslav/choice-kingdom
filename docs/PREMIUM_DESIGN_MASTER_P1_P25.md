@@ -13,12 +13,12 @@ This document is the canonical working checklist for the 25-block premium visual
 | P3 | Typography / type hierarchy | 66% | Complete type scale, wrapping, accessibility and locale rules |
 | P4 | Color / materials / surfaces | 70% | Semantic color/material tokens + contrast proof |
 | P5 | Layout / grid / spacing / responsive system | 74% | Responsive contracts across target window classes + safe-content bounds |
-| P6 | Choice experience / choice cards / choice chamber | 73% | All choice states + proof + accessibility + visual regression |
-| P7 | Event / situation presentation | 65% | Full event surface and state variants |
+| P6 | Choice experience / choice cards / choice chamber | 75% | All choice states + proof + accessibility + visual regression |
+| P7 | Event / situation presentation | 67% | Full event surface and state variants |
 | P8 | Character presentation | 57% | Character identity, state, relationship and fallback visuals |
 | P9 | Kingdom / world presentation | 59% | Avelune world surfaces and visual continuity |
 | P10 | Resources / stats / pressure visualization | 56% | Scannable resource language and state transitions |
-| P11 | Consequences / delayed consequences | 63% | Immediate, pending, triggered and cancelled visual states |
+| P11 | Consequences / delayed consequences | 67% | Immediate, pending, triggered and cancelled visual states |
 | P12 | History / decision memory | 60% | Timeline/history hierarchy and causal readability |
 | P13 | Relationships / character state | 56% | Relationship states and progression presentation |
 | P14 | Investigation / threads / evidence | 56% | Evidence hierarchy, discovery and unresolved states |
@@ -32,24 +32,25 @@ This document is the canonical working checklist for the 25-block premium visual
 | P22 | Localization / long strings / RTL | 48% | Locale-safe layout and RTL proof across key screens |
 | P23 | Audio / haptics / premium feedback | 30% | Audio/haptic vocabulary mapped to meaningful player actions |
 | P24 | Android devices / safe areas / resolution adaptation | 31% | Real Android presentation proof on target device classes |
-| P25 | Final premium polish / cross-screen QA | 47% | Full visual regression and no unresolved P1–P24 blockers |
+| P25 | Final premium polish / cross-screen QA | 50% | Full visual regression and no unresolved P1–P24 blockers |
 
-**Aggregate P1–P25 estimate: 60.28% (simple arithmetic mean of block estimates).** This is an engineering/design evidence estimate, not a commercial-readiness score.
+**Aggregate P1–P25 estimate: 60.56% (simple arithmetic mean of block estimates).** This is an engineering/design evidence estimate, not a commercial-readiness score.
 
 ## Evidence added in the current design increment
 
 - `runtime/premium_screen_states.py` defines the canonical cross-screen state vocabulary for Event, Realm, History, People, Investigation, Ending and Settings.
 - `runtime/premium_surface_projection.py` maps actual available app-window width to compact/comfortable/expanded premium surface density without changing gameplay semantics.
 - `runtime/premium_regression_matrix.py` generates a machine-readable cross-screen regression matrix spanning all seven premium screens, required states and Compact/Medium/Expanded/RTL/large-text/reduced-motion dimensions.
-- `runtime/premium_surface_host.py` binds the adaptive presentation projection to the existing Realm/History/People/Investigation/Ending/Settings screen hosts without changing gameplay semantics.
-- `tests/test_premium_screen_states.py`, `tests/test_premium_surface_projection.py`, `tests/test_premium_regression_matrix.py` and `tests/test_premium_surface_host.py` verify shared interaction states, adaptive projection, cross-screen invariants and host binding.
+- `runtime/premium_surface_host.py` binds the adaptive presentation projection to Event/Choice plus Realm/History/People/Investigation/Ending/Settings screen hosts without changing gameplay semantics.
+- `runtime/premium_consequence_surface.py` now binds the transient consequence/result surface to the same adaptive presentation contract while delegating consequence mutation to the canonical `ConsequenceHost`.
+- `tests/test_premium_screen_states.py`, `tests/test_premium_surface_projection.py`, `tests/test_premium_regression_matrix.py`, `tests/test_premium_surface_host.py` and `tests/test_premium_consequence_surface.py` cover shared interaction states, adaptive projection, cross-screen invariants and host contracts.
 - `docs/PREMIUM_SCREEN_STATE_CONTRACT_V1.md`, `docs/PREMIUM_ADAPTIVE_SURFACE_CONTRACT_V1.md` and `docs/PREMIUM_CROSS_SCREEN_REGRESSION_V1.md` define the cross-screen rendering, accessibility, RTL, reduced-motion, responsive and regression rules.
 - `design-preview/premium-screen-state-matrix-v1.html` provides representative visual proof for the seven key screens across default/focus/pressed/disabled/selected and screen-specific outcome states, with RTL and large-text toggles.
 - `runtime/premium_feedback.py` continues to compose semantic motion with audio/haptic feedback into one presentation-only projection.
 - `design-preview/premium-locale-lab-v1.html` continues to provide choice/consequence, long-string, RTL, large-text, focus and reduced-motion proof.
-- Android adaptive design remains window-size-class driven rather than device-specific. Current Android guidance recommends responsive/adaptive layouts, continuity across resize/fold/unfold, adaptive navigation and pane primitives, and testing across device types. citeturn0search0turn0search1turn0search2turn0search7
-- Current Material 3 Adaptive documentation provides adaptive navigation/pane primitives and current window-based layout APIs. citeturn0search2turn0search4turn0search5
-- No CI-green claim is made for the newest commits until GitHub Actions reports an actual run.
+- Android adaptive design remains window-size-class driven rather than device-specific. Current Android guidance recommends responsive/adaptive layouts, continuity across resize/fold/unfold, adaptive navigation and pane primitives, and testing across device types. citeturn0search0turn0search1turn0search5
+- Current Material 3 Adaptive documentation provides adaptive navigation/pane primitives and current window-based layout APIs. citeturn0search0turn0search8
+- No CI-green claim is made for the newest commits until GitHub Actions reports an actual successful run.
 
 ## Production-facing integration evidence
 
@@ -77,4 +78,4 @@ The runtime exposes a presentation-neutral `GameSession` snapshot and a `Session
 
 ## Execution note
 
-The current increment moves the adaptive surface layer from an isolated projection into the existing non-mutating journey screen hosts and adds a machine-readable cross-screen regression matrix. Next: bind the same contract to Event/Choice and Consequence hosts, then produce rendered cross-screen evidence. Source-level regression does not replace physical Android screenshot/device proof.
+The current increment completes the adaptive presentation binding for Event/Choice and adds the consequence/result boundary. Next: connect the consequence surface to rendered cross-screen evidence, then expand the evidence matrix to RTL/large-text/reduced-motion rendered states and proceed toward physical Android proof. Source-level regression does not replace physical Android screenshot/device proof.
