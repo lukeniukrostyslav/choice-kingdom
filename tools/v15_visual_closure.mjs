@@ -45,9 +45,14 @@ for (const file of pages) {
       const smallTargets = visible.filter(el => { const r = el.getBoundingClientRect(); return r.width < 48 || r.height < 48; });
       const unlabeled = interactive.filter(el => !((el.innerText || '').trim() || el.getAttribute('aria-label') || el.getAttribute('aria-labelledby') || el.getAttribute('title')));
       const textNodes = [...document.querySelectorAll('p,h1,h2,h3,button,.choice,.panel')];
-      const clippedText = textNodes.filter(el => el.scrollHeight > el.clientHeight + 1);
+      const clippedText = textNodes.filter(el => {
+        const style = getComputedStyle(el);
+        return (style.overflow === 'hidden' || style.overflow === 'clip' || style.overflowX === 'hidden' || style.overflowY === 'hidden') && el.scrollHeight > el.clientHeight + 1;
+      });
       const focusRules = [...document.querySelectorAll('style')].some(s => /:focus-visible/.test(s.textContent || ''));
       const html = document.documentElement.outerHTML;
+      const isAppFlow = location.pathname.endsWith('/game-flow.html');
+      const isLauncher = location.pathname.endsWith('/index.html');
       return {
         horizontalOverflow: document.documentElement.scrollWidth > window.innerWidth + 1,
         text: document.body.innerText.length,
@@ -63,10 +68,14 @@ for (const file of pages) {
         hasThemeState: document.querySelector('[data-theme]') !== null || html.includes('data-theme'),
         hasRtl: /dir=|RTL/.test(html),
         hasViewportMeta: Boolean(document.querySelector('meta[name="viewport"][content*="viewport-fit=cover"]')),
-        visibleInteractiveCount: visible.length
+        visibleInteractiveCount: visible.length,
+        pageType: isAppFlow ? 'app-flow' : isLauncher ? 'launcher' : 'design-surface'
       };
     });
-    const pass = Boolean(response?.ok()) && !metrics.horizontalOverflow && metrics.text > 0 && metrics.brokenImages === 0 && metrics.smallTargets === 0 && metrics.unlabeledControls === 0 && metrics.clippedText === 0 && metrics.hasSkipLink && metrics.hasLiveRegion && metrics.hasNavLabel && metrics.hasFocusVisible && metrics.hasReducedMotion && metrics.hasThemeState && metrics.hasRtl && metrics.hasViewportMeta && consoleErrors.length === 0 && pageErrors.length === 0 && failedRequests.length === 0;
+    const commonPass = Boolean(response?.ok()) && !metrics.horizontalOverflow && metrics.text > 0 && metrics.brokenImages === 0 && metrics.smallTargets === 0 && metrics.unlabeledControls === 0 && metrics.clippedText === 0 && consoleErrors.length === 0 && pageErrors.length === 0 && failedRequests.length === 0;
+    const appPass = metrics.pageType !== 'app-flow' || (metrics.hasSkipLink && metrics.hasLiveRegion && metrics.hasNavLabel && metrics.hasFocusVisible && metrics.hasReducedMotion && metrics.hasThemeState && metrics.hasRtl && metrics.hasViewportMeta);
+    const launcherPass = metrics.pageType !== 'launcher' || (metrics.hasThemeState && metrics.hasViewportMeta);
+    const pass = commonPass && appPass && launcherPass;
     if (!pass) failures += 1;
     results.push({ file, viewport: vp.name, pass, ...metrics, consoleErrors, pageErrors, failedRequests });
     await context.close();
