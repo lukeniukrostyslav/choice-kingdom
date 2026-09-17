@@ -34,7 +34,7 @@ This document is the canonical working checklist for the 25-block premium visual
 | P24 | Android devices / safe areas / resolution adaptation | 38% | Real Android presentation proof on target device classes |
 | P25 | Final premium polish / cross-screen QA | 58% | Full visual regression and no unresolved P1–P24 blockers |
 
-**Aggregate P1–P25 estimate: 62.12% (simple arithmetic mean of block estimates).**
+**Aggregate P1–P25 estimate: 62.24% (simple arithmetic mean of block estimates).**
 
 ## Current evidence
 
