@@ -24,9 +24,12 @@ class ChoiceKingdomAudio(private val context: Context) : AutoCloseable {
     private var focusGranted = false
     private var muted = prefs.getBoolean("muted", false)
     private var volume = prefs.getFloat("volume", 1f)
+    private var ambientVolume = prefs.getFloat("ambient_volume", 0.35f)
     private var foreground = true
-    private val soundIds = mutableMapOf<Int, Int>()
+    private val soundIds = mutableMapOf<String, Int>()
+    private var pendingLoads = 0
     private var soundsReady = false
+    private var ambientStreamId = 0
     private val mainHandler = Handler(Looper.getMainLooper())
     private var tone = ToneGenerator(AudioManager.STREAM_MUSIC, 80)
     private val soundPool = SoundPool.Builder().setMaxStreams(4).setAudioAttributes(
@@ -37,12 +40,15 @@ class ChoiceKingdomAudio(private val context: Context) : AutoCloseable {
         foreground = value
         if (!value) {
             tone.stopTone()
+            soundPool.autoPause()
+            stopAmbient()
             abandonFocus()
         }
     }
 
     val isMuted: Boolean get() = muted
     val currentVolume: Float get() = volume
+    val currentAmbientVolume: Float get() = ambientVolume
 
     fun setMuted(value: Boolean) {
         muted = value
@@ -52,6 +58,7 @@ class ChoiceKingdomAudio(private val context: Context) : AutoCloseable {
     fun setVolume(value: Float) {
         volume = value.coerceIn(0f, 1f)
         prefs.edit().putFloat("volume", volume).apply()
+        if (ambientStreamId != 0) soundPool.setVolume(ambientStreamId, ambientVolume * volume, ambientVolume * volume)
         tone.stopTone()
         tone.release()
         tone = ToneGenerator(AudioManager.STREAM_MUSIC, (volume * 100f).toInt().coerceIn(0, 100))
@@ -59,12 +66,33 @@ class ChoiceKingdomAudio(private val context: Context) : AutoCloseable {
 
     fun loadBundledSfx(resources: android.content.res.Resources, packageName: String) {
         if (soundsReady) return
-        val names = listOf("choice_click", "choice_confirm", "choice_error")
+        val names = listOf("choice_click", "choice_confirm", "choice_error", "ambient_avelune")
+        pendingLoads = names.count { resources.getIdentifier(it, "raw", packageName) != 0 }
         names.forEach { name ->
             val id = resources.getIdentifier(name, "raw", packageName)
-            if (id != 0) soundIds[id] = soundPool.load(context, id, 1)
+            if (id != 0) soundIds[name] = soundPool.load(context, id, 1)
         }
-        soundPool.setOnLoadCompleteListener { _, _, status -> if (status == 0) soundsReady = true }
+        soundPool.setOnLoadCompleteListener { _, _, status -> if (status == 0) { pendingLoads -= 1; if (pendingLoads <= 0) soundsReady = true } }
+    }
+
+    fun setAmbientVolume(value: Float) {
+        ambientVolume = value.coerceIn(0f, 1f)
+        prefs.edit().putFloat("ambient_volume", ambientVolume).apply()
+        if (ambientStreamId != 0) soundPool.setVolume(ambientStreamId, ambientVolume * volume, ambientVolume * volume)
+    }
+
+    fun startAmbient() {
+        if (!foreground || muted || ambientVolume <= 0f || !soundsReady || ambientStreamId != 0) return
+        val id = soundIds["ambient_avelune"] ?: return
+        if (!requestFocus()) return
+        ambientStreamId = soundPool.play(id, ambientVolume * volume, ambientVolume * volume, 0, -1, 1f)
+    }
+
+    fun stopAmbient() {
+        if (ambientStreamId != 0) {
+            soundPool.stop(ambientStreamId)
+            ambientStreamId = 0
+        }
     }
 
     fun playChoiceFeedback() {
@@ -81,7 +109,7 @@ class ChoiceKingdomAudio(private val context: Context) : AutoCloseable {
 
     private fun playBundled(name: String, fallbackTone: Int, durationMs: Int) {
         if (foreground && !muted && volume > 0f && soundsReady) {
-            val id = soundIds.entries.firstOrNull { entry -> context.resources.getResourceEntryName(entry.key) == name }?.value
+            val id = soundIds[name]
             if (id != null) {
                 if (requestFocus()) soundPool.play(id, volume, volume, 1, 0, 1f)
                 return
@@ -114,6 +142,8 @@ class ChoiceKingdomAudio(private val context: Context) : AutoCloseable {
                 .setOnAudioFocusChangeListener { change ->
                     if (change == AudioManager.AUDIOFOCUS_LOSS || change == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT) {
                         tone.stopTone()
+                        soundPool.autoPause()
+                        stopAmbient()
                         focusGranted = false
                     }
                 }
