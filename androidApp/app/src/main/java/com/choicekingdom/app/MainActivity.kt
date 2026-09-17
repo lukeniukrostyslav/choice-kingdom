@@ -486,10 +486,7 @@ private fun ScreenNavigation(screens: List<AndroidScreenState>, onSelect: (Strin
     ) {
         screens.forEach { screen ->
             Button(
-                onClick = {
-                    LocalHapticFeedback.current.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                    onSelect(screen.key)
-                },
+                onClick = { onSelect(screen.key) },
                 modifier = Modifier
                     .heightIn(min = 52.dp)
                     .semantics {
