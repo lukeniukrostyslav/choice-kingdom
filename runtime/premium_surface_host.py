@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from .event_screen import EventChoiceHost
 from .journey_screens import JourneyScreenHost
 from .premium_screen_states import PremiumScreen, ScreenState
 from .premium_surface_projection import PremiumSurfaceProjection, project_premium_surface
@@ -15,13 +16,14 @@ class PremiumHostedSurface:
 
 
 class PremiumSurfaceHost:
-    """Bind adaptive premium presentation to the existing screen projections.
+    """Bind adaptive premium presentation to the production screen hosts.
 
-    This host is presentation-only: it chooses density and forwards the existing
-    immutable screen model. It never evaluates or mutates gameplay state.
+    This host is presentation-only: it chooses density and forwards existing
+    immutable screen models. It never evaluates or mutates gameplay state.
     """
 
     def __init__(self, presenter: SessionPresenter):
+        self._event = EventChoiceHost(presenter)
         self._screens = JourneyScreenHost(presenter)
 
     def render(
@@ -37,6 +39,7 @@ class PremiumSurfaceHost:
             available_width_dp=available_width_dp,
         )
         models = {
+            PremiumScreen.EVENT: self._event.render,
             PremiumScreen.REALM: self._screens.realm,
             PremiumScreen.HISTORY: self._screens.history,
             PremiumScreen.PEOPLE: self._screens.people,
