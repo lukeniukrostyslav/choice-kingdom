@@ -81,7 +81,8 @@ private fun ChoiceKingdomApp() {
     var resolvingChoiceId by remember { mutableStateOf<String?>(null) }
     var projection by remember { mutableStateOf<AndroidEventProjection?>(null) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
-    val runtime = remember { CanonicalAndroidRuntime(androidx.compose.ui.platform.LocalContext.current) }
+    val context = androidx.compose.ui.platform.LocalContext.current
+    val runtime = remember(context) { CanonicalAndroidRuntime(context) }
 
     DisposableEffect(runtime) {
         runtime.start(
