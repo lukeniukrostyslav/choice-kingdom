@@ -8,7 +8,7 @@ This document is the canonical working checklist for the 25-block premium visual
 
 The premium bar is informed by current high-quality mobile game design references and award-recognized interaction patterns. The target is not to copy another game: Choice Kingdom must have its own Avelune identity.
 
-Reference principles observed in recent Apple Design Award game selections include: distinctive cohesive visual language; easy-to-learn platform-native interaction; narrative embedded into interaction; tactile/feedback-rich moments; careful attention to surrounding details; accessibility options exposed clearly; and visual storytelling that works across the whole experience. Relevant references include Blue Prince, Is This Seat Taken?, TR-49, Pine Hearts, The Wreck, Lost in Play, and Rytmos. See benchmark notes: https://developer.apple.com/design/awards/
+Recent 2026 design references reinforce a few durable requirements: distinctive cohesive visual language, platform-native interaction, narrative embedded into interaction, carefully authored environmental detail, clearly exposed accessibility controls, and responsive/touch-first presentation. Apple Design Awards 2026 specifically highlights games such as Is This Seat Taken? and Pine Hearts for distinctive presentation, interaction, surrounding detail, and accessibility options. These references are used as principles only; no competitor art, branding, characters, layouts, or proprietary assets are copied.
 
 ## Premium Design P1–P25
 
@@ -40,6 +40,13 @@ Reference principles observed in recent Apple Design Award game selections inclu
 | P24 | Android devices / safe areas / resolution adaptation | 10% | Real Android presentation proof on target device classes |
 | P25 | Final premium polish / cross-screen QA | 15% | Full visual regression and no unresolved P1–P24 blockers |
 
+## Evidence added in the current P6 increment
+
+- `design-preview/premium-choice-lab.html` provides a dedicated authored choice-state gallery covering default, focus, selected, blocked, pending, resolved and high-risk states.
+- The lab preserves touch-sized controls, keyboard focus, explicit disabled semantics, responsive mobile geometry and reduced-motion behavior.
+- `docs/P6_PREMIUM_CHOICE_STATE_LAB.md` records the visual contract and verification checklist.
+- The P6 percentage remains deliberately conservative at 50% because the lab is representative design proof, not yet full cross-screen gameplay integration or Android/device regression evidence.
+
 ## Execution order
 
 1. P1–P5: strengthen the visual foundation before adding more screens.
@@ -47,12 +54,6 @@ Reference principles observed in recent Apple Design Award game selections inclu
 3. P7–P20: extend the same visual language through the full player journey.
 4. P21–P24: accessibility, localization, Android adaptation, audio/haptics and device proof.
 5. P25: final cross-screen polish and regression gate.
-
-## Current evidence
-
-The latest main-branch design work is concentrated on P6. Recent commits add the choice-family matrix, visual gallery, launcher exposure, benchmark-informed choice surface/chamber, accessibility regression evidence, 2026 premium mobile benchmark principles, and now a standalone premium choice-state lab covering default, selected, blocked, pending, resolved and high-risk states. This confirms P6 as the active design execution frontier and supports a conservative increase from 46% to 50%.
-
-The existing design preview already contains event, realm, history, people/faction, investigation, ending and settings surfaces plus responsive, RTL, large-text, reduced-motion and safe-area-aware presentation behavior. The preview remains presentation-only and must not become a second gameplay source of truth.
 
 ## Quality rules
 
@@ -68,4 +69,4 @@ The existing design preview already contains event, realm, history, people/facti
 
 ## Immediate next execution target
 
-P1–P5 foundation hardening and P6 continuation are the highest-leverage design work. The next implementation increments should integrate the premium choice-state lab into the primary preview/runtime surface, expand family coverage, add visual regression evidence, and then move to the next foundation or journey block only when evidence exists.
+Continue P6 with cross-screen integration of the authored choice language, then harden P1–P5 tokens and responsive contracts before expanding deeply into P7. Internet research should be used selectively when a design decision needs a fresh benchmark; the repository should not accumulate repetitive benchmark documents when the existing evidence is sufficient.
