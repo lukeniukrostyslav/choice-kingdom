@@ -4,7 +4,7 @@
 Original premium offline-first decision-and-consequence mobile game set in Avelune. Android-first, one-time purchase target €2.99–€4.99, no ads/subscription/mandatory backend for core gameplay, 20+ locales including RTL. Frozen production catalog: **E01–E272**.
 
 ## Current phase
-**Block 2 Decision Engine / Application Runtime is closed at 100%; Block 3 is the next active workstream.** Block 1 Production Data Schema is closed at 100%. The project proceeds strictly block-by-block. Design is preserved and intentionally deferred until the real gameplay/runtime exists, then P1–P25 will be taken to real 100% with implementation and evidence.
+**Block 4 Production Content E01–E272 is closed at 100%; Block 5 Persistence / Save / Load / Resume is the next active workstream.** Blocks 1–3 are closed at 100%. The project proceeds strictly block-by-block. Design is preserved and intentionally deferred until the real gameplay/runtime exists, then P1–P25 will be taken to real 100% with implementation and evidence.
 
 ## Approved General Plan — 25 Blocks
 1. **Production Data Schema** → 100%
@@ -48,11 +48,13 @@ Execution order is strictly **1 → 2 → 3 → ... → 25**. A block is not con
 - The GREEN run passed authored source validation, representative authored runtime choices, full decision-engine boundary, GameSession application runtime boundary, delayed lifecycle, delayed target, ending resolver, and immediate-routing isolation gates.
 - Block 2 regression fixtures were aligned with the canonical ending predicate sources, duplicate-delay atomicity contract, and canonical replay-meta contract.
 - Block 1 unified production schema/catalog CI gate is GREEN.
+- Block 4 production content integrity gate is **GREEN** on run **35272313326**, head `fd1227ebf0a596cdbe2623fa9c5e8302553d669d`; the gate passed production catalog validation, frozen content integrity validation, production data schema validation, and all production catalog/content/schema tests.
+- The frozen authored surface is verified as **E01–E272**, with **520 authored choices** and **13 intentional no-choice nodes**; excluded E273–E277 remain outside the production catalog.
 - The unrelated Vercel deployment status is not used as evidence for runtime correctness.
 
 ## Major blocks
 - Foundation / Rules: **100%**
-- Authored Content: **90%**
+- Authored Content: **100%**
 - Canonical IDs / Continuity: **100%**
 - Producer / Consumer QA: **100% source-level**
 - Derived Predicates / Machine Contracts: **100% source-level**
