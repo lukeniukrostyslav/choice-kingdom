@@ -103,6 +103,15 @@ private fun ChoiceKingdomApp() {
     val context = androidx.compose.ui.platform.LocalContext.current
     val runtime = remember(context) { CanonicalAndroidRuntime(context) }
     val audio = remember(context) { ChoiceKingdomAudio(context) }
+    val lifecycleOwner = androidx.lifecycle.compose.LocalLifecycleOwner.current
+    DisposableEffect(lifecycleOwner, audio) {
+        val observer = object : androidx.lifecycle.DefaultLifecycleObserver {
+            override fun onStart(owner: androidx.lifecycle.LifecycleOwner) { audio.setForeground(true) }
+            override fun onStop(owner: androidx.lifecycle.LifecycleOwner) { audio.setForeground(false) }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
+    }
 
     DisposableEffect(runtime, audio) {
         runtime.start(
