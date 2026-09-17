@@ -1,9 +1,11 @@
 package com.choicekingdom.app
 
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.hasStateDescription
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.SemanticsMatcher
 import org.junit.Rule
 import org.junit.Test
 
@@ -22,7 +24,11 @@ class ChoiceKingdomAppTest {
     @Test
     fun selectingChoiceChangesAccessibleState() {
         composeRule.onNode(hasText("Approach")).performClick()
-        composeRule.onNode(hasText("Approach")).assertIsDisplayed()
-        composeRule.onNode(hasText("Approach")).assertIsDisplayed()
+        composeRule.onNode(hasStateDescription("Selected").and(hasText("Approach"))).assertIsDisplayed()
     }
 }
+
+private infix fun SemanticsMatcher.and(other: SemanticsMatcher): SemanticsMatcher =
+    SemanticsMatcher("($this) and ($other)") { node ->
+        this.matches(node) && other.matches(node)
+    }
