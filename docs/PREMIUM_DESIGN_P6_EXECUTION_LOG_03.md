@@ -10,10 +10,11 @@ Date: 2026-09-17
 - Added explicit keyboard shortcuts metadata to both decision controls.
 - Added keyboard preview handling: `1` focuses Choice A, `2` focuses Choice B, and `Escape` restores the idle preview state.
 - The Focused inspection state now programmatically places focus on the inspected choice so the focus-visible treatment is directly testable in the preview.
+- Added `tests/test_p6_choice_visual_contract.py` to lock the accessibility/status/keyboard/large-target contract against accidental regression.
 
 ## Design rationale
 
-Android's current app-quality guidance requires interactive touch targets of at least 48dp and calls for a visible focused state for custom interactive elements. The P6 preview now reflects those requirements in its inspection controls while preserving the existing decision-first visual hierarchy.
+Android's current app-quality guidance requires interactive touch targets of at least 48dp and calls for a visible focused state for custom interactive elements. The P6 preview now reflects those requirements in its inspection controls while preserving the existing decision-first visual hierarchy. citeturn0search1turn0search2
 
 ## Integrity boundary
 
@@ -25,4 +26,5 @@ This is an implementation increment inside **P6 Choice Experience**. The roadmap
 
 ## GitHub
 
-Implemented in `web-preview/design-choice-experience-p6.html` in commit `256af4f64971e52f3a1e7e36e03971de3c860127`.
+- Visual preview increment: `web-preview/design-choice-experience-p6.html` — commit `256af4f64971e52f3a1e7e36e03971de3c860127`.
+- Visual contract regression test: `tests/test_p6_choice_visual_contract.py` — commit `fea959989f5b7872439318775914c602c05ad895`.
