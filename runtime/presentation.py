@@ -83,6 +83,7 @@ class SessionPresenter:
     def __init__(self, session: GameSession):
         self.session = session
         self._focused_choice: str | None = None
+        self._pressed_choice: str | None = None
         self._resolving_choice: str | None = None
         self._resolved_choice: str | None = None
         self._error_choice: str | None = None
@@ -114,32 +115,42 @@ class SessionPresenter:
     def focus_choice(self, choice_id: str) -> None:
         self._require_available(choice_id)
         self._focused_choice = choice_id
+        self._pressed_choice = None
         self._resolving_choice = None
         self._resolved_choice = None
         self._error_choice = None
 
     def press_choice(self, choice_id: str) -> None:
+        """Record the tactile/keyboard press state without resolving gameplay."""
         self._require_available(choice_id)
         self._focused_choice = choice_id
-        self._resolving_choice = choice_id
+        self._pressed_choice = choice_id
+        self._resolving_choice = None
         self._resolved_choice = None
         self._error_choice = None
 
     def begin_choice(self, choice_id: str) -> None:
-        """Alias for the pressed -> resolving transition used by UI hosts."""
-        self.press_choice(choice_id)
+        """Advance the UI-only pressed state into resolving."""
+        self._require_available(choice_id)
+        self._focused_choice = None
+        self._pressed_choice = None
+        self._resolving_choice = choice_id
+        self._resolved_choice = None
+        self._error_choice = None
 
     def choose(self, choice_id: str):
-        self.press_choice(choice_id)
+        self.begin_choice(choice_id)
         try:
             result = self.session.choose(choice_id)
         except Exception:
             self._error_choice = choice_id
             self._focused_choice = None
+            self._pressed_choice = None
             self._resolving_choice = None
             self._resolved_choice = None
             raise
         self._focused_choice = None
+        self._pressed_choice = None
         self._resolving_choice = None
         self._resolved_choice = choice_id
         self._error_choice = None
@@ -147,6 +158,7 @@ class SessionPresenter:
 
     def clear_transient_state(self) -> None:
         self._focused_choice = None
+        self._pressed_choice = None
         self._resolving_choice = None
         self._resolved_choice = None
         self._error_choice = None
@@ -169,6 +181,8 @@ class SessionPresenter:
             return InteractionState.ERROR
         if choice_id == self._resolving_choice:
             return InteractionState.RESOLVING
+        if choice_id == self._pressed_choice:
+            return InteractionState.PRESSED
         if choice_id == self._resolved_choice:
             return InteractionState.RESOLVED
         if choice_id == self._focused_choice:
