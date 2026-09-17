@@ -101,6 +101,7 @@ private fun ChoiceKingdomApp() {
     var audioMuted by rememberSaveable { mutableStateOf(false) }
     var audioVolume by rememberSaveable { mutableStateOf(1f) }
     var ambientVolume by rememberSaveable { mutableStateOf(0.35f) }
+    var musicVolume by rememberSaveable { mutableStateOf(0.55f) }
     val context = androidx.compose.ui.platform.LocalContext.current
     val runtime = remember(context) { CanonicalAndroidRuntime(context) }
     val audio = remember(context) { ChoiceKingdomAudio(context) }
@@ -109,6 +110,7 @@ private fun ChoiceKingdomApp() {
         audioMuted = audio.isMuted
         audioVolume = audio.currentVolume
         ambientVolume = audio.currentAmbientVolume
+        musicVolume = audio.currentMusicVolume
     }
     val lifecycleOwner = androidx.lifecycle.compose.LocalLifecycleOwner.current
     DisposableEffect(lifecycleOwner, audio) {
@@ -159,9 +161,11 @@ private fun ChoiceKingdomApp() {
                         audioMuted = audioMuted,
                         audioVolume = audioVolume,
                         ambientVolume = ambientVolume,
+                        musicVolume = musicVolume,
                         onAudioMutedChanged = { audioMuted = it; audio.setMuted(it) },
                         onAudioVolumeChanged = { audioVolume = it; audio.setVolume(it) },
                         onAmbientVolumeChanged = { ambientVolume = it; audio.setAmbientVolume(it) },
+                        onMusicVolumeChanged = { musicVolume = it; audio.setMusicVolume(it) },
                         selectedScreen = screens.first { it.key == selectedScreen },
                         snapshot = projection!!,
                         selectedChoiceId = selectedChoiceId,
@@ -169,7 +173,7 @@ private fun ChoiceKingdomApp() {
                         errorMessage = errorMessage,
                         onScreenSelected = {
                             selectedScreen = it.key
-                            if (it.key == "Settings") { audio.setMuted(audioMuted); audio.setVolume(audioVolume); audio.setAmbientVolume(ambientVolume) }
+                            if (it.key == "Settings") { audio.setMuted(audioMuted); audio.setVolume(audioVolume); audio.setAmbientVolume(ambientVolume); audio.setMusicVolume(musicVolume) }
                             selectedChoiceId = null
                             resolvingChoiceId = null
                             errorMessage = null
@@ -226,9 +230,11 @@ private fun AdaptiveJourney(
     audioMuted: Boolean,
     audioVolume: Float,
     ambientVolume: Float,
+    musicVolume: Float,
     onAudioMutedChanged: (Boolean) -> Unit,
     onAudioVolumeChanged: (Float) -> Unit,
     onAmbientVolumeChanged: (Float) -> Unit,
+    onMusicVolumeChanged: (Float) -> Unit,
     selectedScreen: AndroidScreenState,
     snapshot: AndroidEventProjection,
     selectedChoiceId: String?,
@@ -259,7 +265,7 @@ private fun AdaptiveJourney(
         ) {
             NavigationRail(screens = localizedScreens(), onSelect = onScreenSelected, modifier = Modifier.width(220.dp))
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.TopCenter) {
-                TransitionedJourneyContent(selectedScreen, snapshot, selectedChoiceId, resolvingChoiceId, errorMessage, titleSize, contentWidth, audio, audioMuted, audioVolume, ambientVolume, onAudioMutedChanged, onAudioVolumeChanged, onAmbientVolumeChanged, onChoiceSelected)
+                TransitionedJourneyContent(selectedScreen, snapshot, selectedChoiceId, resolvingChoiceId, errorMessage, titleSize, contentWidth, audio, audioMuted, audioVolume, ambientVolume, musicVolume, onAudioMutedChanged, onAudioVolumeChanged, onAmbientVolumeChanged, onMusicVolumeChanged, onChoiceSelected)
             }
         }
     } else {
@@ -276,6 +282,7 @@ private fun AdaptiveJourney(
                 audioMuted,
                 audioVolume,
                 ambientVolume,
+                musicVolume,
                 onAudioMutedChanged,
                 onAudioVolumeChanged,
                 onAmbientVolumeChanged,
@@ -299,9 +306,11 @@ private fun TransitionedJourneyContent(
     audioMuted: Boolean,
     audioVolume: Float,
     ambientVolume: Float,
+    musicVolume: Float,
     onAudioMutedChanged: (Boolean) -> Unit,
     onAudioVolumeChanged: (Float) -> Unit,
     onAmbientVolumeChanged: (Float) -> Unit,
+    onMusicVolumeChanged: (Float) -> Unit,
     onChoiceSelected: (String) -> Unit,
 ) {
     AnimatedContent(
@@ -323,9 +332,11 @@ private fun TransitionedJourneyContent(
             audioMuted = audioMuted,
             audioVolume = audioVolume,
             ambientVolume = ambientVolume,
+            musicVolume = musicVolume,
             onAudioMutedChanged = onAudioMutedChanged,
             onAudioVolumeChanged = onAudioVolumeChanged,
             onAmbientVolumeChanged = onAmbientVolumeChanged,
+            onMusicVolumeChanged = onMusicVolumeChanged,
             onChoiceSelected = onChoiceSelected,
         )
     }
@@ -344,9 +355,11 @@ private fun JourneyContent(
     audioMuted: Boolean,
     audioVolume: Float,
     ambientVolume: Float,
+    musicVolume: Float,
     onAudioMutedChanged: (Boolean) -> Unit,
     onAudioVolumeChanged: (Float) -> Unit,
     onAmbientVolumeChanged: (Float) -> Unit,
+    onMusicVolumeChanged: (Float) -> Unit,
     onChoiceSelected: (String) -> Unit,
 ) {
     LazyColumn(
@@ -383,6 +396,8 @@ private fun JourneyContent(
                 onVolumeChanged = onAudioVolumeChanged,
                 ambientVolume = ambientVolume,
                 onAmbientVolumeChanged = onAmbientVolumeChanged,
+                musicVolume = musicVolume,
+                onMusicVolumeChanged = onMusicVolumeChanged,
             ) }
         }
     }
@@ -542,6 +557,8 @@ private fun SettingsCard(
     onVolumeChanged: (Float) -> Unit,
     ambientVolume: Float,
     onAmbientVolumeChanged: (Float) -> Unit,
+    musicVolume: Float,
+    onMusicVolumeChanged: (Float) -> Unit,
 ) {
     Card(modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(22.dp), border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)) {
         Column(modifier = Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -565,6 +582,8 @@ private fun SettingsCard(
                 modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
             )
             Text("Ambient ${(ambientVolume * 100).toInt()}%", fontSize = 13.sp)
+            Text("Music ${(musicVolume * 100).toInt()}%", fontSize = 13.sp)
+            androidx.compose.material3.Slider(value = musicVolume, onValueChange = onMusicVolumeChanged, valueRange = 0f..1f, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp))
             androidx.compose.material3.Slider(value = ambientVolume, onValueChange = onAmbientVolumeChanged, valueRange = 0f..1f, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp))
             TextButton(onClick = { AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("en")) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("English") }
             TextButton(onClick = { AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("it")) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("Italiano") }
