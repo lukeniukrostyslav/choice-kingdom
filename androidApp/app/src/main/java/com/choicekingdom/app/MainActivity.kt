@@ -3,31 +3,44 @@ package com.choicekingdom.app
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
@@ -41,11 +54,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 private enum class WindowMode { COMPACT, MEDIUM, EXPANDED }
-private data class AndroidScreenState(val title: String)
+private data class AndroidScreenState(val title: String, val subtitle: String)
 private val screens = listOf(
-    AndroidScreenState("Event"), AndroidScreenState("Realm"), AndroidScreenState("History"),
-    AndroidScreenState("People"), AndroidScreenState("Investigation"), AndroidScreenState("Ending"),
-    AndroidScreenState("Settings"),
+    AndroidScreenState("Event", "Make the choice that shapes Avelune"),
+    AndroidScreenState("Realm", "See the kingdom at a glance"),
+    AndroidScreenState("History", "Remember what your choices changed"),
+    AndroidScreenState("People", "Follow the people who matter"),
+    AndroidScreenState("Investigation", "Keep clues and threads together"),
+    AndroidScreenState("Ending", "Understand where this run led"),
+    AndroidScreenState("Settings", "Tune the journey to your needs"),
 )
 
 class MainActivity : ComponentActivity() {
@@ -60,8 +77,12 @@ private fun ChoiceKingdomApp() {
     var selectedScreen by remember { mutableStateOf("Event") }
     val presentation = remember { AndroidPresentationPort.fromSnapshot(sampleProjection()) }
     ChoiceKingdomTheme {
-        Surface(modifier = Modifier.fillMaxSize()) {
-            BoxWithConstraints(modifier = Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing)) {
+        Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+            BoxWithConstraints(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .windowInsetsPadding(WindowInsets.safeDrawing),
+            ) {
                 val mode = when {
                     maxWidth < 600.dp -> WindowMode.COMPACT
                     maxWidth < 840.dp -> WindowMode.MEDIUM
@@ -100,7 +121,12 @@ private fun AdaptiveJourney(
     val horizontal = when (mode) {
         WindowMode.COMPACT -> 16.dp
         WindowMode.MEDIUM -> 28.dp
-        WindowMode.EXPANDED -> 48.dp
+        WindowMode.EXPANDED -> 40.dp
+    }
+    val contentWidth = when (mode) {
+        WindowMode.COMPACT -> Modifier.fillMaxWidth()
+        WindowMode.MEDIUM -> Modifier.fillMaxWidth().padding(horizontal = 4.dp)
+        WindowMode.EXPANDED -> Modifier.width(720.dp)
     }
     val titleSize = when (mode) {
         WindowMode.COMPACT -> 30.sp
@@ -110,10 +136,12 @@ private fun AdaptiveJourney(
     if (mode == WindowMode.EXPANDED) {
         Row(
             modifier = Modifier.fillMaxSize().padding(horizontal = horizontal),
-            horizontalArrangement = Arrangement.spacedBy(24.dp),
+            horizontalArrangement = Arrangement.spacedBy(28.dp),
         ) {
-            NavigationRailLike(onScreenSelected, Modifier.weight(0.34f))
-            JourneyContent(selectedScreen, presentation, titleSize, Modifier.weight(0.66f))
+            NavigationRail(onScreenSelected, Modifier.width(220.dp))
+            Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.TopCenter) {
+                JourneyContent(selectedScreen, presentation, titleSize, contentWidth)
+            }
         }
     } else {
         Column(modifier = Modifier.fillMaxSize()) {
@@ -138,72 +166,168 @@ private fun JourneyContent(
     val snapshot = presentation.snapshot()
     LazyColumn(
         modifier = modifier,
-        contentPadding = PaddingValues(top = 24.dp, bottom = 28.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
+        contentPadding = PaddingValues(top = 18.dp, bottom = 32.dp),
+        verticalArrangement = Arrangement.spacedBy(14.dp),
     ) {
         item {
-            Text("CHOICE KINGDOM · AVELUNE", color = MaterialTheme.colorScheme.primary, fontSize = 12.sp, fontWeight = FontWeight.Bold)
-            Text(screen.title, color = MaterialTheme.colorScheme.onSurface, fontSize = titleSize, fontWeight = FontWeight.SemiBold)
-            Text(snapshot.title, color = MaterialTheme.colorScheme.onSurface, fontSize = 20.sp, fontWeight = FontWeight.Medium)
-            Text("Turn ${snapshot.turn} · ${snapshot.eventId}", color = MaterialTheme.colorScheme.secondary, fontSize = 14.sp)
+            Header(snapshot.turn, titleSize)
         }
-        if (screen.title == "Event") {
-            item {
-                Text(
-                    if (snapshot.terminal) "Event complete" else "Choose your next action",
-                    color = MaterialTheme.colorScheme.secondary,
-                    fontSize = 14.sp,
-                )
+        item {
+            HeroCard(screen, snapshot)
+        }
+        when (screen.title) {
+            "Event" -> {
+                item { SectionLabel("YOUR DECISION") }
+                items(snapshot.choices, key = { it.id }) { choice -> ChoiceCard(choice) }
             }
-            items(snapshot.choices, key = { it.id }) { choice ->
-                ChoiceButton(choice)
+            "Realm" -> item { InfoGrid(listOf("Gold" to "120", "Trust" to "64", "Security" to "51", "Power" to "43")) }
+            "History" -> item { TimelineCard(snapshot.eventId, "The journey begins", "Turn ${snapshot.turn} · ${snapshot.title}") }
+            "People" -> item { InfoGrid(listOf("Mara" to "Known", "Rowan" to "Unknown", "Seris" to "Unknown", "Ivo" to "Unknown")) }
+            "Investigation" -> item { TimelineCard("THREAD 01", "The stranger on the road", "No conclusion yet · keep watching") }
+            "Ending" -> item { EndingCard(snapshot.terminal) }
+            "Settings" -> item { SettingsCard() }
+        }
+    }
+}
+
+@Composable
+private fun Header(turn: Int, titleSize: TextUnit) {
+    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        Text("CHOICE KINGDOM  ·  AVELUNE", color = MaterialTheme.colorScheme.primary, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text("Turn $turn", color = MaterialTheme.colorScheme.secondary, fontSize = 13.sp)
+            Box(modifier = Modifier.size(4.dp).background(MaterialTheme.colorScheme.outline, RoundedCornerShape(50)))
+            Text("OFFLINE JOURNEY", color = MaterialTheme.colorScheme.secondary, fontSize = 13.sp, fontWeight = FontWeight.Medium)
+        }
+        Text("Avelune", color = MaterialTheme.colorScheme.onBackground, fontSize = titleSize, fontWeight = FontWeight.SemiBold)
+    }
+}
+
+@Composable
+private fun HeroCard(screen: AndroidScreenState, snapshot: AndroidEventProjection) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(28.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+    ) {
+        Column(modifier = Modifier.padding(22.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            Text(screen.title.uppercase(), color = MaterialTheme.colorScheme.primary, fontSize = 11.sp, fontWeight = FontWeight.Bold)
+            Text(snapshot.title, color = MaterialTheme.colorScheme.onSurface, fontSize = 25.sp, fontWeight = FontWeight.SemiBold)
+            Text(screen.subtitle, color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 15.sp, lineHeight = 22.sp)
+            Text("${snapshot.eventId}  ·  Turn ${snapshot.turn}", color = MaterialTheme.colorScheme.secondary, fontSize = 12.sp)
+        }
+    }
+}
+
+@Composable
+private fun SectionLabel(text: String) {
+    Text(text, color = MaterialTheme.colorScheme.secondary, fontSize = 11.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(horizontal = 4.dp))
+}
+
+@Composable
+private fun ChoiceCard(choice: AndroidChoice) {
+    var selected by remember(choice.id) { mutableStateOf(choice.state == "selected") }
+    val enabled = choice.state != "disabled"
+    val state = if (selected) "Selected" else "Available"
+    Button(
+        onClick = { selected = true },
+        enabled = enabled,
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(min = 78.dp)
+            .semantics {
+                role = Role.Button
+                contentDescription = "${choice.label}: ${choice.text}"
+                stateDescription = state
+            },
+        shape = RoundedCornerShape(22.dp),
+        border = BorderStroke(1.dp, if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = if (selected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface,
+            contentColor = MaterialTheme.colorScheme.onSurface,
+            disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+        ),
+        contentPadding = PaddingValues(horizontal = 20.dp, vertical = 14.dp),
+    ) {
+        Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+                Text(choice.label, fontWeight = FontWeight.SemiBold, fontSize = 16.sp)
+                Text(if (selected) "SELECTED" else "CHOOSE", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
+            }
+            Text(choice.text, textAlign = TextAlign.Start, modifier = Modifier.fillMaxWidth(), fontSize = 14.sp, lineHeight = 20.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
+    }
+}
+
+@Composable
+private fun InfoGrid(items: List<Pair<String, String>>) {
+    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        items.chunked(2).forEach { rowItems ->
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                rowItems.forEach { (label, value) ->
+                    Card(modifier = Modifier.weight(1f), shape = RoundedCornerShape(20.dp), border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)) {
+                        Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                            Text(label, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            Text(value, fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
+                        }
+                    }
+                }
+                if (rowItems.size == 1) Spacer(Modifier.weight(1f))
             }
         }
     }
 }
 
 @Composable
-private fun ChoiceButton(choice: AndroidChoice) {
-    var selected by remember(choice.id) { mutableStateOf(choice.state == "selected") }
-    val enabled = choice.state != "disabled"
-    Button(
-        onClick = { selected = true },
-        enabled = enabled,
-        modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp).semantics {
-            role = Role.Button
-            contentDescription = "${choice.label}: ${choice.text}"
-            stateDescription = if (selected) "Selected" else "Available"
-        },
-        colors = ButtonDefaults.buttonColors(
-            containerColor = if (selected) MaterialTheme.colorScheme.surfaceVariant else MaterialTheme.colorScheme.surface,
-        ),
-    ) {
-        Column(modifier = Modifier.fillMaxWidth()) {
-            Text(choice.label, fontWeight = FontWeight.SemiBold)
-            Text(choice.text, textAlign = TextAlign.Start, modifier = Modifier.fillMaxWidth(), fontSize = 14.sp)
+private fun TimelineCard(kicker: String, title: String, detail: String) {
+    Card(modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(22.dp), border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)) {
+        Column(modifier = Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text(kicker, fontSize = 10.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
+            Text(title, fontSize = 19.sp, fontWeight = FontWeight.SemiBold)
+            Text(detail, fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
+    }
+}
+
+@Composable
+private fun EndingCard(terminal: Boolean) {
+    TimelineCard(if (terminal) "RESOLVED" else "IN PROGRESS", if (terminal) "This journey has ended" else "Your ending is still ahead", "The final resolution will be presented from the canonical session state.")
+}
+
+@Composable
+private fun SettingsCard() {
+    Card(modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(22.dp), border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)) {
+        Column(modifier = Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text("Presentation preferences", fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
+            Text("Large text, RTL, reduced motion and safe-area behavior are presentation concerns and remain independent from gameplay state.", fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, lineHeight = 21.sp)
+            TextButton(onClick = {}, modifier = Modifier.heightIn(min = 48.dp)) { Text("Accessibility-ready surface") }
         }
     }
 }
 
 @Composable
 private fun ScreenNavigation(onSelect: (String) -> Unit, modifier: Modifier) {
-    Row(modifier = modifier.padding(12.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        screens.take(4).forEach { screen ->
-            Button(onClick = { onSelect(screen.title) }, modifier = Modifier.weight(1f).heightIn(min = 52.dp), contentPadding = PaddingValues(horizontal = 4.dp)) {
-                Text(screen.title, fontSize = 11.sp, maxLines = 1)
+    Row(
+        modifier = modifier.horizontalScroll(rememberScrollState()).padding(horizontal = 12.dp, vertical = 10.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        screens.forEach { screen ->
+            Button(onClick = { onSelect(screen.title) }, modifier = Modifier.heightIn(min = 52.dp), contentPadding = PaddingValues(horizontal = 14.dp)) {
+                Text(screen.title, fontSize = 12.sp, maxLines = 1)
             }
         }
     }
 }
 
 @Composable
-private fun NavigationRailLike(onSelect: (String) -> Unit, modifier: Modifier) {
-    Card(modifier = modifier.padding(vertical = 24.dp)) {
+private fun NavigationRail(onSelect: (String) -> Unit, modifier: Modifier) {
+    Card(modifier = modifier.padding(vertical = 18.dp), shape = RoundedCornerShape(26.dp), border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)) {
         Column(modifier = Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text("Avelune", fontWeight = FontWeight.Bold, modifier = Modifier.padding(8.dp))
+            Text("Avelune", fontSize = 20.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(10.dp))
             screens.forEach { screen ->
-                Button(onClick = { onSelect(screen.title) }, modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp)) {
-                    Text(screen.title)
+                TextButton(onClick = { onSelect(screen.title) }, modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp)) {
+                    Text(screen.title, modifier = Modifier.fillMaxWidth())
                 }
             }
         }

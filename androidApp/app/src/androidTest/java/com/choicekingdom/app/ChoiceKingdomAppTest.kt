@@ -5,7 +5,6 @@ import androidx.compose.ui.test.hasStateDescription
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.performClick
-import androidx.compose.ui.test.SemanticsMatcher
 import org.junit.Rule
 import org.junit.Test
 
@@ -19,16 +18,26 @@ class ChoiceKingdomAppTest {
         composeRule.onNode(hasText("Approach")).assertIsDisplayed()
         composeRule.onNode(hasText("Wait")).assertIsDisplayed()
         composeRule.onNode(hasText("Leave")).assertIsDisplayed()
+        composeRule.onNode(hasText("YOUR DECISION")).assertIsDisplayed()
     }
 
     @Test
     fun selectingChoiceChangesAccessibleState() {
         composeRule.onNode(hasText("Approach")).performClick()
         composeRule.onNode(hasStateDescription("Selected").and(hasText("Approach"))).assertIsDisplayed()
+        composeRule.onNode(hasText("SELECTED")).assertIsDisplayed()
     }
-}
 
-private infix fun SemanticsMatcher.and(other: SemanticsMatcher): SemanticsMatcher =
-    SemanticsMatcher("($this) and ($other)") { node ->
-        this.matches(node) && other.matches(node)
+    @Test
+    fun navigationRevealsEveryPrimarySurface() {
+        listOf("Realm", "History", "People", "Investigation", "Ending", "Settings").forEach { destination ->
+            composeRule.onNode(hasText(destination, substring = false)).performClick()
+            composeRule.onNode(hasText(destination.uppercase())).assertIsDisplayed()
+        }
     }
+
+    private infix fun androidx.compose.ui.test.SemanticsMatcher.and(other: androidx.compose.ui.test.SemanticsMatcher): androidx.compose.ui.test.SemanticsMatcher =
+        androidx.compose.ui.test.SemanticsMatcher("($this) and ($other)") { node ->
+            this.matches(node) && other.matches(node)
+        }
+}
