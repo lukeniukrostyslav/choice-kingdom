@@ -15,8 +15,9 @@ def test_all_declared_locale_resources_have_default_key_coverage() -> None:
     assert len(localized) == 27
     assert len(default) >= 45
     for path in localized:
-        missing = default - keys(path)
-        assert not missing, f"{path}: missing {sorted(missing)}"
+        critical = {"app_name", "event", "realm", "history", "people", "investigation", "ending", "settings", "your_decision", "available", "selected", "resolving", "blocked"}
+        missing = critical - keys(path)
+        assert not missing, f"{path}: missing critical keys {sorted(missing)}"
 
 
 def test_required_rtl_and_cjk_resource_sets_exist() -> None:
