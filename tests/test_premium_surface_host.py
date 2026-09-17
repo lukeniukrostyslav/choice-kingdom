@@ -7,6 +7,9 @@ class StubPresenter:
     def snapshot(self):
         return object()
 
+    def focus_choice(self, choice_id: str):
+        return None
+
 
 def test_surface_host_binds_adaptive_projection_to_history() -> None:
     hosted = PremiumSurfaceHost(StubPresenter()).render(
@@ -29,10 +32,12 @@ def test_surface_host_binds_expanded_investigation() -> None:
     assert hosted.projection.show_supporting_context
 
 
-def test_surface_host_rejects_unbound_event_surface() -> None:
-    try:
-        PremiumSurfaceHost(StubPresenter()).render(PremiumScreen.EVENT)
-    except ValueError as exc:
-        assert "event" in str(exc)
-    else:
-        raise AssertionError("Expected event surface to require EventChoiceHost")
+def test_surface_host_binds_event_surface() -> None:
+    hosted = PremiumSurfaceHost(StubPresenter()).render(
+        PremiumScreen.EVENT,
+        state=ScreenState.FOCUSED,
+        available_width_dp=390,
+    )
+    assert hosted.projection.density is SurfaceDensity.COMPACT
+    assert hosted.projection.preserve_primary_action
+    assert hosted.model is not None
