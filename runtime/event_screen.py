@@ -44,6 +44,10 @@ class EventChoiceHost:
         self.presenter.press_choice(choice_id)
         return self.render()
 
+    def block(self, choice_id: str) -> EventChoiceScreen:
+        self.presenter.block_choice(choice_id)
+        return self.render()
+
     def choose(self, choice_id: str):
         """Commit one choice through the canonical application boundary."""
         result = self.presenter.choose(choice_id)
@@ -56,6 +60,7 @@ class EventChoiceHost:
                 InteractionState.SELECTED,
                 InteractionState.PRESSED,
                 InteractionState.RESOLVING,
+                InteractionState.BLOCKED,
             }:
                 return choice.choice_id
         return None
