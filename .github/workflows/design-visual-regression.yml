@@ -24,139 +24,93 @@ jobs:
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: Serve preview
-        run: |
-          python3 -m http.server 4173 --directory web-preview >/tmp/choice-kingdom-http.log 2>&1 &
-          for attempt in $(seq 1 20); do
-            if curl --fail --silent --show-error http://127.0.0.1:4173/index.html >/dev/null; then
-              exit 0
-            fi
-            sleep 1
-          done
-          cat /tmp/choice-kingdom-http.log
-          exit 1
-
       - name: Capture mobile visual regression matrix
         run: |
           mkdir -p artifacts/visual-regression
+          nohup python3 -m http.server 4173 --directory web-preview >/tmp/choice-kingdom-http.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 20); do
+            if curl --fail --silent --show-error http://127.0.0.1:4173/index.html >/dev/null; then break; fi
+            sleep 1
+            if [ "$attempt" = "20" ]; then cat /tmp/choice-kingdom-http.log; exit 1; fi
+          done
           node <<'NODE'
           const { chromium } = require('playwright');
           const fs = require('fs');
-          const pages = [
-            'index.html',
-            'game-flow.html',
-            'artwork-preview.html',
-            'design-art-direction.html',
-            'design-asset-production.html',
-            'design-accessibility-final.html',
-            'design-character-faction-final.html'
-          ];
+          const pages = ['index.html','game-flow.html','artwork-preview.html','design-art-direction.html','design-asset-production.html','design-accessibility-final.html','design-character-faction-final.html'];
           const viewports = [
             { name: '360x800', width: 360, height: 800 },
             { name: '412x915', width: 412, height: 915 },
             { name: '412x1000', width: 412, height: 1000 },
             { name: '1440x900', width: 1440, height: 900 }
           ];
-          const requiredArtwork = [
-            'artwork/event-empty-granary.svg',
-            'artwork/queen-elira.svg',
-            'artwork/lord-cael.svg',
-            'artwork/river-compact.svg',
-            'artwork/ending-chronicle.svg'
-          ];
+          const requiredArtwork = ['artwork/event-empty-granary.svg','artwork/queen-elira.svg','artwork/lord-cael.svg','artwork/river-compact.svg','artwork/ending-chronicle.svg'];
           (async () => {
             const browser = await chromium.launch({ headless: true });
             const results = [];
             let runtimeFailures = 0;
-            for (const file of pages) {
-              for (const vp of viewports) {
-                const context = await browser.newContext({ deviceScaleFactor: 1, reducedMotion: 'reduce' });
-                const page = await context.newPage({ viewport: { width: vp.width, height: vp.height } });
-                const consoleErrors = [];
-                const pageErrors = [];
-                const failedRequests = [];
-                page.on('console', message => { if (message.type() === 'error') consoleErrors.push(message.text()); });
-                page.on('pageerror', error => pageErrors.push(String(error)));
-                page.on('requestfailed', request => failedRequests.push({ url: request.url(), failure: request.failure()?.errorText || 'unknown' }));
-                const response = await page.goto(`http://127.0.0.1:4173/${file}`, { waitUntil: 'networkidle' });
-                const metrics = await page.evaluate(() => {
-                  const interactive = [...document.querySelectorAll('a,button,input,select,textarea,[role="button"]')];
-                  const visible = interactive.filter(el => {
-                    const rect = el.getBoundingClientRect();
-                    const style = getComputedStyle(el);
-                    return rect.width > 0 && rect.height > 0 && style.visibility !== 'hidden' && style.display !== 'none' && rect.bottom >= 0 && rect.right >= 0 && rect.top <= window.innerHeight && rect.left <= window.innerWidth;
-                  });
-                  const smallTargets = visible.filter(el => { const rect = el.getBoundingClientRect(); return rect.width < 48 || rect.height < 48; });
-                  const focusable = interactive.filter(el => !el.hasAttribute('disabled') && el.tabIndex >= 0);
-                  const headings = [...document.querySelectorAll('h1,h2,h3')];
-                  const html = document.documentElement.outerHTML;
-                  const path = location.pathname;
-                  const isAppFlow = path.endsWith('/game-flow.html');
-                  const isLauncher = path.endsWith('/index.html');
-                  return {
-                    title: document.title,
-                    bodyScrollWidth: document.body.scrollWidth,
-                    bodyClientWidth: document.body.clientWidth,
-                    bodyScrollHeight: document.body.scrollHeight,
-                    viewportWidth: window.innerWidth,
-                    viewportHeight: window.innerHeight,
-                    horizontalOverflow: document.documentElement.scrollWidth > window.innerWidth + 1,
-                    text: document.body.innerText.length,
-                    brokenImages: [...document.images].filter(image => !image.complete || image.naturalWidth === 0).length,
-                    interactiveCount: interactive.length,
-                    smallTargets: smallTargets.map(el => { const rect = el.getBoundingClientRect(); return { text: (el.innerText || el.getAttribute('aria-label') || '').trim(), width: rect.width, height: rect.height }; }),
-                    unlabeledControls: interactive.filter(el => !((el.innerText || '').trim() || el.getAttribute('aria-label') || el.getAttribute('aria-labelledby') || el.getAttribute('title'))).length,
-                    focusableCount: focusable.length,
-                    headingCount: headings.length,
-                    hasSkipLink: Boolean(document.querySelector('a.skip[href="#main"], a[href="#main"]')),
-                    hasLiveRegion: Boolean(document.querySelector('[aria-live]')),
-                    hasNavLabel: Boolean(document.querySelector('[aria-label="Prototype navigation"]')),
-                    hasFocusVisible: /:focus-visible/.test(html),
-                    hasReducedMotionCSS: /prefers-reduced-motion/.test(html),
-                    hasThemeState: html.includes('data-theme'),
-                    hasRtlControl: html.includes('dir=') || html.includes('RTL'),
-                    hasViewportMeta: Boolean(document.querySelector('meta[name="viewport"][content*="viewport-fit=cover"]')),
-                    pageType: isAppFlow ? 'app-flow' : isLauncher ? 'launcher' : 'design-surface'
-                  };
-                });
-                await page.screenshot({ path: `artifacts/visual-regression/${file.replace(/\W/g, '_')}-${vp.name}.png`, fullPage: true });
-                const commonPass = Boolean(response && response.ok()) && !metrics.horizontalOverflow && metrics.text > 0 && metrics.brokenImages === 0 && metrics.smallTargets.length === 0 && metrics.unlabeledControls === 0 && consoleErrors.length === 0 && pageErrors.length === 0 && failedRequests.length === 0;
-                const appPass = metrics.pageType !== 'app-flow' || (metrics.hasSkipLink && metrics.hasLiveRegion && metrics.hasNavLabel && metrics.hasFocusVisible && metrics.hasReducedMotionCSS && metrics.hasThemeState && metrics.hasRtlControl && metrics.hasViewportMeta);
-                const launcherPass = metrics.pageType !== 'launcher' || (metrics.hasThemeState && metrics.hasViewportMeta);
-                const pass = commonPass && appPass && launcherPass;
-                if (!pass) runtimeFailures += 1;
-                results.push({ file, viewport: vp.name, httpStatus: response ? response.status() : null, ...metrics, consoleErrors, pageErrors, failedRequests, pass });
-                await context.close();
-              }
-            }
-            const artworkResults = [];
-            for (const asset of requiredArtwork) {
-              const context = await browser.newContext({ deviceScaleFactor: 1 });
-              const page = await context.newPage({ viewport: { width: 360, height: 800 } });
-              const response = await page.goto(`http://127.0.0.1:4173/${asset}`, { waitUntil: 'networkidle' });
-              const brokenImages = await page.evaluate(() => [...document.images].filter(image => !image.complete || image.naturalWidth === 0).length);
-              const pass = Boolean(response && response.ok()) && brokenImages === 0;
-              if (!pass) runtimeFailures += 1;
-              artworkResults.push({ asset, httpStatus: response ? response.status() : null, brokenImages, pass });
+            for (const file of pages) for (const vp of viewports) {
+              const context = await browser.newContext({ deviceScaleFactor: 1, reducedMotion: 'reduce' });
+              const page = await context.newPage({ viewport: { width: vp.width, height: vp.height } });
+              const consoleErrors = [], pageErrors = [], failedRequests = [];
+              page.on('console', m => { if (m.type() === 'error') consoleErrors.push(m.text()); });
+              page.on('pageerror', e => pageErrors.push(String(e)));
+              page.on('requestfailed', r => failedRequests.push({ url: r.url(), failure: r.failure()?.errorText || 'unknown' }));
+              const response = await page.goto(`http://127.0.0.1:4173/${file}`, { waitUntil: 'networkidle' });
+              const metrics = await page.evaluate(() => {
+                const interactive = [...document.querySelectorAll('a,button,input,select,textarea,[role="button"]')];
+                const visible = interactive.filter(el => { const r=el.getBoundingClientRect(), s=getComputedStyle(el); return r.width>0&&r.height>0&&s.visibility!=='hidden'&&s.display!=='none'&&r.bottom>=0&&r.right>=0&&r.top<=innerHeight&&r.left<=innerWidth; });
+                const smallTargets = visible.filter(el => { const r=el.getBoundingClientRect(); return r.width<48||r.height<48; });
+                const html = document.documentElement.outerHTML;
+                const path = location.pathname;
+                const isAppFlow = path.endsWith('/game-flow.html');
+                const isLauncher = path.endsWith('/index.html');
+                return {
+                  title: document.title, horizontalOverflow: document.documentElement.scrollWidth > innerWidth + 1,
+                  text: document.body.innerText.length, brokenImages: [...document.images].filter(i => !i.complete || i.naturalWidth===0).length,
+                  smallTargets: smallTargets.map(el => { const r=el.getBoundingClientRect(); return { text:(el.innerText||el.getAttribute('aria-label')||'').trim(), width:r.width, height:r.height }; }),
+                  unlabeledControls: interactive.filter(el => !((el.innerText||'').trim()||el.getAttribute('aria-label')||el.getAttribute('aria-labelledby')||el.getAttribute('title'))).length,
+                  hasSkipLink: Boolean(document.querySelector('a.skip[href="#main"],a[href="#main"]')),
+                  hasLiveRegion: Boolean(document.querySelector('[aria-live]')),
+                  hasNavLabel: Boolean(document.querySelector('[aria-label="Prototype navigation"]')),
+                  hasFocusVisible: /:focus-visible/.test(html), hasReducedMotionCSS: /prefers-reduced-motion/.test(html),
+                  hasThemeState: html.includes('data-theme'), hasRtlControl: html.includes('dir=')||html.includes('RTL'),
+                  hasViewportMeta: Boolean(document.querySelector('meta[name="viewport"][content*="viewport-fit=cover"]')),
+                  pageType: isAppFlow ? 'app-flow' : isLauncher ? 'launcher' : 'design-surface'
+                };
+              });
+              await page.screenshot({ path:`artifacts/visual-regression/${file.replace(/\W/g,'_')}-${vp.name}.png`, fullPage:true });
+              const commonPass = Boolean(response&&response.ok())&&!metrics.horizontalOverflow&&metrics.text>0&&metrics.brokenImages===0&&metrics.smallTargets.length===0&&metrics.unlabeledControls===0&&!consoleErrors.length&&!pageErrors.length&&!failedRequests.length;
+              const appPass = metrics.pageType!=='app-flow'||(metrics.hasSkipLink&&metrics.hasLiveRegion&&metrics.hasNavLabel&&metrics.hasFocusVisible&&metrics.hasReducedMotionCSS&&metrics.hasThemeState&&metrics.hasRtlControl&&metrics.hasViewportMeta);
+              const launcherPass = metrics.pageType!=='launcher'||(metrics.hasThemeState&&metrics.hasViewportMeta);
+              const pass = commonPass&&appPass&&launcherPass;
+              if(!pass) runtimeFailures++;
+              results.push({ file, viewport:vp.name, httpStatus:response?.status()??null, ...metrics, consoleErrors, pageErrors, failedRequests, pass });
               await context.close();
             }
-            const manifest = { generatedAt: new Date().toISOString(), gate: 'V15', pages, viewports, requiredArtwork, results, artworkResults, runtimeFailures };
-            fs.writeFileSync('artifacts/visual-regression/manifest.json', JSON.stringify(manifest, null, 2));
-            await browser.close();
-            if (runtimeFailures > 0) process.exitCode = 1;
-          })().catch(error => { console.error(error); process.exitCode = 1; });
+            const artworkResults=[];
+            for(const asset of requiredArtwork){
+              const context=await browser.newContext({deviceScaleFactor:1}); const page=await context.newPage({viewport:{width:360,height:800}});
+              const response=await page.goto(`http://127.0.0.1:4173/${asset}`,{waitUntil:'networkidle'});
+              const brokenImages=await page.evaluate(()=>[...document.images].filter(i=>!i.complete||i.naturalWidth===0).length);
+              const pass=Boolean(response&&response.ok())&&brokenImages===0; if(!pass) runtimeFailures++;
+              artworkResults.push({asset,httpStatus:response?.status()??null,brokenImages,pass}); await context.close();
+            }
+            fs.writeFileSync('artifacts/visual-regression/manifest.json',JSON.stringify({generatedAt:new Date().toISOString(),gate:'V15',pages,viewports,requiredArtwork,results,artworkResults,runtimeFailures},null,2));
+            await browser.close(); if(runtimeFailures>0) process.exitCode=1;
+          })().catch(e=>{console.error(e);process.exitCode=1});
           NODE
 
       - name: Assert V15 evidence matrix is complete
         run: |
           node <<'NODE'
-          const fs = require('fs');
-          const m = JSON.parse(fs.readFileSync('artifacts/visual-regression/manifest.json', 'utf8'));
-          const expected = m.pages.length * m.viewports.length;
-          if (m.results.length !== expected) throw new Error(`Incomplete page matrix: ${m.results.length}/${expected}`);
-          if (m.results.some(r => !r.pass)) throw new Error('V15 visual regression contains failing page/viewport evidence');
-          if (m.artworkResults.length !== m.requiredArtwork.length || m.artworkResults.some(r => !r.pass)) throw new Error('V15 artwork evidence incomplete');
-          if (m.runtimeFailures !== 0) throw new Error(`V15 runtimeFailures=${m.runtimeFailures}`);
+          const fs=require('fs'); const m=JSON.parse(fs.readFileSync('artifacts/visual-regression/manifest.json','utf8'));
+          const expected=m.pages.length*m.viewports.length;
+          if(m.results.length!==expected) throw new Error(`Incomplete page matrix: ${m.results.length}/${expected}`);
+          if(m.results.some(r=>!r.pass)) throw new Error('V15 visual regression contains failing page/viewport evidence');
+          if(m.artworkResults.length!==m.requiredArtwork.length||m.artworkResults.some(r=>!r.pass)) throw new Error('V15 artwork evidence incomplete');
+          if(m.runtimeFailures!==0) throw new Error(`V15 runtimeFailures=${m.runtimeFailures}`);
           console.log(`V15 evidence PASS: ${m.results.length} page/viewport checks + ${m.artworkResults.length} artwork checks`);
           NODE
 
