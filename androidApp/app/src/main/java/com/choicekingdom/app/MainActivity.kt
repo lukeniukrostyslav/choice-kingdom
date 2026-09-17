@@ -47,7 +47,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
@@ -282,7 +285,13 @@ private fun Header(turn: Int, titleSize: TextUnit) {
             Box(modifier = Modifier.size(4.dp).background(MaterialTheme.colorScheme.outline, RoundedCornerShape(50)))
             Text(stringResource(R.string.offline_journey), color = MaterialTheme.colorScheme.secondary, fontSize = 13.sp, fontWeight = FontWeight.Medium)
         }
-        Text(stringResource(R.string.avelune), color = MaterialTheme.colorScheme.onBackground, fontSize = titleSize, fontWeight = FontWeight.SemiBold)
+        Text(
+            stringResource(R.string.avelune),
+            color = MaterialTheme.colorScheme.onBackground,
+            fontSize = titleSize,
+            fontWeight = FontWeight.SemiBold,
+            modifier = Modifier.semantics { heading() },
+        )
     }
 }
 
@@ -305,12 +314,23 @@ private fun HeroCard(screen: AndroidScreenState, snapshot: AndroidEventProjectio
 
 @Composable
 private fun SectionLabel(text: String) {
-    Text(text, color = MaterialTheme.colorScheme.secondary, fontSize = 11.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(horizontal = 4.dp))
+    Text(
+        text,
+        color = MaterialTheme.colorScheme.secondary,
+        fontSize = 11.sp,
+        fontWeight = FontWeight.Bold,
+        modifier = Modifier.padding(horizontal = 4.dp).semantics { heading() },
+    )
 }
 
 @Composable
 private fun ErrorCard(message: String) {
-    TimelineCard(stringResource(R.string.runtime_error), stringResource(R.string.journey_safe), message)
+    TimelineCard(
+        stringResource(R.string.runtime_error),
+        stringResource(R.string.journey_safe),
+        message,
+        modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite },
+    )
 }
 
 @Composable
@@ -378,8 +398,8 @@ private fun InfoGrid(items: List<Pair<String, String>>) {
 }
 
 @Composable
-private fun TimelineCard(kicker: String, title: String, detail: String) {
-    Card(modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(22.dp), border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)) {
+private fun TimelineCard(kicker: String, title: String, detail: String, modifier: Modifier = Modifier) {
+    Card(modifier = modifier.fillMaxWidth(), shape = RoundedCornerShape(22.dp), border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)) {
         Column(modifier = Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(kicker, fontSize = 10.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
             Text(title, fontSize = 19.sp, fontWeight = FontWeight.SemiBold)
@@ -403,9 +423,7 @@ private fun SettingsCard() {
             TextButton(onClick = { AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("it")) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("Italiano") }
             TextButton(onClick = { AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("uk")) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("Українська") }
             TextButton(onClick = { AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("ru")) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("Русский") }
-            TextButton(onClick = { AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("ar")) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("العربية") }
-            TextButton(onClick = { AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("ja")) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("日本語") }
-            TextButton(onClick = { AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("zh-CN")) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("简体中文") }
+            
         }
     }
 }
@@ -417,8 +435,17 @@ private fun ScreenNavigation(onSelect: (String) -> Unit, modifier: Modifier) {
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         screens.forEach { screen ->
-            Button(onClick = { onSelect(screen.title) }, modifier = Modifier.heightIn(min = 52.dp), contentPadding = PaddingValues(horizontal = 14.dp)) {
-                Text(screen.title, fontSize = 12.sp, maxLines = 1)
+            Button(
+                onClick = { onSelect(screen.title) },
+                modifier = Modifier
+                    .heightIn(min = 52.dp)
+                    .semantics {
+                        role = Role.Button
+                        contentDescription = screen.title
+                    },
+                contentPadding = PaddingValues(horizontal = 14.dp),
+            ) {
+                Text(screen.title, fontSize = 12.sp)
             }
         }
     }
@@ -430,7 +457,16 @@ private fun NavigationRail(onSelect: (String) -> Unit, modifier: Modifier) {
         Column(modifier = Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(stringResource(R.string.avelune), fontSize = 20.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(10.dp))
             screens.forEach { screen ->
-                TextButton(onClick = { onSelect(screen.title) }, modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp)) {
+                TextButton(
+                    onClick = { onSelect(screen.title) },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(min = 52.dp)
+                        .semantics {
+                            role = Role.Button
+                            contentDescription = screen.title
+                        },
+                ) {
                     Text(screen.title, modifier = Modifier.fillMaxWidth())
                 }
             }
