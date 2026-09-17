@@ -13,9 +13,9 @@ import android.os.Looper
 /**
  * Foreground-only offline audio policy.
  *
- * Uses Android's platform tone for short interaction feedback, so no network
- * or bundled audio asset is required for the interaction layer. Authored music
- * and ambience remain separate product assets.
+ * Uses bundled offline WAV assets for authored interaction feedback and ambient
+ * playback, with platform-tone fallback when an asset is unavailable. No network
+ * audio is required; final soundtrack production remains a separate product layer.
  */
 class ChoiceKingdomAudio(private val context: Context) : AutoCloseable {
     private val prefs = context.getSharedPreferences("choice_kingdom_audio", Context.MODE_PRIVATE)
