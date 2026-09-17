@@ -4,7 +4,7 @@
 Original premium offline-first decision-and-consequence mobile game set in Avelune. Android-first, one-time purchase target €2.99–€4.99, no ads/subscription/mandatory backend for core gameplay, 20+ locales including RTL. Frozen production catalog: **E01–E272**.
 
 ## Current phase
-**General execution plan approved; Block 2 is the active workstream.** Block 1 Production Data Schema is closed at 100%. The project proceeds strictly block-by-block. Design is preserved and intentionally deferred until the real gameplay/runtime exists, then P1–P25 will be taken to real 100% with implementation and evidence.
+**Block 2 Decision Engine / Application Runtime is closed at 100%; Block 3 is the next active workstream.** Block 1 Production Data Schema is closed at 100%. The project proceeds strictly block-by-block. Design is preserved and intentionally deferred until the real gameplay/runtime exists, then P1–P25 will be taken to real 100% with implementation and evidence.
 
 ## Approved General Plan — 25 Blocks
 1. **Production Data Schema** → 100%
@@ -44,10 +44,11 @@ Execution order is strictly **1 → 2 → 3 → ... → 25**. A block is not con
 
 ## Verification baseline
 - Existing canonical runtime checkpoint: **184 passed**.
-- Recent authored-choice / graph / delayed lifecycle gates have successful runs.
+- Block 2 authored runtime workflow **GREEN** on PR #15 / run **35271242963**, head commit `1d4f0f5bc4ce28954dcb7b400ff9620931f6aa72`.
+- The GREEN run passed authored source validation, representative authored runtime choices, full decision-engine boundary, GameSession application runtime boundary, delayed lifecycle, delayed target, ending resolver, and immediate-routing isolation gates.
+- Block 2 regression fixtures were aligned with the canonical ending predicate sources, duplicate-delay atomicity contract, and canonical replay-meta contract.
 - Block 1 unified production schema/catalog CI gate is GREEN.
-- Latest runtime work adds atomic validation for invalid next-due delayed choices before delay activation.
-- The latest commit's overall GitHub status is not treated as runtime GREEN because an unrelated Vercel status is failing; runtime CI must be checked independently.
+- The unrelated Vercel deployment status is not used as evidence for runtime correctness.
 
 ## Major blocks
 - Foundation / Rules: **100%**
@@ -61,7 +62,7 @@ Execution order is strictly **1 → 2 → 3 → ... → 25**. A block is not con
 - Reachability / Causal Graph: **100% source-level; full gameplay reachability remains open**
 - Production Data Schema: **100%**
 - Runtime State / Persistence Foundation: **100% current foundation**
-- Decision Engine / Application Runtime: **88%**
+- Decision Engine / Application Runtime: **100% runtime-verified**
 - Design Specification: **100%**
 - UI / UX Runtime Implementation: **38%**
 - Localization 20+ / RTL: **11%**
