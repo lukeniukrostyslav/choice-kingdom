@@ -214,7 +214,7 @@ private fun AdaptiveJourney(
             modifier = Modifier.fillMaxSize().padding(horizontal = horizontal),
             horizontalArrangement = Arrangement.spacedBy(28.dp),
         ) {
-            NavigationRail(onScreenSelected, Modifier.width(220.dp))
+            NavigationRail(screens = localizedScreens(), onSelect = onScreenSelected, modifier = Modifier.width(220.dp))
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.TopCenter) {
                 JourneyContent(selectedScreen, snapshot, selectedChoiceId, resolvingChoiceId, errorMessage, titleSize, contentWidth, onChoiceSelected)
             }
@@ -231,7 +231,7 @@ private fun AdaptiveJourney(
                 Modifier.weight(1f).padding(horizontal = horizontal),
                 onChoiceSelected,
             )
-            ScreenNavigation(onScreenSelected, Modifier.fillMaxWidth())
+            ScreenNavigation(screens = localizedScreens(), onSelect = onScreenSelected, modifier = Modifier.fillMaxWidth())
         }
     }
 }
@@ -434,7 +434,7 @@ private fun SettingsCard() {
 }
 
 @Composable
-private fun ScreenNavigation(onSelect: (String) -> Unit, modifier: Modifier) {
+private fun ScreenNavigation(screens: List<AndroidScreenState>, onSelect: (String) -> Unit, modifier: Modifier) {
     Row(
         modifier = modifier.horizontalScroll(rememberScrollState()).padding(horizontal = 12.dp, vertical = 10.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -457,7 +457,7 @@ private fun ScreenNavigation(onSelect: (String) -> Unit, modifier: Modifier) {
 }
 
 @Composable
-private fun NavigationRail(onSelect: (String) -> Unit, modifier: Modifier) {
+private fun NavigationRail(screens: List<AndroidScreenState>, onSelect: (String) -> Unit, modifier: Modifier) {
     Card(modifier = modifier.padding(vertical = 18.dp), shape = RoundedCornerShape(26.dp), border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)) {
         Column(modifier = Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(stringResource(R.string.avelune), fontSize = 20.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(10.dp))
