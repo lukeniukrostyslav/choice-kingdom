@@ -484,6 +484,23 @@ private fun SettingsCard(
         Column(modifier = Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(stringResource(R.string.presentation_preferences), fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
             Text(stringResource(R.string.settings_description), fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, lineHeight = 21.sp)
+            Text(
+                text = if (muted) "Sound: Off" else "Sound: On",
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Medium,
+                modifier = Modifier.semantics { role = Role.Button; stateDescription = if (muted) "Muted" else "Audible" },
+            )
+            Button(
+                onClick = { onMutedChanged(!muted) },
+                modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
+            ) { Text(if (muted) "Enable sound" else "Mute sound") }
+            Text("Volume ${(volume * 100).toInt()}%", fontSize = 13.sp)
+            androidx.compose.material3.Slider(
+                value = volume,
+                onValueChange = onVolumeChanged,
+                valueRange = 0f..1f,
+                modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
+            )
             TextButton(onClick = { AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("en")) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("English") }
             TextButton(onClick = { AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("it")) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("Italiano") }
             TextButton(onClick = { AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("uk")) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("Українська") }
