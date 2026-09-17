@@ -25,7 +25,16 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Serve preview
-        run: python3 -m http.server 4173 --directory web-preview >/tmp/choice-kingdom-http.log 2>&1 &
+        run: |
+          python3 -m http.server 4173 --directory web-preview >/tmp/choice-kingdom-http.log 2>&1 &
+          for attempt in $(seq 1 20); do
+            if curl --fail --silent --show-error http://127.0.0.1:4173/index.html >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/choice-kingdom-http.log
+          exit 1
 
       - name: Capture visual regression matrix
         run: |
@@ -59,9 +68,16 @@ jobs:
             const browser = await chromium.launch({ headless: true });
             const context = await browser.newContext({ deviceScaleFactor: 1 });
             const results = [];
+            let runtimeFailures = 0;
             for (const file of pages) {
               for (const vp of viewports) {
                 const page = await context.newPage({ viewport: { width: vp.width, height: vp.height } });
+                const consoleErrors = [];
+                const pageErrors = [];
+                const failedRequests = [];
+                page.on('console', message => { if (message.type() === 'error') consoleErrors.push(message.text()); });
+                page.on('pageerror', error => pageErrors.push(String(error)));
+                page.on('requestfailed', request => failedRequests.push({ url: request.url(), failure: request.failure()?.errorText || 'unknown' }));
                 const response = await page.goto(`http://127.0.0.1:4173/${file}`, { waitUntil: 'networkidle' });
                 const metrics = await page.evaluate(() => ({
                   title: document.title,
@@ -71,11 +87,13 @@ jobs:
                   viewportWidth: window.innerWidth,
                   viewportHeight: window.innerHeight,
                   horizontalOverflow: document.documentElement.scrollWidth > window.innerWidth + 1,
-                  text: document.body.innerText.length
+                  text: document.body.innerText.length,
+                  brokenImages: [...document.images].filter(image => !image.complete || image.naturalWidth === 0).length
                 }));
-                const pass = Boolean(response && response.ok()) && !metrics.horizontalOverflow && metrics.text > 0;
+                const pass = Boolean(response && response.ok()) && !metrics.horizontalOverflow && metrics.text > 0 && metrics.brokenImages === 0 && consoleErrors.length === 0 && pageErrors.length === 0 && failedRequests.length === 0;
+                if (!pass) runtimeFailures += 1;
                 await page.screenshot({ path: `artifacts/visual-regression/${file.replace(/\W/g, '_')}-${vp.name}.png`, fullPage: true });
-                results.push({ file, viewport: vp.name, httpStatus: response ? response.status() : null, ...metrics, pass });
+                results.push({ file, viewport: vp.name, httpStatus: response ? response.status() : null, ...metrics, consoleErrors, pageErrors, failedRequests, pass });
                 await page.close();
               }
             }
@@ -83,13 +101,16 @@ jobs:
             for (const asset of requiredArtwork) {
               const page = await context.newPage({ viewport: { width: 360, height: 800 } });
               const response = await page.goto(`http://127.0.0.1:4173/${asset}`, { waitUntil: 'networkidle' });
-              artworkResults.push({ asset, httpStatus: response ? response.status() : null, pass: Boolean(response && response.ok()) });
+              const brokenImages = await page.evaluate(() => [...document.images].filter(image => !image.complete || image.naturalWidth === 0).length);
+              const pass = Boolean(response && response.ok()) && brokenImages === 0;
+              if (!pass) runtimeFailures += 1;
+              artworkResults.push({ asset, httpStatus: response ? response.status() : null, brokenImages, pass });
               await page.close();
             }
-            fs.writeFileSync('artifacts/visual-regression/manifest.json', JSON.stringify({ generatedAt: new Date().toISOString(), pages, viewports, requiredArtwork, results, artworkResults }, null, 2));
-            if (results.some(r => !r.pass) || artworkResults.some(r => !r.pass)) process.exitCode = 1;
+            fs.writeFileSync('artifacts/visual-regression/manifest.json', JSON.stringify({ generatedAt: new Date().toISOString(), pages, viewports, requiredArtwork, results, artworkResults, runtimeFailures }, null, 2));
             await browser.close();
-          })();
+            if (runtimeFailures > 0) process.exitCode = 1;
+          })().catch(error => { console.error(error); process.exitCode = 1; });
           NODE
 
       - name: Upload visual evidence
