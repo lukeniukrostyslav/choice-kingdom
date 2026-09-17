@@ -35,6 +35,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.ui.res.stringResource
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -59,14 +60,14 @@ import androidx.compose.ui.unit.sp
 private enum class WindowMode { COMPACT, MEDIUM, EXPANDED }
 private data class AndroidScreenState(val title: String, val subtitle: String)
 
-private val screens = listOf(
-    AndroidScreenState("Event", "Make the choice that shapes Avelune"),
-    AndroidScreenState("Realm", "See the kingdom at a glance"),
-    AndroidScreenState("History", "Remember what your choices changed"),
-    AndroidScreenState("People", "Follow the people who matter"),
-    AndroidScreenState("Investigation", "Keep clues and threads together"),
-    AndroidScreenState("Ending", "Understand where this run led"),
-    AndroidScreenState("Settings", "Tune the journey to your needs"),
+private fun localizedScreens() = listOf(
+    AndroidScreenState(stringResource(R.string.event), stringResource(R.string.event_subtitle)),
+    AndroidScreenState(stringResource(R.string.realm), stringResource(R.string.realm_subtitle)),
+    AndroidScreenState(stringResource(R.string.history), stringResource(R.string.history_subtitle)),
+    AndroidScreenState(stringResource(R.string.people), stringResource(R.string.people_subtitle)),
+    AndroidScreenState(stringResource(R.string.investigation), stringResource(R.string.investigation_subtitle)),
+    AndroidScreenState(stringResource(R.string.ending), stringResource(R.string.ending_subtitle)),
+    AndroidScreenState(stringResource(R.string.settings), stringResource(R.string.settings_subtitle)),
 )
 
 class MainActivity : ComponentActivity() {
@@ -78,6 +79,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun ChoiceKingdomApp() {
+    val screens = localizedScreens()
     var selectedScreen by rememberSaveable { mutableStateOf("Event") }
     var selectedChoiceId by remember { mutableStateOf<String?>(null) }
     var resolvingChoiceId by remember { mutableStateOf<String?>(null) }
@@ -165,9 +167,9 @@ private fun LoadingScreen(errorMessage: String?) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text("AVELUNE", color = MaterialTheme.colorScheme.primary, fontSize = 12.sp, fontWeight = FontWeight.Bold)
-        Text("Preparing your journey", fontSize = 28.sp, fontWeight = FontWeight.SemiBold)
+        Text(stringResource(R.string.preparing_journey), fontSize = 28.sp, fontWeight = FontWeight.SemiBold)
         Text(
-            errorMessage ?: "Starting the canonical offline runtime…",
+            errorMessage ?: stringResource(R.string.starting_runtime),
             modifier = Modifier.padding(top = 10.dp),
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
@@ -260,10 +262,10 @@ private fun JourneyContent(
                     )
                 }
             }
-            "Realm" -> item { InfoGrid(listOf("Gold" to "120", "Trust" to "64", "Security" to "51", "Power" to "43")) }
-            "History" -> item { TimelineCard(snapshot.eventId, "The journey continues", "Turn ${snapshot.turn} · ${snapshot.title}") }
-            "People" -> item { InfoGrid(listOf("Mara" to "Known", "Rowan" to "Unknown", "Seris" to "Unknown", "Ivo" to "Unknown")) }
-            "Investigation" -> item { TimelineCard("THREAD 01", "The stranger on the road", "Follow the evidence through the canonical session.") }
+            "Realm" -> item { InfoGrid(listOf(stringResource(R.string.gold) to "120", stringResource(R.string.trust) to "64", stringResource(R.string.security) to "51", stringResource(R.string.power) to "43")) }
+            "History" -> item { TimelineCard(snapshot.eventId, stringResource(R.string.journey_continues), stringResource(R.string.turn_event_format, snapshot.turn, snapshot.title)) }
+            "People" -> item { InfoGrid(listOf("Mara" to stringResource(R.string.known), "Rowan" to stringResource(R.string.unknown), "Seris" to "Unknown", "Ivo" to "Unknown")) }
+            "Investigation" -> item { TimelineCard(stringResource(R.string.thread_01), stringResource(R.string.thread_title), stringResource(R.string.thread_detail)) }
             "Ending" -> item { EndingCard(snapshot.terminal) }
             "Settings" -> item { SettingsCard() }
         }
@@ -273,13 +275,13 @@ private fun JourneyContent(
 @Composable
 private fun Header(turn: Int, titleSize: TextUnit) {
     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-        Text("CHOICE KINGDOM  ·  AVELUNE", color = MaterialTheme.colorScheme.primary, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+        Text(stringResource(R.string.brand_line), color = MaterialTheme.colorScheme.primary, fontSize = 12.sp, fontWeight = FontWeight.Bold)
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text("Turn $turn", color = MaterialTheme.colorScheme.secondary, fontSize = 13.sp)
+            Text(stringResource(R.string.turn_format, turn), color = MaterialTheme.colorScheme.secondary, fontSize = 13.sp)
             Box(modifier = Modifier.size(4.dp).background(MaterialTheme.colorScheme.outline, RoundedCornerShape(50)))
-            Text("OFFLINE JOURNEY", color = MaterialTheme.colorScheme.secondary, fontSize = 13.sp, fontWeight = FontWeight.Medium)
+            Text(stringResource(R.string.offline_journey), color = MaterialTheme.colorScheme.secondary, fontSize = 13.sp, fontWeight = FontWeight.Medium)
         }
-        Text("Avelune", color = MaterialTheme.colorScheme.onBackground, fontSize = titleSize, fontWeight = FontWeight.SemiBold)
+        Text(stringResource(R.string.avelune), color = MaterialTheme.colorScheme.onBackground, fontSize = titleSize, fontWeight = FontWeight.SemiBold)
     }
 }
 
@@ -307,7 +309,7 @@ private fun SectionLabel(text: String) {
 
 @Composable
 private fun ErrorCard(message: String) {
-    TimelineCard("RUNTIME ERROR", "The journey is safe", message)
+    TimelineCard(stringResource(R.string.runtime_error), stringResource(R.string.journey_safe), message)
 }
 
 @Composable
@@ -320,10 +322,10 @@ private fun ChoiceCard(
 ) {
     val enabled = choice.state != "disabled" && !disabledByResolution && !resolving
     val state = when {
-        resolving -> "Resolving"
-        selected -> "Selected"
-        !enabled -> "Blocked"
-        else -> "Available"
+        resolving -> stringResource(R.string.resolving)
+        selected -> stringResource(R.string.selected)
+        !enabled -> stringResource(R.string.blocked)
+        else -> stringResource(R.string.available)
     }
     Button(
         onClick = { onChoiceSelected(choice.id) },
@@ -387,15 +389,15 @@ private fun TimelineCard(kicker: String, title: String, detail: String) {
 
 @Composable
 private fun EndingCard(terminal: Boolean) {
-    TimelineCard(if (terminal) "RESOLVED" else "IN PROGRESS", if (terminal) "This journey has ended" else "Your ending is still ahead", "The ending state is supplied by the canonical session.")
+    TimelineCard(if (terminal) "RESOLVED" else "IN PROGRESS", if (terminal) stringResource(R.string.journey_ended) else stringResource(R.string.ending_ahead), stringResource(R.string.ending_state))
 }
 
 @Composable
 private fun SettingsCard() {
     Card(modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(22.dp), border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)) {
         Column(modifier = Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text("Presentation preferences", fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
-            Text("Accessibility, RTL, large text and safe-area behavior remain presentation concerns and do not alter gameplay rules.", fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, lineHeight = 21.sp)
+            Text(stringResource(R.string.presentation_preferences), fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
+            Text(stringResource(R.string.settings_description), fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, lineHeight = 21.sp)
             TextButton(onClick = { AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("en")) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("English") }
             TextButton(onClick = { AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("it")) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("Italiano") }
             TextButton(onClick = { AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("uk")) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("Українська") }
