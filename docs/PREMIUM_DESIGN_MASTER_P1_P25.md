@@ -25,8 +25,8 @@ This document is the canonical working checklist for the 25-block premium visual
 | P15 | Crisis / high-stakes presentation | 45% | Escalation, urgency and consequence preview without clutter |
 | P16 | Endings / resolution experience | 54% | Ending identity, summary and emotional landing |
 | P17 | Replay / new-run experience | 47% | Replay motivation, continuity and clean reset semantics |
-| P18 | Main menu / launcher | 60% | Premium first impression + navigation + responsive proof |
-| P19 | Navigation / information architecture | 70% | Consistent hierarchy and low-cognitive-load navigation |
+| P18 | Main menu / launcher | 64% | Premium first impression + navigation + responsive proof |
+| P19 | Navigation / information architecture | 71% | Consistent hierarchy and low-cognitive-load navigation |
 | P20 | Motion / micro-interactions / feedback | 62% | Purposeful motion system + reduced-motion behavior |
 | P21 | Accessibility / touch / keyboard / focus | 70% | Semantic, focus, contrast, touch-target and reduced-motion proof |
 | P22 | Localization / long strings / RTL | 34% | Locale-safe layout and RTL proof across key screens |
@@ -34,23 +34,25 @@ This document is the canonical working checklist for the 25-block premium visual
 | P24 | Android devices / safe areas / resolution adaptation | 18% | Real Android presentation proof on target device classes |
 | P25 | Final premium polish / cross-screen QA | 33% | Full visual regression and no unresolved P1–P24 blockers |
 
-**Aggregate P1–P25 estimate: 55.44% (simple arithmetic mean of block estimates).** This is an engineering/design evidence estimate, not a commercial-readiness score.
+**Aggregate P1–P25 estimate: 55.64% (simple arithmetic mean of block estimates).** This is an engineering/design evidence estimate, not a commercial-readiness score.
 
 ## Evidence added in the current design increment
 
 - `runtime/premium_journey.py` composes Event/Choice, Consequence and the journey screen family behind one navigation-neutral premium journey host.
 - `runtime/adaptive_navigation.py` adds a pure presentation contract based on available window width: Compact → bottom navigation, Medium → navigation rail, Expanded → two-pane presentation.
+- `runtime/main_menu.py` adds the first production-facing premium launcher contract: Continue, New Run, History and Settings, with Continue availability derived only from canonical active-session presence.
+- `tests/test_main_menu.py` verifies active/terminal/no-session launcher states and adaptive navigation composition.
 - `tests/test_adaptive_navigation.py` verifies the width-class boundaries and presentation-only navigation behavior.
-- Adaptive decisions use available app-window space rather than physical device identity. This matches current Android guidance for phones, foldables, tablets and resizable windows.
-- Safe insets remain an explicit requirement; adaptive navigation must not place interactive controls under gesture/system-bar insets.
+- Adaptive decisions use available app-window space rather than physical device identity. Current Android guidance recommends window-size-class-driven responsive/adaptive layouts and state continuity during resize, fold/unfold and multi-window changes. citeturn0search0turn0search1turn0search6
+- Safe insets remain an explicit requirement; adaptive navigation must not place interactive controls under gesture/system-bar insets. citeturn0search4
 - The journey screen contracts deliberately do not calculate gameplay effects, route events, invent relationship values, fabricate evidence, or mutate `GameSession`.
-- No new CI-green claim is made for the latest test commit until GitHub Actions reports an actual run.
+- No new CI-green claim is made for the latest test commits until GitHub Actions reports an actual run.
 
 ## Production-facing integration evidence
 
 The runtime exposes a presentation-neutral `GameSession` snapshot and a `SessionPresenter` that owns transient interaction state while routing gameplay mutation back through `GameSession`. The design track treats that seam as the authoritative bridge: visual state may describe interaction, but it must not calculate gameplay outcomes or duplicate routing rules.
 
-The production integration contract covers Event/Choice, Consequence, Realm, History, People/Factions, Investigation, Ending, Settings and navigation. Crisis, Replay and Motion remain semantic presentation layers and must not duplicate gameplay semantics.
+The production integration contract covers Event/Choice, Consequence, Realm, History, People/Factions, Investigation, Ending, Settings, navigation and the initial Main Menu/launcher projection. Crisis, Replay and Motion remain semantic presentation layers and must not duplicate gameplay semantics.
 
 ## Execution order
 
@@ -74,4 +76,4 @@ The production integration contract covers Event/Choice, Consequence, Realm, His
 
 ## Execution note
 
-The current increment moves the project from composed journey navigation into an explicit adaptive-navigation contract. The next implementation work remains the actual platform UI host and representative visual proof; documentation alone will not close P18–P25.
+The current increment moves the project from adaptive navigation contracts into the first production-facing Main Menu/launcher projection. The next implementation work is to connect that launcher to the composed journey boundary, then add representative visual proof, motion semantics and locale-safe variants; documentation alone will not close P18–P25.
