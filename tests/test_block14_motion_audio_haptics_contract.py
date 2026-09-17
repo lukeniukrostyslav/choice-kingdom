@@ -114,3 +114,11 @@ def test_block14_audio_ducking_contract():
     assert "ambientDuckedByFocus" in audio
     assert "0.35f" in audio
     assert "autoResume()" in audio
+
+def test_block14_music_mixer_channel_contract():
+    audio = (ROOT / "androidApp/app/src/main/java/com/choicekingdom/app/ChoiceKingdomAudio.kt").read_text(encoding="utf-8")
+    main = MAIN.read_text(encoding="utf-8")
+    assert '"music_volume"' in audio
+    assert "currentMusicVolume" in audio
+    assert "setMusicVolume" in audio
+    assert "Music " in main
