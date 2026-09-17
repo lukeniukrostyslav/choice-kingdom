@@ -7,12 +7,13 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 **Content → canonical QA → machine-readable contracts → Decision Engine → UI → localization/tests → Android QA → APK → release.** No mock/stub gameplay and no premature readiness claims.
 
 ## Current phase
-**Production runtime integration / Block 7 + premium presentation shell.** `GameSession` is the presentation-neutral gameplay seam. The runtime presentation layer now covers deterministic projection, explicit interaction states, engine-qualified event selection, Event + Choice, Consequence, Realm/History/People/Investigation/Ending/Settings, composed premium journey, adaptive navigation, Main Menu, semantic motion, safe-content bounds, launcher-to-journey navigation, locale/RTL policy, Android adaptive contract, accessibility semantics, audio/haptic vocabulary, composed premium feedback and a canonical cross-screen premium state vocabulary. Android UI binding, production locale coverage, device QA, APK/AAB and store release remain open.
+**Production runtime integration / Block 7 + premium presentation shell.** `GameSession` is the presentation-neutral gameplay seam. The runtime presentation layer now covers deterministic projection, explicit interaction states, engine-qualified event selection, Event + Choice, Consequence, Realm/History/People/Investigation/Ending/Settings, composed premium journey, adaptive navigation, Main Menu, semantic motion, safe-content bounds, launcher-to-journey navigation, locale/RTL policy, Android adaptive contract, accessibility semantics, audio/haptic vocabulary, composed premium feedback, canonical cross-screen state vocabulary and pure adaptive surface projection. Android UI binding, production locale coverage, device QA, APK/AAB and store release remain open.
 
 ## Latest design/runtime evidence
 - `runtime/premium_journey.py` composes Event/Choice, Consequence and the journey screen family behind one navigation boundary.
 - `runtime/adaptive_navigation.py` maps available window width to Compact/Medium/Expanded presentation modes.
 - `runtime/android_adaptive_contract.py` maps the adaptive model to Android single/supporting/two-pane presentation strategies and safe-content bounds.
+- `runtime/premium_surface_projection.py` maps actual app-window width to compact/comfortable/expanded premium surface density without gameplay mutation.
 - `runtime/main_menu.py` provides Continue/New Run/History/Settings launcher projection without gameplay mutation.
 - `runtime/navigation_shell.py` connects launcher and journey through one presentation navigation boundary while preserving the canonical `SessionPresenter/GameSession` mutation seam.
 - `runtime/motion.py` provides semantic enter/focus/confirm/resolve/pending/error motion policy with reduced-motion support.
@@ -22,11 +23,11 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 - `runtime/safe_area.py` provides a platform-neutral safe-content bounds contract for system bars, cutouts and gesture zones.
 - `runtime/accessibility_semantics.py` provides explicit action role/label/hint/state/enabled semantics and a 48dp minimum touch-target contract.
 - `runtime/locale_layout.py` provides presentation-only LTR/RTL direction, navigation mirroring, wrapping and large-text reflow policy.
-- `tests/test_premium_feedback.py`, `tests/test_premium_screen_states.py`, `tests/test_android_adaptive_contract.py` and `tests/test_accessibility_semantics.py` cover the presentation contracts.
+- `tests/test_premium_feedback.py`, `tests/test_premium_screen_states.py`, `tests/test_premium_surface_projection.py`, `tests/test_android_adaptive_contract.py` and `tests/test_accessibility_semantics.py` cover the presentation contracts.
 - `design-preview/premium-locale-lab-v1.html` provides representative visual proof for LTR, RTL, large text, long strings, semantic choice/consequence states, focus and reduced motion.
 - `design-preview/premium-screen-state-matrix-v1.html` provides representative visual state proof across seven key screens with RTL and large-text toggles.
-- `docs/ANDROID_ADAPTIVE_DESIGN_CONTRACT_V1.md`, `docs/AUDIO_HAPTICS_DESIGN_CONTRACT_V1.md`, `docs/PREMIUM_FEEDBACK_INTEGRATION_V1.md` and `docs/PREMIUM_SCREEN_STATE_CONTRACT_V1.md` document the cross-platform presentation contracts.
-- Current Android guidance confirms window-size-class-driven adaptation, state continuity during resize/fold/unfold/multi-window, responsive layouts and Material 3 Adaptive navigation/pane primitives. citeturn0search0turn0search1turn0search5turn0search7
+- `docs/ANDROID_ADAPTIVE_DESIGN_CONTRACT_V1.md`, `docs/AUDIO_HAPTICS_DESIGN_CONTRACT_V1.md`, `docs/PREMIUM_FEEDBACK_INTEGRATION_V1.md`, `docs/PREMIUM_SCREEN_STATE_CONTRACT_V1.md` and `docs/PREMIUM_ADAPTIVE_SURFACE_CONTRACT_V1.md` document the cross-platform presentation contracts.
+- Current Android guidance confirms window-size-class-driven adaptation, state continuity during resize/fold/unfold/multi-window, responsive layouts and Material 3 Adaptive navigation/pane primitives. citeturn0search0turn0search1turn0search2turn0search7
 
 ## Existing runtime verification baseline
 - Full regression baseline: **184 passed** at the last verified runtime checkpoint.
@@ -50,15 +51,15 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 - Runtime State / Persistence Foundation: **100% current foundation**
 - Decision Engine / Application Runtime: **42%**
 - **Design Specification: 100%** — canonical visual language and design contracts are closed; this does not imply rendered Android UI completion.
-- **UI / UX Runtime Implementation: 31%** — presentation projection, interaction states, Event + Choice, Consequence, journey screen family, composed journey, adaptive navigation, Main Menu, motion policy, safe-content contract, launcher-to-journey presentation shell, locale/RTL policy, Android adaptive presentation contract, accessibility semantics, composed premium feedback and canonical cross-screen state vocabulary are implemented. Actual Android screen binding and full visual regression remain open.
+- **UI / UX Runtime Implementation: 32%** — presentation projection, interaction states, Event + Choice, Consequence, journey screen family, composed journey, adaptive navigation, Main Menu, motion policy, safe-content contract, launcher-to-journey presentation shell, locale/RTL policy, Android adaptive presentation contract, accessibility semantics, composed premium feedback, canonical cross-screen state vocabulary and adaptive surface projection are implemented. Actual Android screen binding and full visual regression remain open.
 - Localization 20+ / RTL: **11%** — presentation policy and representative RTL/large-text/long-string proof exist; real 20+ translated locale rendering remains open.
 - Android Implementation: **0%**
-- Runtime / Android QA: **25%** — platform-neutral adaptive/safe-area/state contracts exist; physical device verification remains open.
+- Runtime / Android QA: **26%** — platform-neutral adaptive/safe-area/state contracts exist; physical device verification remains open.
 - APK / AAB: **0%**
 - Release / Store: **0%**
 
 ## Premium Design P1–P25
-Canonical percentages are tracked in `docs/PREMIUM_DESIGN_MASTER_P1_P25.md`. Current aggregate: **59.12%**. The latest evidence advances the cross-screen state language and representative visual matrix; no block is treated as 100% without representative visual proof, responsive behavior, accessibility requirements and regression evidence.
+Canonical percentages are tracked in `docs/PREMIUM_DESIGN_MASTER_P1_P25.md`. Current aggregate: **59.28%**. The latest evidence advances responsive surface behavior across P5/P18/P19/P24/P25; no block is treated as 100% without representative visual proof, responsive behavior, accessibility requirements and regression evidence.
 
 ## Honest progress rule
 Documentation never makes implementation complete. Every percentage requires authoritative evidence and applicable verification. Source/contract GREEN must never be reported as runtime gameplay GREEN. Owner-controlled physical Android QA, production signing and store publication remain open until actually performed.
