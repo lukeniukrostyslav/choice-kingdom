@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900">
+  <rect width="1440" height="900" fill="#171719"/>
+  <text x="72" y="78" fill="#f4eee3" font-family="Georgia,serif" font-size="34" font-weight="700">CHOICE KINGDOM — CHARACTER DESIGN SYSTEM</text>
+  <text x="72" y="112" fill="#aaa49b" font-family="Arial,sans-serif" font-size="16">P2 visual-system board • role-neutral production grammar • mobile portrait safe</text>
+
+  <g transform="translate(72 160)">
+    <rect width="392" height="620" rx="20" fill="#222225" stroke="#756a5a"/>
+    <text x="28" y="48" fill="#d8c5a2" font-family="Arial" font-size="18" font-weight="700">01 — AUTHORITY</text>
+    <circle cx="196" cy="188" r="82" fill="#b9a28b"/>
+    <path d="M110 175 Q196 55 282 175 L258 120 Q196 76 134 120Z" fill="#5b4b3d"/>
+    <path d="M118 310 Q196 245 274 310 L318 545 L74 545Z" fill="#62584e"/>
+    <path d="M132 314 Q196 278 260 314 L232 410 L160 410Z" fill="#8b765c"/>
+    <circle cx="165" cy="184" r="7" fill="#302a25"/><circle cx="227" cy="184" r="7" fill="#302a25"/>
+    <path d="M168 228 Q196 244 224 228" fill="none" stroke="#4b3831" stroke-width="5"/>
+    <text x="28" y="585" fill="#d8d1c7" font-family="Arial" font-size="14">Identity anchor: silhouette + collar + seal</text>
+  </g>
+
+  <g transform="translate(524 160)">
+    <rect width="392" height="620" rx="20" fill="#222225" stroke="#756a5a"/>
+    <text x="28" y="48" fill="#d8c5a2" font-family="Arial" font-size="18" font-weight="700">02 — DIPLOMACY</text>
+    <circle cx="196" cy="188" r="82" fill="#c3aa95"/>
+    <path d="M112 176 Q196 70 280 176 L264 130 Q196 82 128 130Z" fill="#3f4548"/>
+    <path d="M118 310 Q196 252 274 310 L300 545 L92 545Z" fill="#566168"/>
+    <path d="M145 326 Q196 296 247 326 L224 410 L168 410Z" fill="#a68f70"/>
+    <circle cx="166" cy="185" r="7" fill="#302a25"/><circle cx="226" cy="185" r="7" fill="#302a25"/>
+    <path d="M170 229 Q196 238 222 229" fill="none" stroke="#513c33" stroke-width="5"/>
+    <text x="28" y="585" fill="#d8d1c7" font-family="Arial" font-size="14">Identity anchor: shoulder line + clasp + fabric</text>
+  </g>
+
+  <g transform="translate(976 160)">
+    <rect width="392" height="620" rx="20" fill="#222225" stroke="#756a5a"/>
+    <text x="28" y="48" fill="#d8c5a2" font-family="Arial" font-size="18" font-weight="700">03 — INVESTIGATION</text>
+    <circle cx="196" cy="188" r="82" fill="#b59d88"/>
+    <path d="M112 182 Q196 64 280 182 L267 116 Q196 72 125 116Z" fill="#39383a"/>
+    <path d="M118 310 Q196 255 274 310 L292 545 L100 545Z" fill="#4f514f"/>
+    <path d="M150 328 Q196 301 242 328 L220 410 L172 410Z" fill="#7c6d59"/>
+    <circle cx="165" cy="184" r="7" fill="#302a25"/><circle cx="227" cy="184" r="7" fill="#302a25"/>
+    <path d="M170 230 Q196 216 222 230" fill="none" stroke="#513c33" stroke-width="5"/>
+    <text x="28" y="585" fill="#d8d1c7" font-family="Arial" font-size="14">Identity anchor: gaze + layered textile + tool</text>
+  </g>
+
+  <text x="72" y="832" fill="#aaa49b" font-family="Arial" font-size="15">System rules: fixed facial geometry • controlled expression states • crop-safe shoulders • material hierarchy • restrained highlights • no faction-coded morality</text>
+</svg>
