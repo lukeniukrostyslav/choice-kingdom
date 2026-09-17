@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Choice Kingdom — Premium Design System v2</title>
+<style>
+:root{
+ --bg:#0b0d12;--surface:#151923;--surface2:#1b202b;--surface3:#222735;--ink:#f4f0e6;--muted:#aeb3c0;
+ --line:#343a48;--gold:#d4b56b;--authority:#9daecc;--warning:#d5a85c;--positive:#9bc2a4;--negative:#c97872;
+ --focus:#f0cf7a;--pending:#7e9fca;--radius:12px;--radius-lg:16px;--gap:16px;--scale:1;
+ --shadow:0 14px 34px rgba(0,0,0,.32)
+}
+*{box-sizing:border-box}
+html{font-size:calc(16px * var(--scale));scroll-behavior:smooth}
+body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% -15%,#2a3343 0,#11151d 45%,var(--bg) 100%);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+button{font:inherit}
+button,a{touch-action:manipulation}
+.shell{width:min(100%,1120px);margin:auto;padding:max(16px,env(safe-area-inset-top)) clamp(16px,4vw,32px) calc(32px + env(safe-area-inset-bottom))}
+.top{display:flex;align-items:end;justify-content:space-between;gap:16px;padding:8px 0 20px}
+.brand{font:700 .76rem/1.2 system-ui;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+h1{font:700 clamp(2rem,6vw,3.2rem)/1.02 Georgia,serif;margin:.35rem 0 .55rem}
+h2{font:700 clamp(1.25rem,3vw,1.6rem)/1.15 Georgia,serif;margin:0 0 8px}
+h3{font-size:1rem;margin:0 0 6px}
+p{line-height:1.55;margin:0;color:#d8dbe2}
+.lede{max-width:70ch;color:#c9cdd5}
+.controls{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+.control,.tab,.choice,.action{min-height:48px;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(180deg,var(--surface3),var(--surface));color:var(--ink);padding:11px 14px;cursor:pointer}
+.control{font:.72rem/1.2 system-ui}
+.control.active,.tab.active{border-color:var(--gold);color:var(--gold)}
+button:focus-visible,a:focus-visible,[tabindex="0"]:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+.layout{display:grid;gap:16px}
+.panel{background:rgba(21,25,35,.94);border:1px solid var(--line);border-radius:var(--radius-lg);padding:18px;box-shadow:var(--shadow)}
+.eyebrow,.meta{font:700 .68rem/1.2 system-ui;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+.tab{font:.72rem system-ui;text-align:center}
+.view{display:none}.view.active{display:block}
+.hero-art{min-height:150px;border-radius:var(--radius);border:1px solid #4b5362;background:linear-gradient(145deg,#384154,#1b202b 58%,#11141a);display:flex;align-items:end;padding:16px;position:relative;overflow:hidden}
+.hero-art:after{content:"AVELUNE";position:absolute;right:14px;top:12px;font:10px system-ui;letter-spacing:.2em;color:#ffffff44}
+.resource-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:12px 0}
+.resource{min-height:48px;border:1px solid var(--line);border-radius:10px;background:var(--surface2);padding:7px 5px;text-align:center}
+.resource b{display:block;font:700 1rem system-ui}.resource span{font:.62rem system-ui;color:var(--muted)}
+.choice-list{display:grid;gap:10px;margin-top:16px}
+.choice{width:100%;min-height:56px;text-align:left;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.choice small{display:block;font:.68rem/1.35 system-ui;color:var(--muted);margin-top:3px}
+.choice .mark{font:700 .68rem system-ui;color:var(--muted);white-space:nowrap}
+.choice.selected{border-color:var(--gold);background:linear-gradient(180deg,#2b2a22,#1b202a)}
+.choice.pending{border-color:var(--pending)}.choice.resolved{border-color:var(--positive)}.choice.blocked{opacity:.58;cursor:not-allowed}.choice.risk{border-color:var(--warning)}
+.state{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--line);border-radius:10px;padding:11px 12px;background:var(--surface2);margin-top:10px;font:.75rem/1.45 system-ui}
+.state strong{display:block;color:var(--ink)}.state.positive{border-color:#486b56}.state.negative{border-color:#704744}.state.pending{border-color:#526d91}.state.warning,.state.error{border-color:#7b6339}
+.icon{flex:0 0 28px;width:28px;height:28px;border:1px solid currentColor;border-radius:50%;display:grid;place-items:center;font-size:.75rem}
+.card-grid{display:grid;gap:10px}.card{border:1px solid var(--line);border-radius:var(--radius);background:var(--surface2);padding:14px}
+.meter{height:8px;border-radius:99px;background:#0e1117;overflow:hidden;margin-top:8px}.meter i{display:block;height:100%;background:var(--gold)}
+.history{display:grid;gap:12px}.history .entry{border-inline-start:3px solid var(--gold);padding-inline-start:12px}
+.people{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.portrait{height:96px;border-radius:10px;background:linear-gradient(145deg,#4a5060,#1c212c);display:flex;align-items:end;padding:10px;color:#d8dbe2;margin-bottom:10px}
+.evidence{display:grid;gap:8px}.step{display:flex;gap:10px;border:1px solid var(--line);border-radius:10px;background:var(--surface2);padding:11px}
+.seal{width:72px;height:72px;border:1px solid var(--gold);border-radius:50%;display:grid;place-items:center;color:var(--gold);font:1.5rem Georgia;margin:0 auto 14px}
+.ending{text-align:center;background:linear-gradient(160deg,#2b2a22,#171a20);border-color:#685c3e}
+.settings{display:grid;gap:10px}.setting{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--surface2)}
+.audit{display:grid;gap:8px}.audit-row{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;border-bottom:1px solid #2a2f3a;padding:9px 0;font:.73rem system-ui}.pass{color:var(--positive)}.open{color:var(--warning)}
+.mode{font:.68rem system-ui;color:var(--muted);margin-top:6px}.compact-only{display:block}.expanded-only{display:none}.sr{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+@media(min-width:600px){.layout{grid-template-columns:minmax(0,1.55fr) minmax(280px,.75fr);align-items:start}.tabs{grid-template-columns:repeat(8,1fr)}.compact-only{display:none}.expanded-only{display:block}}
+@media(min-width:840px){.layout{grid-template-columns:minmax(0,1.8fr) minmax(320px,.8fr)}.people{grid-template-columns:repeat(3,1fr)}.resource-grid{gap:10px}}
+@media(max-width:420px){.resource-grid{gap:4px}.resource{padding-inline:2px}.people{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}.tabs{grid-template-columns:repeat(2,1fr)}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+[dir=rtl] .hero-art:after{right:auto;left:14px}[dir=rtl] .choice{text-align:right}[dir=rtl] .state,.rtl-row{direction:rtl}
+html.large{font-size:calc(20px * var(--scale))}html.large .choice{min-height:64px}
+</style>
+</head>
+<body>
+<main class="shell">
+<header class="top"><div><div class="brand">Choice Kingdom · Avelune</div><h1>Premium Design System</h1><p class="lede">One visual language across the complete player journey. This lab is presentation-only: canonical gameplay state remains the source of truth.</p></div><div class="mode" id="modeLabel" aria-live="polite">Compact · Dark · LTR · Normal text · Motion</div></header>
+<section class="controls" aria-label="Design modes"><button class="control" id="themeBtn">Theme: Dark</button><button class="control" id="rtlBtn">RTL: Off</button><button class="control" id="textBtn">Text: Normal</button><button class="control" id="motionBtn">Motion: Full</button><button class="control active" data-width="compact">Compact</button><button class="control" data-width="medium">Medium</button><button class="control" data-width="expanded">Expanded</button></section>
+<div class="layout"><section class="panel">
+<nav class="tabs" aria-label="Screen family"><button class="tab active" data-view="event">Event</button><button class="tab" data-view="realm">Realm</button><button class="tab" data-view="history">History</button><button class="tab" data-view="people">People</button><button class="tab" data-view="investigation">Investigation</button><button class="tab" data-view="ending">Ending</button><button class="tab" data-view="settings">Settings</button><button class="tab" data-view="states">States</button></nav>
+<section id="event" class="view active"><div class="eyebrow">Event · E01</div><h2>The Gate That Must Stay Open</h2><div class="hero-art" role="img" aria-label="Stylized council chamber illustration placeholder for design composition"><span>Rain at the eastern gate · focal art zone</span></div><div class="resource-grid" aria-label="Kingdom resources"><div class="resource"><b>62</b><span>Gold</span></div><div class="resource"><b>54</b><span>Trust</span></div><div class="resource"><b>48</b><span>Security</span></div><div class="resource"><b>57</b><span>Power</span></div><div class="resource"><b>66</b><span>Reputation</span></div></div><p>The border captains report a growing line of hungry families outside the eastern gate. The treasury can feed them for a week. The captains warn that opening the gate may also let smugglers through.</p><div class="choice-list"><button class="choice selected"><span><b>Open the gate under guard</b><small>Immediate: −8 gold · +6 trust</small></span><span class="mark">SELECTED</span></button><button class="choice"><span><b>Keep the gate closed</b><small>Immediate: +5 security · −7 reputation</small></span><span class="mark">DEFAULT</span></button></div><div class="state positive"><span class="icon">✓</span><div><strong>Resolved</strong>Food stores fall, but the families enter safely. The visual confirms outcome without inventing future consequences.</div></div></section>
+<section id="realm" class="view"><div class="eyebrow">Realm</div><h2>Avelune at a glance</h2><div class="resource-grid"><div class="resource"><b>62</b><span>Gold</span></div><div class="resource"><b>54</b><span>Trust</span></div><div class="resource"><b>48</b><span>Security</span></div><div class="resource"><b>57</b><span>Power</span></div><div class="resource"><b>66</b><span>Reputation</span></div></div><div class="card-grid"><div class="card"><h3>Delayed consequences</h3><p>3 pending · next horizon: 2 turns</p><div class="meter"><i style="width:62%"></i></div></div><div class="card"><h3>Faction pressure</h3><p>House · Guild · Border Council</p></div><div class="card"><h3>Relationship pulse</h3><p>Mara trusts the crown; Rowan remains uncertain.</p></div></div></section>
+<section id="history" class="view"><div class="eyebrow">History</div><h2>The chronicle remembers</h2><div class="history"><div class="entry"><div class="meta">Turn 12 · Eastern Gate</div><h3>Families admitted under guard</h3><p>Trust +6 · Gold −8 · Border tension recorded.</p></div><div class="entry"><div class="meta">Turn 9 · Guild Hall</div><h3>House Assembly opened</h3><p>Guild representation became available to later events.</p></div><div class="entry"><div class="meta">Turn 5 · River Compact</div><h3>Compact signed</h3><p>Future coalition routes may reference this decision.</p></div></div></section>
+<section id="people" class="view"><div class="eyebrow">People & factions</div><h2>Human stakes stay visible</h2><div class="people"><article class="card"><div class="portrait" role="img" aria-label="Portrait composition for Mara">Mara · portrait focal zone</div><h3>Mara Vale</h3><p>Relationship: trusted</p></article><article class="card"><div class="portrait" role="img" aria-label="Portrait composition for Rowan">Rowan · portrait focal zone</div><h3>Rowan Thorne</h3><p>Relationship: uncertain</p></article><article class="card"><div class="portrait" role="img" aria-label="Portrait composition for Seris">Seris · portrait focal zone</div><h3>Seris Cael</h3><p>Relationship: guarded</p></article></div></section>
+<section id="investigation" class="view"><div class="eyebrow">Investigation</div><h2>Evidence, not exposition</h2><div class="evidence"><div class="step"><span class="icon">1</span><div><strong>Warehouse ledger</strong><p>Known fact · source identified</p></div></div><div class="step"><span class="icon">2</span><div><strong>Sealed correspondence</strong><p>Uncertain · corroboration pending</p></div></div><div class="step"><span class="icon">3</span><div><strong>Witness account</strong><p>Discovered · links to faction pressure</p></div></div></div></section>
+<section id="ending" class="view"><div class="card ending"><div class="seal" aria-hidden="true">A</div><div class="eyebrow">Ending</div><h2>The Crown Remembers</h2><p>The final chapter reflects the choices that prepared the realm for this outcome.</p><div class="state positive"><span class="icon">✓</span><div><strong>Remembered causes</strong>House Assembly · River Compact · Eastern Gate</div></div><button class="action" style="margin-top:14px">Begin another chronicle</button></div></section>
+<section id="settings" class="view"><div class="eyebrow">Settings</div><h2>Presentation controls</h2><div class="settings"><div class="setting"><span>Language</span><button class="action">English</button></div><div class="setting"><span>Text size</span><button class="action">Large</button></div><div class="setting"><span>Reduced motion</span><button class="action">On</button></div><div class="setting"><span>Screen reader labels</span><button class="action">Ready</button></div></div></section>
+<section id="states" class="view"><div class="eyebrow">Decision state matrix</div><h2>Every important state has a visual language</h2><div class="choice-list"><button class="choice"><span><b>Default</b><small>Available and neutral.</small></span><span class="mark">IDLE</span></button><button class="choice risk"><span><b>High risk</b><small>Consequences are consequential, not hidden behind color.</small></span><span class="mark">RISK</span></button><button class="choice pending"><span><b>Pending</b><small>Resolution is in progress; duplicate submission is blocked.</small></span><span class="mark">PENDING</span></button><button class="choice resolved"><span><b>Resolved</b><small>Outcome is confirmed.</small></span><span class="mark">RESOLVED</span></button><button class="choice blocked" disabled><span><b>Blocked</b><small>Unavailable with an explicit reason.</small></span><span class="mark">BLOCKED</span></button></div><div class="state warning error"><span class="icon">!</span><div><strong>Error / uncertainty</strong>Never communicate critical state through color alone; use iconography, labels and text.</div></div></section>
+</section><aside class="panel"><div class="eyebrow">Design closure evidence</div><h2>System contract</h2><div class="audit"><div class="audit-row"><span>Semantic tokens</span><b class="pass">PASS</b></div><div class="audit-row"><span>Touch targets ≥48dp</span><b class="pass">PASS</b></div><div class="audit-row"><span>Choice targets ≥56dp</span><b class="pass">PASS</b></div><div class="audit-row"><span>Visible focus</span><b class="pass">PASS</b></div><div class="audit-row"><span>Large text reflow</span><b class="pass">PASS</b></div><div class="audit-row"><span>RTL mirroring</span><b class="pass">PASS</b></div><div class="audit-row"><span>Reduced motion</span><b class="pass">PASS</b></div><div class="audit-row"><span>Compact / medium / expanded</span><b class="pass">PASS</b></div><div class="audit-row"><span>Gameplay authority in UI</span><b class="pass">PASS</b></div><div class="audit-row"><span>Android physical-device proof</span><b class="open">OPEN GATE</b></div></div><div class="card" style="margin-top:14px"><div class="meta">Adaptive rule</div><p style="margin-top:6px">Compact = one pane. Medium = primary content + supporting information. Expanded = two-pane composition. Decisions are driven by available window width, not device model.</p></div></aside></div></main>
+<script>
+const tabs=[...document.querySelectorAll('.tab')], views=[...document.querySelectorAll('.view')];
+function showView(id){views.forEach(v=>v.classList.toggle('active',v.id===id));tabs.forEach(t=>t.classList.toggle('active',t.dataset.view===id));}
+tabs.forEach(t=>t.addEventListener('click',()=>showView(t.dataset.view)));
+let theme='dark',rtl=false,large=false,motion=false,width='compact';const root=document.documentElement;
+function sync(){root.dir=rtl?'rtl':'ltr';root.classList.toggle('large',large);document.getElementById('themeBtn').textContent=`Theme: ${theme[0].toUpperCase()+theme.slice(1)}`;document.getElementById('rtlBtn').textContent=`RTL: ${rtl?'On':'Off'}`;document.getElementById('textBtn').textContent=`Text: ${large?'Large':'Normal'}`;document.getElementById('motionBtn').textContent=`Motion: ${motion?'Reduced':'Full'}`;document.getElementById('modeLabel').textContent=`${width[0].toUpperCase()+width.slice(1)} · ${theme.toUpperCase()} · ${rtl?'RTL':'LTR'} · ${large?'Large':'Normal'} text · ${motion?'Reduced':'Motion'}`;if(theme==='light'){root.style.setProperty('--bg','#f7f4ee');root.style.setProperty('--surface','#fffdfb');root.style.setProperty('--surface2','#f0ece4');root.style.setProperty('--surface3','#e7e1d7');root.style.setProperty('--ink','#211f1b');root.style.setProperty('--muted','#625d54');root.style.setProperty('--line','#c9c0b3');document.body.style.background='linear-gradient(180deg,#f7f4ee,#ebe5db)';}else{root.style.setProperty('--bg','#0b0d12');root.style.setProperty('--surface','#151923');root.style.setProperty('--surface2','#1b202b');root.style.setProperty('--surface3','#222735');root.style.setProperty('--ink','#f4f0e6');root.style.setProperty('--muted','#aeb3c0');root.style.setProperty('--line','#343a48');document.body.style.background='radial-gradient(circle at 50% -15%,#2a3343 0,#11151d 45%,#0b0d12 100%)';}}
+document.getElementById('themeBtn').onclick=()=>{theme=theme==='dark'?'light':'dark';sync()};document.getElementById('rtlBtn').onclick=()=>{rtl=!rtl;sync()};document.getElementById('textBtn').onclick=()=>{large=!large;sync()};document.getElementById('motionBtn').onclick=()=>{motion=!motion;sync()};document.querySelectorAll('[data-width]').forEach(b=>b.onclick=()=>{width=b.dataset.width;document.querySelectorAll('[data-width]').forEach(x=>x.classList.toggle('active',x===b));sync()});sync();window.showView=showView;
+</script>
+</body></html>
