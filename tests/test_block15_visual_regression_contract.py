@@ -34,3 +34,8 @@ def test_visual_regression_ci_uses_available_gradle_distribution():
     assert "./gradlew" not in workflow
     assert "updateDebugScreenshotTest" in workflow
     assert "validateDebugScreenshotTest" in workflow
+
+
+def test_visual_regression_host_rendering_heap_is_explicit():
+    props = (ROOT / "androidApp/gradle.properties").read_text(encoding="utf-8")
+    assert "android.compose.screenshot.maxHeapSize=4g" in props
