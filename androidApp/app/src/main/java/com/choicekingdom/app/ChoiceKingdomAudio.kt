@@ -30,6 +30,7 @@ class ChoiceKingdomAudio(private val context: Context) : AutoCloseable {
     private var pendingLoads = 0
     private var soundsReady = false
     private var ambientStreamId = 0
+    private var ambientPausedByFocus = false
     private val mainHandler = Handler(Looper.getMainLooper())
     private var tone = ToneGenerator(AudioManager.STREAM_MUSIC, 80)
     private val soundPool = SoundPool.Builder().setMaxStreams(4).setAudioAttributes(
@@ -88,10 +89,27 @@ class ChoiceKingdomAudio(private val context: Context) : AutoCloseable {
         ambientStreamId = soundPool.play(id, ambientVolume * volume, ambientVolume * volume, 0, -1, 1f)
     }
 
+    fun fadeAmbientTo(targetVolume: Float, durationMs: Long = 500L) {
+        if (ambientStreamId == 0) return
+        val target = targetVolume.coerceIn(0f, 1f) * volume
+        val steps = 10
+        val start = ambientVolume * volume
+        repeat(steps) { index ->
+            mainHandler.postDelayed({
+                if (ambientStreamId != 0) {
+                    val fraction = (index + 1).toFloat() / steps
+                    val level = start + (target - start) * fraction
+                    soundPool.setVolume(ambientStreamId, level, level)
+                }
+            }, durationMs * (index + 1) / steps)
+        }
+    }
+
     fun stopAmbient() {
         if (ambientStreamId != 0) {
             soundPool.stop(ambientStreamId)
             ambientStreamId = 0
+            ambientPausedByFocus = false
         }
     }
 
@@ -145,9 +163,12 @@ class ChoiceKingdomAudio(private val context: Context) : AutoCloseable {
                 .setOnAudioFocusChangeListener { change ->
                     if (change == AudioManager.AUDIOFOCUS_LOSS || change == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT) {
                         tone.stopTone()
-                        soundPool.autoPause()
-                        stopAmbient()
+                        if (change == AudioManager.AUDIOFOCUS_LOSS) stopAmbient() else soundPool.autoPause()
+                        ambientPausedByFocus = change == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT && ambientStreamId != 0
                         focusGranted = false
+                    } else if (change == AudioManager.AUDIOFOCUS_GAIN && foreground && !muted && ambientPausedByFocus && ambientStreamId != 0) {
+                        soundPool.autoResume()
+                        ambientPausedByFocus = false
                     }
                 }
                 .build()
