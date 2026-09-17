@@ -45,8 +45,11 @@ def test_game_session_recovery_resumes_from_previous_atomic_checkpoint(tmp_path)
     checkpoint.write_text("{broken", encoding="utf-8")
 
     recovered = GameSession.load_with_recovery(ROOT, checkpoint)
-    assert recovered.state.turn == 3
-    assert recovered.state.current_event_id == "E02"
+    # The backup is the immediately previous atomic checkpoint, i.e. the
+    # pre-second-save state. It must therefore resume at turn 2, not the
+    # newer turn-3 state that was corrupted after the second save.
+    assert recovered.state.turn == 2
+    assert recovered.state.current_event_id == "E01"
     assert recovered.state.snapshot() != session.state.snapshot()
 
 
