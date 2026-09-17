@@ -3,17 +3,61 @@ name: Choice Kingdom Block 15 Visual Regression Gate
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - "androidApp/app/src/screenshotTestDebug/reference/**"
   pull_request:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      approve_baseline:
+        description: "Generate and commit updated screenshot references"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
 
 jobs:
-  visual-regression-contract:
+  screenshot-regression:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
         with:
-          python-version: "3.13"
-      - name: Validate visual regression baseline contract
-        run: pytest -q tests/test_block15_visual_regression_contract.py
+          fetch-depth: 0
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Generate screenshot references
+        if: github.event_name == 'workflow_dispatch' && inputs.approve_baseline == true
+        working-directory: androidApp
+        run: ./gradlew updateDebugScreenshotTest --stacktrace
+
+      - name: Commit approved screenshot references
+        if: github.event_name == 'workflow_dispatch' && inputs.approve_baseline == true
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add androidApp/app/src/screenshotTestDebug/reference
+          git diff --cached --quiet || git commit -m "Update approved visual regression references"
+          git push
+
+      - name: Validate screenshot references
+        if: github.event_name != 'workflow_dispatch' || inputs.approve_baseline != true
+        working-directory: androidApp
+        run: ./gradlew validateDebugScreenshotTest --stacktrace
+
+      - name: Upload screenshot report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: block15-screenshot-report
+          path: |
+            androidApp/app/build/reports/screenshotTest/**
+            androidApp/app/build/reports/tests/**
+          if-no-files-found: ignore
