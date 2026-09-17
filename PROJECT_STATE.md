@@ -1,10 +1,10 @@
 # Choice Kingdom — Project State
 
 ## Product
-Original premium offline-first decision-and-consequence mobile game set in Avelune. Android-first, one-time purchase target €2.99–€4.99, no ads/subscription/mandatory backend for core gameplay, 20+ locales including RTL. Frozen production catalog: **E01–E272**. E273–E277 remain excluded expansion-only events.
+Original premium offline-first decision-and-consequence mobile game set in Avelune. Android-first, one-time purchase target €2.99–€4.99, no ads/subscription/mandatory backend for core gameplay, 20+ locales including RTL. Frozen production catalog: **E01–E272**.
 
 ## Current phase
-**Android presentation foundation / premium runtime integration.** The platform-neutral presentation layer remains the canonical seam over `GameSession`; a real Android Compose module now provides the first production-facing premium presentation surface with adaptive Compact/Medium/Expanded layouts, safe-drawing insets and semantic interaction states. Canonical gameplay remains separate. Android runtime integration with the real `SessionPresenter`, physical device QA, production locale coverage, APK/AAB and store release remain open.
+**Android presentation foundation / premium runtime integration.** A real Android Compose module now provides the first production-facing premium presentation surface with adaptive Compact/Medium/Expanded layouts, safe-drawing insets and semantic interaction states. Canonical gameplay remains separate. Android runtime integration with the real `SessionPresenter`, physical device QA, production locale coverage, APK/AAB and store release remain open.
 
 ## Evidence
 - `androidApp/` contains the first real Android Compose application module.
@@ -34,13 +34,13 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 - Design Specification: **100%**
 - UI / UX Runtime Implementation: **38%**
 - Localization 20+ / RTL: **11%**
-- Android Implementation: **8%** — real Compose application/module and adaptive presentation shell exist; canonical runtime adapter, device validation and release integration remain open.
-- Runtime / Android QA: **28%** — adaptive/safe-area/state contracts and Android build gate exist; physical device verification remains open.
+- Android Implementation: **8%**
+- Runtime / Android QA: **28%**
 - APK / AAB: **0%**
 - Release / Store: **0%**
 
 ## Premium Design P1–P25
-Canonical percentages are tracked in `docs/PREMIUM_DESIGN_MASTER_P1_P25.md`. Current aggregate: **62.12%**. P24 remains incomplete without physical device proof.
+Canonical percentages are tracked in `docs/PREMIUM_DESIGN_MASTER_P1_P25.md`. Current aggregate: **62.24%**. P24 remains incomplete without physical device proof.
 
 ## Honest progress rule
 Documentation never makes implementation complete. Every percentage requires authoritative evidence and applicable verification. Source/contract GREEN must never be reported as runtime gameplay GREEN. Owner-controlled physical Android QA, production signing and store publication remain open until actually performed.
