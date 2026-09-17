@@ -11,7 +11,7 @@ Choice Kingdom should present as a premium narrative mobile game: cohesive art d
 
 | Block | Name | Current | Target |
 |---|---|---:|---:|
-| P1 | Art Direction | **35%** | 100% |
+| P1 | Art Direction | **55%** | 100% |
 | P2 | Character Art System | 0% | 100% |
 | P3 | People / Character Codex | 0% | 100% |
 | P4 | Faction Visual Identity | 0% | 100% |
@@ -51,7 +51,7 @@ Each block requires actual design/implementation work, visual inspection, releva
 
 - Design Specification V1–V18: closed at their defined boundaries.
 - UI / UX Runtime Implementation: 15% at roadmap approval.
-- P1 Art Direction: **35%** — concrete Avelune premium art-direction bible drafted and anchored to the existing design-token/component contracts; representative visual application and inspection remain open.
+- P1 Art Direction: **55%** — direction bible, inspectable anchor specifications, visual drift checklist, and a representative SVG anchor board covering primary character, faction identity, Event decision surface and Ending treatment are now saved. Realm/environment, consequence-state anchors and full inspection evidence remain open.
 - Final artwork: not complete.
 - Android visual runtime: not complete.
 - Physical-device visual QA: not complete.
@@ -68,4 +68,4 @@ Each block requires actual design/implementation work, visual inspection, releva
 
 ## First active block
 
-**P1 — Art Direction.** Direction is now concretely drafted in `docs/PREMIUM_DESIGN_ART_BIBLE_V1.md`. The remaining P1 work is representative visual application, inspection and evidence. Then proceed immediately to P2 — Character Art System.
+**P1 — Art Direction.** The direction is now concretely specified and has representative visual evidence. Remaining work is Realm + Consequence anchor coverage, mobile/light-dark/RTL inspection evidence, and final P1 gate. Then proceed immediately to P2 — Character Art System.
