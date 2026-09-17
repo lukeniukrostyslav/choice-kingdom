@@ -1,0 +1,110 @@
+name: Premium Design System v2 Gate
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'design-preview/premium-design-system-v2.html'
+      - 'docs/DESIGN_TOKENS_V2.json'
+      - 'docs/PREMIUM_DESIGN_SYSTEM_V2_CLOSURE.md'
+      - '.github/workflows/premium-design-system-gate.yml'
+  pull_request:
+    paths:
+      - 'design-preview/premium-design-system-v2.html'
+      - 'docs/DESIGN_TOKENS_V2.json'
+      - 'docs/PREMIUM_DESIGN_SYSTEM_V2_CLOSURE.md'
+      - '.github/workflows/premium-design-system-gate.yml'
+  workflow_dispatch:
+
+jobs:
+  premium-design-system:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install Playwright
+        run: npm install --no-save playwright@1.55.0
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Serve design preview
+        run: |
+          python3 -m http.server 4173 --directory design-preview >/tmp/choice-kingdom-premium.log 2>&1 &
+          for attempt in $(seq 1 20); do
+            if curl --fail --silent --show-error http://127.0.0.1:4173/premium-design-system-v2.html >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/choice-kingdom-premium.log
+          exit 1
+      - name: Run responsive and accessibility design matrix
+        run: |
+          node <<'NODE'
+          const { chromium } = require('playwright');
+          const fs = require('fs');
+          const viewports = [
+            {name:'compact-360',width:360,height:800},
+            {name:'compact-412',width:412,height:915},
+            {name:'medium-600',width:600,height:900},
+            {name:'medium-768',width:768,height:1024},
+            {name:'expanded-840',width:840,height:1000},
+            {name:'expanded-1440',width:1440,height:900}
+          ];
+          const modes = [
+            {name:'default'},
+            {name:'rtl',script:"document.getElementById('rtlBtn').click()"},
+            {name:'large',script:"document.getElementById('textBtn').click()"},
+            {name:'reduced-motion',script:"document.getElementById('motionBtn').click()"},
+            {name:'light',script:"document.getElementById('themeBtn').click()"}
+          ];
+          const views = ['event','realm','history','people','investigation','ending','settings','states'];
+          (async()=>{
+            const browser=await chromium.launch({headless:true});
+            const evidence=[];
+            for(const vp of viewports){
+              for(const mode of modes){
+                const context=await browser.newContext({viewport:{width:vp.width,height:vp.height},reducedMotion:mode.name==='reduced-motion'});
+                const page=await context.newPage();
+                const consoleErrors=[],pageErrors=[],failed=[];
+                page.on('console',m=>{if(m.type()==='error')consoleErrors.push(m.text())});
+                page.on('pageerror',e=>pageErrors.push(String(e)));
+                page.on('requestfailed',r=>failed.push(r.url()));
+                const response=await page.goto('http://127.0.0.1:4173/premium-design-system-v2.html',{waitUntil:'networkidle'});
+                if(mode.script) await page.evaluate(mode.script);
+                const base=await page.evaluate(()=>({
+                  overflow:document.documentElement.scrollWidth>window.innerWidth+1,
+                  bodyText:document.body.innerText.length,
+                  broken:[...document.images].filter(i=>!i.complete||i.naturalWidth===0).length,
+                  controls:[...document.querySelectorAll('button,a,input,select,textarea,[role="button"]')].filter(el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el);return r.width>0&&r.height>0&&s.display!=='none'&&s.visibility!=='hidden'}).map(el=>{const r=el.getBoundingClientRect();return {w:r.width,h:r.height,label:(el.innerText||el.getAttribute('aria-label')||'').trim()}}),
+                  focusCSS:document.documentElement.outerHTML.includes(':focus-visible'),
+                  rtlCSS:document.documentElement.outerHTML.includes('[dir=rtl]'),
+                  reducedCSS:document.documentElement.outerHTML.includes('prefers-reduced-motion'),
+                  viewCount:document.querySelectorAll('.view').length,
+                  activeCount:document.querySelectorAll('.view.active').length,
+                  title:document.title
+                }));
+                const small=base.controls.filter(c=>c.w<48||c.h<48);
+                const viewResults=[];
+                for(const id of views){await page.evaluate(id=>window.showView(id),id);viewResults.push({id,visible:await page.evaluate(id=>document.getElementById(id)?.classList.contains('active'),id)});}
+                const pass=Boolean(response&&response.ok())&&!base.overflow&&base.bodyText>500&&base.broken===0&&small.length===0&&consoleErrors.length===0&&pageErrors.length===0&&failed.length===0&&base.focusCSS&&base.rtlCSS&&base.reducedCSS&&base.viewCount===views.length&&base.activeCount===1&&viewResults.every(x=>x.visible);
+                evidence.push({viewport:vp.name,mode:mode.name,pass,small,consoleErrors,pageErrors,failed,base,viewResults});
+                await page.screenshot({path:`premium-design-${vp.name}-${mode.name}.png`,fullPage:false});
+                await context.close();
+              }
+            }
+            fs.writeFileSync('premium-design-system-evidence.json',JSON.stringify({viewports,modes,views,evidence},null,2));
+            const failures=evidence.filter(x=>!x.pass);await browser.close();
+            if(failures.length){console.error(`Premium design failures: ${failures.length}`);process.exit(1)}
+            console.log(`Premium design PASS: ${evidence.length} responsive/state runs`);
+          })().catch(e=>{console.error(e);process.exit(1)});
+          NODE
+      - name: Upload design evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: choice-kingdom-premium-design-system-v2
+          path: |
+            premium-design-system-evidence.json
+            premium-design-*.png
+          if-no-files-found: ignore
