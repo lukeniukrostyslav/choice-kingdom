@@ -11,7 +11,7 @@ Status: **APPROVED**
 | P3 | People / Character Codex | **15%** | 100% |
 | P4 | Faction Visual Identity | **5%** | 100% |
 | P5 | Event Cinematic UI | **15%** | 100% |
-| P6 | Choice Experience | **20%** | 100% |
+| P6 | Choice Experience | **30%** | 100% |
 | P7 | Consequence Experience | 0% | 100% |
 | P8 | Realm | 0% | 100% |
 | P9 | History / Chronicle | 0% | 100% |
@@ -47,15 +47,15 @@ Each block requires actual design/implementation work, visual inspection, releva
 - P3 People / Character Codex: **15%** — inspectable portrait-led codex with responsive mobile, light/dark, LTR/RTL and explicit candidate labeling. Canonical People binding, final production portraits, provenance/licensing and rendered validation remain open.
 - P4 Faction Visual Identity: **5%** — six neutral symbolic grammars with monochrome, small-scale, RTL and anti-good/evil constraints. Canonical faction binding, final marks, provenance/licensing and rendered validation remain open.
 - P5 Event Cinematic UI: **15%** — inspectable decision-first cinematic event surface with responsive hero art, narrative stakes, situation state, dominant choice controls, safe areas, RTL, reduced-motion behavior, focus treatment, plus idle/selected/resolving interaction states and live feedback. Canonical event/session binding, complete event-family coverage, final artwork, motion, localization, Android integration and final rendered QA remain open.
-- P6 Choice Experience: **20%** — new inspectable choice-first surface with explicit idle/selected/reset states, semantic selection state, review-before-resolve interaction, focus treatment, light/dark theme proof, RTL mirroring, reduced-motion behavior and small-width composition. Canonical runtime binding, complete choice-state family, full catalog coverage, consequence handoff, final artwork, localization, Android integration and final rendered QA remain open.
+- P6 Choice Experience: **30%** — inspectable choice-first surface now includes an explicit state-family proof for idle, focused, selected, pressed, resolving, disabled, resolved and error/fallback behavior; the runtime presentation layer maps terminal choices to disabled and preserves an error state without converting exceptions into gameplay outcomes; regression coverage verifies presentation/gameplay separation. Complete catalog coverage, full rendered state verification, consequence handoff, final artwork, localization, Android integration and final rendered/device QA remain open.
 - Final artwork: not complete.
 - Android visual runtime: not complete.
 - Physical-device visual QA: not complete.
 
 ## Active work
 
-**P6 — Choice Experience.** Continue autonomously into the remaining choice-state family and canonical runtime/session binding. Do not use candidate artwork as final and do not claim rendered/device validation before it is actually performed.
+**P6 — Choice Experience.** Continue autonomously into complete authored choice-family coverage, rendered state verification and the consequence transition handoff. Do not use candidate artwork as final and do not claim rendered/device validation before it is actually performed.
 
 ## Current average
 
-Verified average across P1–P25: **6.2%**.
+Verified average across P1–P25: **6.6%**.
