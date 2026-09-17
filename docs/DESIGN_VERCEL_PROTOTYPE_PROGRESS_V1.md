@@ -1,6 +1,6 @@
 # Choice Kingdom — Design Vercel Prototype Progress V1
 
-Updated after autonomous visual integration work on 2026-09-17.
+Updated after autonomous authored-art production pass on 2026-09-17.
 
 ## D1–D22 design contract
 
@@ -11,7 +11,7 @@ Updated after autonomous visual integration work on 2026-09-17.
 | Block | Status | Evidence / meaning |
 |---|---:|---|
 | V1 Asset inventory | 100% | audited preview asset families |
-| V2 Final authored artwork | 0% | final authored illustration production remains separate |
+| V2 Final authored artwork | 0% | five authored SVG assets are now produced and repository-verified, but V2 stays 0% until they replace the relevant treatments in the executable main flow and pass regression |
 | V3 Web presentation layer | 100% | executable static web surface |
 | V4 Launcher / navigation | 100% | launcher + seven-tab flow |
 | V5 Event / Choice | 100% | event screen, three choice states and persisted selection |
@@ -29,31 +29,43 @@ Updated after autonomous visual integration work on 2026-09-17.
 | V17 Actual Vercel Deployment | 0% | no verified published deployment yet |
 | V18 Published Prototype QA | 0% | blocked until V17 is verified |
 
-**Executable prototype tracker: ~82.8% by the current block-weighted arithmetic average.** The previous 82.5% figure is retained in historical commits; the tracker is now recalculated after V14 closure.
+**Executable prototype tracker: ~82.8% by the current block-weighted arithmetic average.** V2 is intentionally not inflated by asset-file existence alone.
 
 ## Latest autonomous implementation
 
-`web-preview/game-flow.html` received a visual integration pass. The prototype now has:
+### Cross-screen integration closure
 
-- persistent choice state via localStorage;
-- choice-specific consequence values and narrative;
-- Realm metrics updated from the selected decision;
-- People/relationship trust continuity;
-- History recording the actual selected decision;
-- Ending showing the recorded decision and outcome;
-- journey progress indicator;
-- improved atmospheric hero treatment and card hierarchy;
-- skip-to-content and live-region accessibility support;
-- persisted theme / large-text / RTL preferences;
-- reduced-motion-safe transitions.
+`web-preview/game-flow.html` carries the selected decision across consequence, investigation, Realm, People, History and Ending, with persisted local state, accessibility support, responsive behavior and reduced-motion handling.
 
-This closes the executable V14 integration requirement without claiming final authored artwork.
+### Authored artwork production pass
+
+Five project-authored SVG assets are now committed:
+
+- `web-preview/artwork/event-empty-granary.svg` — Event hero
+- `web-preview/artwork/queen-elira.svg` — Queen Elira portrait
+- `web-preview/artwork/lord-cael.svg` — Lord Cael portrait
+- `web-preview/artwork/river-compact.svg` — River Compact faction mark
+- `web-preview/artwork/ending-chronicle.svg` — Ending atmosphere
+
+`web-preview/artwork-preview.html` provides a review surface for the complete authored set, while `docs/DESIGN_ARTWORK_CATALOG_V1.md` records stable IDs, crop intent, provenance and the V2 gate.
+
+The SVGs include semantic title/description metadata and contain no external image dependency. They are original project-authored vector assets, not stock placeholders.
 
 ## Completion rules
 
 - Never increase a percentage without executable or auditable evidence.
 - D1–D22 remain exactly 100%; prototype progress does not inflate the design-contract percentage.
-- V2 remains 0% until final authored artwork is actually produced and integrated.
+- V2 remains 0% until the authored assets are actually integrated into the executable main flow and the resulting flow passes visual regression.
 - V15 requires an executed mobile/browser regression pass, not merely responsive CSS.
 - V17 requires a real Vercel deployment URL or equivalent verified deployment evidence.
 - V18 requires QA against the published deployment.
+
+## Next autonomous sequence
+
+1. Integrate the authored Event hero into `game-flow.html`.
+2. Replace People placeholder portrait treatments with authored character SVGs.
+3. Add the authored faction mark to the People/Faction presentation.
+4. Integrate the Ending atmosphere without obscuring outcome text or controls.
+5. Verify responsive crops and accessibility semantics.
+6. Recalculate V2 only after integration evidence is present.
+7. Continue into V15 → V17 → V18 without treating deployment as complete until independently verified.
