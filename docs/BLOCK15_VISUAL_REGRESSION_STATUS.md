@@ -1,6 +1,6 @@
 # Block 15 — Cross-Screen Visual Regression
 
-Status: **IN PROGRESS — 46%**
+Status: **IN PROGRESS — 54%**
 
 ## Implemented
 
@@ -58,3 +58,11 @@ Physical-device visual verification remains Block 21.
 - Screenshot JVM heap is explicitly set to 4 GB for host-side rendering, matching Android's documented troubleshooting guidance for memory-intensive screenshot tests.
 - The new contract test protects this setting.
 - GitHub Actions runs for Block 15 are currently queued; no PNG baseline or validation result is counted until a run completes.
+
+
+## Locale and typography coverage — 54%
+
+- Added screenshot variants for all non-English Core-8 locales (EN remains the canonical default preview).
+- Added large-text `fontScale=1.3` coverage for Event and Settings surfaces.
+- Baseline manifest now records locale and font-scale coverage explicitly.
+- The reference set is still pending an actual completed CI render; coverage is not counted as passing until the generated images are reviewed and validated.
