@@ -34,11 +34,7 @@ class ResourcePresentation:
 
 @dataclass(frozen=True)
 class SessionPresentation:
-    """Stable UI-facing projection of the canonical GameSession boundary.
-
-    The presentation layer owns labels, ordering and interaction state only.
-    It deliberately does not calculate triggers, effects, routing or endings.
-    """
+    """Stable UI-facing projection of the canonical GameSession boundary."""
 
     run_id: str
     turn: int
@@ -77,20 +73,20 @@ def present(view: SessionView) -> SessionPresentation:
 class SessionPresenter:
     """Thin controller for UI intent -> GameSession operations.
 
-    All mutations still execute through GameSession. This prevents the UI from
-    acquiring a second gameplay implementation and makes resolving/disabled
-    states explicit for future Android Compose integration.
+    All mutations still execute through GameSession. The presenter only owns
+    transient interaction state and never calculates gameplay effects/routing.
     """
 
     def __init__(self, session: GameSession):
         self.session = session
+        self._focused_choice: str | None = None
         self._resolving_choice: str | None = None
         self._resolved_choice: str | None = None
 
     def snapshot(self) -> SessionPresentation:
         base = present(self.session.view())
         choices = tuple(
-            choice.__class__(
+            ChoicePresentation(
                 choice.choice_id,
                 choice.label,
                 choice.text,
@@ -98,7 +94,7 @@ class SessionPresenter:
             )
             for choice in base.choices
         )
-        return base.__class__(
+        return SessionPresentation(
             base.run_id,
             base.turn,
             base.event_id,
@@ -112,27 +108,48 @@ class SessionPresenter:
         )
 
     def focus_choice(self, choice_id: str) -> None:
-        if choice_id not in self.session.available_choices():
-            raise ValueError(f"choice is not currently available: {choice_id}")
+        self._require_available(choice_id)
+        self._focused_choice = choice_id
         self._resolving_choice = None
-        self._resolved_choice = choice_id
+        self._resolved_choice = None
 
-    def begin_choice(self, choice_id: str) -> None:
-        if choice_id not in self.session.available_choices():
-            raise ValueError(f"choice is not currently available: {choice_id}")
+    def press_choice(self, choice_id: str) -> None:
+        self._require_available(choice_id)
+        self._focused_choice = choice_id
         self._resolving_choice = choice_id
         self._resolved_choice = None
 
+    def begin_choice(self, choice_id: str) -> None:
+        """Alias for the pressed -> resolving transition used by UI hosts."""
+        self.press_choice(choice_id)
+
     def choose(self, choice_id: str):
-        self.begin_choice(choice_id)
+        self.press_choice(choice_id)
         result = self.session.choose(choice_id)
+        self._focused_choice = None
         self._resolving_choice = None
         self._resolved_choice = choice_id
         return result
+
+    def clear_transient_state(self) -> None:
+        self._focused_choice = None
+        self._resolving_choice = None
+        self._resolved_choice = None
+
+    def select_event(self, event_id: str) -> None:
+        """Move UI focus to an engine-qualified event without mutating gameplay."""
+        self.session.select_event(event_id)
+        self.clear_transient_state()
+
+    def _require_available(self, choice_id: str) -> None:
+        if choice_id not in self.session.available_choices():
+            raise ValueError(f"choice is not currently available: {choice_id}")
 
     def _choice_state(self, choice_id: str) -> InteractionState:
         if choice_id == self._resolving_choice:
             return InteractionState.RESOLVING
         if choice_id == self._resolved_choice:
             return InteractionState.RESOLVED
+        if choice_id == self._focused_choice:
+            return InteractionState.FOCUSED
         return InteractionState.IDLE
