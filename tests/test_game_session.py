@@ -129,6 +129,22 @@ def test_session_next_due_delay_rejects_when_no_delay_is_due():
     assert session.state.turn == 1
 
 
+def test_repeated_delayed_choice_is_atomic_when_its_key_is_already_pending():
+    session = GameSession.new(ROOT, "session-duplicate-delay")
+    session.state.resources.update({name: 100 for name in session.state.resources})
+    session.state.relationships.update({name: 3 for name in session.state.relationships})
+    session.state.flags.update({"merchant_charter", "competitive_market"})
+    session.state.current_event_id = "E18"
+    session.select_event("E18")
+    session.choose("E18-B")
+    before = session.state.snapshot()
+
+    with pytest.raises(ValueError, match="duplicate pending delay"):
+        session.choose("E18-B")
+
+    assert session.state.snapshot() == before
+
+
 def test_session_replay_boundary_starts_clean_run_with_only_canonical_meta():
     completed = GameSession.new(ROOT, "completed-run")
     completed.state.terminal = True
