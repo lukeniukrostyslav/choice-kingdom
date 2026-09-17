@@ -54,7 +54,7 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 12. **Responsive / Safe Areas / Devices** → 100%
 13. **Premium Design P1–P25** → 62.24%
 14. **Motion / Audio / Haptics** → 99%
-15. **Cross-Screen Visual Regression** → 42%
+15. **Cross-Screen Visual Regression** → 44%
 16. **Automated QA** → 0%
 17. **Performance / Stability / Offline QA** → 0%
 18. **Security / Production Hardening** → 0%
@@ -172,3 +172,6 @@ Block 15 latest: real Compose screenshot-test engine configured, deterministic p
 
 
 Block 15 latest: CI now automatically creates the first screenshot reference set when absent, then validates future changes against committed references. Baseline generation has not yet been observed as successful in a completed workflow run.
+
+
+Block 15 latest: screenshot CI execution hardened to provision Gradle 8.9 because the repository has no Gradle wrapper. Reference generation remains unverified until a completed workflow run produces the PNG set.
