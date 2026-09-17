@@ -1,4 +1,4 @@
-## Block 14 checkpoint — IN PROGRESS — 85%
+## Block 14 checkpoint — IN PROGRESS — 90%
 - Added Compose screen transition using AnimatedContent with fade + scale settle motion.
 - Added offline haptic and platform tone feedback for choice interaction with Android audio-focus handling.
 - Added foreground-only mute/volume controls and wired them into Settings.
@@ -6,7 +6,7 @@
 - Audio is gated by visible Activity lifecycle and releases focus when the app stops.
 - Mute/volume preferences persist locally; tap/confirm/error feedback variants are available.
 - Three bundled offline WAV SFX are shipped and loaded through SoundPool with platform fallback.
-- Bundled Avelune ambient loop is integrated with persisted ambient volume and visible-Activity lifecycle handling; final authored soundtrack remains open.
+- Bundled Avelune ambient loop is integrated with persisted ambient volume and visible-Activity lifecycle handling; fade and transient-focus recovery are implemented. Final authored soundtrack/mixing remains open.
 - Added ChoiceKingdomFeedback abstraction for interaction feedback.
 - Added tests/test_block14_motion_audio_haptics_contract.py and .github/workflows/block14-motion-audio-haptics-gate.yml.
 - Authored premium audio assets, music/ambient system, mute/volume preference wiring and physical device verification remain open; physical verification belongs to Block 21.
@@ -53,7 +53,7 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 11. **RTL / Large Text / Accessibility** → 100%
 12. **Responsive / Safe Areas / Devices** → 100%
 13. **Premium Design P1–P25** → 62.24%
-14. **Motion / Audio / Haptics** → 85%
+14. **Motion / Audio / Haptics** → 90%
 15. **Cross-Screen Visual Regression** → 0%
 16. **Automated QA** → 0%
 17. **Performance / Stability / Offline QA** → 0%
