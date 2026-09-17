@@ -2,13 +2,21 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+
+@dataclass(frozen=True)
+class LocaleSpec:
+    tag: str
+    english_name: str
+    rtl: bool = False
+
+
 # Release v1 core locales. Additional locales can be added in a later
 # localization expansion without blocking the first production release.
 SUPPORTED_LOCALES: tuple[str, ...] = (
     "en", "ru", "uk", "it", "de", "fr", "es", "pt",
 )
 
-LOCALES: tuple["LocaleSpec", ...] = (
+LOCALES: tuple[LocaleSpec, ...] = (
     LocaleSpec("en", "English"),
     LocaleSpec("ru", "Russian"),
     LocaleSpec("uk", "Ukrainian"),
@@ -20,13 +28,6 @@ LOCALES: tuple["LocaleSpec", ...] = (
 )
 
 FALLBACK_LOCALE = "en"
-
-
-@dataclass(frozen=True)
-class LocaleSpec:
-    tag: str
-    english_name: str
-    rtl: bool = False
 
 
 def normalize_locale(tag: str | None) -> str:
