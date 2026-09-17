@@ -27,13 +27,24 @@ jobs:
       - name: Capture mobile visual regression matrix
         run: |
           mkdir -p artifacts/visual-regression
-          nohup python3 -m http.server 4173 --directory web-preview >/tmp/choice-kingdom-http.log 2>&1 &
+          python3 -m http.server 4173 --directory web-preview >/tmp/choice-kingdom-http.log 2>&1 &
           server_pid=$!
           trap 'kill "$server_pid" 2>/dev/null || true' EXIT
           for attempt in $(seq 1 20); do
-            if curl --fail --silent --show-error http://127.0.0.1:4173/index.html >/dev/null; then break; fi
+            if ! kill -0 "$server_pid" 2>/dev/null; then
+              echo "Preview server exited before readiness. Log:"
+              cat /tmp/choice-kingdom-http.log
+              exit 1
+            fi
+            if curl --fail --silent --show-error http://127.0.0.1:4173/index.html >/dev/null; then
+              break
+            fi
             sleep 1
-            if [ "$attempt" = "20" ]; then cat /tmp/choice-kingdom-http.log; exit 1; fi
+            if [ "$attempt" = "20" ]; then
+              echo "Preview server did not become ready. Log:"
+              cat /tmp/choice-kingdom-http.log
+              exit 1
+            fi
           done
           node <<'NODE'
           const { chromium } = require('playwright');
