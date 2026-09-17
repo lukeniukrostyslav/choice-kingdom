@@ -24,7 +24,7 @@ Current platform guidance reinforces cohesive visual language, clear hierarchy, 
 | P8 | Character presentation | 49% | Character identity, state, relationship and fallback visuals |
 | P9 | Kingdom / world presentation | 51% | Avelune world surfaces and visual continuity |
 | P10 | Resources / stats / pressure visualization | 49% | Scannable resource language and state transitions |
-| P11 | Consequences / delayed consequences | 54% | Immediate, pending, triggered and cancelled visual states |
+| P11 | Consequences / delayed consequences | 58% | Immediate, pending, triggered and cancelled visual states |
 | P12 | History / decision memory | 50% | Timeline/history hierarchy and causal readability |
 | P13 | Relationships / character state | 46% | Relationship states and progression presentation |
 | P14 | Investigation / threads / evidence | 45% | Evidence hierarchy, discovery and unresolved states |
@@ -33,25 +33,27 @@ Current platform guidance reinforces cohesive visual language, clear hierarchy, 
 | P17 | Replay / new-run experience | 28% | Replay motivation, continuity and clean reset semantics |
 | P18 | Main menu / launcher | 48% | Premium first impression + navigation + responsive proof |
 | P19 | Navigation / information architecture | 51% | Consistent hierarchy and low-cognitive-load navigation |
-| P20 | Motion / micro-interactions / feedback | 36% | Purposeful motion system + reduced-motion behavior |
+| P20 | Motion / micro-interactions / feedback | 39% | Purposeful motion system + reduced-motion behavior |
 | P21 | Accessibility / touch / keyboard / focus | 64% | Semantic, focus, contrast, touch-target and reduced-motion proof |
 | P22 | Localization / long strings / RTL | 22% | Locale-safe layout and RTL proof across key screens |
 | P23 | Audio / haptics / premium feedback | 16% | Audio/haptic vocabulary mapped to meaningful player actions |
 | P24 | Android devices / safe areas / resolution adaptation | 16% | Real Android presentation proof on target device classes |
-| P25 | Final premium polish / cross-screen QA | 27% | Full visual regression and no unresolved P1–P24 blockers |
+| P25 | Final premium polish / cross-screen QA | 29% | Full visual regression and no unresolved P1–P24 blockers |
 
-**Aggregate P1–P25 estimate after this increment: 47.64% (simple arithmetic mean of block estimates).** This is an engineering/design evidence estimate, not a commercial-readiness score.
+**Aggregate P1–P25 estimate after this increment: 48.00% (simple arithmetic mean of block estimates).** This is an engineering/design evidence estimate, not a commercial-readiness score.
 
 ## Evidence added in the current design increment
 
-- `runtime/session.py` now exposes canonical presentation-neutral projections for history, investigation threads, pending delayed consequences and ending evidence families directly from `GameState`.
-- `runtime/presentation.py` now converts those canonical fields into typed UI-facing `SessionPresentation` models without duplicating gameplay rules.
-- `tools/verify_premium_production_integration.py` now gates the four narrative projections in addition to the nine interaction states, seven representative screens, adaptive/accessibility modes and `GameSession` mutation boundary.
-- `tests/test_premium_presentation_projection.py` adds regression coverage for the new narrative projections and confirms transient choice states do not mutate gameplay turn state.
+- `runtime/session.py` exposes canonical presentation-neutral projections for history, investigation threads, pending delayed consequences and ending evidence families directly from `GameState`.
+- `runtime/presentation.py` converts those canonical fields into typed UI-facing `SessionPresentation` models without duplicating gameplay rules.
+- `runtime/consequence_screen.py` now provides a concrete consequence/result host over `SessionPresenter`, preserving the canonical engine as the gameplay mutation boundary.
+- `design-preview/premium-journey-prototype-v1.html` now provides a touch-first four-stage journey prototype: Event → Choice → Consequence → Realm → History. It uses local state, explicit interaction states, delayed-consequence presentation, responsive phone-first layout, safe-area padding, keyboard focus and reduced-motion handling.
+- `tools/verify_premium_production_integration.py` gates the narrative projections plus the interaction states, representative screens, adaptive/accessibility modes and `GameSession` mutation boundary.
+- `tests/test_premium_presentation_projection.py` regression-tests the narrative projections and confirms transient choice states do not mutate gameplay turn state.
 - `design-preview/premium-design-system-v2.html` continues to unify the reusable visual system across Event, Realm, History, People/Factions, Investigation, Ending, Settings and the full decision-state matrix.
 - `docs/DESIGN_TOKENS_V2.json` freezes semantic colors, typography, spacing, touch targets, safe-area rules, adaptive window classes and state vocabulary in a machine-readable design contract.
 - `.github/workflows/premium-design-system-gate.yml` provides a Playwright matrix for compact/medium/expanded widths plus RTL, large-text, reduced-motion and light-theme execution.
-- The new evidence raises P10–P14 and P16 conservatively because those runtime narrative domains now have an explicit typed presentation bridge; this does not close Android runtime, final-art provenance or physical-device gates.
+- The new journey prototype raises P11, P20 and P25 conservatively because the design now has a concrete touch-first cross-screen flow; this does not close Android runtime, final-art provenance or physical-device gates.
 
 ## Production-facing integration evidence
 
@@ -92,4 +94,4 @@ The verifier is intentionally static and deterministic. It is a regression guard
 
 ## Immediate next execution target
 
-Continue production-facing integration from the new narrative projection bridge into actual Event, Realm, History, People, Investigation and Ending surfaces; then harden P20–P25 with motion semantics, localization/RTL stress, Android adaptation and cross-screen regression. Use fresh internet research only when a concrete design decision needs a new benchmark; do not add repetitive benchmark documents when existing evidence is sufficient.
+Continue production-facing integration from the narrative projection bridge into actual Event, Realm, History, People, Investigation and Ending surfaces; expand the touch-first journey without duplicating gameplay logic; then harden P20–P25 with motion semantics, localization/RTL stress, Android adaptation and cross-screen regression. Use fresh internet research only when a concrete design decision needs a new benchmark; do not add repetitive benchmark documents when existing evidence is sufficient.
