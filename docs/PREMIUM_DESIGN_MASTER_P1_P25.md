@@ -12,9 +12,9 @@ This document is the canonical working checklist for the 25-block premium visual
 | P2 | Core visual identity / design language | 74% | Tokenized identity applied across representative surfaces |
 | P3 | Typography / type hierarchy | 66% | Complete type scale, wrapping, accessibility and locale rules |
 | P4 | Color / materials / surfaces | 70% | Semantic color/material tokens + contrast proof |
-| P5 | Layout / grid / spacing / responsive system | 72% | Responsive contracts across target window classes + safe-content bounds |
+| P5 | Layout / grid / spacing / responsive system | 73% | Responsive contracts across target window classes + safe-content bounds |
 | P6 | Choice experience / choice cards / choice chamber | 73% | All choice states + proof + accessibility + visual regression |
-| P7 | Event / situation presentation | 63% | Full event surface and state variants |
+| P7 | Event / situation presentation | 64% | Full event surface and state variants |
 | P8 | Character presentation | 57% | Character identity, state, relationship and fallback visuals |
 | P9 | Kingdom / world presentation | 59% | Avelune world surfaces and visual continuity |
 | P10 | Resources / stats / pressure visualization | 56% | Scannable resource language and state transitions |
@@ -27,22 +27,22 @@ This document is the canonical working checklist for the 25-block premium visual
 | P17 | Replay / new-run experience | 47% | Replay motivation, continuity and clean reset semantics |
 | P18 | Main menu / launcher | 70% | Premium first impression + navigation + responsive proof |
 | P19 | Navigation / information architecture | 76% | Consistent hierarchy and low-cognitive-load navigation |
-| P20 | Motion / micro-interactions / feedback | 71% | Purposeful semantic motion + reduced-motion behavior |
-| P21 | Accessibility / touch / keyboard / focus | 78% | Semantic, focus, contrast, touch-target and reduced-motion proof |
-| P22 | Localization / long strings / RTL | 47% | Locale-safe layout and RTL proof across key screens |
+| P20 | Motion / micro-interactions / feedback | 72% | Purposeful semantic motion + reduced-motion behavior |
+| P21 | Accessibility / touch / keyboard / focus | 79% | Semantic, focus, contrast, touch-target and reduced-motion proof |
+| P22 | Localization / long strings / RTL | 48% | Locale-safe layout and RTL proof across key screens |
 | P23 | Audio / haptics / premium feedback | 30% | Audio/haptic vocabulary mapped to meaningful player actions |
-| P24 | Android devices / safe areas / resolution adaptation | 29% | Real Android presentation proof on target device classes |
-| P25 | Final premium polish / cross-screen QA | 40% | Full visual regression and no unresolved P1–P24 blockers |
+| P24 | Android devices / safe areas / resolution adaptation | 30% | Real Android presentation proof on target device classes |
+| P25 | Final premium polish / cross-screen QA | 43% | Full visual regression and no unresolved P1–P24 blockers |
 
-**Aggregate P1–P25 estimate: 59.28% (simple arithmetic mean of block estimates).** This is an engineering/design evidence estimate, not a commercial-readiness score.
+**Aggregate P1–P25 estimate: 59.68% (simple arithmetic mean of block estimates).** This is an engineering/design evidence estimate, not a commercial-readiness score.
 
 ## Evidence added in the current design increment
 
 - `runtime/premium_screen_states.py` defines the canonical cross-screen state vocabulary for Event, Realm, History, People, Investigation, Ending and Settings.
 - `runtime/premium_surface_projection.py` maps actual available app-window width to compact/comfortable/expanded premium surface density without changing gameplay semantics.
-- `tests/test_premium_screen_states.py` and `tests/test_premium_surface_projection.py` verify shared interaction states and adaptive surface projection.
-- `docs/PREMIUM_SCREEN_STATE_CONTRACT_V1.md` defines the cross-screen rendering, accessibility, RTL, reduced-motion and responsive rules.
-- `docs/PREMIUM_ADAPTIVE_SURFACE_CONTRACT_V1.md` defines the compact/medium/expanded surface contract and primary-action preservation rule.
+- `runtime/premium_regression_matrix.py` generates a machine-readable cross-screen regression matrix spanning all seven premium screens, required states and Compact/Medium/Expanded/RTL/large-text/reduced-motion dimensions.
+- `tests/test_premium_screen_states.py`, `tests/test_premium_surface_projection.py` and `tests/test_premium_regression_matrix.py` verify shared interaction states, adaptive projection and cross-screen invariants.
+- `docs/PREMIUM_SCREEN_STATE_CONTRACT_V1.md`, `docs/PREMIUM_ADAPTIVE_SURFACE_CONTRACT_V1.md` and `docs/PREMIUM_CROSS_SCREEN_REGRESSION_V1.md` define the cross-screen rendering, accessibility, RTL, reduced-motion, responsive and regression rules.
 - `design-preview/premium-screen-state-matrix-v1.html` provides representative visual proof for the seven key screens across default/focus/pressed/disabled/selected and screen-specific outcome states, with RTL and large-text toggles.
 - `runtime/premium_feedback.py` continues to compose semantic motion with audio/haptic feedback into one presentation-only projection.
 - `design-preview/premium-locale-lab-v1.html` continues to provide choice/consequence, long-string, RTL, large-text, focus and reduced-motion proof.
@@ -76,4 +76,4 @@ The runtime exposes a presentation-neutral `GameSession` snapshot and a `Session
 
 ## Execution note
 
-The current increment connects the shared screen-state vocabulary to a pure adaptive surface projection based on actual app-window width. Next: connect the projection to each existing screen host and build cross-screen responsive/RTL/reduced-motion regression evidence. Documentation alone will not close P20–P25.
+The current increment adds machine-readable cross-screen regression coverage around the adaptive surface projection. Next: connect the projection to each existing screen host and produce rendered cross-screen evidence. Documentation and source-level matrices do not replace physical Android screenshot/device proof.
