@@ -1,0 +1,19 @@
+name: Choice Kingdom Block 15 Visual Regression Gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  visual-regression-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Validate visual regression baseline contract
+        run: pytest -q tests/test_block15_visual_regression_contract.py
