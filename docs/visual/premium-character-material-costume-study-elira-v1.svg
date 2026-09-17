@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" role="img" aria-labelledby="t d">
+<title id="t">Choice Kingdom — Queen Elira costume and material study</title>
+<desc id="d">Production-facing study board for royal costume construction, aged metal, woven cloth, leather and restrained precious-metal accents.</desc>
+<rect width="1200" height="680" fill="#171914"/>
+<text x="60" y="70" fill="#f3efe2" font-family="Georgia,serif" font-size="38">QUEEN ELIRA · COSTUME / MATERIAL STUDY</text>
+<text x="60" y="105" fill="#b8b3a5" font-family="system-ui,sans-serif" font-size="16">Avelune royal construction grammar · restrained status materials · mobile-readable identity cues</text>
+<g transform="translate(60 150)">
+<path d="M250 450c10-150 90-220 190-220s180 70 190 220" fill="#514938" stroke="#d8b86b" stroke-opacity=".35" stroke-width="5"/>
+<path d="M350 245c-20-100 20-165 90-165s110 65 90 165l-35-70-55 35-55-35z" fill="#302b25"/>
+<ellipse cx="440" cy="185" rx="70" ry="82" fill="#b99476"/>
+<path d="M365 180c-10-65 22-105 75-105 55 0 83 50 65 105l-30-42-38 24-58-18z" fill="#302b25"/>
+<circle cx="412" cy="188" r="7" fill="#27231f"/><circle cx="468" cy="188" r="7" fill="#27231f"/>
+<path d="M410 235q30 18 60 0" fill="none" stroke="#6c4d43" stroke-width="6" stroke-linecap="round"/>
+<path d="M380 286h120" stroke="#d8b86b" stroke-width="8" stroke-linecap="round"/>
+<circle cx="440" cy="330" r="13" fill="#d8b86b"/>
+<text x="440" y="500" text-anchor="middle" fill="#f3efe2" font-family="system-ui,sans-serif" font-size="16">SIGNATURE ROYAL SILHOUETTE</text>
+<text x="440" y="525" text-anchor="middle" fill="#b8b3a5" font-family="system-ui,sans-serif" font-size="13">structured shoulder line · warm woven cloth · single restrained gold accent</text>
+</g>
+<g transform="translate(700 155)" font-family="system-ui,sans-serif">
+<g><rect width="200" height="110" rx="18" fill="#514938" stroke="#d8b86b" stroke-opacity=".4"/><text x="100" y="42" text-anchor="middle" fill="#f3efe2" font-size="17">WOVEN CLOTH</text><text x="100" y="70" text-anchor="middle" fill="#b8b3a5" font-size="12">matte · tactile · layered</text></g>
+<g transform="translate(230 0)"><rect width="200" height="110" rx="18" fill="#4b4b42" stroke="#d8b86b" stroke-opacity=".4"/><text x="100" y="42" text-anchor="middle" fill="#f3efe2" font-size="17">AGED METAL</text><text x="100" y="70" text-anchor="middle" fill="#b8b3a5" font-size="12">soft edge · lived wear</text></g>
+<g transform="translate(0 135)"><rect width="200" height="110" rx="18" fill="#3d3028" stroke="#d8b86b" stroke-opacity=".4"/><text x="100" y="42" text-anchor="middle" fill="#f3efe2" font-size="17">LEATHER</text><text x="100" y="70" text-anchor="middle" fill="#b8b3a5" font-size="12">subtle grain · durable</text></g>
+<g transform="translate(230 135)"><rect width="200" height="110" rx="18" fill="#d8b86b" stroke="#d8b86b" stroke-opacity=".4"/><text x="100" y="42" text-anchor="middle" fill="#171914" font-size="17">PRECIOUS ACCENT</text><text x="100" y="70" text-anchor="middle" fill="#3a3427" font-size="12">status cue · never dominant</text></g>
+<rect y="285" width="430" height="105" rx="18" fill="#25281f" stroke="#d8b86b" stroke-opacity=".35"/>
+<text x="215" y="320" text-anchor="middle" fill="#f3efe2" font-size="16">REJECTION RULES</text>
+<text x="215" y="347" text-anchor="middle" fill="#b8b3a5" font-size="12">no glossy universal surfaces · no generic fantasy armor</text>
+<text x="215" y="369" text-anchor="middle" fill="#b8b3a5" font-size="12">no neon faction coding · no decorative detail over decision hierarchy</text>
+</g>
+<text x="60" y="630" fill="#d8b86b" font-family="system-ui,sans-serif" font-size="14">STUDY STATUS: COSTUME / MATERIAL PROOF — PRODUCTION ARTWORK AND PROVENANCE STILL OPEN</text>
+</svg>
