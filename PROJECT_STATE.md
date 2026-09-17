@@ -1,3 +1,10 @@
+## Block 14 checkpoint — IN PROGRESS — 35%
+- Added Compose screen transition using AnimatedContent with fade + scale settle motion.
+- Added offline haptic and platform click feedback for choice interaction.
+- Added ChoiceKingdomFeedback abstraction for interaction feedback.
+- Added tests/test_block14_motion_audio_haptics_contract.py and .github/workflows/block14-motion-audio-haptics-gate.yml.
+- Authored premium audio assets, music/ambient system, mute/volume preference wiring and physical device verification remain open; physical verification belongs to Block 21.
+
 ## Block 12 checkpoint — CLOSED
 - Root Compose layout uses BoxWithConstraints and explicit compact/medium/expanded width modes at 600dp and 840dp boundaries.
 - Expanded content now uses fillMaxWidth with a 720dp maximum instead of a fixed 720dp width, preventing overflow in smaller expanded windows.
@@ -40,7 +47,7 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 11. **RTL / Large Text / Accessibility** → 100%
 12. **Responsive / Safe Areas / Devices** → 100%
 13. **Premium Design P1–P25** → 62.24%
-14. **Motion / Audio / Haptics** → 0%
+14. **Motion / Audio / Haptics** → 35%
 15. **Cross-Screen Visual Regression** → 0%
 16. **Automated QA** → 0%
 17. **Performance / Stability / Offline QA** → 0%
