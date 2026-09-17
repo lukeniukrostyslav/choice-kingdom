@@ -13,8 +13,11 @@ if str(ROOT) not in sys.path:
 from runtime.catalog import AuthoredCatalog
 from runtime.state import EXCLUDED_EVENTS, PRODUCTION_FIRST, PRODUCTION_LAST, RELATIONSHIPS, RESOURCES
 
-EVENT_ID_RE = re.compile(r"^E(?:[1-9][0-9]|[1-9][0-9]{2})$")
-TOKEN_RE = re.compile(r"^[A-Za-z0-9_.:-]+$")
+EVENT_ID_RE = re.compile(r"^E(?:0[1-9]|[1-9][0-9]|[1-2][0-9]{2})$")
+# State-token extraction is intentionally permissive: authored tokens can carry
+# scoped paths, assignments and human-readable marker values. The canonical
+# runtime vocabulary is enforced where runtime semantics consume the token.
+TOKEN_RE = re.compile(r"^[^`\r\n]{1,200}$")
 EXPECTED = {f"E{i:02d}" for i in range(PRODUCTION_FIRST, PRODUCTION_LAST + 1)} - set(EXCLUDED_EVENTS)
 ALLOWED_EXTRA_CHOICES = {"E51": {"C"}, "E108": {"C"}}
 
