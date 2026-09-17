@@ -27,3 +27,13 @@ jobs:
       - name: Build Android presentation
         working-directory: androidApp
         run: gradle --no-daemon assembleDebug
+      - name: Run Android JVM tests
+        working-directory: androidApp
+        run: gradle --no-daemon test
+      - name: Run Android instrumentation tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          arch: x86_64
+          profile: Pixel_2
+          script: cd androidApp && gradle --no-daemon connectedDebugAndroidTest
