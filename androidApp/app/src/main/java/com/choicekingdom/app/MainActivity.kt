@@ -3,6 +3,11 @@ package com.choicekingdom.app
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
@@ -56,6 +61,9 @@ import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
@@ -216,12 +224,12 @@ private fun AdaptiveJourney(
         ) {
             NavigationRail(screens = localizedScreens(), onSelect = onScreenSelected, modifier = Modifier.width(220.dp))
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.TopCenter) {
-                JourneyContent(selectedScreen, snapshot, selectedChoiceId, resolvingChoiceId, errorMessage, titleSize, contentWidth, onChoiceSelected)
+                TransitionedJourneyContent(selectedScreen, snapshot, selectedChoiceId, resolvingChoiceId, errorMessage, titleSize, contentWidth, onChoiceSelected)
             }
         }
     } else {
         Column(modifier = Modifier.fillMaxSize()) {
-            JourneyContent(
+            TransitionedJourneyContent(
                 selectedScreen,
                 snapshot,
                 selectedChoiceId,
@@ -233,6 +241,37 @@ private fun AdaptiveJourney(
             )
             ScreenNavigation(screens = localizedScreens(), onSelect = onScreenSelected, modifier = Modifier.fillMaxWidth())
         }
+    }
+}
+
+@Composable
+private fun TransitionedJourneyContent(
+    screen: AndroidScreenState,
+    snapshot: AndroidEventProjection,
+    selectedChoiceId: String?,
+    resolvingChoiceId: String?,
+    errorMessage: String?,
+    titleSize: TextUnit,
+    modifier: Modifier,
+    onChoiceSelected: (String) -> Unit,
+) {
+    AnimatedContent(
+        targetState = screen.key,
+        transitionSpec = {
+            (fadeIn() + scaleIn(initialScale = 0.98f)).togetherWith(fadeOut())
+        },
+        label = "journey-screen-transition",
+    ) {
+        JourneyContent(
+            screen = screen,
+            snapshot = snapshot,
+            selectedChoiceId = selectedChoiceId,
+            resolvingChoiceId = resolvingChoiceId,
+            errorMessage = errorMessage,
+            titleSize = titleSize,
+            modifier = modifier,
+            onChoiceSelected = onChoiceSelected,
+        )
     }
 }
 
@@ -346,6 +385,8 @@ private fun ChoiceCard(
     disabledByResolution: Boolean,
     onChoiceSelected: (String) -> Unit,
 ) {
+    val haptics = LocalHapticFeedback.current
+    val view = LocalView.current
     val enabled = choice.state != "disabled" && !disabledByResolution && !resolving
     val state = when {
         resolving -> stringResource(R.string.resolving)
@@ -354,7 +395,11 @@ private fun ChoiceCard(
         else -> stringResource(R.string.available)
     }
     Button(
-        onClick = { onChoiceSelected(choice.id) },
+        onClick = {
+            haptics.performHapticFeedback(HapticFeedbackType.LongPress)
+            view.playSoundEffect(android.view.SoundEffectConstants.CLICK)
+            onChoiceSelected(choice.id)
+        },
         enabled = enabled,
         modifier = Modifier
             .fillMaxWidth()
@@ -441,7 +486,10 @@ private fun ScreenNavigation(screens: List<AndroidScreenState>, onSelect: (Strin
     ) {
         screens.forEach { screen ->
             Button(
-                onClick = { onSelect(screen.key) },
+                onClick = {
+                    LocalHapticFeedback.current.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                    onSelect(screen.key)
+                },
                 modifier = Modifier
                     .heightIn(min = 52.dp)
                     .semantics {
