@@ -38,3 +38,14 @@ def test_block14_audio_control_contract():
     assert "setVolume" in audio
     assert "Slider(" in main
     assert "Mute sound" in main
+
+
+def test_block14_audio_foreground_lifecycle_contract():
+    audio = (ROOT / "androidApp/app/src/main/java/com/choicekingdom/app/ChoiceKingdomAudio.kt").read_text(encoding="utf-8")
+    main = MAIN.read_text(encoding="utf-8")
+    assert "setForeground" in audio
+    assert "if (!foreground || muted" in audio
+    assert "LocalLifecycleOwner.current" in main
+    assert "DefaultLifecycleObserver" in main
+    assert "audio.setForeground(true)" in main
+    assert "audio.setForeground(false)" in main
