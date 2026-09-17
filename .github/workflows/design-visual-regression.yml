@@ -1,0 +1,89 @@
+name: Design Visual Regression Gate
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  visual-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Playwright
+        run: npm install --no-save playwright@1.55.0
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Serve preview
+        run: python3 -m http.server 4173 --directory web-preview >/tmp/choice-kingdom-http.log 2>&1 &
+
+      - name: Capture visual regression matrix
+        run: |
+          mkdir -p artifacts/visual-regression
+          node <<'NODE'
+          const { chromium } = require('playwright');
+          const fs = require('fs');
+          const pages = [
+            'index.html',
+            'design-event-choice-final.html',
+            'design-realm-history-final.html',
+            'design-character-faction-final.html',
+            'design-investigation-final.html',
+            'ending.html',
+            'design-settings-polish.html',
+            'design-visual-qa-final.html',
+            'design-final-cross-screen-audit.html'
+          ];
+          const viewports = [
+            { name: '360x800', width: 360, height: 800 },
+            { name: '412x915', width: 412, height: 915 },
+            { name: '412x1000', width: 412, height: 1000 }
+          ];
+          (async () => {
+            const browser = await chromium.launch({ headless: true });
+            const context = await browser.newContext({ deviceScaleFactor: 1 });
+            const results = [];
+            for (const file of pages) {
+              for (const vp of viewports) {
+                const page = await context.newPage({ viewport: { width: vp.width, height: vp.height } });
+                const url = `http://127.0.0.1:4173/${file}`;
+                await page.goto(url, { waitUntil: 'networkidle' });
+                await page.screenshot({ path: `artifacts/visual-regression/${file.replace(/\\W/g, '_')}-${vp.name}.png`, fullPage: true });
+                const metrics = await page.evaluate(() => ({
+                  title: document.title,
+                  bodyScrollWidth: document.body.scrollWidth,
+                  bodyClientWidth: document.body.clientWidth,
+                  bodyScrollHeight: document.body.scrollHeight,
+                  viewportWidth: window.innerWidth,
+                  viewportHeight: window.innerHeight,
+                  horizontalOverflow: document.documentElement.scrollWidth > window.innerWidth + 1,
+                  text: document.body.innerText.length
+                }));
+                results.push({ file, viewport: vp.name, ...metrics, pass: !metrics.horizontalOverflow && metrics.text > 0 });
+                await page.close();
+              }
+            }
+            fs.writeFileSync('artifacts/visual-regression/manifest.json', JSON.stringify({ generatedAt: new Date().toISOString(), pages, viewports, results }, null, 2));
+            if (results.some(r => !r.pass)) process.exitCode = 1;
+            await browser.close();
+          })();
+          NODE
+
+      - name: Upload visual evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: choice-kingdom-design-visual-regression
+          path: artifacts/visual-regression/
+          if-no-files-found: error
+          retention-days: 14
