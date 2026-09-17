@@ -81,3 +81,12 @@ def test_block14_ambient_audio_contract():
     assert "audio.startAmbient()" in main
     ambient = ROOT / "androidApp/app/src/main/res/raw/ambient_avelune.wav"
     assert ambient.exists() and ambient.stat().st_size > 44
+
+
+def test_block14_audio_fade_and_focus_recovery_contract():
+    audio = (ROOT / "androidApp/app/src/main/java/com/choicekingdom/app/ChoiceKingdomAudio.kt").read_text(encoding="utf-8")
+    assert "fadeAmbientTo" in audio
+    assert "soundPool.setVolume" in audio
+    assert "AUDIOFOCUS_GAIN" in audio
+    assert "autoResume()" in audio
+    assert "ambientPausedByFocus" in audio
