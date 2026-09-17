@@ -38,7 +38,7 @@ class ChoiceKingdomMusic(context: Context) : AutoCloseable {
     init {
         player.setMediaItem(MediaItem.fromUri("android.resource://" + context.packageName + "/" + com.choicekingdom.app.R.raw.ambient_avelune))
         player.prepare()
-        player.volume = volume
+        player.volume = sceneGain(scene) * volume
     }
 
     fun setForeground(value: Boolean) {
@@ -51,7 +51,7 @@ class ChoiceKingdomMusic(context: Context) : AutoCloseable {
     }
 
     fun setMuted(muted: Boolean) {
-        player.volume = if (muted) 0f else volume
+        player.volume = if (muted) 0f else sceneGain(scene) * volume
     }
 
     fun setVolume(value: Float) {
