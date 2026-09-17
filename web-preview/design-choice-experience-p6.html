@@ -17,8 +17,8 @@
 <div class="context"><div><div class="eyebrow">Decision chamber · winter</div><h1 id="title">Who carries the burden?</h1></div><span class="badge" id="mode">Idle</span></div>
 <p class="prompt">The eastern villages cannot wait for perfect information. Choose the action you can defend when the consequences arrive.</p>
 <div class="choices" role="group" aria-label="Available decisions">
-<button class="choice" id="choice-a" type="button" aria-pressed="false"><span class="mark">A</span><strong>Open the public road works</strong><small>Commit royal stores and ask local workers to reopen the pass.</small></button>
-<button class="choice" id="choice-b" type="button" aria-pressed="false"><span class="mark">B</span><strong>Hire the merchant convoy</strong><small>Gain speed through a private contract with conditions attached.</small></button>
+<button class="choice" id="choice-a" type="button" aria-pressed="false" aria-describedby="choice-state"><span class="mark">A</span><strong>Open the public road works</strong><small>Commit royal stores and ask local workers to reopen the pass.</small></button>
+<button class="choice" id="choice-b" type="button" aria-pressed="false" aria-describedby="choice-state"><span class="mark">B</span><strong>Hire the merchant convoy</strong><small>Gain speed through a private contract with conditions attached.</small></button>
 </div>
 <div class="state" id="state" role="status" aria-live="polite">Choose an action to preview the interaction state.</div>
 <div class="details"><div class="detail"><b>Decision clarity</b><span>Action + immediate trade-off</span></div><div class="detail"><b>Hidden information</b><span>Never exposed as a promise</span></div></div>
@@ -29,13 +29,13 @@
 </main>
 <script>
 const root=document.documentElement,app=document.querySelector('#app'),buttons=[...document.querySelectorAll('.choice')],state=document.querySelector('#state'),mode=document.querySelector('#mode'),controls=[...document.querySelectorAll('.state-control')];
-function clearChoices(){buttons.forEach(b=>{b.setAttribute('aria-pressed','false');b.setAttribute('aria-busy','false');b.disabled=false;b.classList.remove('error','blocked')})}
+function clearChoices(){buttons.forEach(b=>{b.setAttribute('aria-pressed','false');b.setAttribute('aria-busy','false');b.removeAttribute('aria-disabled');b.disabled=false;b.classList.remove('error','blocked')})}
 function applyState(next){controls.forEach(c=>c.setAttribute('aria-pressed',String(c.dataset.state===next)));clearChoices();state.classList.remove('error');const b=buttons[0];
  if(next==='focused'){b.setAttribute('aria-pressed','true');mode.textContent='Focused';state.textContent='Choice A has focus; no gameplay state has changed.'}
  else if(next==='selected'){b.setAttribute('aria-pressed','true');mode.textContent='Selected';state.textContent='Choice A is selected for review; no gameplay resolution has occurred.'}
  else if(next==='pressed'){b.setAttribute('aria-pressed','true');mode.textContent='Pressed';state.textContent='Choice A is pressed; commit has not occurred.'}
  else if(next==='resolving'){b.setAttribute('aria-pressed','true');b.setAttribute('aria-busy','true');buttons[1].disabled=true;mode.textContent='Resolving';state.textContent='Resolution in progress; input is temporarily locked.'}
- else if(next==='blocked'){b.classList.add('blocked');b.setAttribute('aria-disabled','true');buttons[1].classList.add('blocked');buttons[1].setAttribute('aria-disabled','true');mode.textContent='Blocked';state.textContent='Choice input is temporarily unavailable; the reason remains visible and no gameplay outcome is invented.'}
+ else if(next==='blocked'){buttons.forEach(x=>{x.classList.add('blocked');x.setAttribute('aria-disabled','true')});mode.textContent='Blocked';state.textContent='Choice input is temporarily unavailable; the reason remains visible and no gameplay outcome is invented.'}
  else if(next==='disabled'){buttons.forEach(x=>x.disabled=true);mode.textContent='Disabled';state.textContent='Choices are unavailable; the control remains visible and understandable.'}
  else if(next==='resolved'){b.setAttribute('aria-pressed','true');buttons[1].disabled=true;mode.textContent='Resolved';state.textContent='Choice A has resolved; the next presentation surface owns the consequence.'}
  else if(next==='error'){b.classList.add('error');mode.textContent='Fallback';state.classList.add('error');state.textContent='The choice could not be resolved. Preserve context and offer a safe recovery path.'}
