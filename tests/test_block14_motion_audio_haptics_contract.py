@@ -101,3 +101,8 @@ def test_block14_audio_state_is_threaded_to_choice_and_settings():
     assert "onAudioMutedChanged" in main
     assert "onAudioVolumeChanged" in main
     assert "onAmbientVolumeChanged" in main
+
+
+def test_block14_resolution_confirmation_feedback_is_wired():
+    main = MAIN.read_text(encoding="utf-8")
+    assert "audio.playConfirmFeedback()" in main
