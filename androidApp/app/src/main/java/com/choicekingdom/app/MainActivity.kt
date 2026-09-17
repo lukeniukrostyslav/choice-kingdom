@@ -645,3 +645,89 @@ private fun NavigationRail(screens: List<AndroidScreenState>, onSelect: (String)
         }
     }
 }
+
+
+@Composable
+fun VisualRegressionEventPreview() {
+    ChoiceKingdomTheme {
+        Column(
+            modifier = Modifier.fillMaxWidth().padding(24.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
+            Header(turn = 12, titleSize = 42.sp)
+            HeroCard(
+                screen = AndroidScreenState("Event", "Event", "A decision awaits in Avelune."),
+                snapshot = AndroidEventProjection(
+                    eventId = "E012",
+                    title = "The Lantern at Dusk",
+                    turn = 12,
+                    choices = emptyList(),
+                    terminal = false,
+                ),
+            )
+            InfoGrid(listOf("Crown" to "42", "Trust" to "68", "Risk" to "21", "Year" to "4"))
+        }
+    }
+}
+
+@Composable
+fun VisualRegressionChoicePreview() {
+    ChoiceKingdomTheme {
+        Column(
+            modifier = Modifier.fillMaxWidth().padding(24.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            Text("CHOICES", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
+            TimelineCard("CONSEQUENCE", "A quiet promise", "The court remembers what you chose.")
+            TimelineCard("NEXT", "The road continues", "Your decision changes the next encounter.")
+        }
+    }
+}
+
+@Composable
+fun VisualRegressionEndingPreview() {
+    ChoiceKingdomTheme {
+        Column(
+            modifier = Modifier.fillMaxWidth().padding(24.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
+            Header(turn = 100, titleSize = 36.sp)
+            EndingCard(terminal = true)
+            TimelineCard("FINAL STATE", "Avelune remembers", "The journey has reached its authored conclusion.")
+        }
+    }
+}
+
+@Composable
+fun VisualRegressionNavigationPreview() {
+    ChoiceKingdomTheme {
+        Column(modifier = Modifier.fillMaxWidth()) {
+            ScreenNavigation(
+                screens = localizedScreens(),
+                onSelect = {},
+                modifier = Modifier.fillMaxWidth(),
+            )
+            NavigationRail(
+                screens = localizedScreens(),
+                onSelect = {},
+                modifier = Modifier.fillMaxWidth(),
+            )
+        }
+    }
+}
+
+@Composable
+fun VisualRegressionSettingsPreview() {
+    ChoiceKingdomTheme {
+        SettingsCard(
+            muted = false,
+            volume = 0.8f,
+            onMutedChanged = {},
+            onVolumeChanged = {},
+            ambientVolume = 0.35f,
+            onAmbientVolumeChanged = {},
+            musicVolume = 0.55f,
+            onMusicVolumeChanged = {},
+        )
+    }
+}
