@@ -1,1 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-labelledby="t d"><title id="t">Queen Elira portrait</title><desc id="d">Stylized authored vector portrait of Queen Elira in Avelune royal attire.</desc><defs><radialGradient id="bg"><stop stop-color="#4a4334"/><stop offset="1" stop-color="#171914"/></radialGradient><linearGradient id="robe" x2="1" y2="1"><stop stop-color="#6b6046"/><stop offset="1" stop-color="#272b22"/></linearGradient></defs><rect width="600" height="600" rx="70" fill="url(#bg)"/><path d="M150 600c15-145 92-205 150-205s135 60 150 205" fill="url(#robe)" stroke="#d8b86b" stroke-opacity=".35" stroke-width="5"/><path d="M235 245c0-100 130-125 145-7l-10 113c-23 51-88 62-126 0Z" fill="#b99476"/><path d="M220 260c-15-80 22-151 86-158 72-8 105 55 77 145l-30-62-37 31-67-22Z" fill="#302b25"/><path d="M278 332c28 18 54 18 82 0" fill="none" stroke="#6c4d43" stroke-width="6" stroke-linecap="round"/><circle cx="270" cy="287" r="7" fill="#27231f"/><circle cx="362" cy="287" r="7" fill="#27231f"/><path d="M262 246l-22-37 58 18 46-18 24 37" fill="none" stroke="#d8b86b" stroke-width="7"/><path d="M300 385h0M330 385h0" stroke="#d8b86b" stroke-width="12" stroke-linecap="round"/><circle cx="300" cy="427" r="11" fill="#d8b86b"/><circle cx="330" cy="427" r="11" fill="#d8b86b"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 760" role="img" aria-labelledby="t d">
+<title id="t">Queen Elira portrait — premium character study</title>
+<desc id="d">Authored vector character study for the Avelune royal visual language. Identity candidate only until canonical People binding is verified.</desc>
+<defs>
+  <radialGradient id="bg" cx="50%" cy="32%" r="78%"><stop stop-color="#625b49"/><stop offset=".58" stop-color="#292b24"/><stop offset="1" stop-color="#11130f"/></radialGradient>
+  <linearGradient id="robe" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#807458"/><stop offset=".45" stop-color="#4c4a3d"/><stop offset="1" stop-color="#20251f"/></linearGradient>
+  <linearGradient id="cloth" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#d1c19b"/><stop offset="1" stop-color="#8e8062"/></linearGradient>
+  <linearGradient id="hair" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#40372f"/><stop offset=".55" stop-color="#241f1b"/><stop offset="1" stop-color="#151411"/></linearGradient>
+  <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d1ab8c"/><stop offset="1" stop-color="#9d745f"/></linearGradient>
+  <filter id="soft"><feGaussianBlur stdDeviation="18"/></filter>
+</defs>
+<rect width="600" height="760" rx="64" fill="url(#bg)"/>
+<ellipse cx="300" cy="285" rx="190" ry="225" fill="#c8b78e" opacity=".07" filter="url(#soft)"/>
+<!-- shoulders / royal silhouette -->
+<path d="M78 760c10-144 62-235 157-270 25-10 43-15 65-15s40 5 65 15c95 35 147 126 157 270Z" fill="url(#robe)" stroke="#d7b96d" stroke-opacity=".55" stroke-width="4"/>
+<path d="M183 500c39 30 68 43 117 43s78-13 117-43l-20 260H203Z" fill="url(#cloth)" opacity=".82"/>
+<path d="M218 526l-25 234M382 526l25 234" stroke="#c7aa63" stroke-opacity=".38" stroke-width="3"/>
+<!-- neck -->
+<path d="M257 431v82c18 23 68 23 86 0v-82Z" fill="url(#skin)"/>
+<!-- hair mass -->
+<path d="M188 294c-20-118 43-213 136-216 104-3 145 105 105 225l-32 57-37-55-13-72-53 30-77-30-8 83-43 44Z" fill="url(#hair)"/>
+<!-- face -->
+<path d="M218 283c-2-80 35-139 82-151 65-16 116 37 113 132l-10 114c-24 65-111 89-164 8Z" fill="url(#skin)" stroke="#7f6253" stroke-width="2"/>
+<!-- hairline and crown -->
+<path d="M220 275c-3-72 31-125 77-140 55-18 101 20 113 84l-32-43-39 35-82-24-37 62Z" fill="#29241f"/>
+<!-- brow / eyes -->
+<path d="M246 287c18-12 35-12 52-1M328 286c17-11 34-11 51 1" fill="none" stroke="#4b3932" stroke-width="7" stroke-linecap="round"/>
+<path d="M247 299c18 12 35 12 51 0M329 299c16 12 33 12 50 0" fill="none" stroke="#2b2521" stroke-width="4" stroke-linecap="round"/>
+<ellipse cx="273" cy="300" rx="6" ry="8" fill="#1b1917"/><ellipse cx="353" cy="300" rx="6" ry="8" fill="#1b1917"/>
+<!-- nose / mouth -->
+<path d="M314 299c-3 25-8 43-18 55 10 6 21 6 31 0" fill="none" stroke="#805e52" stroke-width="4" stroke-linecap="round"/>
+<path d="M282 385c20 12 42 12 63 0" fill="none" stroke="#704c46" stroke-width="6" stroke-linecap="round"/>
+<!-- crown / status cue -->
+<path d="M231 251l-21-48 55 22 36-38 39 38 55-22-22 49" fill="none" stroke="#d9b96c" stroke-width="8" stroke-linejoin="round"/>
+<circle cx="300" cy="191" r="8" fill="#d9b96c"/>
+<!-- collar and seal -->
+<path d="M251 497c26 20 72 20 98 0l27 41c-39 35-113 35-152 0Z" fill="#3d4036" stroke="#d2b66e" stroke-width="3"/>
+<path d="M291 552l9 18 9-18 18 9-18 9-9 18-9-18-18-9 18-9Z" fill="#c9a95f"/>
+<!-- restrained material highlights -->
+<path d="M120 665c55-42 103-57 144-66M480 665c-55-42-103-57-144-66" fill="none" stroke="#d9cda8" stroke-opacity=".24" stroke-width="8" stroke-linecap="round"/>
+</svg>
