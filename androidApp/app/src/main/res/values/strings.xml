@@ -25,6 +25,7 @@
     <string name="runtime_error">RUNTIME ERROR</string>
     <string name="journey_safe">The journey is safe</string>
     <string name="turn_event_format">%1$s · Turn %2$d</string>
+    <string name="journey_continues">The journey continues</string>
     <string name="known">Known</string>
     <string name="unknown">Unknown</string>
     <string name="thread_01">THREAD 01</string>
