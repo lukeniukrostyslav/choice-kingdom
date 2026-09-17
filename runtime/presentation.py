@@ -36,6 +36,21 @@ class ResourcePresentation:
 
 
 @dataclass(frozen=True)
+class RelationshipPresentation:
+    key: str
+    value: int
+
+
+@dataclass(frozen=True)
+class DelayPresentation:
+    key: str
+    target_event_id: str
+    status: str
+    scheduled_turn: int | None
+    source_event_id: str
+
+
+@dataclass(frozen=True)
 class SessionPresentation:
     """Stable UI-facing projection of the canonical GameSession boundary."""
 
@@ -46,7 +61,11 @@ class SessionPresentation:
     trigger: str
     choices: tuple[ChoicePresentation, ...]
     resources: tuple[ResourcePresentation, ...]
-    relationships: tuple[ResourcePresentation, ...]
+    relationships: tuple[RelationshipPresentation, ...]
+    history: tuple[str, ...]
+    threads: tuple[str, ...]
+    pending_delays: tuple[DelayPresentation, ...]
+    ending_evidence: tuple[str, ...]
     terminal: bool
     ending_identity: str | None
 
@@ -68,7 +87,11 @@ def present(view: SessionView) -> SessionPresentation:
             for choice_id, label, text in view.choices
         ),
         resources=tuple(ResourcePresentation(key, value) for key, value in view.resources),
-        relationships=tuple(ResourcePresentation(key, value) for key, value in view.relationships),
+        relationships=tuple(RelationshipPresentation(key, value) for key, value in view.relationships),
+        history=view.history,
+        threads=view.threads,
+        pending_delays=tuple(DelayPresentation(*delay) for delay in view.pending_delays),
+        ending_evidence=view.ending_evidence,
         terminal=view.terminal,
         ending_identity=view.ending_identity,
     )
@@ -111,6 +134,10 @@ class SessionPresenter:
             choices,
             base.resources,
             base.relationships,
+            base.history,
+            base.threads,
+            base.pending_delays,
+            base.ending_evidence,
             base.terminal,
             base.ending_identity,
         )
