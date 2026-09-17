@@ -17,11 +17,12 @@ import android.os.Looper
  * and ambience remain separate product assets.
  */
 class ChoiceKingdomAudio(private val context: Context) : AutoCloseable {
+    private val prefs = context.getSharedPreferences("choice_kingdom_audio", Context.MODE_PRIVATE)
     private val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
     private var focusRequest: AudioFocusRequest? = null
     private var focusGranted = false
-    private var muted = false
-    private var volume = 1f
+    private var muted = prefs.getBoolean("muted", false)
+    private var volume = prefs.getFloat("volume", 1f)
     private var foreground = true
     private val mainHandler = Handler(Looper.getMainLooper())
     private var tone = ToneGenerator(AudioManager.STREAM_MUSIC, 80)
@@ -34,20 +35,37 @@ class ChoiceKingdomAudio(private val context: Context) : AutoCloseable {
         }
     }
 
+    val isMuted: Boolean get() = muted
+    val currentVolume: Float get() = volume
+
     fun setMuted(value: Boolean) {
         muted = value
+        prefs.edit().putBoolean("muted", value).apply()
     }
 
     fun setVolume(value: Float) {
         volume = value.coerceIn(0f, 1f)
+        prefs.edit().putFloat("volume", volume).apply()
         tone.stopTone()
         tone.release()
         tone = ToneGenerator(AudioManager.STREAM_MUSIC, (volume * 100f).toInt().coerceIn(0, 100))
     }
 
     fun playChoiceFeedback() {
+        playTone(ToneGenerator.TONE_PROP_BEEP, 45)
+    }
+
+    fun playConfirmFeedback() {
+        playTone(ToneGenerator.TONE_PROP_ACK, 70)
+    }
+
+    fun playErrorFeedback() {
+        playTone(ToneGenerator.TONE_PROP_NACK, 90)
+    }
+
+    private fun playTone(toneType: Int, durationMs: Int) {
         if (!foreground || muted || volume <= 0f || !requestFocus()) return
-        tone.startTone(ToneGenerator.TONE_PROP_BEEP, 45)
+        tone.startTone(toneType, durationMs)
         mainHandler.postDelayed({ abandonFocus() }, 100)
     }
 
