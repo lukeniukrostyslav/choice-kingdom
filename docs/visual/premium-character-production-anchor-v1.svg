@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1500" viewBox="0 0 1200 1500">
+<defs>
+  <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#efe5d2"/><stop offset="1" stop-color="#d8c7aa"/></linearGradient>
+  <linearGradient id="coat" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#344553"/><stop offset="1" stop-color="#202d36"/></linearGradient>
+  <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d8a98d"/><stop offset="1" stop-color="#a96f5c"/></linearGradient>
+  <filter id="shadow"><feDropShadow dx="0" dy="16" stdDeviation="18" flood-opacity=".18"/></filter>
+</defs>
+<rect width="1200" height="1500" fill="url(#paper)"/>
+<rect x="54" y="54" width="1092" height="1392" rx="28" fill="none" stroke="#75644e" stroke-width="3"/>
+<text x="90" y="125" font-family="Georgia,serif" font-size="38" fill="#302c28" letter-spacing="5">CHOICE KINGDOM</text>
+<text x="90" y="166" font-family="Arial,sans-serif" font-size="18" fill="#756b61" letter-spacing="3">PREMIUM CHARACTER ANCHOR / TIER A / v1</text>
+<line x1="90" y1="195" x2="1110" y2="195" stroke="#a28b64" stroke-width="2"/>
+<!-- portrait frame -->
+<rect x="105" y="245" width="620" height="820" rx="26" fill="#b9b0a0" stroke="#6c604f" stroke-width="4" filter="url(#shadow)"/>
+<path d="M140 1000 Q190 820 300 790 Q410 750 520 790 Q640 825 690 1000 L690 1040 L140 1040Z" fill="url(#coat)"/>
+<!-- shoulders / collar -->
+<path d="M260 790 L410 720 L560 790 L515 1040 L255 1040Z" fill="url(#coat)"/>
+<path d="M350 750 L410 810 L470 750 L500 1040 L320 1040Z" fill="#b8a47f"/>
+<path d="M350 750 L410 810 L470 750" fill="none" stroke="#806a49" stroke-width="10"/>
+<!-- neck --> <path d="M355 660 L465 660 L480 765 Q410 815 340 765Z" fill="url(#skin)"/>
+<!-- hair silhouette -->
+<path d="M292 570 Q285 410 390 340 Q510 350 555 455 L535 625 L485 680 L330 660 Q292 630 292 570Z" fill="#342f2b"/>
+<!-- face -->
+<path d="M325 475 Q405 410 490 470 L505 590 Q485 690 410 710 Q335 690 315 590Z" fill="url(#skin)" stroke="#7c5347" stroke-width="3"/>
+<!-- hair fringe -->
+<path d="M305 485 Q325 365 430 375 Q520 390 530 480 L470 455 L440 500 L405 445 L365 505Z" fill="#2c2927"/>
+<!-- ears --> <ellipse cx="316" cy="565" rx="22" ry="34" fill="#b77b66"/><ellipse cx="505" cy="565" rx="22" ry="34" fill="#b77b66"/>
+<!-- eyes -->
+<path d="M345 555 Q375 535 398 555 Q375 580 345 555Z" fill="#eee6d6"/><path d="M430 555 Q455 535 482 555 Q455 580 430 555Z" fill="#eee6d6"/>
+<circle cx="373" cy="556" r="7" fill="#344553"/><circle cx="454" cy="556" r="7" fill="#344553"/>
+<!-- brows --> <path d="M340 530 Q370 510 398 526" fill="none" stroke="#382f2a" stroke-width="10"/><path d="M430 526 Q458 510 487 530" fill="none" stroke="#382f2a" stroke-width="10"/>
+<!-- nose --> <path d="M410 555 L397 615 L420 620" fill="none" stroke="#865d51" stroke-width="6"/>
+<!-- mouth --> <path d="M375 652 Q410 670 448 652" fill="none" stroke="#713f3d" stroke-width="7"/>
+<!-- scar identity anchor --> <path d="M476 500 L492 540" stroke="#865d51" stroke-width="5"/><path d="M481 495 L497 535" stroke="#d1a28a" stroke-width="2"/>
+<!-- seal -->
+<circle cx="410" cy="875" r="48" fill="#9b7650" stroke="#55483b" stroke-width="5"/><path d="M410 842 L421 867 L448 870 L428 889 L434 916 L410 903 L386 916 L392 889 L372 870 L399 867Z" fill="#e7dcc7"/>
+<!-- key light --> <path d="M155 280 Q220 300 265 350" fill="none" stroke="#f5ead2" stroke-width="22" opacity=".55"/>
+<!-- labels -->
+<g font-family="Arial,sans-serif" fill="#3b342c">
+<text x="780" y="285" font-size="20" letter-spacing="2">IDENTITY LOCK</text>
+<text x="780" y="325" font-size="17">• angular jaw / compact facial landmarks</text>
+<text x="780" y="355" font-size="17">• dark asymmetrical hair silhouette</text>
+<text x="780" y="385" font-size="17">• controlled slate authority palette</text>
+<text x="780" y="415" font-size="17">• bronze seal = office/status cue</text>
+<text x="780" y="445" font-size="17">• cheek scar = recurring recognition anchor</text>
+<text x="780" y="520" font-size="20" letter-spacing="2">MATERIAL GRAMMAR</text>
+<text x="780" y="560" font-size="17">aged metal · woven cloth · leather</text>
+<text x="780" y="590" font-size="17">restrained precious-metal accent</text>
+<text x="780" y="650" font-size="20" letter-spacing="2">MOBILE CROP</text>
+<text x="780" y="690" font-size="17">360dp: face + shoulders remain legible</text>
+<text x="780" y="720" font-size="17">412dp: accessory and collar remain visible</text>
+<text x="780" y="750" font-size="17">No critical identity detail in crop edge</text>
+<text x="780" y="830" font-size="20" letter-spacing="2">LIGHTING LOCK</text>
+<text x="780" y="870" font-size="17">single upper-left key</text>
+<text x="780" y="900" font-size="17">soft environmental fill</text>
+<text x="780" y="930" font-size="17">quiet background / face priority</text>
+<text x="780" y="1010" font-size="20" letter-spacing="2">PRODUCTION STATUS</text>
+<text x="780" y="1050" font-size="17">ANCHOR PROOF — NOT FINAL ART</text>
+<text x="780" y="1085" font-size="17">Next: authored portrait + canonical People ID</text>
+</g>
+<!-- thumbnail strip -->
+<text x="105" y="1130" font-family="Arial,sans-serif" font-size="20" fill="#3b342c" letter-spacing="2">THUMBNAIL IDENTITY CHECK</text>
+<g transform="translate(105,1170)"><rect width="150" height="190" rx="12" fill="#a99e8d"/><circle cx="75" cy="75" r="38" fill="#b77b66"/><path d="M35 80 Q40 25 78 30 Q115 35 120 80 L105 60 L75 70 L50 58Z" fill="#302d2a"/><path d="M30 170 Q75 120 120 170Z" fill="#344553"/></g>
+<g transform="translate(275,1170)"><rect width="150" height="190" rx="12" fill="#8d877c"/><circle cx="75" cy="75" r="38" fill="#b77b66"/><path d="M35 80 Q40 25 78 30 Q115 35 120 80 L105 60 L75 70 L50 58Z" fill="#302d2a"/><path d="M30 170 Q75 120 120 170Z" fill="#344553"/></g>
+<g transform="translate(445,1170)"><rect width="150" height="190" rx="12" fill="#68645d"/><circle cx="75" cy="75" r="38" fill="#b77b66"/><path d="M35 80 Q40 25 78 30 Q115 35 120 80 L105 60 L75 70 L50 58Z" fill="#302d2a"/><path d="M30 170 Q75 120 120 170Z" fill="#344553"/></g>
+<text x="780" y="1200" font-family="Arial,sans-serif" font-size="17" fill="#5c5145">QA RESULT</text>
+<text x="780" y="1235" font-family="Arial,sans-serif" font-size="17" fill="#3b342c">PASS — silhouette / face / palette</text>
+<text x="780" y="1265" font-family="Arial,sans-serif" font-size="17" fill="#3b342c">PASS — crop-safe identity anchors</text>
+<text x="780" y="1295" font-family="Arial,sans-serif" font-size="17" fill="#3b342c">OPEN — final authored artwork</text>
+<text x="780" y="1325" font-family="Arial,sans-serif" font-size="17" fill="#3b342c">OPEN — provenance / license record</text>
+</svg>
