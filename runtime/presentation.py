@@ -88,6 +88,7 @@ class SessionPresenter:
         self._pressed_choice: str | None = None
         self._resolving_choice: str | None = None
         self._resolved_choice: str | None = None
+        self._blocked_choice: str | None = None
         self._error_choice: str | None = None
 
     def snapshot(self) -> SessionPresentation:
@@ -116,42 +117,33 @@ class SessionPresenter:
 
     def focus_choice(self, choice_id: str) -> None:
         self._require_available(choice_id)
+        self.clear_transient_state()
         self._focused_choice = choice_id
-        self._selected_choice = None
-        self._pressed_choice = None
-        self._resolving_choice = None
-        self._resolved_choice = None
-        self._error_choice = None
 
     def select_choice(self, choice_id: str) -> None:
         """Preview a committed selection without changing gameplay."""
         self._require_available(choice_id)
-        self._focused_choice = None
+        self.clear_transient_state()
         self._selected_choice = choice_id
-        self._pressed_choice = None
-        self._resolving_choice = None
-        self._resolved_choice = None
-        self._error_choice = None
 
     def press_choice(self, choice_id: str) -> None:
         """Record the tactile/keyboard press state without resolving gameplay."""
         self._require_available(choice_id)
+        self.clear_transient_state()
         self._focused_choice = choice_id
-        self._selected_choice = None
         self._pressed_choice = choice_id
-        self._resolving_choice = None
-        self._resolved_choice = None
-        self._error_choice = None
 
     def begin_choice(self, choice_id: str) -> None:
         """Advance the UI-only pressed state into resolving."""
         self._require_available(choice_id)
-        self._focused_choice = None
-        self._selected_choice = None
-        self._pressed_choice = None
+        self.clear_transient_state()
         self._resolving_choice = choice_id
-        self._resolved_choice = None
-        self._error_choice = None
+
+    def block_choice(self, choice_id: str) -> None:
+        """Show a temporary interaction lock without changing gameplay."""
+        self._require_available(choice_id)
+        self.clear_transient_state()
+        self._blocked_choice = choice_id
 
     def choose(self, choice_id: str):
         self.begin_choice(choice_id)
@@ -159,18 +151,10 @@ class SessionPresenter:
             result = self.session.choose(choice_id)
         except Exception:
             self._error_choice = choice_id
-            self._focused_choice = None
-            self._selected_choice = None
-            self._pressed_choice = None
             self._resolving_choice = None
-            self._resolved_choice = None
             raise
-        self._focused_choice = None
-        self._selected_choice = None
-        self._pressed_choice = None
-        self._resolving_choice = None
         self._resolved_choice = choice_id
-        self._error_choice = None
+        self._resolving_choice = None
         return result
 
     def clear_transient_state(self) -> None:
@@ -179,6 +163,7 @@ class SessionPresenter:
         self._pressed_choice = None
         self._resolving_choice = None
         self._resolved_choice = None
+        self._blocked_choice = None
         self._error_choice = None
 
     def select_event(self, event_id: str) -> None:
@@ -197,6 +182,8 @@ class SessionPresenter:
             return InteractionState.DISABLED
         if choice_id == self._error_choice:
             return InteractionState.ERROR
+        if choice_id == self._blocked_choice:
+            return InteractionState.BLOCKED
         if choice_id == self._resolving_choice:
             return InteractionState.RESOLVING
         if choice_id == self._pressed_choice:
