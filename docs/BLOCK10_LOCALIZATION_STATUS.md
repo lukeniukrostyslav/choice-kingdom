@@ -12,14 +12,19 @@ Status: **IN PROGRESS — 88%**.
 - Android player-facing UI copy routed through resources instead of previous hardcoded presentation strings.
 - Localized Android resource overlays for the declared release locales.
 - Automated critical-key coverage tests.
-- A dedicated NarrativeLocalizer separates authored narrative semantics from localized presentation text and makes untranslated fallback observable to QA.
+- Canonical generated narrative-key inventory/locale contract: **272 events, 520 choices, 1,584 narrative keys, 28 locales**.
+- NarrativeLocalizer separates authored narrative semantics from localized presentation text and exposes missing/fallback keys.
+- Strict JSON narrative-pack repository loader validates schema, locale identity, non-empty fallback and non-empty translation.
+- Block 10 CI now executes the strict narrative-pack repository tests before the Android build.
 
 ## Remaining before 100%
-1. Populate narrative localization for E01–E272: titles, triggers, choice labels/text/body, consequence copy and ending presentation.
-2. Provide verified translations for every declared locale rather than counting English fallback as translation.
-3. Add an authoritative generated inventory for all 520 authored choices and all narrative keys.
-4. Populate every locale contract key with verified translated text and make the locale gate fail when a release locale silently falls back on a required narrative key.
-5. Add Android runtime smoke for locale switching, Arabic/Hebrew RTL, long strings and CJK rendering.
-6. Run and verify the complete Block 10 GitHub Actions gate.
+1. Populate actual narrative translations for **all 1,584 keys in each of the 28 locales**. English fallback is not accepted as translation.
+2. Preserve authored gameplay semantics exactly: event IDs, choice IDs, effects, conditions and state tokens must never be translated into gameplay identifiers.
+3. Add a complete translation-pack coverage gate that rejects any locale with fewer than 1,584 translated keys or any translation equal to the English fallback.
+4. Add Android runtime smoke for locale switching, Arabic/Hebrew RTL, long strings and CJK rendering.
+5. Run and verify the complete Block 10 GitHub Actions gate after the real translation packs are populated.
 
-Fallback strings are deliberately observable and are never counted as completed translations.
+## Important QA rule
+The current architecture intentionally refuses to count a missing translation as completed localization. Android may fall back to res/values/strings.xml when a localized resource is absent, so locale declaration alone is not evidence of translation completeness. citeturn0search1turn0search0
+
+**No false 100%:** the remaining gap is the actual translated narrative corpus, not another documentation or percentage-labeling task.
