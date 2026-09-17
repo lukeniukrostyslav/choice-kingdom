@@ -55,3 +55,16 @@ def test_invalid_delayed_choice_does_not_consume_pending_delay():
         session.execute_delayed_target(key, "E02-NOT-A-CHOICE")
 
     assert session.state.snapshot() == before
+
+
+def test_invalid_next_due_delayed_choice_does_not_consume_pending_delay():
+    session = GameSession.new(ROOT, "invalid-next-due-delay-choice")
+    key = _seed_pending_delay(session)
+    before = session.state.snapshot()
+
+    with pytest.raises(KeyError, match="E02-NOT-A-CHOICE"):
+        session.execute_next_due_delay("E02-NOT-A-CHOICE")
+
+    assert session.state.snapshot() == before
+    assert session.state.pending_delays[key].status == "pending"
+    assert session.state.current_event_id == "E01"
