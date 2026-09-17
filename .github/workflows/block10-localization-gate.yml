@@ -19,8 +19,8 @@ jobs:
           python-version: '3.13'
       - name: Install test dependencies
         run: python -m pip install --upgrade pip pytest
-      - name: Validate locale registry
-        run: python -m pytest -q tests/test_block10_localization.py tests/test_locale_layout.py
+      - name: Validate locale registry and narrative contract
+        run: python -m pytest -q tests/test_block10_localization.py tests/test_locale_layout.py tests/test_block10_narrative_localization.py tests/test_block10_narrative_inventory.py tests/test_block10_localization_contract.py
       - name: Set up Java 17
         uses: actions/setup-java@v4
         with:
