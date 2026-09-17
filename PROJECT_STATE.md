@@ -4,7 +4,7 @@
 Original premium offline-first decision-and-consequence mobile game set in Avelune. Android-first, one-time purchase target €2.99–€4.99, no ads/subscription/mandatory backend for core gameplay, 20+ locales including RTL. Frozen production catalog: **E01–E272**.
 
 ## Current phase
-**Blocks 1–7 are closed at their defined boundaries. Block 8 Gameplay States is the next active workstream.** The project proceeds strictly block-by-block. Percentages reflect implementation and available verification evidence, not documentation volume.
+**Blocks 1–8 are closed at their defined boundaries. Block 9 Android Runtime is the next active workstream.** The project proceeds strictly block-by-block. Percentages reflect implementation and available verification evidence, not documentation volume.
 
 ## Approved General Plan — 25 Blocks
 1. **Production Data Schema** → 100%
@@ -14,7 +14,7 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 5. **Persistence / Save / Load / Resume** → 100%
 6. **Real GameSession → Presentation Bridge** → 100%
 7. **UI/UX Runtime** → 100%
-8. **All Gameplay States** → 0%
+8. **All Gameplay States** → 100%
 9. **Android Runtime** → 0%
 10. **Localization 20+** → 0%
 11. **RTL / Large Text / Accessibility** → 0%
@@ -51,6 +51,15 @@ Execution order is strictly **1 → 2 → 3 → ... → 25**. A block is not con
 - Android debug APK production-path build is GREEN on GitHub Actions run **35279790952** (commit `e2da888d324065afd03a0811e0f87c495471547a`).
 - The green gate verified: Python focused runtime tests, Java 17/Gradle 8.9 toolchain, AndroidX configuration, resource merge, Kotlin compilation, debug APK assembly, APK existence and artifact upload.
 - The Android build failures encountered while closing Block 7 were fixed in-repository: missing test dependency path, adaptive-class assertion casing, AndroidX enablement, duplicate theme resource, and Compose context access outside a composable context.
+
+## Block 8 checkpoint — CLOSED
+- Canonical gameplay lifecycle is implemented in `runtime/gameplay_state.py`.
+- Closed lifecycle phases: `new_run`, `decision`, `convergence`, `delay_due`, `delay_waiting`, `ending`.
+- The projection is read-only and derives state from the canonical `GameSession` view; it does not duplicate gameplay rules.
+- Regression coverage is in `tests/test_block8_gameplay_states.py` plus existing session/runtime-state persistence tests.
+- GitHub Actions gate **Choice Kingdom Block 8 Gameplay States Gate** is GREEN on run **35280232253**.
+- All Block 8 lifecycle tests passed.
+- Block 8 does not claim physical Android/device QA; that remains a later gate.
 
 ## Block 7 closure evidence
 - GitHub Actions workflow: **Choice Kingdom Block 7 UIUX Gate**
