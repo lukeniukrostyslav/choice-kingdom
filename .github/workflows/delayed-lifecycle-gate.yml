@@ -3,6 +3,7 @@ name: Choice Kingdom Delayed Lifecycle Gate
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 jobs:
   delayed-lifecycle:
@@ -30,6 +31,12 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: "8.9"
+      - name: Verify Android build toolchain
+        working-directory: androidApp
+        run: |
+          java -version
+          python3 --version
+          gradle --version
       - name: Assemble production Android debug APK
         working-directory: androidApp
         run: gradle :app:assembleDebug --stacktrace
