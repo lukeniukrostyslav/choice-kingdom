@@ -60,3 +60,10 @@ def test_block14_persistent_audio_preferences_and_feedback_variants():
     assert "playErrorFeedback" in audio
     assert "audio.playErrorFeedback()" in main
     assert "LaunchedEffect(audio)" in main
+
+
+def test_block14_bundled_sfx_assets_exist():
+    for name in ("choice_click.wav", "choice_confirm.wav", "choice_error.wav"):
+        path = ROOT / "androidApp/app/src/main/res/raw" / name
+        assert path.exists()
+        assert path.stat().st_size > 44
