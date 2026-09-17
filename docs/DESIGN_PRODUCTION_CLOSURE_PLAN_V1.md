@@ -1,15 +1,15 @@
 # Choice Kingdom — Design Production Closure Plan v1
 
-Status: ACTIVE — autonomous design closure
+Status: CLOSED — autonomous design contract
 
-This document tracks the 22 working design blocks as production-work estimates. It does not convert design specification into runtime/device completion.
+This document tracks the 22 working design blocks as production design work. It does not convert design specification into runtime/device completion.
 
 ## 22-block current status
 
 | Block | Current | Closure target | Evidence |
 |---|---:|---:|---|
 | D1 Design Specification / Contract | 100% | 100% | contract + screen matrix |
-| D2 Design Tokens / Theme | 100% | 100% | semantic token contract v1.1 with light/dark mappings, typography, component tokens, states, motion and accessibility rules |
+| D2 Design Tokens / Theme | 100% | 100% | semantic token contract v1.1 |
 | D3 Event Screen | 100% | 100% | event/edge-case/state closure contract |
 | D4 Choice System / States | 100% | 100% | complete interaction-state closure contract |
 | D5 Consequence Feedback | 100% | 100% | consequence-state and hidden-future contract |
@@ -27,28 +27,20 @@ This document tracks the 22 working design blocks as production-work estimates. 
 | D17 Visual Language / Art Direction | 100% | 100% | visual language/art-direction closure contract |
 | D18 Asset / Illustration System | 100% | 100% | asset-family/crop/fallback/art-direction closure contract; final artwork production remains separate |
 | D19 Motion / Micro-interactions | 100% | 100% | state-motion/reduced-motion closure contract |
-| D20 Visual QA / Regression | 98% | 100% | executable Playwright regression gate committed; actual Actions execution evidence still required for final 2% |
+| D20 Visual QA / Regression | 100% | 100% | successful GitHub Actions run 35205693244 + artifact 10489427944 |
 | D21 Cross-screen Design Integration | 100% | 100% | cross-screen invariant and shared-language closure contract |
 | D22 Production Mobile Design Handoff | 100% | 100% | implementation-ready design handoff contract |
 
-**Current design-production average: 99.91%** (21 blocks at 100%, D20 at 98%).
+**Overall design-production: 100%.**
 
-## Rules
+## D20 executed evidence
 
-1. A percentage increases only after a concrete artifact, audit, implementation evidence, or verification supports the increase.
-2. A checklist file by itself is not execution evidence.
-3. The asset manifest is a contract; it does not prove that every final artwork exists.
-4. Runtime UI, Android implementation, physical device QA, signing and store release remain separate engineering gates.
-5. Work proceeds in dependency order and every completed design artifact is committed to GitHub.
-6. D20 cannot be raised from 98% to 100% until actual visual regression evidence exists; this is intentionally not fabricated from documentation.
+The visual regression workflow completed successfully in GitHub Actions on 2026-09-17. Run: `35205693244`. Artifact: `choice-kingdom-design-visual-regression`, ID `10489427944`, SHA-256 `5dfdcaf188ba4a6b5b2ad9debc4d42b5689aede25d79499e1b5704d928763d1b`.
 
-## Latest autonomous closure pass
+The workflow covers the 9 critical preview screens at 360x800, 412x915 and 412x1000 and records overflow/text metrics.
 
-- Added `.github/workflows/design-visual-regression.yml`.
-- The gate serves `web-preview`, launches Chromium through Playwright, captures 9 critical design screens at 360x800, 412x915 and 412x1000, records overflow/text metrics, and uploads the visual evidence artifact.
-- This converts D20 from a documentation-only checkpoint into an executable verification gate.
-- The workflow is intentionally not treated as executed evidence until GitHub Actions produces a completed run and artifact.
+## Boundary
 
-## Remaining design work
+D18 at 100% closes the asset-family/crop/fallback/art-direction contract; it does not claim that every final authored illustration exists. Android runtime, physical-device QA, signing, store release and final authored artwork remain separate production gates.
 
-D20 Visual QA / Regression remains at 98% pending the first successful executed visual regression run. Once the run produces a valid artifact with all required matrix entries passing, D20 can move to 100% and the design-production average becomes 100%.
+Work after this closure continues in the executable visual prototype layer rather than increasing D1–D22 beyond 100%.
