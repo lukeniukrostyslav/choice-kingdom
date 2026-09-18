@@ -81,8 +81,11 @@ jobs:
       - name: Prepare Android SDK and AVD
         env:
           ANDROID_SDK_ROOT: ${{ env.ANDROID_HOME }}
+          ANDROID_AVD_HOME: ${{ runner.temp }}/android-avd
         run: |
           set -euxo pipefail
+          mkdir -p "$ANDROID_AVD_HOME"
+          echo "ANDROID_AVD_HOME=$ANDROID_AVD_HOME"
           SDKMANAGER="${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager"
           AVDMANAGER="${ANDROID_HOME}/cmdline-tools/latest/bin/avdmanager"
           if [ ! -x "$SDKMANAGER" ]; then SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -name sdkmanager -type f | head -n1)"; fi
@@ -90,8 +93,15 @@ jobs:
           yes | "$SDKMANAGER" --licenses >/dev/null || true
           "$SDKMANAGER" "platform-tools" "emulator" "system-images;android-35;google_apis;x86_64"
           echo "no" | "$AVDMANAGER" create avd --force --name "p24-${{ matrix.name }}" --package "system-images;android-35;google_apis;x86_64" --device "pixel_2"
+          AVD_DIR="$ANDROID_AVD_HOME/p24-${{ matrix.name }}.avd"
+          test -f "$AVD_DIR/config.ini"
           printf '%s\\n' \
-            'hw.cpu.ncore=2'             'hw.ramSize=4096'             'hw.gpu.mode=swiftshader_indirect'             'hw.keyboard=yes'             >> "$HOME/.android/avd/p24-${{ matrix.name }}.avd/config.ini"
+            'hw.cpu.ncore=2' \
+            'hw.ramSize=4096' \
+            'hw.gpu.mode=swiftshader_indirect' \
+            'hw.keyboard=yes' \
+            >> "$AVD_DIR/config.ini"
+          tail -n 8 "$AVD_DIR/config.ini"
       - name: Run P24 Android execution
         env:
           GRADLE_OPTS: -Xmx8g -XX:MaxMetaspaceSize=2g -Dorg.gradle.jvmargs="-Xmx8g -XX:MaxMetaspaceSize=2g" -Dorg.gradle.workers.max=1
