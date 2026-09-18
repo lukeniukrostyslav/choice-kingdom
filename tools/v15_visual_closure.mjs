@@ -276,6 +276,31 @@ for (const file of pages) {
         return realm&&currentRealm&&people&&exclusive&&overflow&&responsive&&rtl&&safe&&reduced&&focus&&serif&&cinematic&&hierarchy&&targets;
       });
     }
+    let p20V2Pass = true;
+    if (file === 'design-v2/p20-motion-feedback-proof.html') {
+      p20V2Pass = await page.evaluate(() => {
+        const hero=document.querySelector('.hero'), title=document.querySelector('#motion-title'), subtitle=document.querySelector('#motion-subtitle');
+        const panel=document.querySelector('.panel'), actions=[...document.querySelectorAll('.action')], status=document.querySelector('#status');
+        const styleText=[...document.querySelectorAll('style')].map(s=>s.textContent||'').join('\n');
+        if(!hero||!title||!subtitle||!panel||actions.length!==3||!status) return false;
+        if(hero.getAttribute('aria-labelledby')!=='motion-title'||hero.getAttribute('aria-describedby')!=='motion-subtitle') return false;
+        if(!actions.every(a=>a.getBoundingClientRect().height>=48)) return false;
+        if(!actions.every(a=>a.getAttribute('aria-pressed')==='false')) return false;
+        actions[1].click();
+        const selected=actions[1].getAttribute('aria-pressed')==='true'&&actions[0].getAttribute('aria-pressed')==='false'&&status.textContent.includes('Response selected');
+        actions[2].click();
+        const exclusive=actions.filter(a=>a.getAttribute('aria-pressed')==='true').length===1&&actions[2].getAttribute('aria-pressed')==='true';
+        const responsive=/@media\(max-width:620px\)/.test(styleText);
+        const reduced=/prefers-reduced-motion:reduce/.test(styleText);
+        const focus=/:focus-visible/.test(styleText);
+        const safe=/safe-area-inset/.test(styleText);
+        const rtl=/html\[dir=rtl\]/.test(styleText);
+        const serif=/var\(--ck-serif\)/.test(styleText);
+        const cinematic=/radial-gradient/.test(styleText)&&/linear-gradient/.test(styleText);
+        const feedback=document.body.innerText.includes('hover, press, focus and selected state');
+        return selected&&exclusive&&responsive&&reduced&&focus&&safe&&rtl&&serif&&cinematic&&feedback;
+      });
+    }
     let p16Pass = true;
     if (file === 'design-v2/p16-ending-resolution-proof.html') {
       p16Pass = await page.evaluate(() => {
@@ -582,10 +607,10 @@ for (const file of pages) {
         return largePass && rtlPass && resetPass;
       });
     }
-    const pass = commonPass && appPass && launcherPass && p1Pass && p6Pass && p7Pass && p8Pass && p9Pass && p10Pass && p11Pass && p12Pass && p13Pass && p14Pass && p15Pass && p16Pass && p17Pass && p18Pass && p21Pass && p19Pass && p19V2Pass && p1v2Pass;
+    const pass = commonPass && appPass && launcherPass && p1Pass && p6Pass && p7Pass && p8Pass && p9Pass && p10Pass && p11Pass && p12Pass && p13Pass && p14Pass && p15Pass && p16Pass && p17Pass && p18Pass && p21Pass && p19Pass && p19V2Pass && p20V2Pass && p1v2Pass;
     if (!pass) failures += 1;
     results.push({ file, viewport: vp.name, pass, p19Pass, p21Pass, p6Pass, p7Pass, p8Pass, p9Pass, p10Pass, p11Pass, p12Pass, p13Pass, p14Pass, p15Pass, p16Pass,
-  p17Pass, p18Pass, p19V2Pass, ...metrics, consoleErrors, pageErrors, failedRequests });
+  p17Pass, p18Pass, p19V2Pass, p20V2Pass, ...metrics, consoleErrors, pageErrors, failedRequests });
     await context.close();
   }
 }
