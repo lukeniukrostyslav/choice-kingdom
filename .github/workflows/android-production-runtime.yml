@@ -73,16 +73,19 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: "8.11.1"
-      - uses: reactivecircus/android-emulator-runner@v2
+      - uses: reactivecircus/android-emulator-runner@v2.38.0
         with:
           api-level: 35
           target: google_apis
           arch: x86_64
           profile: pixel_2
-          emulator-options: -no-window -no-snapshot -noaudio -no-boot-anim
+          force-avd-creation: true
+          emulator-boot-timeout: 300
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -cores 2 -memory 4096
           disable-animations: true
           script: |
             cd androidApp
+            adb wait-for-device
             adb shell wm size ${{ matrix.width }}x${{ matrix.height }}
             adb shell wm density ${{ matrix.density }}
             export GRADLE_OPTS="-Xmx8g -XX:MaxMetaspaceSize=2g -Dorg.gradle.jvmargs=-Xmx8g -XX:MaxMetaspaceSize=2g -Dorg.gradle.workers.max=1"
