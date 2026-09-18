@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="stylesheet" href="tokens.css">
+<title>Choice Kingdom — V2 P11 Consequences</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--ck-text-primary);font:16px/var(--ck-leading-body) var(--ck-body);background:radial-gradient(circle at 70% 0,rgba(77,101,125,.24),transparent 34%),linear-gradient(180deg,var(--ck-world-800),var(--ck-world-950))}
+main{width:min(1060px,100%);margin:auto;padding:max(20px,calc(20px + env(safe-area-inset-top))) max(18px,calc(18px + env(safe-area-inset-right))) max(36px,calc(36px + env(safe-area-inset-bottom))) max(18px,calc(18px + env(safe-area-inset-left)))}
+.top{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:20px}.eyebrow,.label{font-size:var(--ck-type-label);font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ck-gold-primary)}.top h1{font:500 var(--ck-type-display-md)/var(--ck-leading-heading) var(--ck-serif);margin:6px 0 0}.context{text-align:end;color:var(--ck-text-muted);font-size:var(--ck-type-body-sm)}
+.surface{border:1px solid var(--ck-border-subtle);border-radius:var(--ck-radius-lg);background:linear-gradient(180deg,rgba(19,29,42,.94),rgba(12,19,29,.98));box-shadow:var(--ck-shadow-deep);padding:clamp(20px,4vw,32px)}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,.48fr);gap:24px;align-items:end;margin-bottom:24px}.hero h2{font:500 var(--ck-type-display-lg)/var(--ck-leading-heading) var(--ck-serif);margin:6px 0 10px}.hero p{max-width:62ch;margin:0;color:var(--ck-text-secondary);font-size:var(--ck-type-body-lg)}
+.signal{padding:18px;border:1px solid var(--ck-border-subtle);border-radius:var(--ck-radius-md);background:rgba(8,13,21,.52)}.signal strong{display:block;margin-top:5px;font:500 24px/1.1 var(--ck-serif);color:var(--ck-gold-highlight)}.signal p{margin:8px 0 0;color:var(--ck-text-muted);font-size:var(--ck-type-body-sm)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.card{min-height:160px;padding:20px;border:1px solid var(--ck-border-subtle);border-radius:var(--ck-radius-md);background:linear-gradient(145deg,var(--ck-surface-elevated),var(--ck-surface-solid));display:flex;flex-direction:column;justify-content:space-between}.card h3{font:500 24px/1.08 var(--ck-serif);margin:7px 0}.card p{margin:0;color:var(--ck-text-secondary);font-size:var(--ck-type-body-sm)}.badge{display:inline-flex;align-items:center;min-height:28px;width:max-content;padding:4px 9px;border:1px solid var(--ck-border-subtle);border-radius:999px;color:var(--ck-text-muted);font-size:var(--ck-type-label);letter-spacing:.1em;text-transform:uppercase}.card.active{border-color:var(--ck-gold-highlight);box-shadow:0 0 0 1px rgba(227,201,134,.16)}.card.active .badge{color:var(--ck-gold-highlight);border-color:rgba(227,201,134,.42)}
+.states{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}.state{min-height:52px;padding:12px 14px;text-align:start;border:1px solid var(--ck-border-subtle);border-radius:var(--ck-radius-md);background:rgba(8,13,21,.42);color:var(--ck-text-primary);font:500 15px/1.25 var(--ck-body);cursor:pointer}.state:focus-visible{outline:3px solid var(--ck-focus);outline-offset:4px}.state[aria-pressed=true]{border-color:var(--ck-gold-highlight);box-shadow:0 0 0 1px rgba(227,201,134,.18)}.status{min-height:24px;margin:14px 0 0;color:var(--ck-text-muted)}.status strong{color:var(--ck-gold-highlight)}.note{margin:18px 0 0;color:var(--ck-text-muted);font-size:var(--ck-type-body-sm)}
+@media(max-width:760px){.hero{grid-template-columns:1fr}.context{text-align:start}.grid{grid-template-columns:1fr}.states{grid-template-columns:1fr 1fr}}
+@media(max-width:420px){main{padding-inline:14px}.surface{padding:18px}.states{grid-template-columns:1fr}.card{min-height:140px}}
+@media(prefers-reduced-motion:reduce){.state{transition:none}}
+html[dir=rtl] .context{text-align:start}
+</style>
+</head>
+<body>
+<main>
+<header class="top"><div><div class="eyebrow">Avelune · Consequence</div><h1>Consequences</h1></div><div class="context">Decision memory<br>What follows</div></header>
+<section class="surface" aria-label="Consequence presentation">
+<div class="hero"><div><div class="eyebrow">AFTER THE CHOICE</div><h2>Make the outcome legible</h2><p>Immediate change, pending consequence and resolved history should read as one authored chain, without turning the story surface into a dashboard.</p></div>
+<div class="signal"><div class="label">Current consequence</div><strong id="signal">Immediate</strong><p id="signal-note">The result is visible now.</p></div></div>
+<div class="grid" aria-label="Consequence states">
+<article class="card active" data-state="Immediate"><div><span class="badge">Now</span><h3>Immediate</h3></div><p>A consequence that can be understood in the current scene.</p></article>
+<article class="card" data-state="Pending"><div><span class="badge">Later</span><h3>Pending</h3></div><p>A consequence is known to exist but has not resolved yet.</p></article>
+<article class="card" data-state="Triggered"><div><span class="badge">Resolved</span><h3>Triggered</h3></div><p>A delayed consequence has become part of the current state.</p></article>
+<article class="card" data-state="Cancelled"><div><span class="badge">Ended</span><h3>Cancelled</h3></div><p>A pending consequence has ended without becoming active.</p></article>
+</div>
+<div class="states" role="group" aria-label="Presentation consequence state">
+<button type="button" class="state" aria-pressed="true" data-state="Immediate">Immediate</button>
+<button type="button" class="state" aria-pressed="false" data-state="Pending">Pending</button>
+<button type="button" class="state" aria-pressed="false" data-state="Triggered">Triggered</button>
+<button type="button" class="state" aria-pressed="false" data-state="Cancelled">Cancelled</button>
+</div>
+<p id="status" class="status" role="status" aria-live="polite">Consequence state: <strong>Immediate</strong>.</p>
+<p class="note">Presentation proof only: these states define how consequence timing is communicated; they do not create or alter gameplay rules. Runtime remains canonical.</p>
+</section>
+</main>
+<script>
+const signal=document.querySelector('#signal'),note=document.querySelector('#signal-note'),status=document.querySelector('#status');
+const notes={Immediate:'The result is visible now.',Pending:'A consequence is known to exist but has not resolved yet.',Triggered:'A delayed consequence has become part of the current state.',Cancelled:'A pending consequence has ended without becoming active.'};
+document.querySelectorAll('.state').forEach(button=>button.addEventListener('click',()=>{
+const value=button.dataset.state;
+document.querySelectorAll('.state').forEach(x=>x.setAttribute('aria-pressed','false'));button.setAttribute('aria-pressed','true');
+document.querySelectorAll('.card').forEach(x=>x.classList.toggle('active',x.dataset.state===value));
+signal.textContent=value;note.textContent=notes[value];status.innerHTML='Consequence state: <strong>'+value+'</strong>.';
+}));
+</script>
+</body>
+</html>
