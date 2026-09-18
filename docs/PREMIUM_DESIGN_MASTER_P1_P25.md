@@ -81,7 +81,7 @@ Implemented on `main`:
 - Automated P25 gate covers the cross-screen journey, canonical-content boundaries, accessibility preferences and responsive screenshots.
 
 Remaining evidence before P25 can reach 100%:
-- latest V2 gate must be executed and verified green after the current implementation;
+- latest V2 gate must be executed and verified green after the current implementation, including browser back/forward continuity;
 - live Vercel deployment verification against the frozen reference set;
 - final cross-screen visual regression sign-off with no material visual drift.
 
@@ -103,7 +103,7 @@ Remaining evidence before P25 can reach 100%:
 | 25.10 History / decision chronicle | 95% | Timeline and recorded choices implemented |
 | 25.11 Endings / resolution landing | 93% | Resolution surface implemented without inventing an ending outcome |
 | 25.12 Settings / accessibility presentation | 98% | Large text, RTL, reduced motion, theme and persistent preferences implemented |
-| 25.13 Navigation / information architecture | 98% | Persistent cross-screen navigation implemented |
+| 25.13 Navigation / information architecture | 99% | Persistent navigation now integrates browser back/forward state continuity |
 | 25.14 Responsive / safe-area composition | 95% | Compact and expanded layouts implemented; live-device evidence remains |
 | 25.15 Visual regression / final acceptance | 72% | Automated coverage exists; latest post-change run and deployed visual/reference comparison remain |
 
