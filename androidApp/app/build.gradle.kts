@@ -18,9 +18,11 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         ndk {
             abiFilters += listOf("arm64-v8a", "x86_64")
-        // P24 CI may narrow the assembled APK to the emulator ABI to keep packaging memory bounded.
-        providers.gradleProperty("p24CiAbi").orNull?.let { abiFilters.clear(); abiFilters.add(it) }
         }
+    }
+    // P24 CI may narrow the assembled APK to the emulator ABI to keep packaging memory bounded.
+    project.providers.gradleProperty("p24CiAbi").orNull?.let { ciAbi ->
+        ndk { abiFilters.clear(); abiFilters.add(ciAbi) }
     }
     buildFeatures { compose = true }
     experimentalProperties["android.experimental.enableScreenshotTest"] = true
