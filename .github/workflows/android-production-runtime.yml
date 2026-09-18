@@ -104,6 +104,8 @@ jobs:
           tail -n 8 "$AVD_DIR/config.ini"
       - name: Run P24 Android execution
         env:
+          ANDROID_AVD_HOME: ${{ runner.temp }}/android-avd
+          PATH: ${{ env.ANDROID_HOME }}/platform-tools:${{ env.ANDROID_HOME }}/emulator:${{ env.PATH }}
           GRADLE_OPTS: -Xmx8g -XX:MaxMetaspaceSize=2g -Dorg.gradle.jvmargs="-Xmx8g -XX:MaxMetaspaceSize=2g" -Dorg.gradle.workers.max=1
         run: |
           set -euxo pipefail
@@ -111,6 +113,8 @@ jobs:
           AVD_NAME="p24-${{ matrix.name }}"
           SERIAL="emulator-5554"
           trap 'adb -s "$SERIAL" emu kill >/dev/null 2>&1 || true' EXIT
+          command -v adb
+          adb version
           adb start-server
           "${ANDROID_HOME}/emulator/emulator" -avd "$AVD_NAME" -port 5554             -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim             -cores 2 -memory 4096 > emulator.log 2>&1 &
           EMULATOR_PID=$!
