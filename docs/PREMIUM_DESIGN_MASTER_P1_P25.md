@@ -21,7 +21,7 @@ This document is the canonical working checklist for the 25-block premium visual
 | P11 | Consequences / delayed consequences | 100% | Immediate, pending, triggered and cancelled visual states |
 | P12 | History / decision memory | 100% | Timeline/history hierarchy and causal readability |
 | P13 | Relationships / character state | 100% | Relationship states and progression presentation |
-| P14 | Investigation / threads / evidence | 0% | Evidence hierarchy, discovery and unresolved states |
+| P14 | Investigation / threads / evidence | 100% | Evidence hierarchy, discovery and unresolved states |
 | P15 | Crisis / high-stakes presentation | 0% | Escalation, urgency and consequence preview without clutter |
 | P16 | Endings / resolution experience | 0% | Ending identity, summary and emotional landing |
 | P17 | Replay / new-run experience | 0% | Replay motivation, continuity and clean reset semantics |
@@ -34,7 +34,7 @@ This document is the canonical working checklist for the 25-block premium visual
 | P24 | Android devices / safe areas / resolution adaptation | 0% | Real Android presentation proof on target device classes |
 | P25 | Final premium polish / cross-screen QA | 0% | Full visual regression and no unresolved P1–P24 blockers |
 
-**Aggregate P1–P25 estimate: 52.00% (V2 current; P1–P13 closed at 100%).**
+**Aggregate P1–P25 estimate: 56.00% (V2 current; P1–P14 closed at 100%).**
 
 ## Visual Design Reset v2
 
@@ -78,4 +78,4 @@ This document is the canonical working checklist for the 25-block premium visual
 
 ## Next bottleneck
 
-Continue the premium-design track with P14 — Investigation / Threads / Evidence. P9–P13 are closed at 100% with verified V15 regression evidence; P14 is the next block and must be implemented and verified before P15 begins.
+Continue the premium-design track with P15 — Crisis / High-Stakes Presentation. P10–P14 are closed at 100% with verified V15 regression evidence; P15 is the next block and must be implemented and verified before P16 begins.
