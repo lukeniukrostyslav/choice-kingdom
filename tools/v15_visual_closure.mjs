@@ -10,7 +10,10 @@ const pages = [
   'design-accessibility-final.html',
   'design-character-faction-final.html',
   'design-relationships-p13-premium.html',
-  'design-investigation-p14-premium.html'
+  'design-investigation-p14-premium.html',
+  'design-crisis-p15-premium.html',
+  'design-ending-p16-premium.html',
+  'design-replay-p17-premium.html'
 ];
 const viewports = [
   { name: '360x800', width: 360, height: 800 },
