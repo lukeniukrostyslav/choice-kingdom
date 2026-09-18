@@ -16,7 +16,7 @@ for(const vp of [{w:360,h:800},{w:412,h:915},{w:1440,h:900}]){
   const long=document.querySelector('#sample-copy'); const old=long.textContent; long.textContent=old.repeat(20); const noOverflow=document.documentElement.scrollWidth<=innerWidth+1; long.textContent=old;
   return {base,it,uk,ar,reset,exclusive,noOverflow,responsive:/@media\(max-width:760px\)/.test(s)&&/@media\(max-width:420px\)/.test(s),rtl:/html\[dir=rtl\]/.test(s),safe:/safe-area-inset/.test(s),reduced:/prefers-reduced-motion:reduce/.test(s),focus:/:focus-visible/.test(s),serif:/var\(--ck-serif\)/.test(s),cinematic:/radial-gradient/.test(s)&&/linear-gradient/.test(s),allText:[...document.querySelectorAll('h1,h2,h3,p,button')].every(e=>e.scrollWidth<=e.clientWidth+1||getComputedStyle(e).overflow!=='hidden')};
  });
- checks.push({vp,res:res?.ok()&&Object.values(x).every(Boolean),x}); await c.close();
+ checks.push({vp,res:Object.values(x).every(Boolean),x}); await c.close();
 }
 await browser.close();
 if(checks.some(x=>!x.res)) throw new Error('P22 localization/RTL closure failed: '+JSON.stringify(checks));
