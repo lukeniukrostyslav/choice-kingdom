@@ -58,94 +58,129 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - {name: compact-phone, width: 1080, height: 2400, density: 420}
-          - {name: tablet-window, width: 1920, height: 2560, density: 320}
-          - {name: expanded-window, width: 2688, height: 2800, density: 320}
+          - name: compact-phone
+            width: 1080
+            height: 2400
+            density: 420
+          - name: tablet-window
+            width: 1920
+            height: 2560
+            density: 320
+          - name: expanded-window
+            width: 2688
+            height: 2800
+            density: 320
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: design/v2-p24-android-devices-2026-09-18
-      - name: Enable KVM
+
+      - name: Enable KVM and install emulator runtime dependencies
         run: |
-          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
-          sudo udevadm control --reload-rules
-          sudo udevadm trigger --name-match=kvm
+          set -euxo pipefail
+          sudo apt-get update
+          sudo apt-get install -y libpulse0
+          if [ -e /dev/kvm ]; then sudo chmod 666 /dev/kvm; fi
+          test -e /dev/kvm
+          test -r /dev/kvm
+          test -w /dev/kvm
+          ls -l /dev/kvm
+
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: "17"
+
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: "8.11.1"
+
       - name: Prepare Android SDK and AVD
         env:
-          ANDROID_SDK_ROOT: ${{ env.ANDROID_HOME }}
           ANDROID_AVD_HOME: ${{ runner.temp }}/android-avd
         run: |
           set -euxo pipefail
+          export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
           mkdir -p "$ANDROID_AVD_HOME"
-          echo "ANDROID_AVD_HOME=$ANDROID_AVD_HOME"
-          SDKMANAGER="${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager"
-          AVDMANAGER="${ANDROID_HOME}/cmdline-tools/latest/bin/avdmanager"
+          SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          AVDMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/avdmanager"
           if [ ! -x "$SDKMANAGER" ]; then SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -name sdkmanager -type f | head -n1)"; fi
           if [ ! -x "$AVDMANAGER" ]; then AVDMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -name avdmanager -type f | head -n1)"; fi
+          test -x "$SDKMANAGER"
+          test -x "$AVDMANAGER"
           yes | "$SDKMANAGER" --licenses >/dev/null || true
-          "$SDKMANAGER" "platform-tools" "emulator" "system-images;android-35;google_apis;x86_64"
+          "$SDKMANAGER" "platform-tools" "emulator" "platforms;android-35" "system-images;android-35;google_apis;x86_64"
+          test -x "$ANDROID_HOME/platform-tools/adb"
+          test -x "$ANDROID_HOME/emulator/emulator"
           echo "no" | "$AVDMANAGER" create avd --force --name "p24-${{ matrix.name }}" --package "system-images;android-35;google_apis;x86_64" --device "pixel_2"
           AVD_DIR="$ANDROID_AVD_HOME/p24-${{ matrix.name }}.avd"
           test -f "$AVD_DIR/config.ini"
-          printf '%s\\n' \
-            'hw.cpu.ncore=2' \
-            'hw.ramSize=4096' \
-            'hw.gpu.mode=swiftshader_indirect' \
-            'hw.keyboard=yes' \
-            >> "$AVD_DIR/config.ini"
-          tail -n 8 "$AVD_DIR/config.ini"
+          {
+            echo "hw.cpu.ncore=2"
+            echo "hw.ramSize=2048"
+            echo "hw.gpu.mode=swiftshader_indirect"
+            echo "hw.keyboard=yes"
+          } >> "$AVD_DIR/config.ini"
+
       - name: Run P24 Android execution
         env:
           ANDROID_AVD_HOME: ${{ runner.temp }}/android-avd
-          PATH: ${{ env.ANDROID_HOME }}/platform-tools:${{ env.ANDROID_HOME }}/emulator:${{ env.PATH }}
-          GRADLE_OPTS: -Xmx8g -XX:MaxMetaspaceSize=2g -Dorg.gradle.jvmargs="-Xmx8g -XX:MaxMetaspaceSize=2g" -Dorg.gradle.workers.max=1
         run: |
           set -euxo pipefail
+          export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
+          ADB="$ANDROID_HOME/platform-tools/adb"
+          EMULATOR="$ANDROID_HOME/emulator/emulator"
+          test -x "$ADB"
+          test -x "$EMULATOR"
+          "$ADB" version
+          "$ADB" start-server
+          "$EMULATOR" -version
+          SERIAL=emulator-5554
+
           cd androidApp
-          AVD_NAME="p24-${{ matrix.name }}"
-          SERIAL="emulator-5554"
-          trap 'adb -s "$SERIAL" emu kill >/dev/null 2>&1 || true' EXIT
-          command -v adb
-          adb version
-          adb start-server
-          "${ANDROID_HOME}/emulator/emulator" -avd "$AVD_NAME" -port 5554             -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim             -cores 2 -memory 4096 > emulator.log 2>&1 &
-          EMULATOR_PID=$!
-          for i in $(seq 1 180); do
-            STATE="$(adb -s "$SERIAL" get-state 2>/dev/null || true)"
-            if [ "$STATE" = "device" ]; then break; fi
-            if ! kill -0 "$EMULATOR_PID" 2>/dev/null; then
-              cat emulator.log
-              exit 1
-            fi
-            sleep 2
-          done
-          test "$(adb -s "$SERIAL" get-state)" = "device"
-          for i in $(seq 1 180); do
-            BOOT="$(adb -s "$SERIAL" shell getprop sys.boot_completed 2>/dev/null | tr -d '\r' || true)"
-            if [ "$BOOT" = "1" ]; then break; fi
-            sleep 2
-          done
-          test "$(adb -s "$SERIAL" shell getprop sys.boot_completed | tr -d '\r')" = "1"
-          adb devices -l
-          adb shell wm size ${{ matrix.width }}x${{ matrix.height }}
-          adb shell wm density ${{ matrix.density }}
+          export GRADLE_OPTS="-Xmx8g -XX:MaxMetaspaceSize=1g -Dorg.gradle.workers.max=1"
+          export JAVA_TOOL_OPTIONS="-Xmx8g"
           gradle :app:assembleDebug -Pp24CiAbi=x86_64 --no-daemon --max-workers=1
-          gradle :app:installDebug -Pp24CiAbi=x86_64 --no-daemon --max-workers=1
-          adb shell am force-stop com.choicekingdom.app
-          adb shell am start -n com.choicekingdom.app/.MainActivity
+          test -f app/build/outputs/apk/debug/app-debug.apk
+          cd ..
+
+          "$EMULATOR" -avd "p24-${{ matrix.name }}" -port 5554 -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -cores 2 -memory 2048 > "$RUNNER_TEMP/p24-emulator.log" 2>&1 &
+          EMULATOR_PID=$!
+          cleanup() {
+            kill "$EMULATOR_PID" 2>/dev/null || true
+            "$ADB" -s "$SERIAL" emu kill 2>/dev/null || true
+          }
+          trap cleanup EXIT
+
+          for i in $(seq 1 120); do
+            if "$ADB" -s "$SERIAL" get-state 2>/dev/null | grep -q device; then break; fi
+            if ! kill -0 "$EMULATOR_PID" 2>/dev/null; then cat "$RUNNER_TEMP/p24-emulator.log"; exit 1; fi
+            sleep 2
+          done
+          "$ADB" -s "$SERIAL" get-state | grep -q device
+
+          for i in $(seq 1 150); do
+            BOOT=$("$ADB" -s "$SERIAL" shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')
+            if [ "$BOOT" = "1" ]; then break; fi
+            if ! kill -0 "$EMULATOR_PID" 2>/dev/null; then cat "$RUNNER_TEMP/p24-emulator.log"; exit 1; fi
+            sleep 2
+          done
+          "$ADB" -s "$SERIAL" shell getprop sys.boot_completed | tr -d '\r' | grep -q '^1$'
+
+          "$ADB" -s "$SERIAL" shell wm size ${{ matrix.width }}x${{ matrix.height }}
+          "$ADB" -s "$SERIAL" shell wm density ${{ matrix.density }}
+
+          cd androidApp
+          "$ADB" -s "$SERIAL" install -r app/build/outputs/apk/debug/app-debug.apk
+          "$ADB" -s "$SERIAL" shell am force-stop com.choicekingdom.app
+          "$ADB" -s "$SERIAL" shell am start -n com.choicekingdom.app/.MainActivity
           sleep 12
-          adb shell dumpsys activity activities | grep -q com.choicekingdom.app
+          "$ADB" -s "$SERIAL" shell dumpsys activity activities | grep -q com.choicekingdom.app
           mkdir -p p24-evidence
-          adb exec-out screencap -p > p24-evidence/${{ matrix.name }}.png
+          "$ADB" -s "$SERIAL" exec-out screencap -p > "p24-evidence/${{ matrix.name }}.png"
           gradle :app:connectedDebugAndroidTest --tests com.choicekingdom.app.P24DeviceAdaptationTest --no-daemon --max-workers=1
+
       - if: always()
         uses: actions/upload-artifact@v4
         with:
