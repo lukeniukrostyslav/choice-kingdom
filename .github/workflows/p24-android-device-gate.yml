@@ -81,8 +81,10 @@ jobs:
           emulator-options: -no-window -no-snapshot -noaudio -no-boot-anim
           disable-animations: true
           script: |
+            cd androidApp
             adb shell wm size ${{ matrix.width }}x${{ matrix.height }}
             adb shell wm density ${{ matrix.density }}
+            export GRADLE_OPTS="-Xmx4g -XX:MaxMetaspaceSize=1g -Dorg.gradle.workers.max=1"
             gradle :app:assembleDebug -Pp24CiAbi=x86_64 --no-daemon --max-workers=1
             gradle :app:installDebug -Pp24CiAbi=x86_64 --no-daemon --max-workers=1
             adb shell am force-stop com.choicekingdom.app
