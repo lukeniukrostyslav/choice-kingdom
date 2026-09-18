@@ -1,3 +1,31 @@
-<!doctype html><html lang="en" dir="ltr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#07101b"><meta name="description" content="Choice Kingdom — P25 interactive premium visual prototype"><title>Choice Kingdom — Avelune</title><style>
-:root{--bg:#07101b;--panel:#111c29;--ink:#f1eee6;--muted:#aeb2b9;--gold:#cdb06a;--line:rgba(205,176,106,.25)}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% -10%,rgba(72,101,133,.45),transparent 42%),linear-gradient(160deg,#07101b,#050b12);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;padding:max(14px,env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) max(28px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left))}.shell{max-width:1040px;margin:auto}.hero,.card{border:1px solid var(--line);background:rgba(17,28,41,.94);border-radius:20px;box-shadow:0 24px 70px rgba(0,0,0,.4)}.hero{padding:clamp(24px,6vw,52px);margin-bottom:14px}.eyebrow{color:var(--gold);font-size:11px;text-transform:uppercase;letter-spacing:.16em}.hero h1{font:500 clamp(44px,9vw,86px)/.96 Georgia,serif;margin:10px 0 18px}.hero p,.card p{color:var(--muted);max-width:760px}.primary,.card{padding:20px}.primary{display:inline-flex;min-height:56px;align-items:center;border:1px solid var(--gold);border-radius:13px;background:rgba(205,176,106,.12);color:var(--ink);text-decoration:none}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.card h2{font:500 24px Georgia,serif}.links{display:flex;flex-wrap:wrap;gap:8px}.links a{min-height:48px;display:inline-flex;align-items:center;padding:9px 13px;border:1px solid var(--line);border-radius:12px;color:var(--ink);text-decoration:none;background:#101d2c}.links a:focus-visible{outline:3px solid var(--gold);outline-offset:3px}@media(max-width:650px){.grid{grid-template-columns:1fr}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
-</style></head><body><main class="shell"><section class="hero"><div class="eyebrow">Avelune · P25 final premium prototype</div><h1>Choice Kingdom</h1><p>One interactive review surface for the frozen visual direction. The prototype is built as UI, not screenshots: menu, canonical events, choices, consequences, People, institutions, Investigation, History, Kingdom and Settings.</p><a class="primary" href="game-flow.html">Enter the interactive kingdom →</a></section><section class="grid"><article class="card"><div class="eyebrow">Approved visual target</div><h2>Cinematic medieval fantasy</h2><p>Deep blue-black and charcoal foundation, restrained warm gold, elegant serif hierarchy, refined layered panels, generous spacing and consequential choice presentation.</p></article><article class="card"><div class="eyebrow">Canonical boundary</div><h2>Source wins over artwork</h2><p>People vocabulary and institutional positions are bound to repository canon. Reference-board text/art that is not canon is not promoted into game lore.</p></article><article class="card"><div class="eyebrow">P25 proof</div><h2>Responsive & inclusive</h2><p>Compact phone, tablet/expanded layout, safe areas, RTL, large text, long-string wrapping, focus states and reduced motion are part of the prototype.</p></article><article class="card"><div class="eyebrow">Review links</div><h2>Open supporting surfaces</h2><div class="links"><a href="game-flow.html">Interactive prototype</a><a href="design-character-faction-final.html">People reference</a><a href="design-v18-final-gate.html">V18 gate</a><a href="design-accessibility-final.html">Accessibility</a></div></article></section></main></body></html>
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050a11">
+<meta name="description" content="Choice Kingdom — Avelune">
+<title>Choice Kingdom — Avelune</title>
+<meta http-equiv="refresh" content="0;url=game-flow.html">
+<style>
+:root{--bg:#050a11;--ink:#f3efe5;--muted:#a8adb5;--gold:#d2b66f;--line:rgba(210,182,111,.28)}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink)}
+body{display:grid;place-items:center;padding:24px;font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;background:radial-gradient(circle at 50% 25%,rgba(56,83,111,.42),transparent 42%),linear-gradient(160deg,#07101b,#03070d)}
+.splash{width:min(760px,100%);min-height:58vh;display:flex;align-items:flex-end;padding:clamp(28px,7vw,68px);position:relative;overflow:hidden;border:1px solid var(--line);border-radius:30px;background:linear-gradient(145deg,rgba(15,28,43,.98),rgba(5,11,18,.98));box-shadow:0 30px 100px rgba(0,0,0,.5)}
+.splash:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 78% 22%,rgba(210,182,111,.18),transparent 20%),linear-gradient(90deg,rgba(3,7,12,.98),rgba(3,7,12,.6),rgba(3,7,12,.25));pointer-events:none}
+.content{position:relative;max-width:650px}.eyebrow{color:var(--gold);font-size:11px;letter-spacing:.19em;text-transform:uppercase}.crest{width:64px;height:76px;border:1px solid rgba(210,182,111,.55);clip-path:polygon(50% 0,94% 17%,84% 77%,50% 100%,16% 77%,6% 17%);display:grid;place-items:center;color:var(--gold);font:28px Georgia,serif;background:rgba(210,182,111,.05);margin-bottom:24px}.title{font:500 clamp(54px,10vw,100px)/.86 Georgia,"Times New Roman",serif;margin:0 0 20px;letter-spacing:-.025em}.lead{font-size:clamp(17px,2.2vw,22px);color:#d7d3ca;margin:0 0 26px}.enter{display:inline-flex;align-items:center;min-height:56px;padding:14px 22px;border:1px solid rgba(210,182,111,.7);border-radius:14px;background:rgba(210,182,111,.12);color:var(--ink);text-decoration:none}.enter:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+</style>
+<script>location.replace('game-flow.html')</script>
+</head>
+<body>
+<main class="splash">
+<div class="content">
+<div class="crest" aria-hidden="true">✦</div>
+<div class="eyebrow">Avelune · Choice Kingdom</div>
+<h1 class="title">Choice Kingdom</h1>
+<p class="lead">Every decision leaves a trace. Enter the kingdom.</p>
+<a class="enter" href="game-flow.html">Enter the kingdom →</a>
+</div>
+</main>
+</body>
+</html>
