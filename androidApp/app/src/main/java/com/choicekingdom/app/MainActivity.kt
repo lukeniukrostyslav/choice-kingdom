@@ -10,6 +10,7 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -150,6 +151,15 @@ private fun ChoiceKingdomApp() {
             BoxWithConstraints(
                 modifier = Modifier
                     .fillMaxSize()
+                    .background(
+                        Brush.verticalGradient(
+                            listOf(
+                                MaterialTheme.colorScheme.background,
+                                MaterialTheme.colorScheme.surface.copy(alpha = 0.72f),
+                                MaterialTheme.colorScheme.background,
+                            ),
+                        ),
+                    )
                     .windowInsetsPadding(WindowInsets.safeDrawing),
             ) {
                 val mode = when {
