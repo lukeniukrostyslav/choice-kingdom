@@ -52,8 +52,9 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 10. **Localization Core-8** → 90%
 11. **RTL / Large Text / Accessibility** → 100%
 12. **Responsive / Safe Areas / Devices** → 100%
-13. **Premium Design P1–P25** → 56.00%
-- V2 visual track: P1–P14 closed at 100%; P15 implementation is 90% pending the new V15 visual closure run; P16–P25 remain 0%.
+13. **Premium Design P1–P25** → 60.00%
+- V2 visual track: P1–P15 closed at 100%; P16–P25 remain 0%.
+- P15 closure evidence: GitHub Actions V15 Visual Closure run #810 / ID `35361348178` completed successfully.
 14. **Motion / Audio / Haptics** → 99%
 15. **Cross-Screen Visual Regression** → 58%
 16. **Automated QA** → 0%
