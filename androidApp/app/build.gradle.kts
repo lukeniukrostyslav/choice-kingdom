@@ -8,7 +8,7 @@ plugins {
 
 android {
     namespace = "com.choicekingdom.app"
-    compileSdk = 35
+    compileSdk = 36
     defaultConfig {
         applicationId = "com.choicekingdom.app"
         minSdk = 26
