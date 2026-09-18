@@ -252,7 +252,7 @@ for (const file of pages) {
         const styleText=[...document.querySelectorAll('style')].map(s=>s.textContent||'').join('\n');
         if(!hero||!title||!subtitle||topNav.length!==3||rail.length!==4||!panel||cards.length!==2||!crumb||!status) return false;
         if(hero.getAttribute('aria-labelledby')!=='nav-title'||hero.getAttribute('aria-describedby')!=='nav-subtitle') return false;
-        if(!topNav.every(b=>b.getBoundingClientRect().height>=48)&&!rail.every(b=>b.getBoundingClientRect().height>=48)) return false;
+        if(!topNav.every(b=>b.getBoundingClientRect().height>=48)||!rail.every(b=>b.getBoundingClientRect().height>=48)) return false;
         const routeButtons=[...document.querySelectorAll('[data-route]')];
         routeButtons.find(b=>b.dataset.route==='realm')?.click();
         const realm=title.textContent==='Know where you stand.' && document.querySelector('#panel-title')?.textContent==='The Realm' && crumb.textContent==='Realm' && status.textContent.includes('Realm is the active destination.');
