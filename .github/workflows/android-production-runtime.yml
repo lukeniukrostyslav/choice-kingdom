@@ -69,6 +69,7 @@ jobs:
 
   p24-android-execution:
     name: P24 ${{ matrix.name }}
+    needs: debug-build
     strategy:
       fail-fast: false
       matrix:
