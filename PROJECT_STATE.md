@@ -188,3 +188,9 @@ Block 15 execution update (2026-09-18): GitHub Actions successfully generated an
 
 
 Block 15 clarification (2026-09-18): the earlier historical notes above saying that PNG baseline generation was pending are superseded by commit eaf79d599793aad5592454ae42953cd3eb5aa1f7, which contains 19 generated PNG reference files. The current remaining evidence gap is the completed green validateDebugScreenshotTest workflow result; it is not currently exposed by the available workflow-run integration. Do not treat the unrelated Vercel build-rate-limit status on f627322286a0774bdf84e75dd32d22f5aabae45c as Block 15 validation evidence.
+
+
+### Block 15 — Evidence hardening update (2026-09-18)
+- Workflow commit `55369df02e2af3c228e2fc5e88cbe596d92b6137` adds concurrency serialization so baseline/validation runs cannot race on the same branch.
+- The workflow now writes a `reference-manifest.txt` containing commit/event, reference count, validation task, and SHA-256 hashes for every PNG reference, then uploads it with a unique run-scoped artifact name.
+- This improves auditability, but does **not** count as proof that `validateDebugScreenshotTest` has executed successfully. Block 15 therefore remains at 85% until an actual green validation result is observable.
