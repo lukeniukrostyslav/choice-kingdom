@@ -195,14 +195,15 @@ for (const file of pages) {
     let p9Pass = true;
     if (file === 'design-v2/p9-kingdom-world-presentation-proof.html') {
       p9Pass = await page.evaluate(() => {
-        const portrait = document.querySelector('.portrait');
-        const name = document.querySelector('#character-name');
+        const world = document.querySelector('.world');
+        const map = document.querySelector('.world-map');
+        const name = document.querySelector('#world-title');
         const record = document.querySelector('#record-title');
         const actions = [...document.querySelectorAll('.action')];
         const state = document.querySelector('#state');
         const status = document.querySelector('#status');
         const styleText = [...document.querySelectorAll('style')].map(s => s.textContent || '').join('\n');
-        if (!portrait || !name || !record || actions.length !== 3 || !state || !status) return false;
+        if (!world || !map || !name || !record || actions.length !== 3 || !state || !status) return false;
         if (!actions.every(b => b.getBoundingClientRect().height >= 48 && (b.textContent || '').trim())) return false;
         actions[1].click();
         const selected = state.textContent === 'Clear' && actions[1].getAttribute('aria-pressed') === 'true' && status.textContent.includes('Clear');
