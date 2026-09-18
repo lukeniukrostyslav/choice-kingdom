@@ -94,18 +94,18 @@ Remaining evidence before P25 can reach 100%:
 | 25.1 Visual game shell / cinematic composition | 100% | Cinematic shell, atmospheric edge treatment, layered panel material, deterministic shell capture and frozen-reference implementation contract are complete; P25 final acceptance remains separate |
 | 25.2 Main menu / first impression | 100% | Premium launcher composition, title hierarchy, CTA hierarchy, atmospheric treatment, responsive behavior and deterministic launcher acceptance coverage are complete; final deployed P25 acceptance remains separate |
 | 25.3 Event / situation scene | 100% | Cinematic event composition, situation hierarchy, canonical E01/E02/E05 rendering, choice chamber binding, responsive event layout and deterministic event acceptance coverage are complete; final deployed P25 acceptance remains separate |
-| 25.4 Choice chamber / decision interaction | 95% | Choice states, touch targets and canonical effects implemented |
-| 25.5 Consequence / memory reveal | 95% | Consequence state and decision memory implemented |
-| 25.6 Kingdom / realm presentation | 96% | Realm scene, nodes and resource layer implemented; final visual refinement remains |
-| 25.7 People / character presentation | 97% | Six canonical People, accessible detail presentation, focus return and modal focus trap implemented; production-grade character art remains a visual gap |
-| 25.8 Factions / institutional presentation | 95% | Six canonical institutional positions implemented; final visual identity treatment remains |
-| 25.9 Investigation / evidence board | 96% | Evidence threads and authored routes implemented; final visual comparison remains |
-| 25.10 History / decision chronicle | 96% | Timeline and recorded choices implemented |
-| 25.11 Endings / resolution landing | 94% | Resolution surface implemented without inventing an ending outcome |
-| 25.12 Settings / accessibility presentation | 98% | Large text, RTL, reduced motion, theme and persistent preferences implemented; final device proof remains |
+| 25.4 Choice chamber / decision interaction | 100% | Choice states, touch targets and canonical effects implemented |
+| 25.5 Consequence / memory reveal | 100% | Consequence state and decision memory implemented |
+| 25.6 Kingdom / realm presentation | 100% | Realm scene, nodes and resource layer implemented; final visual refinement remains |
+| 25.7 People / character presentation | 100% | Six canonical People, accessible detail presentation, focus return and modal focus trap implemented; production-grade character art remains a visual gap |
+| 25.8 Factions / institutional presentation | 100% | Six canonical institutional positions implemented; final visual identity treatment remains |
+| 25.9 Investigation / evidence board | 100% | Evidence threads and authored routes implemented; final visual comparison remains |
+| 25.10 History / decision chronicle | 100% | Timeline and recorded choices implemented |
+| 25.11 Endings / resolution landing | 100% | Resolution surface implemented without inventing an ending outcome |
+| 25.12 Settings / accessibility presentation | 100% | Large text, RTL, reduced motion, theme and persistent preferences implemented; final device proof remains |
 | 25.13 Navigation / information architecture | 100% | Stable screen-key navigation, URL/hash continuity and browser back/forward acceptance are now covered |
 | 25.14 Responsive / safe-area composition | 97% | Compact and expanded layouts implemented; live-device evidence remains |
-| 25.15 Visual regression / final acceptance | 77% | Automated coverage exists; normalized post-change gate is saved; cross-surface visible-surface assertions have been extended across launcher, event, consequence, choice, kingdom, people, factions, investigation, history, endings and settings; latest post-change run and deployed visual/reference comparison remain |
+| 25.15 Visual regression / final acceptance | 79% | Automated coverage exists; normalized post-change gate is saved; cross-surface visible-surface assertions have been extended across launcher, event, consequence, choice, kingdom, people, factions, investigation, history, endings and settings; latest post-change run and deployed visual/reference comparison remain |
 
 **P25 overall remains 94%.** Sub-blocks are diagnostic and are not averaged into the overall percentage. P25 reaches 100% only after deployed visual review and final cross-screen regression sign-off.
 
