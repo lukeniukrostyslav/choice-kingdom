@@ -48,3 +48,6 @@ def test_visual_regression_covers_core8_and_large_text():
     assert "fontScale = 1.3f" in test
     assert "Configuration.UI_MODE_NIGHT_YES" in test
     assert "LoadingCompactScreenshot" in test
+    previews = (ROOT / "androidApp/app/src/screenshotTest/kotlin/com/choicekingdom/app/VisualRegressionPreviews.kt").read_text(encoding="utf-8")
+    for preview in ["VisualRegressionEventPreview", "VisualRegressionChoicePreview", "VisualRegressionEndingPreview", "VisualRegressionNavigationPreview", "VisualRegressionSettingsPreview", "VisualRegressionLoadingPreview"]:
+        assert f"fun {preview}(" in previews
