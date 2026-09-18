@@ -297,11 +297,25 @@ class GameState:
         participants = set(payload.get("coalition_participants", []))
         if not participants.issubset(CANONICAL_COALITION_PARTICIPANTS):
             raise ValueError("snapshot contains non-canonical coalition participant")
+        terminal = payload.get("terminal", False)
+        if not isinstance(terminal, bool):
+            raise ValueError("runtime snapshot has invalid terminal flag")
         ending_identity = payload.get("ending_identity")
         if ending_identity is not None and ending_identity not in ENDING_IDS:
             raise ValueError("snapshot contains non-canonical ending identity")
-        if ending_identity is not None and payload.get("terminal") is not True:
+        if ending_identity is not None and terminal is not True:
             raise ValueError("non-terminal snapshot cannot contain ending identity")
+        for collection_key in (
+            "flags",
+            "history",
+            "threads",
+            "activated_delayed_targets",
+            "unresolved_coalition_blockers",
+            "unresolved_mandatory_crisis_blockers",
+        ):
+            values = payload.get(collection_key, [])
+            if not isinstance(values, list) or not all(isinstance(value, str) and value for value in values):
+                raise ValueError(f"runtime snapshot has invalid {collection_key}")
         pending = {key: PendingDelay(**value) for key, value in pending_payload.items()}
         return cls(
             run_id=run_id,
@@ -319,7 +333,7 @@ class GameState:
             coalition_participants=participants,
             unresolved_coalition_blockers=set(payload.get("unresolved_coalition_blockers", [])),
             unresolved_mandatory_crisis_blockers=set(payload.get("unresolved_mandatory_crisis_blockers", [])),
-            terminal=bool(payload.get("terminal", False)),
+            terminal=terminal,
             ending_identity=ending_identity,
         )
 
