@@ -31,6 +31,8 @@ for (const n of ['Mara','Rowan','Seris','Ivo','Amara','Toma']) if (!(await page.
 await page.getByRole('article',{name:/Open canonical details for Mara/}).click();
 if (!(await page.getByRole('dialog').isVisible())) fail('people detail dialog missing');
 if ((await page.getByRole('dialog').getAttribute('aria-hidden')) !== 'false') fail('people detail dialog aria state missing');
+await page.keyboard.press('Tab');
+if (!(await page.getByRole('button',{name:'Close details'}).evaluate(el=>document.activeElement===el))) fail('dialog focus did not stay trapped');
 if (!(await page.getByRole('heading',{name:'Mara'}).count())) fail('Mara detail missing');
 await page.getByRole('button',{name:'Close details'}).click();
 
