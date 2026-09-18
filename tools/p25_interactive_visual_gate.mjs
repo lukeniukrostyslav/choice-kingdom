@@ -1,5 +1,6 @@
 import { chromium } from 'playwright';
 
+// P25 closure verification branch: executable interactive contract.
 const base = process.env.P25_BASE_URL || 'http://127.0.0.1:4173';
 const browser = await chromium.launch({headless:true});
 const page = await browser.newPage({viewport:{width:390,height:844}, reducedMotion:'reduce'});
