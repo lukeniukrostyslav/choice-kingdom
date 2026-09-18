@@ -376,7 +376,9 @@ class SaveStore:
         if not isinstance(snapshot, dict):
             raise ValueError("runtime save is missing snapshot")
         expected = payload.get("snapshot_sha256")
-        if not isinstance(expected, str) or expected != cls._digest(snapshot):
+        if not isinstance(expected, str) or not re.fullmatch(r"[0-9a-f]{64}", expected):
+            raise ValueError("runtime save integrity digest is malformed")
+        if expected != cls._digest(snapshot):
             raise ValueError("runtime save integrity check failed")
         return GameState.from_snapshot(snapshot)
 
