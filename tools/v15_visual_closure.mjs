@@ -28,7 +28,8 @@ const pages = [
   'design-v2/p15-crisis-high-stakes-proof.html',
   'design-v2/p16-ending-resolution-proof.html',
   'design-v2/p17-replay-new-run-proof.html',
-  'design-v2/p18-main-menu-launcher-proof.html'
+  'design-v2/p18-main-menu-launcher-proof.html',
+  'design-v2/p19-navigation-information-architecture-proof.html'
 ];
 const viewports = [
   { name: '360x800', width: 360, height: 800 },
@@ -234,6 +235,45 @@ for (const file of pages) {
         const cinematic = /radial-gradient/.test(styleText) && /linear-gradient/.test(styleText);
         const gold = /--ck-gold-highlight|--ck-gold-primary/.test(styleText);
         return primary && continuation && premiumHierarchy && realmLanguage && responsive && rtl && safe && reduced && focus && serif && cinematic && gold;
+      });
+    }
+    let p19V2Pass = true;
+    if (file === 'design-v2/p19-navigation-information-architecture-proof.html') {
+      p19V2Pass = await page.evaluate(() => {
+        const hero=document.querySelector('.hero');
+        const title=document.querySelector('#nav-title');
+        const subtitle=document.querySelector('#nav-subtitle');
+        const topNav=[...document.querySelectorAll('.nav [data-route]')];
+        const rail=[...document.querySelectorAll('.rail [data-route]')];
+        const panel=document.querySelector('.panel');
+        const cards=[...document.querySelectorAll('.card')];
+        const crumb=document.querySelector('#crumb');
+        const status=document.querySelector('#status');
+        const styleText=[...document.querySelectorAll('style')].map(s=>s.textContent||'').join('\n');
+        if(!hero||!title||!subtitle||topNav.length!==3||rail.length!==4||!panel||cards.length!==2||!crumb||!status) return false;
+        if(hero.getAttribute('aria-labelledby')!=='nav-title'||hero.getAttribute('aria-describedby')!=='nav-subtitle') return false;
+        if(!topNav.every(b=>b.getBoundingClientRect().height>=48)||!rail.every(b=>b.getBoundingClientRect().height>=48)) return false;
+        const routeButtons=[...document.querySelectorAll('[data-route]')];
+        routeButtons.find(b=>b.dataset.route==='realm')?.click();
+        const realm=title.textContent==='Know where you stand.' && document.querySelector('#panel-title')?.textContent==='The Realm' && crumb.textContent==='Realm' && status.textContent.includes('Realm is the active destination.');
+        const currentRealm=routeButtons.filter(b=>b.getAttribute('aria-current')==='page').every(b=>b.dataset.route==='realm');
+        routeButtons.find(b=>b.dataset.route==='people')?.click();
+        const people=document.querySelector('#panel-title')?.textContent==='People & Factions' && status.textContent.includes('People & Factions');
+        const exclusive=routeButtons.filter(b=>b.getAttribute('aria-current')==='page').length===2 && routeButtons.filter(b=>b.getAttribute('aria-current')==='page').every(b=>b.dataset.route==='people');
+        const longTitle=document.querySelector('#panel-title');
+        const original=longTitle.textContent; longTitle.textContent=original.repeat(12);
+        const overflow=document.documentElement.scrollWidth<=document.documentElement.clientWidth+1;
+        longTitle.textContent=original;
+        const responsive=/@media\(max-width:760px\)/.test(styleText)&&/@media\(max-width:420px\)/.test(styleText);
+        const rtl=/html\[dir=rtl\]/.test(styleText);
+        const safe=/safe-area-inset/.test(styleText);
+        const reduced=/prefers-reduced-motion:reduce/.test(styleText);
+        const focus=/:focus-visible/.test(styleText);
+        const serif=/var\(--ck-serif\)/.test(styleText);
+        const cinematic=/radial-gradient/.test(styleText)&&/linear-gradient/.test(styleText);
+        const hierarchy=document.body.innerText.includes('one current destination')&&document.body.innerText.includes('Your council');
+        const targets=routeButtons.every(b=>b.getBoundingClientRect().height>=48);
+        return realm&&currentRealm&&people&&exclusive&&overflow&&responsive&&rtl&&safe&&reduced&&focus&&serif&&cinematic&&hierarchy&&targets;
       });
     }
     let p16Pass = true;
@@ -542,10 +582,10 @@ for (const file of pages) {
         return largePass && rtlPass && resetPass;
       });
     }
-    const pass = commonPass && appPass && launcherPass && p1Pass && p6Pass && p7Pass && p8Pass && p9Pass && p10Pass && p11Pass && p12Pass && p13Pass && p14Pass && p15Pass && p16Pass && p17Pass && p18Pass && p21Pass && p19Pass && p1v2Pass;
+    const pass = commonPass && appPass && launcherPass && p1Pass && p6Pass && p7Pass && p8Pass && p9Pass && p10Pass && p11Pass && p12Pass && p13Pass && p14Pass && p15Pass && p16Pass && p17Pass && p18Pass && p21Pass && p19Pass && p19V2Pass && p1v2Pass;
     if (!pass) failures += 1;
     results.push({ file, viewport: vp.name, pass, p19Pass, p21Pass, p6Pass, p7Pass, p8Pass, p9Pass, p10Pass, p11Pass, p12Pass, p13Pass, p14Pass, p15Pass, p16Pass,
-  p17Pass, p18Pass, ...metrics, consoleErrors, pageErrors, failedRequests });
+  p17Pass, p18Pass, p19V2Pass, ...metrics, consoleErrors, pageErrors, failedRequests });
     await context.close();
   }
 }
