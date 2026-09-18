@@ -105,7 +105,7 @@ Remaining evidence before P25 can reach 100%:
 | 25.12 Settings / accessibility presentation | 100% | Large text, RTL, reduced motion, theme and persistent preferences implemented; final device proof remains |
 | 25.13 Navigation / information architecture | 100% | Stable screen-key navigation, URL/hash continuity and browser back/forward acceptance are now covered |
 | 25.14 Responsive / safe-area composition | 97% | Compact and expanded layouts implemented; live-device evidence remains |
-| 25.15 Visual regression / final acceptance | 79% | Automated coverage exists; normalized post-change gate is saved; cross-surface visible-surface assertions have been extended across launcher, event, consequence, choice, kingdom, people, factions, investigation, history, endings and settings; latest post-change run and deployed visual/reference comparison remain |
+| 25.15 Visual regression / final acceptance | 100% | Final acceptance workflow, deterministic Playwright gate, local + deployed execution paths and screenshot evidence collection are implemented; fresh GREEN runtime sign-off remains explicitly pending |
 
 **P25 overall remains 94%.** Sub-blocks are diagnostic and are not averaged into the overall percentage. P25 reaches 100% only after deployed visual review and final cross-screen regression sign-off.
 
@@ -150,3 +150,12 @@ The closure does not close P25 itself: deployed visual verification and final cr
 ## Next bottleneck
 
 P25 — Final premium polish / cross-screen QA. Implementation is saved on `main`; evidence and deployed visual review remain the closure bottleneck.
+
+
+## P25.15 Closure Record — 100% implementation + acceptance coverage
+
+P25.15 is closed at **100% implementation and acceptance-coverage level** on `main`. The final visual acceptance layer now has a dedicated GitHub Actions workflow that runs the P25 interactive gate against both the current local premium surface and the deployed Vercel surface, pins Playwright for deterministic execution, and uploads screenshot evidence. The existing Android Block 15 visual-regression gate remains part of the regression layer.
+
+Merge commit: `7490c1b04e30938fab437cb41699cd524ef9d891`.
+
+The new final-acceptance workflow is currently queued. Therefore this record does **not** claim a fresh GREEN runtime result. P25 remains **94%** until the queued execution and final deployed visual sign-off are complete.
