@@ -58,7 +58,7 @@ Authoritative repository content remains the source of truth. Visual references 
 ## Current P1-P25 status
 
 P1-P24: 100% according to PREMIUM_DESIGN_MASTER_P1_P25.md.
-P25: OPEN at 85% until the implemented interactive prototype passes live deployment verification and final cross-screen visual/regression sign-off.
-Aggregate: 99.40% while P25 remains open at 85%.
+P25: OPEN at 90% after the premium visual-composition implementation pass; live deployment verification and final cross-screen visual/regression sign-off remain required.
+Aggregate: 99.60% while P25 remains open at 90%.
 
 This file freezes the visual direction; it does not by itself close P25.
