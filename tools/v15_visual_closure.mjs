@@ -16,7 +16,8 @@ const pages = [
   'design-replay-p17-premium.html',
   'design-navigation-p19-premium.html',
   'design-v2/p1-visual-anchor.html',
-  'design-v2/p6-choice-chamber-proof.html'
+  'design-v2/p6-choice-chamber-proof.html',
+  'design-v2/p7-event-situation-proof.html'
 ];
 const viewports = [
   { name: '360x800', width: 360, height: 800 },
@@ -164,6 +165,31 @@ for (const file of pages) {
         });
       });
     }
+    let p7Pass = true;
+    if (file === 'design-v2/p7-event-situation-proof.html') {
+      p7Pass = await page.evaluate(() => {
+        const event = document.querySelector('.event');
+        const hero = document.querySelector('.hero');
+        const title = document.querySelector('#event-title');
+        const choices = [...document.querySelectorAll('.choice')];
+        const status = document.querySelector('#status');
+        const styleText = [...document.querySelectorAll('style')].map(s => s.textContent || '').join('\n');
+        if (!event || !hero || !title || choices.length !== 3 || !status) return false;
+        if (!choices.every(b => b.getBoundingClientRect().height >= 48 && (b.textContent || '').trim())) return false;
+        choices[0].click();
+        const first = choices[0].getAttribute('aria-pressed') === 'true' && status.textContent.includes('Decision selected');
+        choices[1].click();
+        const exclusive = choices[1].getAttribute('aria-pressed') === 'true' && choices[0].getAttribute('aria-pressed') === 'false';
+        const responsive = /@media\(max-width:760px\)/.test(styleText) && /@media\(max-width:420px\)/.test(styleText);
+        const rtl = /html\[dir=rtl\]/.test(styleText);
+        const safe = /safe-area-inset/.test(styleText);
+        const reduced = /prefers-reduced-motion:reduce/.test(styleText);
+        const focus = /:focus-visible/.test(styleText);
+        const serif = /var\(--ck-serif\)/.test(styleText);
+        const cinematic = /radial-gradient/.test(styleText) && /linear-gradient/.test(styleText);
+        return first && exclusive && responsive && rtl && safe && reduced && focus && serif && cinematic;
+      });
+    }
     let p6Pass = true;
     if (file === 'design-v2/p6-choice-chamber-proof.html') {
       p6Pass = await page.evaluate(() => {
@@ -209,9 +235,9 @@ for (const file of pages) {
         return largePass && rtlPass && resetPass;
       });
     }
-    const pass = commonPass && appPass && launcherPass && p1Pass && p6Pass && p21Pass && p19Pass && p1v2Pass;
+    const pass = commonPass && appPass && launcherPass && p1Pass && p6Pass && p7Pass && p21Pass && p19Pass && p1v2Pass;
     if (!pass) failures += 1;
-    results.push({ file, viewport: vp.name, pass, p19Pass, p21Pass, p6Pass, ...metrics, consoleErrors, pageErrors, failedRequests });
+    results.push({ file, viewport: vp.name, pass, p19Pass, p21Pass, p6Pass, p7Pass, ...metrics, consoleErrors, pageErrors, failedRequests });
     await context.close();
   }
 }
