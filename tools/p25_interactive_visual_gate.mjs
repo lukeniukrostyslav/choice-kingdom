@@ -216,6 +216,23 @@ if (!(await page.locator('body').evaluate(el=>el.classList.contains('large')))) 
 if (!(await page.locator('html').evaluate(el=>el.dir==='rtl'))) fail('RTL preference did not persist');
 if (!(await page.locator('body').evaluate(el=>el.classList.contains('reduce')))) fail('reduced-motion preference did not persist');
 
+await page.getByRole('button',{name:'Kingdom'}).click();
+if (!(await page.locator('#kingdom').evaluate(el=>el.classList.contains('active')))) fail('navigation did not reach kingdom');
+if (location.hash !== '#kingdom') fail('navigation hash did not update to kingdom');
+await page.getByRole('button',{name:'People'}).click();
+if (!(await page.locator('#people').evaluate(el=>el.classList.contains('active')))) fail('navigation did not reach people');
+if (location.hash !== '#people') fail('navigation hash did not update to people');
+await page.goBack({waitUntil:'networkidle'});
+if (!(await page.locator('#kingdom').evaluate(el=>el.classList.contains('active')))) fail('browser back did not restore kingdom');
+if (location.hash !== '#kingdom') fail('browser back did not restore kingdom hash');
+await page.goForward({waitUntil:'networkidle'});
+if (!(await page.locator('#people').evaluate(el=>el.classList.contains('active')))) fail('browser forward did not restore people');
+if (location.hash !== '#people') fail('browser forward did not restore people hash');
+await page.getByRole('button',{name:'History'}).click();
+if (!(await page.locator('#history').evaluate(el=>el.classList.contains('active')))) fail('navigation continuity did not restore history');
+if (location.hash !== '#history') fail('navigation continuity hash mismatch');
+
+
 const body = await page.locator('body').innerText();
 for (const forbidden of ['Avelune','Queen Elira','Lord Cael','River Compact','Arwen Vale','The Empty Granary','Royal Capital','Northern Marches','The Church','Trade Guilds','Southern Reach','Eastern Realms']) if (body.includes(forbidden)) fail('non-canonical legacy text leaked: '+forbidden);
 
