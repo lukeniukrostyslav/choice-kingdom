@@ -45,6 +45,12 @@ class ChoiceKingdomAppTest {
     }
 
     @Test
+    fun navigationRailExposesAveluneAsHeading() {
+        composeRule.onNode(hasText("Event", substring = false)).assertIsDisplayed()
+        composeRule.onNode(hasText("Avelune", substring = false)).assertIsDisplayed()
+    }
+
+    @Test
     fun muteControlExposesActionAndState() {
         composeRule.onNode(hasText("Settings", substring = false)).performClick()
         composeRule.onNode(hasContentDescription("Mute sound")).assertIsDisplayed()
