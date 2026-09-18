@@ -22,7 +22,7 @@
 | 25.10 History / decision chronicle | 100% | CLOSED |
 | 25.11 Endings / resolution landing | 100% | CLOSED |
 | 25.12 Settings / accessibility presentation | 100% | CLOSED |
-| 25.13 Navigation / information architecture | 99% | OPEN |
+| 25.13 Navigation / information architecture | 100% | CLOSED |
 | 25.14 Responsive / safe-area composition | 97% | OPEN |
 | 25.15 Visual regression / final acceptance | 79% | OPEN |
 
@@ -133,6 +133,20 @@ The Endings / resolution landing is now closed at 100% with:
 No new ending identity, outcome, consequence, relationship, faction or lore was invented.
 
 The implementation, gate hardening and progress record are committed to `main`. Final P25 acceptance remains open because fresh runtime/visual evidence and deployed proof are still required; no green CI or live Vercel verification is claimed without actual evidence.
+
+
+## 25.13 closure record
+
+The Navigation / information architecture sub-block is now closed at 100% with:
+- stable screen-key navigation independent of localized labels;
+- canonical route/hash continuity for the premium surface;
+- browser back and forward continuity verified against the actual interactive surface;
+- active navigation state and URL hash restored together after browser history traversal;
+- direct route restoration through the existing URL-state entry path;
+- dedicated gate coverage for Kingdom → People navigation, browser Back, browser Forward, restored active surface and restored URL hash;
+- no new story facts, routes, characters, factions or lore introduced.
+
+The implementation and acceptance coverage are committed to `main`. P25 remains open at 94% because 25.14 responsive live-device evidence and 25.15 final visual-regression/deployed-proof acceptance remain open.
 
 ## 25.12 closure record
 
