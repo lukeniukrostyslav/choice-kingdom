@@ -103,6 +103,8 @@ fs.mkdirSync('artifacts/visual-regression', { recursive: true });
 const manifest = { gate: 'V15', generatedAt: new Date().toISOString(), pages, viewports, requiredArtwork, results, artworkResults, failures };
 fs.writeFileSync('artifacts/visual-regression/v15-closure.json', JSON.stringify(manifest, null, 2));
 
+for (const failure of results.filter(r => !r.pass)) console.error('V15_PAGE_FAILURE', JSON.stringify(failure));
+for (const failure of artworkResults.filter(r => !r.pass)) console.error('V15_ARTWORK_FAILURE', JSON.stringify(failure));
 if (results.length !== pages.length * viewports.length) throw new Error('Incomplete V15 page/viewport matrix');
 if (results.some(r => !r.pass)) throw new Error(`V15 page/viewport failures: ${results.filter(r => !r.pass).length}`);
 if (artworkResults.some(r => !r.pass)) throw new Error(`V15 artwork failures: ${artworkResults.filter(r => !r.pass).length}`);
