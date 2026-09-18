@@ -99,8 +99,7 @@ class GameSession:
 
     def choose(self, choice_id: str) -> ExecutionResult:
         result = self.engine.execute(self.state, self._selected_event_id, choice_id)
-        next_event_id = next((event_id for event_id in result.next_event_ids if event_id in self.available_events()), None)
-        self._selected_event_id = next_event_id or self.state.current_event_id
+        self._selected_event_id = self.state.current_event_id
         return result
 
     def select_event(self, event_id: str) -> None:
