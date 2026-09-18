@@ -1,0 +1,38 @@
+name: Block 16 — Automated QA
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  automated-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install test runner
+        run: python -m pip install --upgrade pip pytest
+      - name: Compile runtime and test sources
+        run: python -m compileall -q runtime tests tools
+      - name: Run focused automated regression suite
+        run: |
+          mkdir -p artifacts
+          python -m pytest -q             tests/test_runtime_state.py             tests/test_authored_choice_execution.py             tests/test_presentation_runtime.py             tests/test_presentation_bridge.py             tests/test_scenario_final_gate.py             tests/test_replay_meta_runtime.py             tests/test_block10_localization.py             tests/test_block11_accessibility_contract.py             tests/test_block12_responsive_contract.py             tests/test_block14_motion_audio_haptics_contract.py             tests/test_block15_visual_regression_contract.py             tests/test_block16_automated_qa_contract.py             --junitxml=artifacts/block16-junit.xml
+      - name: Upload JUnit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: choice-kingdom-block16-qa-${{ github.sha }}
+          path: artifacts/block16-junit.xml
+          if-no-files-found: error
