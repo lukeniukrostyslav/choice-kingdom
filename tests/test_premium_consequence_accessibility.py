@@ -41,5 +41,6 @@ def test_consequence_surface_pending_state_is_presentation_only() -> None:
     assert pending.projection.state is ScreenState.PENDING
     assert pending.model.event_id == "E01"
     assert pending.model.choice_id == "E01-A"
-    assert pending.model.session.event_id == "E02"
+    # E01-A intentionally keeps the current event while its authored effects resolve.
+    assert pending.model.session.event_id == "E01"
     assert presenter.session.snapshot_digest() == before
