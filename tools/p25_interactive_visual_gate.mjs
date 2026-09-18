@@ -139,7 +139,7 @@ if (!(await page.locator('html').evaluate(el=>el.dir==='rtl'))) fail('RTL prefer
 if (!(await page.locator('body').evaluate(el=>el.classList.contains('reduce')))) fail('reduced-motion preference did not persist');
 
 const body = await page.locator('body').innerText();
-for (const forbidden of ['Queen Elira','Lord Cael','River Compact','Arwen Vale','The Empty Granary','Royal Capital','Northern Marches','The Church','Trade Guilds','Southern Reach','Eastern Realms']) if (body.includes(forbidden)) fail('non-canonical legacy text leaked: '+forbidden);
+for (const forbidden of ['Avelune','Queen Elira','Lord Cael','River Compact','Arwen Vale','The Empty Granary','Royal Capital','Northern Marches','The Church','Trade Guilds','Southern Reach','Eastern Realms']) if (body.includes(forbidden)) fail('non-canonical legacy text leaked: '+forbidden);
 
 await page.setViewportSize({width:1440,height:1000});
 await page.goto(base+'/game-premium.html',{waitUntil:'networkidle'});
