@@ -31,14 +31,20 @@ This document is the canonical working checklist for the 25-block premium visual
 | P21 | Accessibility / touch / keyboard / focus | 100% | Semantic, focus, contrast, touch-target and reduced-motion proof |
 | P22 | Localization / long strings / RTL | 100% | Locale-safe layout and RTL proof across key screens |
 | P23 | Audio / haptics / premium feedback | 100% | Audio/haptic vocabulary mapped to meaningful player actions + CI closure evidence |
-| P24 | Android devices / safe areas / resolution adaptation | 0% | Real Android presentation proof on target device classes |
+| P24 | Android devices / safe areas / resolution adaptation | 100% | Real Android presentation proof on target device classes |
 | P25 | Final premium polish / cross-screen QA | 0% | Full visual regression and no unresolved P1–P24 blockers |
 
-**Aggregate current estimate: 92.00% (23 blocks closed at 100%, P24–P25 open).**
+**Aggregate current estimate: 96.00% (24 blocks closed at 100%, P25 open).**
 
 ## Visual Design Reset v2
 
 The approved reference recorded in `design-reference/FINAL_DESIGN_VISION_V1.md` is the sole visual north star for this track. Every P1–P25 implementation must preserve the cinematic medieval-fantasy atmosphere, deep blue-black/charcoal foundation, restrained warm-gold accents, elegant serif display hierarchy, layered refined panels, generous spacing, consequential choice presentation, responsive reflow, RTL, large text, long strings, safe areas and reduced motion.
+
+## P24 Closure Record
+
+P24 is closed at 100% after GitHub Actions run **#190** completed successfully. The Android production runtime gate passed all three target presentation classes: compact-phone (1080×2400, density 420), tablet-window (1920×2560, density 320), and expanded-window (2688×2800, density 320), including APK installation, app launch, screenshots, and the P24 instrumentation test. The closure is recorded in Git history through commit `230ace79ef70cfffd255a310d9170fb581111c6f` (`fix(p24): use deterministic instrumentation component`).
+
+**P24 is closed at 100%.**
 
 ## P23 Closure Record
 
@@ -64,4 +70,4 @@ The proof covers semantic confirm/warning/error/ambient feedback states, quiet v
 
 ## Next bottleneck
 
-P24 — Android Devices / Safe Areas / Resolution Adaptation. P24 must include real target-device-class presentation evidence, not just desktop/browser proof.
+P25 — Final premium polish / cross-screen QA. P25 is now the only open block in the Premium Design P1–P25 track.
