@@ -25,7 +25,7 @@ This document is the canonical working checklist for the 25-block premium visual
 | P15 | Crisis / high-stakes presentation | 100% | Escalation, urgency and consequence preview without clutter |
 | P16 | Endings / resolution experience | 100% | Ending identity, summary and emotional landing |
 | P17 | Replay / new-run experience | 100% | Replay motivation, continuity and clean reset semantics |
-| P18 | Main menu / launcher | 73% | Premium first impression + navigation + responsive proof |
+| P18 | Main menu / launcher | 100% | Premium first impression + navigation + responsive proof |
 | P19 | Navigation / information architecture | 78% | Consistent hierarchy and low-cognitive-load navigation |
 | P20 | Motion / micro-interactions / feedback | 74% | Purposeful semantic motion + reduced-motion behavior |
 | P21 | Accessibility / touch / keyboard / focus | 84% | Semantic, focus, contrast, touch-target and reduced-motion proof |
@@ -34,7 +34,7 @@ This document is the canonical working checklist for the 25-block premium visual
 | P24 | Android devices / safe areas / resolution adaptation | 38% | Real Android presentation proof on target device classes |
 | P25 | Final premium polish / cross-screen QA | 58% | Full visual regression and no unresolved P1–P24 blockers |
 
-**Aggregate P1–P25 estimate: 71.88% (simple arithmetic mean of block estimates).**
+**Aggregate P1–P25 estimate: 72.96% (simple arithmetic mean of block estimates).**
 
 ## Current evidence
 
@@ -53,6 +53,7 @@ This document is the canonical working checklist for the 25-block premium visual
 - P15 crisis presentation: green V15 cross-viewport closure, run #654 / ID 35335872569, completed 2026-09-18.
 - P16 ending presentation: green V15 cross-viewport closure, run #658 / ID 35336044736, completed successfully.
 - P17 replay presentation: green V15 cross-viewport closure, run #664 / ID 35336289832, head f1112a80da7f829404fcff49d8eeab7194c5364e, completed successfully.
+- P18 launcher: committed premium first-impression surface in web-preview/index.html, with green V15 cross-viewport closure run #665 / ID 35336465517, head f2f38a0b6f01b8a9ea027593b2f420dd4164d53a; launcher theme and viewport-fit checks passed.
 
 ## Quality rules
 
@@ -65,4 +66,4 @@ This document is the canonical working checklist for the 25-block premium visual
 
 ## Next bottleneck
 
-Continue the premium-design track with P18 — Main Menu / Launcher. Strengthen the first-impression surface, navigation entry hierarchy, responsive behavior, accessibility and visual regression without turning the launcher into a generic dashboard.
+Continue the premium-design track with P19 — Navigation / Information Architecture. Strengthen contextual hierarchy, current-journey continuity, responsive behavior, accessibility and low-cognitive-load navigation without turning the experience into a generic dashboard.
