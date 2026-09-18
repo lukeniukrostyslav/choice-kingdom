@@ -628,23 +628,23 @@ private fun SettingsCard(
                 text = if (muted) "Sound: Off" else "Sound: On",
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
-                modifier = Modifier.semantics { role = Role.Button; stateDescription = if (muted) "Muted" else "Audible" },
+                modifier = Modifier.semantics { stateDescription = if (muted) "Muted" else "Audible" },
             )
             Button(
                 onClick = { onMutedChanged(!muted) },
-                modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
+                modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).semantics { contentDescription = if (muted) "Enable sound" else "Mute sound"; stateDescription = if (muted) "Sound is muted" else "Sound is enabled" },
             ) { Text(if (muted) "Enable sound" else "Mute sound") }
             Text("Volume ${(volume * 100).toInt()}%", fontSize = 13.sp, modifier = Modifier.semantics { contentDescription = "Master volume ${(volume * 100).toInt()} percent" })
             androidx.compose.material3.Slider(
                 value = volume,
                 onValueChange = onVolumeChanged,
                 valueRange = 0f..1f,
-                modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).semantics { contentDescription = "Master volume ${(volume * 100).toInt()} percent" },
+                modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).semantics { contentDescription = "Master volume"; stateDescription = "${(volume * 100).toInt()} percent" },
             )
             Text("Ambient ${(ambientVolume * 100).toInt()}%", fontSize = 13.sp)
             Text("Music ${(musicVolume * 100).toInt()}%", fontSize = 13.sp)
-            androidx.compose.material3.Slider(value = musicVolume, onValueChange = onMusicVolumeChanged, valueRange = 0f..1f, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).semantics { contentDescription = "Music volume ${(musicVolume * 100).toInt()} percent" })
-            androidx.compose.material3.Slider(value = ambientVolume, onValueChange = onAmbientVolumeChanged, valueRange = 0f..1f, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).semantics { contentDescription = "Ambient volume ${(ambientVolume * 100).toInt()} percent" })
+            androidx.compose.material3.Slider(value = musicVolume, onValueChange = onMusicVolumeChanged, valueRange = 0f..1f, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).semantics { contentDescription = "Music volume"; stateDescription = "${(musicVolume * 100).toInt()} percent" })
+            androidx.compose.material3.Slider(value = ambientVolume, onValueChange = onAmbientVolumeChanged, valueRange = 0f..1f, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).semantics { contentDescription = "Ambient volume"; stateDescription = "${(ambientVolume * 100).toInt()} percent" })
             TextButton(onClick = { AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("en")) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("English") }
             TextButton(onClick = { AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("it")) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("Italiano") }
             TextButton(onClick = { AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("uk")) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("Українська") }
