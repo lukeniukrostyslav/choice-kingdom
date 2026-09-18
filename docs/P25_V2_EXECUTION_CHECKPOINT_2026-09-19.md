@@ -41,6 +41,12 @@ Premium Design P1–P25 aggregate: 99.68%
 
 P25 is not 100% yet. The percentages above reflect implementation progress after V2 and do not replace the final visual regression gate. A green automated test is necessary but is not by itself proof that the deployed game visually matches the approved references.
 
+## Final V2 correction
+
+The institutional/faction presentation was rechecked against the canonical vocabulary and the descriptive copy was reduced to the neutral label **Verified institutional position**. No generated faction lore, motto, territory, relationship state or invented kingdom name is used by the V2 presentation.
+
+Latest implementation commit: `26bd12f43d4a337591aca9d7c3cb7683d6e85813`.
+
 ## Save rule
 
 This checkpoint is committed to GitHub on `main` so the V2 state and percentages are recoverable.
