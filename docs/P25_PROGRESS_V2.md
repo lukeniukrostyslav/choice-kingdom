@@ -20,7 +20,7 @@
 | 25.8 Factions / institutional presentation | 100% | CLOSED |
 | 25.9 Investigation / evidence board | 100% | CLOSED |
 | 25.10 History / decision chronicle | 100% | CLOSED |
-| 25.11 Endings / resolution landing | 95% | OPEN |
+| 25.11 Endings / resolution landing | 100% | CLOSED |
 | 25.12 Settings / accessibility presentation | 98% | OPEN |
 | 25.13 Navigation / information architecture | 99% | OPEN |
 | 25.14 Responsive / safe-area composition | 97% | OPEN |
@@ -116,6 +116,21 @@ The History / decision chronicle is now closed at 100% with:
 - dedicated gate coverage for timeline presence, recorded E01, interactive history entry, keyboard behavior, dialog state and canon boundary.
 
 No new event, choice, consequence, relationship, faction, ending or lore was invented.
+
+The implementation, gate hardening and progress record are committed to `main`. Final P25 acceptance remains open because fresh runtime/visual evidence and deployed proof are still required; no green CI or live Vercel verification is claimed without actual evidence.
+
+## 25.11 closure record
+
+The Endings / resolution landing is now closed at 100% with:
+- the seven verified canonical ending identities presented as a premium resolution catalogue: Steward, Iron Crown, Golden Compact, People’s Charter, Broken Diadem, Quiet Throne and Second Founder;
+- ending identity cards upgraded to semantic keyboard-operable controls with visible focus treatment;
+- directional keyboard navigation between ending identities;
+- detail dialog presentation for each canonical ending identity;
+- explicit boundary that the visual prototype does not claim which ending is currently reached and does not invent additional resolution facts;
+- responsive premium card composition retained for compact layouts;
+- dedicated gate coverage for all seven identities, interaction, keyboard navigation, dialog state and canon-boundary text.
+
+No new ending identity, outcome, consequence, relationship, faction or lore was invented.
 
 The implementation, gate hardening and progress record are committed to `main`. Final P25 acceptance remains open because fresh runtime/visual evidence and deployed proof are still required; no green CI or live Vercel verification is claimed without actual evidence.
 
