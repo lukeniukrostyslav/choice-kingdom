@@ -30,7 +30,8 @@ jobs:
           GRADLE_OPTS: -Xmx4g -XX:MaxMetaspaceSize=1g -Dorg.gradle.workers.max=1
         run: gradle :app:assembleDebug -Pp24CiAbi=x86_64 --stacktrace --no-daemon --max-workers=1
   p24-android-execution:
-    needs: p24-source-and-build
+    # Keep execution evidence independent: a source-build failure must not prevent
+    # the three Android emulator classes from producing their own diagnostic result.
     strategy:
       fail-fast: false
       matrix:
