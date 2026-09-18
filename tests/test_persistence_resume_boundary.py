@@ -85,3 +85,39 @@ def test_invalid_backup_does_not_mask_primary_corruption(tmp_path):
 
     with pytest.raises((ValueError, json.JSONDecodeError)):
         SaveStore.load_with_recovery(path)
+
+
+def test_tampered_digest_format_is_rejected_before_snapshot_use(tmp_path):
+    state = GameState.fresh("malformed-digest")
+    path = tmp_path / "malformed.json"
+    SaveStore.save(state, path)
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload["snapshot_sha256"] = "not-a-sha256"
+    path.write_text(json.dumps(payload), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="integrity digest is malformed"):
+        SaveStore.load(path)
+
+
+def test_tampered_digest_with_wrong_hex_length_is_rejected(tmp_path):
+    state = GameState.fresh("short-digest")
+    path = tmp_path / "short.json"
+    SaveStore.save(state, path)
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload["snapshot_sha256"] = "0" * 63
+    path.write_text(json.dumps(payload), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="integrity digest is malformed"):
+        SaveStore.load(path)
+
+
+def test_tampered_digest_with_uppercase_hex_is_rejected_as_noncanonical(tmp_path):
+    state = GameState.fresh("uppercase-digest")
+    path = tmp_path / "uppercase.json"
+    SaveStore.save(state, path)
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload["snapshot_sha256"] = payload["snapshot_sha256"].upper()
+    path.write_text(json.dumps(payload), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="integrity digest is malformed"):
+        SaveStore.load(path)
