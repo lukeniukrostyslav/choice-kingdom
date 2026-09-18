@@ -34,7 +34,7 @@ This document is the canonical working checklist for the 25-block premium visual
 | P24 | Android devices / safe areas / resolution adaptation | 38% | Real Android presentation proof on target device classes |
 | P25 | Final premium polish / cross-screen QA | 58% | Full visual regression and no unresolved P1–P24 blockers |
 
-**Aggregate P1–P25 estimate: 72.96% (simple arithmetic mean of block estimates).**
+**Aggregate P1–P25 estimate: 72.96% (simple arithmetic mean of the currently recorded block estimates).**
 
 ## Current evidence
 
@@ -49,7 +49,7 @@ This document is the canonical working checklist for the 25-block premium visual
 - Physical Android/device proof is not claimed yet; emulator CI is verification infrastructure, not a substitute for final target-device evidence.
 - The canonical visual north star is recorded in design-reference/FINAL_DESIGN_VISION_V1.md; it defines the premium cinematic medieval-fantasy direction used to evaluate subsequent P1–P25 work.
 - Latest P1 implementation commit `d875add3aea74893c42f7af0283f2a74c503477c` adds explicit Large Text and RTL review controls, semantic pressed-state exposure, 48px interaction targets and reduced-motion handling on the representative art-direction surface. Inspection evidence was synchronized in `9735a50637f9e8a8d392bc52bf1ca99e02a92ee6`. These strengthen reproducible review coverage; P1 remains 72% because the locked exit gate still requires actual rendered Android/runtime evidence and final asset provenance/licensing.
-- P21 accessibility review surface now has executable Large Text, RTL and Reduced Motion controls, with V15 closure checks added in commit `15647fd1f802283735cc958427b879b4eb7aba34`. This is implementation progress; P21 is 90% pending a confirmed green CI run and Android accessibility-service/device proof.
+- P21 accessibility review surface now has executable Large Text, RTL and Reduced Motion controls, with V15 closure checks added in commit `15647fd1f802283735cc958427b879b4eb7aba34`. The implementation is strengthened, but P21 remains 84% until the updated gate has confirmed CI evidence and Android accessibility-service/device proof.
 - P1 art-direction review surface has been strengthened with layered card depth, focus-within treatment, long-label resilience and reduced-motion-safe presentation; latest implementation commits `583b26f782066b064821fec4fc76fb3c522d04fe` and `a4b7598fc807e6499cbacc12e6c5c45857cf0e7a`. P1 remains 72% pending its full exit gate.
 - P2 representative People & Factions surface now uses explicit shared canvas/surface/elevation/accent/radius/spacing tokens, plus resilient heading wrapping; implementation commit `fcff1be22b2170affc1bd0d9aa459f906e4fbde9`. P2 remains 74% pending cross-surface token application and regression proof.
 - P13 relationship presentation has a committed premium visual surface and green V15 cross-viewport closure: run #647 / ID 35335301852.
