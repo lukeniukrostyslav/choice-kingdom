@@ -12,7 +12,7 @@ def _read_preview(name: str) -> str:
 def test_cross_screen_preview_declares_all_required_presentation_dimensions() -> None:
     html = _read_preview("premium-screen-state-matrix-v1.html")
     for marker in (
-        "dir=\"rtl\"",
+        "setDir('rtl')",
         "prefers-reduced-motion:reduce",
         "safe-area-inset-top",
         "safe-area-inset-bottom",
