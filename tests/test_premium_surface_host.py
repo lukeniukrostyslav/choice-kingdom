@@ -1,11 +1,17 @@
 from runtime.premium_screen_states import PremiumScreen, ScreenState
 from runtime.premium_surface_host import PremiumSurfaceHost
 from runtime.premium_surface_projection import SurfaceDensity
+from runtime.presentation import SessionPresentation, ChoicePresentation
 
 
 class StubPresenter:
     def snapshot(self):
-        return object()
+        return SessionPresentation(
+            run_id="test", turn=1, event_id="E01", title="Test", trigger="test",
+            choices=(ChoicePresentation("E01-A", "A", "Open the Hall"),),
+            resources=(), relationships=(), history=(), threads=(), pending_delays=(),
+            ending_evidence=(), terminal=False, ending_identity=None,
+        )
 
     def focus_choice(self, choice_id: str):
         return None
