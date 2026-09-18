@@ -147,3 +147,59 @@ def test_snapshot_validation_rejects_non_string_runtime_collections(tmp_path):
 
     with pytest.raises(ValueError, match="invalid flags"):
         SaveStore.load(path)
+
+
+def test_snapshot_validation_rejects_malformed_pending_delay_types(tmp_path):
+    state = GameState.fresh("delay-types")
+    path = tmp_path / "delay-types.json"
+    SaveStore.save(state, path)
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload["snapshot"]["pending_delays"] = {
+        "delay.bad": {
+            "exactly_once_key": "delay.bad",
+            "source_event_id": "E18",
+            "source_choice_id": "E18-B",
+            "resolution_target": "E243",
+            "scheduled_turn": "4",
+            "condition_bound": False,
+            "priority": 0,
+            "status": "pending",
+            "supersedes": None,
+        }
+    }
+    payload["snapshot_sha256"] = SaveStore._digest(payload["snapshot"])
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    with pytest.raises(ValueError, match="invalid delay scheduled turn"):
+        SaveStore.load(path)
+
+
+def test_snapshot_validation_rejects_non_string_pending_delay_key(tmp_path):
+    state = GameState.fresh("delay-key-type")
+    path = tmp_path / "delay-key-type.json"
+    SaveStore.save(state, path)
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload["snapshot"]["pending_delays"] = {
+        7: {
+            "exactly_once_key": "7",
+            "source_event_id": "E18",
+            "source_choice_id": "E18-B",
+            "resolution_target": "E243",
+            "scheduled_turn": 4,
+        }
+    }
+    payload["snapshot_sha256"] = SaveStore._digest(payload["snapshot"])
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    with pytest.raises(ValueError, match="invalid pending delay key"):
+        SaveStore.load(path)
+
+
+def test_snapshot_validation_rejects_non_list_meta_and_ending_collections(tmp_path):
+    state = GameState.fresh("collection-shapes")
+    path = tmp_path / "collection-shapes.json"
+    SaveStore.save(state, path)
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload["snapshot"]["imported_meta_keys"] = "meta.replay.warehouse_investigation_unlock"
+    payload["snapshot_sha256"] = SaveStore._digest(payload["snapshot"])
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    with pytest.raises(ValueError, match="invalid imported_meta_keys"):
+        SaveStore.load(path)
