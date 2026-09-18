@@ -180,8 +180,13 @@ class SessionPresenter:
             self._error_choice = choice_id
             self._resolving_choice = None
             raise
-        self._resolved_choice = choice_id
         self._resolving_choice = None
+        self._resolved_choice = None
+        self._focused_choice = None
+        self._selected_choice = None
+        self._pressed_choice = None
+        self._blocked_choice = None
+        self._error_choice = None
         return result
 
     def clear_transient_state(self) -> None:
