@@ -622,7 +622,7 @@ private fun SettingsCard(
 ) {
     Card(modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(22.dp), border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)) {
         Column(modifier = Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text(stringResource(R.string.presentation_preferences), fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
+            Text(stringResource(R.string.presentation_preferences), fontSize = 18.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.semantics { heading() })
             Text(stringResource(R.string.settings_description), fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, lineHeight = 21.sp)
             Text(
                 text = if (muted) "Sound: Off" else "Sound: On",
@@ -639,12 +639,12 @@ private fun SettingsCard(
                 value = volume,
                 onValueChange = onVolumeChanged,
                 valueRange = 0f..1f,
-                modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
+                modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).semantics { contentDescription = "Master volume ${(volume * 100).toInt()} percent" },
             )
-            Text("Ambient ${(ambientVolume * 100).toInt()}%", fontSize = 13.sp, modifier = Modifier.semantics { contentDescription = "Ambient volume ${(ambientVolume * 100).toInt()} percent" })
-            Text("Music ${(musicVolume * 100).toInt()}%", fontSize = 13.sp, modifier = Modifier.semantics { contentDescription = "Music volume ${(musicVolume * 100).toInt()} percent" })
-            androidx.compose.material3.Slider(value = musicVolume, onValueChange = onMusicVolumeChanged, valueRange = 0f..1f, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp))
-            androidx.compose.material3.Slider(value = ambientVolume, onValueChange = onAmbientVolumeChanged, valueRange = 0f..1f, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp))
+            Text("Ambient ${(ambientVolume * 100).toInt()}%", fontSize = 13.sp)
+            Text("Music ${(musicVolume * 100).toInt()}%", fontSize = 13.sp)
+            androidx.compose.material3.Slider(value = musicVolume, onValueChange = onMusicVolumeChanged, valueRange = 0f..1f, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).semantics { contentDescription = "Music volume ${(musicVolume * 100).toInt()} percent" })
+            androidx.compose.material3.Slider(value = ambientVolume, onValueChange = onAmbientVolumeChanged, valueRange = 0f..1f, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).semantics { contentDescription = "Ambient volume ${(ambientVolume * 100).toInt()} percent" })
             TextButton(onClick = { AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("en")) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("English") }
             TextButton(onClick = { AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("it")) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("Italiano") }
             TextButton(onClick = { AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("uk")) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("Українська") }
@@ -692,6 +692,7 @@ private fun NavigationRail(screens: List<AndroidScreenState>, selectedKey: Strin
                         .semantics {
                             role = Role.Button
                             contentDescription = screen.title
+                            stateDescription = if (screen.key == selectedKey) "Current screen" else "Available screen"
                         },
                 ) {
                     Text(screen.title, modifier = Modifier.fillMaxWidth())
