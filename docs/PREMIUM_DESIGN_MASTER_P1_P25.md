@@ -32,9 +32,9 @@ This document is the canonical working checklist for the 25-block premium visual
 | P22 | Localization / long strings / RTL | 100% | Locale-safe layout and RTL proof across key screens |
 | P23 | Audio / haptics / premium feedback | 100% | Audio/haptic vocabulary mapped to meaningful player actions + CI closure evidence |
 | P24 | Android devices / safe areas / resolution adaptation | 100% | Real Android presentation proof on target device classes |
-| P25 | Final premium polish / cross-screen QA | 70% | Full visual regression and no unresolved P1–P24 blockers |
+| P25 | Final premium polish / cross-screen QA | 85% | Full visual regression and no unresolved P1–P24 blockers |
 
-**Aggregate current estimate: 98.80% (24 blocks closed at 100%, P25 at 70%).**
+**Aggregate current estimate: 99.40% (24 blocks closed at 100%, P25 at 85%).**
 
 ## Visual Design Reset v2
 
@@ -68,7 +68,7 @@ The proof covers semantic confirm/warning/error/ambient feedback states, quiet v
 - Reduced motion, large text, RTL and long-string behavior are part of the design.
 - Android/device proof is required before claiming production UI completion.
 
-## P25 execution checkpoint — 70%
+## P25 execution checkpoint — 85%
 
 Implemented on `main`:
 - Replaced the legacy screenshot/gallery-style journey with a real interactive prototype in `web-preview/game-flow.html`.
@@ -80,12 +80,12 @@ Implemented on `main`:
 - Added `tools/p25_interactive_visual_gate.mjs` and `.github/workflows/p25-interactive-visual-gate.yml` to exercise the journey and responsive layouts.
 
 Remaining evidence before P25 can reach 100%:
-- completed green P25 GitHub Actions validation run;
-- review of generated responsive proof artifacts;
+- completed green P25 GitHub Actions validation run — **PASS**, run #4 / ID `35397447809`;
+- responsive proof artifact generated and uploaded successfully as `p25-responsive-proof-35397447809` (2 PNGs; artifact ID `10568881852`);
 - live Vercel deployment verification against the frozen three-reference set;
 - final cross-screen visual regression sign-off with no remaining visual drift.
 
-**P25 remains OPEN at 70%.**
+**P25 remains OPEN at 85%.**
 
 ## Next bottleneck
 
