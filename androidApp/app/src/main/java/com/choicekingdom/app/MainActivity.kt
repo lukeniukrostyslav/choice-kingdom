@@ -282,7 +282,7 @@ private fun AdaptiveJourney(
             modifier = Modifier.fillMaxSize().padding(horizontal = horizontal),
             horizontalArrangement = Arrangement.spacedBy(28.dp),
         ) {
-            NavigationRail(screens = localizedScreens(), onSelect = onScreenSelected, modifier = Modifier.width(220.dp))
+            NavigationRail(screens = localizedScreens(), selectedKey = selectedScreen.key, onSelect = onScreenSelected, modifier = Modifier.width(220.dp))
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.TopCenter) {
                 TransitionedJourneyContent(selectedScreen, snapshot, selectedChoiceId, resolvingChoiceId, errorMessage, titleSize, contentWidth, audio, audioMuted, audioVolume, ambientVolume, musicVolume, onAudioMutedChanged, onAudioVolumeChanged, onAmbientVolumeChanged, onMusicVolumeChanged, onChoiceSelected)
             }
@@ -308,7 +308,7 @@ private fun AdaptiveJourney(
                 onMusicVolumeChanged,
                 onChoiceSelected,
             )
-            ScreenNavigation(screens = localizedScreens(), onSelect = onScreenSelected, modifier = Modifier.fillMaxWidth())
+            ScreenNavigation(screens = localizedScreens(), selectedKey = selectedScreen.key, onSelect = onScreenSelected, modifier = Modifier.fillMaxWidth())
         }
     }
 }
@@ -452,7 +452,7 @@ private fun HeroCard(screen: AndroidScreenState, snapshot: AndroidEventProjectio
     ) {
         Column(modifier = Modifier.padding(22.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Text(screen.title.uppercase(), color = MaterialTheme.colorScheme.primary, fontSize = 11.sp, fontWeight = FontWeight.Bold)
-            Text(snapshot.title, color = MaterialTheme.colorScheme.onSurface, fontSize = 25.sp, fontWeight = FontWeight.SemiBold)
+            Text(snapshot.title, color = MaterialTheme.colorScheme.onSurface, fontSize = 25.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.semantics { heading() })
             Text(screen.subtitle, color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 15.sp, lineHeight = 22.sp)
             Text(stringResource(R.string.turn_event_format, snapshot.eventId, snapshot.turn), color = MaterialTheme.colorScheme.secondary, fontSize = 12.sp)
         }
@@ -634,15 +634,15 @@ private fun SettingsCard(
                 onClick = { onMutedChanged(!muted) },
                 modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
             ) { Text(if (muted) "Enable sound" else "Mute sound") }
-            Text("Volume ${(volume * 100).toInt()}%", fontSize = 13.sp)
+            Text("Volume ${(volume * 100).toInt()}%", fontSize = 13.sp, modifier = Modifier.semantics { contentDescription = "Master volume ${(volume * 100).toInt()} percent" })
             androidx.compose.material3.Slider(
                 value = volume,
                 onValueChange = onVolumeChanged,
                 valueRange = 0f..1f,
                 modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
             )
-            Text("Ambient ${(ambientVolume * 100).toInt()}%", fontSize = 13.sp)
-            Text("Music ${(musicVolume * 100).toInt()}%", fontSize = 13.sp)
+            Text("Ambient ${(ambientVolume * 100).toInt()}%", fontSize = 13.sp, modifier = Modifier.semantics { contentDescription = "Ambient volume ${(ambientVolume * 100).toInt()} percent" })
+            Text("Music ${(musicVolume * 100).toInt()}%", fontSize = 13.sp, modifier = Modifier.semantics { contentDescription = "Music volume ${(musicVolume * 100).toInt()} percent" })
             androidx.compose.material3.Slider(value = musicVolume, onValueChange = onMusicVolumeChanged, valueRange = 0f..1f, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp))
             androidx.compose.material3.Slider(value = ambientVolume, onValueChange = onAmbientVolumeChanged, valueRange = 0f..1f, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp))
             TextButton(onClick = { AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("en")) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("English") }
@@ -655,7 +655,7 @@ private fun SettingsCard(
 }
 
 @Composable
-private fun ScreenNavigation(screens: List<AndroidScreenState>, onSelect: (String) -> Unit, modifier: Modifier) {
+private fun ScreenNavigation(screens: List<AndroidScreenState>, selectedKey: String, onSelect: (String) -> Unit, modifier: Modifier) {
     Row(
         modifier = modifier.horizontalScroll(rememberScrollState()).padding(horizontal = 12.dp, vertical = 10.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -668,6 +668,7 @@ private fun ScreenNavigation(screens: List<AndroidScreenState>, onSelect: (Strin
                     .semantics {
                         role = Role.Button
                         contentDescription = screen.title
+                        stateDescription = if (screen.key == selectedKey) "Current screen" else "Available screen"
                     },
                 contentPadding = PaddingValues(horizontal = 14.dp),
             ) {
@@ -678,7 +679,7 @@ private fun ScreenNavigation(screens: List<AndroidScreenState>, onSelect: (Strin
 }
 
 @Composable
-private fun NavigationRail(screens: List<AndroidScreenState>, onSelect: (String) -> Unit, modifier: Modifier) {
+private fun NavigationRail(screens: List<AndroidScreenState>, selectedKey: String, onSelect: (String) -> Unit, modifier: Modifier) {
     Card(modifier = modifier.padding(vertical = 18.dp), shape = RoundedCornerShape(26.dp), border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)) {
         Column(modifier = Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(stringResource(R.string.avelune), fontSize = 20.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(10.dp))
@@ -765,11 +766,13 @@ fun VisualRegressionNavigationPreview() {
         Column(modifier = Modifier.fillMaxWidth()) {
             ScreenNavigation(
                 screens = localizedScreens(),
+                selectedKey = "Event",
                 onSelect = {},
                 modifier = Modifier.fillMaxWidth(),
             )
             NavigationRail(
                 screens = localizedScreens(),
+                selectedKey = "Event",
                 onSelect = {},
                 modifier = Modifier.fillMaxWidth(),
             )
