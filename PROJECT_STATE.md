@@ -150,7 +150,7 @@ Execution order is strictly **1 → 2 → 3 → ... → 25**. A block is not con
 - Release / Store: **0%**
 
 ## Premium Design P1–P25
-Canonical percentages are tracked in `docs/PREMIUM_DESIGN_MASTER_P1_P25.md`. Current aggregate: **62.24%**. P24 remains incomplete without physical device proof.
+Canonical percentages are tracked in `docs/PREMIUM_DESIGN_MASTER_P1_P25.md`. Current aggregate: **56.00%**. P24 remains incomplete without physical device proof.
 
 ## Honest progress rule
 Documentation never makes implementation complete. Every percentage requires authoritative evidence and applicable verification. Source/contract GREEN must never be reported as runtime gameplay GREEN. Owner-controlled physical Android QA, production signing and store publication remain open until actually performed.
