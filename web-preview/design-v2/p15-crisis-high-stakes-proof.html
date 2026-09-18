@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="stylesheet" href="tokens.css">
+<title>Choice Kingdom — V2 P15 Crisis</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--ck-text-primary);font:16px/var(--ck-leading-body) var(--ck-body);background:radial-gradient(circle at 68% 0,rgba(116,78,58,.30),transparent 34%),radial-gradient(circle at 12% 78%,rgba(57,74,91,.22),transparent 34%),linear-gradient(180deg,var(--ck-world-800),var(--ck-world-950))}
+main{width:min(1180px,100%);margin:auto;padding:max(20px,calc(20px + env(safe-area-inset-top))) max(18px,calc(18px + env(safe-area-inset-right))) max(42px,calc(42px + env(safe-area-inset-bottom))) max(18px,calc(18px + env(safe-area-inset-left)))}
+header{display:flex;justify-content:space-between;align-items:end;gap:22px;margin-bottom:20px}.eyebrow,.label{font-size:var(--ck-type-label);font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ck-gold-primary)}
+h1,h2,h3{font-family:var(--ck-serif);font-weight:500}.title h1{font-size:var(--ck-type-display-md);line-height:var(--ck-leading-heading);margin:7px 0}.title p{max-width:70ch;margin:0;color:var(--ck-text-secondary)}.context{text-align:end;color:var(--ck-text-muted);font-size:var(--ck-type-body-sm)}
+.grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);gap:18px}
+.surface{border:1px solid var(--ck-border-subtle);border-radius:var(--ck-radius-lg);background:linear-gradient(145deg,var(--ck-surface-elevated),var(--ck-surface-solid));box-shadow:var(--ck-shadow-deep);padding:clamp(20px,3.5vw,34px)}
+.crisis-head{display:flex;gap:14px;align-items:flex-start;padding-bottom:18px;border-bottom:1px solid var(--ck-border-subtle)}.seal{width:48px;height:48px;border:1px solid var(--ck-gold-primary);border-radius:50%;display:grid;place-items:center;color:var(--ck-gold-highlight);font:500 21px var(--ck-serif);flex:none}
+.surface h2{font-size:30px;margin:0 0 4px}.sub{color:var(--ck-text-muted);margin:0;font-size:var(--ck-type-body-sm)}
+.urgency{margin:18px 0;padding:16px;border-inline-start:3px solid var(--ck-state-warning);background:rgba(216,184,117,.07)}.urgency strong{font-family:var(--ck-serif);font-size:21px;font-weight:500}.urgency p{margin:5px 0 0;color:var(--ck-text-secondary)}
+.preview{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}.impact{padding:14px;border:1px solid var(--ck-border-subtle);border-radius:var(--ck-radius-md);background:rgba(8,13,21,.40)}.impact .value{font:500 20px var(--ck-serif);margin-top:4px}.impact p{margin:4px 0 0;color:var(--ck-text-muted);font-size:13px}
+.actions{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:18px}.action{min-height:58px;padding:13px 15px;text-align:start;border:1px solid var(--ck-border-subtle);border-radius:var(--ck-radius-md);background:rgba(8,13,21,.44);color:var(--ck-text-primary);cursor:pointer;font:500 15px/1.3 var(--ck-body);transition:border-color .18s ease,transform .18s ease,background .18s ease}.action:hover{border-color:var(--ck-border-strong);transform:translateY(-1px)}.action[aria-pressed=true]{border-color:var(--ck-gold-highlight);background:rgba(215,182,108,.10);box-shadow:0 0 0 1px rgba(227,201,134,.16)}.action:focus-visible{outline:3px solid var(--ck-focus);outline-offset:4px}
+.status{min-height:24px;margin:14px 0 0;color:var(--ck-text-muted)}.status strong{color:var(--ck-gold-highlight)}
+.metric{padding:14px 0;border-top:1px solid var(--ck-border-subtle)}.metric:first-of-type{border-top:0}.metric .value{font:500 19px var(--ck-serif);margin-top:4px}.warning{color:var(--ck-state-warning)}.danger{color:var(--ck-state-negative)}
+.callout{margin-top:16px;padding:14px 16px;border-inline-start:2px solid var(--ck-gold-primary);background:rgba(215,182,108,.06);color:var(--ck-text-secondary)}
+@media(max-width:760px){main{padding-inline:14px}header{align-items:flex-start;flex-direction:column}.context{text-align:start}.grid{grid-template-columns:1fr}.preview{grid-template-columns:1fr}.actions{grid-template-columns:1fr}}
+@media(max-width:420px){.surface{padding:18px}.crisis-head{align-items:flex-start}.action{min-height:60px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}.action:hover{transform:none}}
+html[dir=rtl] .context{text-align:start}
+</style>
+</head>
+<body><main>
+<header><div class="title"><div class="eyebrow">Avelune · Crisis · P15</div><h1>When the River Rises</h1><p>A high-stakes decision surface that makes urgency legible, previews meaningful consequences, and keeps the choice hierarchy calm enough to think.</p></div><div class="context">Northern Reach<br>Floodgate crisis · 1 turn</div></header>
+<section class="grid">
+<article class="surface" aria-labelledby="crisis-title">
+<div class="crisis-head"><div class="seal" aria-hidden="true">!</div><div><div class="label">Critical situation</div><h2 id="crisis-title">The lower wards are flooding</h2><p class="sub">The river has breached the eastern gate. Your order will shape who bears the immediate cost.</p></div></div>
+<div class="urgency"><strong>Act before the next watch.</strong><p>There is no hidden timer. The visual signal is urgency, while the actual consequence remains determined by the canonical game state.</p></div>
+<div class="preview" aria-label="Consequence preview">
+<div class="impact"><div class="label">People</div><div class="value warning">Evacuation strain</div><p>Residents must leave the lower wards.</p></div>
+<div class="impact"><div class="label">Realm</div><div class="value">Grain reserves</div><p>Emergency stores may be redirected.</p></div>
+<div class="impact"><div class="label">Trust</div><div class="value danger">Council tension</div><p>At least one faction will object.</p></div>
+</div>
+<div class="label">Choose your order</div>
+<div class="actions" role="group" aria-label="Crisis choices">
+<button class="action" aria-pressed="false" data-choice="Raise the eastern gate">Raise the eastern gate</button>
+<button class="action" aria-pressed="false" data-choice="Open the old canal">Open the old canal</button>
+<button class="action" aria-pressed="false" data-choice="Protect the granaries">Protect the granaries</button>
+<button class="action" aria-pressed="false" data-choice="Call the council">Call the council</button>
+</div>
+<p id="status" class="status" role="status" aria-live="polite">No order selected.</p>
+</article>
+<aside class="surface" aria-labelledby="stakes-title">
+<div class="label">Stakes at a glance</div><h2 id="stakes-title">Pressure, not clutter</h2><p class="sub">Only decision-relevant information stays in the crisis frame.</p>
+<div class="metric"><div class="label">Urgency</div><div class="value warning">Next watch</div></div>
+<div class="metric"><div class="label">Known impact</div><div class="value">People · Realm · Trust</div></div>
+<div class="metric"><div class="label">Unknown</div><div class="value">Exact downstream outcome</div></div>
+<div class="metric"><div class="label">Decision memory</div><div class="value">Recorded after confirmation</div></div>
+<div class="callout"><strong>Design rule.</strong> High-stakes presentation previews the category of consequence without revealing a false exact result. The hierarchy escalates through spacing, framing and restrained semantic accents rather than alarm-heavy decoration.</div>
+</aside>
+</section></main>
+<script>
+const status=document.querySelector('#status');
+document.querySelectorAll('.action').forEach(button=>button.addEventListener('click',()=>{
+ document.querySelectorAll('.action').forEach(x=>x.setAttribute('aria-pressed','false'));
+ button.setAttribute('aria-pressed','true');
+ status.innerHTML='Order selected: <strong>'+button.dataset.choice+'</strong>.';
+}));
+</script>
+</body></html>
