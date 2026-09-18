@@ -121,3 +121,29 @@ def test_tampered_digest_with_uppercase_hex_is_rejected_as_noncanonical(tmp_path
 
     with pytest.raises(ValueError, match="integrity digest is malformed"):
         SaveStore.load(path)
+
+
+def test_snapshot_validation_rejects_non_boolean_terminal_flag(tmp_path):
+    state = GameState.fresh("terminal-type")
+    path = tmp_path / "terminal.json"
+    SaveStore.save(state, path)
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload["snapshot"]["terminal"] = "false"
+    payload["snapshot_sha256"] = SaveStore._digest(payload["snapshot"])
+    path.write_text(json.dumps(payload), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="invalid terminal flag"):
+        SaveStore.load(path)
+
+
+def test_snapshot_validation_rejects_non_string_runtime_collections(tmp_path):
+    state = GameState.fresh("collection-type")
+    path = tmp_path / "collection.json"
+    SaveStore.save(state, path)
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload["snapshot"]["flags"] = ["valid", 42]
+    payload["snapshot_sha256"] = SaveStore._digest(payload["snapshot"])
+    path.write_text(json.dumps(payload), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="invalid flags"):
+        SaveStore.load(path)
