@@ -186,7 +186,7 @@ for (const file of pages) {
         const chapters = [...document.querySelectorAll('.chapter')];
         const actions = [...document.querySelectorAll('.action')];
         const status = document.querySelector('#status');
-        const styleText = [...document.querySelectorAll('style')].map(s => s.textContent || '').join('\\n');
+        const styleText = [...document.querySelectorAll('style')].map(s => s.textContent || '').join('\n');
         if (!hero || !title || !subtitle || !legacy || !run || chapters.length !== 3 || actions.length !== 3 || !status) return false;
         if (hero.getAttribute('aria-labelledby') !== 'replay-title' || hero.getAttribute('aria-describedby') !== 'replay-subtitle') return false;
         if (!chapters.every(x => (x.textContent || '').trim().length > 0)) return false;
@@ -195,12 +195,12 @@ for (const file of pages) {
         const first = actions[0].getAttribute('aria-pressed') === 'true' && status.textContent.includes('Begin a new reign');
         actions[1].click();
         const exclusive = actions[1].getAttribute('aria-pressed') === 'true' && actions[0].getAttribute('aria-pressed') === 'false';
-        const responsive = /@media\\(max-width:760px\\)/.test(styleText) && /@media\\(max-width:420px\\)/.test(styleText);
-        const rtl = /html\\[dir=rtl\\]/.test(styleText);
+        const responsive = /@media\(max-width:760px\)/.test(styleText) && /@media\(max-width:420px\)/.test(styleText);
+        const rtl = /html\[dir=rtl\]/.test(styleText);
         const safe = /safe-area-inset/.test(styleText);
         const reduced = /prefers-reduced-motion:reduce/.test(styleText);
         const focus = /:focus-visible/.test(styleText);
-        const serif = /var\\(--ck-serif\\)/.test(styleText);
+        const serif = /var\(--ck-serif\)/.test(styleText);
         const cinematic = /radial-gradient/.test(styleText) && /linear-gradient/.test(styleText);
         const cleanRun = /clean run|canonical new-run state|without rewriting/i.test(document.body.innerText);
         return first && exclusive && responsive && rtl && safe && reduced && focus && serif && cinematic && cleanRun;
