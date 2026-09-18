@@ -45,6 +45,13 @@ class ChoiceKingdomAppTest {
     }
 
     @Test
+    fun muteControlExposesActionAndState() {
+        composeRule.onNode(hasText("Settings", substring = false)).performClick()
+        composeRule.onNode(hasContentDescription("Mute sound")).assertIsDisplayed()
+        composeRule.onNode(hasStateDescription("Sound is enabled")).assertIsDisplayed()
+    }
+
+    @Test
     fun audioControlsExposeReadableValues() {
         composeRule.onNode(hasText("Settings", substring = false)).performClick()
         composeRule.onNode(hasContentDescription("Master volume 100 percent")).assertIsDisplayed()
