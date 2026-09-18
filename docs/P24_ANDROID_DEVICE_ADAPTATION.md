@@ -25,3 +25,11 @@ Source contracts are implementation evidence only. P24 is not 100% until Android
 
 ## Visual north star
 All verification follows design-reference/FINAL_DESIGN_VISION_V1.md: cinematic medieval-fantasy atmosphere, deep blue-black/charcoal foundation, restrained warm gold, elegant serif hierarchy, refined layered panels and calm consequential interaction.
+## Latest execution fix
+
+The Android source-build gate failed on Bridge run #4 because the CI-only `p24CiAbi` override was scoped directly under `android { }`, where `ndk` and `abiFilters` are not available. The override has been moved into the existing `defaultConfig { ndk { ... } }` scope.
+
+Fix commit: `0196b544cb14402f1b085e5b96e747625647c922`.
+
+This correction must be validated by a fresh Android source build and then by the compact-phone, tablet-window and expanded-window emulator matrix. P24 remains open until those execution artifacts are green.
+
