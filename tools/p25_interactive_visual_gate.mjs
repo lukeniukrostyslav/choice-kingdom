@@ -60,6 +60,17 @@ if ((await page.locator('#kingdom .map').textContent()).includes('Avelune')) fai
 await page.screenshot({path:'p25-shell-kingdom.png',fullPage:true});
 await page.getByRole('button',{name:'People'}).click();
 await assertVisible('#people .people', 'people presentation');
+if (await page.locator('#people [data-kind="person"]').count() !== 6) fail('canonical people count mismatch');
+for (const n of ['Mara','Rowan','Seris','Ivo','Amara','Toma']) if (!(await page.getByText(n,{exact:true}).count())) fail('missing canonical person '+n);
+for (const n of ['Mara','Rowan','Seris','Ivo','Amara','Toma']) if (!(await page.getByRole('article',{name:new RegExp('Open canonical details for '+n)}).count())) fail('person card interaction missing '+n);
+await page.getByRole('article',{name:/Open canonical details for Mara/}).focus();
+await page.keyboard.press('ArrowRight');
+if (!(await page.getByRole('article',{name:/Open canonical details for Rowan/}).evaluate(el=>document.activeElement===el))) fail('people keyboard navigation missing');
+await page.getByRole('article',{name:/Open canonical details for Mara/}).click();
+if (!(await page.getByRole('dialog').isVisible())) fail('people detail dialog missing');
+if ((await page.getByRole('dialog').getAttribute('aria-hidden')) !== 'false') fail('people detail dialog aria state missing');
+await page.getByRole('button',{name:'Close details'}).click();
+await page.screenshot({path:'p25-shell-people.png',fullPage:true});
 await page.getByRole('button',{name:'Factions'}).click();
 await assertVisible('#factions .factions', 'factions presentation');
 await page.getByRole('button',{name:'Investigation'}).click();
