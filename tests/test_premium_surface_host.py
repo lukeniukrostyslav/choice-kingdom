@@ -1,7 +1,12 @@
 from runtime.premium_screen_states import PremiumScreen, ScreenState
 from runtime.premium_surface_host import PremiumSurfaceHost
 from runtime.premium_surface_projection import SurfaceDensity
-from runtime.presentation import SessionPresentation, ChoicePresentation
+from pathlib import Path
+
+from runtime.presentation import SessionPresentation, ChoicePresentation, SessionPresenter
+from runtime.session import GameSession
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 class StubPresenter:
@@ -39,7 +44,8 @@ def test_surface_host_binds_expanded_investigation() -> None:
 
 
 def test_surface_host_binds_event_surface() -> None:
-    hosted = PremiumSurfaceHost(StubPresenter()).render(
+    presenter = SessionPresenter(GameSession.new(ROOT, "premium-event-host"))
+    hosted = PremiumSurfaceHost(presenter).render(
         PremiumScreen.EVENT,
         state=ScreenState.FOCUSED,
         available_width_dp=390,
