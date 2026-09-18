@@ -12,7 +12,7 @@ This document is the canonical working checklist for the 25-block premium visual
 | P2 | Core visual identity / design language | 100% | Tokenized identity applied across representative surfaces |
 | P3 | Typography / type hierarchy | 100% | Complete type scale, wrapping, accessibility and locale rules |
 | P4 | Color / materials / surfaces | 100% | Semantic color/material tokens + contrast proof |
-| P5 | Layout / grid / spacing / responsive system | 0% | Responsive contracts across target window classes + safe-content bounds |
+| P5 | Layout / grid / spacing / responsive system | 100% | Responsive contracts across target window classes + safe-content bounds |
 | P6 | Choice experience / choice cards / choice chamber | 0% | All choice states + proof + accessibility + visual regression |
 | P7 | Event / situation presentation | 0% | Full event surface and state variants |
 | P8 | Character presentation | 0% | Character identity, state, relationship and fallback visuals |
@@ -34,7 +34,7 @@ This document is the canonical working checklist for the 25-block premium visual
 | P24 | Android devices / safe areas / resolution adaptation | 0% | Real Android presentation proof on target device classes |
 | P25 | Final premium polish / cross-screen QA | 0% | Full visual regression and no unresolved P1–P24 blockers |
 
-**Aggregate P1–P25 estimate: 16.00% (V2 current; simple arithmetic mean after P1–P4 closure).**
+**Aggregate P1–P25 estimate: 20.00% (V2 current; simple arithmetic mean after P1–P5 closure).**
 
 ## Visual Design Reset v2
 
@@ -42,7 +42,7 @@ This document is the canonical working checklist for the 25-block premium visual
 - The canonical V2 reset contract is `docs/VISUAL_DESIGN_RESET_V2.md`.
 - Fresh V2 P1 visual anchor: `web-preview/design-v2/p1-visual-anchor.html`, commit `bed0154c738bb083ff0fb1c1a3a44a992311619d`.
 - P1 is **100%**: V2 has a fresh cinematic visual anchor plus representative realm/consequence/ending compositions, responsive reflow, safe-area handling, RTL, reduced-motion and focus-visible proof. The visual foundation is now the basis for P2–P25.
-- P2 is **100%**: shared V2 identity tokens are implemented in `web-preview/design-v2/tokens.css` and applied across representative narrative, realm and decision surfaces with responsive, safe-area, RTL, reduced-motion and focus-visible behavior. P3 is **100%**: the V2 typography scale, serif display hierarchy, supporting-text rhythm, large-text behavior, long-string wrapping, RTL direction and focus-visible proof are represented in `web-preview/design-v2/p3-typography-proof.html` and formalized in `web-preview/design-v2/tokens.css`. P4 is **100%**: semantic world/surface/text/accent/state tokens, layered and elevated material treatments, restrained semantic states, responsive/safe-area handling, RTL, reduced-motion and focus-visible proof are implemented in `web-preview/design-v2/tokens.css` and `web-preview/design-v2/p4-materials-proof.html`. P5–P25 remain 0% until each block is rebuilt on the V2 foundation. Existing legacy implementations remain preserved in Git history and are not counted as V2 completion.
+- P2 is **100%**: shared V2 identity tokens are implemented in `web-preview/design-v2/tokens.css` and applied across representative narrative, realm and decision surfaces with responsive, safe-area, RTL, reduced-motion and focus-visible behavior. P3 is **100%**: the V2 typography scale, serif display hierarchy, supporting-text rhythm, large-text behavior, long-string wrapping, RTL direction and focus-visible proof are represented in `web-preview/design-v2/p3-typography-proof.html` and formalized in `web-preview/design-v2/tokens.css`. P4 is **100%**: semantic world/surface/text/accent/state tokens, layered and elevated material treatments, restrained semantic states, responsive/safe-area handling, RTL, reduced-motion and focus-visible proof are implemented in `web-preview/design-v2/tokens.css` and `web-preview/design-v2/p4-materials-proof.html`. P5 is **100%**: the V2 layout proof establishes expanded two-pane composition, compact/medium reflow, safe-content bounds, generous spacing, cinematic world depth, primary choice hierarchy, RTL and reduced-motion behavior in `web-preview/design-v2/p5-layout-proof.html`. P6–P25 remain 0% until each block is rebuilt on the V2 foundation. Existing legacy implementations remain preserved in Git history and are not counted as V2 completion.
 
 ## Current evidence
 
