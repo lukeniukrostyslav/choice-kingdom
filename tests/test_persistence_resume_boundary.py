@@ -175,10 +175,8 @@ def test_snapshot_validation_rejects_malformed_pending_delay_types(tmp_path):
 
 def test_snapshot_validation_rejects_non_string_pending_delay_key(tmp_path):
     state = GameState.fresh("delay-key-type")
-    path = tmp_path / "delay-key-type.json"
-    SaveStore.save(state, path)
-    payload = json.loads(path.read_text(encoding="utf-8"))
-    payload["snapshot"]["pending_delays"] = {
+    payload = state.snapshot()
+    payload["pending_delays"] = {
         7: {
             "exactly_once_key": "7",
             "source_event_id": "E18",
@@ -187,10 +185,8 @@ def test_snapshot_validation_rejects_non_string_pending_delay_key(tmp_path):
             "scheduled_turn": 4,
         }
     }
-    payload["snapshot_sha256"] = SaveStore._digest(payload["snapshot"])
-    path.write_text(json.dumps(payload), encoding="utf-8")
     with pytest.raises(ValueError, match="invalid pending delay key"):
-        SaveStore.load(path)
+        GameState.from_snapshot(payload)
 
 
 def test_snapshot_validation_rejects_non_list_meta_and_ending_collections(tmp_path):
