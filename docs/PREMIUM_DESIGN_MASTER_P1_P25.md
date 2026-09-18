@@ -91,15 +91,15 @@ Remaining evidence before P25 can reach 100%:
 
 | P25 sub-block | Current | Evidence / remaining work |
 |---|---:|---|
-| 25.1 Visual game shell / cinematic composition | 97% | Full-screen cinematic shell implemented; final frozen-reference visual review remains |
+| 25.1 Visual game shell / cinematic composition | 98% | Full-screen cinematic shell implemented; final frozen-reference visual review remains |
 | 25.2 Main menu / first impression | 96% | Premium launcher implemented; deployed visual proof remains |
-| 25.3 Event / situation scene | 96% | E01/E02/E05 cinematic event presentation implemented |
+| 25.3 Event / situation scene | 97% | E01/E02/E05 cinematic event presentation implemented |
 | 25.4 Choice chamber / decision interaction | 95% | Choice states, touch targets and canonical effects implemented |
 | 25.5 Consequence / memory reveal | 95% | Consequence state and decision memory implemented |
 | 25.6 Kingdom / realm presentation | 94% | Realm scene, nodes and resource layer implemented; final visual refinement remains |
 | 25.7 People / character presentation | 97% | Six canonical People, accessible detail presentation, focus return and modal focus trap implemented; production-grade character art remains a visual gap |
 | 25.8 Factions / institutional presentation | 95% | Six canonical institutional positions implemented; final visual identity treatment remains |
-| 25.9 Investigation / evidence board | 94% | Evidence threads and authored routes implemented; final visual comparison remains |
+| 25.9 Investigation / evidence board | 95% | Evidence threads and authored routes implemented; final visual comparison remains |
 | 25.10 History / decision chronicle | 95% | Timeline and recorded choices implemented |
 | 25.11 Endings / resolution landing | 93% | Resolution surface implemented without inventing an ending outcome |
 | 25.12 Settings / accessibility presentation | 98% | Large text, RTL, reduced motion, theme and persistent preferences implemented; final device proof remains |
