@@ -34,7 +34,7 @@ This document is the canonical working checklist for the 25-block premium visual
 | P24 | Android devices / safe areas / resolution adaptation | 38% | Real Android presentation proof on target device classes |
 | P25 | Final premium polish / cross-screen QA | 58% | Full visual regression and no unresolved P1–P24 blockers |
 
-**Aggregate P1–P25 estimate: 65.76% (simple arithmetic mean of block estimates).**
+**Aggregate P1–P25 estimate: 67.92% (simple arithmetic mean of block estimates).**
 
 ## Current evidence
 
@@ -50,6 +50,7 @@ This document is the canonical working checklist for the 25-block premium visual
 - The canonical visual north star is recorded in design-reference/FINAL_DESIGN_VISION_V1.md; it defines the premium cinematic medieval-fantasy direction used to evaluate subsequent P1–P25 work.
 - P13 relationship presentation has a committed premium visual surface and green V15 cross-viewport closure: run #647 / ID 35335301852.
 - P14 investigation presentation has a committed premium visual surface and green V15 cross-viewport closure: run #651 / ID 35335654075, head 873efe4b1438616b2690fe53853b8765e3fb1adb, completed 2026-09-18.
+- P15 crisis presentation has a committed premium visual surface and green V15 cross-viewport closure: run #654, ID 35335872569, head b6f80b8d2ccec8c6b50883a48100e229d0c26388, completed 2026-09-18.
 
 ## Quality rules
 
