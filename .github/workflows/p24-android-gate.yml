@@ -64,28 +64,71 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.11.1'
-      - uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 35
-          target: google_apis
-          arch: x86_64
-          profile: pixel_2
-          emulator-options: -no-window -no-snapshot -noaudio -no-boot-anim
-          disable-animations: true
-          script: |
-            cd androidApp
-            adb shell wm size ${{ matrix.width }}x${{ matrix.height }}
-            adb shell wm density ${{ matrix.density }}
-            export GRADLE_OPTS="-Xmx4g -XX:MaxMetaspaceSize=1g -Dorg.gradle.workers.max=1"
-            gradle :app:assembleDebug -Pp24CiAbi=x86_64 --no-daemon --max-workers=1
-            gradle :app:installDebug -Pp24CiAbi=x86_64 --no-daemon --max-workers=1
-            adb shell am force-stop com.choicekingdom.app
-            adb shell am start -n com.choicekingdom.app/.MainActivity
-            sleep 12
-            adb shell dumpsys activity activities | grep -q com.choicekingdom.app
-            mkdir -p p24-evidence
-            adb exec-out screencap -p > p24-evidence/${{ matrix.name }}.png
-            gradle :app:connectedDebugAndroidTest --tests com.choicekingdom.app.P24DeviceAdaptationTest --no-daemon --max-workers=1
+      - name: Prepare Android SDK and AVD
+        env:
+          ANDROID_AVD_HOME: ${{ runner.temp }}/android-avd
+        run: |
+          set -euxo pipefail
+          mkdir -p "$ANDROID_AVD_HOME"
+          export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
+          command -v adb
+          command -v emulator
+          command -v sdkmanager
+          yes | sdkmanager --licenses >/dev/null || true
+          sdkmanager "platform-tools" "emulator" "platforms;android-35" "system-images;android-35;google_apis;x86_64"
+          echo "no" | avdmanager create avd --name "p24-${{ matrix.name }}" --package "system-images;android-35;google_apis;x86_64" --device "pixel_2" --force
+          AVD_DIR="$ANDROID_AVD_HOME/p24-${{ matrix.name }}.avd"
+          test -f "$AVD_DIR/config.ini"
+          {
+            echo "hw.cpu.ncore=2"
+            echo "hw.ramSize=4096"
+            echo "hw.gpu.mode=swiftshader_indirect"
+            echo "hw.keyboard=yes"
+          } >> "$AVD_DIR/config.ini"
+
+      - name: Run P24 Android execution
+        env:
+          ANDROID_AVD_HOME: ${{ runner.temp }}/android-avd
+          PATH: ${{ env.ANDROID_HOME }}/platform-tools:${{ env.ANDROID_HOME }}/emulator:${{ env.PATH }}
+        run: |
+          set -euxo pipefail
+          command -v adb
+          adb version
+          adb start-server
+          SERIAL=emulator-5554
+          emulator -avd "p24-${{ matrix.name }}" -port 5554 -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -cores 2 -memory 4096 > "$RUNNER_TEMP/p24-emulator.log" 2>&1 &
+          EMULATOR_PID=$!
+          cleanup() {
+            kill "$EMULATOR_PID" 2>/dev/null || true
+            adb -s "$SERIAL" emu kill 2>/dev/null || true
+          }
+          trap cleanup EXIT
+          for i in $(seq 1 120); do
+            if adb -s "$SERIAL" get-state 2>/dev/null | grep -q device; then break; fi
+            if ! kill -0 "$EMULATOR_PID" 2>/dev/null; then cat "$RUNNER_TEMP/p24-emulator.log"; exit 1; fi
+            sleep 2
+          done
+          adb -s "$SERIAL" get-state | grep -q device
+          for i in $(seq 1 150); do
+            BOOT=$(adb -s "$SERIAL" shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')
+            if [ "$BOOT" = "1" ]; then break; fi
+            if ! kill -0 "$EMULATOR_PID" 2>/dev/null; then cat "$RUNNER_TEMP/p24-emulator.log"; exit 1; fi
+            sleep 2
+          done
+          adb -s "$SERIAL" shell getprop sys.boot_completed | tr -d '\r' | grep -q '^1$'
+          adb -s "$SERIAL" shell wm size ${{ matrix.width }}x${{ matrix.height }}
+          adb -s "$SERIAL" shell wm density ${{ matrix.density }}
+          cd androidApp
+          export GRADLE_OPTS="-Xmx4g -XX:MaxMetaspaceSize=1g -Dorg.gradle.workers.max=1"
+          gradle :app:assembleDebug -Pp24CiAbi=x86_64 --no-daemon --max-workers=1
+          gradle :app:installDebug -Pp24CiAbi=x86_64 --no-daemon --max-workers=1
+          adb -s "$SERIAL" shell am force-stop com.choicekingdom.app
+          adb -s "$SERIAL" shell am start -n com.choicekingdom.app/.MainActivity
+          sleep 12
+          adb -s "$SERIAL" shell dumpsys activity activities | grep -q com.choicekingdom.app
+          mkdir -p p24-evidence
+          adb -s "$SERIAL" exec-out screencap -p > p24-evidence/${{ matrix.name }}.png
+          gradle :app:connectedDebugAndroidTest --tests com.choicekingdom.app.P24DeviceAdaptationTest --no-daemon --max-workers=1
       - if: always()
         uses: actions/upload-artifact@v4
         with:
