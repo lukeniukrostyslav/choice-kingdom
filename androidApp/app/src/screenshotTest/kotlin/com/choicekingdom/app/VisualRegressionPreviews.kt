@@ -6,10 +6,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.BorderStroke
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.draw.alpha
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -33,9 +37,20 @@ private val previewProjection = AndroidEventProjection(
 private fun PreviewShell(content: @Composable () -> Unit) {
     ChoiceKingdomTheme {
         Column(
-            modifier = Modifier.padding(20.dp),
-            verticalArrangement = Arrangement.spacedBy(14.dp),
-        ) { content() }
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp, vertical = 24.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
+            Text(
+                "AVELUNE  •  A CHOICE LEAVES A MARK",
+                color = MaterialTheme.colorScheme.primary,
+                fontSize = 10.sp,
+                fontWeight = FontWeight.Bold,
+                letterSpacing = 1.4.sp,
+            )
+            content()
+        }
     }
 }
 
@@ -44,8 +59,8 @@ fun VisualRegressionEventPreview() {
     PreviewShell {
         Text("AVELUNE", color = MaterialTheme.colorScheme.primary, fontSize = 12.sp, fontWeight = FontWeight.Bold)
         Text("The bell before dawn", style = MaterialTheme.typography.headlineMedium)
-        Text("A decision arrives before the city wakes.", color = MaterialTheme.colorScheme.onSurfaceVariant)
-        PreviewCard("EVENT", "A messenger waits beneath the eastern tower.")
+        Text("A decision arrives before the city wakes.", color = MaterialTheme.colorScheme.onSurfaceVariant, lineHeight = 22.sp)
+        PreviewCard("EVENT", "A messenger waits beneath the eastern tower.", featured = true)
     }
 }
 
@@ -99,15 +114,28 @@ fun VisualRegressionLoadingPreview() {
 }
 
 @Composable
-private fun PreviewCard(title: String, body: String) {
+private fun PreviewCard(title: String, body: String, featured: Boolean = false) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(24.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(min = if (featured) 132.dp else 104.dp),
+        shape = RoundedCornerShape(22.dp),
+        border = BorderStroke(
+            width = if (featured) 1.5.dp else 1.dp,
+            color = if (featured) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant,
+        ),
+        colors = CardDefaults.cardColors(
+            containerColor = if (featured) MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.surfaceVariant,
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = if (featured) 8.dp else 2.dp),
     ) {
-        Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text(title, color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold, fontSize = 12.sp)
-            Text(body, color = MaterialTheme.colorScheme.onSurface, fontSize = 16.sp)
+        Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            Text(title, color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold, fontSize = 11.sp, letterSpacing = 1.sp)
+            Text(body, color = MaterialTheme.colorScheme.onSurface, fontSize = 16.sp, lineHeight = 23.sp)
+            if (featured) {
+                Spacer(Modifier.height(2.dp))
+                Text("CONSEQUENCE • YOUR CHOICE MATTERS", color = MaterialTheme.colorScheme.secondary, fontSize = 10.sp, fontWeight = FontWeight.Bold)
+            }
         }
     }
 }
