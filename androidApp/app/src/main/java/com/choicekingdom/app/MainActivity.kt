@@ -231,8 +231,19 @@ private fun LoadingScreen(errorMessage: String?) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text(stringResource(R.string.avelune), color = MaterialTheme.colorScheme.primary, fontSize = 12.sp, fontWeight = FontWeight.Bold)
-        Text(stringResource(R.string.preparing_journey), fontSize = 28.sp, fontWeight = FontWeight.SemiBold)
+        Text(
+            stringResource(R.string.avelune),
+            modifier = Modifier.semantics { heading() },
+            color = MaterialTheme.colorScheme.primary,
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Bold,
+        )
+        Text(
+            stringResource(R.string.preparing_journey),
+            modifier = Modifier.semantics { heading() },
+            fontSize = 28.sp,
+            fontWeight = FontWeight.SemiBold,
+        )
         Text(
             errorMessage ?: stringResource(R.string.starting_runtime),
             modifier = Modifier.padding(top = 10.dp),
