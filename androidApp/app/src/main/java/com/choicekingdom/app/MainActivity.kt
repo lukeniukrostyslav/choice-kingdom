@@ -45,6 +45,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -175,10 +176,10 @@ private fun ChoiceKingdomApp() {
                         selectedChoiceId = selectedChoiceId,
                         resolvingChoiceId = resolvingChoiceId,
                         errorMessage = errorMessage,
-                        onScreenSelected = {
-                            selectedScreen = it.key
-                            music.setScene(it.key)
-                            if (it.key == "Settings") { audio.setMuted(audioMuted); audio.setVolume(audioVolume); audio.setAmbientVolume(ambientVolume); audio.setMusicVolume(musicVolume) }
+                        onScreenSelected = { key ->
+                            selectedScreen = key
+                            music.setScene(key)
+                            if (key == "Settings") { audio.setMuted(audioMuted); audio.setVolume(audioVolume); audio.setAmbientVolume(ambientVolume); audio.setMusicVolume(musicVolume) }
                             selectedChoiceId = null
                             resolvingChoiceId = null
                             errorMessage = null
