@@ -92,7 +92,7 @@ jobs:
           test -f "$AVD_DIR/config.ini"
           {
             echo "hw.cpu.ncore=2"
-            echo "hw.ramSize=4096"
+            echo "hw.ramSize=2048"
             echo "hw.gpu.mode=swiftshader_indirect"
             echo "hw.keyboard=yes"
           } >> "$AVD_DIR/config.ini"
@@ -111,7 +111,13 @@ jobs:
           "$ADB" start-server
           "$EMULATOR" -version
           SERIAL=emulator-5554
-          "$EMULATOR" -avd "p24-${{ matrix.name }}" -port 5554 -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -cores 2 -memory 4096 > "$RUNNER_TEMP/p24-emulator.log" 2>&1 &
+          cd androidApp
+          export GRADLE_OPTS="-Xmx8g -XX:MaxMetaspaceSize=1g -Dorg.gradle.workers.max=1"
+          export JAVA_TOOL_OPTIONS="-Xmx8g"
+          gradle :app:assembleDebug -Pp24CiAbi=x86_64 --no-daemon --max-workers=1
+          test -f app/build/outputs/apk/debug/app-debug.apk
+          cd ..
+          "$EMULATOR" -avd "p24-${{ matrix.name }}" -port 5554 -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -cores 2 -memory 2048 > "$RUNNER_TEMP/p24-emulator.log" 2>&1 &
           EMULATOR_PID=$!
           cleanup() {
             kill "$EMULATOR_PID" 2>/dev/null || true
@@ -134,10 +140,7 @@ jobs:
           "$ADB" -s "$SERIAL" shell wm size ${{ matrix.width }}x${{ matrix.height }}
           "$ADB" -s "$SERIAL" shell wm density ${{ matrix.density }}
           cd androidApp
-          export GRADLE_OPTS="-Xmx8g -XX:MaxMetaspaceSize=1g -Dorg.gradle.workers.max=1"
-          export JAVA_TOOL_OPTIONS="-Xmx8g"
-          gradle :app:assembleDebug -Pp24CiAbi=x86_64 --no-daemon --max-workers=1
-          gradle :app:installDebug -Pp24CiAbi=x86_64 --no-daemon --max-workers=1
+          "$ADB" -s "$SERIAL" install -r app/build/outputs/apk/debug/app-debug.apk
           "$ADB" -s "$SERIAL" shell am force-stop com.choicekingdom.app
           "$ADB" -s "$SERIAL" shell am start -n com.choicekingdom.app/.MainActivity
           sleep 12
