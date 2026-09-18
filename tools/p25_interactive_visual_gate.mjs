@@ -50,3 +50,5 @@ await page.screenshot({path:'p25-compact.png',fullPage:true});
 
 await browser.close();
 console.log('P25 interactive gate: PASS');
+
+// P25 final-gate verification branch: execute the same frozen-reference interactive regression suite.
