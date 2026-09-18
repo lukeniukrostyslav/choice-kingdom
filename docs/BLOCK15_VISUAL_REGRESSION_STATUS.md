@@ -1,6 +1,6 @@
 # Block 15 — Cross-Screen Visual Regression
 
-Status: **IN PROGRESS — 54%**
+Status: **IN PROGRESS — 58%**
 
 ## Implemented
 
@@ -66,3 +66,12 @@ Physical-device visual verification remains Block 21.
 - Added large-text `fontScale=1.3` coverage for Event and Settings surfaces.
 - Baseline manifest now records locale and font-scale coverage explicitly.
 - The reference set is still pending an actual completed CI render; coverage is not counted as passing until the generated images are reviewed and validated.
+
+
+## Surface and theme coverage — 58%
+
+- Added a dedicated deterministic LoadingScreen screenshot.
+- Added dark-mode screenshot variants for Event, Ending, and Settings.
+- Removed a duplicate screenshot-test import that would make the test source invalid.
+- Baseline manifest now records dark-mode and LoadingScreen coverage.
+- This percentage still does **not** include pixel-baseline approval: the first real reference PNG set must be generated, reviewed, and validated before Block 15 can move into the final verification stage.
