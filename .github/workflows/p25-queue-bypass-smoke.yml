@@ -45,6 +45,9 @@ jobs:
           if (!fs.existsSync('.github/workflows/p25-final-visual-acceptance.yml')) {
             throw new Error('Final visual acceptance workflow missing');
           }
+          const script = html.match(/<script>([\\s\\S]*?)<\\/script>/)?.[1] || ''; 
+          try { new Function(script); } catch (error) { console.error('Premium runtime JavaScript syntax error:', error); process.exit(1); }
+          console.log('P25 premium runtime JavaScript: PASS');
           console.log('P25 source contracts: PASS');
           NODE
 
