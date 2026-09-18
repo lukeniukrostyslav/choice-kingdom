@@ -31,11 +31,11 @@ const requiredArtwork = [
 ];
 
 const p1AssetFiles = [
-  'web-preview/artwork/event-empty-granary.svg',
-  'web-preview/artwork/queen-elira.svg',
-  'web-preview/artwork/lord-cael.svg',
-  'web-preview/artwork/river-compact.svg',
-  'web-preview/artwork/ending-chronicle.svg'
+  'artwork/event-empty-granary.svg',
+  'artwork/queen-elira.svg',
+  'artwork/lord-cael.svg',
+  'artwork/river-compact.svg',
+  'artwork/ending-chronicle.svg'
 ];
 
 const browser = await chromium.launch({ headless: true });
