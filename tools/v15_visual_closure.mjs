@@ -21,7 +21,8 @@ const pages = [
   'design-v2/p8-character-presentation-proof.html',
   'design-v2/p9-kingdom-world-presentation-proof.html',
   'design-v2/p10-resources-pressure-proof.html',
-  'design-v2/p11-consequences-proof.html'
+  'design-v2/p11-consequences-proof.html',
+  'design-v2/p12-history-decision-memory-proof.html'
 ];
 const viewports = [
   { name: '360x800', width: 360, height: 800 },
@@ -222,6 +223,32 @@ for (const file of pages) {
         return selected && exclusive && responsive && rtl && safe && reduced && focus && serif && cinematic && mapFeatureCount >= 7;
       });
     }
+    let p12Pass = true;
+    if (file === 'design-v2/p12-history-decision-memory-proof.html') {
+      p12Pass = await page.evaluate(() => {
+        const surface=document.querySelector('.surface');
+        const entries=[...document.querySelectorAll('.entry')];
+        const actions=[...document.querySelectorAll('.action')];
+        const thread=document.querySelector('#thread-title');
+        const status=document.querySelector('#status');
+        const styleText=[...document.querySelectorAll('style')].map(s=>s.textContent||'').join('\n');
+        if(!surface || entries.length!==3 || actions.length!==3 || !thread || !status) return false;
+        if(!actions.every(b=>b.getBoundingClientRect().height>=48 && (b.textContent||'').trim())) return false;
+        actions[1].click();
+        const result=thread.textContent==='Supplies at the pass' && actions[1].getAttribute('aria-pressed')==='true' && entries[1].classList.contains('active');
+        actions[2].click();
+        const consequence=thread.textContent==='Winter pressure' && actions[2].getAttribute('aria-pressed')==='true' && actions[1].getAttribute('aria-pressed')==='false' && entries[2].classList.contains('active');
+        const exclusive=actions.filter(b=>b.getAttribute('aria-pressed')==='true').length===1;
+        const responsive=/@media\\(max-width:760px\\)/.test(styleText) && /@media\\(max-width:420px\\)/.test(styleText);
+        const rtl=/html\\[dir=rtl\\]/.test(styleText);
+        const safe=/safe-area-inset/.test(styleText);
+        const reduced=/prefers-reduced-motion:reduce/.test(styleText);
+        const focus=/:focus-visible/.test(styleText);
+        const serif=/var\\(--ck-serif\\)/.test(styleText);
+        const cinematic=/radial-gradient/.test(styleText) && /linear-gradient/.test(styleText);
+        return result && consequence && exclusive && responsive && rtl && safe && reduced && focus && serif && cinematic;
+      });
+    }
     let p11Pass = true;
     if (file === 'design-v2/p11-consequences-proof.html') {
       p11Pass = await page.evaluate(() => {
@@ -347,9 +374,9 @@ for (const file of pages) {
         return largePass && rtlPass && resetPass;
       });
     }
-    const pass = commonPass && appPass && launcherPass && p1Pass && p6Pass && p7Pass && p8Pass && p9Pass && p10Pass && p11Pass && p21Pass && p19Pass && p1v2Pass;
+    const pass = commonPass && appPass && launcherPass && p1Pass && p6Pass && p7Pass && p8Pass && p9Pass && p10Pass && p11Pass && p12Pass && p21Pass && p19Pass && p1v2Pass;
     if (!pass) failures += 1;
-    results.push({ file, viewport: vp.name, pass, p19Pass, p21Pass, p6Pass, p7Pass, p8Pass, p9Pass, p10Pass, p11Pass, ...metrics, consoleErrors, pageErrors, failedRequests });
+    results.push({ file, viewport: vp.name, pass, p19Pass, p21Pass, p6Pass, p7Pass, p8Pass, p9Pass, p10Pass, p11Pass, p12Pass, ...metrics, consoleErrors, pageErrors, failedRequests });
     await context.close();
   }
 }
