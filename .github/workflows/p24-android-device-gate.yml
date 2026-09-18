@@ -1,0 +1,100 @@
+name: Choice Kingdom P24 Android Device Adaptation Gate
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install pytest
+        run: python -m pip install --upgrade pip pytest
+      - name: Run P24 source contract
+        run: python -m pytest -q tests/test_p24_android_device_adaptation_contract.py
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Set up Gradle 8.9
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.11.1'
+      - name: Assemble Android debug build
+        working-directory: androidApp
+        env:
+          GRADLE_OPTS: -Xmx6g -XX:MaxMetaspaceSize=1g
+        run: gradle :app:assembleDebug --stacktrace --no-daemon
+
+  android-device-classes:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: compact-phone
+            width: 1080
+            height: 2400
+            density: 420
+          - name: tablet-window
+            width: 1920
+            height: 2560
+            density: 320
+          - name: expanded-window
+            width: 2688
+            height: 2800
+            density: 320
+    runs-on: ubuntu-latest
+    name: P24 ${{ matrix.name }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Set up Gradle 8.9
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.11.1'
+      - name: Boot Android emulator and capture presentation evidence
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          target: google_apis
+          arch: x86_64
+          profile: pixel_2
+          emulator-options: -no-window -no-snapshot -noaudio -no-boot-anim
+          disable-animations: true
+          script: |
+            adb shell wm size ${{ matrix.width }}x${{ matrix.height }}
+            adb shell wm density ${{ matrix.density }}
+            gradle :app:assembleDebug
+            gradle :app:installDebug
+            adb shell am force-stop com.choicekingdom.app
+            adb shell am start -n com.choicekingdom.app/.MainActivity
+            sleep 12
+            adb shell wm size
+            adb shell wm density
+            adb shell dumpsys activity activities | grep -q com.choicekingdom.app
+            mkdir -p p24-evidence
+            adb exec-out screencap -p > p24-evidence/${{ matrix.name }}.png
+            gradle :app:connectedDebugAndroidTest --tests com.choicekingdom.app.P24DeviceAdaptationTest
+      - name: Upload P24 device evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p24-${{ matrix.name }}-evidence
+          path: androidApp/p24-evidence
+          if-no-files-found: warn

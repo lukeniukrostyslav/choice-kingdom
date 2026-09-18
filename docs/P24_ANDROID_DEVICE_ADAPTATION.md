@@ -1,0 +1,24 @@
+# P24 — Android Devices / Safe Areas / Resolution Adaptation
+
+Status: IN PROGRESS
+
+P24 continues the approved “The Royal Advisor” visual language on Android window classes.
+
+## Implemented
+- Compact, medium and expanded layouts via BoxWithConstraints at 600dp and 840dp boundaries.
+- WindowInsets.safeDrawing protects content from system bars and display cutouts.
+- Expanded presentation uses a navigation rail; compact/medium uses vertical content with bottom navigation.
+- Expanded content is capped at 720dp instead of a fixed width.
+- Choice and navigation controls retain explicit minimum touch sizes.
+- Compose text layouts remain wrapping-friendly.
+- RTL remains enabled in the Android manifest.
+- Android configuration includes arm64-v8a and x86_64.
+
+## Target-class verification
+The closure gate must execute the Android app on compact phone, medium/large tablet or foldable, and expanded-window classes. For each class it must verify no horizontal clipping, safe-area protection, adaptive navigation, reachable choices, long-string wrapping, RTL structure, and preservation of the V2 cinematic dark blue-black / restrained gold / serif visual language.
+
+## Evidence rule
+Source contracts are implementation evidence only. P24 is not 100% until Android device or emulator-class execution evidence is recorded. Browser proof cannot substitute for Android execution evidence.
+
+## Visual north star
+All verification follows design-reference/FINAL_DESIGN_VISION_V1.md: cinematic medieval-fantasy atmosphere, deep blue-black/charcoal foundation, restrained warm gold, elegant serif hierarchy, refined layered panels and calm consequential interaction.
