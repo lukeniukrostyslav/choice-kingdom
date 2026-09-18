@@ -126,10 +126,16 @@ for (const file of pages) {
         if (nav.getAttribute('aria-describedby') !== 'navigation-context') return false;
         if (current.classList.contains('item') === false) return false;
         const backRect = back.getBoundingClientRect();
-        if (backRect.height < 48) return false;
+        if (backRect.height < 48 || backRect.width < 48) return false;
         const items = [...document.querySelectorAll('.item')];
         if (items.length < 6) return false;
-        return items.every(item => {
+        const heading = current.querySelector('h2');
+        if (!heading) return false;
+        const originalHeading = heading.textContent;
+        heading.textContent = originalHeading.repeat(8);
+        const longLabelSafe = current.scrollWidth <= current.clientWidth + 1;
+        heading.textContent = originalHeading;
+        return longLabelSafe && items.every(item => {
           const rect = item.getBoundingClientRect();
           return rect.width > 0 && rect.height >= 48;
         });
