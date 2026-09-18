@@ -76,6 +76,7 @@ jobs:
           command -v sdkmanager
           yes | sdkmanager --licenses >/dev/null || true
           sdkmanager "platform-tools" "emulator" "platforms;android-35" "system-images;android-35;google_apis;x86_64"
+          export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
           command -v emulator
           command -v avdmanager
           echo "no" | avdmanager create avd --name "p24-${{ matrix.name }}" --package "system-images;android-35;google_apis;x86_64" --device "pixel_2" --force
@@ -97,6 +98,8 @@ jobs:
           command -v adb
           adb version
           adb start-server
+          command -v emulator
+          test -x "$(command -v emulator)"
           SERIAL=emulator-5554
           emulator -avd "p24-${{ matrix.name }}" -port 5554 -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -cores 2 -memory 4096 > "$RUNNER_TEMP/p24-emulator.log" 2>&1 &
           EMULATOR_PID=$!
