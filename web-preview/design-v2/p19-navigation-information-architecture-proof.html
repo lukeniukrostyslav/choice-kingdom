@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Choice Kingdom — P19 Navigation</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+*{box-sizing:border-box}html{background:var(--ck-world-950);min-height:100%}
+body{margin:0;min-height:100vh;color:var(--ck-text-primary);font:16px/1.55 var(--ck-body);background:radial-gradient(900px 520px at 78% 10%,rgba(144,122,73,.16),transparent 65%),radial-gradient(700px 480px at 12% 90%,rgba(55,77,103,.2),transparent 70%),linear-gradient(145deg,var(--ck-night-950),var(--ck-world-900) 55%,#101a28)}
+a,button{font:inherit}.skip{position:absolute;left:-9999px;top:10px;z-index:20;padding:12px 16px;background:var(--ck-surface-solid);color:var(--ck-text-primary);border:1px solid var(--ck-border-strong);border-radius:var(--ck-radius-sm)}.skip:focus{left:12px}
+.shell{width:min(1120px,100%);margin:auto;padding:clamp(20px,5vw,52px) clamp(14px,4vw,42px) calc(32px + env(safe-area-inset-bottom))}
+.top{display:flex;justify-content:space-between;align-items:center;gap:18px}.brand{display:flex;align-items:center;gap:13px}.crest{width:48px;height:48px;display:grid;place-items:center;border:1px solid var(--ck-border-strong);border-radius:14px;color:var(--ck-gold-highlight);font:700 24px var(--ck-serif);background:rgba(9,14,22,.55)}.eyebrow,.label{font-size:var(--ck-type-label);letter-spacing:.17em;text-transform:uppercase;color:var(--ck-text-muted)}.brand-title{font:700 20px/1.08 var(--ck-serif)}
+.nav{display:flex;gap:7px;flex-wrap:wrap}.nav button{min-height:48px;padding:0 14px;border:1px solid var(--ck-border-subtle);border-radius:var(--ck-radius-sm);background:rgba(14,21,31,.64);color:var(--ck-text-secondary);cursor:pointer}.nav button[aria-current="page"]{color:var(--ck-gold-highlight);border-color:var(--ck-border-strong);background:rgba(215,182,108,.08)}
+.nav button:focus-visible,.card:focus-visible,.back:focus-visible{outline:3px solid var(--ck-focus);outline-offset:3px}
+.hero{margin-top:clamp(38px,7vw,72px);max-width:800px}.hero h1{font:700 clamp(44px,7vw,72px)/.96 var(--ck-serif);margin:9px 0 15px}.lead{font-size:var(--ck-type-body-lg);color:var(--ck-text-secondary);max-width:720px;margin:0}
+.breadcrumb{margin-top:24px;display:flex;align-items:center;gap:9px;color:var(--ck-text-muted);font-size:13px}.breadcrumb .current{color:var(--ck-text-primary)}.crumb-sep{color:var(--ck-gold-600)}
+.content{margin-top:34px;display:grid;grid-template-columns:minmax(190px,.28fr) minmax(0,1fr);gap:18px;align-items:start}
+.rail{padding:12px;background:rgba(9,14,22,.48);border:1px solid var(--ck-border-subtle);border-radius:var(--ck-radius-md);position:sticky;top:16px}.rail-title{padding:8px 10px 12px;font:700 18px var(--ck-serif);border-bottom:1px solid var(--ck-border-subtle);margin-bottom:6px}.rail button{width:100%;min-height:48px;text-align:start;border:0;border-radius:10px;background:transparent;color:var(--ck-text-muted);padding:10px;cursor:pointer}.rail button[aria-current="page"]{color:var(--ck-text-primary);background:rgba(215,182,108,.09);box-shadow:inset 2px 0 var(--ck-gold-primary)}
+.panel{padding:clamp(20px,4vw,30px);background:linear-gradient(145deg,var(--ck-surface-elevated),var(--ck-surface-solid));border:1px solid var(--ck-border-subtle);border-radius:var(--ck-radius-lg);box-shadow:var(--ck-shadow-soft)}
+.panel h2{font:700 28px/1.08 var(--ck-serif);margin:7px 0 10px}.panel p{color:var(--ck-text-muted);margin:0;max-width:680px}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:22px}.card{min-height:132px;padding:18px;text-decoration:none;color:var(--ck-text-primary);background:rgba(18,26,38,.62);border:1px solid var(--ck-border-subtle);border-radius:var(--ck-radius-md);display:flex;flex-direction:column}.card strong{font:700 20px var(--ck-serif)}.card span{color:var(--ck-text-muted);font-size:13px;margin-top:7px}.card em{font-style:normal;color:var(--ck-gold-highlight);font-size:12px;margin-top:auto;padding-top:14px}
+.back{display:inline-flex;align-items:center;min-height:48px;padding:0 15px;margin-top:20px;border:1px solid var(--ck-border-subtle);border-radius:var(--ck-radius-sm);color:var(--ck-text-secondary);text-decoration:none;background:rgba(14,21,31,.58)}
+.status{margin-top:18px;color:var(--ck-text-secondary);min-height:24px}.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+@media(max-width:760px){.content{grid-template-columns:1fr}.rail{position:static;display:grid;grid-template-columns:repeat(3,1fr);gap:5px}.rail-title{grid-column:1/-1}.rail button{text-align:center}.cards{grid-template-columns:1fr}.nav{width:100%;overflow-x:auto;flex-wrap:nowrap;padding-bottom:3px}.nav button{flex:0 0 auto}}
+@media(max-width:420px){.shell{padding-inline:14px}.brand-title{font-size:18px}.hero{margin-top:42px}.panel{padding:18px}.rail{grid-template-columns:1fr 1fr}.rail-title{grid-column:1/-1}.nav button{padding-inline:12px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+html[dir=rtl] .shell{direction:rtl}html[dir=rtl] .top{flex-direction:row-reverse}html[dir=rtl] .breadcrumb{flex-direction:row-reverse}html[dir=rtl] .rail button{text-align:right}html[dir=rtl] .rail button[aria-current="page"]{box-shadow:inset -2px 0 var(--ck-gold-primary)}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<main id="main" class="shell">
+<header class="top">
+<div class="brand"><div class="crest" aria-hidden="true">K</div><div><div class="eyebrow">Avelune · The Royal Advisor</div><div class="brand-title">Choice Kingdom</div></div></div>
+<nav class="nav" aria-label="Primary navigation">
+<button data-route="journey" aria-current="page">Journey</button><button data-route="realm">Realm</button><button data-route="people">People</button>
+</nav>
+</header>
+<section class="hero" aria-labelledby="nav-title" aria-describedby="nav-subtitle">
+<div class="label">P19 · Information Architecture</div><h1 id="nav-title">Know where you stand.</h1><p id="nav-subtitle" class="lead">A calm navigation system keeps the kingdom readable: one current destination, one clear hierarchy, and no competing dashboards.</p>
+<div class="breadcrumb" aria-label="Breadcrumb"><span>Avelune</span><span class="crumb-sep" aria-hidden="true">·</span><span class="current" id="crumb">Journey</span></div>
+</section>
+<section class="content">
+<aside class="rail" aria-label="Section navigation"><div class="rail-title">Your council</div><button data-route="journey" aria-current="page">Journey</button><button data-route="realm">Realm</button><button data-route="people">People & Factions</button><button data-route="history">History</button></aside>
+<article class="panel" aria-labelledby="panel-title" aria-describedby="panel-copy">
+<div class="label" id="panel-label">Current destination</div><h2 id="panel-title">The Journey</h2><p id="panel-copy">Enter the next decision chamber and follow its consequences without losing the larger story.</p>
+<div class="cards" id="cards">
+<a class="card" href="game-flow.html"><strong>Decision Chamber</strong><span>Event → Choice → Consequence</span><em>Continue the journey →</em></a>
+<a class="card" href="p17-replay-new-run-proof.html"><strong>Chronicle</strong><span>History → Replay → New reign</span><em>Review continuity →</em></a>
+</div>
+<a class="back" href="p18-main-menu-launcher-proof.html">← Return to the launcher</a>
+<div class="status" id="status" aria-live="polite">Journey is the active destination.</div>
+</article>
+</section>
+</main>
+<script>
+const data={
+ journey:{crumb:"Journey",label:"Current destination",title:"The Journey",copy:"Enter the next decision chamber and follow its consequences without losing the larger story.",status:"Journey is the active destination.",cards:[["Decision Chamber","Event → Choice → Consequence","game-flow.html","Continue the journey →"],["Chronicle","History → Replay → New reign","p17-replay-new-run-proof.html","Review continuity →"]]},
+ realm:{crumb:"Realm",label:"Current destination",title:"The Realm",copy:"Read Avelune as a living place: pressure, resources, regions and the condition of the kingdom.",status:"Realm is the active destination.",cards:[["Kingdom State","Place → Pressure → Resources","p9-kingdom-world-presentation-proof.html","Survey the realm →"],["Consequences","Immediate → Pending → Triggered","p11-consequences-proof.html","Read the consequences →"]]},
+ people:{crumb:"People & Factions",label:"Current destination",title:"People & Factions",copy:"Follow character identity, relationship state and faction tension from one coherent social layer.",status:"People & Factions is the active destination.",cards:[["Relationships","Character → Trust → Tension","p13-relationships-proof.html","Meet the court →"],["Investigation","Threads → Evidence → Uncertainty","p14-investigation-proof.html","Follow a thread →"]]},
+ history:{crumb:"History",label:"Chronicle",title:"The Chronicle",copy:"Review what the kingdom remembers, keeping past decisions legible without turning history into a dashboard.",status:"History is the active destination.",cards:[["Decision Memory","Choice → Result → Consequence","p12-history-decision-memory-proof.html","Open the history →"],["Endings","Resolution → What remains","p16-ending-resolution-proof.html","Read the ending →"]]}
+};
+const buttons=[...document.querySelectorAll('[data-route]')];
+const crumb=document.querySelector('#crumb'),label=document.querySelector('#panel-label'),title=document.querySelector('#panel-title'),copy=document.querySelector('#panel-copy'),status=document.querySelector('#status'),cards=document.querySelector('#cards');
+function render(route){
+ const d=data[route]; crumb.textContent=d.crumb; label.textContent=d.label; title.textContent=d.title; copy.textContent=d.copy; status.textContent=d.status;
+ cards.innerHTML=d.cards.map(c=>'<a class="card" href="'+c[2]+'"><strong>'+c[0]+'</strong><span>'+c[1]+'</span><em>'+c[3]+'</em></a>').join('');
+ buttons.forEach(b=>b.setAttribute('aria-current',b.dataset.route===route?'page':'false'));
+}
+buttons.forEach(b=>b.addEventListener('click',()=>render(b.dataset.route)));
+</script>
+</body>
+</html>
