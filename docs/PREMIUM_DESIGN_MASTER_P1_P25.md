@@ -92,7 +92,7 @@ Remaining evidence before P25 can reach 100%:
 | P25 sub-block | Current | Evidence / remaining work |
 |---|---:|---|
 | 25.1 Visual game shell / cinematic composition | 100% | Cinematic shell, atmospheric edge treatment, layered panel material, deterministic shell capture and frozen-reference implementation contract are complete; P25 final acceptance remains separate |
-| 25.2 Main menu / first impression | 96% | Premium launcher implemented; deployed visual proof remains |
+| 25.2 Main menu / first impression | 100% | Premium launcher composition, title hierarchy, CTA hierarchy, atmospheric treatment, responsive behavior and deterministic launcher acceptance coverage are complete; final deployed P25 acceptance remains separate |
 | 25.3 Event / situation scene | 97% | E01/E02/E05 cinematic event presentation implemented |
 | 25.4 Choice chamber / decision interaction | 95% | Choice states, touch targets and canonical effects implemented |
 | 25.5 Consequence / memory reveal | 95% | Consequence state and decision memory implemented |
@@ -108,6 +108,18 @@ Remaining evidence before P25 can reach 100%:
 | 25.15 Visual regression / final acceptance | 77% | Automated coverage exists; normalized post-change gate is saved; cross-surface visible-surface assertions have been extended across launcher, event, consequence, choice, kingdom, people, factions, investigation, history, endings and settings; latest post-change run and deployed visual/reference comparison remain |
 
 **P25 overall remains 94%.** Sub-blocks are diagnostic and are not averaged into the overall percentage. P25 reaches 100% only after deployed visual review and final cross-screen regression sign-off.
+
+## P25.2 Closure Record — 100%
+
+P25.2 Main menu / first impression is closed at 100% on `main` through:
+- cinematic launcher composition aligned to the approved P25 visual direction;
+- explicit title lockup and first-impression hierarchy;
+- primary/secondary CTA hierarchy with responsive touch-safe sizing;
+- atmospheric horizon treatment, restrained gold accenting and layered depth;
+- compact/expanded layout behavior without launcher overflow;
+- deterministic launcher visual evidence capture and visible-surface acceptance assertions in `tools/p25_interactive_visual_gate.mjs`.
+
+The closure does not close P25 itself: deployed visual verification and final cross-screen regression remain P25-level gates.
 
 ## Next bottleneck
 
