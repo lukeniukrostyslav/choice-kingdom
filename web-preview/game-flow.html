@@ -1,94 +1,222 @@
 <!doctype html>
 <html lang="en" dir="ltr">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#07101b"><meta name="description" content="Choice Kingdom — P25 interactive premium visual prototype">
-<title>Choice Kingdom — Avelune · P25</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#060b12">
+<meta name="description" content="Choice Kingdom — premium interactive P25 visual prototype">
+<title>Choice Kingdom — Avelune</title>
 <style>
-:root{--bg:#07101b;--bg2:#0d1724;--panel:rgba(17,27,40,.94);--panel2:#101d2c;--ink:#f1eee6;--muted:#aeb2b9;--gold:#cdb06a;--line:rgba(205,176,106,.25);--shadow:0 24px 70px rgba(0,0,0,.42);--good:#b7d6a4;--danger:#d6a9a2}
-[data-theme=light]{--bg:#e9e5da;--bg2:#f5f1e7;--panel:rgba(250,247,239,.96);--panel2:#fffaf0;--ink:#24251f;--muted:#69675f;--line:rgba(92,76,38,.22);--shadow:0 24px 70px rgba(65,55,35,.14)}
-*{box-sizing:border-box}html{background:var(--bg);scroll-behavior:smooth}body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% -12%,rgba(72,101,133,.45),transparent 43%),linear-gradient(160deg,var(--bg),#050b12);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;padding:max(10px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) max(24px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left))}
-.app{width:min(1120px,100%);margin:auto}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 2px 16px}.brand{font:500 clamp(23px,4vw,31px)/1 Georgia,serif}.eyebrow{color:var(--gold);font-size:11px;text-transform:uppercase;letter-spacing:.16em}.top-actions{display:flex;gap:8px}.icon,.navbtn,.choice,.linkbtn{min-height:48px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--ink);cursor:pointer}.icon{min-width:48px;padding:8px}.skip{position:absolute;left:-9999px;top:8px;padding:10px;background:var(--panel);color:var(--ink);border-radius:10px}.skip:focus{left:10px;z-index:30}
-.screen{display:none}.screen.active{display:block}.hero{min-height:390px;display:flex;align-items:flex-end;position:relative;overflow:hidden;border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,#111e2c,#09111c);box-shadow:var(--shadow);padding:clamp(22px,5vw,48px)}.hero:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 75% 30%,rgba(205,176,106,.13),transparent 28%),linear-gradient(90deg,rgba(5,10,17,.96),rgba(5,10,17,.72) 55%,rgba(5,10,17,.28));}.hero-content{position:relative;max-width:760px}.hero h1,h1,h2{font-family:Georgia,"Times New Roman",serif;font-weight:500}.hero h1{font-size:clamp(42px,8vw,82px);line-height:.98;margin:9px 0 18px}.lead{color:#d8d3c8;font-size:clamp(17px,2.2vw,21px);max-width:720px}.panel{margin-top:14px;border:1px solid var(--line);border-radius:18px;background:var(--panel);box-shadow:var(--shadow);padding:clamp(18px,3vw,30px)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.choice{width:100%;padding:14px 16px;text-align:start;background:var(--panel2);font:inherit;transition:transform .16s,border-color .16s,background .16s}.choice:hover{transform:translateY(-1px);border-color:var(--gold)}.choice.selected{border-color:var(--gold);background:rgba(205,176,106,.12)}.choice small{display:block;color:var(--muted);margin-top:5px}.metric{padding:13px;border:1px solid var(--line);border-radius:13px;background:var(--panel2)}.metric b{display:block;color:var(--gold);font:24px Georgia,serif}.muted{color:var(--muted)}.tag{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:5px 9px;color:var(--gold);font-size:12px}.person,.institution{border-top:1px solid var(--line);padding:13px 0}.person:first-child,.institution:first-child{border-top:0}.person button,.institution button{width:100%;background:none;border:0;color:inherit;text-align:start;padding:0;cursor:pointer}.detail{min-height:160px}.nav{position:sticky;bottom:10px;z-index:20;display:flex;gap:6px;overflow:auto;margin-top:14px;padding:8px;border:1px solid var(--line);border-radius:16px;background:rgba(8,15,24,.92);backdrop-filter:blur(14px)}.navbtn{flex:0 0 auto;min-width:82px;padding:8px 11px;font-size:12px;background:transparent}.navbtn.active{color:var(--gold);background:var(--panel2)}.status{margin-top:12px;padding:12px 14px;border-left:3px solid var(--gold);background:rgba(205,176,106,.06);min-height:48px}.back{margin-top:12px}.focus:focus-visible,.choice:focus-visible,.icon:focus-visible,.navbtn:focus-visible,.linkbtn:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
-@media(max-width:760px){.grid,.grid3{grid-template-columns:1fr}.hero{min-height:330px}.panel{padding:17px}.navbtn{min-width:76px}}@media(max-width:420px){body{padding-left:8px;padding-right:8px}.hero{min-height:300px;padding:18px}.hero h1{font-size:44px}.choice{min-height:56px}.panel{border-radius:16px}}
-.large{font-size:20px}.large .choice,.large .navbtn,.large .icon{min-height:56px}.large h1{font-size:clamp(40px,8vw,74px)}
-html[dir=rtl] body{text-align:right}html[dir=rtl] .top{flex-direction:row-reverse}html[dir=rtl] .nav{direction:rtl}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.choice:hover{transform:none}}
+:root{
+ --bg:#050a11;--bg2:#0a111b;--surface:#0d1724;--surface2:#111d2b;--surface3:#172536;
+ --ink:#f3efe5;--muted:#a8adb5;--gold:#d2b66f;--gold2:#8d7440;--line:rgba(210,182,111,.28);
+ --blue:#14283b;--shadow:0 28px 90px rgba(0,0,0,.48);--radius:22px;
+}
+[data-theme=light]{--bg:#e7e1d3;--bg2:#f2eee5;--surface:#f8f5ec;--surface2:#fffaf0;--surface3:#ebe4d5;--ink:#24241f;--muted:#66645e;--line:rgba(83,68,37,.25);--shadow:0 28px 80px rgba(55,45,30,.16)}
+*{box-sizing:border-box}
+html{background:var(--bg);scroll-behavior:smooth}
+body{margin:0;min-height:100vh;color:var(--ink);font:16px/1.55 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:
+ radial-gradient(ellipse at 50% -20%,rgba(56,83,111,.5),transparent 45%),
+ radial-gradient(ellipse at 100% 50%,rgba(90,68,33,.09),transparent 38%),
+ linear-gradient(160deg,var(--bg),#03070d);padding:max(10px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) max(28px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left))}
+button{font:inherit}
+.app{width:min(1240px,100%);margin:auto}
+.top{height:76px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 4px}
+.brandline{display:flex;align-items:center;gap:13px}.crest{width:38px;height:46px;position:relative;display:grid;place-items:center;color:var(--gold)}
+.crest:before{content:"";position:absolute;width:30px;height:36px;border:1px solid var(--gold2);clip-path:polygon(50% 0,90% 17%,82% 78%,50% 100%,18% 78%,10% 17%);background:linear-gradient(145deg,rgba(210,182,111,.18),transparent)}
+.crest span{font:18px Georgia,serif;position:relative}.eyebrow{color:var(--gold);font-size:10px;text-transform:uppercase;letter-spacing:.19em}
+.brand{font:500 26px/1 Georgia,"Times New Roman",serif}.subbrand{font-size:11px;color:var(--muted);margin-top:3px}
+.top-actions{display:flex;gap:8px}.icon,.navbtn,.choice,.linkbtn{min-height:48px;border:1px solid var(--line);border-radius:13px;background:rgba(13,23,36,.86);color:var(--ink);cursor:pointer}
+.icon{width:48px;padding:8px}.icon:hover,.navbtn:hover,.choice:hover{border-color:rgba(210,182,111,.62)}
+.screen{display:none}.screen.active{display:block;animation:enter .35s ease both}
+@keyframes enter{from{opacity:.2;transform:translateY(6px)}to{opacity:1;transform:none}}
+.skip{position:absolute;left:-9999px}.skip:focus{left:10px;top:10px;z-index:50;padding:10px;background:var(--surface2);color:var(--ink);border-radius:10px}
+.stage{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);background:linear-gradient(135deg,rgba(15,28,43,.98),rgba(5,11,18,.98))}
+.stage:before{content:"";position:absolute;inset:0;pointer-events:none;background:
+ radial-gradient(circle at 78% 18%,rgba(210,182,111,.16),transparent 18%),
+ radial-gradient(circle at 15% 100%,rgba(43,79,111,.2),transparent 35%),
+ linear-gradient(90deg,rgba(3,7,12,.96),rgba(3,7,12,.7) 53%,rgba(3,7,12,.22))}
+.stage-inner{position:relative;padding:clamp(24px,5vw,62px)}
+.hero{min-height:610px;display:flex;align-items:flex-end}.hero-copy{max-width:760px}
+.hero-title{font:500 clamp(52px,9vw,106px)/.88 Georgia,"Times New Roman",serif;letter-spacing:-.025em;margin:12px 0 22px}
+.hero-lead{font-size:clamp(17px,2.1vw,22px);color:#d7d3ca;max-width:670px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.primary{border-color:rgba(210,182,111,.7);background:linear-gradient(145deg,rgba(210,182,111,.18),rgba(210,182,111,.05));padding:15px 21px;min-height:56px;border-radius:14px}
+.secondary{padding:15px 21px;min-height:56px;background:rgba(14,25,39,.8)}
+.section-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}
+.card{border:1px solid var(--line);border-radius:20px;background:linear-gradient(145deg,rgba(17,29,43,.96),rgba(10,18,28,.96));box-shadow:0 18px 50px rgba(0,0,0,.25);padding:clamp(19px,3vw,30px)}
+.card h2,.card h3{font:500 28px/1.1 Georgia,serif;margin:8px 0 10px}.card h3{font-size:21px}.muted{color:var(--muted)}
+.divider{height:1px;background:linear-gradient(90deg,var(--line),transparent);margin:18px 0}
+.surface-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:16px}.surface-head h1{font:500 clamp(40px,6vw,68px)/.95 Georgia,serif;margin:8px 0 0}.surface-head p{max-width:650px;color:var(--muted);margin:8px 0 0}
+.statrow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.stat{padding:15px;border:1px solid var(--line);border-radius:15px;background:rgba(9,18,28,.76)}.stat span{display:block;color:var(--muted);font-size:12px}.stat b{display:block;color:var(--gold);font:25px Georgia,serif;margin-top:3px}
+.choice-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.choice{text-align:start;padding:18px;background:linear-gradient(145deg,var(--surface2),rgba(15,26,39,.96));min-height:100px;transition:.18s}.choice strong{font:500 20px Georgia,serif}.choice small{display:block;color:var(--muted);margin-top:7px}.choice:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(0,0,0,.25)}
+.event-stage{min-height:460px}.event-art{position:absolute;right:0;top:0;width:47%;height:100%;opacity:.78;background:
+ radial-gradient(ellipse at 70% 32%,rgba(210,182,111,.22),transparent 13%),
+ linear-gradient(180deg,transparent 55%,rgba(4,9,15,.8)),
+ repeating-linear-gradient(90deg,transparent 0 38px,rgba(210,182,111,.035) 39px 40px);
+ clip-path:polygon(18% 0,100% 0,100% 100%,0 100%)}.event-copy{position:relative;z-index:2;max-width:680px}
+.kicker{display:inline-flex;align-items:center;gap:8px;color:var(--gold);font-size:11px;text-transform:uppercase;letter-spacing:.16em}.dot{width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 16px rgba(210,182,111,.7)}
+.event-title{font:500 clamp(42px,6vw,70px)/.98 Georgia,serif;margin:12px 0 15px}.event-text{font-size:19px;color:#d5d2ca}
+.consequence{border-left:3px solid var(--gold);padding:17px 20px;background:rgba(210,182,111,.055);border-radius:0 15px 15px 0}
+.badges{display:flex;flex-wrap:wrap;gap:8px}.tag{border:1px solid var(--line);border-radius:999px;padding:5px 10px;color:var(--gold);font-size:12px}
+.people-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.person-card{overflow:hidden;border:1px solid var(--line);border-radius:20px;background:var(--surface);cursor:pointer}.portrait{height:180px;position:relative;overflow:hidden;background:
+ radial-gradient(circle at 50% 25%,rgba(210,182,111,.22),transparent 10%),
+ radial-gradient(ellipse at 50% 58%,rgba(82,102,123,.5),transparent 27%),
+ linear-gradient(160deg,#182b3e,#07101a 75%)}.portrait:before{content:"";position:absolute;left:50%;top:32px;width:62px;height:72px;transform:translateX(-50%);border-radius:48% 48% 42% 42%;background:linear-gradient(160deg,#b8a98d,#524a3e);box-shadow:0 0 0 14px rgba(210,182,111,.025)}.portrait:after{content:"";position:absolute;left:50%;top:88px;width:130px;height:105px;transform:translateX(-50%);border-radius:48% 48% 0 0;background:linear-gradient(145deg,#253c52,#0b1420);border:1px solid rgba(210,182,111,.12)}.portrait .sig{position:absolute;z-index:2;right:12px;top:12px;width:38px;height:38px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;color:var(--gold);font:16px Georgia,serif;background:rgba(3,8,14,.45)}.person-body{padding:16px}.person-name{font:500 25px Georgia,serif}.person-anchor{color:var(--muted);font-size:13px;margin-top:5px}
+.faction-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.faction-card{position:relative;min-height:205px;overflow:hidden;border:1px solid var(--line);border-radius:20px;background:linear-gradient(145deg,var(--surface2),var(--surface));padding:20px}.sigil{width:68px;height:78px;margin-bottom:15px;position:relative;display:grid;place-items:center;color:var(--gold);font:26px Georgia,serif}.sigil:before{content:"";position:absolute;inset:3px 8px;border:1px solid var(--gold2);clip-path:polygon(50% 0,94% 16%,84% 77%,50% 100%,16% 77%,6% 16%);background:linear-gradient(145deg,rgba(210,182,111,.12),transparent)}.sigil span{position:relative}.faction-card h3{margin:0;font:500 24px Georgia,serif}.faction-card p{color:var(--muted);font-size:13px;margin:7px 0}
+.realm{min-height:570px;position:relative;overflow:hidden;border:1px solid var(--line);border-radius:24px;background:
+ radial-gradient(ellipse at 50% 45%,rgba(61,98,124,.28),transparent 40%),
+ linear-gradient(155deg,#102233,#07111c)}.mountains{position:absolute;inset:0;opacity:.65;background:
+ linear-gradient(145deg,transparent 48%,rgba(210,182,111,.09) 49%,transparent 50%),
+ linear-gradient(35deg,transparent 53%,rgba(92,126,148,.22) 54%,transparent 55%),
+ linear-gradient(160deg,transparent 43%,rgba(92,126,148,.16) 44%,transparent 45%);
+ background-size:100% 100%}.river{position:absolute;left:44%;top:-10%;width:17%;height:125%;transform:rotate(8deg);background:linear-gradient(90deg,transparent,rgba(108,151,174,.22),rgba(210,182,111,.05),transparent);filter:blur(2px)}.roads{position:absolute;inset:0;background:repeating-linear-gradient(163deg,transparent 0 95px,rgba(210,182,111,.09) 96px 97px,transparent 98px 150px)}.realm-ui{position:relative;z-index:2;padding:28px}.realm-title{font:500 clamp(42px,7vw,76px) Georgia,serif;margin:0 0 5px}.realm-sub{color:var(--muted)}.realm-node{position:absolute;z-index:3;padding:12px 14px;border:1px solid var(--line);border-radius:13px;background:rgba(7,14,22,.86);backdrop-filter:blur(8px)}.node-a{left:15%;top:40%}.node-b{right:16%;top:30%}.node-c{right:29%;bottom:18%}.node-d{left:31%;bottom:12%}.node-name{font:18px Georgia,serif}.node-label{font-size:11px;color:var(--gold)}
+.investigation-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}.evidence-board{min-height:390px;position:relative;background:
+ radial-gradient(circle at 25% 30%,rgba(210,182,111,.1),transparent 20%),
+ linear-gradient(145deg,#121a22,#0b121a);border:1px solid var(--line);border-radius:20px;overflow:hidden}.thread{position:absolute;padding:13px;border:1px solid var(--line);border-radius:12px;background:rgba(18,29,40,.93);box-shadow:0 12px 30px rgba(0,0,0,.28)}.thread b{font:17px Georgia,serif}.thread small{display:block;color:var(--muted);margin-top:4px}.t1{left:7%;top:12%}.t2{right:8%;top:26%}.t3{left:23%;bottom:12%}.t4{right:16%;bottom:10%}.wire{position:absolute;height:1px;background:linear-gradient(90deg,var(--gold2),transparent);transform-origin:left center;opacity:.65}.w1{left:30%;top:30%;width:37%;transform:rotate(-4deg)}.w2{left:35%;top:52%;width:28%;transform:rotate(22deg)}.w3{left:55%;top:54%;width:25%;transform:rotate(-28deg)}
+.timeline{position:relative;padding-left:26px}.timeline:before{content:"";position:absolute;left:7px;top:8px;bottom:8px;width:1px;background:var(--line)}.timeline-item{position:relative;padding:0 0 24px 18px}.timeline-item:before{content:"";position:absolute;left:-23px;top:7px;width:10px;height:10px;border:1px solid var(--gold);border-radius:50%;background:var(--bg)}.timeline-item b{font:20px Georgia,serif}.timeline-item small{display:block;color:var(--gold);margin-bottom:4px}
+.ending-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.ending{min-height:190px;border:1px solid var(--line);border-radius:20px;padding:22px;background:linear-gradient(145deg,rgba(20,32,45,.95),rgba(9,16,25,.95));position:relative;overflow:hidden}.ending:after{content:"";position:absolute;right:-30px;bottom:-50px;width:150px;height:150px;border:1px solid var(--line);border-radius:50%}.ending h3{font:500 27px Georgia,serif;margin:0 0 8px}.ending p{color:var(--muted);max-width:480px}
+.settings-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.setting{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:17px;border:1px solid var(--line);border-radius:15px;background:var(--surface2)}.setting b{font:18px Georgia,serif}.toggle{min-width:68px;min-height:38px;border:1px solid var(--line);border-radius:999px;background:var(--surface3);color:var(--gold);cursor:pointer}
+.nav{position:sticky;bottom:10px;z-index:30;display:flex;gap:6px;overflow:auto;margin-top:14px;padding:8px;border:1px solid var(--line);border-radius:17px;background:rgba(6,12,20,.9);backdrop-filter:blur(18px);box-shadow:0 14px 45px rgba(0,0,0,.3)}.navbtn{flex:0 0 auto;min-width:91px;padding:8px 12px;background:transparent;font-size:12px}.navbtn.active{color:var(--gold);background:rgba(210,182,111,.08);border-color:rgba(210,182,111,.4)}
+.status{margin-top:14px;padding:14px 16px;border-left:3px solid var(--gold);background:rgba(210,182,111,.055);border-radius:0 14px 14px 0;color:#d6d2c9}.back{margin-top:14px}
+.focus:focus-visible,.choice:focus-visible,.icon:focus-visible,.navbtn:focus-visible,.toggle:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.large{font-size:20px}.large .choice,.large .navbtn,.large .icon,.large .toggle{min-height:56px}
+.reduce *, .reduce *:before,.reduce *:after{animation:none!important;transition:none!important}
+html[dir=rtl] body{text-align:right}html[dir=rtl] .top{flex-direction:row-reverse}html[dir=rtl] .nav{direction:rtl}.rtlflip{direction:ltr}
+@media(max-width:850px){.people-grid,.faction-grid{grid-template-columns:repeat(2,1fr)}.statrow{grid-template-columns:repeat(2,1fr)}.investigation-grid{grid-template-columns:1fr}.event-art{width:58%;opacity:.42}}
+@media(max-width:650px){.section-grid,.choice-grid,.ending-grid,.settings-grid{grid-template-columns:1fr}.people-grid,.faction-grid{grid-template-columns:1fr}.hero{min-height:520px}.hero-title{font-size:54px}.surface-head{display:block}.stage-inner{padding:20px}.event-stage{min-height:520px}.portrait{height:205px}.realm{min-height:520px}.node-a{left:5%;top:42%}.node-b{right:5%;top:28%}.node-c{right:9%;bottom:17%}.node-d{left:9%;bottom:8%}}
+@media(max-width:420px){body{padding-left:7px;padding-right:7px}.top{height:70px}.brand{font-size:22px}.crest{display:none}.hero-title{font-size:47px}.hero{min-height:500px}.hero-lead{font-size:16px}.surface-head h1{font-size:43px}.choice{min-height:88px}.stat{padding:12px}.navbtn{min-width:78px}.realm-node{padding:9px 10px}.node-name{font-size:15px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
-<body><a class="skip" href="#main">Skip to content</a><main id="main" class="app">
-<header class="top"><div><div class="eyebrow">Avelune · P25 final visual review</div><div class="brand">Choice Kingdom</div></div><div class="top-actions"><button class="icon" id="theme" aria-label="Toggle theme">☼</button><button class="icon" id="home" aria-label="Open main menu">⌂</button></div></header>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<main id="main" class="app">
+<header class="top">
+ <div class="brandline"><div class="crest"><span>✦</span></div><div><div class="eyebrow">Avelune · Choice Kingdom</div><div class="brand">Choice Kingdom</div><div class="subbrand">Every decision leaves a trace.</div></div></div>
+ <div class="top-actions"><button class="icon focus" id="theme" aria-label="Toggle theme">☼</button><button class="icon focus" id="home" aria-label="Open main menu">⌂</button></div>
+</header>
 
-<section id="menu" class="screen active"><article class="hero"><div class="hero-content"><div class="eyebrow">A new reign begins</div><h1>Choice Kingdom</h1><p class="lead">Every decision leaves a trace. Read the kingdom, choose your course, and discover what Avelune remembers.</p><div class="top-actions" style="margin-top:22px"><button class="choice focus" id="start" style="width:auto;padding-inline:22px">Start a new run</button><button class="choice focus" id="continue" style="width:auto;padding-inline:22px">Continue</button></div></div></article><section class="grid" style="margin-top:14px"><article class="panel"><div class="eyebrow">Journey</div><h2>Event → Choice → Consequence</h2><p class="muted">A compact playable path using canonical campaign material from E01, E02 and E05.</p></article><article class="panel"><div class="eyebrow">Review</div><h2>Open the kingdom</h2><p class="muted">People, institutional positions, History, Investigation and Settings remain reachable from the same prototype.</p></article></section></section>
+<section id="menu" class="screen active">
+ <article class="stage hero"><div class="stage-inner hero-copy">
+  <div class="eyebrow">A new reign begins</div><h1 class="hero-title">Choice<br>Kingdom</h1>
+  <p class="hero-lead">Read the kingdom. Choose your course. Every decision leaves a trace in what Avelune remembers.</p>
+  <div class="actions"><button class="choice primary focus" id="start">Begin a new reign →</button><button class="choice secondary focus" id="continue">Continue the chronicle</button></div>
+  <div class="badges" style="margin-top:26px"><span class="tag">Cinematic medieval fantasy</span><span class="tag">Responsive</span><span class="tag">Accessible</span></div>
+ </div></article>
+ <div class="section-grid">
+  <article class="card"><div class="eyebrow">The journey</div><h2>Event · Choice · Consequence</h2><p class="muted">A playable decision flow where state, memory and consequences remain visible.</p></article>
+  <article class="card"><div class="eyebrow">The realm</div><h2>Open the kingdom</h2><p class="muted">People, institutions, Investigation, History, Endings and Settings are part of one coherent visual world.</p></article>
+ </div>
+</section>
 
-<section id="event" class="screen" aria-labelledby="eventTitle"><article class="panel"><div class="eyebrow" id="eventId">E01 · First turn</div><h1 id="eventTitle">The First Petition</h1><p id="eventText" class="lead">A delegation asks whether the new ruler will hear ordinary petitioners before the nobles.</p><div class="grid3" style="margin-top:18px"><div class="metric"><span class="muted">Gold</span><b id="gold">50</b></div><div class="metric"><span class="muted">Trust</span><b id="trust">50</b></div><div class="metric"><span class="muted">Power</span><b id="power">50</b></div></div></article><article class="panel"><h2>Choose your response</h2><p id="hint" class="muted" aria-live="polite">Select one response to continue.</p><div id="choices"></div></article></section>
+<section id="event" class="screen">
+ <article class="stage event-stage"><div class="event-art"></div><div class="stage-inner event-copy">
+  <div class="kicker"><span class="dot"></span><span id="eventId">E01 · canonical campaign</span></div>
+  <h1 class="event-title" id="eventTitle">The First Petition</h1><p class="event-text" id="eventText">A delegation asks whether the new ruler will hear ordinary petitioners before the nobles.</p>
+  <div class="statrow" style="margin-top:26px"><div class="stat"><span>Gold</span><b id="gold">50</b></div><div class="stat"><span>Trust</span><b id="trust">50</b></div><div class="stat"><span>Power</span><b id="power">50</b></div><div class="stat"><span>Security</span><b id="security">50</b></div></div>
+ </div></article>
+ <article class="card"><div class="eyebrow">Your decision</div><h2>Choose your response</h2><p id="hint" class="muted">The kingdom will remember what you choose.</p><div id="choices" class="choice-grid"></div></article>
+</section>
 
-<section id="consequence" class="screen" aria-labelledby="consequenceTitle"><article class="panel"><div class="eyebrow">Consequence · recorded state</div><h1 id="consequenceTitle">The kingdom remembers</h1><p id="consequenceText" class="lead"></p><div id="effectGrid" class="grid3"></div><div class="status" id="stateStatus"></div><button class="choice back" data-go="nextEvent">Continue the chronicle →</button></article></section>
+<section id="consequence" class="screen">
+ <article class="stage"><div class="stage-inner"><div class="kicker"><span class="dot"></span>Consequence · recorded state</div><h1 class="surface-head" style="font:500 clamp(44px,7vw,76px) Georgia,serif;margin:12px 0">The kingdom remembers</h1><p id="consequenceText" class="hero-lead"></p><div id="effectGrid" class="statrow" style="margin-top:26px"></div><div id="stateStatus" class="consequence" style="margin-top:22px"></div><button class="choice primary back focus" data-go="nextEvent">Continue the chronicle →</button></div></article>
+</section>
 
-<section id="people" class="screen" aria-labelledby="peopleTitle"><article class="panel"><div class="eyebrow">People · canonical recurring characters</div><h1 id="peopleTitle">People</h1><p class="muted">Names and narrative anchors follow repository canon. Relationship state is shown only when established by the current run.</p><div id="peopleList"></div><div id="personDetail" class="detail status">Select a person to inspect known context.</div></article></section>
+<section id="kingdom" class="screen">
+ <div class="surface-head"><div><div class="eyebrow">Avelune · realm</div><h1>Kingdom</h1></div><p>One living realm, presented as a cinematic information surface rather than a utility dashboard.</p></div>
+ <article class="realm"><div class="mountains"></div><div class="river"></div><div class="roads"></div><div class="realm-ui"><div class="eyebrow">The realm remembers</div><h2 class="realm-title">Avelune</h2><div class="realm-sub">Authority · trust · security · resources</div><div class="statrow" style="max-width:620px;margin-top:20px"><div class="stat"><span>Gold</span><b id="kgold">50</b></div><div class="stat"><span>Trust</span><b id="ktrust">50</b></div><div class="stat"><span>Security</span><b id="ksecurity">50</b></div><div class="stat"><span>Power</span><b id="kpower">50</b></div></div></div>
+ <div class="realm-node node-a"><div class="node-label">Crown</div><div class="node-name">Authority</div></div><div class="realm-node node-b"><div class="node-label">Commons</div><div class="node-name">Petitions</div></div><div class="realm-node node-c"><div class="node-label">Border / Security</div><div class="node-name">Patrols</div></div><div class="realm-node node-d"><div class="node-label">Guild</div><div class="node-name">Trade</div></div>
+ </article>
+</section>
 
-<section id="factions" class="screen" aria-labelledby="factionsTitle"><article class="panel"><div class="eyebrow">Institutional positions</div><h1 id="factionsTitle">Factions & institutions</h1><p class="muted">These are player-facing institutional positions, not invented kingdom names or fixed moral teams.</p><div id="factionList"></div><div id="factionDetail" class="detail status">Select a position to inspect its verified role in the game.</div></article></section>
+<section id="people" class="screen">
+ <div class="surface-head"><div><div class="eyebrow">People · canonical recurring characters</div><h1>People</h1></div><p>Visual identity is presentation only. Narrative anchors remain bound to verified repository canon.</p></div>
+ <div id="peopleList" class="people-grid"></div><div id="personDetail" class="status">Select a person to inspect known context.</div>
+</section>
 
-<section id="investigation" class="screen" aria-labelledby="investigationTitle"><article class="panel"><div class="eyebrow">Investigation · evidence</div><h1 id="investigationTitle">The hidden ledger</h1><p class="lead">Evidence is presented as traceable information; uncertainty is not converted into fact.</p><div class="grid"><article class="panel"><h2>Mara's route</h2><p class="muted">Accounting and institutional records can expose how emergency spending is hidden through temporary offices.</p></article><article class="panel"><h2>Toma's route</h2><p class="muted">The dock information network can expose physical movement of evidence and routes through customs.</p></article><article class="panel"><h2>Seris's route</h2><p class="muted">Elite participation can be exposed through testimony and the noble network.</p></article><article class="panel"><h2>Direct account route</h2><p class="muted">The decree/account chain can establish document fraud without requiring one mandatory character.</p></article></div></section>
+<section id="factions" class="screen">
+ <div class="surface-head"><div><div class="eyebrow">Institutional positions</div><h1>Factions</h1></div><p>These are the verified player-facing institutional positions. No invented kingdoms, mottos or territorial lore are added.</p></div>
+ <div id="factionList" class="faction-grid"></div><div id="factionDetail" class="status">Select an institution to inspect its verified role.</div>
+</section>
 
-<section id="history" class="screen" aria-labelledby="historyTitle"><article class="panel"><div class="eyebrow">Chronicle · decisions</div><h1 id="historyTitle">History</h1><div id="historyList"></div></article></section>
+<section id="investigation" class="screen">
+ <div class="surface-head"><div><div class="eyebrow">Investigation · evidence</div><h1>Investigation</h1></div><p>Evidence is shown as traceable threads. Uncertainty stays visible instead of becoming invented fact.</p></div>
+ <div class="investigation-grid"><article class="evidence-board"><div class="thread t1"><b>Mara</b><small>Accounting records</small></div><div class="thread t2"><b>Toma</b><small>Physical movement</small></div><div class="thread t3"><b>Seris</b><small>Noble network</small></div><div class="thread t4"><b>Direct account</b><small>Document chain</small></div><div class="wire w1"></div><div class="wire w2"></div><div class="wire w3"></div></article>
+ <article class="card"><div class="eyebrow">Evidence routes</div><h2>The hidden ledger</h2><div class="divider"></div><h3>Mara's route</h3><p class="muted">Accounting and institutional records can expose how emergency spending is hidden through temporary offices.</p><h3>Toma's route</h3><p class="muted">The dock information network can expose physical movement of evidence and routes through customs.</p><h3>Seris's route</h3><p class="muted">Elite participation can be exposed through testimony and the noble network.</p></article></div>
+</section>
 
-<section id="kingdom" class="screen" aria-labelledby="kingdomTitle"><article class="panel"><div class="eyebrow">Avelune · realm</div><h1 id="kingdomTitle">Kingdom</h1><div class="grid3"><div class="metric"><span class="muted">Gold</span><b id="kgold">50</b></div><div class="metric"><span class="muted">Trust</span><b id="ktrust">50</b></div><div class="metric"><span class="muted">Security</span><b id="ksecurity">50</b></div></div><p class="muted" style="margin-top:18px">The realm surface reflects canonical state vocabulary: gold, trust, security, power and reputation.</p></article></section>
+<section id="history" class="screen">
+ <div class="surface-head"><div><div class="eyebrow">Chronicle · decision memory</div><h1>History</h1></div><p>Your choices remain readable as a sequence of causes and consequences.</p></div>
+ <article class="card"><div id="historyList" class="timeline"></div></article>
+</section>
 
-<section id="endings" class="screen" aria-labelledby="endingsTitle"><article class="panel"><div class="eyebrow">Endings · resolution</div><h1 id="endingsTitle">Endings</h1><p class="lead">The ending surface records the shape of the reign after the final decisions. This P25 prototype presents the resolution space without inventing an outcome for the current run.</p><div class="grid"><article class="panel"><h2>Resolution state</h2><p class="muted">Final identity is determined by authored campaign conditions and recorded history, not by presentation alone.</p></article><article class="panel"><h2>Decision memory</h2><p class="muted">History, flags, resources and relationship state remain the evidence used to explain how the ending was reached.</p></article></div><div class="status">No ending is forced in the visual prototype. Production ending resolution remains governed by the canonical campaign data.</div></article></section>
+<section id="endings" class="screen">
+ <div class="surface-head"><div><div class="eyebrow">Endings · resolution</div><h1>Endings</h1></div><p>The final identity of a reign is determined by authored campaign conditions, not by visual presentation alone.</p></div>
+ <div class="ending-grid"><article class="ending"><div class="eyebrow">Resolution</div><h3>What Avelune remembers</h3><p>The ending surface is prepared for the authored resolution state. This prototype does not invent an outcome for the current run.</p></article><article class="ending"><div class="eyebrow">Decision memory</div><h3>Your reign has a shape</h3><p>History, flags, resources and relationship state remain the evidence used to explain how a final resolution was reached.</p></article></div>
+ <div class="status">No ending is forced in this visual prototype. Production ending resolution remains governed by canonical campaign data.</div>
+</section>
 
-<section id="settings" class="screen" aria-labelledby="settingsTitle"><article class="panel"><div class="eyebrow">Preferences</div><h1 id="settingsTitle">Settings</h1><button class="choice" id="large">Large text</button><button class="choice" id="rtl">RTL preview</button><button class="choice" id="motion">Reduced motion</button><button class="choice" id="reset">Reset prototype run</button><div class="status">Presentation preferences never alter narrative state.</div></article></section>
+<section id="settings" class="screen">
+ <div class="surface-head"><div><div class="eyebrow">Preferences · first-class accessibility</div><h1>Settings</h1></div><p>Presentation preferences never alter narrative state.</p></div>
+ <div class="settings-grid"><div class="setting"><div><b>Large text</b><div class="muted">Increase reading and touch scale</div></div><button class="toggle focus" id="large">Off</button></div>
+ <div class="setting"><div><b>RTL preview</b><div class="muted">Exercise right-to-left layout</div></div><button class="toggle focus" id="rtl">Off</button></div>
+ <div class="setting"><div><b>Reduced motion</b><div class="muted">Remove decorative movement</div></div><button class="toggle focus" id="motion">Off</button></div>
+ <div class="setting"><div><b>Reset prototype</b><div class="muted">Clear local decision memory</div></div><button class="toggle focus" id="reset">Reset</button></div></div>
+</section>
 
-<nav class="nav" aria-label="Prototype navigation"><button class="navbtn active" data-screen="menu">Menu</button><button class="navbtn" data-screen="event">Event</button><button class="navbtn" data-screen="kingdom">Kingdom</button><button class="navbtn" data-screen="people">People</button><button class="navbtn" data-screen="factions">Factions</button><button class="navbtn" data-screen="investigation">Investigation</button><button class="navbtn" data-screen="history">History</button><button class="navbtn" data-screen="endings">Endings</button><button class="navbtn" data-screen="settings">Settings</button></nav>
+<nav class="nav" aria-label="Kingdom navigation">
+<button class="navbtn active focus" data-screen="menu">Menu</button><button class="navbtn focus" data-screen="event">Event</button><button class="navbtn focus" data-screen="kingdom">Kingdom</button><button class="navbtn focus" data-screen="people">People</button><button class="navbtn focus" data-screen="factions">Factions</button><button class="navbtn focus" data-screen="investigation">Investigation</button><button class="navbtn focus" data-screen="history">History</button><button class="navbtn focus" data-screen="endings">Endings</button><button class="navbtn focus" data-screen="settings">Settings</button>
+</nav>
 <p id="live" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)"></p>
 </main>
 <script>
-const root=document.documentElement, screens=[...document.querySelectorAll('.screen')], nav=[...document.querySelectorAll('.navbtn')];
+const root=document.documentElement,screens=[...document.querySelectorAll('.screen')],nav=[...document.querySelectorAll('.navbtn')];
 const people=[
-{name:'Mara',context:'Emergency decree and hidden-ledger investigation; accounting and institutional records.',state:'Known canonical anchor'},
-{name:'Rowan',context:'Missing patrol supplies; guard and military-security decisions.',state:'Known canonical anchor'},
-{name:'Seris',context:'Noble houses and court pressure; old-order and reform tension.',state:'Known canonical anchor'},
-{name:'Ivo',context:'Merchant charter and river trade; guild and market pressure.',state:'Known canonical anchor'},
-{name:'Amara',context:'Patients, medicine funding and the House of Lanterns; civic relief pressure.',state:'Known canonical anchor'},
-{name:'Toma',context:'Docks and dock-gang pressure; information network and physical evidence movement.',state:'Known canonical anchor'}];
+{name:'Mara',anchor:'Emergency decree and hidden-ledger investigation; accounting and institutional records.'},
+{name:'Rowan',anchor:'Missing patrol supplies; guard and military-security decisions.'},
+{name:'Seris',anchor:'Noble houses and court pressure; family/elite participation and old-order/reform tension.'},
+{name:'Ivo',anchor:'Merchant charter and river trade; guild and market pressure.'},
+{name:'Amara',anchor:'Patients, medicine funding and the House of Lanterns; civic relief pressure.'},
+{name:'Toma',anchor:'Docks and dock-gang pressure; information network and physical evidence movement.'}];
 const factions=[
-{name:'Crown',context:'Political capacity and authority of the Crown.'},
-{name:'Commons',context:'Public petition, trust and civic legitimacy.'},
-{name:'Noble',context:'Houses, elite participation and hereditary privilege pressure.'},
-{name:'Guild',context:'Trade, market leverage and commercial routes.'},
-{name:'Border / Security',context:'Defence, patrols, command and external pressure.'},
-{name:'Civic / Medical',context:'Relief, patients, medicine funding and public welfare.'}];
+{name:'Crown',anchor:'Political capacity and authority of the Crown.',mark:'C'},
+{name:'Commons',anchor:'Public petition, trust and civic legitimacy.',mark:'◈'},
+{name:'Noble',anchor:'Houses, elite participation and hereditary privilege pressure.',mark:'N'},
+{name:'Guild',anchor:'Trade, market leverage and commercial routes.',mark:'G'},
+{name:'Border / Security',anchor:'Defence, patrols, command and external pressure.',mark:'⚔'},
+{name:'Civic / Medical',anchor:'Relief, patients, medicine funding and public welfare.',mark:'✚'}];
 const events=[
 {id:'E01',title:'The First Petition',text:'A delegation asks whether the new ruler will hear ordinary petitioners before the nobles.',choices:[
 {label:'Open the Hall',detail:'+4 trust · -1 power',effects:{trust:4,power:-1},flag:'open_petition_hall',next:'E02'},
-{label:'Follow Court Protocol',detail:'+2 power · +1 Seris',effects:{power:2,seris:1},flag:'court_first',next:'E02'}]},
+{label:'Follow Court Protocol',detail:'+2 power · +1 Seris',effects:{power:2,Seris:1},flag:'court_first',next:'E02'}]},
 {id:'E02',title:'The Empty Chair',text:'Mara points out that the former chancellor left an unsigned emergency decree on the council table.',choices:[
 {label:'Sign it provisionally',detail:'+3 power · -2 trust',effects:{power:3,trust:-2},flag:'emergency_decree_used',next:'E05'},
 {label:'Archive it and investigate',detail:'+2 Mara · -2 power',effects:{mara:2,power:-2},flag:'decree_investigation',next:'E05'}]},
 {id:'E05',title:"A Captain's Warning",text:'Rowan reports missing patrol supplies.',choices:[
 {label:'Audit the guard',detail:'+2 security after one turn · -1 Rowan',effects:{security:2,rowan:-1},flag:'guard_audit',next:'done'},
-{label:'Give Rowan emergency authority',detail:'+6 security · +2 Rowan · -2 power',effects:{security:6,rowan:2,power:-2},flag:'emergency_guard_authority',next:'done'}]}
-];
+{label:'Give Rowan emergency authority',detail:'+6 security · +2 Rowan · -2 power',effects:{security:6,rowan:2,power:-2},flag:'emergency_guard_authority',next:'done'}]}];
 let state=JSON.parse(localStorage.getItem('ck-p25-state')||'null')||{event:0,gold:50,trust:50,power:50,security:50,reputation:50,relationships:{Mara:0,Rowan:0,Seris:0,Ivo:0,Amara:0,Toma:0},history:[],flags:[],theme:localStorage.getItem('ck-theme')||'dark',large:false,rtl:false,reduced:false};
 function save(){localStorage.setItem('ck-p25-state',JSON.stringify(state))}
 function announce(x){document.getElementById('live').textContent=x}
-function show(id){screens.forEach(s=>s.classList.toggle('active',s.id===id));nav.forEach(b=>b.classList.toggle('active',b.dataset.screen===id));window.scrollTo({top:0,behavior:state.reduced?'auto':'smooth'});announce('Opened '+id)}
-function apply(){root.dataset.theme=state.theme;root.classList.toggle('large',state.large);root.dir=state.rtl?'rtl':'ltr';root.classList.toggle('reduce',state.reduced);document.body.style.scrollBehavior=state.reduced?'auto':'';renderState();renderPeople();renderFactions();renderHistory()}
-function renderState(){for(const id of ['gold','kgold'])document.getElementById(id).textContent=state.gold;for(const id of ['trust','ktrust'])document.getElementById(id).textContent=state.trust;for(const id of ['power'])document.getElementById(id).textContent=state.power;document.getElementById('ksecurity').textContent=state.security}
-function renderEvent(){const e=events[state.event];document.getElementById('eventId').textContent=e.id+' · canonical campaign';document.getElementById('eventTitle').textContent=e.title;document.getElementById('eventText').textContent=e.text;const box=document.getElementById('choices');box.innerHTML='';e.choices.forEach((c,i)=>{const b=document.createElement('button');b.className='choice focus';b.innerHTML='<strong>'+c.label+'</strong><small>'+c.detail+'</small>';b.onclick=()=>choose(i);box.appendChild(b)})}
-function choose(i){const e=events[state.event],c=e.choices[i];for(const [k,v] of Object.entries(c.effects)){if(k in state)state[k]=Math.max(0,Math.min(100,state[k]+v));else if(k in state.relationships)state.relationships[k]=Math.max(-3,Math.min(3,state.relationships[k]+v))}if(c.flag&&!state.flags.includes(c.flag))state.flags.push(c.flag);state.history.push({event:e.id,title:e.title,choice:c.label});save();document.getElementById('consequenceText').textContent=c.label+' — '+c.detail+'.';document.getElementById('effectGrid').innerHTML=Object.entries(c.effects).map(([k,v])=>'<div class="metric"><span class="muted">'+k+'</span><b>'+(v>=0?'+':'')+v+'</b></div>').join('');document.getElementById('stateStatus').textContent='Recorded flag: '+c.flag+'. The prototype uses the canonical event/choice effects from the repository source.';document.querySelector('[data-go="nextEvent"]').textContent=c.next==='done'?'Return to the Kingdom →':'Continue to '+c.next+' →';show('consequence');apply()}
-document.querySelector('[data-go="nextEvent"]').onclick=()=>{const e=events[state.event];if(e.choices.length&&state.history.length){if(e.choices.some(c=>c.next===events[state.event+1]?.id)){state.event=Math.min(events.length-1,state.event+1);save();renderEvent();show('event');}else show('kingdom')}}
-document.getElementById('start').onclick=()=>{state={event:0,gold:50,trust:50,power:50,security:50,reputation:50,relationships:{Mara:0,Rowan:0,Seris:0,Ivo:0,Amara:0,Toma:0},history:[],flags:[],theme:state.theme,large:state.large,rtl:state.rtl,reduced:state.reduced};save();renderEvent();show('event')};
+function show(id){screens.forEach(s=>s.classList.toggle('active',s.id===id));nav.forEach(b=>b.classList.toggle('active',b.dataset.screen===id));window.scrollTo({top:0,behavior:state.reduced?'auto':'smooth'});announce('Opened '+id);if(id==='event')renderEvent()}
+function renderState(){['gold','kgold'].forEach(id=>document.getElementById(id).textContent=state.gold);['trust','ktrust'].forEach(id=>document.getElementById(id).textContent=state.trust);['power','kpower'].forEach(id=>document.getElementById(id).textContent=state.power);['security','ksecurity'].forEach(id=>document.getElementById(id).textContent=state.security)}
+function renderEvent(){const e=events[state.event]||events[2];document.getElementById('eventId').textContent=e.id+' · canonical campaign';document.getElementById('eventTitle').textContent=e.title;document.getElementById('eventText').textContent=e.text;document.getElementById('choices').innerHTML='';e.choices.forEach((c,i)=>{const b=document.createElement('button');b.className='choice focus';b.innerHTML='<strong>'+c.label+'</strong><small>'+c.detail+'</small>';b.onclick=()=>choose(i);document.getElementById('choices').appendChild(b)})}
+function choose(i){const e=events[state.event]||events[2],c=e.choices[i];for(const[k,v]of Object.entries(c.effects)){if(k in state)state[k]=Math.max(0,state[k]+v);else if(k in state.relationships)state.relationships[k]=Math.max(-5,state.relationships[k]+v)}state.flags.push(c.flag);state.history.push({id:e.id,title:e.title,choice:c.label,detail:c.detail});state.event=Math.min(state.event+1,events.length-1);save();document.getElementById('consequenceText').textContent='Your choice has been recorded. Its effects remain part of the reign’s decision memory.';document.getElementById('effectGrid').innerHTML=Object.entries(c.effects).map(([k,v])=>'<div class="stat"><span>'+k+'</span><b>'+(v>0?'+':'')+v+'</b></div>').join('');document.getElementById('stateStatus').textContent='Recorded flag: '+c.flag+' · Next authored event: '+(c.next==='done'?'resolution space':'the next chronicle step');renderState();renderHistory();show('consequence')}
+function renderPeople(){const box=document.getElementById('peopleList');box.innerHTML=people.map((p,i)=>'<article class="person-card" tabindex="0" data-person="'+i+'"><div class="portrait"><div class="sig">'+p.name[0]+'</div></div><div class="person-body"><div class="eyebrow">Canonical People</div><div class="person-name">'+p.name+'</div><div class="person-anchor">'+p.anchor+'</div></div></article>').join('');box.querySelectorAll('[data-person]').forEach(el=>{const open=()=>{const p=people[Number(el.dataset.person)];document.getElementById('personDetail').innerHTML='<strong>'+p.name+'</strong> · '+p.anchor;announce('Opened '+p.name)};el.onclick=open;el.onkeydown=e=>{if(e.key==='Enter'||e.key===' ')open()}})}
+function renderFactions(){const box=document.getElementById('factionList');box.innerHTML=factions.map((f,i)=>'<article class="faction-card" tabindex="0" data-faction="'+i+'"><div class="sigil"><span>'+f.mark+'</span></div><h3>'+f.name+'</h3><p>'+f.anchor+'</p></article>').join('');box.querySelectorAll('[data-faction]').forEach(el=>{const open=()=>{const f=factions[Number(el.dataset.faction)];document.getElementById('factionDetail').innerHTML='<strong>'+f.name+'</strong> · '+f.anchor;announce('Opened '+f.name)};el.onclick=open;el.onkeydown=e=>{if(e.key==='Enter'||e.key===' ')open()}})}
+function renderHistory(){const box=document.getElementById('historyList');box.innerHTML=state.history.length?state.history.map(h=>'<div class="timeline-item"><small>'+h.id+' · recorded decision</small><b>'+h.title+'</b><div class="muted">'+h.choice+' · '+h.detail+'</div></div>').join(''):'<div class="timeline-item"><small>NO DECISIONS YET</small><b>The chronicle awaits.</b><div class="muted">Start a new run and your decisions will appear here.</div></div>'}
+function apply(){root.dataset.theme=state.theme;root.classList.toggle('large',state.large);root.dir=state.rtl?'rtl':'ltr';root.classList.toggle('reduce',state.reduced);document.getElementById('large').textContent=state.large?'On':'Off';document.getElementById('rtl').textContent=state.rtl?'On':'Off';document.getElementById('motion').textContent=state.reduced?'On':'Off';renderState();renderPeople();renderFactions();renderHistory()}
+nav.forEach(b=>b.onclick=()=>show(b.dataset.screen));
+document.getElementById('home').onclick=()=>show('menu');document.getElementById('theme').onclick=()=>{state.theme=state.theme==='dark'?'light':'dark';localStorage.setItem('ck-theme',state.theme);save();apply()};
+document.getElementById('start').onclick=()=>{state.event=0;state.gold=50;state.trust=50;state.power=50;state.security=50;state.reputation=50;state.relationships={Mara:0,Rowan:0,Seris:0,Ivo:0,Amara:0,Toma:0};state.history=[];state.flags=[];save();renderEvent();show('event')};
 document.getElementById('continue').onclick=()=>{renderEvent();show('event')};
-document.getElementById('home').onclick=()=>show('menu');
-document.getElementById('theme').onclick=()=>{state.theme=state.theme==='light'?'dark':'light';save();apply()};
-document.querySelectorAll('.navbtn').forEach(b=>b.onclick=()=>{if(b.dataset.screen==='event')renderEvent();show(b.dataset.screen)});
+document.querySelector('[data-go="nextEvent"]').onclick=()=>{renderEvent();show('event')};
 document.getElementById('large').onclick=()=>{state.large=!state.large;save();apply()};
 document.getElementById('rtl').onclick=()=>{state.rtl=!state.rtl;save();apply()};
 document.getElementById('motion').onclick=()=>{state.reduced=!state.reduced;save();apply()};
 document.getElementById('reset').onclick=()=>{localStorage.removeItem('ck-p25-state');location.reload()};
-function renderPeople(){const box=document.getElementById('peopleList');box.innerHTML=people.map((p,i)=>'<div class="person"><button class="focus" data-person="'+i+'"><strong>'+p.name+'</strong><div class="muted">'+p.state+'</div></button></div>').join('');box.querySelectorAll('[data-person]').forEach(b=>b.onclick=()=>{const p=people[Number(b.dataset.person)];document.getElementById('personDetail').textContent=p.name+' — '+p.context+' Relationship state: '+(state.relationships[p.name]??0)+' (runtime state).'})}
-function renderFactions(){const box=document.getElementById('factionList');box.innerHTML=factions.map((f,i)=>'<div class="institution"><button class="focus" data-faction="'+i+'"><strong>'+f.name+'</strong><div class="muted">Institutional position</div></button></div>').join('');box.querySelectorAll('[data-faction]').forEach(b=>b.onclick=()=>{const f=factions[Number(b.dataset.faction)];document.getElementById('factionDetail').textContent=f.name+' — '+f.context})}
-function renderHistory(){const box=document.getElementById('historyList');box.innerHTML=state.history.length?state.history.map(h=>'<div class="status"><strong>'+h.event+' · '+h.title+'</strong><br><span class="muted">Choice: '+h.choice+'</span></div>').join(''):'<p class="muted">No decisions recorded in this run yet.</p>'}
-apply();renderEvent();
-</script></body></html>
+apply();
+</script>
+</body>
+</html>
