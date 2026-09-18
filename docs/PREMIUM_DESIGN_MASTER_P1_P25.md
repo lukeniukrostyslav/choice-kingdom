@@ -30,11 +30,11 @@ This document is the canonical working checklist for the 25-block premium visual
 | P20 | Motion / micro-interactions / feedback | 100% | Purposeful semantic motion + reduced-motion behavior |
 | P21 | Accessibility / touch / keyboard / focus | 100% | Semantic, focus, contrast, touch-target and reduced-motion proof |
 | P22 | Localization / long strings / RTL | 100% | Locale-safe layout and RTL proof across key screens |
-| P23 | Audio / haptics / premium feedback | 90% | Audio/haptic vocabulary mapped to meaningful player actions + CI closure evidence |
+| P23 | Audio / haptics / premium feedback | 100% | Audio/haptic vocabulary mapped to meaningful player actions + CI closure evidence |
 | P24 | Android devices / safe areas / resolution adaptation | 0% | Real Android presentation proof on target device classes |
 | P25 | Final premium polish / cross-screen QA | 0% | Full visual regression and no unresolved P1–P24 blockers |
 
-**Aggregate current estimate: 91.60% (22 blocks closed at 100%, P23 at 90%, P24–P25 open).**
+**Aggregate current estimate: 92.00% (23 blocks closed at 100%, P24–P25 open).**
 
 ## Visual Design Reset v2
 
@@ -51,7 +51,7 @@ Files:
 
 The proof covers semantic confirm/warning/error/ambient feedback states, quiet visual fallback, responsive 360/412/1440 layouts, safe-area, RTL, reduced motion, focus-visible, accessible labels/live status and 56px+ targets. The repository already contains the Android audio/haptics foundation; P23 adds the V2 premium-feedback presentation contract without duplicating it.
 
-**P23 is not marked 100% until the GitHub Actions closure evidence is observable.**
+**P23 is closed at 100% based on the merged implementation and green GitHub Actions closure evidence.**
 
 ## Quality rules
 
@@ -64,4 +64,4 @@ The proof covers semantic confirm/warning/error/ambient feedback states, quiet v
 
 ## Next bottleneck
 
-Complete P23 CI closure evidence, then begin P24 — Android Devices / Safe Areas / Resolution Adaptation. P24 must include real target-device-class presentation evidence, not just desktop/browser proof.
+P24 — Android Devices / Safe Areas / Resolution Adaptation. P24 must include real target-device-class presentation evidence, not just desktop/browser proof.
