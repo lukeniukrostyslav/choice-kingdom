@@ -32,9 +32,9 @@ This document is the canonical working checklist for the 25-block premium visual
 | P22 | Localization / long strings / RTL | 100% | Locale-safe layout and RTL proof across key screens |
 | P23 | Audio / haptics / premium feedback | 100% | Audio/haptic vocabulary mapped to meaningful player actions + CI closure evidence |
 | P24 | Android devices / safe areas / resolution adaptation | 100% | Real Android presentation proof on target device classes |
-| P25 | Final premium polish / cross-screen QA | 0% | Full visual regression and no unresolved P1–P24 blockers |
+| P25 | Final premium polish / cross-screen QA | 70% | Full visual regression and no unresolved P1–P24 blockers |
 
-**Aggregate current estimate: 96.00% (24 blocks closed at 100%, P25 open).**
+**Aggregate current estimate: 98.80% (24 blocks closed at 100%, P25 at 70%).**
 
 ## Visual Design Reset v2
 
@@ -68,6 +68,25 @@ The proof covers semantic confirm/warning/error/ambient feedback states, quiet v
 - Reduced motion, large text, RTL and long-string behavior are part of the design.
 - Android/device proof is required before claiming production UI completion.
 
+## P25 execution checkpoint — 70%
+
+Implemented on `main`:
+- Replaced the legacy screenshot/gallery-style journey with a real interactive prototype in `web-preview/game-flow.html`.
+- Launcher now enters the interactive prototype directly from `web-preview/index.html`.
+- Bound the playable proof to canonical E01, E02 and E05 content/effects; canonical People are Mara, Rowan, Seris, Ivo, Amara and Toma.
+- Institutional vocabulary is limited to Crown, Commons, Noble, Guild, Border / Security and Civic / Medical.
+- Added interactive People, institutional positions, Investigation, History, Kingdom and Settings surfaces.
+- Added persistent prototype state, choice/consequence flow, large text, RTL preview, reduced-motion control, safe-area-aware layout and compact/expanded responsive behavior.
+- Added `tools/p25_interactive_visual_gate.mjs` and `.github/workflows/p25-interactive-visual-gate.yml` to exercise the journey and responsive layouts.
+
+Remaining evidence before P25 can reach 100%:
+- completed green P25 GitHub Actions validation run;
+- review of generated responsive proof artifacts;
+- live Vercel deployment verification against the frozen three-reference set;
+- final cross-screen visual regression sign-off with no remaining visual drift.
+
+**P25 remains OPEN at 70%.**
+
 ## Next bottleneck
 
-P25 — Final premium polish / cross-screen QA. P25 is now the only open block in the Premium Design P1–P25 track.
+P25 — Final premium polish / cross-screen QA. Implementation is now materially advanced; regression/deployment evidence remains the closure bottleneck.
