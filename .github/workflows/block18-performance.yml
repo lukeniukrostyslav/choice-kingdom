@@ -1,0 +1,31 @@
+name: Block 18 — Performance & Optimization
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  performance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Compile runtime and performance tests
+        run: python -m compileall -q runtime tests tools
+      - name: Run Block 18 contract tests
+        run: |
+          python -m pytest -q             tests/test_block18_performance_contract.py
+      - name: Run Block 18 performance benchmark
+        run: |
+          python tools/block18_performance_benchmark.py             --iterations 250             --max-seconds 5
