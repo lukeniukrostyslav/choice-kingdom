@@ -244,12 +244,13 @@ for (const file of pages) {
     if (file === 'design-v2/p15-crisis-high-stakes-proof.html') {
       p15Pass = await page.evaluate(() => {
         const surface=document.querySelector('.surface');
+        const crisisArticle=document.querySelector('article[aria-labelledby="crisis-title"]');
         const impacts=[...document.querySelectorAll('.impact')];
         const actions=[...document.querySelectorAll('.action')];
         const status=document.querySelector('#status');
         const urgency=document.querySelector('.urgency');
         const styleText=[...document.querySelectorAll('style')].map(s=>s.textContent||'').join('\n');
-        if(!surface || impacts.length!==3 || actions.length!==4 || !status || !urgency) return false;
+        if(!surface || !crisisArticle || crisisArticle.getAttribute('aria-describedby') !== 'crisis-subtitle' || impacts.length!==3 || actions.length!==4 || !status || !urgency) return false;
         if(!actions.every(b=>b.getBoundingClientRect().height>=48 && (b.textContent||'').trim())) return false;
         actions[0].click();
         const first=status.textContent.includes('Raise the eastern gate')&&actions[0].getAttribute('aria-pressed')==='true';
