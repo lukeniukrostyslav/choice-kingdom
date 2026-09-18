@@ -88,6 +88,28 @@ Remaining evidence before P25 can reach 100%:
 
 **P25 remains OPEN at 90% after the premium visual-composition implementation pass.**
 
+## P25 sub-block execution map — current 90%
+
+| P25 sub-block | Current | Evidence / remaining work |
+|---|---:|---|
+| 25.1 Visual game shell / cinematic composition | 92% | Implemented in `game-flow.html`; final visual comparison against approved references remains |
+| 25.2 Main menu / first impression | 92% | Real game launcher now opens the game surface; final reference comparison remains |
+| 25.3 Event / situation scene | 93% | E01/E02/E05 cinematic event presentation implemented |
+| 25.4 Choice chamber / decision interaction | 94% | Choice states, touch targets and canonical effects implemented |
+| 25.5 Consequence / memory reveal | 93% | Consequence state and decision memory implemented |
+| 25.6 Kingdom / realm presentation | 91% | Realm scene, nodes and resource layer implemented; final visual refinement remains |
+| 25.7 People / character presentation | 88% | Six canonical People implemented; production-grade art identity remains the main visual gap |
+| 25.8 Factions / institutional presentation | 88% | Six canonical institutional positions implemented; final visual identity treatment remains |
+| 25.9 Investigation / evidence board | 92% | Evidence threads and four authored routes implemented |
+| 25.10 History / decision chronicle | 93% | Timeline and recorded choices implemented |
+| 25.11 Endings / resolution landing | 90% | Resolution surface implemented without inventing an ending outcome |
+| 25.12 Settings / accessibility presentation | 94% | Large text, RTL, reduced motion, theme and reset implemented |
+| 25.13 Navigation / information architecture | 94% | Persistent cross-screen navigation implemented |
+| 25.14 Responsive / safe-area composition | 91% | Compact and expanded layouts implemented; live-device evidence remains |
+| 25.15 Visual regression / final acceptance | 72% | Automated gate updated; live Vercel/reference comparison still open |
+
+**P25 overall remains 90%.** The sub-blocks are diagnostic progress indicators and are not averaged into a new aggregate percentage. P25 reaches 100% only after the real deployed game passes the frozen-reference visual review and no material visual drift remains.
+
 ## Next bottleneck
 
 P25 — Final premium polish / cross-screen QA. Implementation is now materially advanced; regression/deployment evidence remains the closure bottleneck.
