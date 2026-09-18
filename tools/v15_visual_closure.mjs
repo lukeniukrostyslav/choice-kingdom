@@ -113,6 +113,28 @@ for (const file of pages) {
         return largePass && rtlPass && rtlResetPass && motionPass;
       });
     }
+    let p19Pass = true;
+    if (file === 'design-navigation-p19-premium.html') {
+      p19Pass = await page.evaluate(() => {
+        const nav = document.querySelector('#nav-content');
+        const title = document.querySelector('#navigation-title');
+        const context = document.querySelector('#navigation-context');
+        const current = document.querySelector('[aria-current="page"]');
+        const back = document.querySelector('.back');
+        if (!nav || !title || !context || !current || !back) return false;
+        if (nav.getAttribute('aria-labelledby') !== 'navigation-title') return false;
+        if (nav.getAttribute('aria-describedby') !== 'navigation-context') return false;
+        if (current.classList.contains('item') === false) return false;
+        const backRect = back.getBoundingClientRect();
+        if (backRect.height < 48) return false;
+        const items = [...document.querySelectorAll('.item')];
+        if (items.length < 6) return false;
+        return items.every(item => {
+          const rect = item.getBoundingClientRect();
+          return rect.width > 0 && rect.height >= 48;
+        });
+      });
+    }
     let p1Pass = true;
     if (file === 'design-art-direction.html') {
       p1Pass = await page.evaluate(() => {
@@ -132,9 +154,9 @@ for (const file of pages) {
         return largePass && rtlPass && resetPass;
       });
     }
-    const pass = commonPass && appPass && launcherPass && p1Pass && p21Pass;
+    const pass = commonPass && appPass && launcherPass && p1Pass && p21Pass && p19Pass;
     if (!pass) failures += 1;
-    results.push({ file, viewport: vp.name, pass, p21Pass, ...metrics, consoleErrors, pageErrors, failedRequests });
+    results.push({ file, viewport: vp.name, pass, p19Pass, p21Pass, ...metrics, consoleErrors, pageErrors, failedRequests });
     await context.close();
   }
 }
