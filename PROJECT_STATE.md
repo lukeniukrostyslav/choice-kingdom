@@ -232,3 +232,13 @@ Block 15 clarification (2026-09-18): the earlier historical notes above saying t
 - Workflow commit `55369df02e2af3c228e2fc5e88cbe596d92b6137` adds concurrency serialization so baseline/validation runs cannot race on the same branch.
 - The workflow now writes a `reference-manifest.txt` containing commit/event, reference count, validation task, and SHA-256 hashes for every PNG reference, then uploads it with a unique run-scoped artifact name.
 - This improves auditability, but does **not** count as proof that `validateDebugScreenshotTest` has executed successfully. Block 15 therefore remains at 85% until an actual green validation result is observable.
+
+
+## P25 V2 implementation checkpoint — 2026-09-19
+- People presentation was deepened with keyboard-accessible canonical detail dialogs for Mara, Rowan, Seris, Ivo, Amara and Toma.
+- Institutional presentation was deepened with canonical detail dialogs for Crown, Commons, Noble, Guild, Border / Security and Civic / Medical; the dialog explicitly avoids invented territory, motto, crest lore, relationship state or character membership.
+- Settings theme handling was hardened with a real document theme state and light-theme presentation overrides.
+- P25 browser gate now targets `game-premium.html` for both compact and expanded proof and checks the new People/institution detail interactions.
+- Saved checkpoint commit: `68a04980869f499673b6d9467801dd4b13d60e32` (`docs(P25): add V2 implementation checkpoint`).
+- Current latest main commit status exposes a Vercel check in **failure** state pointing to the Vercel account build-rate-limit page; this is deployment infrastructure evidence, not visual acceptance evidence.
+- No new green P25 Actions run is claimed from the available integration. P25 remains 93% until deployed visual review and final cross-screen regression sign-off are evidenced.
