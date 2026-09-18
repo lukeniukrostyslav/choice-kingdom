@@ -7,6 +7,7 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# P23 closure gate: runs on every main/PR update.
 permissions:
   contents: read
 
