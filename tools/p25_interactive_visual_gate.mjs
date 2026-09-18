@@ -10,15 +10,19 @@ const assertVisible = async (selector, label) => {
 };
 
 await page.goto(base+'/game-premium.html', {waitUntil:'networkidle'});
+await page.screenshot({path:'p25-shell-launcher.png',fullPage:true});
 await assertVisible('#launcher .display', 'launcher display');
 await page.getByRole('button',{name:'Start a new run'}).click();
 await assertVisible('#event .event-layout', 'event composition');
+await page.screenshot({path:'p25-shell-event.png',fullPage:true});
 await page.getByRole('button',{name:'Open the Hall'}).click();
 await assertVisible('#consequence .consequence-layout', 'consequence composition');
+await page.screenshot({path:'p25-shell-consequence.png',fullPage:true});
 await page.getByRole('button',{name:'Continue'}).click();
 await assertVisible('#event .choice-panel', 'choice chamber');
 await page.getByRole('button',{name:'Kingdom'}).click();
 await assertVisible('#kingdom .map', 'kingdom map');
+await page.screenshot({path:'p25-shell-kingdom.png',fullPage:true});
 await page.getByRole('button',{name:'People'}).click();
 await assertVisible('#people .people', 'people presentation');
 await page.getByRole('button',{name:'Factions'}).click();
