@@ -7,6 +7,9 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateColorAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -497,6 +500,38 @@ private fun ChoiceCard(
         !enabled -> stringResource(R.string.blocked)
         else -> stringResource(R.string.available)
     }
+    val targetElevation = when {
+        selected || resolving -> 5.dp
+        !enabled -> 0.dp
+        else -> 1.dp
+    }
+    val animatedElevation by animateDpAsState(
+        targetValue = targetElevation,
+        animationSpec = tween(durationMillis = 180),
+        label = "choice-elevation",
+    )
+    val targetContainer = if (selected || resolving) {
+        MaterialTheme.colorScheme.primaryContainer
+    } else if (!enabled) {
+        MaterialTheme.colorScheme.surfaceVariant
+    } else {
+        MaterialTheme.colorScheme.surface
+    }
+    val animatedContainer by animateColorAsState(
+        targetValue = targetContainer,
+        animationSpec = tween(durationMillis = 180),
+        label = "choice-container",
+    )
+    val targetBorder = if (selected || resolving) {
+        MaterialTheme.colorScheme.primary
+    } else {
+        MaterialTheme.colorScheme.outlineVariant
+    }
+    val animatedBorder by animateColorAsState(
+        targetValue = targetBorder,
+        animationSpec = tween(durationMillis = 180),
+        label = "choice-border",
+    )
     Button(
         onClick = {
             haptics.performHapticFeedback(HapticFeedbackType.LongPress)
@@ -515,17 +550,17 @@ private fun ChoiceCard(
         shape = RoundedCornerShape(22.dp),
         border = BorderStroke(
             width = if (selected || resolving) 1.5.dp else 1.dp,
-            color = if (selected || resolving) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant,
+            color = animatedBorder,
         ),
         elevation = ButtonDefaults.buttonElevation(
-            defaultElevation = if (selected || resolving) 5.dp else 1.dp,
+            defaultElevation = animatedElevation,
             pressedElevation = 2.dp,
             disabledElevation = 0.dp,
         ),
         colors = ButtonDefaults.buttonColors(
-            containerColor = if (selected || resolving) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface,
+            containerColor = animatedContainer,
             contentColor = MaterialTheme.colorScheme.onSurface,
-            disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+            disabledContainerColor = animatedContainer,
         ),
         contentPadding = PaddingValues(horizontal = 20.dp, vertical = 14.dp),
     ) {
