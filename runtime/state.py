@@ -51,6 +51,29 @@ class PendingDelay:
     supersedes: str | None = None
 
     def __post_init__(self) -> None:
+        for field_name in (
+            "exactly_once_key",
+            "source_event_id",
+            "source_choice_id",
+            "resolution_target",
+        ):
+            value = getattr(self, field_name)
+            if not isinstance(value, str) or not value:
+                raise ValueError(f"invalid delay {field_name}")
+        if self.scheduled_turn is not None and (
+            not isinstance(self.scheduled_turn, int)
+            or isinstance(self.scheduled_turn, bool)
+            or self.scheduled_turn < 1
+        ):
+            raise ValueError("invalid delay scheduled turn")
+        if not isinstance(self.condition_bound, bool):
+            raise ValueError("invalid delay condition-bound flag")
+        if not isinstance(self.priority, int) or isinstance(self.priority, bool):
+            raise ValueError("invalid delay priority")
+        if self.supersedes is not None and (
+            not isinstance(self.supersedes, str) or not self.supersedes
+        ):
+            raise ValueError("invalid delay supersedes key")
         if self.source_event_id in EXCLUDED_EVENTS or self.resolution_target in EXCLUDED_EVENTS:
             raise ValueError("excluded event cannot enter runtime delay state")
         if self.status not in {"pending", "resolved", "cancelled", "superseded"}:
@@ -284,24 +307,42 @@ class GameState:
         pending_payload = payload.get("pending_delays", {})
         if not isinstance(pending_payload, dict):
             raise ValueError("runtime snapshot has invalid pending delay map")
-        if any(key != value.get("exactly_once_key") for key, value in pending_payload.items() if isinstance(value, dict)):
+        if any(not isinstance(key, str) or not key for key in pending_payload):
+            raise ValueError("runtime snapshot has invalid pending delay key")
+        if any(
+            not isinstance(value, dict)
+            or value.get("exactly_once_key") != key
+            for key, value in pending_payload.items()
+        ):
             raise ValueError("runtime snapshot delay key mismatch")
-        if any(not isinstance(value, dict) for value in pending_payload.values()):
-            raise ValueError("runtime snapshot has invalid pending delay record")
-        imported_meta = set(payload.get("imported_meta_keys", []))
+        imported_payload = payload.get("imported_meta_keys", [])
+        evidence_payload = payload.get("ending_evidence_families", [])
+        participants_payload = payload.get("coalition_participants", [])
+        for collection_key, values in (
+            ("imported_meta_keys", imported_payload),
+            ("ending_evidence_families", evidence_payload),
+            ("coalition_participants", participants_payload),
+        ):
+            if not isinstance(values, list) or not all(
+                isinstance(value, str) and value for value in values
+            ):
+                raise ValueError(f"runtime snapshot has invalid {collection_key}")
+        imported_meta = set(imported_payload)
         if not imported_meta.issubset(REPLAY_META_KEYS):
             raise ValueError("snapshot contains non-canonical replay meta key")
-        evidence = set(payload.get("ending_evidence_families", []))
+        evidence = set(evidence_payload)
         if not evidence.issubset(ENDING_EVIDENCE_FAMILIES):
             raise ValueError("snapshot contains non-canonical ending evidence family")
-        participants = set(payload.get("coalition_participants", []))
+        participants = set(participants_payload)
         if not participants.issubset(CANONICAL_COALITION_PARTICIPANTS):
             raise ValueError("snapshot contains non-canonical coalition participant")
         terminal = payload.get("terminal", False)
         if not isinstance(terminal, bool):
             raise ValueError("runtime snapshot has invalid terminal flag")
         ending_identity = payload.get("ending_identity")
-        if ending_identity is not None and ending_identity not in ENDING_IDS:
+        if ending_identity is not None and (
+            not isinstance(ending_identity, str) or ending_identity not in ENDING_IDS
+        ):
             raise ValueError("snapshot contains non-canonical ending identity")
         if ending_identity is not None and terminal is not True:
             raise ValueError("non-terminal snapshot cannot contain ending identity")
