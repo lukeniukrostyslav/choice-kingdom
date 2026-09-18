@@ -39,10 +39,11 @@ def test_presenter_routes_choice_through_game_session_and_clears_transient_state
     presenter.choose("E01-A")
     resolved = presenter.snapshot()
 
-    assert resolved.event_id == "E02"
+    assert resolved.event_id == "E01"
     assert all(choice.state is InteractionState.IDLE for choice in resolved.choices)
     assert presenter.session.state.history == {"E01"}
     assert presenter.session.state.flags == {"open_petition_hall"}
+    assert presenter.session.state.current_event_id == "E01"
 
 
 def test_presenter_rejects_unavailable_choice_before_runtime_mutation() -> None:
