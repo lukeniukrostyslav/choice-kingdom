@@ -14,6 +14,11 @@ await page.goForward({waitUntil:'networkidle'});
 if (!(await page.locator('#kingdom').evaluate(el=>el.classList.contains('active')))) fail('browser forward did not restore kingdom screen');
 await page.goto(base+'/game-premium.html',{waitUntil:'networkidle'});
 await page.getByRole('button',{name:'Start a new run'}).click();
+if ((await page.locator('body').evaluate(el => el.scrollWidth <= document.documentElement.clientWidth + 1)) !== true) fail('compact launch overflow');
+await page.getByRole('button',{name:/Open the Hall/}).click();
+await page.getByRole('button',{name:/Continue the chronicle/}).click();
+if ((await page.locator('#eventTitle').textContent()) !== 'The Empty Chair') fail('event continuity failed');
+
 if ((await page.locator('#eventTitle').textContent()) !== 'The First Petition') fail('E01 not rendered');
 await page.getByRole('button',{name:/Open the Hall/}).click();
 if (!(await page.locator('#stateStatus').textContent()).includes('open_petition_hall')) fail('consequence state not rendered');
