@@ -104,6 +104,6 @@ P1 reaches 100% only when the rendered/runtime surfaces have been inspected and 
 
 ## Current status
 
-**P1 remains 70%.** This document locks the final inspection procedure; it does not claim the inspection has already passed.
+**P1 remains 72%.** The representative art-direction surface has received a consolidated responsive/typographic/material polish pass in commit `3cc162fdf8bd051b92e03fedfc13178dd421f2af`. This document still does not claim runtime inspection or provenance closure.
 
 After the actual rendered inspection and provenance gate pass, P1 may close and P2 Character Art System becomes the active block.
