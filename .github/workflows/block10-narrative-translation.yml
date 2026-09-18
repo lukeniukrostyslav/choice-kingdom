@@ -32,6 +32,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          export PYTHONPATH="$GITHUB_WORKSPACE"
           for locale in ru uk it de fr es pt; do
             echo "=== $locale ==="
             python tools/generate_narrative_packs.py --locale "$locale"
