@@ -1,0 +1,70 @@
+name: Choice Kingdom P25 Final Visual Acceptance
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: p25-final-visual-acceptance-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  p25-final-visual:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Playwright
+        run: |
+          npm init -y
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+
+      - name: Start local premium surface
+        run: |
+          python3 -m http.server 4173 --directory web-preview > /tmp/p25-http.log 2>&1 &
+          echo $! > /tmp/p25-http.pid
+          for i in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:4173/game-premium.html >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/p25-http.log
+          exit 1
+
+      - name: Run P25 gate against current main
+        env:
+          P25_BASE_URL: http://127.0.0.1:4173
+        run: node tools/p25_interactive_visual_gate.mjs
+
+      - name: Run P25 gate against deployed surface
+        env:
+          P25_BASE_URL: https://choice-kingdom.vercel.app
+        run: node tools/p25_interactive_visual_gate.mjs
+
+      - name: Collect visual evidence
+        if: always()
+        run: |
+          mkdir -p artifacts/p25-final-visual
+          cp -f p25-*.png artifacts/p25-final-visual/ 2>/dev/null || true
+          cp -f /tmp/p25-http.log artifacts/p25-final-visual/local-http.log 2>/dev/null || true
+
+      - name: Upload P25 visual evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p25-final-visual-evidence-${{ github.run_id }}
+          path: artifacts/p25-final-visual/**
+          if-no-files-found: ignore
