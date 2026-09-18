@@ -75,15 +75,15 @@ jobs:
           git push
 
       - name: Validate reference set is non-empty
-        if: steps.refs.outputs.exists == 'true' && !(github.event_name == 'workflow_dispatch' && inputs.approve_baseline == true)
+        if: always()
         shell: bash
         run: |
           count=$(find androidApp/app/src/screenshotTestDebug/reference -type f -name '*.png' | wc -l)
           test "$count" -gt 0
           echo "Committed screenshot references available: $count"
 
-      - name: Validate existing reference set
-        if: steps.refs.outputs.exists == 'true' && !(github.event_name == 'workflow_dispatch' && inputs.approve_baseline == true)
+      - name: Validate screenshot reference set
+        if: success()
         working-directory: androidApp
         run: gradle --no-daemon validateDebugScreenshotTest --stacktrace
 
