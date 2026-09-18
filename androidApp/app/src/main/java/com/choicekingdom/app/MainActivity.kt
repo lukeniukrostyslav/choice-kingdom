@@ -513,7 +513,15 @@ private fun ChoiceCard(
                 stateDescription = state
             },
         shape = RoundedCornerShape(22.dp),
-        border = BorderStroke(1.dp, if (selected || resolving) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant),
+        border = BorderStroke(
+            width = if (selected || resolving) 1.5.dp else 1.dp,
+            color = if (selected || resolving) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant,
+        ),
+        elevation = ButtonDefaults.buttonElevation(
+            defaultElevation = if (selected || resolving) 5.dp else 1.dp,
+            pressedElevation = 2.dp,
+            disabledElevation = 0.dp,
+        ),
         colors = ButtonDefaults.buttonColors(
             containerColor = if (selected || resolving) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface,
             contentColor = MaterialTheme.colorScheme.onSurface,
