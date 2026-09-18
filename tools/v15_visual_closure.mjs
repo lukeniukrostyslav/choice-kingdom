@@ -25,7 +25,8 @@ const pages = [
   'design-v2/p12-history-decision-memory-proof.html',
   'design-v2/p13-relationships-proof.html',
   'design-v2/p14-investigation-proof.html',
-  'design-v2/p15-crisis-high-stakes-proof.html'
+  'design-v2/p15-crisis-high-stakes-proof.html',
+  'design-v2/p16-ending-resolution-proof.html'
 ];
 const viewports = [
   { name: '360x800', width: 360, height: 800 },
@@ -171,6 +172,36 @@ for (const file of pages) {
           const rect = item.getBoundingClientRect();
           return rect.width > 0 && rect.height >= 48;
         });
+      });
+    }
+    let p16Pass = true;
+    if (file === 'design-v2/p16-ending-resolution-proof.html') {
+      p16Pass = await page.evaluate(() => {
+        const hero = document.querySelector('.hero');
+        const title = document.querySelector('#ending-title');
+        const subtitle = document.querySelector('#ending-subtitle');
+        const chronicle = document.querySelector('#chronicle-title');
+        const chapters = [...document.querySelectorAll('.chapter')];
+        const actions = [...document.querySelectorAll('.action')];
+        const status = document.querySelector('#status');
+        const styleText = [...document.querySelectorAll('style')].map(s => s.textContent || '').join('\n');
+        if (!hero || !title || !subtitle || !chronicle || chapters.length !== 3 || actions.length !== 3 || !status) return false;
+        if (hero.getAttribute('aria-labelledby') !== 'ending-title' || hero.getAttribute('aria-describedby') !== 'ending-subtitle') return false;
+        if (!chapters.every(x => (x.textContent || '').trim().length > 0)) return false;
+        if (!actions.every(b => b.getBoundingClientRect().height >= 48 && (b.textContent || '').trim())) return false;
+        actions[0].click();
+        const first = actions[0].getAttribute('aria-pressed') === 'true' && status.textContent.includes('Read the full chronicle');
+        actions[1].click();
+        const exclusive = actions[1].getAttribute('aria-pressed') === 'true' && actions[0].getAttribute('aria-pressed') === 'false';
+        const responsive = /@media\(max-width:760px\)/.test(styleText) && /@media\(max-width:420px\)/.test(styleText);
+        const rtl = /html\[dir=rtl\]/.test(styleText);
+        const safe = /safe-area-inset/.test(styleText);
+        const reduced = /prefers-reduced-motion:reduce/.test(styleText);
+        const focus = /:focus-visible/.test(styleText);
+        const serif = /var\(--ck-serif\)/.test(styleText);
+        const cinematic = /radial-gradient/.test(styleText) && /linear-gradient/.test(styleText);
+        const noScoreScreen = /numerical rating/.test(document.body.innerText);
+        return first && exclusive && responsive && rtl && safe && reduced && focus && serif && cinematic && noScoreScreen;
       });
     }
     let p7Pass = true;
@@ -449,9 +480,9 @@ for (const file of pages) {
         return largePass && rtlPass && resetPass;
       });
     }
-    const pass = commonPass && appPass && launcherPass && p1Pass && p6Pass && p7Pass && p8Pass && p9Pass && p10Pass && p11Pass && p12Pass && p13Pass && p14Pass && p15Pass && p21Pass && p19Pass && p1v2Pass;
+    const pass = commonPass && appPass && launcherPass && p1Pass && p6Pass && p7Pass && p8Pass && p9Pass && p10Pass && p11Pass && p12Pass && p13Pass && p14Pass && p15Pass && p16Pass && p21Pass && p19Pass && p1v2Pass;
     if (!pass) failures += 1;
-    results.push({ file, viewport: vp.name, pass, p19Pass, p21Pass, p6Pass, p7Pass, p8Pass, p9Pass, p10Pass, p11Pass, p12Pass, p13Pass, p14Pass, p15Pass, ...metrics, consoleErrors, pageErrors, failedRequests });
+    results.push({ file, viewport: vp.name, pass, p19Pass, p21Pass, p6Pass, p7Pass, p8Pass, p9Pass, p10Pass, p11Pass, p12Pass, p13Pass, p14Pass, p15Pass, p16Pass, ...metrics, consoleErrors, pageErrors, failedRequests });
     await context.close();
   }
 }
