@@ -30,6 +30,14 @@ const requiredArtwork = [
   'artwork/ending-chronicle.svg'
 ];
 
+const p1AssetFiles = [
+  'web-preview/artwork/event-empty-granary.svg',
+  'web-preview/artwork/queen-elira.svg',
+  'web-preview/artwork/lord-cael.svg',
+  'web-preview/artwork/river-compact.svg',
+  'web-preview/artwork/ending-chronicle.svg'
+];
+
 const browser = await chromium.launch({ headless: true });
 const results = [];
 let failures = 0;
@@ -123,15 +131,41 @@ for (const asset of requiredArtwork) {
   await context.close();
 }
 
+const p1AssetAudit = [];
+for (const asset of p1AssetFiles) {
+  const context = await chromium.launch({ headless: true });
+  const page = await context.newPage({ viewport: { width: 360, height: 800 } });
+  const response = await page.goto(`http://127.0.0.1:4173/${asset}`, { waitUntil: 'networkidle' });
+  const audit = await page.evaluate(() => {
+    const svg = document.querySelector('svg');
+    const title = svg?.querySelector('title');
+    const desc = svg?.querySelector('desc');
+    const viewBox = svg?.getAttribute('viewBox');
+    return {
+      svg: Boolean(svg),
+      title: Boolean(title?.textContent?.trim()),
+      desc: Boolean(desc?.textContent?.trim()),
+      viewBox: Boolean(viewBox),
+      textLength: document.body.innerText.trim().length
+    };
+  });
+  const pass = Boolean(response?.ok()) && audit.svg && audit.title && audit.desc && audit.viewBox;
+  if (!pass) failures += 1;
+  p1AssetAudit.push({ asset, pass, httpStatus: response?.status() ?? null, ...audit });
+  await context.close();
+}
+
 await browser.close();
 fs.mkdirSync('artifacts/visual-regression', { recursive: true });
-const manifest = { gate: 'V15', generatedAt: new Date().toISOString(), pages, viewports, requiredArtwork, results, artworkResults, failures };
+const manifest = { gate: 'V15', generatedAt: new Date().toISOString(), pages, viewports, requiredArtwork, results, artworkResults, p1AssetAudit, failures };
 fs.writeFileSync('artifacts/visual-regression/v15-closure.json', JSON.stringify(manifest, null, 2));
 
 for (const failure of results.filter(r => !r.pass)) console.error('V15_PAGE_FAILURE', JSON.stringify(failure));
 for (const failure of artworkResults.filter(r => !r.pass)) console.error('V15_ARTWORK_FAILURE', JSON.stringify(failure));
+for (const failure of p1AssetAudit.filter(r => !r.pass)) console.error('V15_P1_ASSET_AUDIT_FAILURE', JSON.stringify(failure));
 if (results.length !== pages.length * viewports.length) throw new Error('Incomplete V15 page/viewport matrix');
 if (results.some(r => !r.pass)) throw new Error(`V15 page/viewport failures: ${results.filter(r => !r.pass).length}`);
 if (artworkResults.some(r => !r.pass)) throw new Error(`V15 artwork failures: ${artworkResults.filter(r => !r.pass).length}`);
+if (p1AssetAudit.some(r => !r.pass)) throw new Error(`V15 P1 asset audit failures: ${p1AssetAudit.filter(r => !r.pass).length}`);
 if (failures !== 0) throw new Error(`V15 failures=${failures}`);
 console.log(`V15 VISUAL CLOSURE PASS: ${results.length} page/viewport checks + ${artworkResults.length} artwork checks`);
