@@ -61,6 +61,14 @@ jobs:
           git diff --cached --quiet || git commit -m "Add approved visual regression references"
           git push
 
+      - name: Validate reference set is non-empty
+        if: steps.refs.outputs.exists == 'true' && !(github.event_name == 'workflow_dispatch' && inputs.approve_baseline == true)
+        shell: bash
+        run: |
+          count=$(find androidApp/app/src/screenshotTestDebug/reference -type f -name '*.png' | wc -l)
+          test "$count" -gt 0
+          echo "Committed screenshot references available: $count"
+
       - name: Validate existing reference set
         if: steps.refs.outputs.exists == 'true' && !(github.event_name == 'workflow_dispatch' && inputs.approve_baseline == true)
         working-directory: androidApp
