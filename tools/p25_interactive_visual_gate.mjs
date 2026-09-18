@@ -184,6 +184,17 @@ await page.getByRole('button',{name:/Second Founder/}).click();
 if (!(await page.getByText(/Canonical ending identity/).count())) fail('ending identity label missing');
 await page.getByRole('button',{name:'Close details'}).click();
 await page.getByRole('button',{name:'Settings'}).click();
+await assertVisible('#settings .settings[role="group"]', 'settings accessibility group');
+for (const n of ['Large text','RTL preview','Reduced motion','Light / dark presentation']) {
+  const t=page.getByRole('button',{name:n});
+  if (!(await t.isVisible())) fail('settings control missing: '+n);
+  if ((await t.getAttribute('aria-pressed')) !== 'false') fail('settings control aria state missing: '+n);
+}
+await page.getByRole('button',{name:'Large text'}).focus();
+await page.keyboard.press('Enter');
+if ((await page.getByRole('button',{name:'Large text'}).getAttribute('aria-pressed')) !== 'true') fail('large-text toggle state missing');
+if (!(await page.getByText(/These controls change presentation only/).count())) fail('settings canon boundary missing');
+if (!(await page.locator('#settingsSummaryText').textContent()).includes('Large text on')) fail('settings state summary missing');
 const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1);
 if (overflow) fail('horizontal overflow on compact layout');
 await page.getByRole('button',{name:'Kingdom'}).click();

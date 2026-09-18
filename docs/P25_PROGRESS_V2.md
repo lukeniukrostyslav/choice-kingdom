@@ -21,7 +21,7 @@
 | 25.9 Investigation / evidence board | 100% | CLOSED |
 | 25.10 History / decision chronicle | 100% | CLOSED |
 | 25.11 Endings / resolution landing | 100% | CLOSED |
-| 25.12 Settings / accessibility presentation | 98% | OPEN |
+| 25.12 Settings / accessibility presentation | 100% | CLOSED |
 | 25.13 Navigation / information architecture | 99% | OPEN |
 | 25.14 Responsive / safe-area composition | 97% | OPEN |
 | 25.15 Visual regression / final acceptance | 79% | OPEN |
@@ -131,6 +131,21 @@ The Endings / resolution landing is now closed at 100% with:
 - dedicated gate coverage for all seven identities, interaction, keyboard navigation, dialog state and canon-boundary text.
 
 No new ending identity, outcome, consequence, relationship, faction or lore was invented.
+
+The implementation, gate hardening and progress record are committed to `main`. Final P25 acceptance remains open because fresh runtime/visual evidence and deployed proof are still required; no green CI or live Vercel verification is claimed without actual evidence.
+
+## 25.12 closure record
+
+The Settings / accessibility presentation is now closed at 100% with:
+- four grouped presentation controls: Large text, RTL preview, Reduced motion and Light / dark presentation;
+- semantic `aria-pressed` state on every toggle, with visible focus and selected-state treatment;
+- persistent local preferences for text scale, document direction, motion reduction and theme;
+- a live local-state summary that exposes the current presentation configuration;
+- responsive premium setting cards with numbered hierarchy, descriptions and cinematic panel treatment;
+- an explicit boundary that these controls change presentation only and do not alter canonical story facts, choices or outcomes;
+- dedicated gate coverage for settings grouping, all four controls, initial state semantics, keyboard activation, state summary, canon boundary, persistence and compact-layout overflow.
+
+No story facts, characters, factions, endings, relationships or lore were invented or changed.
 
 The implementation, gate hardening and progress record are committed to `main`. Final P25 acceptance remains open because fresh runtime/visual evidence and deployed proof are still required; no green CI or live Vercel verification is claimed without actual evidence.
 
