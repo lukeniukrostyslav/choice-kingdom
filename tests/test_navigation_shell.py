@@ -48,7 +48,7 @@ def test_launcher_opens_journey_without_replacing_canonical_snapshot():
 
     assert menu.destination is AppDestination.MENU
     assert journey.destination is AppDestination.JOURNEY
-    assert journey.model.model.event_id == "E07"
+    assert journey.model.model.session.event_id == "E07"
     assert presenter_instance.model.turn == 7
 
 
