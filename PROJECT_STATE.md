@@ -275,3 +275,12 @@ Block 15 clarification (2026-09-18): the earlier historical notes above saying t
 - Compact, phone, tablet, desktop and short-height landscape viewport coverage was added to `tools/p25_interactive_visual_gate.mjs`.
 - New implementation commits: `40f6d1b66281a7590cfc2c256154f56f777c49b7`; gate coverage: `6855c5201e56e45895fb4cc02b39817ed1fdab86`; progress: `b69a15191e3516d713770a170e627c300f0369db`; master closure: `11ce25537d21ca338715a04846de6bc21beec62c`.
 - Fresh GitHub Actions execution is not available for the post-change gate commit yet; therefore no runtime GREEN is claimed. P25 overall remains **94%** and 25.15 remains the final cross-screen/deployed acceptance bottleneck.
+
+
+### P25.15 Final visual acceptance closure checkpoint — 2026-09-19
+- 25.15 is **100% at implementation + acceptance-coverage level**.
+- Added dedicated `.github/workflows/p25-final-visual-acceptance.yml` covering both local current-main and deployed Vercel execution of `tools/p25_interactive_visual_gate.mjs`.
+- Playwright is pinned for deterministic execution and screenshot evidence is uploaded as a workflow artifact.
+- PR #28 was merged; final workflow implementation is on `main` through merge commit `7490c1b04e30938fab437cb41699cd524ef9d891`.
+- The final acceptance workflow run is currently queued; fresh GREEN execution is not claimed until GitHub reports a completed successful run.
+- P25 remains **94%** overall because the final runtime/deployed visual sign-off is still the top-level acceptance boundary.
