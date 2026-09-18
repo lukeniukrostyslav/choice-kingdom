@@ -16,7 +16,7 @@
 | 25.4 Choice chamber / decision interaction | 100% | CLOSED |
 | 25.5 Consequence / memory reveal | 100% | CLOSED |
 | 25.6 Kingdom / realm presentation | 100% | CLOSED |
-| 25.7 People / character presentation | 97% | OPEN |
+| 25.7 People / character presentation | 100% | CLOSED |
 | 25.8 Factions / institutional presentation | 95% | OPEN |
 | 25.9 Investigation / evidence board | 96% | OPEN |
 | 25.10 History / decision chronicle | 96% | OPEN |
@@ -59,6 +59,23 @@ The Kingdom / realm surface is now closed at 100% with:
 No new kingdom names, territories, alliances, relationships, mottos or lore were invented.
 
 The implementation, gate hardening and progress record are committed to `main`. Final P25 acceptance remains open because fresh runtime/visual evidence and deployed proof are still required; no green CI or live Vercel verification is claimed without actual evidence.
+
+## 25.7 closure record
+
+The People / character presentation is now closed at 100% with:
+- all six verified recurring People presented: Mara, Rowan, Seris, Ivo, Amara and Toma;
+- canonical narrative hooks preserved without adding invented age, appearance, title, motive, relationship, faction membership or hidden state;
+- premium character-card treatment with cinematic framing, atmospheric depth, identity monogram and readable narrative anchor;
+- explicit "Verified narrative anchor" labeling to distinguish canon from presentation treatment;
+- semantic interactive character cards with dialog semantics and visible keyboard focus;
+- Enter/Space activation plus directional keyboard navigation between People cards;
+- existing detail-dialog focus management retained, including focus return and trap behavior;
+- responsive two-column mobile/tablet presentation while preserving readable card hierarchy;
+- dedicated gate coverage for all six People, card interactivity, keyboard navigation and detail-dialog behavior.
+
+No new character lore, relationships, factions, titles or visual canon was invented.
+
+The implementation, gate hardening and progress record are committed to main. Final P25 acceptance remains open because fresh runtime/visual evidence and deployed proof are still required; no green CI or live Vercel verification is claimed without actual evidence.
 
 ## Verification boundary
 
