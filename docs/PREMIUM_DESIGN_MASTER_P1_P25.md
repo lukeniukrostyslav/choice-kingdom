@@ -22,7 +22,7 @@ This document is the canonical working checklist for the 25-block premium visual
 | P12 | History / decision memory | 100% | Timeline/history hierarchy and causal readability |
 | P13 | Relationships / character state | 100% | Relationship states and progression presentation |
 | P14 | Investigation / threads / evidence | 100% | Evidence hierarchy, discovery and unresolved states |
-| P15 | Crisis / high-stakes presentation | 90% | Escalation, urgency and consequence preview without clutter |
+| P15 | Crisis / high-stakes presentation | 100% | Escalation, urgency and consequence preview without clutter |
 | P16 | Endings / resolution experience | 0% | Ending identity, summary and emotional landing |
 | P17 | Replay / new-run experience | 0% | Replay motivation, continuity and clean reset semantics |
 | P18 | Main menu / launcher | 0% | Premium first impression + navigation + responsive proof |
@@ -34,7 +34,7 @@ This document is the canonical working checklist for the 25-block premium visual
 | P24 | Android devices / safe areas / resolution adaptation | 0% | Real Android presentation proof on target device classes |
 | P25 | Final premium polish / cross-screen QA | 0% | Full visual regression and no unresolved P1–P24 blockers |
 
-**Aggregate P1–P25 estimate: 56.00% (V2 current; P1–P14 closed at 100%).**
+**Aggregate P1–P25 estimate: 60.00% (V2 current; P1–P15 closed at 100%).**
 
 ## Visual Design Reset v2
 
