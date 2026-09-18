@@ -29,13 +29,16 @@ await page.getByRole('button',{name:'Investigation'}).click();
 for (const n of ["Mara's route","Toma's route","Seris's route","Direct account route"]) if (!(await page.getByText(n,{exact:true}).count())) fail('missing investigation route '+n);
 await page.getByRole('button',{name:'History'}).click();
 if (!(await page.getByText('E01 · The First Petition').count())) fail('history did not record E01');
+await page.getByRole('button',{name:'Endings'}).click();
+if (!(await page.getByRole('heading',{name:'Endings'}).count())) fail('endings surface missing');
+if (!(await page.getByText('No ending is forced in the visual prototype.').count())) fail('ending boundary copy missing');
 await page.getByRole('button',{name:'Settings'}).click();
 await page.getByRole('button',{name:'Large text'}).click();
 await page.getByRole('button',{name:'RTL preview'}).click();
 await page.getByRole('button',{name:'Reduced motion'}).click();
 
 const body = await page.locator('body').innerText();
-for (const forbidden of ['Queen Elira','Lord Cael','River Compact','Arwen Vale','The Empty Granary']) if (body.includes(forbidden)) fail('non-canonical legacy text leaked: '+forbidden);
+for (const forbidden of ['Queen Elira','Lord Cael','River Compact','Arwen Vale','The Empty Granary','Royal Capital','Northern Marches','The Church','Trade Guilds','Southern Reach','Eastern Realms']) if (body.includes(forbidden)) fail('non-canonical legacy text leaked: '+forbidden);
 
 await page.setViewportSize({width:1440,height:1000});
 await page.goto(base+'/game-flow.html',{waitUntil:'networkidle'});
