@@ -85,7 +85,26 @@ for (const file of pages) {
     const commonPass = Boolean(response?.ok()) && !metrics.horizontalOverflow && metrics.text > 0 && metrics.brokenImages === 0 && metrics.smallTargets === 0 && metrics.unlabeledControls === 0 && metrics.clippedText === 0 && consoleErrors.length === 0 && pageErrors.length === 0 && failedRequests.length === 0;
     const appPass = metrics.pageType !== 'app-flow' || (metrics.hasSkipLink && metrics.hasLiveRegion && metrics.hasNavLabel && metrics.hasFocusVisible && metrics.hasReducedMotion && metrics.hasThemeState && metrics.hasRtl && metrics.hasViewportMeta);
     const launcherPass = metrics.pageType !== 'launcher' || (metrics.hasThemeState && metrics.hasViewportMeta);
-    const pass = commonPass && appPass && launcherPass;
+    let p1Pass = true;
+    if (file === 'design-art-direction.html') {
+      p1Pass = await page.evaluate(() => {
+        const large = document.querySelector('#largeToggle');
+        const rtl = document.querySelector('#rtlToggle');
+        if (!large || !rtl || large.tagName !== 'BUTTON' || rtl.tagName !== 'BUTTON') return false;
+        if (large.getAttribute('aria-pressed') !== 'false' || rtl.getAttribute('aria-pressed') !== 'false') return false;
+        const main = document.querySelector('main');
+        const before = getComputedStyle(main).fontSize;
+        large.click();
+        const after = getComputedStyle(main).fontSize;
+        const largePass = main.classList.contains('large') && large.getAttribute('aria-pressed') === 'true' && before !== after;
+        rtl.click();
+        const rtlPass = main.classList.contains('rtl') && rtl.getAttribute('aria-pressed') === 'true' && document.documentElement.dir === 'rtl';
+        rtl.click();
+        const resetPass = !main.classList.contains('rtl') && document.documentElement.dir === 'ltr';
+        return largePass && rtlPass && resetPass;
+      });
+    }
+    const pass = commonPass && appPass && launcherPass && p1Pass;
     if (!pass) failures += 1;
     results.push({ file, viewport: vp.name, pass, ...metrics, consoleErrors, pageErrors, failedRequests });
     await context.close();
