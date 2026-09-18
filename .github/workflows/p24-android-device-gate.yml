@@ -1,6 +1,9 @@
 name: Choice Kingdom P24 Android Device Adaptation Gate
 
 on:
+  push:
+    branches:
+      - design/v2-p24-android-devices-2026-09-18
   pull_request:
     branches: [main]
   workflow_dispatch:
