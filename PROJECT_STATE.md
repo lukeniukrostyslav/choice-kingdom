@@ -33,6 +33,14 @@
 
 # Choice Kingdom — Project State
 
+
+## P25 current checkpoint — 94%
+
+- P25 overall: **94%**; P1–P24 remain closed at 100%.
+- The current premium surface is `web-preview/game-premium.html` and the P25 gate targets that surface.
+- Implemented and saved on `main`: cinematic launcher/event/consequence flow, Kingdom, People, institutional positions, Investigation, History, Endings and Settings surfaces; persistent presentation preferences; keyboard-accessible People/institution detail dialogs; responsive compact/expanded layouts; safe-area, RTL, large-text and reduced-motion behavior.
+- Remaining closure evidence: latest post-change P25 gate execution, live Vercel verification against the frozen reference set, and final cross-screen visual regression sign-off.
+- No P25 100% claim is made before those evidence gates are complete.
 ## Product
 Original premium offline-first decision-and-consequence mobile game set in Avelune. Android-first, one-time purchase target €2.99–€4.99, no ads/subscription/mandatory backend for core gameplay, 20+ locales including RTL. Frozen production catalog: **E01–E272**.
 
@@ -52,8 +60,8 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 10. **Localization Core-8** → 90%
 11. **RTL / Large Text / Accessibility** → 100%
 12. **Responsive / Safe Areas / Devices** → 100%
-13. **Premium Design P1–P25** → 99.60%
-- P1–P24 closed at 100%; P25 is 90% after the green interactive gate, responsive proof artifact, and the premium visual-composition implementation pass.
+13. **Premium Design P1–P25** → 99.76%
+- P1–P24 closed at 100%; P25 is 94% after the premium visual-composition passes, canonical detail presentation, persistent presentation preferences and the existing interactive/responsive proof foundation.
 - P24 closure evidence: GitHub Actions Android production runtime run #190 completed successfully with compact-phone, tablet-window and expanded-window matrix jobs green.
 - P24 closure commit: `230ace79ef70cfffd255a310d9170fb581111c6f` (`fix(p24): use deterministic instrumentation component`).
 - P16 closure evidence: GitHub Actions V15 Visual Closure run #816 / ID `35362610255` completed successfully; PR #17 was merged into main.
