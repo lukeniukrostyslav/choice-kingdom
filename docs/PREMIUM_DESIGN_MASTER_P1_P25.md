@@ -22,9 +22,9 @@ This document is the canonical working checklist for the 25-block premium visual
 | P12 | History / decision memory | 60% | Timeline/history hierarchy and causal readability |
 | P13 | Relationships / character state | 100% | Relationship states and progression presentation |
 | P14 | Investigation / threads / evidence | 100% | Evidence hierarchy, discovery and unresolved states |
-| P15 | Crisis / high-stakes presentation | 46% | Escalation, urgency and consequence preview without clutter |
-| P16 | Endings / resolution experience | 56% | Ending identity, summary and emotional landing |
-| P17 | Replay / new-run experience | 47% | Replay motivation, continuity and clean reset semantics |
+| P15 | Crisis / high-stakes presentation | 100% | Escalation, urgency and consequence preview without clutter |
+| P16 | Endings / resolution experience | 100% | Ending identity, summary and emotional landing |
+| P17 | Replay / new-run experience | 100% | Replay motivation, continuity and clean reset semantics |
 | P18 | Main menu / launcher | 73% | Premium first impression + navigation + responsive proof |
 | P19 | Navigation / information architecture | 78% | Consistent hierarchy and low-cognitive-load navigation |
 | P20 | Motion / micro-interactions / feedback | 74% | Purposeful semantic motion + reduced-motion behavior |
@@ -34,7 +34,7 @@ This document is the canonical working checklist for the 25-block premium visual
 | P24 | Android devices / safe areas / resolution adaptation | 38% | Real Android presentation proof on target device classes |
 | P25 | Final premium polish / cross-screen QA | 58% | Full visual regression and no unresolved P1–P24 blockers |
 
-**Aggregate P1–P25 estimate: 67.92% (simple arithmetic mean of block estimates).**
+**Aggregate P1–P25 estimate: 71.88% (simple arithmetic mean of block estimates).**
 
 ## Current evidence
 
@@ -50,7 +50,9 @@ This document is the canonical working checklist for the 25-block premium visual
 - The canonical visual north star is recorded in design-reference/FINAL_DESIGN_VISION_V1.md; it defines the premium cinematic medieval-fantasy direction used to evaluate subsequent P1–P25 work.
 - P13 relationship presentation has a committed premium visual surface and green V15 cross-viewport closure: run #647 / ID 35335301852.
 - P14 investigation presentation has a committed premium visual surface and green V15 cross-viewport closure: run #651 / ID 35335654075, head 873efe4b1438616b2690fe53853b8765e3fb1adb, completed 2026-09-18.
-- P15 crisis presentation has a committed premium visual surface and green V15 cross-viewport closure: run #654, ID 35335872569, head b6f80b8d2ccec8c6b50883a48100e229d0c26388, completed 2026-09-18.
+- P15 crisis presentation: green V15 cross-viewport closure, run #654 / ID 35335872569, completed 2026-09-18.
+- P16 ending presentation: green V15 cross-viewport closure, run #658 / ID 35336044736, completed successfully.
+- P17 replay presentation: green V15 cross-viewport closure, run #664 / ID 35336289832, head f1112a80da7f829404fcff49d8eeab7194c5364e, completed successfully.
 
 ## Quality rules
 
@@ -63,4 +65,4 @@ This document is the canonical working checklist for the 25-block premium visual
 
 ## Next bottleneck
 
-Continue the premium-design track with P15 — Crisis / High-Stakes Presentation. The next surface should create urgency through composition, pacing, state hierarchy and consequence preview without relying on excessive warning colors or clutter. It must remain responsive, RTL/large-text safe, reduced-motion compatible, and pass the automated visual-closure gate.
+Continue the premium-design track with P18 — Main Menu / Launcher. Strengthen the first-impression surface, navigation entry hierarchy, responsive behavior, accessibility and visual regression without turning the launcher into a generic dashboard.
