@@ -546,6 +546,9 @@ private fun ChoiceCard(
                 role = Role.Button
                 contentDescription = "${choice.label}: ${choice.text}"
                 stateDescription = state
+                if (selected || resolving) {
+                    liveRegion = LiveRegionMode.Polite
+                }
             },
         shape = RoundedCornerShape(22.dp),
         border = BorderStroke(
