@@ -20,7 +20,7 @@ This document is the canonical working checklist for the 25-block premium visual
 | P10 | Resources / stats / pressure visualization | 56% | Scannable resource language and state transitions |
 | P11 | Consequences / delayed consequences | 72% | Immediate, pending, triggered and cancelled visual states |
 | P12 | History / decision memory | 60% | Timeline/history hierarchy and causal readability |
-| P13 | Relationships / character state | 56% | Relationship states and progression presentation |
+| P13 | Relationships / character state | 100% | Relationship states and progression presentation |
 | P14 | Investigation / threads / evidence | 56% | Evidence hierarchy, discovery and unresolved states |
 | P15 | Crisis / high-stakes presentation | 46% | Escalation, urgency and consequence preview without clutter |
 | P16 | Endings / resolution experience | 56% | Ending identity, summary and emotional landing |
@@ -34,19 +34,21 @@ This document is the canonical working checklist for the 25-block premium visual
 | P24 | Android devices / safe areas / resolution adaptation | 38% | Real Android presentation proof on target device classes |
 | P25 | Final premium polish / cross-screen QA | 58% | Full visual regression and no unresolved P1–P24 blockers |
 
-**Aggregate P1–P25 estimate: 62.24% (simple arithmetic mean of block estimates).**
+**Aggregate P1–P25 estimate: 64.00% (simple arithmetic mean of block estimates).**
 
 ## Current evidence
 
-- `androidApp/` is the first real Android Compose application module, with launcher Activity, adaptive Compact/Medium/Expanded presentation, safe-drawing insets and semantic interaction states.
-- The Android event surface now consumes an immutable `AndroidPresentationPort` projection through a narrow presentation-only adapter; the current launcher uses an explicitly named sample projection until the production runtime bridge is available.
+- androidApp/ is the first real Android Compose application module, with launcher Activity, adaptive Compact/Medium/Expanded presentation, safe-drawing insets and semantic interaction states.
+- The Android event surface now consumes an immutable AndroidPresentationPort projection through a narrow presentation-only adapter; the current launcher uses an explicitly named sample projection until the production runtime bridge is available.
 - Event title, event id, turn and authored choice id/label/text are rendered from the projection rather than from a parallel Android gameplay model. Choice interaction is UI-local and does not mutate canonical gameplay.
 - Android instrumentation coverage now includes projection rendering and accessible selected-state interaction; the workflow runs build, JVM tests and emulator instrumentation tests.
-- `.github/workflows/android-presentation.yml` uses Java 17, Android SDK setup and pinned Gradle 8.7.3.
+- .github/workflows/android-presentation.yml uses Java 17, Android SDK setup and pinned Gradle 8.7.3.
 - The Android layer is presentation-only; canonical gameplay remains owned by the existing runtime seam.
-- `runtime/premium_screen_states.py`, `runtime/premium_surface_projection.py` and `runtime/premium_regression_matrix.py` remain the canonical platform-neutral presentation contracts.
+- runtime/premium_screen_states.py, runtime/premium_surface_projection.py and runtime/premium_regression_matrix.py remain the canonical platform-neutral presentation contracts.
 - Existing rendered preview evidence covers responsive density, RTL, large text, reduced motion, safe area and focus-visible behavior.
 - Physical Android/device proof is not claimed yet; emulator CI is verification infrastructure, not a substitute for final target-device evidence.
+- The canonical visual north star is recorded in design-reference/FINAL_DESIGN_VISION_V1.md; it defines the premium cinematic medieval-fantasy direction used to evaluate subsequent P1–P25 work.
+- P13 relationship presentation has a committed premium visual surface and a green V15 cross-viewport closure: run #647 / ID 35335301852, head fc7b26c13151989d479c8074f09edb05a961b8bc, completed 2026-09-18.
 
 ## Quality rules
 
@@ -59,4 +61,4 @@ This document is the canonical working checklist for the 25-block premium visual
 
 ## Next bottleneck
 
-Replace the explicitly named Android sample projection with the production runtime presentation bridge without moving gameplay semantics into Android, then verify real Event/Choice interaction through emulator CI and target-device evidence. Continue cross-screen visual regression and accessibility proof. No physical Android proof is claimed until it exists.
+Continue the premium-design track with P14 — Investigation / threads / evidence. The next surface should follow the same visual north star: cinematic authored atmosphere, restrained gold accents, narrative-first hierarchy, clear evidence states, responsive/RTL/large-text behavior, and automated visual-closure proof. Physical Android/device proof and production runtime binding remain separate gates and are not implied by premium-design percentages.
