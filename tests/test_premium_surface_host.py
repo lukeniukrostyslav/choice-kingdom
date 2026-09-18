@@ -2,7 +2,6 @@ from runtime.premium_screen_states import PremiumScreen, ScreenState
 from runtime.premium_surface_host import PremiumSurfaceHost
 from runtime.premium_surface_projection import SurfaceDensity
 from runtime.presentation import SessionPresentation, ChoicePresentation
-from runtime.presentation import SessionPresentation, ChoicePresentation
 
 
 class StubPresenter:
