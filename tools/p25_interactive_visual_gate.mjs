@@ -10,6 +10,13 @@ const assertVisible = async (selector, label) => {
 };
 
 await page.goto(base+'/game-premium.html', {waitUntil:'networkidle'});
+await page.evaluate(() => {
+  const s=document.createElement('style');
+  s.textContent='*,*::before,*::after{animation:none!important;transition:none!important}';
+  document.head.appendChild(s);
+  document.body.classList.add('reduce');
+});
+await page.evaluate(() => document.fonts.ready);
 await page.screenshot({path:'p25-shell-launcher.png',fullPage:true});
 await assertVisible('#launcher .display', 'launcher display');
 await page.getByRole('button',{name:'Start a new run'}).click();
