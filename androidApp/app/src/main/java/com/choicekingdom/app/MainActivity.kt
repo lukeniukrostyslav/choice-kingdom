@@ -648,6 +648,13 @@ private fun NavigationRail(screens: List<AndroidScreenState>, onSelect: (String)
 
 
 @Composable
+fun VisualRegressionLoadingPreview() {
+    ChoiceKingdomTheme {
+        LoadingScreen(errorMessage = null)
+    }
+}
+
+@Composable
 fun VisualRegressionEventPreview() {
     ChoiceKingdomTheme {
         Column(
