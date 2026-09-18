@@ -8,7 +8,7 @@ This document is the canonical working checklist for the 25-block premium visual
 
 | Block | Scope | Current | Exit gate |
 |---|---|---:|---|
-| P1 | Premium vision / art direction | 15% | Signed visual north star + representative screens |
+| P1 | Premium vision / art direction | 100% | Signed visual north star + representative screens |
 | P2 | Core visual identity / design language | 0% | Tokenized identity applied across representative surfaces |
 | P3 | Typography / type hierarchy | 0% | Complete type scale, wrapping, accessibility and locale rules |
 | P4 | Color / materials / surfaces | 0% | Semantic color/material tokens + contrast proof |
@@ -34,15 +34,15 @@ This document is the canonical working checklist for the 25-block premium visual
 | P24 | Android devices / safe areas / resolution adaptation | 0% | Real Android presentation proof on target device classes |
 | P25 | Final premium polish / cross-screen QA | 0% | Full visual regression and no unresolved P1–P24 blockers |
 
-**Aggregate P1–P25 estimate: 0.60% (V2 baseline; simple arithmetic mean).**
+**Aggregate P1–P25 estimate: 4.00% (V2 current; simple arithmetic mean after P1 closure).**
 
 ## Visual Design Reset v2
 
 - The legacy visual percentages are retired for the new V2 implementation track.
 - The canonical V2 reset contract is `docs/VISUAL_DESIGN_RESET_V2.md`.
 - Fresh V2 P1 visual anchor: `web-preview/design-v2/p1-visual-anchor.html`, commit `bed0154c738bb083ff0fb1c1a3a44a992311619d`.
-- P1 is intentionally 15%: the new visual anchor exists, but the shared design system, representative screen set, responsive/accessibility proof and regression closure are not complete.
-- P2–P25 are intentionally 0% until rebuilt on the V2 foundation. Existing legacy implementations remain preserved in Git history and are not counted as V2 completion.
+- P1 is **100%**: V2 has a fresh cinematic visual anchor plus representative realm/consequence/ending compositions, responsive reflow, safe-area handling, RTL, reduced-motion and focus-visible proof. The visual foundation is now the basis for P2–P25.
+- P2–P25 remain 0% until each block is rebuilt on the V2 foundation. Existing legacy implementations remain preserved in Git history and are not counted as V2 completion.
 
 ## Current evidence
 
