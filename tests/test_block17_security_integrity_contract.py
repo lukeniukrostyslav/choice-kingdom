@@ -18,6 +18,8 @@ def test_save_store_has_versioned_integrity_envelope() -> None:
     assert "hashlib.sha256" in source
     assert "integrity digest is malformed" in source
     assert "runtime save integrity check failed" in source
+    assert "invalid delay scheduled turn" in source
+    assert "invalid pending delay key" in source
 
 
 def test_security_regression_suite_covers_tampering_and_recovery() -> None:
@@ -28,5 +30,8 @@ def test_security_regression_suite_covers_tampering_and_recovery() -> None:
         "test_tampered_digest_format_is_rejected_before_snapshot_use",
         "test_tampered_digest_with_wrong_hex_length_is_rejected",
         "test_tampered_digest_with_uppercase_hex_is_rejected_as_noncanonical",
+        "test_snapshot_validation_rejects_malformed_pending_delay_types",
+        "test_snapshot_validation_rejects_non_string_pending_delay_key",
+        "test_snapshot_validation_rejects_non_list_meta_and_ending_collections",
     ):
         assert marker in source
