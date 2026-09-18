@@ -103,11 +103,24 @@ Remaining evidence before P25 can reach 100%:
 | 25.10 History / decision chronicle | 96% | Timeline and recorded choices implemented |
 | 25.11 Endings / resolution landing | 94% | Resolution surface implemented without inventing an ending outcome |
 | 25.12 Settings / accessibility presentation | 98% | Large text, RTL, reduced motion, theme and persistent preferences implemented; final device proof remains |
-| 25.13 Navigation / information architecture | 99% | Persistent navigation now integrates browser back/forward state continuity |
+| 25.13 Navigation / information architecture | 100% | Stable screen-key navigation, URL/hash continuity and browser back/forward acceptance are now covered |
 | 25.14 Responsive / safe-area composition | 97% | Compact and expanded layouts implemented; live-device evidence remains |
 | 25.15 Visual regression / final acceptance | 77% | Automated coverage exists; normalized post-change gate is saved; cross-surface visible-surface assertions have been extended across launcher, event, consequence, choice, kingdom, people, factions, investigation, history, endings and settings; latest post-change run and deployed visual/reference comparison remain |
 
 **P25 overall remains 94%.** Sub-blocks are diagnostic and are not averaged into the overall percentage. P25 reaches 100% only after deployed visual review and final cross-screen regression sign-off.
+
+
+## P25.13 Closure Record — 100%
+
+P25.13 Navigation / information architecture is closed at 100% on `main` through:
+- stable screen-key navigation independent of localized labels;
+- canonical URL/hash state continuity for the premium surface;
+- browser Back restoration of the prior active screen and hash;
+- browser Forward restoration of the next active screen and hash;
+- dedicated acceptance coverage in `tools/p25_interactive_visual_gate.mjs` for Kingdom → People navigation and history traversal;
+- no new story facts, routes, characters, factions or lore introduced.
+
+The closure does not close P25 itself: P25.14 live responsive/device evidence and P25.15 final deployed visual/regression acceptance remain open.
 
 ## P25.2 Closure Record — 100%
 
