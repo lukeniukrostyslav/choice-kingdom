@@ -20,7 +20,8 @@ const pages = [
   'design-v2/p7-event-situation-proof.html',
   'design-v2/p8-character-presentation-proof.html',
   'design-v2/p9-kingdom-world-presentation-proof.html',
-  'design-v2/p10-resources-pressure-proof.html'
+  'design-v2/p10-resources-pressure-proof.html',
+  'design-v2/p11-consequences-proof.html'
 ];
 const viewports = [
   { name: '360x800', width: 360, height: 800 },
@@ -221,6 +222,32 @@ for (const file of pages) {
         return selected && exclusive && responsive && rtl && safe && reduced && focus && serif && cinematic && mapFeatureCount >= 7;
       });
     }
+    let p11Pass = true;
+    if (file === 'design-v2/p11-consequences-proof.html') {
+      p11Pass = await page.evaluate(() => {
+        const surface = document.querySelector('.surface');
+        const cards = [...document.querySelectorAll('.card')];
+        const states = [...document.querySelectorAll('.state')];
+        const signal = document.querySelector('#signal');
+        const status = document.querySelector('#status');
+        const styleText = [...document.querySelectorAll('style')].map(s => s.textContent || '').join('\n');
+        if (!surface || cards.length !== 4 || states.length !== 4 || !signal || !status) return false;
+        if (!states.every(b => b.getBoundingClientRect().height >= 48 && (b.textContent || '').trim())) return false;
+        states[1].click();
+        const pending = signal.textContent === 'Pending' && states[1].getAttribute('aria-pressed') === 'true' && cards[1].classList.contains('active');
+        states[2].click();
+        const triggered = signal.textContent === 'Triggered' && states[2].getAttribute('aria-pressed') === 'true' && states[1].getAttribute('aria-pressed') === 'false' && cards[2].classList.contains('active');
+        const exclusive = states.filter(b => b.getAttribute('aria-pressed') === 'true').length === 1;
+        const responsive = /@media\(max-width:760px\)/.test(styleText) && /@media\(max-width:420px\)/.test(styleText);
+        const rtl = /html\[dir=rtl\]/.test(styleText);
+        const safe = /safe-area-inset/.test(styleText);
+        const reduced = /prefers-reduced-motion:reduce/.test(styleText);
+        const focus = /:focus-visible/.test(styleText);
+        const serif = /var\(--ck-serif\)/.test(styleText);
+        const cinematic = /radial-gradient/.test(styleText) && /linear-gradient/.test(styleText);
+        return pending && triggered && exclusive && responsive && rtl && safe && reduced && focus && serif && cinematic;
+      });
+    }
     let p10Pass = true;
     if (file === 'design-v2/p10-resources-pressure-proof.html') {
       p10Pass = await page.evaluate(() => {
@@ -320,9 +347,9 @@ for (const file of pages) {
         return largePass && rtlPass && resetPass;
       });
     }
-    const pass = commonPass && appPass && launcherPass && p1Pass && p6Pass && p7Pass && p8Pass && p9Pass && p10Pass && p21Pass && p19Pass && p1v2Pass;
+    const pass = commonPass && appPass && launcherPass && p1Pass && p6Pass && p7Pass && p8Pass && p9Pass && p10Pass && p11Pass && p21Pass && p19Pass && p1v2Pass;
     if (!pass) failures += 1;
-    results.push({ file, viewport: vp.name, pass, p19Pass, p21Pass, p6Pass, p7Pass, p8Pass, p9Pass, p10Pass, ...metrics, consoleErrors, pageErrors, failedRequests });
+    results.push({ file, viewport: vp.name, pass, p19Pass, p21Pass, p6Pass, p7Pass, p8Pass, p9Pass, p10Pass, p11Pass, ...metrics, consoleErrors, pageErrors, failedRequests });
     await context.close();
   }
 }
