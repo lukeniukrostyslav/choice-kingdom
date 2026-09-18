@@ -23,6 +23,8 @@ Current implementation commits:
 - `1053158151b2fc13f6788bf20fe9c703704603b4` — added to V15 visual closure matrix.
 - `c9e9f038fd335742ca51c377d40a6cd2e113ba45` — keyboard skip path and RTL focus path.
 - `9da6df3a9ba2062c1107125e3cbb39bdc4eb48f9` — explicit active-journey hierarchy.
+- `72ec34948301243755ef45ae40509314798410b3` — made ACTIVE THREAD explicit in visible navigation content.
+- `54e26ade15363e4958645e59aa7c607336d1e289` — strengthened skip-target spacing and long-label wrapping.
 
 ## Closure rule
 P19 must not be marked 100% until the post-change V15 cross-viewport regression run is observed green. This contract alone is not closure evidence.
