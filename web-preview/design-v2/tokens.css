@@ -1,0 +1,30 @@
+:root{
+  color-scheme:dark;
+  --ck-night-950:#080d15;
+  --ck-night-900:#0d1420;
+  --ck-night-800:#162131;
+  --ck-surface-900:rgba(9,14,22,.94);
+  --ck-surface-800:rgba(17,24,35,.90);
+  --ck-surface-700:rgba(28,38,52,.82);
+  --ck-ink-100:#f4efe4;
+  --ck-ink-300:#d0d2d3;
+  --ck-ink-500:#b6bac0;
+  --ck-gold-300:#e3c986;
+  --ck-gold-400:#d7b66c;
+  --ck-gold-600:#907a49;
+  --ck-line:rgba(215,182,108,.28);
+  --ck-focus:#e3c986;
+  --ck-radius-sm:12px;
+  --ck-radius-md:18px;
+  --ck-radius-lg:22px;
+  --ck-space-1:8px;
+  --ck-space-2:12px;
+  --ck-space-3:18px;
+  --ck-space-4:24px;
+  --ck-space-5:32px;
+  --ck-space-6:48px;
+  --ck-shadow-soft:0 16px 42px rgba(0,0,0,.28);
+  --ck-shadow-deep:0 24px 70px rgba(0,0,0,.38);
+  --ck-serif:Georgia,"Times New Roman",serif;
+  --ck-body:system-ui,-apple-system,"Segoe UI",sans-serif;
+}
