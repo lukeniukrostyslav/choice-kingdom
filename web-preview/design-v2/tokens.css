@@ -28,3 +28,17 @@
   --ck-serif:Georgia,"Times New Roman",serif;
   --ck-body:system-ui,-apple-system,"Segoe UI",sans-serif;
 }
+
+/* P3 typography contract */
+:root{
+  --ck-type-display-xl:clamp(40px,7vw,76px);
+  --ck-type-display-lg:clamp(32px,5vw,52px);
+  --ck-type-display-md:clamp(26px,4vw,42px);
+  --ck-type-body-lg:clamp(17px,2.4vw,21px);
+  --ck-type-body-md:16px;
+  --ck-type-body-sm:14px;
+  --ck-type-label:11px;
+  --ck-leading-display:.98;
+  --ck-leading-heading:1.08;
+  --ck-leading-body:1.55;
+}
