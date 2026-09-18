@@ -52,8 +52,10 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 10. **Localization Core-8** → 90%
 11. **RTL / Large Text / Accessibility** → 100%
 12. **Responsive / Safe Areas / Devices** → 100%
-13. **Premium Design P1–P25** → 60.00%
-- V2 visual track: P1–P16 closed at 100%; P17–P25 remain 0%.
+13. **Premium Design P1–P25** → 96.00%
+- P1–P24 closed at 100%; P25 remains 0%.
+- P24 closure evidence: GitHub Actions Android production runtime run #190 completed successfully with compact-phone, tablet-window and expanded-window matrix jobs green.
+- P24 closure commit: `230ace79ef70cfffd255a310d9170fb581111c6f` (`fix(p24): use deterministic instrumentation component`).
 - P16 closure evidence: GitHub Actions V15 Visual Closure run #816 / ID `35362610255` completed successfully; PR #17 was merged into main.
 - P15 closure evidence: GitHub Actions V15 Visual Closure run #810 / ID `35361348178` completed successfully.
 14. **Motion / Audio / Haptics** → 99%
@@ -153,7 +155,7 @@ Execution order is strictly **1 → 2 → 3 → ... → 25**. A block is not con
 - Release / Store: **0%**
 
 ## Premium Design P1–P25
-Canonical percentages are tracked in `docs/PREMIUM_DESIGN_MASTER_P1_P25.md`. Current V2 aggregate: **64.00%**. P1–P16 are closed at 100%; P17–P25 remain open and must be completed sequentially.
+Canonical percentages are tracked in `docs/PREMIUM_DESIGN_MASTER_P1_P25.md`. Current V2 aggregate: **96.00%**. P1–P24 are closed at 100%; P25 is the only remaining open premium-design block and must be completed next.
 
 ## Honest progress rule
 Documentation never makes implementation complete. Every percentage requires authoritative evidence and applicable verification. Source/contract GREEN must never be reported as runtime gameplay GREEN. Owner-controlled physical Android QA, production signing and store publication remain open until actually performed.
