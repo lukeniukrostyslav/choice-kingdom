@@ -266,3 +266,12 @@ Block 15 clarification (2026-09-18): the earlier historical notes above saying t
 - Browser Back and Forward acceptance is now explicitly covered by the P25 interactive visual gate, including restoration of the active screen and URL hash.
 - Closure commits: `9270fd43b7d19a842dea00460702dd193daec505` (gate), `8ad9ed635d20a008f8e7277815a8424802c192cd` (progress), `6440dcf2b685024d5f42b20d4e1339f1bfb1a8ea` (master).
 - P25 overall remains **94%**; 25.14 and 25.15 remain open.
+
+
+### P25.14 Responsive / safe-area closure checkpoint — 2026-09-19
+- 25.14 is **100% at implementation + acceptance-coverage level**.
+- Responsive CSS media-query grouping was corrected on the real premium surface.
+- Safe-area contract is explicit through `viewport-fit=cover` and all four `env(safe-area-inset-*)` values with fallbacks.
+- Compact, phone, tablet, desktop and short-height landscape viewport coverage was added to `tools/p25_interactive_visual_gate.mjs`.
+- New implementation commits: `40f6d1b66281a7590cfc2c256154f56f777c49b7`; gate coverage: `6855c5201e56e45895fb4cc02b39817ed1fdab86`; progress: `b69a15191e3516d713770a170e627c300f0369db`; master closure: `11ce25537d21ca338715a04846de6bc21beec62c`.
+- Fresh GitHub Actions execution is not available for the post-change gate commit yet; therefore no runtime GREEN is claimed. P25 overall remains **94%** and 25.15 remains the final cross-screen/deployed acceptance bottleneck.
