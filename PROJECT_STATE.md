@@ -54,7 +54,7 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 12. **Responsive / Safe Areas / Devices** → 100%
 13. **Premium Design P1–P25** → 62.24%
 14. **Motion / Audio / Haptics** → 99%
-15. **Cross-Screen Visual Regression** → 54%
+15. **Cross-Screen Visual Regression** → 58%
 16. **Automated QA** → 0%
 17. **Performance / Stability / Offline QA** → 0%
 18. **Security / Production Hardening** → 0%
@@ -181,3 +181,6 @@ Block 15 latest: host-side screenshot rendering has an explicit 4 GB JVM heap. C
 
 
 Block 15 latest: Core-8 locale variants and large-text screenshot previews added. Actual reference PNG generation and validation remain pending on GitHub Actions.
+
+
+Block 15 execution update (2026-09-18): hardened the screenshot gate with a 25-minute job timeout, explicit `--no-daemon` Gradle execution, and a hard post-generation assertion that at least one PNG reference exists before the generated set can be committed. The repository still has no committed reference PNG set verified on main; Block 15 remains below 100% until reference generation and subsequent validation complete successfully.
