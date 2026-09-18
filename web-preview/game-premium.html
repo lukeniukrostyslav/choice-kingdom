@@ -122,16 +122,18 @@ function bindDetails(){document.querySelectorAll("[data-kind]").forEach(el=>{con
 $("#detailClose").onclick=closeDetails;
 $("#detailBackdrop").addEventListener("click",e=>{if(e.target.id==="detailBackdrop")closeDetails()});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("#detailBackdrop").classList.contains("open"))closeDetails()});
-\nfunction renderHistory(){$("#historyList").innerHTML=(state.history.length?state.history:[]).map(h=>'<div class="entry"><small>'+h.id+'</small><b>'+h.title+'</b><p>'+h.choice+'</p></div>').join("")||'<div class="entry"><small>Run start</small><b>No decisions yet</b><p>Begin a new run to create the first chronicle entry.</p></div>'}
+\nfunction renderInvestigation(){$("#evidenceGrid").innerHTML=investigationRoutes.map((r,i)=>'<button type="button" class="evidence-card e'+(i+1)+'" data-evidence-index="'+i+'" aria-haspopup="dialog" aria-controls="detailBackdrop"><b>'+r[0]+'</b><small>'+r[1]+'</small></button>').join("");document.querySelectorAll("[data-evidence-index]").forEach((el,i)=>{el.onclick=()=>openEvidence(i);el.onkeydown=e=>{if(e.key==="ArrowRight"||e.key==="ArrowDown"||e.key==="ArrowLeft"||e.key==="ArrowUp"){e.preventDefault();const cards=[...document.querySelectorAll("[data-evidence-index]")];const next=(e.key==="ArrowRight"||e.key==="ArrowDown")?(i+1)%cards.length:(i-1+cards.length)%cards.length;cards[next].focus()}}})}
+function openEvidence(i){const r=investigationRoutes[i];detailReturnFocus=document.querySelectorAll("[data-evidence-index]")[i];$("#detailTitle").textContent=r[0];$("#detailLabel").textContent="Verified investigation route";$("#detailMark").textContent="⌖";$("#detailBody").textContent=r[1]+" This route is presented as a canonical investigation anchor; the board layout is presentation only and does not invent hidden connections or conclusions.";$("#detailBackdrop").classList.add("open");$("#detailBackdrop").setAttribute("aria-hidden","false");$("#detailClose").focus()}
+function renderHistory(){$("#historyList").innerHTML=(state.history.length?state.history:[]).map(h=>'<div class="entry"><small>'+h.id+'</small><b>'+h.title+'</b><p>'+h.choice+'</p></div>').join("")||'<div class="entry"><small>Run start</small><b>No decisions yet</b><p>Begin a new run to create the first chronicle entry.</p></div>'}
 $("#start").onclick=()=>{state={gold:50,trust:50,power:50,security:50,idx:0,history:[],flags:[],people:{}};save();renderEvent();renderKingdom();show("event")}
 $("#continue").onclick=()=>{renderEvent();show(state.history.length?"event":"event")}
 document.querySelectorAll("[data-go=nextEvent]").forEach(b=>b.onclick=nextEvent)
-document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>{const id=b.dataset.screen;if(id==="people")renderPeople();if(id==="factions")renderFactions();if(id==="history")renderHistory();if(id==="event")renderEvent();if(id==="kingdom")renderKingdom();show(id)})
+document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>{const id=b.dataset.screen;if(id==="people")renderPeople();if(id==="factions")renderFactions();if(id==="investigation")renderInvestigation();if(id==="history")renderHistory();if(id==="event")renderEvent();if(id==="kingdom")renderKingdom();show(id)})
 $("#largeToggle").onclick=()=>{document.body.classList.toggle("large");$("#largeToggle").textContent=document.body.classList.contains("large")?"On":"Off";savePrefs()}
 $("#rtlToggle").onclick=()=>{document.documentElement.dir=document.documentElement.dir==="rtl"?"ltr":"rtl";$("#rtlToggle").textContent=document.documentElement.dir==="rtl"?"On":"Off";savePrefs()}
 $("#reduceToggle").onclick=()=>{document.body.classList.toggle("reduce");$("#reduceToggle").textContent=document.body.classList.contains("reduce")?"On":"Off";savePrefs()}
 $("#themeToggle").onclick=()=>{const light=document.documentElement.dataset.theme==="light";document.documentElement.dataset.theme=light?"dark":"light";$("#themeToggle").textContent=light?"Dark":"Light";savePrefs()}
 $("#reset").onclick=()=>{localStorage.removeItem("ck-p25-v2");location.reload()}
-renderEvent();renderPeople();renderFactions();renderHistory();renderKingdom();applyPreferences();showFromUrl();
+renderEvent();renderPeople();renderFactions();renderInvestigation();renderHistory();renderKingdom();applyPreferences();showFromUrl();
 </script>
 </body></html>
