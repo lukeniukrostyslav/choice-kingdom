@@ -198,14 +198,14 @@ jobs:
           mkdir -p p24-evidence
           "$ADB" -s "$SERIAL" exec-out screencap -p > "p24-evidence/${{ matrix.name }}.png"
           "$ADB" -s "$SERIAL" install -r app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+          TEST_PACKAGE="com.choicekingdom.app.test"
+          TEST_RUNNER="androidx.test.runner.AndroidJUnitRunner"
+          INSTRUMENTATION="$TEST_PACKAGE/$TEST_RUNNER"
+          echo "=== Test APK package verification ==="
+          "$ADB" -s "$SERIAL" shell pm path "$TEST_PACKAGE"
           echo "=== Registered instrumentation ==="
           "$ADB" -s "$SERIAL" shell pm list instrumentation | tr -d '\r'
-          INSTRUMENTATION=$("$ADB" -s "$SERIAL" shell pm list instrumentation | tr -d '\r' | awk '/target=com.choicekingdom.app([[:space:]]|$)/ {sub(/^instrumentation:/,"",$1); print $1; exit}')
-          if [ -z "$INSTRUMENTATION" ]; then
-            echo "ERROR: instrumentation for target com.choicekingdom.app was not registered"
-            "$ADB" -s "$SERIAL" shell pm list packages | grep 'com.choicekingdom.app' || true
-            exit 1
-          fi
+          "$ADB" -s "$SERIAL" shell pm list instrumentation | tr -d '\r' | grep -F "instrumentation:$INSTRUMENTATION " >/dev/null
           echo "Using instrumentation: $INSTRUMENTATION"
           "$ADB" -s "$SERIAL" shell am instrument -w -r -e class com.choicekingdom.app.P24DeviceAdaptationTest "$INSTRUMENTATION"
 
