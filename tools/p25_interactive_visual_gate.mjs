@@ -19,6 +19,12 @@ await page.evaluate(() => {
 await page.evaluate(() => document.fonts.ready);
 await page.screenshot({path:'p25-shell-launcher.png',fullPage:true});
 await assertVisible('#launcher .display', 'launcher display');
+await assertVisible('#launcher .menu-kicker', 'launcher kicker');
+await assertVisible('#launcher .menu-title', 'launcher title lockup');
+await assertVisible('#launcher .menu-actions', 'launcher action hierarchy');
+await assertVisible('#launcher .crest', 'launcher crest');
+if (!(await page.locator('#launcher .menu-note').isVisible())) fail('launcher supporting note missing');
+if (await page.locator('#launcher').evaluate(el => el.scrollWidth > el.clientWidth + 1)) fail('launcher horizontal overflow');
 await page.getByRole('button',{name:'Start a new run'}).click();
 await assertVisible('#event .event-layout', 'event composition');
 await page.screenshot({path:'p25-shell-event.png',fullPage:true});
