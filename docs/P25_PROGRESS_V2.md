@@ -18,7 +18,7 @@
 | 25.6 Kingdom / realm presentation | 100% | CLOSED |
 | 25.7 People / character presentation | 100% | CLOSED |
 | 25.8 Factions / institutional presentation | 100% | CLOSED |
-| 25.9 Investigation / evidence board | 96% | OPEN |
+| 25.9 Investigation / evidence board | 100% | CLOSED |
 | 25.10 History / decision chronicle | 96% | OPEN |
 | 25.11 Endings / resolution landing | 95% | OPEN |
 | 25.12 Settings / accessibility presentation | 98% | OPEN |
@@ -90,6 +90,19 @@ The Factions / institutional presentation is now closed at 100% with:
 - dedicated gate coverage for all six institutions, card interactivity, keyboard navigation, dialog state and canon-boundary text.
 
 No new faction names, territories, alliances, relationships, mottos, heraldry or lore were invented. The implementation, gate hardening and progress record are committed to main. Final P25 acceptance remains open because fresh runtime/visual evidence and deployed proof are still required; no green CI or live Vercel verification is claimed without actual evidence.
+
+## 25.9 closure record
+
+The Investigation / evidence board is now closed at 100% with:
+- four verified investigation routes preserved: Mara's route, Toma's route, Seris's route and Direct account route;
+- premium evidence-board composition with layered material depth, restrained lighting, connection-line treatment and readable evidence cards;
+- route cards converted to semantic keyboard-operable controls with visible focus treatment;
+- Enter/Space activation through native buttons plus directional arrow navigation between the four evidence routes;
+- route detail dialog with an explicit canonical boundary: the board presentation does not invent hidden connections, conclusions or additional narrative facts;
+- responsive board presentation retained without adding new lore;
+- dedicated gate coverage for route count, canonical labels, interaction, keyboard navigation, dialog state and canon-boundary text.
+
+No new investigation facts, relationships, hidden connections, conclusions or lore were invented. The implementation, gate hardening and progress record are committed to main. Final P25 acceptance remains open because fresh runtime/visual evidence and deployed proof are still required; no green CI or live Vercel verification is claimed without actual evidence.
 
 ## Verification boundary
 
