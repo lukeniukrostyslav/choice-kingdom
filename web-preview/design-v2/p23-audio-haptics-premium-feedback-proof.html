@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Choice Kingdom — P23 Premium Feedback</title>
+<style>
+:root{--bg:#07101b;--bg2:#0d1724;--panel:rgba(18,28,41,.9);--line:rgba(205,174,105,.28);--gold:#cdb06a;--text:#f1eee6;--muted:#a9aeb5;--serif:Georgia,"Times New Roman",serif;--sans:Inter,system-ui,sans-serif}
+*{box-sizing:border-box}html{background:var(--bg);color:var(--text);font-family:var(--sans);scroll-behavior:smooth}
+body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% -15%,rgba(56,83,113,.42),transparent 46%),linear-gradient(160deg,#07101b,#050a11 72%);padding:clamp(16px,4vw,56px);padding-top:max(16px,env(safe-area-inset-top));padding-bottom:max(16px,env(safe-area-inset-bottom))}
+main{max-width:980px;margin:auto}.eyebrow{letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-size:12px}.hero{padding:8vh 0 4vh}.hero h1{font:clamp(40px,7vw,76px)/.98 var(--serif);font-weight:500;margin:14px 0}.hero p{max-width:700px;color:var(--muted);font-size:clamp(16px,2.2vw,20px);line-height:1.65}
+.chamber{border:1px solid var(--line);background:var(--panel);box-shadow:0 28px 80px rgba(0,0,0,.42);padding:clamp(18px,4vw,38px);border-radius:18px}
+.section{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}.card{border:1px solid rgba(205,174,105,.18);background:rgba(6,13,22,.72);padding:22px;border-radius:14px}.card h2{font:26px var(--serif);margin:0 0 10px}.card p{color:var(--muted);line-height:1.55}
+.actions{display:grid;gap:12px;margin-top:18px}.action{min-height:60px;border:1px solid rgba(205,174,105,.32);background:#101c2b;color:var(--text);border-radius:12px;padding:14px 16px;text-align:left;font:16px var(--sans);cursor:pointer}.action:hover{border-color:var(--gold);transform:translateY(-1px)}.action:focus-visible{outline:3px solid var(--gold);outline-offset:3px}.action[aria-pressed=true]{border-color:var(--gold);background:linear-gradient(90deg,rgba(205,174,105,.18),rgba(205,174,105,.05))}
+.status{margin-top:16px;padding:14px;border-left:2px solid var(--gold);color:#ded9cd;min-height:50px}.legend{display:flex;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:13px}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--gold);margin-right:6px}
+@media(max-width:760px){.section{grid-template-columns:1fr}.hero{padding-top:5vh}.action{min-height:56px}}
+@media(max-width:420px){body{padding-left:12px;padding-right:12px}.chamber{padding:16px}.hero h1{font-size:42px}}
+html[dir=rtl]{text-align:right}html[dir=rtl] .action{text-align:right}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.action{transition:none}.action:hover{transform:none}}
+</style></head>
+<body><main>
+<section class="hero"><div class="eyebrow">P23 · Premium Feedback</div><h1>Let the kingdom answer.</h1><p>Audio, haptics and visual response should reinforce consequence without becoming spectacle. Every signal has a purpose, a quiet fallback and a clear accessibility path.</p></section>
+<section class="chamber" aria-labelledby="title"><div class="eyebrow">The Royal Advisor</div><h2 id="title" style="font:32px var(--serif);margin:10px 0">A measured response</h2><p style="color:var(--muted);line-height:1.6">Choose an action to preview the semantic feedback vocabulary.</p>
+<div class="actions" role="group" aria-label="Feedback actions">
+<button class="action" data-kind="confirm" aria-pressed="false">Confirm a consequential decision</button>
+<button class="action" data-kind="warning" aria-pressed="false">Receive an approaching warning</button>
+<button class="action" data-kind="error" aria-pressed="false">Encounter a blocked action</button>
+<button class="action" data-kind="ambient" aria-pressed="false">Enter a calm narrative space</button>
+</div><div class="status" id="status" aria-live="polite">No feedback selected.</div>
+<div class="section"><article class="card"><h2>Feedback vocabulary</h2><p><span class="dot"></span>Confirm · short positive cue<br><span class="dot"></span>Warning · restrained two-stage cue<br><span class="dot"></span>Error · distinct non-affirming cue<br><span class="dot"></span>Ambient · no intrusive confirmation</p></article><article class="card"><h2>Quiet by design</h2><p>All signals remain optional. Reduced-motion presentation removes non-essential motion; visual state and text status remain available without relying on sound or vibration.</p></article></div>
+<div class="legend" style="margin-top:22px"><span>Touch targets ≥ 56px</span><span>Focus-visible</span><span>Safe areas</span><span>RTL-ready</span><span>Reduced motion</span></div>
+</section></main>
+<script>
+const messages={confirm:'Decision confirmed · brief confirmation cue',warning:'Warning surfaced · restrained alert cue',error:'Action blocked · non-affirming error cue',ambient:'Calm space entered · no intrusive cue'};
+document.querySelectorAll('.action').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.action').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');document.querySelector('#status').textContent=messages[b.dataset.kind];}));
+</script></body></html>
