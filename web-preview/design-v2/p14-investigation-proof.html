@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="stylesheet" href="tokens.css">
+<title>Choice Kingdom — V2 P14 Investigation</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--ck-text-primary);font:16px/var(--ck-leading-body) var(--ck-body);background:radial-gradient(circle at 72% 0,rgba(77,101,125,.28),transparent 35%),linear-gradient(180deg,var(--ck-world-800),var(--ck-world-950))}
+main{width:min(1160px,100%);margin:auto;padding:max(20px,calc(20px + env(safe-area-inset-top))) max(18px,calc(18px + env(safe-area-inset-right))) max(40px,calc(40px + env(safe-area-inset-bottom))) max(18px,calc(18px + env(safe-area-inset-left)))}
+header{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:20px}.eyebrow,.label{font-size:var(--ck-type-label);font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ck-gold-primary)}
+h1,h2,h3{font-family:var(--ck-serif);font-weight:500}.title h1{font-size:var(--ck-type-display-md);margin:7px 0}.title p{max-width:68ch;margin:0;color:var(--ck-text-secondary)}.context{text-align:end;color:var(--ck-text-muted);font-size:var(--ck-type-body-sm)}
+.grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,.65fr);gap:18px}
+.surface{border:1px solid var(--ck-border-subtle);border-radius:var(--ck-radius-lg);background:linear-gradient(145deg,var(--ck-surface-elevated),var(--ck-surface-solid));box-shadow:var(--ck-shadow-deep);padding:clamp(20px,3.5vw,32px)}
+.surface h2{font-size:28px;margin:0 0 4px}.sub{color:var(--ck-text-muted);margin:0 0 18px;font-size:var(--ck-type-body-sm)}
+.thread-head{display:flex;gap:14px;align-items:center;padding-bottom:16px;border-bottom:1px solid var(--ck-border-subtle)}.seal{width:46px;height:46px;border:1px solid var(--ck-gold-primary);border-radius:50%;display:grid;place-items:center;color:var(--ck-gold-highlight);font-family:var(--ck-serif);font-size:20px;flex:none}
+.evidence{padding:16px 0;border-bottom:1px solid var(--ck-border-subtle)}.evidence:last-child{border-bottom:0}.ehead{display:flex;justify-content:space-between;gap:12px}.name{font-weight:700}.state{font-size:11px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--ck-gold-primary);border-radius:999px;padding:4px 8px;color:var(--ck-gold-highlight);white-space:nowrap}.quote{margin:8px 0;color:var(--ck-text-secondary)}.meta{display:flex;flex-wrap:wrap;gap:8px}.meta span{font-size:12px;color:var(--ck-text-muted);border:1px solid var(--ck-border-subtle);border-radius:8px;padding:5px 8px}.conflict{border-inline-start:2px solid var(--ck-state-negative);padding-inline-start:14px}
+.chain{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:18px}.node{padding:9px 11px;border:1px solid var(--ck-border-subtle);border-radius:10px;background:rgba(8,13,21,.42);font-size:12px}.arrow{color:var(--ck-gold-highlight)}
+.states{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}.state-btn{min-height:52px;padding:12px 14px;text-align:start;border:1px solid var(--ck-border-subtle);border-radius:var(--ck-radius-md);background:rgba(8,13,21,.42);color:var(--ck-text-primary);cursor:pointer;font:500 15px/1.25 var(--ck-body)}.state-btn:focus-visible{outline:3px solid var(--ck-focus);outline-offset:4px}.state-btn[aria-pressed=true]{border-color:var(--ck-gold-highlight);box-shadow:0 0 0 1px rgba(227,201,134,.16)}
+.status{min-height:24px;color:var(--ck-text-muted)}.status strong{color:var(--ck-gold-highlight)}
+.metric{padding:14px 0;border-top:1px solid var(--ck-border-subtle)}.metric:first-of-type{border-top:0}.metric .value{font:500 20px var(--ck-serif);margin-top:4px}.callout{margin-top:16px;padding:14px 16px;border-inline-start:2px solid var(--ck-gold-primary);background:rgba(215,182,108,.06);color:var(--ck-text-secondary)}
+@media(max-width:760px){main{padding-inline:14px}.grid{grid-template-columns:1fr}header{align-items:start;flex-direction:column}.context{text-align:start}.states{grid-template-columns:1fr}}
+@media(max-width:420px){.surface{padding:18px}.thread-head{align-items:flex-start}.state-btn{min-height:56px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+html[dir=rtl] .context{text-align:start}
+</style>
+</head>
+<body><main>
+<header><div class="title"><div class="eyebrow">Avelune · Investigation · P14</div><h1>Threads of Truth</h1><p>Trace clues, compare sources and keep unresolved questions visible. Investigation is presented as a cinematic evidence chamber, not a dashboard.</p></div><div class="context">Northern Reach<br>River Petition · 3 sources</div></header>
+<section class="grid">
+<article class="surface" aria-labelledby="thread-title">
+<div class="thread-head"><div class="seal" aria-hidden="true">I</div><div><div class="label">Active investigation</div><h2 id="thread-title">River Petition</h2><p class="sub">Three sources · one unresolved discrepancy</p></div></div>
+<div class="evidence"><div class="ehead"><span class="name">Witness testimony</span><span class="state">Uncertain</span></div><p class="quote">“The barges arrived after dusk, but the seal on the manifest was already broken.”</p><div class="meta"><span>Source · Arwen Vale</span><span>Confidence · Medium</span><span>Supports · Missing supplies</span></div></div>
+<div class="evidence"><div class="ehead"><span class="name">Royal ledger</span><span class="state">Corroborated</span></div><p class="quote">Archive entry records the shipment as received before the river watch changed.</p><div class="meta"><span>Source · Royal archive</span><span>Confidence · High</span><span>Supports · Settlement claim</span></div></div>
+<div class="evidence conflict"><div class="ehead"><span class="name">Harbor master's note</span><span class="state">Contradicted</span></div><p class="quote">The watch log names a different arrival hour than the testimony.</p><div class="meta"><span>Source · Harbor office</span><span>Confidence · Medium</span><span>Conflicts · Arrival time</span></div></div>
+<div class="chain" aria-label="Evidence chain"><span class="node">Observed clue</span><span class="arrow">→</span><span class="node">Linked sources</span><span class="arrow">→</span><span class="node">Open inference</span></div>
+<div class="callout"><strong>Open question.</strong> The evidence establishes a discrepancy, but does not establish who altered the manifest.</div>
+<div class="states" role="group" aria-label="Investigation thread state">
+<button class="state-btn" aria-pressed="true" data-state="Open">Open thread</button><button class="state-btn" aria-pressed="false" data-state="Corroborated">Corroborated</button><button class="state-btn" aria-pressed="false" data-state="Blocked">Blocked</button>
+</div>
+<p id="status" class="status" role="status" aria-live="polite">Thread state: <strong>Open</strong>.</p>
+</article>
+<aside class="surface" aria-labelledby="evidence-title">
+<div class="label">Evidence thread</div><h2 id="evidence-title">What is known</h2><p class="sub">Confidence and provenance remain explicit so uncertainty is never hidden by color.</p>
+<div class="metric"><div class="label">Established</div><div class="value">Shipment was recorded</div></div>
+<div class="metric"><div class="label">Unresolved</div><div class="value">Who altered the manifest</div></div>
+<div class="metric"><div class="label">Sources</div><div class="value">3 linked records</div></div>
+<div class="metric"><div class="label">Player action</div><div class="value">Follow the next lead</div></div>
+<div class="callout">The composition reflows for phone/tablet widths, mirrors in RTL, respects safe areas and preserves state feedback under reduced motion and large text.</div>
+</aside>
+</section></main>
+<script>
+const status=document.querySelector('#status');
+document.querySelectorAll('.state-btn').forEach(button=>button.addEventListener('click',()=>{
+ document.querySelectorAll('.state-btn').forEach(x=>x.setAttribute('aria-pressed','false'));
+ button.setAttribute('aria-pressed','true');
+ status.innerHTML='Thread state: <strong>'+button.dataset.state+'</strong>.';
+}));
+</script>
+</body></html>
