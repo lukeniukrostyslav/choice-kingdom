@@ -97,7 +97,7 @@ Remaining evidence before P25 can reach 100%:
 | 25.4 Choice chamber / decision interaction | 95% | Choice states, touch targets and canonical effects implemented |
 | 25.5 Consequence / memory reveal | 95% | Consequence state and decision memory implemented |
 | 25.6 Kingdom / realm presentation | 94% | Realm scene, nodes and resource layer implemented; final visual refinement remains |
-| 25.7 People / character presentation | 96% | Six canonical People, accessible detail presentation and focus-return behavior implemented; production-grade character art remains a visual gap |
+| 25.7 People / character presentation | 97% | Six canonical People, accessible detail presentation, focus return and modal focus trap implemented; production-grade character art remains a visual gap |
 | 25.8 Factions / institutional presentation | 95% | Six canonical institutional positions implemented; final visual identity treatment remains |
 | 25.9 Investigation / evidence board | 94% | Evidence threads and authored routes implemented; final visual comparison remains |
 | 25.10 History / decision chronicle | 95% | Timeline and recorded choices implemented |
