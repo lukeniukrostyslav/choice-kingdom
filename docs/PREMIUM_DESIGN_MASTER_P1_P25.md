@@ -28,11 +28,11 @@ This is the canonical 25-block premium visual checklist. A block reaches 100% on
 | P20 | Motion / micro-interactions / feedback | 100% |
 | P21 | Accessibility / touch / keyboard / focus | 100% |
 | P22 | Localization / long strings / RTL | 100% |
-| P23 | Audio / haptics / premium feedback | 90% |
+| P23 | Audio / haptics / premium feedback | 100% |
 | P24 | Android devices / safe areas / resolution adaptation | 40% |
 | P25 | Final premium polish / cross-screen QA | 0% |
 
-**Aggregate current estimate: 92.00%.** This is 22 closed blocks at 100%, P23 at 90%, P24 at 40%, P25 at 0%.
+**Aggregate current estimate: 92.40%.** This is 23 closed blocks at 100%, P24 at 40%, P25 at 0%.
 
 ## Visual north star
 
@@ -40,7 +40,7 @@ The approved reference in `design-reference/FINAL_DESIGN_VISION_V1.md` remains t
 
 ## P23 status
 
-P23 implementation is merged through PR #24, merge commit `11672e34b1de9770f951919bd83b6814aed3b606`. Its closure gate exists, but no observable GitHub Actions run is currently exposed by the available integration, so P23 remains 90%.
+P23 implementation is merged through PR #24, merge commit `11672e34b1de9770f951919bd83b6814aed3b606`. Its premium feedback closure gate is green (GitHub Actions run #8), covering responsive presentation, semantic feedback states, touch targets, reduced motion, RTL, safe areas, focus-visible and cinematic design tokens. P23 is closed at 100%.
 
 ## P24 execution update
 
