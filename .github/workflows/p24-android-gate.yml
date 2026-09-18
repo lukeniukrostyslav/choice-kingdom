@@ -70,6 +70,8 @@ jobs:
           ANDROID_AVD_HOME: ${{ runner.temp }}/android-avd
         run: |
           set -euxo pipefail
+          sudo apt-get update
+          sudo apt-get install -y libpulse0
           export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
           mkdir -p "$ANDROID_AVD_HOME"
           command -v adb
