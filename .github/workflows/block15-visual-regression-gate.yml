@@ -34,6 +34,94 @@ jobs:
         with:
           gradle-version: "8.11.1"
 
+      - name: Verify screenshot test configuration
+        working-directory: androidApp
+        run: |
+          test -f ../gradle.properties
+          grep -q '^android.experimental.enableScreenshotTest=true
+      - name: Generate initial or explicitly approved references
+        if: steps.refs.outputs.exists == 'false' || (github.event_name == 'workflow_dispatch' && inputs.approve_baseline == true)
+        working-directory: androidApp
+        run: gradle --no-daemon updateDebugScreenshotTest --stacktrace
+
+      - name: Commit generated reference set
+        if: steps.refs.outputs.exists == 'false' || (github.event_name == 'workflow_dispatch' && inputs.approve_baseline == true)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add androidApp/app/src/screenshotTestDebug/reference
+          count=$(find androidApp/app/src/screenshotTestDebug/reference -type f -name '*.png' | wc -l)
+          test "$count" -gt 0
+          echo "Generated approved screenshot references: $count"
+          git diff --cached --quiet || git commit -m "Add approved visual regression references"
+          git push
+
+      - name: Validate reference set is non-empty
+        if: steps.refs.outputs.exists == 'true' && !(github.event_name == 'workflow_dispatch' && inputs.approve_baseline == true)
+        shell: bash
+        run: |
+          count=$(find androidApp/app/src/screenshotTestDebug/reference -type f -name '*.png' | wc -l)
+          test "$count" -gt 0
+          echo "Committed screenshot references available: $count"
+
+      - name: Validate existing reference set
+        if: steps.refs.outputs.exists == 'true' && !(github.event_name == 'workflow_dispatch' && inputs.approve_baseline == true)
+        working-directory: androidApp
+        run: gradle --no-daemon validateDebugScreenshotTest --stacktrace
+
+      - name: Upload screenshot report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: block15-screenshot-report
+          path: |
+            androidApp/app/build/reports/screenshotTest/**
+            androidApp/app/build/reports/tests/**
+          if-no-files-found: ignore
+ ../gradle.properties
+          grep -q '^android.compose.screenshot.maxHeapSize=4g
+      - name: Generate initial or explicitly approved references
+        if: steps.refs.outputs.exists == 'false' || (github.event_name == 'workflow_dispatch' && inputs.approve_baseline == true)
+        working-directory: androidApp
+        run: gradle --no-daemon updateDebugScreenshotTest --stacktrace
+
+      - name: Commit generated reference set
+        if: steps.refs.outputs.exists == 'false' || (github.event_name == 'workflow_dispatch' && inputs.approve_baseline == true)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add androidApp/app/src/screenshotTestDebug/reference
+          count=$(find androidApp/app/src/screenshotTestDebug/reference -type f -name '*.png' | wc -l)
+          test "$count" -gt 0
+          echo "Generated approved screenshot references: $count"
+          git diff --cached --quiet || git commit -m "Add approved visual regression references"
+          git push
+
+      - name: Validate reference set is non-empty
+        if: steps.refs.outputs.exists == 'true' && !(github.event_name == 'workflow_dispatch' && inputs.approve_baseline == true)
+        shell: bash
+        run: |
+          count=$(find androidApp/app/src/screenshotTestDebug/reference -type f -name '*.png' | wc -l)
+          test "$count" -gt 0
+          echo "Committed screenshot references available: $count"
+
+      - name: Validate existing reference set
+        if: steps.refs.outputs.exists == 'true' && !(github.event_name == 'workflow_dispatch' && inputs.approve_baseline == true)
+        working-directory: androidApp
+        run: gradle --no-daemon validateDebugScreenshotTest --stacktrace
+
+      - name: Upload screenshot report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: block15-screenshot-report
+          path: |
+            androidApp/app/build/reports/screenshotTest/**
+            androidApp/app/build/reports/tests/**
+          if-no-files-found: ignore
+ ../gradle.properties
+          test -f app/src/screenshotTest/kotlin/com/choicekingdom/app/VisualRegressionScreenshotTest.kt
+
       - name: Detect reference set
         id: refs
         shell: bash
