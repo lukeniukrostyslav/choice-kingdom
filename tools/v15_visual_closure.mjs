@@ -217,9 +217,7 @@ for (const file of pages) {
         const serif = /var\(--ck-serif\)/.test(styleText);
         const cinematic = /radial-gradient/.test(styleText) && /linear-gradient/.test(styleText);
         const mapFeatureCount = map.querySelectorAll('.mountain,.river,.road,.city,.forest').length;
-        const pass = selected && exclusive && responsive && rtl && safe && reduced && focus && serif && cinematic && mapFeatureCount >= 7;
-        if (!pass) console.error('P9_DEBUG', JSON.stringify({selected,exclusive,responsive,rtl,safe,reduced,focus,serif,cinematic,mapFeatureCount,state:state.textContent,actionStates:actions.map(a=>a.getAttribute('aria-pressed'))}));
-        return pass;
+        return selected && exclusive && responsive && rtl && safe && reduced && focus && serif && cinematic && mapFeatureCount >= 7;
       });
     }
     let p8Pass = true;
