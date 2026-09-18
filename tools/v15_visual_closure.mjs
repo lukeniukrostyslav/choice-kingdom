@@ -93,6 +93,26 @@ for (const file of pages) {
     const commonPass = Boolean(response?.ok()) && !metrics.horizontalOverflow && metrics.text > 0 && metrics.brokenImages === 0 && metrics.smallTargets === 0 && metrics.unlabeledControls === 0 && metrics.clippedText === 0 && consoleErrors.length === 0 && pageErrors.length === 0 && failedRequests.length === 0;
     const appPass = metrics.pageType !== 'app-flow' || (metrics.hasSkipLink && metrics.hasLiveRegion && metrics.hasNavLabel && metrics.hasFocusVisible && metrics.hasReducedMotion && metrics.hasThemeState && metrics.hasRtl && metrics.hasViewportMeta);
     const launcherPass = metrics.pageType !== 'launcher' || (metrics.hasThemeState && metrics.hasViewportMeta);
+    let p21Pass = true;
+    if (file === 'design-accessibility-final.html') {
+      p21Pass = await page.evaluate(() => {
+        const large = document.querySelector('#largeToggle');
+        const rtl = document.querySelector('#rtlToggle');
+        const motion = document.querySelector('#motionToggle');
+        if (!large || !rtl || !motion) return false;
+        const before = getComputedStyle(document.documentElement).fontSize;
+        large.click();
+        const after = getComputedStyle(document.documentElement).fontSize;
+        const largePass = large.getAttribute('aria-pressed') === 'true' && before !== after;
+        rtl.click();
+        const rtlPass = rtl.getAttribute('aria-pressed') === 'true' && document.documentElement.dir === 'rtl';
+        rtl.click();
+        const rtlResetPass = document.documentElement.dir === 'ltr';
+        motion.click();
+        const motionPass = motion.getAttribute('aria-pressed') === 'true' && document.documentElement.classList.contains('reduce-motion');
+        return largePass && rtlPass && rtlResetPass && motionPass;
+      });
+    }
     let p1Pass = true;
     if (file === 'design-art-direction.html') {
       p1Pass = await page.evaluate(() => {
@@ -112,9 +132,9 @@ for (const file of pages) {
         return largePass && rtlPass && resetPass;
       });
     }
-    const pass = commonPass && appPass && launcherPass && p1Pass;
+    const pass = commonPass && appPass && launcherPass && p1Pass && p21Pass;
     if (!pass) failures += 1;
-    results.push({ file, viewport: vp.name, pass, ...metrics, consoleErrors, pageErrors, failedRequests });
+    results.push({ file, viewport: vp.name, pass, p21Pass, ...metrics, consoleErrors, pageErrors, failedRequests });
     await context.close();
   }
 }
