@@ -42,7 +42,7 @@ def test_presenter_routes_choice_through_game_session_and_clears_transient_state
     assert resolved.event_id == "E01"
     assert all(choice.state is InteractionState.IDLE for choice in resolved.choices)
     assert presenter.session.state.history == {"E01"}
-    assert presenter.session.state.flags == {"open_petition_hall"}
+    assert presenter.session.state.flags == {"open_petition_hall", "E07_market_whispers"}
     assert presenter.session.state.current_event_id == "E01"
 
 
