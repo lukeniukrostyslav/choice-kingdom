@@ -17,6 +17,9 @@ P24 continues the approved “The Royal Advisor” visual language on Android wi
 ## Target-class verification
 The closure gate must execute the Android app on compact phone, medium/large tablet or foldable, and expanded-window classes. For each class it must verify no horizontal clipping, safe-area protection, adaptive navigation, reachable choices, long-string wrapping, RTL structure, and preservation of the V2 cinematic dark blue-black / restrained gold / serif visual language.
 
+## Latest execution-gate state
+The emulator workflow now runs Gradle from `androidApp` and applies bounded CI memory settings. The latest branch head is `bfba6e9aef18ae4881ff8d917944850e0a1b30a1`. No successful Android execution run has yet been verified for that head, so this remains evidence-gated at 40%.
+
 ## Evidence rule
 Source contracts are implementation evidence only. P24 is not 100% until Android device or emulator-class execution evidence is recorded. Browser proof cannot substitute for Android execution evidence.
 
