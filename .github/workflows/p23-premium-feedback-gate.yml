@@ -1,0 +1,30 @@
+name: Choice Kingdom P23 Premium Feedback Gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  p23-premium-feedback:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install Playwright
+        run: npm install --no-save playwright
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Serve web preview
+        run: python3 -m http.server 4173 --directory web-preview >/tmp/p23-server.log 2>&1 &
+      - name: Run P23 premium feedback closure gate
+        run: node tools/p23_premium_feedback_gate.mjs
