@@ -1,9 +1,8 @@
 package com.choicekingdom.app
 
 import androidx.compose.runtime.Composable
+import android.content.res.Configuration
 import androidx.compose.ui.tooling.preview.Preview
-import com.android.tools.screenshot.PreviewTest
-
 import com.android.tools.screenshot.PreviewTest
 
 @PreviewTest
@@ -57,3 +56,24 @@ fun EventLargeTextScreenshot() = VisualRegressionEventPreview()
 @Preview(name = "settings-font-large", widthDp = 600, heightDp = 900, fontScale = 1.3f, showBackground = true)
 @Composable
 fun SettingsLargeTextScreenshot() = VisualRegressionSettingsPreview()
+
+
+@PreviewTest
+@Preview(name = "loading-compact", widthDp = 360, heightDp = 760, showBackground = true)
+@Composable
+fun LoadingCompactScreenshot() = VisualRegressionLoadingPreview()
+
+@PreviewTest
+@Preview(name = "event-dark", widthDp = 360, heightDp = 760, uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
+@Composable
+fun EventDarkModeScreenshot() = VisualRegressionEventPreview()
+
+@PreviewTest
+@Preview(name = "ending-dark", widthDp = 600, heightDp = 760, uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
+@Composable
+fun EndingDarkModeScreenshot() = VisualRegressionEndingPreview()
+
+@PreviewTest
+@Preview(name = "settings-dark", widthDp = 600, heightDp = 900, uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
+@Composable
+fun SettingsDarkModeScreenshot() = VisualRegressionSettingsPreview()
