@@ -1,0 +1,64 @@
+name: Choice Kingdom P25 Queue Bypass Smoke
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  p25-smoke:
+    runs-on: ubuntu-slim
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate P25 source contracts
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const html = fs.readFileSync('web-preview/game-premium.html', 'utf8');
+          const gate = fs.readFileSync('tools/p25_interactive_visual_gate.mjs', 'utf8');
+          const required = [
+            'viewport-fit=cover',
+            'safe-area-inset-top',
+            'safe-area-inset-right',
+            'safe-area-inset-bottom',
+            'safe-area-inset-left',
+            'orientation:landscape',
+            'history.pushState',
+            'history.replaceState',
+            'popstate',
+            'id="kingdom"',
+            'id="people"',
+            'id="factions"',
+            'id="history"'
+          ];
+          const missing = required.filter(x => !html.includes(x) && !gate.includes(x));
+          if (missing.length) {
+            console.error('Missing P25 contracts:', missing);
+            process.exit(1);
+          }
+          if (!fs.existsSync('.github/workflows/p25-final-visual-acceptance.yml')) {
+            throw new Error('Final visual acceptance workflow missing');
+          }
+          console.log('P25 source contracts: PASS');
+          NODE
+
+      - name: Check deployed surface
+        run: |
+          curl -fsSL --max-time 30 https://choice-kingdom.vercel.app/game-premium.html -o /tmp/game-premium.html
+          node <<'NODE'
+          const fs = require('fs');
+          const html = fs.readFileSync('/tmp/game-premium.html', 'utf8');
+          const required = ['kingdom','people','factions','history'];
+          const missing = required.filter(x => !html.toLowerCase().includes(x));
+          if (missing.length) {
+            console.error('Deployed surface missing markers:', missing);
+            process.exit(1);
+          }
+          console.log('Deployed P25 surface: PASS');
+          NODE
