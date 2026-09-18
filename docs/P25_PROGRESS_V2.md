@@ -19,7 +19,7 @@
 | 25.7 People / character presentation | 100% | CLOSED |
 | 25.8 Factions / institutional presentation | 100% | CLOSED |
 | 25.9 Investigation / evidence board | 100% | CLOSED |
-| 25.10 History / decision chronicle | 96% | OPEN |
+| 25.10 History / decision chronicle | 100% | CLOSED |
 | 25.11 Endings / resolution landing | 95% | OPEN |
 | 25.12 Settings / accessibility presentation | 98% | OPEN |
 | 25.13 Navigation / information architecture | 99% | OPEN |
@@ -103,6 +103,21 @@ The Investigation / evidence board is now closed at 100% with:
 - dedicated gate coverage for route count, canonical labels, interaction, keyboard navigation, dialog state and canon-boundary text.
 
 No new investigation facts, relationships, hidden connections, conclusions or lore were invented. The implementation, gate hardening and progress record are committed to main. Final P25 acceptance remains open because fresh runtime/visual evidence and deployed proof are still required; no green CI or live Vercel verification is claimed without actual evidence.
+
+## 25.10 closure record
+
+The History / decision chronicle is now closed at 100% with:
+- the run history rendered as a premium cinematic chronicle rather than plain text rows;
+- recorded event ID, event title and exact selected choice preserved from the existing runtime state;
+- each recorded decision exposed as a native keyboard-operable button with visible focus treatment;
+- directional keyboard navigation retained inside the chronicle;
+- decision-detail dialog showing the recorded choice and an explicit boundary that the entry reflects current run memory only and does not invent additional consequences or narrative facts;
+- responsive timeline/panel composition retained for compact layouts;
+- dedicated gate coverage for timeline presence, recorded E01, interactive history entry, keyboard behavior, dialog state and canon boundary.
+
+No new event, choice, consequence, relationship, faction, ending or lore was invented.
+
+The implementation, gate hardening and progress record are committed to `main`. Final P25 acceptance remains open because fresh runtime/visual evidence and deployed proof are still required; no green CI or live Vercel verification is claimed without actual evidence.
 
 ## Verification boundary
 
