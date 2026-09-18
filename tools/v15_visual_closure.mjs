@@ -247,7 +247,7 @@ for (const file of pages) {
         const states=[...document.querySelectorAll('.state-btn')];
         const status=document.querySelector('#status');
         const title=document.querySelector('#thread-title');
-        const styleText=[...document.querySelectorAll('style')].map(s=>s.textContent||'').join('\\n');
+        const styleText=[...document.querySelectorAll('style')].map(s=>s.textContent||'').join('\n');
         if(!surface || evidence.length!==3 || states.length!==3 || !status || !title) return false;
         if(!states.every(b=>b.getBoundingClientRect().height>=48 && (b.textContent||'').trim() && b.getAttribute('aria-label')===null)) return false;
         states[1].click();
@@ -255,12 +255,12 @@ for (const file of pages) {
         states[2].click();
         const blocked=status.textContent.includes('Blocked')&&states[2].getAttribute('aria-pressed')==='true'&&states[1].getAttribute('aria-pressed')==='false';
         const exclusive=states.filter(b=>b.getAttribute('aria-pressed')==='true').length===1;
-        const responsive=/@media\\(max-width:760px\\)/.test(styleText)&&/@media\\(max-width:420px\\)/.test(styleText);
-        const rtl=/html\\[dir=rtl\\]/.test(styleText);
+        const responsive=/@media\(max-width:760px\)/.test(styleText)&&/@media\(max-width:420px\)/.test(styleText);
+        const rtl=/html\[dir=rtl\]/.test(styleText);
         const safe=/safe-area-inset/.test(styleText);
         const reduced=/prefers-reduced-motion:reduce/.test(styleText);
         const focus=/:focus-visible/.test(styleText);
-        const serif=/var\\(--ck-serif\\)/.test(styleText);
+        const serif=/var\(--ck-serif\)/.test(styleText);
         const cinematic=/radial-gradient/.test(styleText)&&/linear-gradient/.test(styleText);
         const provenance=document.body.innerText.includes('Source · Arwen Vale')&&document.body.innerText.includes('Confidence · High');
         const hierarchy=title.textContent.trim()==='River Petition';
