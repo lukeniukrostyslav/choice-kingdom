@@ -21,7 +21,7 @@ This document is the canonical working checklist for the 25-block premium visual
 | P11 | Consequences / delayed consequences | 72% | Immediate, pending, triggered and cancelled visual states |
 | P12 | History / decision memory | 60% | Timeline/history hierarchy and causal readability |
 | P13 | Relationships / character state | 100% | Relationship states and progression presentation |
-| P14 | Investigation / threads / evidence | 56% | Evidence hierarchy, discovery and unresolved states |
+| P14 | Investigation / threads / evidence | 100% | Evidence hierarchy, discovery and unresolved states |
 | P15 | Crisis / high-stakes presentation | 46% | Escalation, urgency and consequence preview without clutter |
 | P16 | Endings / resolution experience | 56% | Ending identity, summary and emotional landing |
 | P17 | Replay / new-run experience | 47% | Replay motivation, continuity and clean reset semantics |
@@ -34,7 +34,7 @@ This document is the canonical working checklist for the 25-block premium visual
 | P24 | Android devices / safe areas / resolution adaptation | 38% | Real Android presentation proof on target device classes |
 | P25 | Final premium polish / cross-screen QA | 58% | Full visual regression and no unresolved P1–P24 blockers |
 
-**Aggregate P1–P25 estimate: 64.00% (simple arithmetic mean of block estimates).**
+**Aggregate P1–P25 estimate: 65.76% (simple arithmetic mean of block estimates).**
 
 ## Current evidence
 
@@ -48,7 +48,8 @@ This document is the canonical working checklist for the 25-block premium visual
 - Existing rendered preview evidence covers responsive density, RTL, large text, reduced motion, safe area and focus-visible behavior.
 - Physical Android/device proof is not claimed yet; emulator CI is verification infrastructure, not a substitute for final target-device evidence.
 - The canonical visual north star is recorded in design-reference/FINAL_DESIGN_VISION_V1.md; it defines the premium cinematic medieval-fantasy direction used to evaluate subsequent P1–P25 work.
-- P13 relationship presentation has a committed premium visual surface and a green V15 cross-viewport closure: run #647 / ID 35335301852, head fc7b26c13151989d479c8074f09edb05a961b8bc, completed 2026-09-18.
+- P13 relationship presentation has a committed premium visual surface and green V15 cross-viewport closure: run #647 / ID 35335301852.
+- P14 investigation presentation has a committed premium visual surface and green V15 cross-viewport closure: run #651 / ID 35335654075, head 873efe4b1438616b2690fe53853b8765e3fb1adb, completed 2026-09-18.
 
 ## Quality rules
 
@@ -61,4 +62,4 @@ This document is the canonical working checklist for the 25-block premium visual
 
 ## Next bottleneck
 
-Continue the premium-design track with P14 — Investigation / threads / evidence. The next surface should follow the same visual north star: cinematic authored atmosphere, restrained gold accents, narrative-first hierarchy, clear evidence states, responsive/RTL/large-text behavior, and automated visual-closure proof. Physical Android/device proof and production runtime binding remain separate gates and are not implied by premium-design percentages.
+Continue the premium-design track with P15 — Crisis / High-Stakes Presentation. The next surface should create urgency through composition, pacing, state hierarchy and consequence preview without relying on excessive warning colors or clutter. It must remain responsive, RTL/large-text safe, reduced-motion compatible, and pass the automated visual-closure gate.
