@@ -67,8 +67,8 @@ V2 percentages measure only demonstrable progress toward the new visual implemen
 
 ## Current V2 baseline
 
-- P1: 15% — fresh V2 visual anchor created; shared system still incomplete
-- P2–P25: 0% — not yet rebuilt on the V2 visual foundation
+- P1–P14: 100% — rebuilt on the V2 visual foundation and closed with executable regression evidence
+- P15–P25: 0% — next blocks to rebuild sequentially
 
 ## Rule against invention
 
