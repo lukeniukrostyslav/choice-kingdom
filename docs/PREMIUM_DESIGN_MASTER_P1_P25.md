@@ -8,33 +8,41 @@ This document is the canonical working checklist for the 25-block premium visual
 
 | Block | Scope | Current | Exit gate |
 |---|---|---:|---|
-| P1 | Premium vision / art direction | 72% | Signed visual north star + representative screens |
-| P2 | Core visual identity / design language | 74% | Tokenized identity applied across representative surfaces |
-| P3 | Typography / type hierarchy | 66% | Complete type scale, wrapping, accessibility and locale rules |
-| P4 | Color / materials / surfaces | 70% | Semantic color/material tokens + contrast proof |
-| P5 | Layout / grid / spacing / responsive system | 78% | Responsive contracts across target window classes + safe-content bounds |
-| P6 | Choice experience / choice cards / choice chamber | 75% | All choice states + proof + accessibility + visual regression |
-| P7 | Event / situation presentation | 70% | Full event surface and state variants |
-| P8 | Character presentation | 57% | Character identity, state, relationship and fallback visuals |
-| P9 | Kingdom / world presentation | 59% | Avelune world surfaces and visual continuity |
-| P10 | Resources / stats / pressure visualization | 56% | Scannable resource language and state transitions |
-| P11 | Consequences / delayed consequences | 72% | Immediate, pending, triggered and cancelled visual states |
-| P12 | History / decision memory | 60% | Timeline/history hierarchy and causal readability |
-| P13 | Relationships / character state | 100% | Relationship states and progression presentation |
-| P14 | Investigation / threads / evidence | 100% | Evidence hierarchy, discovery and unresolved states |
-| P15 | Crisis / high-stakes presentation | 100% | Escalation, urgency and consequence preview without clutter |
-| P16 | Endings / resolution experience | 100% | Ending identity, summary and emotional landing |
-| P17 | Replay / new-run experience | 100% | Replay motivation, continuity and clean reset semantics |
-| P18 | Main menu / launcher | 100% | Premium first impression + navigation + responsive proof |
-| P19 | Navigation / information architecture | 78% | Consistent hierarchy and low-cognitive-load navigation |
-| P20 | Motion / micro-interactions / feedback | 74% | Purposeful semantic motion + reduced-motion behavior |
-| P21 | Accessibility / touch / keyboard / focus | 84% | Semantic, focus, contrast, touch-target and reduced-motion proof |
-| P22 | Localization / long strings / RTL | 53% | Locale-safe layout and RTL proof across key screens |
-| P23 | Audio / haptics / premium feedback | 30% | Audio/haptic vocabulary mapped to meaningful player actions |
-| P24 | Android devices / safe areas / resolution adaptation | 38% | Real Android presentation proof on target device classes |
-| P25 | Final premium polish / cross-screen QA | 58% | Full visual regression and no unresolved P1–P24 blockers |
+| P1 | Premium vision / art direction | 15% | Signed visual north star + representative screens |
+| P2 | Core visual identity / design language | 0% | Tokenized identity applied across representative surfaces |
+| P3 | Typography / type hierarchy | 0% | Complete type scale, wrapping, accessibility and locale rules |
+| P4 | Color / materials / surfaces | 0% | Semantic color/material tokens + contrast proof |
+| P5 | Layout / grid / spacing / responsive system | 0% | Responsive contracts across target window classes + safe-content bounds |
+| P6 | Choice experience / choice cards / choice chamber | 0% | All choice states + proof + accessibility + visual regression |
+| P7 | Event / situation presentation | 0% | Full event surface and state variants |
+| P8 | Character presentation | 0% | Character identity, state, relationship and fallback visuals |
+| P9 | Kingdom / world presentation | 0% | Avelune world surfaces and visual continuity |
+| P10 | Resources / stats / pressure visualization | 0% | Scannable resource language and state transitions |
+| P11 | Consequences / delayed consequences | 0% | Immediate, pending, triggered and cancelled visual states |
+| P12 | History / decision memory | 0% | Timeline/history hierarchy and causal readability |
+| P13 | Relationships / character state | 0% | Relationship states and progression presentation |
+| P14 | Investigation / threads / evidence | 0% | Evidence hierarchy, discovery and unresolved states |
+| P15 | Crisis / high-stakes presentation | 0% | Escalation, urgency and consequence preview without clutter |
+| P16 | Endings / resolution experience | 0% | Ending identity, summary and emotional landing |
+| P17 | Replay / new-run experience | 0% | Replay motivation, continuity and clean reset semantics |
+| P18 | Main menu / launcher | 0% | Premium first impression + navigation + responsive proof |
+| P19 | Navigation / information architecture | 0% | Consistent hierarchy and low-cognitive-load navigation |
+| P20 | Motion / micro-interactions / feedback | 0% | Purposeful semantic motion + reduced-motion behavior |
+| P21 | Accessibility / touch / keyboard / focus | 0% | Semantic, focus, contrast, touch-target and reduced-motion proof |
+| P22 | Localization / long strings / RTL | 0% | Locale-safe layout and RTL proof across key screens |
+| P23 | Audio / haptics / premium feedback | 0% | Audio/haptic vocabulary mapped to meaningful player actions |
+| P24 | Android devices / safe areas / resolution adaptation | 0% | Real Android presentation proof on target device classes |
+| P25 | Final premium polish / cross-screen QA | 0% | Full visual regression and no unresolved P1–P24 blockers |
 
-**Aggregate P1–P25 estimate: 72.96% (simple arithmetic mean of the currently recorded block estimates).**
+**Aggregate P1–P25 estimate: 0.60% (V2 baseline; simple arithmetic mean).**
+
+## Visual Design Reset v2
+
+- The legacy visual percentages are retired for the new V2 implementation track.
+- The canonical V2 reset contract is `docs/VISUAL_DESIGN_RESET_V2.md`.
+- Fresh V2 P1 visual anchor: `web-preview/design-v2/p1-visual-anchor.html`, commit `bed0154c738bb083ff0fb1c1a3a44a992311619d`.
+- P1 is intentionally 15%: the new visual anchor exists, but the shared design system, representative screen set, responsive/accessibility proof and regression closure are not complete.
+- P2–P25 are intentionally 0% until rebuilt on the V2 foundation. Existing legacy implementations remain preserved in Git history and are not counted as V2 completion.
 
 ## Current evidence
 
