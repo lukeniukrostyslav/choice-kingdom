@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="stylesheet" href="tokens.css"><title>Choice Kingdom — V2 P12 History</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;color:var(--ck-text-primary);font:16px/var(--ck-leading-body) var(--ck-body);background:radial-gradient(circle at 76% 0,rgba(77,101,125,.24),transparent 34%),linear-gradient(180deg,var(--ck-world-800),var(--ck-world-950))}
+main{width:min(1060px,100%);margin:auto;padding:max(20px,calc(20px + env(safe-area-inset-top))) max(18px,calc(18px + env(safe-area-inset-right))) max(36px,calc(36px + env(safe-area-inset-bottom))) max(18px,calc(18px + env(safe-area-inset-left)))}
+.top{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:20px}.eyebrow,.label{font-size:var(--ck-type-label);font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ck-gold-primary)}.top h1{font:500 var(--ck-type-display-md)/var(--ck-leading-heading) var(--ck-serif);margin:6px 0 0}.context{text-align:end;color:var(--ck-text-muted);font-size:var(--ck-type-body-sm)}
+.surface{border:1px solid var(--ck-border-subtle);border-radius:var(--ck-radius-lg);background:linear-gradient(180deg,rgba(19,29,42,.94),rgba(12,19,29,.98));box-shadow:var(--ck-shadow-deep);padding:clamp(20px,4vw,32px)}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(250px,.5fr);gap:24px;align-items:end;margin-bottom:24px}.hero h2{font:500 var(--ck-type-display-lg)/var(--ck-leading-heading) var(--ck-serif);margin:6px 0 10px}.hero p{max-width:62ch;margin:0;color:var(--ck-text-secondary);font-size:var(--ck-type-body-lg)}
+.thread{padding:18px;border:1px solid var(--ck-border-subtle);border-radius:var(--ck-radius-md);background:rgba(8,13,21,.52)}.thread strong{display:block;margin-top:5px;font:500 22px/1.1 var(--ck-serif);color:var(--ck-gold-highlight)}.thread p{margin:8px 0 0;color:var(--ck-text-muted);font-size:var(--ck-type-body-sm)}
+.timeline{position:relative;display:grid;gap:0;margin:0 0 18px;padding-inline-start:24px}.timeline:before{content:"";position:absolute;inset-block:10px;inset-inline-start:7px;width:1px;background:rgba(215,182,108,.28)}.entry{position:relative;padding:0 0 20px}.entry:last-child{padding-bottom:0}.entry:before{content:"";position:absolute;inset-inline-start:-21px;top:6px;width:9px;height:9px;border:1px solid var(--ck-gold-highlight);border-radius:50%;background:var(--ck-night-950);box-shadow:0 0 0 4px rgba(227,201,134,.07)}.entry time{font-size:var(--ck-type-label);letter-spacing:.12em;text-transform:uppercase;color:var(--ck-text-muted)}.entry h3{font:500 22px/1.12 var(--ck-serif);margin:5px 0}.entry p{margin:0;color:var(--ck-text-secondary);font-size:var(--ck-type-body-sm)}.entry.active h3{color:var(--ck-gold-highlight)}
+.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.action{min-height:52px;padding:12px 14px;text-align:start;border:1px solid var(--ck-border-subtle);border-radius:var(--ck-radius-md);background:rgba(8,13,21,.42);color:var(--ck-text-primary);font:500 15px/1.25 var(--ck-body);cursor:pointer}.action:focus-visible{outline:3px solid var(--ck-focus);outline-offset:4px}.action[aria-pressed=true]{border-color:var(--ck-gold-highlight);box-shadow:0 0 0 1px rgba(227,201,134,.18)}.status{min-height:24px;margin:14px 0 0;color:var(--ck-text-muted)}.status strong{color:var(--ck-gold-highlight)}.note{margin:18px 0 0;color:var(--ck-text-muted);font-size:var(--ck-type-body-sm)}
+@media(max-width:760px){.hero{grid-template-columns:1fr}.context{text-align:start}.actions{grid-template-columns:1fr}}
+@media(max-width:420px){main{padding-inline:14px}.surface{padding:18px}.timeline{padding-inline-start:20px}.action{min-height:56px}}
+@media(prefers-reduced-motion:reduce){.action{transition:none}}
+html[dir=rtl] .context{text-align:start}
+</style>
+</head>
+<body><main>
+<header class="top"><div><div class="eyebrow">Avelune · History</div><h1>Decision memory</h1></div><div class="context">The road behind you<br>What led here</div></header>
+<section class="surface" aria-label="Decision history presentation">
+<div class="hero"><div><div class="eyebrow">THE CHAIN OF CHOICES</div><h2>Remember what changed</h2><p>History is presented as a calm authored timeline: the choice, its immediate result, and the later consequence remain connected without becoming a data dashboard.</p></div>
+<div class="thread"><div class="label">Current thread</div><strong id="thread-title">The eastern road</strong><p id="thread-note">Three moments remain connected.</p></div></div>
+<div class="timeline" aria-label="Decision timeline">
+<article class="entry active" data-key="choice"><time>Turn 08 · Choice</time><h3>Opened the eastern road</h3><p>The decision changed the route available to the realm.</p></article>
+<article class="entry" data-key="result"><time>Turn 09 · Result</time><h3>Supplies reached the pass</h3><p>An immediate outcome recorded after the choice.</p></article>
+<article class="entry" data-key="consequence"><time>Turn 12 · Consequence</time><h3>Winter pressure surfaced</h3><p>A later state connected to the earlier decision.</p></article>
+</div>
+<div class="actions" role="group" aria-label="Timeline focus">
+<button type="button" class="action" aria-pressed="true" data-focus="choice">Choice</button>
+<button type="button" class="action" aria-pressed="false" data-focus="result">Result</button>
+<button type="button" class="action" aria-pressed="false" data-focus="consequence">Consequence</button>
+</div>
+<p id="status" class="status" role="status" aria-live="polite">History focus: <strong>Choice</strong>.</p>
+<p class="note">Presentation proof only: this timeline establishes causal readability and decision memory without inventing gameplay history. Runtime remains canonical.</p>
+</section></main>
+<script>
+const threadTitle=document.querySelector('#thread-title'),threadNote=document.querySelector('#thread-note'),status=document.querySelector('#status');
+const copy={choice:['The eastern road','Three moments remain connected.'],result:['Supplies at the pass','The immediate result is in the record.'],consequence:['Winter pressure','A later consequence is linked to the earlier choice.']};
+document.querySelectorAll('.action').forEach(b=>b.addEventListener('click',()=>{const v=b.dataset.focus;document.querySelectorAll('.action').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');document.querySelectorAll('.entry').forEach(x=>x.classList.toggle('active',x.dataset.key===v));threadTitle.textContent=copy[v][0];threadNote.textContent=copy[v][1];status.innerHTML='History focus: <strong>'+b.textContent+'</strong>.';}));
+</script></body></html>
