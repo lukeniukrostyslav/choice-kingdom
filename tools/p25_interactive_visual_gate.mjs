@@ -96,6 +96,16 @@ if ((await page.getByRole('dialog').getAttribute('aria-hidden')) !== 'false') fa
 await page.getByRole('button',{name:'Close details'}).click();
 await page.getByRole('button',{name:'History'}).click();
 await assertVisible('#history .timeline', 'history timeline');
+if (!(await page.locator('#history [data-history-index]').count() >= 1)) fail('history decision entry missing');
+if (!(await page.getByRole('button',{name:/The First Petition/}).count())) fail('history E01 entry interaction missing');
+await page.getByRole('button',{name:/The First Petition/}).focus();
+await page.keyboard.press('ArrowDown');
+if (!(await page.getByRole('button',{name:/The First Petition/}).evaluate(el=>document.activeElement===el))) fail('history keyboard navigation missing for single entry');
+await page.getByRole('button',{name:/The First Petition/}).click();
+if (!(await page.getByRole('dialog').isVisible())) fail('history detail dialog missing');
+if (!(await page.getByText(/current run memory only/).count())) fail('history canon boundary missing');
+if ((await page.getByRole('dialog').getAttribute('aria-hidden')) !== 'false') fail('history dialog aria state missing');
+await page.getByRole('button',{name:'Close details'}).click();
 await page.getByRole('button',{name:'Endings'}).click();
 await assertVisible('#endings .endings', 'endings surface');
 await page.getByRole('button',{name:'Settings'}).click();
@@ -151,6 +161,11 @@ if (!(await page.getByText(/presentation only and does not invent hidden connect
 await page.getByRole('button',{name:'Close details'}).click();
 await page.getByRole('button',{name:'History'}).click();
 if (!(await page.getByText('The First Petition',{exact:true}).count())) fail('history did not record E01');
+if (!(await page.locator('#history .history-entry').count())) fail('history premium entry surface missing');
+await page.getByRole('button',{name:/The First Petition/}).click();
+if (!(await page.getByText(/Choice recorded:/).count())) fail('history recorded-choice detail missing');
+if (!(await page.getByText(/current run memory only/).count())) fail('history detail boundary missing');
+await page.getByRole('button',{name:'Close details'}).click();
 await page.getByRole('button',{name:'Endings'}).click();
 if (!(await page.getByRole('heading',{name:'Endings'}).count())) fail('endings surface missing');
 if (!(await page.getByText('No ending is forced in this visual prototype.').count())) fail('ending boundary copy missing');
