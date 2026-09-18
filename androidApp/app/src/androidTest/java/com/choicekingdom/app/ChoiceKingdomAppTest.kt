@@ -63,6 +63,9 @@ class ChoiceKingdomAppTest {
         composeRule.onNode(hasContentDescription("Master volume 100 percent")).assertIsDisplayed()
         composeRule.onNode(hasContentDescription("Ambient volume 35 percent")).assertIsDisplayed()
         composeRule.onNode(hasContentDescription("Music volume 55 percent")).assertIsDisplayed()
+        composeRule.onNode(hasContentDescription("Master volume").and(hasStateDescription("100 percent"))).assertIsDisplayed()
+        composeRule.onNode(hasContentDescription("Ambient volume").and(hasStateDescription("35 percent"))).assertIsDisplayed()
+        composeRule.onNode(hasContentDescription("Music volume").and(hasStateDescription("55 percent"))).assertIsDisplayed()
     }
 
     private infix fun androidx.compose.ui.test.SemanticsMatcher.and(other: androidx.compose.ui.test.SemanticsMatcher): androidx.compose.ui.test.SemanticsMatcher =
