@@ -197,7 +197,7 @@ jobs:
           "$ADB" -s "$SERIAL" shell dumpsys activity activities | grep -q com.choicekingdom.app
           mkdir -p p24-evidence
           "$ADB" -s "$SERIAL" exec-out screencap -p > "p24-evidence/${{ matrix.name }}.png"
-          gradle :app:connectedDebugAndroidTest --tests com.choicekingdom.app.P24DeviceAdaptationTest --no-daemon --max-workers=1 -x :app:assembleDebug
+          gradle :app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.choicekingdom.app.P24DeviceAdaptationTest --no-daemon --max-workers=1 -x :app:assembleDebug -x :app:assembleDebugAndroidTest
 
       - if: always()
         uses: actions/upload-artifact@v4
