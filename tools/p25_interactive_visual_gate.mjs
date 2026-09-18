@@ -32,7 +32,7 @@ await assertVisible('#event .event-title', 'event title');
 await assertVisible('#event .choice-panel', 'event choice panel');
 if (await page.locator('#event').evaluate(el => el.scrollWidth > el.clientWidth + 1)) fail('event horizontal overflow');
 await page.screenshot({path:'p25-shell-event.png',fullPage:true});
-await page.getByRole('button',{name:'Open the Hall'}).click();
+const firstChoice=page.locator("#choices .choice").first(); await firstChoice.focus(); await page.keyboard.press("ArrowDown"); if ((await page.locator("#choices .choice").nth(1).getAttribute("aria-selected")) !== "true") fail("choice keyboard focus state missing"); await page.getByRole("button",{name:"Open the Hall"}).click();
 await assertVisible('#consequence .consequence-layout', 'consequence composition');
 await page.screenshot({path:'p25-shell-consequence.png',fullPage:true});
 await page.getByRole('button',{name:/Continue the chronicle/}).click();
