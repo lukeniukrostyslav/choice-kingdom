@@ -72,6 +72,7 @@ The proof covers semantic confirm/warning/error/ambient feedback states, quiet v
 
 Implemented on `main`:
 - Replaced the legacy screenshot/gallery-style journey with a real interactive prototype in `web-preview/game-flow.html`.
+- Implemented the approved cinematic composition across Menu, Event/Choice, Consequence, Kingdom, People, Factions, Investigation, History, Endings and Settings with responsive visual hierarchy, decorative realm/evidence treatments, character/faction presentation, and premium layered surfaces.
 - Launcher now enters the interactive prototype directly from `web-preview/index.html`.
 - Bound the playable proof to canonical E01, E02 and E05 content/effects; canonical People are Mara, Rowan, Seris, Ivo, Amara and Toma.
 - Institutional vocabulary is limited to Crown, Commons, Noble, Guild, Border / Security and Civic / Medical.
@@ -83,9 +84,9 @@ Remaining evidence before P25 can reach 100%:
 - completed green P25 GitHub Actions validation run — **PASS**, run #10 / ID `35398573836`;
 - responsive proof artifact generated and uploaded successfully as `p25-responsive-proof-35398573836` (2 PNGs; artifact ID `10569238183`);
 - live Vercel deployment verification against the frozen three-reference set;
-- final cross-screen visual regression sign-off with no remaining visual drift.
+- final cross-screen visual regression sign-off with no remaining visual drift after the new visual implementation.
 
-**P25 remains OPEN at 90%.**
+**P25 remains OPEN at 90% after the premium visual-composition implementation pass.**
 
 ## Next bottleneck
 
