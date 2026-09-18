@@ -3,6 +3,7 @@
 ## Current state
 - P25 overall: **94%**
 - 25.4 Choice chamber / decision interaction: **100% — CLOSED**
+- 25.5 Consequence / memory reveal: **100% — CLOSED**
 - P25 overall remains 94% because the final visual-regression/deployed-proof gate is still open.
 
 ## P25 sub-blocks
@@ -13,7 +14,7 @@
 | 25.2 Main menu / first impression | 100% | CLOSED |
 | 25.3 Event / situation scene | 100% | CLOSED |
 | 25.4 Choice chamber / decision interaction | 100% | CLOSED |
-| 25.5 Consequence / memory reveal | 95% | OPEN |
+| 25.5 Consequence / memory reveal | 100% | CLOSED |
 | 25.6 Kingdom / realm presentation | 96% | OPEN |
 | 25.7 People / character presentation | 97% | OPEN |
 | 25.8 Factions / institutional presentation | 95% | OPEN |
@@ -45,3 +46,19 @@ Canonical event/choice text and effects were not changed or invented.
 ## Verification boundary
 
 The implementation and gate are committed to main. A new green GitHub Actions run has not yet been produced for this direct main commit, so automated green status is intentionally not claimed here. Final P25 acceptance still requires fresh runtime/visual evidence on the current commit/deployed surface.
+
+## 25.5 closure record
+
+The consequence scene now has:
+- explicit decision-recorded marker;
+- exact selected choice surfaced as the consequence headline;
+- consequence explanation kept bound to the existing canonical choice text;
+- immediate-effect section with structured effect cards;
+- persistent run-memory confirmation;
+- clear continuation hierarchy;
+- mobile-safe action layout;
+- gate coverage for the selected option, effect grid and memory status.
+
+No new narrative facts, factions, relationships or lore were introduced.
+
+The implementation and gate are committed to `main`. A fresh green GitHub Actions run is not claimed until one is actually produced for the current commit.
