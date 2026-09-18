@@ -44,6 +44,12 @@ await page.getByRole('button',{name:'Settings'}).click();
 await page.getByRole('button',{name:'Large text'}).click();
 await page.getByRole('button',{name:'RTL preview'}).click();
 await page.getByRole('button',{name:'Reduced motion'}).click();
+await page.getByRole('button',{name:'Light'}).click();
+await page.reload({waitUntil:'networkidle'});
+if (!(await page.locator('html').evaluate(el=>el.dataset.theme==='light'))) fail('theme preference did not persist');
+if (!(await page.locator('body').evaluate(el=>el.classList.contains('large')))) fail('large-text preference did not persist');
+if (!(await page.locator('html').evaluate(el=>el.dir==='rtl'))) fail('RTL preference did not persist');
+if (!(await page.locator('body').evaluate(el=>el.classList.contains('reduce')))) fail('reduced-motion preference did not persist');
 
 const body = await page.locator('body').innerText();
 for (const forbidden of ['Queen Elira','Lord Cael','River Compact','Arwen Vale','The Empty Granary','Royal Capital','Northern Marches','The Church','Trade Guilds','Southern Reach','Eastern Realms']) if (body.includes(forbidden)) fail('non-canonical legacy text leaked: '+forbidden);
