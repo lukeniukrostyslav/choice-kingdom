@@ -7,6 +7,12 @@ const fail = msg => { throw new Error('P25 gate: '+msg); };
 
 await page.goto(base+'/game-premium.html', {waitUntil:'networkidle'});
 if (!(await page.getByRole('button',{name:'Start a new run'}).count())) fail('premium launcher missing');
+await page.getByRole('button',{name:'Kingdom'}).click();
+await page.goBack({waitUntil:'networkidle'});
+if (!(await page.locator('#event').evaluate(el=>el.classList.contains('active')))) fail('browser back did not restore event screen');
+await page.goForward({waitUntil:'networkidle'});
+if (!(await page.locator('#kingdom').evaluate(el=>el.classList.contains('active')))) fail('browser forward did not restore kingdom screen');
+await page.goto(base+'/game-premium.html',{waitUntil:'networkidle'});
 await page.getByRole('button',{name:'Start a new run'}).click();
 if ((await page.locator('#eventTitle').textContent()) !== 'The First Petition') fail('E01 not rendered');
 await page.getByRole('button',{name:/Open the Hall/}).click();
