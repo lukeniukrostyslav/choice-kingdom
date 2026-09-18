@@ -16,6 +16,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: block15-visual-regression-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   screenshot-regression:
     runs-on: ubuntu-latest
@@ -87,11 +91,28 @@ jobs:
         working-directory: androidApp
         run: gradle --no-daemon validateDebugScreenshotTest --stacktrace
 
+      - name: Write screenshot evidence manifest
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p artifacts/block15
+          refs_dir="androidApp/app/src/screenshotTestDebug/reference"
+          count=$(find "$refs_dir" -type f -name '*.png' 2>/dev/null | wc -l)
+          {
+            echo "commit=${GITHUB_SHA}"
+            echo "event=${GITHUB_EVENT_NAME}"
+            echo "reference_count=$count"
+            echo "validation_task=validateDebugScreenshotTest"
+            if [ "$count" -gt 0 ]; then
+              find "$refs_dir" -type f -name '*.png' -print0 | sort -z | xargs -0 sha256sum
+            fi
+          } > artifacts/block15/reference-manifest.txt
+
       - name: Upload screenshot report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: block15-screenshot-report
+          name: block15-screenshot-report-${{ github.run_id }}
           path: |
             androidApp/app/build/reports/screenshotTest/**
             androidApp/app/build/reports/tests/**
