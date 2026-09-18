@@ -163,6 +163,30 @@ Execution order is strictly **1 → 2 → 3 → ... → 25**. A block is not con
 - Added tools/p25_interactive_visual_gate.mjs and .github/workflows/p25-interactive-visual-gate.yml.
 - P25 closure is NOT claimed yet: live Vercel verification against the frozen three-reference set and final cross-screen visual regression sign-off remain open. The premium visual-composition implementation is now present in `web-preview/game-flow.html`; the remaining gate is evidence, not a new design scope. The green gate is run #10 / ID `35398573836`; responsive proof artifact is `p25-responsive-proof-35398573836` (artifact ID `10569238183`).
 
+## P25 detailed execution — 90%
+
+P25 is being tracked as a real game-visual implementation, not a documentation-only prototype.
+
+- 25.1 Visual game shell / cinematic composition — **92%**
+- 25.2 Main menu / first impression — **92%**
+- 25.3 Event / situation scene — **93%**
+- 25.4 Choice chamber / decision interaction — **94%**
+- 25.5 Consequence / memory reveal — **93%**
+- 25.6 Kingdom / realm presentation — **91%**
+- 25.7 People / character presentation — **88%**
+- 25.8 Factions / institutional presentation — **88%**
+- 25.9 Investigation / evidence board — **92%**
+- 25.10 History / decision chronicle — **93%**
+- 25.11 Endings / resolution landing — **90%**
+- 25.12 Settings / accessibility presentation — **94%**
+- 25.13 Navigation / information architecture — **94%**
+- 25.14 Responsive / safe-area composition — **91%**
+- 25.15 Visual regression / final acceptance — **72%**
+
+These are diagnostic sub-block percentages and are not averaged into the overall P25 percentage. P25 remains **90%** until the real deployed game passes the frozen-reference visual review and final cross-screen regression sign-off.
+
+The Vercel root launcher was also changed so the production root opens the actual interactive game surface rather than a documentation/review landing page.
+
 ## Premium Design P1–P25
 Canonical percentages are tracked in `docs/PREMIUM_DESIGN_MASTER_P1_P25.md`. Current V2 aggregate: **99.60%**. P1–P24 are closed at 100%; P25 is 90% and remains the only open premium-design block.
 
