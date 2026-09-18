@@ -154,11 +154,11 @@ class SessionPresenter:
         self._selected_choice = choice_id
 
     def press_choice(self, choice_id: str) -> None:
-        """Record the tactile/keyboard press state without resolving gameplay."""
+        """Enter the resolving interaction state without mutating gameplay."""
         self._require_available(choice_id)
         self.clear_transient_state()
         self._focused_choice = choice_id
-        self._pressed_choice = choice_id
+        self._resolving_choice = choice_id
 
     def begin_choice(self, choice_id: str) -> None:
         """Advance the UI-only pressed state into resolving."""
