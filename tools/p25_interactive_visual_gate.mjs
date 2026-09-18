@@ -34,6 +34,12 @@ if (await page.locator('#event').evaluate(el => el.scrollWidth > el.clientWidth 
 await page.screenshot({path:'p25-shell-event.png',fullPage:true});
 const firstChoice=page.locator("#choices .choice").first(); await firstChoice.focus(); await page.keyboard.press("ArrowDown"); if ((await page.locator("#choices .choice").nth(1).getAttribute("aria-selected")) !== "true") fail("choice keyboard focus state missing"); await page.getByRole("button",{name:"Open the Hall"}).click();
 await assertVisible('#consequence .consequence-layout', 'consequence composition');
+await assertVisible('#consequence .consequence-meta', 'consequence decision marker');
+await assertVisible('#consequence #consequenceChoice', 'consequence chosen option');
+await assertVisible('#consequence #effectGrid', 'consequence effect grid');
+await assertVisible('#consequence #stateStatus', 'consequence memory status');
+if (!(await page.locator('#consequence #consequenceChoice').textContent()).includes('Open the Hall')) fail('chosen option not surfaced in consequence');
+if (!(await page.locator('#consequence #effectGrid .stat').count())) fail('consequence effect values missing');
 await page.screenshot({path:'p25-shell-consequence.png',fullPage:true});
 await page.getByRole('button',{name:/Continue the chronicle/}).click();
 await assertVisible('#event .choice-panel', 'choice chamber');
