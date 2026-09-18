@@ -216,7 +216,10 @@ for (const file of pages) {
         const focus = /:focus-visible/.test(styleText);
         const serif = /var\(--ck-serif\)/.test(styleText);
         const cinematic = /radial-gradient/.test(styleText) && /linear-gradient/.test(styleText);
-        return selected && exclusive && responsive && rtl && safe && reduced && focus && serif && cinematic && map.querySelectorAll('.mountain,.river,.road,.city,.forest').length >= 7;
+        const mapFeatureCount = map.querySelectorAll('.mountain,.river,.road,.city,.forest').length;
+        const pass = selected && exclusive && responsive && rtl && safe && reduced && focus && serif && cinematic && mapFeatureCount >= 7;
+        if (!pass) console.error('P9_DEBUG', JSON.stringify({selected,exclusive,responsive,rtl,safe,reduced,focus,serif,cinematic,mapFeatureCount,state:state.textContent,actionStates:actions.map(a=>a.getAttribute('aria-pressed'))}));
+        return pass;
       });
     }
     let p8Pass = true;
