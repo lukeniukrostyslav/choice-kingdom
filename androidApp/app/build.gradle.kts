@@ -22,9 +22,6 @@ android {
     }
     buildFeatures { compose = true }
     experimentalProperties["android.experimental.enableScreenshotTest"] = true
-    sourceSets.getByName("main") {
-        assets.srcDirs("../../docs")
-    }
 }
 
 chaquopy {
