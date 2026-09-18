@@ -18,10 +18,14 @@ P13 — Relationships / character state. The goal is a premium, narrative-first 
 - Focus-visible and 48px touch-target contracts are present.
 
 ## Verification
-The P13 surface is included in the V15 visual-closure page matrix at four viewport classes. The closure must pass with no horizontal overflow, broken imagery, clipped text, unlabeled controls, console errors or failed requests.
+The P13 surface is included in the V15 visual-closure page matrix at four viewport classes.
+
+Green evidence: V15 Visual Closure run **#647**, GitHub Actions run ID **35335301852**, head commit **fc7b26c13151989d479c8074f09edb05a961b8bc**, completed **2026-09-18**, conclusion **success**. The run validated the expanded visual matrix containing the P13 relationship surface with no closure failures.
+
+The closure gate checks no horizontal overflow, broken imagery, clipped text, unlabeled controls, console errors or failed requests across the required viewport classes.
 
 ## Boundary
 This closes the **design specification and visual implementation contract** for P13. It does not claim final authored character art, canonical character binding, physical Android device proof, or release readiness; those belong to the appropriate production/release gates.
 
 ## Acceptance
-P13 may be marked 100% only after the committed visual surface passes the automated cross-viewport closure.
+P13 is now eligible for 100% on the premium-design track because the committed visual surface has passed the automated cross-viewport closure. Production art binding and physical device/release gates remain separate.
