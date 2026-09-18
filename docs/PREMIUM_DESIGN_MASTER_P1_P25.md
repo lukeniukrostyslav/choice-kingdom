@@ -105,7 +105,7 @@ Remaining evidence before P25 can reach 100%:
 | 25.12 Settings / accessibility presentation | 98% | Large text, RTL, reduced motion, theme and persistent preferences implemented; final device proof remains |
 | 25.13 Navigation / information architecture | 99% | Persistent navigation now integrates browser back/forward state continuity |
 | 25.14 Responsive / safe-area composition | 97% | Compact and expanded layouts implemented; live-device evidence remains |
-| 25.15 Visual regression / final acceptance | 77% | Automated coverage exists; normalized post-change gate is saved; latest post-change run and deployed visual/reference comparison remain |
+| 25.15 Visual regression / final acceptance | 77% | Automated coverage exists; normalized post-change gate is saved; cross-surface visible-surface assertions have been extended across launcher, event, consequence, choice, kingdom, people, factions, investigation, history, endings and settings; latest post-change run and deployed visual/reference comparison remain |
 
 **P25 overall remains 94%.** Sub-blocks are diagnostic and are not averaged into the overall percentage. P25 reaches 100% only after deployed visual review and final cross-screen regression sign-off.
 
