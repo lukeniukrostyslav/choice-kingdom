@@ -22,7 +22,7 @@ This document is the canonical working checklist for the 25-block premium visual
 | P12 | History / decision memory | 100% | Timeline/history hierarchy and causal readability |
 | P13 | Relationships / character state | 100% | Relationship states and progression presentation |
 | P14 | Investigation / threads / evidence | 100% | Evidence hierarchy, discovery and unresolved states |
-| P15 | Crisis / high-stakes presentation | 0% | Escalation, urgency and consequence preview without clutter |
+| P15 | Crisis / high-stakes presentation | 90% | Escalation, urgency and consequence preview without clutter |
 | P16 | Endings / resolution experience | 0% | Ending identity, summary and emotional landing |
 | P17 | Replay / new-run experience | 0% | Replay motivation, continuity and clean reset semantics |
 | P18 | Main menu / launcher | 0% | Premium first impression + navigation + responsive proof |
@@ -78,4 +78,4 @@ This document is the canonical working checklist for the 25-block premium visual
 
 ## Next bottleneck
 
-Continue the premium-design track with P15 — Crisis / High-Stakes Presentation. P10–P14 are closed at 100% with verified V15 regression evidence; P15 is the next block and must be implemented and verified before P16 begins.
+Continue verification of P15 — Crisis / High-Stakes Presentation. P1–P14 are closed at 100% with verified V15 regression evidence; P15 implementation is complete at the contract level and remains 90% until the new V2 gate is green. P16 must not begin until P15 is verified.
