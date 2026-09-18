@@ -93,7 +93,7 @@ Remaining evidence before P25 can reach 100%:
 |---|---:|---|
 | 25.1 Visual game shell / cinematic composition | 100% | Cinematic shell, atmospheric edge treatment, layered panel material, deterministic shell capture and frozen-reference implementation contract are complete; P25 final acceptance remains separate |
 | 25.2 Main menu / first impression | 100% | Premium launcher composition, title hierarchy, CTA hierarchy, atmospheric treatment, responsive behavior and deterministic launcher acceptance coverage are complete; final deployed P25 acceptance remains separate |
-| 25.3 Event / situation scene | 97% | E01/E02/E05 cinematic event presentation implemented |
+| 25.3 Event / situation scene | 100% | Cinematic event composition, situation hierarchy, canonical E01/E02/E05 rendering, choice chamber binding, responsive event layout and deterministic event acceptance coverage are complete; final deployed P25 acceptance remains separate |
 | 25.4 Choice chamber / decision interaction | 95% | Choice states, touch targets and canonical effects implemented |
 | 25.5 Consequence / memory reveal | 95% | Consequence state and decision memory implemented |
 | 25.6 Kingdom / realm presentation | 96% | Realm scene, nodes and resource layer implemented; final visual refinement remains |
@@ -118,6 +118,19 @@ P25.2 Main menu / first impression is closed at 100% on `main` through:
 - atmospheric horizon treatment, restrained gold accenting and layered depth;
 - compact/expanded layout behavior without launcher overflow;
 - deterministic launcher visual evidence capture and visible-surface acceptance assertions in `tools/p25_interactive_visual_gate.mjs`.
+
+The closure does not close P25 itself: deployed visual verification and final cross-screen regression remain P25-level gates.
+
+## P25.3 Closure Record — 100%
+
+P25.3 Event / situation scene is closed at 100% on `main` through:
+- cinematic event composition with dedicated narrative and visual chambers;
+- clear event metadata and title hierarchy;
+- canonical E01, E02 and E05 situation rendering preserved;
+- explicit decision-chamber presentation bound to the actual choice controls;
+- layered atmospheric treatment without adding non-canonical lore;
+- compact responsive event layout and overflow protection;
+- deterministic event-surface acceptance assertions in `tools/p25_interactive_visual_gate.mjs`.
 
 The closure does not close P25 itself: deployed visual verification and final cross-screen regression remain P25-level gates.
 
