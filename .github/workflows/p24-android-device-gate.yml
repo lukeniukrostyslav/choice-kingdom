@@ -33,7 +33,9 @@ jobs:
           gradle-version: '8.11.1'
       - name: Assemble Android debug build
         working-directory: androidApp
-        run: gradle :app:assembleDebug --stacktrace
+        env:
+          GRADLE_OPTS: -Xmx6g -XX:MaxMetaspaceSize=1g
+        run: gradle :app:assembleDebug --stacktrace --no-daemon
 
   android-device-classes:
     strategy:
