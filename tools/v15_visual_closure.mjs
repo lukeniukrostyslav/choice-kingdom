@@ -22,7 +22,8 @@ const pages = [
   'design-v2/p9-kingdom-world-presentation-proof.html',
   'design-v2/p10-resources-pressure-proof.html',
   'design-v2/p11-consequences-proof.html',
-  'design-v2/p12-history-decision-memory-proof.html'
+  'design-v2/p12-history-decision-memory-proof.html',
+  'design-v2/p13-relationships-proof.html'
 ];
 const viewports = [
   { name: '360x800', width: 360, height: 800 },
@@ -223,6 +224,20 @@ for (const file of pages) {
         return selected && exclusive && responsive && rtl && safe && reduced && focus && serif && cinematic && mapFeatureCount >= 7;
       });
     }
+    let p13Pass = true;
+    if (file === 'design-v2/p13-relationships-proof.html') {
+      p13Pass = await page.evaluate(() => {
+        const surface=document.querySelector('.surface'), people=[...document.querySelectorAll('.person')], states=[...document.querySelectorAll('.state')], relation=document.querySelector('#relation'), status=document.querySelector('#status'), styleText=[...document.querySelectorAll('style')].map(s=>s.textContent||'').join('\n');
+        if(!surface || people.length!==2 || states.length!==3 || !relation || !status) return false;
+        if(!states.every(b=>b.getBoundingClientRect().height>=48 && (b.textContent||'').trim())) return false;
+        states[1].click(); const open=relation.textContent==='Open trust'&&states[1].getAttribute('aria-pressed')==='true';
+        states[2].click(); const strained=relation.textContent==='Strained trust'&&states[2].getAttribute('aria-pressed')==='true'&&states[1].getAttribute('aria-pressed')==='false';
+        const exclusive=states.filter(b=>b.getAttribute('aria-pressed')==='true').length===1;
+        const responsive=/@media\(max-width:760px\)/.test(styleText)&&/@media\(max-width:420px\)/.test(styleText);
+        const rtl=/html\[dir=rtl\]/.test(styleText),safe=/safe-area-inset/.test(styleText),reduced=/prefers-reduced-motion:reduce/.test(styleText),focus=/:focus-visible/.test(styleText),serif=/var\(--ck-serif\)/.test(styleText),cinematic=/radial-gradient/.test(styleText)&&/linear-gradient/.test(styleText);
+        return open&&strained&&exclusive&&responsive&&rtl&&safe&&reduced&&focus&&serif&&cinematic;
+      });
+    }
     let p12Pass = true;
     if (file === 'design-v2/p12-history-decision-memory-proof.html') {
       p12Pass = await page.evaluate(() => {
@@ -374,9 +389,9 @@ for (const file of pages) {
         return largePass && rtlPass && resetPass;
       });
     }
-    const pass = commonPass && appPass && launcherPass && p1Pass && p6Pass && p7Pass && p8Pass && p9Pass && p10Pass && p11Pass && p12Pass && p21Pass && p19Pass && p1v2Pass;
+    const pass = commonPass && appPass && launcherPass && p1Pass && p6Pass && p7Pass && p8Pass && p9Pass && p10Pass && p11Pass && p12Pass && p13Pass && p21Pass && p19Pass && p1v2Pass;
     if (!pass) failures += 1;
-    results.push({ file, viewport: vp.name, pass, p19Pass, p21Pass, p6Pass, p7Pass, p8Pass, p9Pass, p10Pass, p11Pass, p12Pass, ...metrics, consoleErrors, pageErrors, failedRequests });
+    results.push({ file, viewport: vp.name, pass, p19Pass, p21Pass, p6Pass, p7Pass, p8Pass, p9Pass, p10Pass, p11Pass, p12Pass, p13Pass, ...metrics, consoleErrors, pageErrors, failedRequests });
     await context.close();
   }
 }
