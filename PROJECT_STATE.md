@@ -52,8 +52,8 @@ Original premium offline-first decision-and-consequence mobile game set in Avelu
 10. **Localization Core-8** → 90%
 11. **RTL / Large Text / Accessibility** → 100%
 12. **Responsive / Safe Areas / Devices** → 100%
-13. **Premium Design P1–P25** → 96.00%
-- P1–P24 closed at 100%; P25 remains 0%.
+13. **Premium Design P1–P25** → 99.40%
+- P1–P24 closed at 100%; P25 is 85% after the green interactive gate and responsive proof artifact were completed.
 - P24 closure evidence: GitHub Actions Android production runtime run #190 completed successfully with compact-phone, tablet-window and expanded-window matrix jobs green.
 - P24 closure commit: `230ace79ef70cfffd255a310d9170fb581111c6f` (`fix(p24): use deterministic instrumentation component`).
 - P16 closure evidence: GitHub Actions V15 Visual Closure run #816 / ID `35362610255` completed successfully; PR #17 was merged into main.
@@ -154,17 +154,17 @@ Execution order is strictly **1 → 2 → 3 → ... → 25**. A block is not con
 - APK / AAB: **0%**
 - Release / Store: **0%**
 
-## Premium Design P25 execution checkpoint — 70%
+## Premium Design P25 execution checkpoint — 85%
 - P1–P24 remain closed at 100%.
-- P25 is now 70%: the Vercel-facing web preview was converted from the legacy non-canonical journey into a real interactive prototype.
+- P25 is now 85%: the Vercel-facing web preview was converted from the legacy non-canonical journey into a real interactive prototype, and the executable P25 Interactive Visual Gate completed successfully.
 - Canonical playable proof uses E01 → E02 → E05 and their repository-defined choice/effect vocabulary.
 - People surface uses only Mara, Rowan, Seris, Ivo, Amara and Toma; institutional surface uses only Crown, Commons, Noble, Guild, Border / Security and Civic / Medical.
 - Added interactive People, institutions, Investigation, History, Kingdom and Settings surfaces plus persistent prototype state, large text, RTL, reduced motion and responsive layout handling.
 - Added tools/p25_interactive_visual_gate.mjs and .github/workflows/p25-interactive-visual-gate.yml.
-- P25 closure is NOT claimed yet: a completed green validation run, responsive proof review, live Vercel verification and final cross-screen visual regression sign-off remain open.
+- P25 closure is NOT claimed yet: live Vercel verification against the frozen three-reference set and final cross-screen visual regression sign-off remain open. The green gate is run #4 / ID `35397447809`; responsive proof artifact is `p25-responsive-proof-35397447809` (artifact ID `10568881852`).
 
 ## Premium Design P1–P25
-Canonical percentages are tracked in `docs/PREMIUM_DESIGN_MASTER_P1_P25.md`. Current V2 aggregate: **98.80%**. P1–P24 are closed at 100%; P25 is 70% and remains the only open premium-design block.
+Canonical percentages are tracked in `docs/PREMIUM_DESIGN_MASTER_P1_P25.md`. Current V2 aggregate: **99.40%**. P1–P24 are closed at 100%; P25 is 85% and remains the only open premium-design block.
 
 ## Honest progress rule
 Documentation never makes implementation complete. Every percentage requires authoritative evidence and applicable verification. Source/contract GREEN must never be reported as runtime gameplay GREEN. Owner-controlled physical Android QA, production signing and store publication remain open until actually performed.
