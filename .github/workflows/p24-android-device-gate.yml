@@ -30,7 +30,7 @@ jobs:
       - name: Set up Gradle 8.9
         uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: '8.9'
+          gradle-version: '8.11.1'
       - name: Assemble Android debug build
         working-directory: androidApp
         run: gradle :app:assembleDebug --stacktrace
@@ -65,7 +65,7 @@ jobs:
       - name: Set up Gradle 8.9
         uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: '8.9'
+          gradle-version: '8.11.1'
       - name: Boot Android emulator and capture presentation evidence
         uses: reactivecircus/android-emulator-runner@v2
         with:
