@@ -198,7 +198,7 @@ jobs:
           mkdir -p p24-evidence
           "$ADB" -s "$SERIAL" exec-out screencap -p > "p24-evidence/${{ matrix.name }}.png"
           "$ADB" -s "$SERIAL" install -r app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
-          INSTRUMENTATION=$("$ADB" -s "$SERIAL" shell pm list instrumentation | tr -d '\\r' | sed -n 's/^instrumentation:\\([^ ]*\\).*$/\\1/p' | grep 'target=com.choicekingdom.app' | head -n1)
+          INSTRUMENTATION=$("$ADB" -s "$SERIAL" shell pm list instrumentation | tr -d '\\r' | grep 'target=com.choicekingdom.app' | sed -n 's/^instrumentation:\\([^ ]*\\).*$/\\1/p' | head -n1)
           test -n "$INSTRUMENTATION"
           "$ADB" -s "$SERIAL" shell am instrument -w -r -e class com.choicekingdom.app.P24DeviceAdaptationTest "$INSTRUMENTATION"
 
