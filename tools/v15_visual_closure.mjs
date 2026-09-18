@@ -194,7 +194,7 @@ for (const asset of p1AssetFiles) {
       title: Boolean(title?.textContent?.trim()),
       desc: Boolean(desc?.textContent?.trim()),
       viewBox: Boolean(viewBox),
-      textLength: document.body.innerText.trim().length
+      textLength: document.documentElement.textContent.trim().length
     };
   });
   const pass = Boolean(response?.ok()) && audit.svg && audit.title && audit.desc && audit.viewBox;
