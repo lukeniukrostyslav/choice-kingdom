@@ -17,7 +17,7 @@
 | 25.5 Consequence / memory reveal | 100% | CLOSED |
 | 25.6 Kingdom / realm presentation | 100% | CLOSED |
 | 25.7 People / character presentation | 100% | CLOSED |
-| 25.8 Factions / institutional presentation | 95% | OPEN |
+| 25.8 Factions / institutional presentation | 100% | CLOSED |
 | 25.9 Investigation / evidence board | 96% | OPEN |
 | 25.10 History / decision chronicle | 96% | OPEN |
 | 25.11 Endings / resolution landing | 95% | OPEN |
@@ -76,6 +76,20 @@ The People / character presentation is now closed at 100% with:
 No new character lore, relationships, factions, titles or visual canon was invented.
 
 The implementation, gate hardening and progress record are committed to main. Final P25 acceptance remains open because fresh runtime/visual evidence and deployed proof are still required; no green CI or live Vercel verification is claimed without actual evidence.
+
+## 25.8 closure record
+
+The Factions / institutional presentation is now closed at 100% with:
+- all six verified institutional positions presented: Crown, Commons, Noble, Guild, Border / Security and Civic / Medical;
+- premium institutional cards with layered banner framing, restrained gold hierarchy and cinematic depth;
+- neutral abstract visual marks used strictly as presentation treatment, not as canonical crests or heraldry;
+- semantic interactive cards with dialog semantics and visible keyboard focus;
+- Enter/Space activation plus directional keyboard navigation between institution cards;
+- detail dialog coverage for canonical institutional context with an explicit boundary against invented territory, mottos, crest lore, relationship states or character membership;
+- responsive card composition retained for the premium surface;
+- dedicated gate coverage for all six institutions, card interactivity, keyboard navigation, dialog state and canon-boundary text.
+
+No new faction names, territories, alliances, relationships, mottos, heraldry or lore were invented. The implementation, gate hardening and progress record are committed to main. Final P25 acceptance remains open because fresh runtime/visual evidence and deployed proof are still required; no green CI or live Vercel verification is claimed without actual evidence.
 
 ## Verification boundary
 
