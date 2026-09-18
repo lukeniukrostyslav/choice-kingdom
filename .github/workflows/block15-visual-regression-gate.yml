@@ -21,6 +21,7 @@ permissions:
 jobs:
   screenshot-regression:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
         with:
@@ -48,7 +49,7 @@ jobs:
       - name: Generate initial or explicitly approved references
         if: steps.refs.outputs.exists == 'false' || (github.event_name == 'workflow_dispatch' && inputs.approve_baseline == true)
         working-directory: androidApp
-        run: gradle updateDebugScreenshotTest --stacktrace
+        run: gradle --no-daemon updateDebugScreenshotTest --stacktrace
 
       - name: Commit generated reference set
         if: steps.refs.outputs.exists == 'false' || (github.event_name == 'workflow_dispatch' && inputs.approve_baseline == true)
@@ -56,13 +57,16 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add androidApp/app/src/screenshotTestDebug/reference
+          count=$(find androidApp/app/src/screenshotTestDebug/reference -type f -name '*.png' | wc -l)
+          test "$count" -gt 0
+          echo "Generated approved screenshot references: $count"
           git diff --cached --quiet || git commit -m "Add approved visual regression references"
           git push
 
       - name: Validate existing reference set
         if: steps.refs.outputs.exists == 'true' && !(github.event_name == 'workflow_dispatch' && inputs.approve_baseline == true)
         working-directory: androidApp
-        run: gradle validateDebugScreenshotTest --stacktrace
+        run: gradle --no-daemon validateDebugScreenshotTest --stacktrace
 
       - name: Upload screenshot report
         if: always()
