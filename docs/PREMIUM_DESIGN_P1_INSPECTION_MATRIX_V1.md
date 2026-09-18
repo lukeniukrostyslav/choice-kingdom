@@ -1,6 +1,6 @@
 # Choice Kingdom — P1 Art Direction Inspection Matrix v1
 
-Status: **P1 EVIDENCE / INSPECTION PASS v1**
+Status: **P1 EVIDENCE / INSPECTION PASS v1 — IMPLEMENTATION REVIEW CONTROL ADDED**
 
 This matrix records the current static visual inspection of the premium anchor set. It is an evidence artifact, not a claim of physical-device or Android runtime completion.
 
@@ -64,3 +64,14 @@ This document advances P1 evidence coverage but deliberately does not convert st
 ## External quality reference
 
 Current mobile-game art practice emphasizes silhouette/proportion, controlled detail and consistency under mobile constraints rather than raw fidelity alone. citeturn0search2turn0search4
+
+
+## Latest implementation evidence
+
+- P1 review surface `web-preview/design-art-direction.html` now exposes explicit keyboard-accessible **Large text** and **RTL preview** controls.
+- Controls use semantic buttons with `aria-pressed` state and a minimum 48px interaction height.
+- The surface declares `dir="ltr"` by default and switches document direction for the RTL preview.
+- A `prefers-reduced-motion: reduce` rule disables animation/transition behavior on this review surface.
+- Commit: `d875add3aea74893c42f7af0283f2a74c503477c`.
+
+These controls strengthen reproducible P1 responsive/accessibility inspection, but they do not substitute for the remaining rendered Android/runtime and final asset-provenance gates.
