@@ -216,7 +216,7 @@ for (const file of pages) {
         const focus = /:focus-visible/.test(styleText);
         const serif = /var\(--ck-serif\)/.test(styleText);
         const cinematic = /radial-gradient/.test(styleText) && /linear-gradient/.test(styleText);
-        return selected && exclusive && responsive && rtl && safe && reduced && focus && serif && cinematic;
+        return selected && exclusive && responsive && rtl && safe && reduced && focus && serif && cinematic && map.querySelectorAll('.mountain,.river,.road,.city,.forest').length >= 7;
       });
     }
     let p8Pass = true;
