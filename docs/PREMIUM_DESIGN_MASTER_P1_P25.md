@@ -96,16 +96,16 @@ Remaining evidence before P25 can reach 100%:
 | 25.3 Event / situation scene | 97% | E01/E02/E05 cinematic event presentation implemented |
 | 25.4 Choice chamber / decision interaction | 95% | Choice states, touch targets and canonical effects implemented |
 | 25.5 Consequence / memory reveal | 95% | Consequence state and decision memory implemented |
-| 25.6 Kingdom / realm presentation | 94% | Realm scene, nodes and resource layer implemented; final visual refinement remains |
+| 25.6 Kingdom / realm presentation | 95% | Realm scene, nodes and resource layer implemented; final visual refinement remains |
 | 25.7 People / character presentation | 97% | Six canonical People, accessible detail presentation, focus return and modal focus trap implemented; production-grade character art remains a visual gap |
 | 25.8 Factions / institutional presentation | 95% | Six canonical institutional positions implemented; final visual identity treatment remains |
-| 25.9 Investigation / evidence board | 95% | Evidence threads and authored routes implemented; final visual comparison remains |
-| 25.10 History / decision chronicle | 95% | Timeline and recorded choices implemented |
-| 25.11 Endings / resolution landing | 93% | Resolution surface implemented without inventing an ending outcome |
+| 25.9 Investigation / evidence board | 96% | Evidence threads and authored routes implemented; final visual comparison remains |
+| 25.10 History / decision chronicle | 96% | Timeline and recorded choices implemented |
+| 25.11 Endings / resolution landing | 94% | Resolution surface implemented without inventing an ending outcome |
 | 25.12 Settings / accessibility presentation | 98% | Large text, RTL, reduced motion, theme and persistent preferences implemented; final device proof remains |
 | 25.13 Navigation / information architecture | 99% | Persistent navigation now integrates browser back/forward state continuity |
 | 25.14 Responsive / safe-area composition | 95% | Compact and expanded layouts implemented; live-device evidence remains |
-| 25.15 Visual regression / final acceptance | 72% | Automated coverage exists; latest post-change run and deployed visual/reference comparison remain |
+| 25.15 Visual regression / final acceptance | 74% | Automated coverage exists; latest post-change run and deployed visual/reference comparison remain |
 
 **P25 overall remains 94%.** Sub-blocks are diagnostic and are not averaged into the overall percentage. P25 reaches 100% only after deployed visual review and final cross-screen regression sign-off.
 
