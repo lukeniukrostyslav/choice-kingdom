@@ -46,3 +46,5 @@ def test_visual_regression_covers_core8_and_large_text():
     for locale in ["ru", "uk", "it", "de", "fr", "es", "pt"]:
         assert f'locale = "{locale}"' in test
     assert "fontScale = 1.3f" in test
+    assert "Configuration.UI_MODE_NIGHT_YES" in test
+    assert "LoadingCompactScreenshot" in test
