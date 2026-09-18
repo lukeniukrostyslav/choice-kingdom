@@ -26,6 +26,7 @@ class ChoiceKingdomAppTest {
     fun selectingChoiceChangesAccessibleState() {
         composeRule.onNode(hasText("Approach")).performClick()
         composeRule.onNode(hasStateDescription("Selected").and(hasText("Approach"))).assertIsDisplayed()
+        composeRule.onNode(hasStateDescription("Selected").and(hasText("Approach"))).assert(hasAnyAncestor(hasStateDescription("Selected")))
         composeRule.onNode(hasText("SELECTED")).assertIsDisplayed()
     }
 
