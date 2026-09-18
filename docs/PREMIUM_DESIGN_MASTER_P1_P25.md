@@ -32,9 +32,9 @@ This document is the canonical working checklist for the 25-block premium visual
 | P22 | Localization / long strings / RTL | 100% | Locale-safe layout and RTL proof across key screens |
 | P23 | Audio / haptics / premium feedback | 100% | Audio/haptic vocabulary mapped to meaningful player actions + CI closure evidence |
 | P24 | Android devices / safe areas / resolution adaptation | 100% | Real Android presentation proof on target device classes |
-| P25 | Final premium polish / cross-screen QA | 92% | Full visual regression and no unresolved P1–P24 blockers |
+| P25 | Final premium polish / cross-screen QA | 94% | Full visual regression and no unresolved P1–P24 blockers |
 
-**Aggregate current estimate: 99.68% (24 blocks closed at 100%, P25 at 92%).**
+**Aggregate current estimate: 99.76% (24 blocks closed at 100%, P25 at 94%).**
 
 ## Visual Design Reset v2
 
@@ -68,47 +68,47 @@ The proof covers semantic confirm/warning/error/ambient feedback states, quiet v
 - Reduced motion, large text, RTL and long-string behavior are part of the design.
 - Android/device proof is required before claiming production UI completion.
 
-## P25 execution checkpoint — 92%
+## P25 execution checkpoint — 94%
 
 Implemented on `main`:
-- Replaced the legacy screenshot/gallery-style journey with a real interactive prototype and added a second premium presentation surface in `web-preview/game-premium.html`.
-- Implemented a stronger full-screen cinematic composition in `web-preview/game-premium.html`: atmospheric realm backdrop, framed event/consequence scenes, illustrated character/faction treatments, map/evidence/history surfaces, and persistent game navigation.
-- Repository root and `web-preview/index.html` now enter the premium game surface directly; the legacy review/landing surface is no longer the intended entry.
-- Bound the playable proof to canonical E01, E02 and E05 content/effects; canonical People are Mara, Rowan, Seris, Ivo, Amara and Toma.
-- Institutional vocabulary is limited to Crown, Commons, Noble, Guild, Border / Security and Civic / Medical.
-- Added interactive People, institutional positions, Investigation, History, Kingdom and Settings surfaces.- Added persistent prototype state, choice/consequence flow, large text, RTL preview, reduced-motion control, safe-area-aware layout and compact/expanded responsive behavior.
-- Added `tools/p25_interactive_visual_gate.mjs` and `.github/workflows/p25-interactive-visual-gate.yml` to exercise the journey and responsive layouts.
+- Real interactive premium game surface remains the intended P25 entry.
+- Canonical E01, E02 and E05 playable flow is preserved.
+- Canonical People: Mara, Rowan, Seris, Ivo, Amara and Toma.
+- Canonical institutional vocabulary: Crown, Commons, Noble, Guild, Border / Security and Civic / Medical.
+- People and institutional detail dialogs are keyboard accessible and explicitly preserve canon boundaries.
+- Settings preferences (large text, RTL, reduced motion and theme) persist across reloads.
+- Responsive compact/expanded presentation and safe-area-aware composition remain implemented.
+- Automated P25 gate covers the cross-screen journey, canonical-content boundaries, accessibility preferences and responsive screenshots.
 
 Remaining evidence before P25 can reach 100%:
-- completed green P25 GitHub Actions validation run — **PASS**, run #10 / ID `35398573836`;
-- responsive proof artifact generated and uploaded successfully as `p25-responsive-proof-35398573836` (2 PNGs; artifact ID `10569238183`);
-- live Vercel deployment verification against the frozen three-reference set;
-- final cross-screen visual regression sign-off with no remaining visual drift after the new visual implementation.
+- latest V2 gate must be executed and verified green after the current implementation;
+- live Vercel deployment verification against the frozen reference set;
+- final cross-screen visual regression sign-off with no material visual drift.
 
-**P25 remains OPEN at 92% after the second premium visual-composition implementation pass.**
+**P25 remains OPEN at 94%.**
 
-## P25 sub-block execution map — current 92%
+## P25 sub-block execution map — current 94%
 
 | P25 sub-block | Current | Evidence / remaining work |
 |---|---:|---|
-| 25.1 Visual game shell / cinematic composition | 96% | Implemented in `game-flow.html`; final visual comparison against approved references remains |
-| 25.2 Main menu / first impression | 95% | Real game launcher now opens the game surface; final reference comparison remains |
+| 25.1 Visual game shell / cinematic composition | 97% | Full-screen cinematic shell implemented; final frozen-reference visual review remains |
+| 25.2 Main menu / first impression | 96% | Premium launcher implemented; deployed visual proof remains |
 | 25.3 Event / situation scene | 96% | E01/E02/E05 cinematic event presentation implemented |
 | 25.4 Choice chamber / decision interaction | 95% | Choice states, touch targets and canonical effects implemented |
 | 25.5 Consequence / memory reveal | 95% | Consequence state and decision memory implemented |
 | 25.6 Kingdom / realm presentation | 94% | Realm scene, nodes and resource layer implemented; final visual refinement remains |
-| 25.7 People / character presentation | 92% | Six canonical People implemented; production-grade art identity remains the main visual gap |
-| 25.8 Factions / institutional presentation | 92% | Six canonical institutional positions implemented; final visual identity treatment remains |
-| 25.9 Investigation / evidence board | 94% | Evidence threads and four authored routes implemented |
+| 25.7 People / character presentation | 95% | Six canonical People and accessible detail presentation implemented; production-grade character art remains a visual gap |
+| 25.8 Factions / institutional presentation | 95% | Six canonical institutional positions implemented; final visual identity treatment remains |
+| 25.9 Investigation / evidence board | 94% | Evidence threads and authored routes implemented; final visual comparison remains |
 | 25.10 History / decision chronicle | 95% | Timeline and recorded choices implemented |
 | 25.11 Endings / resolution landing | 93% | Resolution surface implemented without inventing an ending outcome |
-| 25.12 Settings / accessibility presentation | 95% | Large text, RTL, reduced motion, theme and reset implemented |
-| 25.13 Navigation / information architecture | 95% | Persistent cross-screen navigation implemented |
-| 25.14 Responsive / safe-area composition | 94% | Compact and expanded layouts implemented; live-device evidence remains |
-| 25.15 Visual regression / final acceptance | 72% | Automated gate updated; live Vercel/reference comparison still open |
+| 25.12 Settings / accessibility presentation | 98% | Large text, RTL, reduced motion, theme and persistent preferences implemented |
+| 25.13 Navigation / information architecture | 98% | Persistent cross-screen navigation implemented |
+| 25.14 Responsive / safe-area composition | 95% | Compact and expanded layouts implemented; live-device evidence remains |
+| 25.15 Visual regression / final acceptance | 72% | Automated coverage exists; latest post-change run and deployed visual/reference comparison remain |
 
-**P25 overall remains 92%.** The sub-blocks are diagnostic progress indicators and are not averaged into a new aggregate percentage. P25 reaches 100% only after the real deployed game passes the frozen-reference visual review and no material visual drift remains.
+**P25 overall remains 94%.** Sub-blocks are diagnostic and are not averaged into the overall percentage. P25 reaches 100% only after deployed visual review and final cross-screen regression sign-off.
 
 ## Next bottleneck
 
-P25 — Final premium polish / cross-screen QA. The second cinematic implementation pass is saved on `main`; regression/deployment evidence remains the closure bottleneck.
+P25 — Final premium polish / cross-screen QA. Implementation is saved on `main`; evidence and deployed visual review remain the closure bottleneck.
