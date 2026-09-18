@@ -27,15 +27,15 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - name: Set up Gradle 8.9
+      - name: Set up Gradle 8.11.1
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.11.1'
       - name: Assemble Android debug build
         working-directory: androidApp
         env:
-          GRADLE_OPTS: -Xmx6g -XX:MaxMetaspaceSize=1g
-        run: gradle :app:assembleDebug --stacktrace --no-daemon
+          GRADLE_OPTS: -Xmx4g -XX:MaxMetaspaceSize=1g -Dorg.gradle.workers.max=1
+        run: gradle :app:assembleDebug --stacktrace --no-daemon --max-workers=1
 
   android-device-classes:
     strategy:
@@ -64,7 +64,7 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - name: Set up Gradle 8.9
+      - name: Set up Gradle 8.11.1
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.11.1'
@@ -80,8 +80,8 @@ jobs:
           script: |
             adb shell wm size ${{ matrix.width }}x${{ matrix.height }}
             adb shell wm density ${{ matrix.density }}
-            gradle :app:assembleDebug
-            gradle :app:installDebug
+            gradle :app:assembleDebug --no-daemon --max-workers=1
+            gradle :app:installDebug --no-daemon --max-workers=1
             adb shell am force-stop com.choicekingdom.app
             adb shell am start -n com.choicekingdom.app/.MainActivity
             sleep 12
@@ -90,7 +90,7 @@ jobs:
             adb shell dumpsys activity activities | grep -q com.choicekingdom.app
             mkdir -p p24-evidence
             adb exec-out screencap -p > p24-evidence/${{ matrix.name }}.png
-            gradle :app:connectedDebugAndroidTest --tests com.choicekingdom.app.P24DeviceAdaptationTest
+            gradle :app:connectedDebugAndroidTest --tests com.choicekingdom.app.P24DeviceAdaptationTest --no-daemon --max-workers=1
       - name: Upload P24 device evidence
         if: always()
         uses: actions/upload-artifact@v4
