@@ -84,6 +84,16 @@ if (!(await page.getByText(/does not assign invented territory/).count())) fail(
 await page.getByRole('button',{name:'Close details'}).click();
 await page.getByRole('button',{name:'Investigation'}).click();
 await assertVisible('#investigation .board', 'investigation board');
+if (await page.locator('#investigation [data-evidence-index]').count() !== 4) fail('investigation route count mismatch');
+for (const n of ["Mara's route","Toma's route","Seris's route","Direct account route"]) if (!(await page.getByRole('button',{name:new RegExp(n)}).count())) fail('investigation route interaction missing '+n);
+await page.getByRole('button',{name:/Mara's route/}).focus();
+await page.keyboard.press('ArrowRight');
+if (!(await page.getByRole('button',{name:/Toma's route/}).evaluate(el=>document.activeElement===el))) fail('investigation keyboard navigation missing');
+await page.getByRole('button',{name:/Mara's route/}).click();
+if (!(await page.getByRole('dialog').isVisible())) fail('investigation detail dialog missing');
+if (!(await page.getByText(/canonical investigation anchor/).count())) fail('investigation canonical boundary missing');
+if ((await page.getByRole('dialog').getAttribute('aria-hidden')) !== 'false') fail('investigation dialog aria state missing');
+await page.getByRole('button',{name:'Close details'}).click();
 await page.getByRole('button',{name:'History'}).click();
 await assertVisible('#history .timeline', 'history timeline');
 await page.getByRole('button',{name:'Endings'}).click();
@@ -135,6 +145,10 @@ await page.getByRole('button',{name:'Close details'}).click();
 
 await page.getByRole('button',{name:'Investigation'}).click();
 for (const n of ["Mara's route","Toma's route","Seris's route","Direct account route"]) if (!(await page.getByText(n,{exact:true}).count())) fail('missing investigation route '+n);
+if (await page.locator('#investigation [data-evidence-index]').count() !== 4) fail('investigation evidence card count mismatch');
+await page.getByRole('button',{name:/Direct account route/}).click();
+if (!(await page.getByText(/presentation only and does not invent hidden connections/).count())) fail('investigation boundary text missing');
+await page.getByRole('button',{name:'Close details'}).click();
 await page.getByRole('button',{name:'History'}).click();
 if (!(await page.getByText('The First Petition',{exact:true}).count())) fail('history did not record E01');
 await page.getByRole('button',{name:'Endings'}).click();
