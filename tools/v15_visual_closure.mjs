@@ -239,12 +239,12 @@ for (const file of pages) {
         actions[2].click();
         const consequence=thread.textContent==='Winter pressure' && actions[2].getAttribute('aria-pressed')==='true' && actions[1].getAttribute('aria-pressed')==='false' && entries[2].classList.contains('active');
         const exclusive=actions.filter(b=>b.getAttribute('aria-pressed')==='true').length===1;
-        const responsive=/@media\\(max-width:760px\\)/.test(styleText) && /@media\\(max-width:420px\\)/.test(styleText);
-        const rtl=/html\\[dir=rtl\\]/.test(styleText);
+        const responsive=/@media\(max-width:760px\)/.test(styleText) && /@media\(max-width:420px\)/.test(styleText);
+        const rtl=/html\[dir=rtl\]/.test(styleText);
         const safe=/safe-area-inset/.test(styleText);
         const reduced=/prefers-reduced-motion:reduce/.test(styleText);
         const focus=/:focus-visible/.test(styleText);
-        const serif=/var\\(--ck-serif\\)/.test(styleText);
+        const serif=/var\(--ck-serif\)/.test(styleText);
         const cinematic=/radial-gradient/.test(styleText) && /linear-gradient/.test(styleText);
         const pass=result && consequence && exclusive && responsive && rtl && safe && reduced && focus && serif && cinematic;
         if(!pass) console.error('P12_DEBUG',JSON.stringify({result,consequence,exclusive,responsive,rtl,safe,reduced,focus,serif,cinematic,thread:thread.textContent,states:actions.map(b=>b.getAttribute('aria-pressed')),active:entries.map(e=>e.classList.contains('active'))}));
