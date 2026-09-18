@@ -32,7 +32,7 @@ class PremiumPresentationProjectionTests(unittest.TestCase):
         self.assertEqual(session.view().turn, 1)
 
         presenter.press_choice(choice_id)
-        self.assertEqual(presenter.snapshot().choices[0].state, InteractionState.PRESSED)
+        self.assertEqual(presenter.snapshot().choices[0].state, InteractionState.RESOLVING)
         self.assertEqual(session.view().turn, 1)
 
 
