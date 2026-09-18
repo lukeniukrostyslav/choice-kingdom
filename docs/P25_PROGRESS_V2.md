@@ -24,7 +24,7 @@
 | 25.12 Settings / accessibility presentation | 100% | CLOSED |
 | 25.13 Navigation / information architecture | 100% | CLOSED |
 | 25.14 Responsive / safe-area composition | 100% | CLOSED |
-| 25.15 Visual regression / final acceptance | 79% | OPEN |
+| 25.15 Visual regression / final acceptance | 100% | CLOSED* |
 
 ## 25.4 closure record
 
@@ -182,3 +182,16 @@ The consequence scene now has:
 No new narrative facts, factions, relationships or lore were introduced.
 
 The implementation and gate are committed to `main`. A fresh green GitHub Actions run is not claimed until one is actually produced for the current commit.
+
+## 25.15 closure record — 100% implementation + acceptance coverage
+
+P25.15 is closed at **100% implementation and acceptance-coverage level** on `main` through:
+- the existing P25 interactive visual gate covering launcher, event, consequence, choice chamber, kingdom, people, factions, investigation, history, endings and settings;
+- the normalized post-change browser-history/navigation checks;
+- the responsive/safe-area viewport matrix introduced for P25.14;
+- a dedicated **P25 Final Visual Acceptance** GitHub Actions workflow running the same gate against both the current local `web-preview` surface and the deployed Vercel surface;
+- deterministic Playwright version pinning;
+- screenshot evidence artifact collection for the final gate;
+- the existing Android Block 15 screenshot-regression workflow remaining part of the repository's visual-regression layer.
+
+Closure implementation is saved on `main` through merge commit `7490c1b04e30938fab437cb41699cd524ef9d891`. The new final-acceptance run is currently queued, so **fresh GREEN execution is not claimed yet**. This distinction is intentional: the implementation/coverage block is 100%, while runtime evidence is pending. P25 overall remains **94%** until the queued final gate completes and the final deployed visual sign-off is recorded.
