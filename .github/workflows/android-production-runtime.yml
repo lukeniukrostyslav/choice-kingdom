@@ -90,8 +90,8 @@ jobs:
           yes | "$SDKMANAGER" --licenses >/dev/null || true
           "$SDKMANAGER" "platform-tools" "emulator" "system-images;android-35;google_apis;x86_64"
           echo "no" | "$AVDMANAGER" create avd --force --name "p24-${{ matrix.name }}" --package "system-images;android-35;google_apis;x86_64" --device "pixel_2"
-          printf '%s
-'             'hw.cpu.ncore=2'             'hw.ramSize=4096'             'hw.gpu.mode=swiftshader_indirect'             'hw.keyboard=yes'             >> "$HOME/.android/avd/p24-${{ matrix.name }}.avd/config.ini"
+          printf '%s\\n' \
+            'hw.cpu.ncore=2'             'hw.ramSize=4096'             'hw.gpu.mode=swiftshader_indirect'             'hw.keyboard=yes'             >> "$HOME/.android/avd/p24-${{ matrix.name }}.avd/config.ini"
       - name: Run P24 Android execution
         env:
           GRADLE_OPTS: -Xmx8g -XX:MaxMetaspaceSize=2g -Dorg.gradle.jvmargs="-Xmx8g -XX:MaxMetaspaceSize=2g" -Dorg.gradle.workers.max=1
