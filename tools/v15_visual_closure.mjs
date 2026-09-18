@@ -14,7 +14,8 @@ const pages = [
   'design-crisis-p15-premium.html',
   'design-ending-p16-premium.html',
   'design-replay-p17-premium.html',
-  'design-navigation-p19-premium.html'
+  'design-navigation-p19-premium.html',
+  'design-v2/p1-visual-anchor.html'
 ];
 const viewports = [
   { name: '360x800', width: 360, height: 800 },
@@ -93,6 +94,27 @@ for (const file of pages) {
     const commonPass = Boolean(response?.ok()) && !metrics.horizontalOverflow && metrics.text > 0 && metrics.brokenImages === 0 && metrics.smallTargets === 0 && metrics.unlabeledControls === 0 && metrics.clippedText === 0 && consoleErrors.length === 0 && pageErrors.length === 0 && failedRequests.length === 0;
     const appPass = metrics.pageType !== 'app-flow' || (metrics.hasSkipLink && metrics.hasLiveRegion && metrics.hasNavLabel && metrics.hasFocusVisible && metrics.hasReducedMotion && metrics.hasThemeState && metrics.hasRtl && metrics.hasViewportMeta);
     const launcherPass = metrics.pageType !== 'launcher' || (metrics.hasThemeState && metrics.hasViewportMeta);
+    let p1v2Pass = true;
+    if (file === 'design-v2/p1-visual-anchor.html') {
+      p1v2Pass = await page.evaluate(() => {
+        const root = document.documentElement;
+        const hero = document.querySelector('.hero');
+        const title = document.querySelector('#title');
+        const choice = document.querySelector('.choice');
+        const styleText = [...document.querySelectorAll('style')].map(s => s.textContent || '').join('\n');
+        if (!hero || !title || !choice) return false;
+        const vars = ['--night','--ink','--gold','--panel','--line'].every(v => getComputedStyle(root).getPropertyValue(v).trim());
+        const serif = /Georgia/.test(styleText);
+        const cinematic = /radial-gradient/.test(styleText) && /linear-gradient/.test(styleText);
+        const responsive = /@media\(max-width:620px\)/.test(styleText);
+        const rtl = /html\[dir=rtl\]/.test(styleText);
+        const safe = /safe-area-inset/.test(styleText);
+        const reduced = /prefers-reduced-motion:reduce/.test(styleText);
+        const focus = /:focus-visible/.test(styleText);
+        const choiceLabel = choice.getAttribute('aria-label');
+        return vars && serif && cinematic && responsive && rtl && safe && reduced && focus && Boolean(choiceLabel) && title.textContent.trim().length > 0;
+      });
+    }
     let p21Pass = true;
     if (file === 'design-accessibility-final.html') {
       p21Pass = await page.evaluate(() => {
@@ -160,7 +182,7 @@ for (const file of pages) {
         return largePass && rtlPass && resetPass;
       });
     }
-    const pass = commonPass && appPass && launcherPass && p1Pass && p21Pass && p19Pass;
+    const pass = commonPass && appPass && launcherPass && p1Pass && p21Pass && p19Pass && p1v2Pass;
     if (!pass) failures += 1;
     results.push({ file, viewport: vp.name, pass, p19Pass, p21Pass, ...metrics, consoleErrors, pageErrors, failedRequests });
     await context.close();
