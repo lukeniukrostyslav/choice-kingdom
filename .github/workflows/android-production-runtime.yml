@@ -47,3 +47,53 @@ jobs:
         run: gradle :app:assembleDebug --stacktrace
       - name: Verify APK was produced
         run: test -s app/build/outputs/apk/debug/app-debug.apk
+
+  p24-android-execution:
+    name: P24 ${{ matrix.name }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {name: compact-phone, width: 1080, height: 2400, density: 420}
+          - {name: tablet-window, width: 1920, height: 2560, density: 320}
+          - {name: expanded-window, width: 2688, height: 2800, density: 320}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: design/v2-p24-android-devices-2026-09-18
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.11.1"
+      - uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          target: google_apis
+          arch: x86_64
+          profile: pixel_2
+          emulator-options: -no-window -no-snapshot -noaudio -no-boot-anim
+          disable-animations: true
+          script: |
+            cd androidApp
+            adb shell wm size ${{ matrix.width }}x${{ matrix.height }}
+            adb shell wm density ${{ matrix.density }}
+            export GRADLE_OPTS="-Xmx4g -XX:MaxMetaspaceSize=1g -Dorg.gradle.workers.max=1"
+            gradle :app:assembleDebug -Pp24CiAbi=x86_64 --no-daemon --max-workers=1
+            gradle :app:installDebug -Pp24CiAbi=x86_64 --no-daemon --max-workers=1
+            adb shell am force-stop com.choicekingdom.app
+            adb shell am start -n com.choicekingdom.app/.MainActivity
+            sleep 12
+            adb shell dumpsys activity activities | grep -q com.choicekingdom.app
+            mkdir -p p24-evidence
+            adb exec-out screencap -p > p24-evidence/${{ matrix.name }}.png
+            gradle :app:connectedDebugAndroidTest --tests com.choicekingdom.app.P24DeviceAdaptationTest --no-daemon --max-workers=1
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p24-${{ matrix.name }}-evidence
+          path: androidApp/p24-evidence
+          if-no-files-found: warn
