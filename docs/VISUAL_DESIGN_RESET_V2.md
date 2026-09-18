@@ -72,8 +72,17 @@ V2 percentages measure only demonstrable progress toward the new visual implemen
 - P16: 100% — V2 implementation complete and verified by GitHub Actions V15 Visual Closure run #816 / ID `35362610255` (success)
 - P17: 100% — V2 replay/new-run implementation merged and verified
 - P18: 100% — V2 main-menu/launcher implementation merged and verified by V15 Visual Closure run #825 / ID `35363761412`
-- P19–P25: 0% — next blocks to rebuild sequentially
+- P19–P22: 100% — rebuilt on the V2 foundation and closed with executable regression evidence.
+- P23–P25: 0% — next blocks to rebuild sequentially
 
 ## Rule against invention
 
 Do not invent a competing visual direction. Where the reference does not specify a detail, choose the smallest neutral implementation that preserves its hierarchy, material language and atmosphere; do not introduce unrelated themes, palettes or dashboard-like patterns.
+
+
+## P19–P22 closure evidence
+
+- P19 Navigation / Information Architecture: 100%; V15 run #830 / ID `35365057432`; PR #20 merged into main.
+- P20 Motion / Micro-interactions / Feedback: 100%; V15 run #832 / ID `35365705371`; PR #21 merged into main.
+- P21 Accessibility / Touch / Focus: 100%; V2 proof closed and PR #22 merged into main.
+- P22 Localization / Long Strings / RTL: 100%; V15 run #839 / ID `35367143740` passed; PR #23 merged into main as `ed5c503c3f104d1f27b0a56de292148cb44644fc`.
