@@ -78,3 +78,5 @@ jobs:
           name: p24-${{ matrix.name }}-evidence
           path: androidApp/p24-evidence
           if-no-files-found: warn
+
+# P24 bridge trigger verification.
