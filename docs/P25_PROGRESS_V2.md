@@ -15,7 +15,7 @@
 | 25.3 Event / situation scene | 100% | CLOSED |
 | 25.4 Choice chamber / decision interaction | 100% | CLOSED |
 | 25.5 Consequence / memory reveal | 100% | CLOSED |
-| 25.6 Kingdom / realm presentation | 96% | OPEN |
+| 25.6 Kingdom / realm presentation | 100% | CLOSED |
 | 25.7 People / character presentation | 97% | OPEN |
 | 25.8 Factions / institutional presentation | 95% | OPEN |
 | 25.9 Investigation / evidence board | 96% | OPEN |
@@ -42,6 +42,23 @@ The choice chamber now has:
 - regression coverage for keyboard selection state.
 
 Canonical event/choice text and effects were not changed or invented.
+
+## 25.6 closure record
+
+The Kingdom / realm surface is now closed at 100% with:
+- canonical institutional vocabulary only: Crown, Commons, Noble, Guild, Border / Security, Civic / Medical;
+- removal of the non-canonical placeholder realm name from the presentation surface;
+- premium map composition with layered depth, atmospheric treatment, ring/path texture and restrained gold hierarchy;
+- six interactive institutional nodes with selected state and visible focus treatment;
+- keyboard left/right/up/down navigation between realm nodes;
+- current-run metrics for Resources, Trust, Security and Authority;
+- selected institutional context panel with an explicit canon boundary so visual placement does not imply territory, alliances, relationships or hidden state;
+- responsive compact composition for mobile widths;
+- dedicated gate coverage for node count, canonical labels, selection state, keyboard navigation, run metrics and non-canonical name leakage.
+
+No new kingdom names, territories, alliances, relationships, mottos or lore were invented.
+
+The implementation, gate hardening and progress record are committed to `main`. Final P25 acceptance remains open because fresh runtime/visual evidence and deployed proof are still required; no green CI or live Vercel verification is claimed without actual evidence.
 
 ## Verification boundary
 
