@@ -156,7 +156,7 @@ Execution order is strictly **1 → 2 → 3 → ... → 25**. A block is not con
 
 ## Premium Design P25 execution checkpoint — 92%
 - P1–P24 remain closed at 100%.
-- P25 is now 92%: the Vercel-facing web preview was converted from the legacy non-canonical journey into a real interactive prototype, and the executable P25 Interactive Visual Gate completed successfully.
+- P25 is now 93%: the Vercel-facing web preview was converted from the legacy non-canonical journey into a real interactive prototype, and the executable P25 Interactive Visual Gate completed successfully.
 - Canonical playable proof uses E01 → E02 → E05 and their repository-defined choice/effect vocabulary.
 - People surface uses only Mara, Rowan, Seris, Ivo, Amara and Toma; institutional surface uses only Crown, Commons, Noble, Guild, Border / Security and Civic / Medical.
 - Added interactive People, institutions, Investigation, History, Kingdom and Settings surfaces plus persistent prototype state, large text, RTL, reduced motion and responsive layout handling.
@@ -173,22 +173,22 @@ P25 is being tracked as a real game-visual implementation, not a documentation-o
 - 25.4 Choice chamber / decision interaction — **95%**
 - 25.5 Consequence / memory reveal — **95%**
 - 25.6 Kingdom / realm presentation — **94%**
-- 25.7 People / character presentation — **92%**
-- 25.8 Factions / institutional presentation — **92%**
+- 25.7 People / character presentation — **94%**
+- 25.8 Factions / institutional presentation — **94%**
 - 25.9 Investigation / evidence board — **94%**
 - 25.10 History / decision chronicle — **95%**
 - 25.11 Endings / resolution landing — **93%**
-- 25.12 Settings / accessibility presentation — **95%**
-- 25.13 Navigation / information architecture — **95%**
+- 25.12 Settings / accessibility presentation — **97%**
+- 25.13 Navigation / information architecture — **97%**
 - 25.14 Responsive / safe-area composition — **94%**
 - 25.15 Visual regression / final acceptance — **72%**
 
-These are diagnostic sub-block percentages and are not averaged into the overall P25 percentage. P25 remains **92%** until the real deployed game passes the frozen-reference visual review and final cross-screen regression sign-off.
+These are diagnostic sub-block percentages and are not averaged into the overall P25 percentage. P25 remains **93%** until the real deployed game passes the frozen-reference visual review and final cross-screen regression sign-off.
 
 The Vercel root launcher was also changed so the production root opens the actual interactive game surface rather than a documentation/review landing page.
 
 ## Premium Design P1–P25
-Canonical percentages are tracked in `docs/PREMIUM_DESIGN_MASTER_P1_P25.md`. Current V2 aggregate: **99.68%**. P1–P24 are closed at 100%; P25 is 92% and remains the only open premium-design block.
+Canonical percentages are tracked in `docs/PREMIUM_DESIGN_MASTER_P1_P25.md`. Current V2 aggregate: **99.72%**. P1–P24 are closed at 100%; P25 is 93% and remains the only open premium-design block.
 
 ## Honest progress rule
 Documentation never makes implementation complete. Every percentage requires authoritative evidence and applicable verification. Source/contract GREEN must never be reported as runtime gameplay GREEN. Owner-controlled physical Android QA, production signing and store publication remain open until actually performed.
