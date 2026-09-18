@@ -91,7 +91,7 @@ Remaining evidence before P25 can reach 100%:
 
 | P25 sub-block | Current | Evidence / remaining work |
 |---|---:|---|
-| 25.1 Visual game shell / cinematic composition | 98% | Full-screen cinematic shell implemented; final frozen-reference visual review remains |
+| 25.1 Visual game shell / cinematic composition | 99% | Cinematic vignette, atmospheric edge treatment, layered panel material and shell evidence screenshots are now implemented; final executed visual review remains |
 | 25.2 Main menu / first impression | 96% | Premium launcher implemented; deployed visual proof remains |
 | 25.3 Event / situation scene | 97% | E01/E02/E05 cinematic event presentation implemented |
 | 25.4 Choice chamber / decision interaction | 95% | Choice states, touch targets and canonical effects implemented |
