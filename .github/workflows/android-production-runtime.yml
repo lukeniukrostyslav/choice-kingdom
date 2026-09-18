@@ -49,8 +49,23 @@ jobs:
         env:
           GRADLE_OPTS: -Xmx8g -XX:MaxMetaspaceSize=2g -Dorg.gradle.jvmargs="-Xmx8g -XX:MaxMetaspaceSize=2g" -Dorg.gradle.workers.max=1
         run: gradle :app:assembleDebug -Pp24CiAbi=x86_64 --stacktrace --no-daemon --max-workers=1
-      - name: Verify APK was produced
-        run: test -s app/build/outputs/apk/debug/app-debug.apk
+      - name: Assemble P24 instrumentation APK
+        env:
+          GRADLE_OPTS: -Xmx8g -XX:MaxMetaspaceSize=2g -Dorg.gradle.jvmargs="-Xmx8g -XX:MaxMetaspaceSize=2g" -Dorg.gradle.workers.max=1
+        run: gradle :app:assembleDebugAndroidTest -Pp24CiAbi=x86_64 --stacktrace --no-daemon --max-workers=1
+      - name: Verify P24 APKs were produced
+        run: |
+          test -s app/build/outputs/apk/debug/app-debug.apk
+          test -s app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+      - name: Upload P24 APKs for device matrix
+        uses: actions/upload-artifact@v4
+        with:
+          name: p24-debug-apks
+          path: |
+            androidApp/app/build/outputs/apk/debug/app-debug.apk
+            androidApp/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+          if-no-files-found: error
+          retention-days: 14
 
   p24-android-execution:
     name: P24 ${{ matrix.name }}
@@ -75,6 +90,12 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: design/v2-p24-android-devices-2026-09-18
+
+      - name: Download prebuilt P24 APKs
+        uses: actions/download-artifact@v4
+        with:
+          name: p24-debug-apks
+          path: androidApp/app/build/outputs/apk
 
       - name: Enable KVM and install emulator runtime dependencies
         run: |
@@ -138,12 +159,8 @@ jobs:
           "$EMULATOR" -version
           SERIAL=emulator-5554
 
-          cd androidApp
-          export GRADLE_OPTS="-Xmx8g -XX:MaxMetaspaceSize=1g -Dorg.gradle.workers.max=1"
-          export JAVA_TOOL_OPTIONS="-Xmx8g"
-          gradle :app:assembleDebug -Pp24CiAbi=x86_64 --no-daemon --max-workers=1
-          test -f app/build/outputs/apk/debug/app-debug.apk
-          cd ..
+          test -s androidApp/app/build/outputs/apk/debug/app-debug.apk
+          test -s androidApp/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
 
           "$EMULATOR" -avd "p24-${{ matrix.name }}" -port 5554 -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -cores 2 -memory 2048 > "$RUNNER_TEMP/p24-emulator.log" 2>&1 &
           EMULATOR_PID=$!
@@ -179,7 +196,7 @@ jobs:
           "$ADB" -s "$SERIAL" shell dumpsys activity activities | grep -q com.choicekingdom.app
           mkdir -p p24-evidence
           "$ADB" -s "$SERIAL" exec-out screencap -p > "p24-evidence/${{ matrix.name }}.png"
-          gradle :app:connectedDebugAndroidTest --tests com.choicekingdom.app.P24DeviceAdaptationTest --no-daemon --max-workers=1
+          gradle :app:connectedDebugAndroidTest --tests com.choicekingdom.app.P24DeviceAdaptationTest --no-daemon --max-workers=1 -x :app:assembleDebug
 
       - if: always()
         uses: actions/upload-artifact@v4
