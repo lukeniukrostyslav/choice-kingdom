@@ -17,7 +17,8 @@ const pages = [
   'design-navigation-p19-premium.html',
   'design-v2/p1-visual-anchor.html',
   'design-v2/p6-choice-chamber-proof.html',
-  'design-v2/p7-event-situation-proof.html'
+  'design-v2/p7-event-situation-proof.html',
+  'design-v2/p8-character-presentation-proof.html'
 ];
 const viewports = [
   { name: '360x800', width: 360, height: 800 },
@@ -190,6 +191,32 @@ for (const file of pages) {
         return first && exclusive && responsive && rtl && safe && reduced && focus && serif && cinematic;
       });
     }
+    let p8Pass = true;
+    if (file === 'design-v2/p8-character-presentation-proof.html') {
+      p8Pass = await page.evaluate(() => {
+        const portrait = document.querySelector('.portrait');
+        const name = document.querySelector('#character-name');
+        const record = document.querySelector('#record-title');
+        const actions = [...document.querySelectorAll('.action')];
+        const state = document.querySelector('#state');
+        const status = document.querySelector('#status');
+        const styleText = [...document.querySelectorAll('style')].map(s => s.textContent || '').join('\n');
+        if (!portrait || !name || !record || actions.length !== 3 || !state || !status) return false;
+        if (!actions.every(b => b.getBoundingClientRect().height >= 48 && (b.textContent || '').trim())) return false;
+        actions[1].click();
+        const selected = state.textContent === 'Open' && actions[1].getAttribute('aria-pressed') === 'true' && status.textContent.includes('Open');
+        actions[2].click();
+        const exclusive = state.textContent === 'Strained' && actions[2].getAttribute('aria-pressed') === 'true' && actions[1].getAttribute('aria-pressed') === 'false';
+        const responsive = /@media\(max-width:760px\)/.test(styleText) && /@media\(max-width:420px\)/.test(styleText);
+        const rtl = /html\[dir=rtl\]/.test(styleText);
+        const safe = /safe-area-inset/.test(styleText);
+        const reduced = /prefers-reduced-motion:reduce/.test(styleText);
+        const focus = /:focus-visible/.test(styleText);
+        const serif = /var\(--ck-serif\)/.test(styleText);
+        const cinematic = /radial-gradient/.test(styleText) && /linear-gradient/.test(styleText);
+        return selected && exclusive && responsive && rtl && safe && reduced && focus && serif && cinematic;
+      });
+    }
     let p6Pass = true;
     if (file === 'design-v2/p6-choice-chamber-proof.html') {
       p6Pass = await page.evaluate(() => {
@@ -235,9 +262,9 @@ for (const file of pages) {
         return largePass && rtlPass && resetPass;
       });
     }
-    const pass = commonPass && appPass && launcherPass && p1Pass && p6Pass && p7Pass && p21Pass && p19Pass && p1v2Pass;
+    const pass = commonPass && appPass && launcherPass && p1Pass && p6Pass && p7Pass && p8Pass && p21Pass && p19Pass && p1v2Pass;
     if (!pass) failures += 1;
-    results.push({ file, viewport: vp.name, pass, p19Pass, p21Pass, p6Pass, p7Pass, ...metrics, consoleErrors, pageErrors, failedRequests });
+    results.push({ file, viewport: vp.name, pass, p19Pass, p21Pass, p6Pass, p7Pass, p8Pass, ...metrics, consoleErrors, pageErrors, failedRequests });
     await context.close();
   }
 }
