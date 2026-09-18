@@ -23,7 +23,7 @@
 | 25.11 Endings / resolution landing | 100% | CLOSED |
 | 25.12 Settings / accessibility presentation | 100% | CLOSED |
 | 25.13 Navigation / information architecture | 100% | CLOSED |
-| 25.14 Responsive / safe-area composition | 97% | OPEN |
+| 25.14 Responsive / safe-area composition | 100% | CLOSED |
 | 25.15 Visual regression / final acceptance | 79% | OPEN |
 
 ## 25.4 closure record
