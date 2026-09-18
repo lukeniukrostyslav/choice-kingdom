@@ -685,7 +685,12 @@ private fun ScreenNavigation(screens: List<AndroidScreenState>, selectedKey: Str
 private fun NavigationRail(screens: List<AndroidScreenState>, selectedKey: String, onSelect: (String) -> Unit, modifier: Modifier) {
     Card(modifier = modifier.padding(vertical = 18.dp), shape = RoundedCornerShape(26.dp), border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)) {
         Column(modifier = Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text(stringResource(R.string.avelune), fontSize = 20.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(10.dp))
+            Text(
+                stringResource(R.string.avelune),
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(10.dp).semantics { heading() },
+            )
             screens.forEach { screen ->
                 TextButton(
                     onClick = { onSelect(screen.key) },
