@@ -156,7 +156,7 @@ Execution order is strictly **1 → 2 → 3 → ... → 25**. A block is not con
 
 ## Premium Design P25 execution checkpoint — 92%
 - P1–P24 remain closed at 100%.
-- P25 is now 93%: the Vercel-facing web preview was converted from the legacy non-canonical journey into a real interactive prototype, and the executable P25 Interactive Visual Gate completed successfully.
+- P25 is now 94%: the Vercel-facing web preview was converted from the legacy non-canonical journey into a real interactive prototype, and the executable P25 Interactive Visual Gate completed successfully.
 - Canonical playable proof uses E01 → E02 → E05 and their repository-defined choice/effect vocabulary.
 - People surface uses only Mara, Rowan, Seris, Ivo, Amara and Toma; institutional surface uses only Crown, Commons, Noble, Guild, Border / Security and Civic / Medical.
 - Added interactive People, institutions, Investigation, History, Kingdom and Settings surfaces plus persistent prototype state, large text, RTL, reduced motion and responsive layout handling.
@@ -167,28 +167,28 @@ Execution order is strictly **1 → 2 → 3 → ... → 25**. A block is not con
 
 P25 is being tracked as a real game-visual implementation, not a documentation-only prototype.
 
-- 25.1 Visual game shell / cinematic composition — **96%**
-- 25.2 Main menu / first impression — **95%**
+- 25.1 Visual game shell / cinematic composition — **97%**
+- 25.2 Main menu / first impression — **96%**
 - 25.3 Event / situation scene — **96%**
 - 25.4 Choice chamber / decision interaction — **95%**
 - 25.5 Consequence / memory reveal — **95%**
 - 25.6 Kingdom / realm presentation — **94%**
-- 25.7 People / character presentation — **94%**
-- 25.8 Factions / institutional presentation — **94%**
+- 25.7 People / character presentation — **95%**
+- 25.8 Factions / institutional presentation — **95%**
 - 25.9 Investigation / evidence board — **94%**
 - 25.10 History / decision chronicle — **95%**
 - 25.11 Endings / resolution landing — **93%**
-- 25.12 Settings / accessibility presentation — **97%**
-- 25.13 Navigation / information architecture — **97%**
-- 25.14 Responsive / safe-area composition — **94%**
+- 25.12 Settings / accessibility presentation — **98%**
+- 25.13 Navigation / information architecture — **98%**
+- 25.14 Responsive / safe-area composition — **95%**
 - 25.15 Visual regression / final acceptance — **72%**
 
-These are diagnostic sub-block percentages and are not averaged into the overall P25 percentage. P25 remains **93%** until the real deployed game passes the frozen-reference visual review and final cross-screen regression sign-off.
+These are diagnostic sub-block percentages and are not averaged into the overall P25 percentage. P25 remains **94%** until the real deployed game passes the frozen-reference visual review and final cross-screen regression sign-off.
 
 The Vercel root launcher was also changed so the production root opens the actual interactive game surface rather than a documentation/review landing page.
 
 ## Premium Design P1–P25
-Canonical percentages are tracked in `docs/PREMIUM_DESIGN_MASTER_P1_P25.md`. Current V2 aggregate: **99.72%**. P1–P24 are closed at 100%; P25 is 93% and remains the only open premium-design block.
+Canonical percentages are tracked in `docs/PREMIUM_DESIGN_MASTER_P1_P25.md`. Current V2 aggregate: **99.76%**. P1–P24 are closed at 100%; P25 is 94% and remains the only open premium-design block.
 
 ## Honest progress rule
 Documentation never makes implementation complete. Every percentage requires authoritative evidence and applicable verification. Source/contract GREEN must never be reported as runtime gameplay GREEN. Owner-controlled physical Android QA, production signing and store publication remain open until actually performed.
@@ -242,3 +242,11 @@ Block 15 clarification (2026-09-18): the earlier historical notes above saying t
 - Saved checkpoint commit: `68a04980869f499673b6d9467801dd4b13d60e32` (`docs(P25): add V2 implementation checkpoint`).
 - Current latest main commit status exposes a Vercel check in **failure** state pointing to the Vercel account build-rate-limit page; this is deployment infrastructure evidence, not visual acceptance evidence.
 - No new green P25 Actions run is claimed from the available integration. P25 remains 93% until deployed visual review and final cross-screen regression sign-off are evidenced.
+
+
+## P25 V2 polish checkpoint — 2026-09-19
+- Added persistent presentation preferences for large text, RTL, reduced motion and light/dark mode.
+- Added subtle presentation polish to canonical People and institution cards without adding non-canonical lore or identity claims.
+- Extended the P25 browser gate to verify preference persistence after reload.
+- Saved implementation commits: `1e079d5e6ec74054df32137a8f3c325c20ad7a66` and `92681bc056434ca5e7ea203642b9467d4b13bbc8`.
+- Current P25: **94%**. P25.15 remains the evidence bottleneck at **72%** until deployed visual review and final cross-screen regression are evidenced.
