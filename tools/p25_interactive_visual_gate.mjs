@@ -245,5 +245,39 @@ await page.reload({waitUntil:'networkidle'});
 if (!(await page.getByRole('button',{name:'Start a new run'}).isVisible())) fail('compact premium launcher failed');
 await page.screenshot({path:'p25-v2-compact.png',fullPage:true});
 
+// P25.14 responsive/safe-area matrix: verify the real premium surface across phone, tablet and desktop window classes.
+const viewportMatrix = [
+  {width:320,height:568,label:'phone-320'},
+  {width:360,height:800,label:'phone-360'},
+  {width:412,height:915,label:'phone-412'},
+  {width:768,height:1024,label:'tablet-portrait'},
+  {width:1024,height:768,label:'tablet-landscape'},
+  {width:1440,height:1000,label:'desktop-expanded'}
+];
+for (const vp of viewportMatrix) {
+  await page.setViewportSize({width:vp.width,height:vp.height});
+  await page.goto(base+'/game-premium.html',{waitUntil:'networkidle'});
+  if (!(await page.getByRole('button',{name:'Start a new run'}).isVisible())) fail('responsive launcher missing: '+vp.label);
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1);
+  if (overflow) fail('responsive horizontal overflow: '+vp.label);
+  if (!(await page.locator('.wrap').count())) fail('responsive shell missing: '+vp.label);
+  await page.screenshot({path:'p25-14-'+vp.label+'.png',fullPage:true});
+}
+await page.goto(base+'/game-premium.html',{waitUntil:'networkidle'});
+const responsiveCss = await page.locator('style').allTextContents();
+const cssText = responsiveCss.join('\\n');
+for (const token of ['viewport-fit=cover','env(safe-area-inset-top)','env(safe-area-inset-right)','env(safe-area-inset-bottom)','env(safe-area-inset-left)','@media(max-width:900px)','@media(max-width:600px)','@media(orientation:landscape)']) {
+  if (!cssText.includes(token)) fail('responsive/safe-area contract missing: '+token);
+}
+await page.setViewportSize({width:390,height:844});
+await page.reload({waitUntil:'networkidle'});
+await page.getByRole('button',{name:'Start a new run'}).click();
+if (!(await page.locator('#event .choice-panel').isVisible())) fail('phone event choice chamber missing');
+if (await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1)) fail('phone event overflow');
+await page.setViewportSize({width:844,height:390});
+await page.reload({waitUntil:'networkidle'});
+if (!(await page.getByRole('button',{name:'Start a new run'}).isVisible())) fail('landscape launcher missing');
+if (await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1)) fail('landscape overflow');
+
 await browser.close();
 console.log('P25 interactive gate: PASS');
