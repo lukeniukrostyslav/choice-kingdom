@@ -39,6 +39,9 @@ jobs:
       - name: Run V15 executable visual closure
         run: node tools/v15_visual_closure.mjs
 
+      - name: Run P22 localization RTL closure
+        run: node tools/p22_localization_rtl_gate.mjs
+
       - name: Upload V15 evidence
         if: always()
         uses: actions/upload-artifact@v4
