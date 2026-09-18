@@ -24,7 +24,8 @@ const pages = [
   'design-v2/p11-consequences-proof.html',
   'design-v2/p12-history-decision-memory-proof.html',
   'design-v2/p13-relationships-proof.html',
-  'design-v2/p14-investigation-proof.html'
+  'design-v2/p14-investigation-proof.html',
+  'design-v2/p15-crisis-high-stakes-proof.html'
 ];
 const viewports = [
   { name: '360x800', width: 360, height: 800 },
@@ -239,6 +240,35 @@ for (const file of pages) {
         return open&&strained&&exclusive&&responsive&&rtl&&safe&&reduced&&focus&&serif&&cinematic;
       });
     }
+    let p15Pass = true;
+    if (file === 'design-v2/p15-crisis-high-stakes-proof.html') {
+      p15Pass = await page.evaluate(() => {
+        const surface=document.querySelector('.surface');
+        const impacts=[...document.querySelectorAll('.impact')];
+        const actions=[...document.querySelectorAll('.action')];
+        const status=document.querySelector('#status');
+        const urgency=document.querySelector('.urgency');
+        const styleText=[...document.querySelectorAll('style')].map(s=>s.textContent||'').join('\n');
+        if(!surface || impacts.length!==3 || actions.length!==4 || !status || !urgency) return false;
+        if(!actions.every(b=>b.getBoundingClientRect().height>=48 && (b.textContent||'').trim())) return false;
+        actions[0].click();
+        const first=status.textContent.includes('Raise the eastern gate')&&actions[0].getAttribute('aria-pressed')==='true';
+        actions[3].click();
+        const second=status.textContent.includes('Call the council')&&actions[3].getAttribute('aria-pressed')==='true'&&actions[0].getAttribute('aria-pressed')==='false';
+        const exclusive=actions.filter(b=>b.getAttribute('aria-pressed')==='true').length===1;
+        const hierarchy=document.querySelector('#crisis-title')?.textContent.trim()==='The lower wards are flooding';
+        const urgencyPass=document.body.innerText.includes('Act before the next watch.');
+        const previewPass=document.body.innerText.includes('Evacuation strain')&&document.body.innerText.includes('Grain reserves')&&document.body.innerText.includes('Council tension');
+        const responsive=/@media\(max-width:760px\)/.test(styleText)&&/@media\(max-width:420px\)/.test(styleText);
+        const rtl=/html\[dir=rtl\]/.test(styleText);
+        const safe=/safe-area-inset/.test(styleText);
+        const reduced=/prefers-reduced-motion:reduce/.test(styleText);
+        const focus=/:focus-visible/.test(styleText);
+        const serif=/var\(--ck-serif\)/.test(styleText);
+        const cinematic=/radial-gradient/.test(styleText)&&/linear-gradient/.test(styleText);
+        return first&&second&&exclusive&&hierarchy&&urgencyPass&&previewPass&&responsive&&rtl&&safe&&reduced&&focus&&serif&&cinematic;
+      });
+    }
     let p14Pass = true;
     if (file === 'design-v2/p14-investigation-proof.html') {
       p14Pass = await page.evaluate(() => {
@@ -418,9 +448,9 @@ for (const file of pages) {
         return largePass && rtlPass && resetPass;
       });
     }
-    const pass = commonPass && appPass && launcherPass && p1Pass && p6Pass && p7Pass && p8Pass && p9Pass && p10Pass && p11Pass && p12Pass && p13Pass && p14Pass && p21Pass && p19Pass && p1v2Pass;
+    const pass = commonPass && appPass && launcherPass && p1Pass && p6Pass && p7Pass && p8Pass && p9Pass && p10Pass && p11Pass && p12Pass && p13Pass && p14Pass && p15Pass && p21Pass && p19Pass && p1v2Pass;
     if (!pass) failures += 1;
-    results.push({ file, viewport: vp.name, pass, p19Pass, p21Pass, p6Pass, p7Pass, p8Pass, p9Pass, p10Pass, p11Pass, p12Pass, p13Pass, p14Pass, ...metrics, consoleErrors, pageErrors, failedRequests });
+    results.push({ file, viewport: vp.name, pass, p19Pass, p21Pass, p6Pass, p7Pass, p8Pass, p9Pass, p10Pass, p11Pass, p12Pass, p13Pass, p14Pass, p15Pass, ...metrics, consoleErrors, pageErrors, failedRequests });
     await context.close();
   }
 }
