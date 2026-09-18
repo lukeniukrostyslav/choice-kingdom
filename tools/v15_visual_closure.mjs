@@ -8,7 +8,8 @@ const pages = [
   'design-art-direction.html',
   'design-asset-production.html',
   'design-accessibility-final.html',
-  'design-character-faction-final.html'
+  'design-character-faction-final.html',
+  'design-relationships-p13-premium.html'
 ];
 const viewports = [
   { name: '360x800', width: 360, height: 800 },
