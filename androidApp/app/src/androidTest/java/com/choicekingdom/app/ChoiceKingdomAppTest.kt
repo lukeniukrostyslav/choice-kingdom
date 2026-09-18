@@ -3,6 +3,7 @@ package com.choicekingdom.app
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasStateDescription
 import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.performClick
 import org.junit.Rule
@@ -34,6 +35,21 @@ class ChoiceKingdomAppTest {
             composeRule.onNode(hasText(destination, substring = false)).performClick()
             composeRule.onNode(hasText(destination.uppercase())).assertIsDisplayed()
         }
+    }
+
+    @Test
+    fun navigationExposesCurrentScreenSemantics() {
+        composeRule.onNode(hasStateDescription("Current screen").and(hasText("Event"))).assertIsDisplayed()
+        composeRule.onNode(hasText("Settings", substring = false)).performClick()
+        composeRule.onNode(hasStateDescription("Current screen").and(hasText("Settings"))).assertIsDisplayed()
+    }
+
+    @Test
+    fun audioControlsExposeReadableValues() {
+        composeRule.onNode(hasText("Settings", substring = false)).performClick()
+        composeRule.onNode(hasContentDescription("Master volume 100 percent")).assertIsDisplayed()
+        composeRule.onNode(hasContentDescription("Ambient volume 35 percent")).assertIsDisplayed()
+        composeRule.onNode(hasContentDescription("Music volume 55 percent")).assertIsDisplayed()
     }
 
     private infix fun androidx.compose.ui.test.SemanticsMatcher.and(other: androidx.compose.ui.test.SemanticsMatcher): androidx.compose.ui.test.SemanticsMatcher =
