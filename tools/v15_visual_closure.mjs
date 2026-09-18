@@ -246,9 +246,7 @@ for (const file of pages) {
         const focus=/:focus-visible/.test(styleText);
         const serif=/var\(--ck-serif\)/.test(styleText);
         const cinematic=/radial-gradient/.test(styleText) && /linear-gradient/.test(styleText);
-        const pass=result && consequence && exclusive && responsive && rtl && safe && reduced && focus && serif && cinematic;
-        if(!pass) console.error('P12_DEBUG',JSON.stringify({result,consequence,exclusive,responsive,rtl,safe,reduced,focus,serif,cinematic,thread:thread.textContent,states:actions.map(b=>b.getAttribute('aria-pressed')),active:entries.map(e=>e.classList.contains('active'))}));
-        return pass;
+        return result && consequence && exclusive && responsive && rtl && safe && reduced && focus && serif && cinematic;
       });
     }
     let p11Pass = true;
