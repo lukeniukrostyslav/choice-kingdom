@@ -192,7 +192,7 @@ const events=[
 {label:'Follow Court Protocol',detail:'+2 power · +1 Seris',effects:{power:2,Seris:1},flag:'court_first',next:'E02'}]},
 {id:'E02',title:'The Empty Chair',text:'Mara points out that the former chancellor left an unsigned emergency decree on the council table.',choices:[
 {label:'Sign it provisionally',detail:'+3 power · -2 trust',effects:{power:3,trust:-2},flag:'emergency_decree_used',next:'E05'},
-{label:'Archive it and investigate',detail:'+2 Mara · -2 power',effects:{mara:2,power:-2},flag:'decree_investigation',next:'E05'}]},
+{label:'Archive it and investigate',detail:'+2 Mara · -2 power',effects:{Mara:2,power:-2},flag:'decree_investigation',next:'E05'}]},
 {id:'E05',title:"A Captain's Warning",text:'Rowan reports missing patrol supplies.',choices:[
 {label:'Audit the guard',detail:'+2 security after one turn · -1 Rowan',effects:{security:2,rowan:-1},flag:'guard_audit',next:'done'},
 {label:'Give Rowan emergency authority',detail:'+6 security · +2 Rowan · -2 power',effects:{security:6,rowan:2,power:-2},flag:'emergency_guard_authority',next:'done'}]}];
