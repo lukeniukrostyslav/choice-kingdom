@@ -68,7 +68,8 @@ V2 percentages measure only demonstrable progress toward the new visual implemen
 ## Current V2 baseline
 
 - P1–P14: 100% — rebuilt on the V2 visual foundation and closed with executable regression evidence
-- P15–P25: 0% — next blocks to rebuild sequentially
+- P15: 90% — V2 implementation complete at the surface-contract level; V15 regression verification pending
+- P16–P25: 0% — next blocks to rebuild sequentially
 
 ## Rule against invention
 
