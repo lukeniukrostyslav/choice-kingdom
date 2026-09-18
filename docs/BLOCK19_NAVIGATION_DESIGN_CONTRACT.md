@@ -25,6 +25,9 @@ Current implementation commits:
 - `9da6df3a9ba2062c1107125e3cbb39bdc4eb48f9` — explicit active-journey hierarchy.
 - `72ec34948301243755ef45ae40509314798410b3` — made ACTIVE THREAD explicit in visible navigation content.
 - `54e26ade15363e4958645e59aa7c607336d1e289` — strengthened skip-target spacing and long-label wrapping.
+- `4484fe8d9a3a7b54e4519d5f1d1b1ef9abc3e400` — added navigation-context semantics with `aria-describedby`.
+- `38cbe0c6a5311cc3e3940495a227d1d589bc45b6` — hardened long-label wrapping and return-navigation labeling.
+- `5067abbefc342784c298ab24ed32df6b82f87a92` — added executable V15 checks for P19 target sizing and long-label overflow.
 
 ## Closure rule
 P19 must not be marked 100% until the post-change V15 cross-viewport regression run is observed green. This contract alone is not closure evidence.
