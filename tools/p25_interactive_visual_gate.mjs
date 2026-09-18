@@ -5,9 +5,8 @@ const browser = await chromium.launch({headless:true});
 const page = await browser.newPage({viewport:{width:390,height:844}, reducedMotion:'reduce'});
 const fail = msg => { throw new Error('P25 gate: '+msg); };
 
-await page.goto(base+'/index.html', {waitUntil:'networkidle'});
-if (!(await page.getByText('Enter the interactive kingdom').count())) fail('launcher missing interactive entry');
-await page.getByText('Enter the interactive kingdom').click();
+await page.goto(base+'/game-premium.html', {waitUntil:'networkidle'});
+if (!(await page.getByRole('button',{name:'Start a new run'}).count())) fail('premium launcher missing');
 await page.getByRole('button',{name:'Start a new run'}).click();
 if ((await page.locator('#eventTitle').textContent()) !== 'The First Petition') fail('E01 not rendered');
 await page.getByRole('button',{name:/Open the Hall/}).click();
