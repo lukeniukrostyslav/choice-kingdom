@@ -18,6 +18,8 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.13'
+      - name: Install pytest
+        run: python -m pip install --upgrade pip pytest
       - name: Run P24 source contract
         run: python -m pytest -q tests/test_p24_android_device_adaptation_contract.py
       - name: Set up Java 17
