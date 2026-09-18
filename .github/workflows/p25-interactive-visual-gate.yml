@@ -1,0 +1,40 @@
+name: Choice Kingdom P25 Interactive Visual Gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  p25-interactive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install Playwright
+        run: npm install --no-save playwright
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Serve P25 preview
+        run: python3 -m http.server 4173 --directory web-preview >/tmp/p25-server.log 2>&1 &
+      - name: Run P25 interactive gate
+        run: node tools/p25_interactive_visual_gate.mjs
+      - name: Upload P25 responsive screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p25-responsive-proof-${{ github.run_id }}
+          path: |
+            p25-expanded.png
+            p25-compact.png
+          if-no-files-found: ignore
