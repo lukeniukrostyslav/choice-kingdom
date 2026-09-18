@@ -22,8 +22,17 @@ if (!(await page.locator('#kingdom').evaluate(el=>el.classList.contains('active'
 
 await page.getByRole('button',{name:'People'}).click();
 for (const n of ['Mara','Rowan','Seris','Ivo','Amara','Toma']) if (!(await page.getByText(n,{exact:true}).count())) fail('missing canonical person '+n);
+await page.getByRole('article',{name:/Open canonical details for Mara/}).click();
+if (!(await page.getByRole('dialog').isVisible())) fail('people detail dialog missing');
+if (!(await page.getByRole('heading',{name:'Mara'}).count())) fail('Mara detail missing');
+await page.getByRole('button',{name:'Close details'}).click();
+
 await page.getByRole('button',{name:'Factions'}).click();
 for (const n of ['Crown','Commons','Noble','Guild','Border / Security','Civic / Medical']) if (!(await page.getByText(n,{exact:true}).count())) fail('missing canonical institution '+n);
+await page.getByRole('article',{name:/Open canonical details for Crown/}).click();
+if (!(await page.getByText(/does not assign invented territory/).count())) fail('institution canon boundary missing');
+await page.getByRole('button',{name:'Close details'}).click();
+
 await page.getByRole('button',{name:'Investigation'}).click();
 for (const n of ["Mara's route","Toma's route","Seris's route","Direct account route"]) if (!(await page.getByText(n,{exact:true}).count())) fail('missing investigation route '+n);
 await page.getByRole('button',{name:'History'}).click();
@@ -40,12 +49,13 @@ const body = await page.locator('body').innerText();
 for (const forbidden of ['Queen Elira','Lord Cael','River Compact','Arwen Vale','The Empty Granary','Royal Capital','Northern Marches','The Church','Trade Guilds','Southern Reach','Eastern Realms']) if (body.includes(forbidden)) fail('non-canonical legacy text leaked: '+forbidden);
 
 await page.setViewportSize({width:1440,height:1000});
-await page.goto(base+'/game-flow.html',{waitUntil:'networkidle'});
-if (!(await page.locator('.app').isVisible())) fail('expanded layout failed');
-await page.screenshot({path:'p25-expanded.png',fullPage:true});
+await page.goto(base+'/game-premium.html',{waitUntil:'networkidle'});
+if (!(await page.getByRole('button',{name:'Start a new run'}).isVisible())) fail('expanded premium launcher failed');
+await page.screenshot({path:'p25-v2-expanded.png',fullPage:true});
 await page.setViewportSize({width:360,height:800});
 await page.reload({waitUntil:'networkidle'});
-await page.screenshot({path:'p25-compact.png',fullPage:true});
+if (!(await page.getByRole('button',{name:'Start a new run'}).isVisible())) fail('compact premium launcher failed');
+await page.screenshot({path:'p25-v2-compact.png',fullPage:true});
 
 await browser.close();
 console.log('P25 interactive gate: PASS');
