@@ -154,8 +154,17 @@ Execution order is strictly **1 → 2 → 3 → ... → 25**. A block is not con
 - APK / AAB: **0%**
 - Release / Store: **0%**
 
+## Premium Design P25 execution checkpoint — 70%
+- P1–P24 remain closed at 100%.
+- P25 is now 70%: the Vercel-facing web preview was converted from the legacy non-canonical journey into a real interactive prototype.
+- Canonical playable proof uses E01 → E02 → E05 and their repository-defined choice/effect vocabulary.
+- People surface uses only Mara, Rowan, Seris, Ivo, Amara and Toma; institutional surface uses only Crown, Commons, Noble, Guild, Border / Security and Civic / Medical.
+- Added interactive People, institutions, Investigation, History, Kingdom and Settings surfaces plus persistent prototype state, large text, RTL, reduced motion and responsive layout handling.
+- Added tools/p25_interactive_visual_gate.mjs and .github/workflows/p25-interactive-visual-gate.yml.
+- P25 closure is NOT claimed yet: a completed green validation run, responsive proof review, live Vercel verification and final cross-screen visual regression sign-off remain open.
+
 ## Premium Design P1–P25
-Canonical percentages are tracked in `docs/PREMIUM_DESIGN_MASTER_P1_P25.md`. Current V2 aggregate: **96.00%**. P1–P24 are closed at 100%; P25 is the only remaining open premium-design block and must be completed next.
+Canonical percentages are tracked in `docs/PREMIUM_DESIGN_MASTER_P1_P25.md`. Current V2 aggregate: **98.80%**. P1–P24 are closed at 100%; P25 is 70% and remains the only open premium-design block.
 
 ## Honest progress rule
 Documentation never makes implementation complete. Every percentage requires authoritative evidence and applicable verification. Source/contract GREEN must never be reported as runtime gameplay GREEN. Owner-controlled physical Android QA, production signing and store publication remain open until actually performed.
