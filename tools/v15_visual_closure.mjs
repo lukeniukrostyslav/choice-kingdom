@@ -481,9 +481,9 @@ for (const file of pages) {
         return largePass && rtlPass && resetPass;
       });
     }
-    const pass = commonPass && appPass && launcherPass && p1Pass && p6Pass && p7Pass && p8Pass && p9Pass && p10Pass && p11Pass && p12Pass && p13Pass && p14Pass && p15Pass && p21Pass && p19Pass && p1v2Pass;
+    const pass = commonPass && appPass && launcherPass && p1Pass && p6Pass && p7Pass && p8Pass && p9Pass && p10Pass && p11Pass && p12Pass && p13Pass && p14Pass && p15Pass && p16Pass && p21Pass && p19Pass && p1v2Pass;
     if (!pass) failures += 1;
-    results.push({ file, viewport: vp.name, pass, p19Pass, p21Pass, p6Pass, p7Pass, p8Pass, p9Pass, p10Pass, p11Pass, p12Pass, p13Pass, p14Pass, p15Pass, ...metrics, consoleErrors, pageErrors, failedRequests });
+    results.push({ file, viewport: vp.name, pass, p19Pass, p21Pass, p6Pass, p7Pass, p8Pass, p9Pass, p10Pass, p11Pass, p12Pass, p13Pass, p14Pass, p15Pass, p16Pass, ...metrics, consoleErrors, pageErrors, failedRequests });
     await context.close();
   }
 }
