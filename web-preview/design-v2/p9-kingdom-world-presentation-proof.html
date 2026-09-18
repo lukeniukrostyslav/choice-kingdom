@@ -31,7 +31,7 @@ main{width:min(1120px,100%);margin:auto;padding:max(20px,calc(20px + env(safe-ar
 <div class="relationship"><div class="label">World state</div><p>The eastern road is open, while winter still shapes travel and supply.</p></div>
 <div class="state"><div><div class="label">Current condition</div><strong id="state">Winter roads</strong></div><span class="dot" aria-hidden="true"></span></div>
 <div class="actions" role="group" aria-label="Presentation condition"><button class="action" aria-pressed="false" data-state="Winter roads">Guarded</button><button class="action" aria-pressed="false" data-state="Clear">Open</button><button class="action" aria-pressed="false" data-state="Blocked">Strained</button></div>
-<p id="status" class="status" role="status" aria-live="polite">Current realm condition: <strong>Guarded</strong>.</p>
+<p id="status" class="status" role="status" aria-live="polite">Current realm condition: <strong>Winter roads</strong>.</p>
 <p class="note">Presentation proof only: world identity, regional context and condition are rendered without creating new gameplay rules. Runtime remains canonical.</p>
 </aside></section></main>
 <script>const state=document.querySelector('#state'),status=document.querySelector('#status');document.querySelectorAll('.action').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.action').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');const value=b.dataset.state;state.textContent=value;status.innerHTML='Current realm condition: <strong>'+value+'</strong>.';}));</script>
