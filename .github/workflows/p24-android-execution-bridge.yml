@@ -60,8 +60,8 @@ jobs:
           disable-animations: true
           script: |
             cd androidApp
-            adb shell wm size \${{ matrix.width }}x\${{ matrix.height }}
-            adb shell wm density \${{ matrix.density }}
+            adb shell wm size ${{ matrix.width }}x${{ matrix.height }}
+            adb shell wm density ${{ matrix.density }}
             export GRADLE_OPTS="-Xmx4g -XX:MaxMetaspaceSize=1g -Dorg.gradle.workers.max=1"
             gradle :app:assembleDebug -Pp24CiAbi=x86_64 --no-daemon --max-workers=1
             gradle :app:installDebug -Pp24CiAbi=x86_64 --no-daemon --max-workers=1
@@ -70,11 +70,11 @@ jobs:
             sleep 12
             adb shell dumpsys activity activities | grep -q com.choicekingdom.app
             mkdir -p p24-evidence
-            adb exec-out screencap -p > p24-evidence/\${{ matrix.name }}.png
+            adb exec-out screencap -p > p24-evidence/${{ matrix.name }}.png
             gradle :app:connectedDebugAndroidTest --tests com.choicekingdom.app.P24DeviceAdaptationTest --no-daemon --max-workers=1
       - if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: p24-\${{ matrix.name }}-evidence
+          name: p24-${{ matrix.name }}-evidence
           path: androidApp/p24-evidence
           if-no-files-found: warn
