@@ -258,3 +258,11 @@ Block 15 clarification (2026-09-18): the earlier historical notes above saying t
 - Extended the P25 browser gate to verify preference persistence after reload.
 - Saved implementation commits: `1e079d5e6ec74054df32137a8f3c325c20ad7a66` and `92681bc056434ca5e7ea203642b9467d4b13bbc8`.
 - Current P25: **94%**. P25.15 remains the evidence bottleneck at **72%** until deployed visual review and final cross-screen regression are evidenced.
+
+
+### P25 V2 navigation closure — 2026-09-19
+- P25.13 Navigation / information architecture is now **100% CLOSED**.
+- Stable screen-key navigation and URL/hash state continuity are implemented on the premium surface.
+- Browser Back and Forward acceptance is now explicitly covered by the P25 interactive visual gate, including restoration of the active screen and URL hash.
+- Closure commits: `9270fd43b7d19a842dea00460702dd193daec505` (gate), `8ad9ed635d20a008f8e7277815a8424802c192cd` (progress), `6440dcf2b685024d5f42b20d4e1339f1bfb1a8ea` (master).
+- P25 overall remains **94%**; 25.14 and 25.15 remain open.
