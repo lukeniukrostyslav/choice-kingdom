@@ -1,0 +1,41 @@
+name: Choice Kingdom P25 People ONE RUN
+on:
+  push:
+    branches: [p25-people-one-run]
+permissions:
+  contents: read
+jobs:
+  people:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout current main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Playwright
+        run: |
+          npm init -y
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Start local surface
+        run: |
+          python3 -m http.server 4173 --directory web-preview > /tmp/p25-people.log 2>&1 &
+          for i in $(seq 1 30); do
+            curl -fsS http://127.0.0.1:4173/game-premium.html >/dev/null && exit 0
+            sleep 1
+          done
+          cat /tmp/p25-people.log
+          exit 1
+      - name: People gate — current main
+        env:
+          P25_BASE_URL: http://127.0.0.1:4173
+        run: node tools/p25_people_visual_gate.mjs
+      - name: People gate — Vercel
+        env:
+          P25_BASE_URL: https://choice-kingdom.vercel.app
+        run: node tools/p25_people_visual_gate.mjs
