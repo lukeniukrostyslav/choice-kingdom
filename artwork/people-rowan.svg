@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 250" role="img"><title>Choice Kingdom — Rowan character study</title><defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#151923"/><stop offset="1" stop-color="#090b10"/></linearGradient>
+  <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#272d3a"/><stop offset="1" stop-color="#171b24"/></linearGradient>
+  <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e6c5a7"/><stop offset="1" stop-color="#a97961"/></linearGradient>
+  <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6d6874"/><stop offset="1" stop-color="#292c36"/></linearGradient>
+  <filter id="shadow"><feDropShadow dx="0" dy="10" stdDeviation="10" flood-opacity=".38"/></filter>
+  <style>
+    .label{font:600 15px system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;fill:#d8b56a}
+    .name{font:600 25px Georgia,serif;fill:#f4f0e6}
+    .note{font:14px system-ui,sans-serif;fill:#aeb3c0}
+    .small{font:12px system-ui,sans-serif;fill:#777f90}
+  </style>
+</defs><g><path d="M100 210l18-88h94l18 88" fill="url(#cloth)"/><ellipse cx="165" cy="105" rx="47" ry="57" fill="url(#skin)"/><path d="M119 96c0-62 95-69 96 3-20-8-42-13-65-8-11 9-20 12-31 5z" fill="#332b27"/><path d="M133 137q32 18 64 0" fill="none" stroke="#724f46" stroke-width="4"/><path d="M145 119h14M174 119h14" stroke="#5c3d3b" stroke-width="4" stroke-linecap="round"/><text x="250" y="50" class="label">SOURCE NAME</text><text x="250" y="80" class="name">Rowan</text><text x="250" y="108" class="note">Alert, direct</text><text x="250" y="132" class="small">Identity anchor: strong jaw</text></g></svg>
