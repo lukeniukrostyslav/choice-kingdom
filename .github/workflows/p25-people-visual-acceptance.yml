@@ -1,0 +1,56 @@
+name: Choice Kingdom P25 People Visual Acceptance
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: p25-people-visual-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  people-visual:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Playwright
+        run: |
+          npm init -y
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Start local premium surface
+        run: |
+          python3 -m http.server 4173 --directory web-preview > /tmp/p25-people-http.log 2>&1 &
+          for i in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:4173/game-premium.html >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/p25-people-http.log
+          exit 1
+      - name: Validate current main People surface
+        env:
+          P25_BASE_URL: http://127.0.0.1:4173
+        run: node tools/p25_people_visual_gate.mjs
+      - name: Validate deployed Vercel People surface
+        env:
+          P25_BASE_URL: https://choice-kingdom.vercel.app
+        run: node tools/p25_people_visual_gate.mjs
+      - name: Collect visual evidence
+        if: always()
+        run: |
+          mkdir -p artifacts/p25-people-visual
+          cp -f p25-people-visual.png artifacts/p25-people-visual/ 2>/dev/null || true
+          cp -f /tmp/p25-people-http.log artifacts/p25-people-visual/local-http.log 2>/dev/null || true
+      - name: Upload People visual evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p25-people-visual-evidence-${{ github.run_id }}
+          path: artifacts/p25-people-visual/**
+          if-no-files-found: ignore
