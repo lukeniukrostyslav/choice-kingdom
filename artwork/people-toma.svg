@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 250" role="img"><title>Choice Kingdom — Toma character study</title><defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#151923"/><stop offset="1" stop-color="#090b10"/></linearGradient>
+  <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#272d3a"/><stop offset="1" stop-color="#171b24"/></linearGradient>
+  <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e6c5a7"/><stop offset="1" stop-color="#a97961"/></linearGradient>
+  <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6d6874"/><stop offset="1" stop-color="#292c36"/></linearGradient>
+  <filter id="shadow"><feDropShadow dx="0" dy="10" stdDeviation="10" flood-opacity=".38"/></filter>
+  <style>
+    .label{font:600 15px system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;fill:#d8b56a}
+    .name{font:600 25px Georgia,serif;fill:#f4f0e6}
+    .note{font:14px system-ui,sans-serif;fill:#aeb3c0}
+    .small{font:12px system-ui,sans-serif;fill:#777f90}
+  </style>
+</defs><g><path d="M106 210c7-58 27-90 59-90s52 32 59 90" fill="url(#cloth)"/><ellipse cx="165" cy="105" rx="47" ry="58" fill="url(#skin)"/><path d="M117 101c4-61 94-73 97 1-21-16-38-23-58-22-13 8-25 14-39 21z" fill="#574338"/><path d="M137 120h16M177 120h16" stroke="#5c3d3b" stroke-width="4" stroke-linecap="round"/><path d="M149 151q16 7 32 0" fill="none" stroke="#704d47" stroke-width="3"/><text x="250" y="50" class="label">SOURCE NAME</text><text x="250" y="80" class="name">Toma</text><text x="250" y="108" class="note">Young, attentive</text><text x="250" y="132" class="small">Identity anchor: soft side part</text></g></svg>
