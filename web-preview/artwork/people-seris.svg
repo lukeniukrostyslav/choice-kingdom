@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 250" role="img"><title>Choice Kingdom — Seris character study</title><defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#151923"/><stop offset="1" stop-color="#090b10"/></linearGradient>
+  <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#272d3a"/><stop offset="1" stop-color="#171b24"/></linearGradient>
+  <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e6c5a7"/><stop offset="1" stop-color="#a97961"/></linearGradient>
+  <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6d6874"/><stop offset="1" stop-color="#292c36"/></linearGradient>
+  <filter id="shadow"><feDropShadow dx="0" dy="10" stdDeviation="10" flood-opacity=".38"/></filter>
+  <style>
+    .label{font:600 15px system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;fill:#d8b56a}
+    .name{font:600 25px Georgia,serif;fill:#f4f0e6}
+    .note{font:14px system-ui,sans-serif;fill:#aeb3c0}
+    .small{font:12px system-ui,sans-serif;fill:#777f90}
+  </style>
+</defs><g><path d="M111 208c4-55 24-86 54-86s50 31 54 86" fill="url(#cloth)"/><ellipse cx="165" cy="103" rx="45" ry="57" fill="url(#skin)"/><path d="M121 103c-5-65 84-75 91-4-17-25-31-34-52-33-15 9-26 21-39 37z" fill="#493d52"/><path d="M143 122h15M174 122h15" stroke="#5c3d3b" stroke-width="4" stroke-linecap="round"/><path d="M152 150q13 6 26 0" fill="none" stroke="#704d47" stroke-width="3"/><text x="250" y="50" class="label">SOURCE NAME</text><text x="250" y="80" class="name">Seris</text><text x="250" y="108" class="note">Measured, composed</text><text x="250" y="132" class="small">Identity anchor: angular fringe</text></g></svg>

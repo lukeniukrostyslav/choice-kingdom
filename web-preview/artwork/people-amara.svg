@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 250" role="img"><title>Choice Kingdom — Amara character study</title><defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#151923"/><stop offset="1" stop-color="#090b10"/></linearGradient>
+  <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#272d3a"/><stop offset="1" stop-color="#171b24"/></linearGradient>
+  <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e6c5a7"/><stop offset="1" stop-color="#a97961"/></linearGradient>
+  <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6d6874"/><stop offset="1" stop-color="#292c36"/></linearGradient>
+  <filter id="shadow"><feDropShadow dx="0" dy="10" stdDeviation="10" flood-opacity=".38"/></filter>
+  <style>
+    .label{font:600 15px system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;fill:#d8b56a}
+    .name{font:600 25px Georgia,serif;fill:#f4f0e6}
+    .note{font:14px system-ui,sans-serif;fill:#aeb3c0}
+    .small{font:12px system-ui,sans-serif;fill:#777f90}
+  </style>
+</defs><g><path d="M104 210c6-59 25-89 61-89s55 30 61 89" fill="url(#cloth)"/><ellipse cx="165" cy="105" rx="46" ry="57" fill="url(#skin)"/><path d="M118 101c3-66 95-71 97 2-14-12-27-22-43-28-20 2-37 13-54 26z" fill="#211d20"/><path d="M139 120h15M177 120h15" stroke="#5c3d3b" stroke-width="4" stroke-linecap="round"/><path d="M150 149q15 8 30 0" fill="none" stroke="#704d47" stroke-width="3"/><text x="250" y="50" class="label">SOURCE NAME</text><text x="250" y="80" class="name">Amara</text><text x="250" y="108" class="note">Warm, resolute</text><text x="250" y="132" class="small">Identity anchor: rounded fringe</text></g></svg>
